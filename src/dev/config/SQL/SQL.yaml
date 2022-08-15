@@ -80,9 +80,9 @@ operators:
     '**': 'POWER({0},{1})'
     '//': 'POWER({0},(1/{1}))'
     '%': MOD({0},{1})
-    '&': 'BITAND({0},{1})'
-    '|': 'BITOR({0},{1})'
-    '^': 'BITXOR({0},{1})'
+    '&': '{0} & {1}'
+    '|': '{0} | {1}'
+    '^': '{0} ^ {1}'    
     '<<': '{0} << {1}'
     '>>': '{0} >> {1}'
     '==': '{0} = {1}'
@@ -104,9 +104,9 @@ operators:
     '**=': '{0} = POWER({0},{1})'
     '//=': '{0} = POWER({0},(1/{1}))'
     '%=': '{0} = MOD({0},{1})'
-    '&=': '{0} = BITAND({0},{1})'
-    '|=': '{0} = BITOR({0},{1})'
-    '^=': '{0} = BITXOR({0},{1})'
+    '&=': '{0} = {0} & {1} '
+    '|=': '{0} = {0} | {1}'
+    '^=': '{0} = {0} ^ {1}'
     '<<=': '{0} = {0} << {1}'
     '>>=': '{0} = {0} >> {1}'
   ternary:    
@@ -141,6 +141,7 @@ functions:
     tan: 'TAN({0})'
     tanh: 'TANH({0})'
     trunc: 'TRUNC({0},{1})'
+    toNumber: 'CAST({0} AS NUMBER)'
   string:
     chr: 'CHR({0})'
     initcap: 'INITCAP({0})'
@@ -157,11 +158,13 @@ functions:
     upper: 'UPPER({0})'
     length: 'LENGTH({0})'
     mask: "Concat(LEFT({0},3),'***',RIGHT({0},3))"
+    parse: 'json_value({0})'
+    toString: 'CAST({0} AS VARCHAR2)'
   datetime:
     # https://www.w3schools.com/jsref/jsref_obj_date.asp
     # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
     now: 'SYSTIMESTAMP'
-    curtime: 'CAST(SYSTIMESTAMP AS TIME)'
+    curTime: 'CAST(SYSTIMESTAMP AS TIME)'
     today: 'TRUNC(SYSDATE)'     
     datetime: 'CAST({0} AS TIMESTAMP)'
     date: 'CAST({0} AS DATE)'
@@ -191,10 +194,7 @@ functions:
     hourToDate: "DATE_FORMAT(FROM_UNIXTIME({0}*3600*1000), '%Y-%m-%dT%TZ')"
     secondToDate: "DATE_FORMAT(FROM_UNIXTIME({0}*1000), '%Y-%m-%dT%TZ')"
     millisecondToDate: "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
-  convert:
-    toString: 'CAST({0} AS VARCHAR2)'
-    toJson: 'json_value({0})'
-    toNumber: 'CAST({0} AS NUMBER)'
+    dateToString: TO_CHAR({0},'YYYY-MM-DD"T"HH24:MI:SSTZH:TZM')
   metadata:
     user: 'USER'
     source: "SYS_CONTEXT('USERENV','DB_NAME')"   

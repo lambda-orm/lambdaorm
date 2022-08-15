@@ -2,16 +2,16 @@
 
 ## Concepts
 
-- [datasource](https://www.talend.com/resources/data-source/)
+- [dataSource](https://www.talend.com/resources/data-source/)
 
 ### Domain Model
 
-- [domian model](https://es.wikipedia.org/wiki/Modelo_de_dominio)
+- [domain model](https://es.wikipedia.org/wiki/Modelo_de_dominio)
 - [domain-model-pattern](https://udidahan.com/2007/04/21/domain-model-pattern/)
 
 ### Command Query Separation (CQS)
 
-- [wikipedia](https://es.wikipedia.org/wiki/Command%E2%80%93query_separation)
+- [Wikipedia](https://es.wikipedia.org/wiki/Command%E2%80%93query_separation)
 
 ### Command Query Responsibility Segregation (CQRS)
 
@@ -19,7 +19,7 @@
 
 ### Event-driven architecture (EDA)
 
-- [wikipedia](https://en.wikipedia.org/wiki/Event-driven_architecture)
+- [Wikipedia](https://en.wikipedia.org/wiki/Event-driven_architecture)
 
 ### Design by contract
 
@@ -35,7 +35,7 @@
 
 - [dto mapping](https://www.baeldung.com/java-dto-pattern)
 - [dto mapping](https://www.oscarblancarteblog.com/2018/11/30/data-transfer-object-dto-patron-diseno/)
-- [dto mappint with sequelize ORM](https://khalilstemmler.com/articles/typescript-domain-driven-design/repository-dto-mapper/)
+- [dto mapping with sequelize ORM](https://khalilstemmler.com/articles/typescript-domain-driven-design/repository-dto-mapper/)
 - [dtoMapper](https://github.com/igoricelic/dtomapper)
 - [repositories-dto](https://buildplease.com/pages/repositories-dto/)
 
@@ -52,12 +52,12 @@
 
 ## Unit Test
 
-- [testdeck](https://testdeck.org/pages/guide/setup)
-- [jest](jestjs.io)
+- [testDeck](https://testdeck.org/pages/guide/setup)
+- [jest](http://jestjs.io)
 
 ## SQL Injection
 
-### libreries
+### libraries
 
 - [sqlstring](https://github.com/mysqljs/sqlstring)
 - [sql-escape](https://www.npmjs.com/package/sql-escape)
@@ -74,22 +74,22 @@
 
 ## Orm examples
 
-- [sequelize](https://github.com/sequelize/sequelize)
-- [typeorm](https://github.com/typeorm/typeorm)
-- [prisma](https://github.com/prisma/prisma)
-- [objection](https://github.com/Vincit/objection.js)
-- [knexjs](https://knexjs.org/)
-- [arrow orm](https://www.npmjs.com/package/arrow-orm)
-- [mikro-orm](https://github.com/mikro-orm/mikro-orm)
-- [fireorm](https://github.com/wovalle/fireorm)
-- [refineorm](https://www.npmjs.com/package/refineorm)
+- [sequelize](https://www.npmjs.com/package/sequelize)
+- [typeOrm](https://www.npmjs.com/package/typeorm)
+- [prisma](https://www.npmjs.com/package/prisma)
+- [objection](https://www.npmjs.com/package/objection)
+- [knexJs](https://knexjs.org/)
+- [arrow-orm](https://www.npmjs.com/package/arrow-orm)
+- [mikro-orm](https://www.npmjs.com/package/mikro-orm)
+- [fireOrm](https://www.npmjs.com/package/fireorm)
+- [refineOrm](https://www.npmjs.com/package/refineorm)
 - [js-data](https://www.js-data.io/docs/home)
 
 ## api builder to databases
 
-- [PostgREST](https://postgrest.org/en/stable/api.html#custom-queries)
-- [graphile](https://www.graphile.org/)
-- [postgraphile](https://github.com/graphile/postgraphile)
+- [PostgresREST](https://postgrest.org/en/stable/api.html#custom-queries)
+- [graphIle](https://www.graphile.org/)
+- [postGraphIle](https://github.com/graphile/postgraphile)
 
 ## Generics Pools
 
@@ -104,7 +104,7 @@
 - [mysql2](https://www.npmjs.com/package/mysql2)
 - [oracle to mysql](https://sqlines.com/oracle-to-mysql)
 
-#### MySQL Bullk
+#### MySQL Bulk
 
 - [](https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js/56241509)
 - [](https://github.com/sidorares/node-mysql2/issues/830)
@@ -118,10 +118,10 @@
 
 - [pg](https://www.npmjs.com/package/pg)
 - [pg - documentation](https://node-postgres.com)
-- [node-postgres](https://www.npmjs.com/package/node-postgres)
-- [pg-hstore](https://www.npmjs.com/package/pg-hstore)
+- [node-Postgres](https://www.npmjs.com/package/node-postgres)
+- [pg-HStore](https://www.npmjs.com/package/pg-hstore)
 
-#### Postgres Bullk
+#### Postgres Bulk
 
 - [](https://www.postgresqltutorial.com/postgresql-insert-multiple-rows/)
 - [](https://www.npmjs.com/package/pg-essential)
@@ -131,7 +131,7 @@
 
 - [tedious](https://github.com/tediousjs/tedious)
 - [getting-started](https://tediousjs.github.io/tedious/getting-started.html)
-- [tedious datatypes](https://tediousjs.github.io/tedious/api-datatypes.html)
+- [tedious dataTypes](https://tediousjs.github.io/tedious/api-datatypes.html)
 - [transactions](https://github.com/tediousjs/tedious/blob/master/examples/transaction.js)
 - [examples](https://docs.microsoft.com/es-es/sql/connect/node-js/step-3-proof-of-concept-connecting-to-sql-using-node-js?view=sql-server-ver15)
 - [alternative to tedious](https://tediousjs.github.io/node-mssql/)
@@ -153,14 +153,14 @@
 ### Oracle
 
 - [Oracle Node.js](https://www.oracle.com/es/database/technologies/appdev/nodejs.html)
-- [quickstart](https://www.oracle.com/database/technologies/appdev/quickstartnodeonprem.html)
+- [quickStart](https://www.oracle.com/database/technologies/appdev/quickstartnodeonprem.html)
 - [github](https://github.com/oracle/node-oracledb)
 - [npm](https://www.npmjs.com/package/oracledb)
 - [mysql to oracle](https://sqlines.com/mysql-to-oracle)
 - [install client on windows](https://www.oracle.com/es/database/technologies/instant-client/winx64-64-downloads.html)
 - [install-oracle-odbc-driver](https://windowsreport.com/install-oracle-odbc-driver-windows-10/)
 
-### Sqljs
+### SqlJs
 
 - [github](https://github.com/sql-js/sql.js)
 - [npm](https://www.npmjs.com/package/sqljs)
@@ -168,15 +168,15 @@
 
 ### Firebase
 
-- [example practicle](https://www.youtube.com/watch?v=b6KJ7FSMifw)
+- [example practice](https://www.youtube.com/watch?v=b6KJ7FSMifw)
 - [doc](https://firebase.google.com/docs/web/setup?hl=es)
 - [node lib](https://github.com/firebase/firebase-admin-node)
-- [retrive data](https://firebase.google.com/docs/database/admin/retrieve-data)
+- [retrieve data](https://firebase.google.com/docs/database/admin/retrieve-data)
 - [manager user](https://firebase.google.com/docs/auth/admin/manage-users)
 
-### cockroachdb
+### coCkroachDb
 
--[quickstart](https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html)
+-[quickStart](https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html)
 -[info](https://blog.friendsofgo.tech/posts/empezando-con-cockroachdb/)
 
 ### Mongodb
@@ -198,8 +198,8 @@
 - [Updating](https://neo4j.com/developer/cypher/updating/)
 - [Filtering](https://neo4j.com/developer/cypher/filtering-query-results/)
 - [Controlling Query Processing](https://neo4j.com/developer/cypher/controlling-query-processing/)
-- [Dates, datetimes, and durations](https://neo4j.com/developer/cypher/dates-datetimes-durations/)
-- [Subqueries](https://neo4j.com/developer/cypher/subqueries/)
+- [Dates, dateTimes, and durations](https://neo4j.com/developer/cypher/dates-datetimes-durations/)
+- [SubQueries](https://neo4j.com/developer/cypher/subqueries/)
 - [Getting Started with Cypher](https://neo4j.com/developer/cypher/guide-cypher-basics/)
 - [Tutorial: Build a Cypher Recommendation Engine](https://neo4j.com/developer/cypher/guide-build-a-recommendation-engine/)
 
@@ -207,16 +207,16 @@
 
 install mysql shell client
 [mysql-shell-windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html)
-[install visual studio 2019 redistributable](https://docs.microsoft.com/es-es/visualstudio/releases/2019/redistribution#vs2019-download)
+[install visual studio 2019 redistribuible](https://docs.microsoft.com/es-es/visualstudio/releases/2019/redistribution#vs2019-download)
 
 ### grunt
 
 ``` sh
-npm intall grunt -D
+npm install grunt -D
 npm install -g grunt-cli
 ```
 
-### glup
+### Glup
 
 - [example](https://www.typescriptlang.org/docs/handbook/gulp.html)
 
@@ -225,13 +225,13 @@ npm install --save-dev gulp gulp-typescript
 npm install -g gulp-cli
 ```
 
-### Inetractive command Line
+### Interactive command Line
 
 - [yargs interactive](https://www.npmjs.com/package/yargs-interactive)
-- [yargs xample](https://medium.com/@nanovazquez/yargs-interactive-create-cli-tools-for-humans-and-non-humans-f9419f5cbd9e)
-- [oclif](https://www.npmjs.com/package/oclif)
-- [oclif documentation](https://oclif.io/docs/introduction)
-- [oclif example](https://dev.to/_christiandimas/build-an-interactive-cli-using-typescript-11fl)
+- [yargs example](https://medium.com/@nanovazquez/yargs-interactive-create-cli-tools-for-humans-and-non-humans-f9419f5cbd9e)
+- [oclIf](https://www.npmjs.com/package/oclif)
+- [oclIf documentation](https://oclif.io/docs/introduction)
+- [oclIf example](https://dev.to/_christiandimas/build-an-interactive-cli-using-typescript-11fl)
 - [commander](https://www.npmjs.com/package/commander)
 
 - [inquirer](https://www.npmjs.com/package/inquirer)
@@ -241,9 +241,9 @@ npm install -g gulp-cli
 ## Publish
 
 - [publish](https://itnext.io/step-by-step-building-and-publishing-an-npm-typescript-package-44fe7164964c)
-- [guthub wf](https://dev.to/savchenko91/auto-publish-npm-package-with-github-actions-57jh)
+- [github wf](https://dev.to/savchenko91/auto-publish-npm-package-with-github-actions-57jh)
 
-## Documentator
+## Documentation
 
 ### Typedoc
 
@@ -252,7 +252,7 @@ npm install -g gulp-cli
 
 ## Data of test
 
-[para-otas-pruebas](https://github.com/mledoze/countries/blob/master/data/arg.topo.json)
+[para otras pruebas](https://github.com/mledoze/countries/blob/master/data/arg.topo.json)
 
 ### Online Examples
 

@@ -87,9 +87,9 @@
         "**": "POWER({0},{1})",
         "//": "POWER({0},(1/{1}))",
         "%": "MOD({0},{1})",
-        "&": "BITAND({0},{1})",
-        "|": "BITOR({0},{1})",
-        "^": "BITXOR({0},{1})",
+        "&": "{0} & {1}",
+        "|": "{0} | {1}",
+        "^": "{0} ^ {1}",
         "<<": "{0} << {1}",
         ">>": "{0} >> {1}",
         "==": "{0} = {1}",
@@ -111,9 +111,9 @@
         "**=": "{0} = POWER({0},{1})",
         "//=": "{0} = POWER({0},(1/{1}))",
         "%=": "{0} = MOD({0},{1})",
-        "&=": "{0} = BITAND({0},{1})",
-        "|=": "{0} = BITOR({0},{1})",
-        "^=": "{0} = BITXOR({0},{1})",
+        "&=": "{0} = {0} & {1} ",
+        "|=": "{0} = {0} | {1}",
+        "^=": "{0} = {0} ^ {1}",
         "<<=": "{0} = {0} << {1}",
         ">>=": "{0} = {0} >> {1}"
       },
@@ -151,7 +151,8 @@
         "sinh": "SINH({0})",
         "tan": "TAN({0})",
         "tanh": "TANH({0})",
-        "trunc": "TRUNC({0},{1})"
+        "trunc": "TRUNC({0},{1})",
+        "toNumber": "CAST({0} AS NUMBER)"
       },
       "string": {
         "chr": "CHR({0})",
@@ -168,11 +169,13 @@
         "trim": "TRIM({0})",
         "upper": "UPPER({0})",
         "length": "LENGTH({0})",
-        "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
+        "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
+        "parse": "json_value({0})",
+        "toString": "CAST({0} AS VARCHAR2)"
       },
       "datetime": {
         "now": "SYSTIMESTAMP",
-        "curtime": "CAST(SYSTIMESTAMP AS TIME)",
+        "curTime": "CAST(SYSTIMESTAMP AS TIME)",
         "today": "TRUNC(SYSDATE)",
         "datetime": "CAST({0} AS TIMESTAMP)",
         "date": "CAST({0} AS DATE)",
@@ -201,12 +204,8 @@
         "dayToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600*1000), '%Y-%m-%dT%TZ')",
         "hourToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*3600*1000), '%Y-%m-%dT%TZ')",
         "secondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*1000), '%Y-%m-%dT%TZ')",
-        "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
-      },
-      "convert": {
-        "toString": "CAST({0} AS VARCHAR2)",
-        "toJson": "json_value({0})",
-        "toNumber": "CAST({0} AS NUMBER)"
+        "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')",
+        "dateToString": "TO_CHAR({0},'YYYY-MM-DD\"T\"HH24:MI:SSTZH:TZM')"
       },
       "metadata": {
         "user": "USER",
@@ -301,6 +300,7 @@
           "sinh": "((EXP({0}) - EXP(-{0})) / 2)",
           "tanh": "(EXP(2*{0}) - 1)/(EXP(2*{0}) + 1)",
           "trunc": "TRUNCATE({0},{1})",
+          "toNumber": "CONVERT({0}, DECIMAL)",
           "abs": "ABS({0})",
           "acos": "ACOS({0})",
           "asin": "ASIN({0})",
@@ -320,6 +320,8 @@
           "chr": "CHAR({0} USING ASCII)",
           "initcap": "INITCAP({0})",
           "length": "CHAR_LENGTH({0})",
+          "toString": "CONVERT({0}, CHAR)",
+          "parse": "CONVERT({0}, JSON)",
           "lower": "LOWER({0})",
           "lpad": "LPAD({0},{1},{2})",
           "ltrim": "LTRIM({0})",
@@ -334,7 +336,7 @@
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
         },
         "datetime": {
-          "curtime": "CURTIME()",
+          "curTime": "CURTIME()",
           "today": "CURDATE()",
           "now": "NOW()",
           "date": "CONVERT({0}, DATE)",
@@ -347,37 +349,33 @@
           "hours": "EXTRACT(HOUR FROM {0})",
           "minutes": "EXTRACT(MINUTE FROM {0})",
           "seconds": "EXTRACT(SECOND FROM {0})",
+          "millisecond": "ROUND(EXTRACT(MICROSECOND FROM {0})/1000,0)",
           "addYear": "DATE_ADD({0}, INTERVAL {1} YEAR)",
           "addMonth": "DATE_ADD({0}, INTERVAL {1} MONTH)",
           "addDay": "DATE_ADD({0}, INTERVAL {1} DAY)",
           "addHours": "DATE_ADD({0}, INTERVAL {1} HOUR)",
           "addMinutes": "DATE_ADD({0}, INTERVAL {1} MINUTE)",
           "addSeconds": "DATE_ADD({0}, INTERVAL {1} SECOND)",
+          "addMillisecond": "DATE_ADD({0}, INTERVAL ({1} * 1000) MICROSECOND)",
           "addTime": "ADDTIME({0},{1})",
+          "subtractTime": "SUBTIME({0},{1})",
+          "dayDiff": "DATEDIFF({0},{1})",
+          "hourDiff": "TIMESTAMPDIFF(HOUR, {1},{0})",
+          "secondDiff": "TIMESTAMPDIFF(SECOND, {1},{0})",
+          "millisecondDiff": "ROUND(TIMESTAMPDIFF(MICROSECOND, {1},{0})/1000,0)",
           "dateDiff": "DATEDIFF({0},{1})",
           "timeDiff": "TIMEDIFF({0},{1})",
+          "dayToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600), '%Y-%m-%dT%TZ')",
+          "hourToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*3600), '%Y-%m-%dT%TZ')",
+          "secondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')",
+          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}/1000), '%Y-%m-%dT%TZ')",
+          "dateToString": "DATE_FORMAT({0}, '%Y-%m-%dT%TZ')",
           "hour": "EXTRACT(HOUR FROM {0})",
           "minute": "EXTRACT(MINUTE FROM {0})",
           "second": "EXTRACT(SECOND FROM {0})",
-          "millisecond": "EXTRACT(MILLISECOND FROM {0})",
           "addHour": "{0} + interval '{1}' HOUR",
           "addMinute": "{0} + interval '{1}' MINUTE",
-          "addSecond": "{0} + interval '{1}' SECOND",
-          "addMillisecond": "{0} + interval '{1}' MILLISECOND",
-          "subtractTime": "SUBTIME({0},{1})",
-          "dayDiff": "DATEDIFF({0},{1})",
-          "hourDiff": "TIMESTAMPDIFF(HOUR,({0},{1})",
-          "secondDiff": "TIMESTAMPDIFF(SECOND,({0},{1})",
-          "millisecondDiff": "TIMESTAMPDIFF(MICROSECOND,({0},{1})",
-          "dayToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600*1000), '%Y-%m-%dT%TZ')",
-          "hourToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*3600*1000), '%Y-%m-%dT%TZ')",
-          "secondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*1000), '%Y-%m-%dT%TZ')",
-          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
-        },
-        "convert": {
-          "toString": "CONVERT({0}, CHAR)",
-          "toJson": "CONVERT({0}, JSON)",
-          "toNumber": "CONVERT({0}, DECIMAL)"
+          "addSecond": "{0} + interval '{1}' SECOND"
         },
         "metadata": {
           "user": "CURRENT_USER()",
@@ -440,9 +438,9 @@
           "**": "POWER({0},{1})",
           "//": "POWER({0},(1/{1}))",
           "%": "MOD({0},{1})",
-          "&": "BITAND({0},{1})",
-          "|": "BITOR({0},{1})",
-          "^": "BITXOR({0},{1})",
+          "&": "{0} & {1}",
+          "|": "{0} | {1}",
+          "^": "{0} ^ {1}",
           "<<": "{0} << {1}",
           ">>": "{0} >> {1}",
           "==": "{0} = {1}",
@@ -464,9 +462,9 @@
           "**=": "{0} = POWER({0},{1})",
           "//=": "{0} = POWER({0},(1/{1}))",
           "%=": "{0} = MOD({0},{1})",
-          "&=": "{0} = BITAND({0},{1})",
-          "|=": "{0} = BITOR({0},{1})",
-          "^=": "{0} = BITXOR({0},{1})",
+          "&=": "{0} = {0} & {1} ",
+          "|=": "{0} = {0} | {1}",
+          "^=": "{0} = {0} ^ {1}",
           "<<=": "{0} = {0} << {1}",
           ">>=": "{0} = {0} >> {1}"
         },
@@ -543,6 +541,7 @@
           "sinh": "((EXP({0}) - EXP(-{0})) / 2)",
           "tanh": "(EXP(2*{0}) - 1)/(EXP(2*{0}) + 1)",
           "trunc": "TRUNCATE({0},{1})",
+          "toNumber": "CONVERT({0}, DECIMAL)",
           "abs": "ABS({0})",
           "acos": "ACOS({0})",
           "asin": "ASIN({0})",
@@ -562,6 +561,8 @@
           "chr": "CHAR({0} USING ASCII)",
           "initcap": "INITCAP({0})",
           "length": "CHAR_LENGTH({0})",
+          "toString": "CONVERT({0}, CHAR)",
+          "parse": "CONVERT({0}, JSON)",
           "lower": "LOWER({0})",
           "lpad": "LPAD({0},{1},{2})",
           "ltrim": "LTRIM({0})",
@@ -576,7 +577,7 @@
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
         },
         "datetime": {
-          "curtime": "CURTIME()",
+          "curTime": "CURTIME()",
           "today": "CURDATE()",
           "now": "NOW()",
           "date": "CONVERT({0}, DATE)",
@@ -589,37 +590,33 @@
           "hours": "EXTRACT(HOUR FROM {0})",
           "minutes": "EXTRACT(MINUTE FROM {0})",
           "seconds": "EXTRACT(SECOND FROM {0})",
+          "millisecond": "ROUND(EXTRACT(MICROSECOND FROM {0})/1000,0)",
           "addYear": "DATE_ADD({0}, INTERVAL {1} YEAR)",
           "addMonth": "DATE_ADD({0}, INTERVAL {1} MONTH)",
           "addDay": "DATE_ADD({0}, INTERVAL {1} DAY)",
           "addHours": "DATE_ADD({0}, INTERVAL {1} HOUR)",
           "addMinutes": "DATE_ADD({0}, INTERVAL {1} MINUTE)",
           "addSeconds": "DATE_ADD({0}, INTERVAL {1} SECOND)",
+          "addMillisecond": "DATE_ADD({0}, INTERVAL ({1} * 1000) MICROSECOND)",
           "addTime": "ADDTIME({0},{1})",
+          "subtractTime": "SUBTIME({0},{1})",
+          "dayDiff": "DATEDIFF({0},{1})",
+          "hourDiff": "TIMESTAMPDIFF(HOUR, {1},{0})",
+          "secondDiff": "TIMESTAMPDIFF(SECOND, {1},{0})",
+          "millisecondDiff": "ROUND(TIMESTAMPDIFF(MICROSECOND, {1},{0})/1000,0)",
           "dateDiff": "DATEDIFF({0},{1})",
           "timeDiff": "TIMEDIFF({0},{1})",
+          "dayToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600), '%Y-%m-%dT%TZ')",
+          "hourToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*3600), '%Y-%m-%dT%TZ')",
+          "secondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')",
+          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}/1000), '%Y-%m-%dT%TZ')",
+          "dateToString": "DATE_FORMAT({0}, '%Y-%m-%dT%TZ')",
           "hour": "EXTRACT(HOUR FROM {0})",
           "minute": "EXTRACT(MINUTE FROM {0})",
           "second": "EXTRACT(SECOND FROM {0})",
-          "millisecond": "EXTRACT(MILLISECOND FROM {0})",
           "addHour": "{0} + interval '{1}' HOUR",
           "addMinute": "{0} + interval '{1}' MINUTE",
-          "addSecond": "{0} + interval '{1}' SECOND",
-          "addMillisecond": "{0} + interval '{1}' MILLISECOND",
-          "subtractTime": "SUBTIME({0},{1})",
-          "dayDiff": "DATEDIFF({0},{1})",
-          "hourDiff": "TIMESTAMPDIFF(HOUR,({0},{1})",
-          "secondDiff": "TIMESTAMPDIFF(SECOND,({0},{1})",
-          "millisecondDiff": "TIMESTAMPDIFF(MICROSECOND,({0},{1})",
-          "dayToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600*1000), '%Y-%m-%dT%TZ')",
-          "hourToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*3600*1000), '%Y-%m-%dT%TZ')",
-          "secondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*1000), '%Y-%m-%dT%TZ')",
-          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
-        },
-        "convert": {
-          "toString": "CONVERT({0}, CHAR)",
-          "toJson": "CONVERT({0}, JSON)",
-          "toNumber": "CONVERT({0}, DECIMAL)"
+          "addSecond": "{0} + interval '{1}' SECOND"
         },
         "metadata": {
           "user": "CURRENT_USER()",
@@ -682,9 +679,9 @@
           "**": "POWER({0},{1})",
           "//": "POWER({0},(1/{1}))",
           "%": "MOD({0},{1})",
-          "&": "BITAND({0},{1})",
-          "|": "BITOR({0},{1})",
-          "^": "BITXOR({0},{1})",
+          "&": "{0} & {1}",
+          "|": "{0} | {1}",
+          "^": "{0} ^ {1}",
           "<<": "{0} << {1}",
           ">>": "{0} >> {1}",
           "==": "{0} = {1}",
@@ -706,9 +703,9 @@
           "**=": "{0} = POWER({0},{1})",
           "//=": "{0} = POWER({0},(1/{1}))",
           "%=": "{0} = MOD({0},{1})",
-          "&=": "{0} = BITAND({0},{1})",
-          "|=": "{0} = BITOR({0},{1})",
-          "^=": "{0} = BITXOR({0},{1})",
+          "&=": "{0} = {0} & {1} ",
+          "|=": "{0} = {0} | {1}",
+          "^=": "{0} = {0} ^ {1}",
           "<<=": "{0} = {0} << {1}",
           ">>=": "{0} = {0} >> {1}"
         },
@@ -786,11 +783,59 @@
         "join": "INNER JOIN {name} {alias} ON {relation}",
         "upsert": null
       },
+      "operators": {
+        "binary": {
+          "&": "BITAND({0},{1})",
+          "|": "BITOR({0},{1})",
+          "^": "BITXOR({0},{1})",
+          "&=": "{0} = BITAND({0},{1})",
+          "|=": "{0} = BITOR({0},{1})",
+          "^=": "{0} = BITXOR({0},{1})",
+          "+": "({0} + {1})",
+          "-": "({0} - {1})",
+          "*": "({0} * {1})",
+          "/": "({0} / {1})",
+          "**": "POWER({0},{1})",
+          "//": "POWER({0},(1/{1}))",
+          "%": "MOD({0},{1})",
+          "<<": "{0} << {1}",
+          ">>": "{0} >> {1}",
+          "==": "{0} = {1}",
+          "===": "{0} = {1}",
+          "!=": "{0} <> {1}",
+          "!==": "{0} <> {1}",
+          ">": "{0} > {1}",
+          "<": "{0} < {1}",
+          ">=": "{0} >= {1}",
+          "<=": "{0} <= {1}",
+          "&&": "({0} AND {1})",
+          "||": "({0} OR {1})",
+          "[]": "N/A",
+          "=": "{0} = {1}",
+          "+=": "{0} = ({0} + {1})",
+          "-=": "{0} = ({0} - {1})",
+          "*=": "{0} = ({0} * {1})",
+          "/=": "{0} = ({0} / {1})",
+          "**=": "{0} = POWER({0},{1})",
+          "//=": "{0} = POWER({0},(1/{1}))",
+          "%=": "{0} = MOD({0},{1})",
+          "<<=": "{0} = {0} << {1}",
+          ">>=": "{0} = {0} >> {1}"
+        },
+        "unary": {
+          "-": "- {0}",
+          "~": "~ {0}",
+          "!": "NOT {0}"
+        },
+        "ternary": {
+          "?": "IF {0} THEN {1} ELSE {2} END"
+        }
+      },
       "functions": {
         "datetime": {
           "datetime": "TO_CHAR({0},'YYYY-MM-DD\"T\"hh24:mi:ss')",
           "now": "SYSTIMESTAMP",
-          "curtime": "CAST(SYSTIMESTAMP AS TIME)",
+          "curTime": "CAST(SYSTIMESTAMP AS TIME)",
           "today": "TRUNC(SYSDATE)",
           "date": "CAST({0} AS DATE)",
           "time": "CAST({0} AS TIME)",
@@ -818,7 +863,8 @@
           "dayToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600*1000), '%Y-%m-%dT%TZ')",
           "hourToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*3600*1000), '%Y-%m-%dT%TZ')",
           "secondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*1000), '%Y-%m-%dT%TZ')",
-          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
+          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')",
+          "dateToString": "TO_CHAR({0},'YYYY-MM-DD\"T\"HH24:MI:SSTZH:TZM')"
         },
         "general": {
           "as": "{value} AS {alias}",
@@ -849,7 +895,8 @@
           "sinh": "SINH({0})",
           "tan": "TAN({0})",
           "tanh": "TANH({0})",
-          "trunc": "TRUNC({0},{1})"
+          "trunc": "TRUNC({0},{1})",
+          "toNumber": "CAST({0} AS NUMBER)"
         },
         "string": {
           "chr": "CHR({0})",
@@ -866,12 +913,9 @@
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "length": "LENGTH({0})",
-          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
-        },
-        "convert": {
-          "toString": "CAST({0} AS VARCHAR2)",
-          "toJson": "json_value({0})",
-          "toNumber": "CAST({0} AS NUMBER)"
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
+          "parse": "json_value({0})",
+          "toString": "CAST({0} AS VARCHAR2)"
         },
         "metadata": {
           "user": "USER",
@@ -900,54 +944,6 @@
         "datetime": "yyyy-LL-dd HH:mm:ss",
         "date": "yyyy-LL-dd",
         "time": "HH:mm:ss"
-      },
-      "operators": {
-        "unary": {
-          "-": "- {0}",
-          "~": "~ {0}",
-          "!": "NOT {0}"
-        },
-        "binary": {
-          "+": "({0} + {1})",
-          "-": "({0} - {1})",
-          "*": "({0} * {1})",
-          "/": "({0} / {1})",
-          "**": "POWER({0},{1})",
-          "//": "POWER({0},(1/{1}))",
-          "%": "MOD({0},{1})",
-          "&": "BITAND({0},{1})",
-          "|": "BITOR({0},{1})",
-          "^": "BITXOR({0},{1})",
-          "<<": "{0} << {1}",
-          ">>": "{0} >> {1}",
-          "==": "{0} = {1}",
-          "===": "{0} = {1}",
-          "!=": "{0} <> {1}",
-          "!==": "{0} <> {1}",
-          ">": "{0} > {1}",
-          "<": "{0} < {1}",
-          ">=": "{0} >= {1}",
-          "<=": "{0} <= {1}",
-          "&&": "({0} AND {1})",
-          "||": "({0} OR {1})",
-          "[]": "N/A",
-          "=": "{0} = {1}",
-          "+=": "{0} = ({0} + {1})",
-          "-=": "{0} = ({0} - {1})",
-          "*=": "{0} = ({0} * {1})",
-          "/=": "{0} = ({0} / {1})",
-          "**=": "{0} = POWER({0},{1})",
-          "//=": "{0} = POWER({0},(1/{1}))",
-          "%=": "{0} = MOD({0},{1})",
-          "&=": "{0} = BITAND({0},{1})",
-          "|=": "{0} = BITOR({0},{1})",
-          "^=": "{0} = BITXOR({0},{1})",
-          "<<=": "{0} = {0} << {1}",
-          ">>=": "{0} = {0} >> {1}"
-        },
-        "ternary": {
-          "?": "IF {0} THEN {1} ELSE {2} END"
-        }
       }
     },
     "PostgreSQL": {
@@ -1019,10 +1015,59 @@
         "sequenceNextVal": "{name}.nextval",
         "solveComposite": false
       },
+      "operators": {
+        "binary": {
+          "^": "{0} # {1}",
+          "^=": "{0} = {0} # {1}",
+          "+": "({0} + {1})",
+          "-": "({0} - {1})",
+          "*": "({0} * {1})",
+          "/": "({0} / {1})",
+          "**": "POWER({0},{1})",
+          "//": "POWER({0},(1/{1}))",
+          "%": "MOD({0},{1})",
+          "&": "{0} & {1}",
+          "|": "{0} | {1}",
+          "<<": "{0} << {1}",
+          ">>": "{0} >> {1}",
+          "==": "{0} = {1}",
+          "===": "{0} = {1}",
+          "!=": "{0} <> {1}",
+          "!==": "{0} <> {1}",
+          ">": "{0} > {1}",
+          "<": "{0} < {1}",
+          ">=": "{0} >= {1}",
+          "<=": "{0} <= {1}",
+          "&&": "({0} AND {1})",
+          "||": "({0} OR {1})",
+          "[]": "N/A",
+          "=": "{0} = {1}",
+          "+=": "{0} = ({0} + {1})",
+          "-=": "{0} = ({0} - {1})",
+          "*=": "{0} = ({0} * {1})",
+          "/=": "{0} = ({0} / {1})",
+          "**=": "{0} = POWER({0},{1})",
+          "//=": "{0} = POWER({0},(1/{1}))",
+          "%=": "{0} = MOD({0},{1})",
+          "&=": "{0} = {0} & {1} ",
+          "|=": "{0} = {0} | {1}",
+          "<<=": "{0} = {0} << {1}",
+          ">>=": "{0} = {0} >> {1}"
+        },
+        "unary": {
+          "-": "- {0}",
+          "~": "~ {0}",
+          "!": "NOT {0}"
+        },
+        "ternary": {
+          "?": "IF {0} THEN {1} ELSE {2} END"
+        }
+      },
       "functions": {
         "numeric": {
           "round": "ROUND(CAST({0} AS DECIMAL),{1})",
           "remainder": "MOD({0},{1})",
+          "toNumber": "CAST({0} AS INTEGER)",
           "abs": "ABS({0})",
           "acos": "ACOS({0})",
           "asin": "ASIN({0})",
@@ -1045,7 +1090,7 @@
         "datetime": {
           "now": "to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"')",
           "today": "to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD')",
-          "curtime": "to_char(now()::timestamp at time zone 'UTC', 'HH24:MI:SS')",
+          "curTime": "to_char(now()::timestamp at time zone 'UTC', 'HH24:MI:SS')",
           "datetime": "to_char({0}::timestamp at time zone 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"')",
           "date": "to_char({0}::timestamp at time zone 'UTC', 'YYYY-MM-DD')",
           "time": "to_char({0}::timestamp at time zone 'UTC', 'HH24:MI:SS')",
@@ -1056,7 +1101,7 @@
           "hour": "date_part('hour', timestamp {0})",
           "minute": "date_part('minute', timestamp {0})",
           "second": "date_part('second', timestamp {0})",
-          "millisecond": "mod(extract('millisecond ' from timestamp {0})::decimal/1000,1)*1000",
+          "millisecond": "mod(extract('millisecond' from timestamp {0})::decimal/1000,1)*1000",
           "addYear": "(timestamp {0} + ({1} * INTERVAL '1 year'))",
           "addMonth": "(timestamp {0} + ({1}  * INTERVAL '1 month'))",
           "addDay": "(timestamp {0} + ({1}  * INTERVAL '1 day'))",
@@ -1073,11 +1118,8 @@
           "dayToDate": "to_char(TO_TIMESTAMP({0}*24*3600*1000)::timestamp, 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"')",
           "hourToDate": "to_char(TO_TIMESTAMP({0}*3600*1000)::timestamp, 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"')",
           "secondToDate": "to_char(TO_TIMESTAMP({0}*1000)::timestamp, 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"')",
-          "millisecondToDate": "to_char(TO_TIMESTAMP({0})::timestamp, 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"')"
-        },
-        "convert": {
-          "toNumber": "CAST({0} AS INTEGER)",
-          "toJson": "json_value({0})"
+          "millisecondToDate": "to_char(TO_TIMESTAMP({0})::timestamp, 'YYYY-MM-DD\"T\"HH24:MI:SS\".\"MS\"Z\"')",
+          "dateToString": "to_char ({0}::timestamp at time zone 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
         },
         "general": {
           "as": "{value} AS {alias}",
@@ -1103,7 +1145,9 @@
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "length": "LENGTH({0})",
-          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
+          "parse": "json_value({0})",
+          "toString": "CAST({0} AS VARCHAR2)"
         },
         "metadata": {
           "user": "USER",
@@ -1132,54 +1176,6 @@
         "datetime": "yyyy-LL-dd HH:mm:ss",
         "date": "yyyy-LL-dd",
         "time": "HH:mm:ss"
-      },
-      "operators": {
-        "unary": {
-          "-": "- {0}",
-          "~": "~ {0}",
-          "!": "NOT {0}"
-        },
-        "binary": {
-          "+": "({0} + {1})",
-          "-": "({0} - {1})",
-          "*": "({0} * {1})",
-          "/": "({0} / {1})",
-          "**": "POWER({0},{1})",
-          "//": "POWER({0},(1/{1}))",
-          "%": "MOD({0},{1})",
-          "&": "BITAND({0},{1})",
-          "|": "BITOR({0},{1})",
-          "^": "BITXOR({0},{1})",
-          "<<": "{0} << {1}",
-          ">>": "{0} >> {1}",
-          "==": "{0} = {1}",
-          "===": "{0} = {1}",
-          "!=": "{0} <> {1}",
-          "!==": "{0} <> {1}",
-          ">": "{0} > {1}",
-          "<": "{0} < {1}",
-          ">=": "{0} >= {1}",
-          "<=": "{0} <= {1}",
-          "&&": "({0} AND {1})",
-          "||": "({0} OR {1})",
-          "[]": "N/A",
-          "=": "{0} = {1}",
-          "+=": "{0} = ({0} + {1})",
-          "-=": "{0} = ({0} - {1})",
-          "*=": "{0} = ({0} * {1})",
-          "/=": "{0} = ({0} / {1})",
-          "**=": "{0} = POWER({0},{1})",
-          "//=": "{0} = POWER({0},(1/{1}))",
-          "%=": "{0} = MOD({0},{1})",
-          "&=": "{0} = BITAND({0},{1})",
-          "|=": "{0} = BITOR({0},{1})",
-          "^=": "{0} = BITXOR({0},{1})",
-          "<<=": "{0} = {0} << {1}",
-          ">>=": "{0} = {0} >> {1}"
-        },
-        "ternary": {
-          "?": "IF {0} THEN {1} ELSE {2} END"
-        }
       }
     },
     "SQLjs": {
@@ -1270,9 +1266,9 @@
           "**": "POWER({0},{1})",
           "//": "POWER({0},(1/{1}))",
           "%": "MOD({0},{1})",
-          "&": "BITAND({0},{1})",
-          "|": "BITOR({0},{1})",
-          "^": "BITXOR({0},{1})",
+          "&": "{0} & {1}",
+          "|": "{0} | {1}",
+          "^": "{0} ^ {1}",
           "<<": "{0} << {1}",
           ">>": "{0} >> {1}",
           "==": "{0} = {1}",
@@ -1294,9 +1290,9 @@
           "**=": "{0} = POWER({0},{1})",
           "//=": "{0} = POWER({0},(1/{1}))",
           "%=": "{0} = MOD({0},{1})",
-          "&=": "{0} = BITAND({0},{1})",
-          "|=": "{0} = BITOR({0},{1})",
-          "^=": "{0} = BITXOR({0},{1})",
+          "&=": "{0} = {0} & {1} ",
+          "|=": "{0} = {0} | {1}",
+          "^=": "{0} = {0} ^ {1}",
           "<<=": "{0} = {0} << {1}",
           ">>=": "{0} = {0} >> {1}"
         },
@@ -1334,7 +1330,8 @@
           "sinh": "SINH({0})",
           "tan": "TAN({0})",
           "tanh": "TANH({0})",
-          "trunc": "TRUNC({0},{1})"
+          "trunc": "TRUNC({0},{1})",
+          "toNumber": "CAST({0} AS NUMBER)"
         },
         "string": {
           "chr": "CHR({0})",
@@ -1351,11 +1348,13 @@
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "length": "LENGTH({0})",
-          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
+          "parse": "json_value({0})",
+          "toString": "CAST({0} AS VARCHAR2)"
         },
         "datetime": {
           "now": "SYSTIMESTAMP",
-          "curtime": "CAST(SYSTIMESTAMP AS TIME)",
+          "curTime": "CAST(SYSTIMESTAMP AS TIME)",
           "today": "TRUNC(SYSDATE)",
           "datetime": "CAST({0} AS TIMESTAMP)",
           "date": "CAST({0} AS DATE)",
@@ -1384,12 +1383,8 @@
           "dayToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600*1000), '%Y-%m-%dT%TZ')",
           "hourToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*3600*1000), '%Y-%m-%dT%TZ')",
           "secondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*1000), '%Y-%m-%dT%TZ')",
-          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
-        },
-        "convert": {
-          "toString": "CAST({0} AS VARCHAR2)",
-          "toJson": "json_value({0})",
-          "toNumber": "CAST({0} AS NUMBER)"
+          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')",
+          "dateToString": "TO_CHAR({0},'YYYY-MM-DD\"T\"HH24:MI:SSTZH:TZM')"
         },
         "metadata": {
           "user": "USER",
@@ -1505,7 +1500,8 @@
           "sin": "SIN({0})",
           "sinh": "SINH({0})",
           "tan": "TAN({0})",
-          "tanh": "TANH({0})"
+          "tanh": "TANH({0})",
+          "toNumber": "CAST({0} AS NUMBER)"
         },
         "general": {
           "as": "{value} AS {alias}",
@@ -1531,11 +1527,13 @@
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "length": "LENGTH({0})",
-          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
+          "parse": "json_value({0})",
+          "toString": "CAST({0} AS VARCHAR2)"
         },
         "datetime": {
           "now": "SYSTIMESTAMP",
-          "curtime": "CAST(SYSTIMESTAMP AS TIME)",
+          "curTime": "CAST(SYSTIMESTAMP AS TIME)",
           "today": "TRUNC(SYSDATE)",
           "datetime": "CAST({0} AS TIMESTAMP)",
           "date": "CAST({0} AS DATE)",
@@ -1564,12 +1562,8 @@
           "dayToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600*1000), '%Y-%m-%dT%TZ')",
           "hourToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*3600*1000), '%Y-%m-%dT%TZ')",
           "secondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}*1000), '%Y-%m-%dT%TZ')",
-          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
-        },
-        "convert": {
-          "toString": "CAST({0} AS VARCHAR2)",
-          "toJson": "json_value({0})",
-          "toNumber": "CAST({0} AS NUMBER)"
+          "millisecondToDate": "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')",
+          "dateToString": "TO_CHAR({0},'YYYY-MM-DD\"T\"HH24:MI:SSTZH:TZM')"
         },
         "metadata": {
           "user": "USER",
@@ -1613,9 +1607,9 @@
           "**": "POWER({0},{1})",
           "//": "POWER({0},(1/{1}))",
           "%": "MOD({0},{1})",
-          "&": "BITAND({0},{1})",
-          "|": "BITOR({0},{1})",
-          "^": "BITXOR({0},{1})",
+          "&": "{0} & {1}",
+          "|": "{0} | {1}",
+          "^": "{0} ^ {1}",
           "<<": "{0} << {1}",
           ">>": "{0} >> {1}",
           "==": "{0} = {1}",
@@ -1637,9 +1631,9 @@
           "**=": "{0} = POWER({0},{1})",
           "//=": "{0} = POWER({0},(1/{1}))",
           "%=": "{0} = MOD({0},{1})",
-          "&=": "{0} = BITAND({0},{1})",
-          "|=": "{0} = BITOR({0},{1})",
-          "^=": "{0} = BITXOR({0},{1})",
+          "&=": "{0} = {0} & {1} ",
+          "|=": "{0} = {0} | {1}",
+          "^=": "{0} = {0} ^ {1}",
           "<<=": "{0} = {0} << {1}",
           ">>=": "{0} = {0} >> {1}"
         },

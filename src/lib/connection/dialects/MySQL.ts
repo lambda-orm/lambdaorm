@@ -184,9 +184,11 @@ export class MySqlConnection extends Connection {
 					case NEWDECIMAL:
 						row[col.name] = Number(value)
 						break
+					case TIME:
+						row[col.name] = value
+						break
 					case DATETIME:
 					case DATE:
-					case TIME:
 					case NEWDATE:
 					case TIMESTAMP:
 						row[col.name] = new Date(value)

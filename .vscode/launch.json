@@ -144,6 +144,76 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
 		},
 		{
+			"name": "lab-bitwise",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-bitwise.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-comparison",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-comparison.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-datetime",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-datetime.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-logical",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-logical.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-nullable",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-nullable.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-numeric",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-numeric.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-strings",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-strings.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
 			"name": "build wiki",
 			"type": "node",
 			"request": "launch",

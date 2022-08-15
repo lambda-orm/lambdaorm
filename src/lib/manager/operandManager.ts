@@ -1044,13 +1044,18 @@ export class OperandManager {
 		const metadata = operand instanceof Operator
 			? this.expressionConfig.getOperator(operand.name, operand.children.length)
 			: this.expressionConfig.getFunction(operand.name)
-		// recorre todos los parámetros
+		// loop through all parameters
 		const tType = this.solveTypesParameters(operand, expressionContext, metadata)
-		// en el caso que se haya podido resolver T
+		// in the case that it has been possible to solve T
 		if (tType !== 'any') {
-			// en el caso que el operando sea T asigna el tipo correspondiente al operando
-			if (metadata.return === 'T' && operand.type === 'any') { operand.type = tType }
-			// busca los parámetros que sea T y los hijos aun no fueron definidos para asignarle el tipo correspondiente
+			// in case the operand is T assigns the type corresponding to the operand
+			if (metadata.return === 'T' && operand.type === 'any') {
+				operand.type = tType
+			}
+			// look for the parameters that are T and the children have not yet been defined to assign the corresponding type
+			if (metadata.params === undefined || metadata.params.length === 0) {
+				return
+			}
 			for (let i = 0; i < metadata.params.length; i++) {
 				const param = metadata.params[i]
 				const child = operand.children[i]
@@ -1063,6 +1068,12 @@ export class OperandManager {
 
 	private solveTypesParameters (operand: Operand, expressionContext: ExpressionContext, metadata:exp.OperatorMetadata):string {
 		let tType = 'any'
+		if (metadata.return !== 'T' && metadata.return !== 'any') {
+			return metadata.return
+		}
+		if (metadata.params === undefined || metadata.params.length === 0) {
+			return 'any'
+		}
 		for (let i = 0; i < metadata.params.length; i++) {
 			const param = metadata.params[i]
 			const child = operand.children[i]

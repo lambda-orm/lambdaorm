@@ -108,8 +108,12 @@ export class ExpressionNormalizer {
 			clauses.map = mainNode.children[0]
 			this.completeMapNode(entity, clauses.map)
 		}
+
 		if (clauses.sort) {
 			this.completeSortNode(clauses)
+		}
+		if (clauses.page && !clauses.sort) {
+			this.addSortNode(clauses, mainNode, 'asc')
 		}
 		if (clauses.include) {
 			this.completeIncludeNode(clauses, compeleInclude, entity)
@@ -137,13 +141,7 @@ export class ExpressionNormalizer {
 		clauses.map.name = 'map'
 		this.completeMapNode(entity, clauses.map)
 		if (!clauses.sort) {
-			const autoIncrement = this.schema.model.getAutoIncrement(entity.name)
-			if (autoIncrement !== undefined) {
-				const varArrow = new Node('p', 'var', [])
-				const varSort = new Node('p.' + autoIncrement.name, 'var', [])
-				const funcAsc = new Node('asc', 'funcRef', [varSort])
-				mainNode.children[0] = new Node('sort', 'arrow', [mainNode.children[0], varArrow, funcAsc])
-			}
+			this.addSortNode(clauses, mainNode, 'asc')
 		}
 		if (!clauses.page) {
 			const constPage = new Node('1', 'const', [])
@@ -159,19 +157,22 @@ export class ExpressionNormalizer {
 		clauses.map.name = 'map'
 		this.completeMapNode(entity, clauses.map)
 		if (!clauses.sort) {
-			const autoIncrement = this.schema.model.getAutoIncrement(entity.name)
-			if (autoIncrement !== undefined) {
-				const varArrow = new Node('p', 'var', [])
-				const varSort = new Node('p.' + autoIncrement.name, 'var', [])
-				const funcDesc = new Node('desc', 'funcRef', [varSort])
-				mainNode.children[0] = new Node('sort', 'arrow', [mainNode.children[0], varArrow, funcDesc])
-			}
+			this.addSortNode(clauses, mainNode, 'desc')
 		}
 		if (!clauses.page) {
 			const constPage = new Node('1', 'const', [])
 			const constRecords = new Node('1', 'const', [])
 			mainNode.children[0] = new Node('page', 'childFunc', [mainNode.children[0], constPage, constRecords])
 		}
+	}
+
+	private addSortNode (clauses: any, mainNode: Node, order: string): void {
+		// if the order is not defined, order by the first field
+		const firstKeyVal = clauses.map.children[2].children[0]
+		const varArrow = new Node('p', 'var', [])
+		const varSort = new Node('p.' + firstKeyVal.name, 'var', [])
+		const funcAsc = new Node(order, 'funcRef', [varSort])
+		mainNode.children[0] = new Node('sort', 'arrow', [mainNode.children[0], varArrow, funcAsc])
 	}
 
 	private completeSortNode (clauses: any): void {
@@ -232,8 +233,7 @@ export class ExpressionNormalizer {
 			} else if (fields.type === 'array') {
 				// Example: Entity.map(p=> [p.id, p.name]) to  Entity.map(p=> {id:p.id,name:p.name})
 				const obj = new Node('obj', 'obj', [])
-				for (const p in fields.children) {
-					const child = fields.children[p]
+				for (const child of fields.children) {
 					const keyVal = this.fieldToKeyVal(arrowVar, child)
 					obj.children.push(keyVal)
 				}

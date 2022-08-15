@@ -1,12 +1,21 @@
 import fs from 'fs'
 import path from 'path'
-import { Delta } from '../index'
+import { Delta, MetadataSentence } from '../index'
 
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
 const CryptoJS = require('crypto-js')
 
 export class Helper {
+	public static sentenceToArray (sentence:MetadataSentence):string[] {
+		const sentences:string[] = []
+		sentences.push(sentence.sentence)
+		if (sentence.children) {
+			sentence.children.forEach(p => Helper.sentenceToArray(p).forEach(p => sentences.push(p)))
+		}
+		return sentences
+	}
+
 	public static replace (string:string, search:string, replace:string) {
 		return string.split(search).join(replace)
 		// con la siguiente opción falla cuando se hace value=Helper.replace(value,"\\'","\\''")

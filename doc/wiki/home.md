@@ -1,18 +1,22 @@
 - [Use](Use)
 - [Schemas](Schemas)
+- Use
+	- [Expression](Expression)
 - Queries
 	- [Select](Query-Select)
 	- [Include](Query-Include)
+	- [BulkInsert](Query-BulkInsert)
 	- [Insert](Query-Insert)
 	- [Update](Query-Update)
 	- [Delete](Query-Delete)
-	- [Bulkinsert](Query-Bulkinsert)
-- Operators
-  - [Arithmetic](Operators-Arithmetics)
-  - [Assignment](Operators-Assignment)
-  - [Comparison](Operators-Comparison)
-  - [Logical](Operators-Logical)
-  - [Bitwise](Operators-Bitwise)
+- Operators & Functions
+	- [Bitwise](Bitwise)
+	- [Comparison](Comparison)
+	- [Datetime](Datetime)
+	- [Logical](Logical)
+	- [Nullable](Nullable)
+	- [Numeric](Numeric)
+	- [String](String)
 - Functions
 	- [General](Functions-Generals)
 	- [Condition](Functions-Conditionls)
@@ -24,9 +28,3 @@
 	- [Nullable](Functions-Nullables)
 	- [Sort](Functions-Sort)
 	- [Metadata](Functions-Metadata)
-- CLI
-	- [ini](CLI-Init)
-	- [generate model](CLI-Model)		
-	- [sincronize](CLI-Sincronize)
-	- [export](CLI_Export)
-	- [import](CLI_Import)

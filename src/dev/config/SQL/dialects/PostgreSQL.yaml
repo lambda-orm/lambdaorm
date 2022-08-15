@@ -13,16 +13,21 @@ dml:
   bulkInsert: INSERT INTO {name}({fields}) VALUES
 others:
   variable: "${number}"
+operators:
+  binary:  
+    '^': '{0} # {1}'
+    '^=': '{0} = {0} # {1}'  
 functions:
   numeric:
     round: "ROUND(CAST({0} AS DECIMAL),{1})"
     remainder: "MOD({0},{1})"
+    toNumber: "CAST({0} AS INTEGER)"
   datetime:
     # https://www.postgresql.org/docs/8.4/datatype-datetime.html
     # https://www.postgresql.org/docs/9.1/functions-formatting.html
     now: 'to_char(now()::timestamp at time zone ''UTC'', ''YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"'')'
     today: "to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD')"
-    curtime: "to_char(now()::timestamp at time zone 'UTC', 'HH24:MI:SS')"
+    curTime: "to_char(now()::timestamp at time zone 'UTC', 'HH24:MI:SS')"
     datetime: 'to_char({0}::timestamp at time zone ''UTC'', ''YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"'')'
     date: "to_char({0}::timestamp at time zone 'UTC', 'YYYY-MM-DD')"
     time: "to_char({0}::timestamp at time zone 'UTC', 'HH24:MI:SS')"
@@ -33,7 +38,7 @@ functions:
     hour: "date_part('hour', timestamp {0})"
     minute: "date_part('minute', timestamp {0})"
     second: "date_part('second', timestamp {0})"
-    millisecond: "mod(extract('millisecond ' from timestamp {0})::decimal/1000,1)*1000"
+    millisecond: "mod(extract('millisecond' from timestamp {0})::decimal/1000,1)*1000"
     addYear: "(timestamp {0} + ({1} * INTERVAL '1 year'))"
     addMonth: "(timestamp {0} + ({1}  * INTERVAL '1 month'))"
     addDay: "(timestamp {0} + ({1}  * INTERVAL '1 day'))"
@@ -51,6 +56,7 @@ functions:
     hourToDate: 'to_char(TO_TIMESTAMP({0}*3600*1000)::timestamp, ''YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"'')'
     secondToDate: 'to_char(TO_TIMESTAMP({0}*1000)::timestamp, ''YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"'')'
     millisecondToDate: 'to_char(TO_TIMESTAMP({0})::timestamp, ''YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"'')'
+    dateToString: 'to_char ({0}::timestamp at time zone ''UTC'', ''YYYY-MM-DD"T"HH24:MI:SS"Z"'')'
     # -- now
     # SELECT to_char(now()::timestamp at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
     # -- today
@@ -111,5 +117,4 @@ functions:
     # select to_char(TO_TIMESTAMP(2*1000)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
     # -- millisecondToDate
     # select to_char(TO_TIMESTAMP(2)::timestamp, 'YYYY-MM-DD"T"HH24:MI:SS"."MS"Z"')
-  convert:
-    toNumber: "CAST({0} AS INTEGER)"
+    

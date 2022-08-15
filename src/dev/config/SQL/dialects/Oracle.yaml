@@ -22,6 +22,14 @@ ddl:
 dml:
   page: "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY"
   bulkInsert: INSERT INTO {name}({fields}) VALUES({values})
+operators:
+  binary:  
+    '&': 'BITAND({0},{1})'
+    '|': 'BITOR({0},{1})'
+    '^': 'BITXOR({0},{1})'
+    '&=': '{0} = BITAND({0},{1})'
+    '|=': '{0} = BITOR({0},{1})'
+    '^=': '{0} = BITXOR({0},{1})'  
 functions:
   datetime:
     datetime: TO_CHAR({0},'YYYY-MM-DD"T"hh24:mi:ss')

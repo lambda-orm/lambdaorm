@@ -15,17 +15,21 @@ functions:
     sinh: "((EXP({0}) - EXP(-{0})) / 2)"
     tanh: "(EXP(2*{0}) - 1)/(EXP(2*{0}) + 1)"
     trunc: "TRUNCATE({0},{1})"
+    toNumber: "CONVERT({0}, DECIMAL)"
   string:
     chr: "CHAR({0} USING ASCII)"
     initcap: "INITCAP({0})" #  https://stackoverflow.com/questions/12364086/how-can-i-achieve-initcap-functionality-in-mysql
     length: "CHAR_LENGTH({0})"
+    # https://dev.mysql.com/doc/refman/5.7/en/cast-functions.html#function_convert
+    toString: "CONVERT({0}, CHAR)"
+    parse: "CONVERT({0}, JSON)"
   #   regExpReplace: 'REGEXP_REPLACE({0},{1})'
   #   regExpSubstr: 'REGEXP_SUBSTR({0},{1})'
   #   replace: 'REPLACE({0},{1},{2})'
   datetime:
     # https://www.w3schools.com/jsref/jsref_obj_date.asp
     # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
-    curtime: "CURTIME()"
+    curTime: "CURTIME()"
     today: "CURDATE()"
     now: "NOW()"
     # time: 'TIME({0})'
@@ -40,23 +44,27 @@ functions:
     hours: "EXTRACT(HOUR FROM {0})"
     minutes: "EXTRACT(MINUTE FROM {0})"
     seconds: "EXTRACT(SECOND FROM {0})"
+    millisecond: "ROUND(EXTRACT(MICROSECOND FROM {0})/1000,0)"
     addYear: "DATE_ADD({0}, INTERVAL {1} YEAR)"
     addMonth: "DATE_ADD({0}, INTERVAL {1} MONTH)"
     addDay: "DATE_ADD({0}, INTERVAL {1} DAY)"
     addHours: "DATE_ADD({0}, INTERVAL {1} HOUR)"
     addMinutes: "DATE_ADD({0}, INTERVAL {1} MINUTE)"
     addSeconds: "DATE_ADD({0}, INTERVAL {1} SECOND)"
-    addTime: "ADDTIME({0},{1})"
+    addMillisecond: "DATE_ADD({0}, INTERVAL ({1} * 1000) MICROSECOND)"
+    addTime: "ADDTIME({0},{1})"    
+    subtractTime: "SUBTIME({0},{1})"
+    dayDiff: "DATEDIFF({0},{1})"
+    hourDiff: "TIMESTAMPDIFF(HOUR, {1},{0})"
+    secondDiff: "TIMESTAMPDIFF(SECOND, {1},{0})"
+    millisecondDiff: "ROUND(TIMESTAMPDIFF(MICROSECOND, {1},{0})/1000,0)"
     dateDiff: "DATEDIFF({0},{1})"
-    timeDiff: "TIMEDIFF({0},{1})"
-  convert:
-    # https://dev.mysql.com/doc/refman/5.7/en/cast-functions.html#function_convert
-    toString: "CONVERT({0}, CHAR)"
-    # toDate: 'CONVERT({0}, DATE)'
-    # toDatetime: 'CONVERT({0}, DATETIME)'
-    # toTime: 'CONVERT({0}, TIME)'
-    toJson: "CONVERT({0}, JSON)"
-    toNumber: "CONVERT({0}, DECIMAL)"
+    timeDiff: "TIMEDIFF({0},{1})"   
+    dayToDate: "DATE_FORMAT(FROM_UNIXTIME({0}*24*3600), '%Y-%m-%dT%TZ')"
+    hourToDate: "DATE_FORMAT(FROM_UNIXTIME({0}*3600), '%Y-%m-%dT%TZ')"
+    secondToDate: "DATE_FORMAT(FROM_UNIXTIME({0}), '%Y-%m-%dT%TZ')"
+    millisecondToDate: "DATE_FORMAT(FROM_UNIXTIME({0}/1000), '%Y-%m-%dT%TZ')"
+    dateToString: DATE_FORMAT({0}, '%Y-%m-%dT%TZ')  
   metadata:
     user: "CURRENT_USER()"
     database: "DATABASE()"
