@@ -214,6 +214,26 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
 		},
 		{
+			"name": "lab-group",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-group.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
+			"name": "lab-sort",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-sort.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
+		},
+		{
 			"name": "build wiki",
 			"type": "node",
 			"request": "launch",

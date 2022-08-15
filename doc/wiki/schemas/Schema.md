@@ -85,9 +85,9 @@ Example passing the path of the configuration file:
 ```ts
 import { orm } from 'lambdaorm'
 (async () => {
-	await orm.init('/home/my/app1/lambaorm.yaml')
-	try {
-		const result = await orm.expression('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})').execute('mydb')
+	await orm.init('/home/my/app1/lambaORM.yaml')
+	try {		
+		const result = await orm.execute('Loan.map(p=>{user:p.reader.name,book:p.book.title,date:p.date})')
 		console.log(result)	
 	} catch (error) {
 		console.log(error)

@@ -43,6 +43,10 @@ mappings:
         properties:
           - name: string
             mapping: string
+dataSources:
+  - name: string
+    dialect: MariaDb | MongoDB | MySQL | Oracle | PostgreSQL | SQLjs | SqlServer
+    connection: object | EnvironmentVariable
 stages:
   - name: string
     dataSources:
@@ -50,7 +54,7 @@ stages:
         condition: expression									  		 
 ```
 
-### Definition
+## Definition
 
 Schema:
 

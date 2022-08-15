@@ -280,6 +280,13 @@ stages:
       - name: dataSource1
 ```
 
+Environment Variables:
+
+```sh
+CNN_MYSQL={"host":"0.0.0.0","port":3309,"user":"test","password":"test","database":"test","multipleStatements": true,"waitForConnections": true, "connectionLimit": 10, "queueLimit": 0 }
+CNN_POSTGRES={"host":"0.0.0.0","port":5433,"user":"test","password":"test","database":"test"}
+```
+
 [example lab](https://github.com/FlavioLionelRita/lambdaorm-lab04)
 
 ## One schema related multiples databases II
@@ -371,4 +378,11 @@ stages:
       - name: dataSource2
         condition: entity == "States"
       - name: dataSource1
+```
+
+Environment Variables:
+
+```sh
+CNN_MYSQL={"host":"0.0.0.0","port":3309,"user":"test","password":"test","database":"test","multipleStatements": true,"waitForConnections": true, "connectionLimit": 10, "queueLimit": 0 }
+CNN_POSTGRES={"host":"0.0.0.0","port":5433,"user":"test","password":"test","database":"test"}
 ```
