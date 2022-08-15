@@ -1,4 +1,4 @@
-export enum RelationType{
+export enum RelationType {
 	oneToMany = 'oneToMany',
 	manyToOne = 'manyToOne',
 	oneToOne = 'oneToOne'
@@ -22,7 +22,7 @@ export interface Property {
 	length?: number
 	nullable?: boolean
 	primaryKey?: boolean
-	autoincrement?: boolean
+	autoIncrement?: boolean
 	view?: boolean
 	readExp?: string
 	writeExp?: string
@@ -41,7 +41,6 @@ export interface Relation {
 	to: string
 	weak?: boolean
 	target?: string
-	targetComposite?: boolean
 }
 export interface Dependent {
 	entity: string,
@@ -57,10 +56,10 @@ export interface Entity {
 	abstract?: boolean
 	singular?: string
 	view?: boolean
-	uniqueKey:string[]
+	uniqueKey: string[]
 	indexes: Index[]
-	primaryKey:string[]
-	properties:Property[]
+	primaryKey: string[]
+	properties: Property[]
 	relations: Relation[]
 	dependents: Dependent[]
 	constraints?: Constraint[]
@@ -70,9 +69,10 @@ export interface Entity {
 	hadWriteValues?: boolean
 	hadDefaults?: boolean
 	hadViewReadExp?: boolean
+	composite?: boolean
 }
 export interface RelationInfo {
-	previousRelation:string
+	previousRelation: string
 	previousEntity: Entity,
 	entity: Entity,
 	relation: Relation
@@ -83,17 +83,23 @@ export interface PropertyMapping extends Property {
 }
 export interface EntityMapping extends Entity {
 	mapping: string
-	sequence:string
+	sequence: string
 	properties: PropertyMapping[]
 	filter?: string
 	hadKeys?: boolean
-	hadReadMappingExp?:boolean
+	hadReadMappingExp?: boolean
+}
+export interface FormatMapping extends Entity {
+	datetime?: string
+	date?: string
+	time?: string
 }
 export interface Mapping {
 	extends?: string
 	mapping?: string
 	name: string
 	entities: EntityMapping[]
+	format?: FormatMapping
 }
 
 export interface PropertyView {
@@ -111,30 +117,26 @@ export interface View {
 	entities: EntityView[]
 }
 
-export interface DataSource{
+export interface DataSource {
 	name: string
 	dialect: string
 	mapping: string
 	connection: any
 }
-export interface RuleDataSource
-{
+export interface RuleDataSource {
 	name: string
 	condition?: string
 }
-export interface Stage
-{
+export interface Stage {
 	name: string
 	dataSources: RuleDataSource[]
 }
-export interface App
-{
+export interface App {
 	src: string
 	data: string
 	model: string
 }
-export interface Schema
-{
+export interface Schema {
 	app: App
 	entities: Entity[]
 	enums: Enum[]
@@ -143,15 +145,27 @@ export interface Schema
 	dataSources: DataSource[]
 	stages: Stage[]
 }
-export interface SchemaState
-{
+export interface SchemaModel {
 	mappings: Mapping[]
-	mappingData: any
-	pendingData:any[]
 }
 
-export interface Behavior
+export interface SchemaMapping {
+	mapping: any
+	pending: any[]
+	inconsistency: any[]
+}
+
+export interface SchemaDataEntity
 {
+	entity:string
+	rows:any[]
+}
+export interface SchemaData
+{
+	entities:SchemaDataEntity[]
+}
+
+export interface Behavior {
 	alias?: string
 	property: string
 	expression: string

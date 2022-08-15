@@ -91,7 +91,7 @@ function getDevices () {
 		const expression = 'Users'
 
 		console.log('sentence:')
-		console.log(JSON.stringify(orm.sentence(expression, 'admin')))
+		console.log(JSON.stringify(orm.sentence(expression,{view:'admin'})))
 		console.log(JSON.stringify(orm.sentence(expression)))
 		// console.log(JSON.stringify(orm.sentence(expression, 'collector')))
 		// console.log('parameters:')

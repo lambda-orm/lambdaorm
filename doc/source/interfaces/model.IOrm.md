@@ -12,26 +12,41 @@
 
 ### Accessors
 
+- [expressions](model.IOrm.md#expressions)
 - [schema](model.IOrm.md#schema)
 - [stage](model.IOrm.md#stage)
 - [workspace](model.IOrm.md#workspace)
 
 ### Methods
 
-- [complete](model.IOrm.md#complete)
+- [constraints](model.IOrm.md#constraints)
 - [dialect](model.IOrm.md#dialect)
 - [end](model.IOrm.md#end)
-- [eval](model.IOrm.md#eval)
 - [execute](model.IOrm.md#execute)
 - [init](model.IOrm.md#init)
 - [metadata](model.IOrm.md#metadata)
 - [model](model.IOrm.md#model)
+- [normalize](model.IOrm.md#normalize)
 - [parameters](model.IOrm.md#parameters)
 - [sentence](model.IOrm.md#sentence)
 - [setCache](model.IOrm.md#setcache)
 - [transaction](model.IOrm.md#transaction)
 
 ## Accessors
+
+### expressions
+
+• `get` **expressions**(): `Expressions`
+
+#### Returns
+
+`Expressions`
+
+#### Defined in
+
+[src/lib/model/orm.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L19)
+
+___
 
 ### schema
 
@@ -43,7 +58,7 @@
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L11)
+[src/lib/model/orm.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L18)
 
 ___
 
@@ -57,7 +72,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L10)
+[src/lib/model/orm.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L17)
 
 ___
 
@@ -71,15 +86,15 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:8](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L8)
+[src/lib/model/orm.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L15)
 
 ## Methods
 
-### complete
+### constraints
 
-▸ **complete**(`expression`): `string`
+▸ **constraints**(`expression`): [`MetadataConstraint`](model.MetadataConstraint.md)
 
-Complete expression
+Get constraints of expression
 
 #### Parameters
 
@@ -89,15 +104,15 @@ Complete expression
 
 #### Returns
 
-`string`
+[`MetadataConstraint`](model.MetadataConstraint.md)
 
-Expression complete
+Constraints of expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:19](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L19)
+[src/lib/model/orm.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L49)
 
-▸ **complete**(`expression`): `string`
+▸ **constraints**(`expression`): [`MetadataConstraint`](model.MetadataConstraint.md)
 
 #### Parameters
 
@@ -107,11 +122,11 @@ Expression complete
 
 #### Returns
 
-`string`
+[`MetadataConstraint`](model.MetadataConstraint.md)
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L20)
+[src/lib/model/orm.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L50)
 
 ___
 
@@ -131,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:9](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L9)
+[src/lib/model/orm.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L16)
 
 ___
 
@@ -145,38 +160,13 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:14](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L14)
-
-___
-
-### eval
-
-▸ **eval**(`expression`, `data`): `Promise`<`any`\>
-
-Evaluate and solve expression
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | string expression |
-| `data` | `any` | Data with variables |
-
-#### Returns
-
-`Promise`<`any`\>
-
-Result of the evaluale expression
-
-#### Defined in
-
-[src/lib/model/iOrm.ts:49](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L49)
+[src/lib/model/orm.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L23)
 
 ___
 
 ### execute
 
-▸ **execute**(`expression`, `data?`, `stage?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`, `options?`): `Promise`<`any`\>
 
 Execute expression
 
@@ -186,7 +176,7 @@ Execute expression
 | :------ | :------ | :------ |
 | `expression` | `Function` | - |
 | `data?` | `any` | Data with variables |
-| `stage?` | `string` | Stage name |
+| `options?` | [`OrmOptions`](model.OrmOptions.md) | - |
 
 #### Returns
 
@@ -196,9 +186,9 @@ Result of execution
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:65](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L65)
+[src/lib/model/orm.ts:74](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L74)
 
-▸ **execute**(`expression`, `data?`, `stage?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`, `options?`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -206,7 +196,7 @@ Result of execution
 | :------ | :------ |
 | `expression` | `string` |
 | `data?` | `any` |
-| `stage?` | `string` |
+| `options?` | [`OrmOptions`](model.OrmOptions.md) |
 
 #### Returns
 
@@ -214,7 +204,7 @@ Result of execution
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:66](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L66)
+[src/lib/model/orm.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L75)
 
 ___
 
@@ -235,13 +225,13 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L13)
+[src/lib/model/orm.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L22)
 
 ___
 
 ### metadata
 
-▸ **metadata**(`expression`): `Promise`<`any`\>
+▸ **metadata**(`expression`): [`Metadata`](model.Metadata.md)
 
 Get metadata of expression
 
@@ -253,15 +243,15 @@ Get metadata of expression
 
 #### Returns
 
-`Promise`<`any`\>
+[`Metadata`](model.Metadata.md)
 
 metadata of expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:40](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L40)
+[src/lib/model/orm.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L56)
 
-▸ **metadata**(`expression`): `Promise`<`any`\>
+▸ **metadata**(`expression`): [`Metadata`](model.Metadata.md)
 
 #### Parameters
 
@@ -271,17 +261,17 @@ metadata of expression
 
 #### Returns
 
-`Promise`<`any`\>
+[`Metadata`](model.Metadata.md)
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:41](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L41)
+[src/lib/model/orm.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L57)
 
 ___
 
 ### model
 
-▸ **model**(`expression`): `Promise`<`any`\>
+▸ **model**(`expression`): [`MetadataModel`](model.MetadataModel.md)[]
 
 Get model of expression
 
@@ -293,15 +283,15 @@ Get model of expression
 
 #### Returns
 
-`Promise`<`any`\>
+[`MetadataModel`](model.MetadataModel.md)[]
 
 Model of expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:26](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L26)
+[src/lib/model/orm.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L35)
 
-▸ **model**(`expression`): `Promise`<`any`\>
+▸ **model**(`expression`): [`MetadataModel`](model.MetadataModel.md)[]
 
 #### Parameters
 
@@ -311,17 +301,57 @@ Model of expression
 
 #### Returns
 
-`Promise`<`any`\>
+[`MetadataModel`](model.MetadataModel.md)[]
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:27](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L27)
+[src/lib/model/orm.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L36)
+
+___
+
+### normalize
+
+▸ **normalize**(`expression`): `string`
+
+Normalize expression
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `expression` | `Function` |
+
+#### Returns
+
+`string`
+
+Expression normalized
+
+#### Defined in
+
+[src/lib/model/orm.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L28)
+
+▸ **normalize**(`expression`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `expression` | `string` |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/lib/model/orm.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L29)
 
 ___
 
 ### parameters
 
-▸ **parameters**(`expression`): `Promise`<`any`\>
+▸ **parameters**(`expression`): [`MetadataParameter`](model.MetadataParameter.md)[]
 
 Get parameters of expression
 
@@ -333,15 +363,15 @@ Get parameters of expression
 
 #### Returns
 
-`Promise`<`any`\>
+[`MetadataParameter`](model.MetadataParameter.md)[]
 
 Parameters of expression
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L33)
+[src/lib/model/orm.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L42)
 
-▸ **parameters**(`expression`): `Promise`<`any`\>
+▸ **parameters**(`expression`): [`MetadataParameter`](model.MetadataParameter.md)[]
 
 #### Parameters
 
@@ -351,49 +381,49 @@ Parameters of expression
 
 #### Returns
 
-`Promise`<`any`\>
+[`MetadataParameter`](model.MetadataParameter.md)[]
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:34](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L34)
+[src/lib/model/orm.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L43)
 
 ___
 
 ### sentence
 
-▸ **sentence**(`expression`, `stage?`): `Promise`<`string`\>
+▸ **sentence**(`expression`, `options?`): [`MetadataSentence`](model.MetadataSentence.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expression` | `Function` |
-| `stage?` | `string` |
+| `options?` | [`OrmOptions`](model.OrmOptions.md) |
 
 #### Returns
 
-`Promise`<`string`\>
+[`MetadataSentence`](model.MetadataSentence.md)
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:56](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L56)
+[src/lib/model/orm.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L64)
 
-▸ **sentence**(`expression`, `stage?`): `Promise`<`string`\>
+▸ **sentence**(`expression`, `options?`): [`MetadataSentence`](model.MetadataSentence.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expression` | `string` |
-| `stage?` | `string` |
+| `options?` | [`OrmOptions`](model.OrmOptions.md) |
 
 #### Returns
 
-`Promise`<`string`\>
+[`MetadataSentence`](model.MetadataSentence.md)
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:57](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L57)
+[src/lib/model/orm.ts:65](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L65)
 
 ___
 
@@ -413,19 +443,21 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L12)
+[src/lib/model/orm.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L21)
 
 ___
 
 ### transaction
 
-▸ **transaction**(`stage`, `callback`): `Promise`<`void`\>
+▸ **transaction**(`options`, `callback`): `Promise`<`void`\>
+
+transaction
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `stage` | `string` |
+| `options` | `undefined` \| [`OrmOptions`](model.OrmOptions.md) |
 | `callback` | (`tr`: [`Transaction`](../classes/manager.Transaction.md)) => `Promise`<`void`\> |
 
 #### Returns
@@ -434,4 +466,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/iOrm.ts:67](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/model/iOrm.ts#L67)
+[src/lib/model/orm.ts:82](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/orm.ts#L82)

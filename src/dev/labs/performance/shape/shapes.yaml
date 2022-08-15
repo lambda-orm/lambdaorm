@@ -1,11 +1,30 @@
 entities:
-  - name: Coordinates
+  - name: Geometries
     primaryKey: ["id"]
     properties:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
+      - name: shapeId
+        type: integer
+        nullable: false
+      - name: type
+        nullable: false
+    relations:
+      - name: shape
+        type: oneToOne
+        from: shapeId
+        entity: Shapes
+        to: id
+        target: geometry
+  - name: Geometries.Coordinates
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+        autoIncrement: true
       - name: geometryId
         type: integer
         nullable: false
@@ -20,34 +39,22 @@ entities:
         entity: Geometries
         to: id
         target: coordinates
-        targetComposite: true
-  - name: Geometries
+  - name: Shapes
     primaryKey: ["id"]
     properties:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
-      - name: shapeId
-        type: integer
-        nullable: false
+        autoIncrement: true
       - name: type
         nullable: false
-    relations:
-      - name: shape
-        type: oneToOne
-        from: shapeId
-        entity: Shapes
-        to: id
-        target: geometry
-        targetComposite: true
-  - name: Properties
+  - name: Shapes.Properties
     primaryKey: ["id"]
     properties:
       - name: id
         type: integer
         nullable: false
-        autoincrement: true
+        autoIncrement: true
       - name: shapeId
         type: integer
         nullable: false
@@ -67,16 +74,6 @@ entities:
         entity: Shapes
         to: id
         target: properties
-        targetComposite: true
-  - name: Shapes
-    primaryKey: ["id"]
-    properties:
-      - name: id
-        type: integer
-        nullable: false
-        autoincrement: true
-      - name: type
-        nullable: false
 views:
   -name: default
 mappings:

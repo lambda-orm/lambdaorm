@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { IOrm, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
+import { IOrm, OrmOptions, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
 import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages } from './manager'
-import { ConnectionManager, MySqlConnectionPool, MariadbConnectionPool, MssqlConnectionPool, PostgresConnectionPool, SqlJsConnectionPool, OracleConnectionPool } from './connection'
-import { SqlLanguage } from './language/sql'
+import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './connection'
+import { SqlLanguage } from './language/SQL'
+import { NoSqlLanguage } from './language/NoSQL'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
 import modelConfig from './expression/model.json'
-import { OrmExtesionLib } from './expression/extension'
+import { OrmExtensionLib } from './expression/extension'
 
 /**
  * Facade through which you can access all the functionalities of the library.
@@ -37,7 +38,7 @@ export class Orm implements IOrm {
 	constructor (workspace: string = process.cwd()) {
 		this._expressions = expressions
 		this._expressions.config.load(modelConfig)
-		this._expressions.config.addLibrary(new OrmExtesionLib())
+		this._expressions.config.addLibrary(new OrmExtensionLib())
 
 		this.schemaManager = new SchemaManager(workspace, this._expressions)
 		this._cache = new MemoryCache()
@@ -45,13 +46,14 @@ export class Orm implements IOrm {
 
 		this.languages = new Languages()
 		this.languages.add(new SqlLanguage(this._expressions))
-		// this.languages.add(new NoSqlLanguage(this._expressions))
-		this.connectionManager.addType('mysql', MySqlConnectionPool)
-		this.connectionManager.addType('mariadb', MariadbConnectionPool)
-		this.connectionManager.addType('postgres', PostgresConnectionPool)
-		this.connectionManager.addType('mssql', MssqlConnectionPool)
-		this.connectionManager.addType('sqljs', SqlJsConnectionPool)
-		this.connectionManager.addType('oracle', OracleConnectionPool)
+		this.languages.add(new NoSqlLanguage(this._expressions))
+		this.connectionManager.addType('MySQL', MySQLConnectionPool)
+		this.connectionManager.addType('MariaDB', MariaDBConnectionPool)
+		this.connectionManager.addType('PostgreSQL', PostgreSQLConnectionPool)
+		this.connectionManager.addType('SqlServer', SqlServerConnectionPool)
+		this.connectionManager.addType('SQLjs', SQLjsConnectionPool)
+		this.connectionManager.addType('Oracle', OracleConnectionPool)
+		this.connectionManager.addType('MongoDB', MongoDBConnectionPool)
 
 		this.routing = new Routing(this.schemaManager, this._expressions)
 		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languages, this._expressions, this.routing)
@@ -60,12 +62,12 @@ export class Orm implements IOrm {
 	}
 
 	public get defaultStage ():Stage {
-		return this.schemaManager.stage.get(undefined)
+		return this.schemaManager.stage.get()
 	}
 
 	/**
- * metodo para incializar la libreria de orm
- * @param source optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaorm.yaml" in the root of the project
+ * initialize the orm library
+ * @param source optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaORM.yaml" in the root of the project
  * @returns promise void
  */
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
@@ -215,15 +217,14 @@ export class Orm implements IOrm {
 	 * @param expression
 	 * @param dataSource
 	 */
-	public sentence(expression: Function, view?:string, stage?: string): MetadataSentence;
-	public sentence(expression: string, view?:string, stage?: string): MetadataSentence;
-	public sentence (expression: string|Function, view: string|undefined, stage: string|undefined): MetadataSentence {
+	public sentence(expression: Function, options?: OrmOptions): MetadataSentence;
+	public sentence(expression: string, options?: OrmOptions): MetadataSentence;
+	public sentence (expression: string|Function, options: OrmOptions|undefined): MetadataSentence {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		const _stage = this.schemaManager.stage.get(stage)
-		const _view = this.schemaManager.view.get(view)
-		return this.expressionManager.sentence(expression, _stage.name, _view.name)
+		const _options = this.schemaManager.solveOptions(options)
+		return this.expressionManager.sentence(expression, _options)
 	}
 
 	/**
@@ -232,26 +233,25 @@ export class Orm implements IOrm {
 	 * @param dataSource DataStore name
 	 * @returns Result of execution
 	 */
-	public async execute(expression: Function, data?: any, view?:string, stage?: string):Promise<any>;
-	public async execute(expression: string, data?: any, view?:string, stage?: string):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}, view: string|undefined, stage: string|undefined): Promise<any> {
+	public async execute(expression: Function, data?: any, options?: OrmOptions):Promise<any>;
+	public async execute(expression: string, data?: any, options?: OrmOptions):Promise<any>;
+	public async execute (expression: string|Function, data: any = {}, options: OrmOptions|undefined = undefined): Promise<any> {
 		if (typeof expression !== 'string') {
 			expression = this.expressionManager.toExpression(expression)
 		}
-		const _stage = this.schemaManager.stage.get(stage)
-		const _view = this.schemaManager.view.get(view)
-		const query = this.expressionManager.toQuery(expression, _stage.name, _view.name)
-		return await this.executor.execute(query, data, _stage.name, _view.name)
+		const _options = this.schemaManager.solveOptions(options)
+
+		const query = this.expressionManager.toQuery(expression, _options)
+		return this.executor.execute(query, data, _options)
 	}
 
 	/**
- * Crea una transaccion
+ * Create a transaction
  * @param stage Database name
- * @param callback Codigo que se ejecutara en transaccion
+ * @param callback Code to be executed in transaction
  */
-	public async transaction (stage: string, view:string|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const _stage = this.schemaManager.stage.get(stage)
-		const _view = this.schemaManager.view.get(view)
-		return await this.executor.transaction(_stage.name, _view.name, callback)
+	public async transaction (options: OrmOptions|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+		const _options = this.schemaManager.solveOptions(options)
+		return this.executor.transaction(_options, callback)
 	}
 }

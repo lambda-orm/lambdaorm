@@ -36,9 +36,9 @@ export class Data {
 		const names = name.split('.')
 		let value = this.getData(names[0])
 		for (const p in names) {
-			const name = names[p]
-			if (value[name] === undefined) return null
-			value = value[name]
+			const _name = names[p]
+			if (value[_name] === undefined) return null
+			value = value[_name]
 		}
 		return value
 	}

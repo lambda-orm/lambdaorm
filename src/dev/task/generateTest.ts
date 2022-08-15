@@ -61,7 +61,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 					const sentence = expTest.sentences.find(p => p.stage === stage && p.error === undefined)
 					if (sentence !== undefined && sentence.sentence !== undefined) {
 						lines.push(`\t\tconst ${stage}Expected = ${JSON.stringify(sentence.sentence)}`)
-						lines.push(`\t\tlet ${stage} = orm.sentence(expression,'default','${stage}')`)
+						lines.push(`\t\tlet ${stage} = orm.sentence(expression,{stage:'${stage}'})`)
 						lines.push(`\t\texpect(${stage}Expected).toStrictEqual(${stage})`)
 					}
 				}
@@ -97,7 +97,7 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 			lines.push(`\t\tconst expected = ${JSON.stringify(expTest.result)}`)
 			for (const p in stages) {
 				const stage = stages[p]
-				lines.push(`\t\tconst ${stage}Result =  await orm.execute(expression, data,'default','${stage}')`)
+				lines.push(`\t\tconst ${stage}Result =  await orm.execute(expression, data,{stage:'${stage}'})`)
 				lines.push(`\t\texpect(expected).toEqual(${stage}Result)`)
 			}
 			lines.push('\t})')
@@ -121,4 +121,4 @@ export async function apply (dataForTestPath: string, stages: string[], callback
 	}
 	callback()
 }
-apply(path.join(process.cwd(), 'src/dev/dataForTest'), ['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })
+// apply(path.join(process.cwd(), 'src/dev/dataForTest'), ['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer'], function () { console.log('end') })

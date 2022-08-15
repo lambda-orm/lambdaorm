@@ -1,36 +1,33 @@
-import { Query, Entity } from '../model'
+import { Query, Entity, OrmOptions } from '../model'
 import { ExpressionManager, Executor, ModelConfig } from '../manager'
-import { StageState } from './stageState'
+import { StageMapping } from './stageState'
 
 export abstract class StageActionDML {
-	protected state: StageState
+	protected state: StageMapping
 	protected model: ModelConfig
 	protected expressionManager: ExpressionManager
 	protected executor: Executor
-	protected stage: string
-	protected view: string
+	protected options: OrmOptions
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (state:StageState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, stage:string, view:string) {
+	constructor (state: StageMapping, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, options: OrmOptions) {
 		this.state = state
 		this.model = model
 		this.expressionManager = expressionManager
 		this.executor = executor
-		this.stage = stage
-		this.view = view
+		this.options = options
 	}
 
-	public async sentence ():Promise<any> {
-		const sentences:any[] = []
-		const queries = await this.build()
-		for (let i = 0; i < queries.length; i++) {
-			const query = queries[i]
+	public async sentence (): Promise<any> {
+		const sentences: any[] = []
+		const queries = this.queries()
+		for (const query of queries) {
 			sentences.push(query.sentence)
 		}
 		return sentences
 	}
 
-	protected build (): Query[] {
-		const queries:Query[] = []
+	public queries (): Query[] {
+		const queries: Query[] = []
 		for (const i in this.model.entities) {
 			const entity = this.model.entities[i]
 			if (!this.model.isChild(entity.name)) {
@@ -41,11 +38,11 @@ export abstract class StageActionDML {
 		return queries
 	}
 
-	protected abstract createQuery(entity:Entity):Query
+	protected abstract createQuery(entity: Entity): Query
 
-	protected createInclude (entity:Entity, level = 0):string {
+	protected createInclude (entity: Entity, level = 0): string {
 		const arrowVariable = this.arrowVariables[level]
-		const includes:string[] = []
+		const includes: string[] = []
 		for (const i in entity.relations) {
 			const relation = entity.relations[i]
 			if (relation.composite) {
@@ -61,16 +58,16 @@ export abstract class StageActionDML {
 			: `.include(${arrowVariable}=>[${includes.join(',')}])`
 	}
 
-	protected getAllEntities (queries:Query[]):string[] {
-		const entities:string[] = []
+	protected getAllEntities (queries: Query[]): string[] {
+		const entities: string[] = []
 		for (const p in queries) {
 			const query = queries[p]
 			entities.push(query.entity)
-			if (query.children && query.children.length > 0) {
-				const childrenQuery = query.children.map(p => p.query)
-				const childrenEntity = this.getAllEntities(childrenQuery)
-				for (const i in childrenEntity) {
-					entities.push(childrenEntity[i])
+			if (query.includes && query.includes.length > 0) {
+				const include = query.includes.map(q => q.query)
+				const childrenEntities = this.getAllEntities(include)
+				for (const i in childrenEntities) {
+					entities.push(childrenEntities[i])
 				}
 			}
 		}

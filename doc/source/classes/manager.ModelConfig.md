@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- `_ModelConfig`<[`Entity`](../interfaces/model.Entity.md), [`Property`](../interfaces/model.Property.md)\>
+- `ModelConfigBase`<[`Entity`](../interfaces/model.Entity.md), [`Property`](../interfaces/model.Property.md)\>
 
   ↳ **`ModelConfig`**
 
@@ -24,13 +24,17 @@
 ### Methods
 
 - [existsProperty](manager.ModelConfig.md#existsproperty)
-- [getAutoincrement](manager.ModelConfig.md#getautoincrement)
+- [getAutoIncrement](manager.ModelConfig.md#getautoincrement)
 - [getEntity](manager.ModelConfig.md#getentity)
+- [getEnum](manager.ModelConfig.md#getenum)
+- [getFieldIds](manager.ModelConfig.md#getfieldids)
+- [getForcedEntity](manager.ModelConfig.md#getforcedentity)
 - [getProperty](manager.ModelConfig.md#getproperty)
 - [getRelation](manager.ModelConfig.md#getrelation)
 - [isChild](manager.ModelConfig.md#ischild)
 - [listEntities](manager.ModelConfig.md#listentities)
-- [sortEntities](manager.ModelConfig.md#sortentities)
+- [sortByDependencies](manager.ModelConfig.md#sortbydependencies)
+- [sortByRelations](manager.ModelConfig.md#sortbyrelations)
 
 ## Constructors
 
@@ -47,11 +51,11 @@
 
 #### Overrides
 
-\_ModelConfig&lt;Entity, Property\&gt;.constructor
+ModelConfigBase&lt;Entity, Property\&gt;.constructor
 
 #### Defined in
 
-[src/lib/manager/schema.ts:139](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L139)
+[src/lib/manager/schema.ts:247](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L247)
 
 ## Properties
 
@@ -61,11 +65,11 @@
 
 #### Overrides
 
-\_ModelConfig.entities
+ModelConfigBase.entities
 
 #### Defined in
 
-[src/lib/manager/schema.ts:136](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L136)
+[src/lib/manager/schema.ts:244](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L244)
 
 ___
 
@@ -73,9 +77,13 @@ ___
 
 • **enums**: [`Enum`](../interfaces/model.Enum.md)[]
 
+#### Overrides
+
+ModelConfigBase.enums
+
 #### Defined in
 
-[src/lib/manager/schema.ts:137](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L137)
+[src/lib/manager/schema.ts:245](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L245)
 
 ## Methods
 
@@ -96,17 +104,17 @@ ___
 
 #### Inherited from
 
-\_ModelConfig.existsProperty
+ModelConfigBase.existsProperty
 
 #### Defined in
 
-[src/lib/manager/schema.ts:31](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L31)
+[src/lib/manager/schema.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L40)
 
 ___
 
-### getAutoincrement
+### getAutoIncrement
 
-▸ **getAutoincrement**(`entityName`): `undefined` \| [`Property`](../interfaces/model.Property.md)
+▸ **getAutoIncrement**(`entityName`): `undefined` \| [`Property`](../interfaces/model.Property.md)
 
 #### Parameters
 
@@ -120,11 +128,11 @@ ___
 
 #### Inherited from
 
-\_ModelConfig.getAutoincrement
+ModelConfigBase.getAutoIncrement
 
 #### Defined in
 
-[src/lib/manager/schema.ts:50](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L50)
+[src/lib/manager/schema.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L59)
 
 ___
 
@@ -144,11 +152,83 @@ ___
 
 #### Inherited from
 
-\_ModelConfig.getEntity
+ModelConfigBase.getEntity
 
 #### Defined in
 
-[src/lib/manager/schema.ts:12](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L12)
+[src/lib/manager/schema.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L13)
+
+___
+
+### getEnum
+
+▸ **getEnum**(`name`): `undefined` \| [`Enum`](../interfaces/model.Enum.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+`undefined` \| [`Enum`](../interfaces/model.Enum.md)
+
+#### Inherited from
+
+ModelConfigBase.getEnum
+
+#### Defined in
+
+[src/lib/manager/schema.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L25)
+
+___
+
+### getFieldIds
+
+▸ **getFieldIds**(`entityName`): `undefined` \| [`Property`](../interfaces/model.Property.md)[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entityName` | `string` |
+
+#### Returns
+
+`undefined` \| [`Property`](../interfaces/model.Property.md)[]
+
+#### Inherited from
+
+ModelConfigBase.getFieldIds
+
+#### Defined in
+
+[src/lib/manager/schema.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L67)
+
+___
+
+### getForcedEntity
+
+▸ **getForcedEntity**(`name`): [`Entity`](../interfaces/model.Entity.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+[`Entity`](../interfaces/model.Entity.md)
+
+#### Inherited from
+
+ModelConfigBase.getForcedEntity
+
+#### Defined in
+
+[src/lib/manager/schema.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L17)
 
 ___
 
@@ -169,11 +249,11 @@ ___
 
 #### Inherited from
 
-\_ModelConfig.getProperty
+ModelConfigBase.getProperty
 
 #### Defined in
 
-[src/lib/manager/schema.ts:38](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L38)
+[src/lib/manager/schema.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L47)
 
 ___
 
@@ -194,11 +274,11 @@ ___
 
 #### Inherited from
 
-\_ModelConfig.getRelation
+ModelConfigBase.getRelation
 
 #### Defined in
 
-[src/lib/manager/schema.ts:109](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L109)
+[src/lib/manager/schema.ts:217](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L217)
 
 ___
 
@@ -218,11 +298,11 @@ ___
 
 #### Inherited from
 
-\_ModelConfig.isChild
+ModelConfigBase.isChild
 
 #### Defined in
 
-[src/lib/manager/schema.ts:20](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L20)
+[src/lib/manager/schema.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L29)
 
 ___
 
@@ -236,32 +316,65 @@ ___
 
 #### Inherited from
 
-\_ModelConfig.listEntities
+ModelConfigBase.listEntities
 
 #### Defined in
 
-[src/lib/manager/schema.ts:58](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L58)
+[src/lib/manager/schema.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L75)
 
 ___
 
-### sortEntities
+### sortByDependencies
 
-▸ **sortEntities**(`entities?`): `string`[]
+▸ **sortByDependencies**(`entities?`): `string`[]
+
+Sort a list of entities according to their dependencies
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `entities` | `string`[] | `[]` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `entities` | `string`[] | `[]` | entities to order |
 
 #### Returns
 
 `string`[]
 
+returns the sorted entities
+
 #### Inherited from
 
-\_ModelConfig.sortEntities
+ModelConfigBase.sortByDependencies
 
 #### Defined in
 
-[src/lib/manager/schema.ts:62](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/schema.ts#L62)
+[src/lib/manager/schema.ts:106](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L106)
+
+___
+
+### sortByRelations
+
+▸ **sortByRelations**(`mainEntities`, `allEntities`): `string`[]
+
+Sort a list of entities according to their relationships
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mainEntities` | `string`[] |
+| `allEntities` | `string`[] |
+
+#### Returns
+
+`string`[]
+
+returns the sorted entities
+
+#### Inherited from
+
+ModelConfigBase.sortByRelations
+
+#### Defined in
+
+[src/lib/manager/schema.ts:84](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L84)

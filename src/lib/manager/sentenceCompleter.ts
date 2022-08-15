@@ -1,5 +1,5 @@
 import { MappingConfig, ViewConfig } from '.'
-import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, Constant2, PropertyMapping } from '../model'
+import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, Constant2, PropertyMapping, PropertyView } from '../model'
 import { Expressions, Variable, Operand, Operator, KeyValue } from 'js-expressions'
 
 export class SentenceCompleter {
@@ -23,7 +23,7 @@ export class SentenceCompleter {
 			}
 		}
 		if (sentence.name === 'select' && (entity.hadReadExps || entity.hadReadMappingExp || entity.hadViewReadExp)) {
-			this.solveProperty(sentence, mapping, view)
+			this.solveProperties(sentence, mapping, view)
 		}
 	}
 
@@ -36,7 +36,7 @@ export class SentenceCompleter {
 		}
 		// add filter for keys in properties
 		if (entity.hadKeys) {
-			const expressionKeys = this.filterbyKeys(sentence, entity)
+			const expressionKeys = this.filterByKeys(sentence, entity)
 			if (expressionKeys) {
 				if (newFilter) {
 					newFilter = new Operator('&&', [newFilter, expressionKeys])
@@ -67,8 +67,8 @@ export class SentenceCompleter {
 				} else if (update) {
 					this.solveKey(property, update)
 				}
-				// TODO: ver como resolver en los casos que el parametro no tiene el mismo nombre que el campo
-				const index = sentence.parameters.findIndex(p => p.name === property.name)
+				// TODO: see how to solve in cases where the parameter does not have the same name as the field
+				const index = sentence.parameters.findIndex(q => q.name === property.name)
 				if (index >= 0) {
 					sentence.parameters.splice(index, 1)
 				}
@@ -80,8 +80,7 @@ export class SentenceCompleter {
 		for (const i in operand.children) {
 			const child = operand.children[i]
 			if (child instanceof KeyValue) {
-				const keyValue = child as KeyValue
-				if (keyValue.name === property.name) {
+				if (child.name === property.name) {
 					child.children[0] = new Constant2(property.key as string)
 				}
 			} else if (child.children && child.children.length > 0) {
@@ -91,7 +90,7 @@ export class SentenceCompleter {
 		return operand
 	}
 
-	private filterbyKeys (sentence: Sentence, entity: EntityMapping) : Operand|undefined {
+	private filterByKeys (sentence: Sentence, entity: EntityMapping) : Operand|undefined {
 		let expression:string|undefined
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
@@ -116,8 +115,7 @@ export class SentenceCompleter {
 
 	private solveJoin (sentence: Sentence, mapping: MappingConfig) {
 		const joins = sentence.children.filter(p => p instanceof Join)
-		for (let i = 0; i < joins.length; i++) {
-			const join = joins[i]
+		for (const join of joins) {
 			const parts = join.name.split('.')
 			const entity = mapping.getEntity(parts[0])
 			if (entity === undefined) {
@@ -130,7 +128,7 @@ export class SentenceCompleter {
 				newFilter = this.replaceField(entity, parts[1], expression)
 			}
 			// add filter for keys in properties
-			const expressionKeys = this.filterbyKeys(sentence, entity)
+			const expressionKeys = this.filterByKeys(sentence, entity)
 			if (expressionKeys) {
 				if (newFilter) {
 					newFilter = new Operator('&&', [newFilter, expressionKeys])
@@ -145,37 +143,42 @@ export class SentenceCompleter {
 		}
 	}
 
-	private solveProperty (operand:Operand, mapping: MappingConfig, view:ViewConfig) {
+	private solveProperties (operand:Operand, mapping: MappingConfig, view:ViewConfig) {
 		for (const i in operand.children) {
 			const child = operand.children[i]
 			if (child instanceof Field) {
-				const field = child as Field
-				const alias = field.alias as string
-				const entity = mapping.getEntity(field.entity)
-				const property = entity?.properties.find(p => p.name === field.name)
-				if (entity && property) {
-					const viewPorperty = view.getProperty(entity.name, property.name)
-					if (property.readMappingExp || property.readExp || (viewPorperty && viewPorperty.readExp)) {
-						let sourceOperand = child as Operand
-						if (property.readMappingExp) {
-							const expression = this.expressions.parse(property.readMappingExp)
-							sourceOperand = this.replaceField(entity, alias, expression, field.name, sourceOperand)
-						}
-						if (property.readExp) {
-							const expression = this.expressions.parse(property.readExp)
-							sourceOperand = this.replaceField(entity, alias, expression, field.name, sourceOperand)
-						}
-						if (viewPorperty && viewPorperty.readExp) {
-							const expression = this.expressions.parse(viewPorperty.readExp)
-							sourceOperand = this.replaceField(entity, alias, expression, field.name, sourceOperand)
-						}
-						operand.children[i] = sourceOperand
-					}
+				const alias = child.alias
+				const entity = mapping.getEntity(child.entity)
+				const property = entity?.properties.find(p => p.name === child.name)
+				if (entity === undefined || property === undefined || alias === undefined) {
+					continue
+				}
+				const viewProperty = view.getProperty(entity.name, property.name)
+				if (property.readMappingExp || property.readExp || (viewProperty && viewProperty.readExp)) {
+					operand.children[i] = this.solveProperty(child, entity, property, viewProperty)
 				}
 			} else if (child instanceof SentenceInclude === false) {
-				this.solveProperty(child, mapping, view)
+				this.solveProperties(child, mapping, view)
 			}
 		}
+	}
+
+	private solveProperty (child:Field, entity: EntityMapping, property:PropertyMapping, viewProperty:PropertyView|undefined):Operand {
+		const alias = child.alias as string
+		let sourceOperand = child as Operand
+		if (property.readMappingExp) {
+			const expression = this.expressions.parse(property.readMappingExp)
+			sourceOperand = this.replaceField(entity, alias, expression, child.name, sourceOperand)
+		}
+		if (property.readExp) {
+			const expression = this.expressions.parse(property.readExp)
+			sourceOperand = this.replaceField(entity, alias, expression, child.name, sourceOperand)
+		}
+		if (viewProperty && viewProperty.readExp) {
+			const expression = this.expressions.parse(viewProperty.readExp)
+			sourceOperand = this.replaceField(entity, alias, expression, child.name, sourceOperand)
+		}
+		return sourceOperand
 	}
 
 	private replaceField (entity:EntityMapping, alias:string, operand:Operand, sourceName?:string, source?:Operand):Operand {

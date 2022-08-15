@@ -1,5 +1,5 @@
 
-import { Query, ExecuteResult } from '../model'
+import { Query, ExecuteResult, OrmOptions } from '../model'
 import { ConnectionManager } from '../connection'
 import { ExpressionManager, QueryExecutor, Transaction, Languages } from '.'
 import { SchemaManager } from './schema'
@@ -12,7 +12,7 @@ export class Executor {
 	private expressionManager: ExpressionManager
 	private expressions: Expressions
 
-	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressionManager:ExpressionManager, expressions: Expressions) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressionManager: ExpressionManager, expressions: Expressions) {
 		this.connectionManager = connectionManager
 		this.languages = languages
 		this.schemaManager = schemaManager
@@ -20,15 +20,15 @@ export class Executor {
 		this.expressions = expressions
 	}
 
-	public async execute (query: Query, data: any, stage:string, view:string): Promise<any> {
+	public async execute (query: Query, data: any, options: OrmOptions): Promise<any> {
 		let error: any
-		let result:any
-		if (query.children && query.children.length > 0) {
-			await this.transaction(stage, view, async function (tr: Transaction) {
+		let result: any
+		if (query.includes && query.includes.length > 0) {
+			await this.transaction(options, async function (tr: Transaction) {
 				result = await tr.execute(query, data)
 			})
 		} else {
-			const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, false)
+			const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, options, false)
 			try {
 				result = await queryExecutor.execute(query, data)
 			} catch (_error) {
@@ -43,26 +43,24 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (stage: string, view: string|undefined, queries: Query[], tryAllCan = false): Promise<ExecuteResult[]> {
+	public async executeList (options: OrmOptions, queries: Query[]): Promise<ExecuteResult[]> {
 		const results: ExecuteResult[] = []
-		let query: Query
-		if (tryAllCan) {
-			for (let i = 0; i < queries.length; i++) {
-				query = queries[i]
-				const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, false)
+
+		if (options.tryAllCan) {
+			for (const query of queries) {
+				const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, options, false)
 				try {
 					const result = await queryExecutor.execute(query, {})
 					results.push(result)
-				} catch (error:any) {
+				} catch (error: any) {
 					results.push({ error: error })
 				} finally {
 					await queryExecutor.release()
 				}
 			}
 		} else {
-			await this.transaction(stage, view, async function (tr: Transaction) {
-				for (let i = 0; i < queries.length; i++) {
-					query = queries[i]
+			await this.transaction(options, async function (tr: Transaction) {
+				for (const query of queries) {
 					const result = await tr.execute(query)
 					results.push({ result: result })
 				}
@@ -72,13 +70,13 @@ export class Executor {
 	}
 
 	/**
- * Crea una transaccion
+ * Create a transaction
  * @param dataSource Database name
- * @param callback Codigo que se ejecutara en transaccion
+ * @param callback Code to be executed in transaction
  */
-	public async transaction (stage: string, view:string|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, stage, view, true)
-		let error:any
+	public async transaction (options: OrmOptions, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+		const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, options, true)
+		let error: any
 		try {
 			const transaction = new Transaction(this.expressionManager, queryExecutor)
 			await callback(transaction)

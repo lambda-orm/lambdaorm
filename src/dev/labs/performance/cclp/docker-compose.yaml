@@ -1,8 +1,8 @@
 version: '3'
 
 networks:
-  default:
-    name: cclp
+  cclp:
+    driver: bridge
 
 services:
   oracle:
@@ -18,9 +18,11 @@ services:
     volumes:
       - oradata:/opt/oracle/oradata # persistent oracle database data.
     ports:
-      - 1521:1521
-      - 5500:5500
+      - 1523:1521
+      # - 5500:5500
       # - 8080:8080
+    networks:
+      - cclp
   postgres:
     container_name: cclp-postgres-10
     image: postgres:10
@@ -31,6 +33,8 @@ services:
       POSTGRES_PASSWORD: cclp
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cclp
     ports:
       - '5432:5432'
     healthcheck:

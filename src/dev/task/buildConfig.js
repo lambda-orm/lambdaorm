@@ -2,8 +2,8 @@
 const ConfigExtends = require('config-extends')
 exports.apply = async function apply(callback) {
 	await ConfigExtends.apply('src/dev/config/model.yaml', 'src/lib/expression/model.json')
-	await ConfigExtends.apply('src/dev/config/sql', 'src/lib/language/sql/config.json')
-	await ConfigExtends.apply('src/dev/config/nosql', 'src/lib/language/nosql/config.json')
+	await ConfigExtends.apply('src/dev/config/SQL', 'src/lib/language/SQL/config.json')
+	await ConfigExtends.apply('src/dev/config/NoSQL', 'src/lib/language/NoSQL/config.json')
 	callback()
 }
 // apply(path.join(function () { console.log('end')})

@@ -572,7 +572,7 @@
           "name": "id",
           "type": "integer",
           "nullable": false,
-          "autoincrement": true
+          "autoIncrement": true
         },
         {
           "name": "deviceId",
@@ -1288,7 +1288,7 @@
               "name": "id",
               "type": "integer",
               "nullable": false,
-              "autoincrement": true,
+              "autoIncrement": true,
               "mapping": "id"
             },
             {

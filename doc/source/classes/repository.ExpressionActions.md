@@ -12,10 +12,11 @@
 
 ### Methods
 
-- [complete](repository.ExpressionActions.md#complete)
+- [constraints](repository.ExpressionActions.md#constraints)
 - [execute](repository.ExpressionActions.md#execute)
 - [metadata](repository.ExpressionActions.md#metadata)
 - [model](repository.ExpressionActions.md#model)
+- [normalize](repository.ExpressionActions.md#normalize)
 - [parameters](repository.ExpressionActions.md#parameters)
 - [sentence](repository.ExpressionActions.md#sentence)
 
@@ -35,39 +36,39 @@
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:7](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/expressionActions.ts#L7)
+[src/lib/repository/expressionActions.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/expressionActions.ts#L7)
 
 ## Methods
 
-### complete
+### constraints
 
-▸ **complete**(`expresion`): `string`
+▸ **constraints**(`expression`): `Promise`<[`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expresion` | `string` |
+| `expression` | `string` |
 
 #### Returns
 
-`string`
+`Promise`<[`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)\>
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/expressionActions.ts#L17)
+[src/lib/repository/expressionActions.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/expressionActions.ts#L29)
 
 ___
 
 ### execute
 
-▸ **execute**(`expresion`, `data`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data`): `Promise`<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expresion` | `string` |
+| `expression` | `string` |
 | `data` | `any` |
 
 #### Returns
@@ -76,84 +77,104 @@ ___
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/expressionActions.ts#L13)
+[src/lib/repository/expressionActions.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/expressionActions.ts#L13)
 
 ___
 
 ### metadata
 
-▸ **metadata**(`expresion`): `Promise`<`any`\>
+▸ **metadata**(`expression`): `Promise`<[`Metadata`](../interfaces/model.Metadata.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expresion` | `string` |
+| `expression` | `string` |
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<[`Metadata`](../interfaces/model.Metadata.md)\>
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:29](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/expressionActions.ts#L29)
+[src/lib/repository/expressionActions.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/expressionActions.ts#L33)
 
 ___
 
 ### model
 
-▸ **model**(`expresion`): `Promise`<`any`\>
+▸ **model**(`expression`): `Promise`<[`MetadataModel`](../interfaces/model.MetadataModel.md)[]\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expresion` | `string` |
+| `expression` | `string` |
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<[`MetadataModel`](../interfaces/model.MetadataModel.md)[]\>
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:21](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/expressionActions.ts#L21)
+[src/lib/repository/expressionActions.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/expressionActions.ts#L21)
+
+___
+
+### normalize
+
+▸ **normalize**(`expression`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `expression` | `string` |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/lib/repository/expressionActions.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/expressionActions.ts#L17)
 
 ___
 
 ### parameters
 
-▸ **parameters**(`expresion`): `Promise`<`any`\>
+▸ **parameters**(`expression`): `Promise`<[`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expresion` | `string` |
+| `expression` | `string` |
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<[`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]\>
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:25](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/expressionActions.ts#L25)
+[src/lib/repository/expressionActions.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/expressionActions.ts#L25)
 
 ___
 
 ### sentence
 
-▸ **sentence**(`expresion`): `Promise`<`string`\>
+▸ **sentence**(`expression`): `Promise`<[`MetadataSentence`](../interfaces/model.MetadataSentence.md)\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expresion` | `string` |
+| `expression` | `string` |
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`<[`MetadataSentence`](../interfaces/model.MetadataSentence.md)\>
 
 #### Defined in
 
-[src/lib/repository/expressionActions.ts:33](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/repository/expressionActions.ts#L33)
+[src/lib/repository/expressionActions.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/expressionActions.ts#L37)

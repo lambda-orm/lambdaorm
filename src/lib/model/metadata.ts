@@ -1,51 +1,47 @@
 import { Behavior, Constraint, Property, Relation } from './schema'
 import { Parameter } from './parameter'
 
-export interface MetadataParameter
-{
-	name:string
+export interface MetadataParameter {
+	name: string
 	type: string
-	childs?:MetadataParameter[]
+	children?: MetadataParameter[]
 }
 
-export interface MetadataModel
-{
-	name:string
+export interface MetadataModel {
+	name: string
 	type: string
-	childs?:MetadataModel[]
+	children?: MetadataModel[]
 }
 
-export interface MetadataConstraint
-{
-	entity:string
+export interface MetadataConstraint {
+	entity: string
 	constraints: Constraint[]
-	childs?:MetadataConstraint[]
+	children?: MetadataConstraint[]
 }
 
-export interface MetadataSentence
-{
-	entity:string
+export interface MetadataSentence {
+	entity: string
 	dialect: string
-	dataSource : string
+	dataSource: string
 	sentence: string
-	childs?:MetadataSentence[]
+	children?: MetadataSentence[]
 }
 
-export interface Metadata
-{
+export interface Metadata {
 	classtype: string,
 	name: string,
 	children?: Metadata[],
 	type?: string,
 	entity?: string,
 	columns?: Property[],
-	property?:string
+	property?: string
 	parameters?: Parameter[],
 	constraints?: Constraint[],
 	values?: Behavior[],
-	defaults?:Behavior[],
+	defaults?: Behavior[],
 	relation?: Relation,
 	clause?: string,
 	alias?: string,
-	number?:number
+	isRoot?: boolean
+	number?: number
 }

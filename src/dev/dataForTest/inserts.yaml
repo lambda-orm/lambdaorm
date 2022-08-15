@@ -3,11 +3,11 @@ data:
   a:
     name: Beverages20
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 9
+    id: 10
   b:
     name: Beverages21
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 10
+    id: 12
   c:
     entity:
       name: Beverages22
@@ -32,45 +32,70 @@ data:
         unitPrice: 14
         quantity: 12
         discount: 10
-        orderId: 833
+        orderId: 835
       - productId: 42
         unitPrice: 9.8
         quantity: 10
         discount: 10
-        orderId: 833
+        orderId: 835
       - productId: 72
         unitPrice: 34.8
         quantity: 5
         discount: 10
-        orderId: 833
-    id: 833
+        orderId: 835
+    id: 836
 test:
   - name: insert 1
     data: a
     sentences:
-      - stage: mysql
+      - stage: MySQL
         sentence:
           entity: Categories
-          dialect: mysql
-          dataSource: mysql
+          dialect: MySQL
+          dataSource: MySQL
           sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
-      - stage: postgres
+          children: []
+      - stage: MariaDB
         sentence:
           entity: Categories
-          dialect: postgres
-          dataSource: postgres
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Categories
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
           sentence: >-
             INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
             RETURNING CategoryID AS id
-          childs: []
-      - stage: mariadb
+          children: []
+      - stage: SqlServer
         sentence:
           entity: Categories
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            INSERT INTO Categories(CategoryName,Description) OUTPUT
+            INSERTED.CategoryID VALUES(@name,@description)
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Categories
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:name,:description)
+          children: []
+      - stage: MongoDB
+        sentence:
+          entity: Categories
+          dialect: MongoDB
+          dataSource: MongoDB
+          sentence: '{ "CategoryName":{{name}},"Description":{{description}} }'
+          children: []
     errors: 0
     expression: Categories.insert()
     normalizeExpression: Categories.insert({name:name,description:description})
@@ -93,10 +118,11 @@ test:
       name: insert
       classtype: Sentence
       children:
-        - name: Categories.c
+        - name: Categories
           classtype: From
           children: []
           type: any
+          alias: c
         - name: Categories
           classtype: Insert
           children:
@@ -142,36 +168,68 @@ test:
         - message: Cannot be null property name in entity Categories
           condition: isNotNull(name)
     executions:
-      - stage: mysql
-      - stage: postgres
-      - stage: mariadb
-    result: 9
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
+    result:
+      data:
+        name: Beverages20
+        description: Soft drinks, coffees, teas, beers, and ales
+        id: 10
   - name: insert 2
     data: b
     sentences:
-      - stage: mysql
+      - stage: MySQL
         sentence:
           entity: Categories
-          dialect: mysql
-          dataSource: mysql
+          dialect: MySQL
+          dataSource: MySQL
           sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
-      - stage: postgres
+          children: []
+      - stage: MariaDB
         sentence:
           entity: Categories
-          dialect: postgres
-          dataSource: postgres
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Categories
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
           sentence: >-
             INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
             RETURNING CategoryID AS id
-          childs: []
-      - stage: mariadb
+          children: []
+      - stage: SqlServer
         sentence:
           entity: Categories
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            INSERT INTO Categories(CategoryName,Description) OUTPUT
+            INSERTED.CategoryID VALUES(@name,@description)
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Categories
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:name,:description)
+          children: []
+      - stage: MongoDB
+        sentence:
+          entity: Categories
+          dialect: MongoDB
+          dataSource: MongoDB
+          sentence: '{ "CategoryName":{{name}},"Description":{{description}} }'
+          children: []
     errors: 0
     expression: Categories.insert(=>{name:name,description:description})
     normalizeExpression: Categories.insert(=>{name:name,description:description})
@@ -194,10 +252,11 @@ test:
       name: insert
       classtype: Sentence
       children:
-        - name: Categories.c
+        - name: Categories
           classtype: From
           children: []
           type: any
+          alias: c
         - name: Categories
           classtype: Insert
           children:
@@ -243,37 +302,72 @@ test:
         - message: Cannot be null property name in entity Categories
           condition: isNotNull(name)
     executions:
-      - stage: mysql
-      - stage: postgres
-      - stage: mariadb
-    result: 10
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
+    result:
+      data:
+        name: Beverages21
+        description: Soft drinks, coffees, teas, beers, and ales
+        id: 12
   - name: insert 3
     data: c
     sentences:
-      - stage: mysql
+      - stage: MySQL
         sentence:
           entity: Categories
-          dialect: mysql
-          dataSource: mysql
+          dialect: MySQL
+          dataSource: MySQL
           sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
-      - stage: postgres
+          children: []
+      - stage: MariaDB
         sentence:
           entity: Categories
-          dialect: postgres
-          dataSource: postgres
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Categories
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
           sentence: >-
             INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
             RETURNING CategoryID AS id
-          childs: []
-      - stage: mariadb
+          children: []
+      - stage: SqlServer
         sentence:
           entity: Categories
-          dialect: mariadb
-          dataSource: mariadb
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          childs: []
-    errors: 0
+          dialect: SqlServer
+          dataSource: SqlServer
+          sentence: >-
+            INSERT INTO Categories(CategoryName,Description) OUTPUT
+            INSERTED.CategoryID VALUES(@entity_name,@entity_description)
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Categories
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:entity_name,:entity_description)
+          children: []
+      - stage: MongoDB
+        sentence:
+          entity: Categories
+          dialect: MongoDB
+          dataSource: MongoDB
+          sentence: >-
+            {
+            "CategoryName":{{entity_name}},"Description":{{entity_description}}
+            }
+          children: []
+    errors: 1
     expression: Categories.insert(entity)
     normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
     model:
@@ -293,10 +387,11 @@ test:
       name: insert
       classtype: Sentence
       children:
-        - name: Categories.c
+        - name: Categories
           classtype: From
           children: []
           type: any
+          alias: c
         - name: Categories
           classtype: Insert
           children:
@@ -340,44 +435,84 @@ test:
       entity: Categories
       constraints: []
     executions:
-      - stage: mysql
-      - stage: postgres
-      - stage: mariadb
-    result: 11
+      - stage: MongoDB
+        error: 'SyntaxError: Unexpected token { in JSON at position 18'
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+    result:
+      data:
+        entity:
+          name: Beverages22
+          description: Soft drinks, coffees, teas, beers, and ales
+        id: 11
   - name: insert 4
     data: order
     sentences:
-      - stage: mysql
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
             VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs: []
-      - stage: postgres
+          children: []
+      - stage: MariaDB
         sentence:
           entity: Orders
-          dialect: postgres
-          dataSource: postgres
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: >-
+            INSERT INTO
+            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
             VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
             AS id
-          childs: []
-      - stage: mariadb
+          children: []
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs: []
+            OUTPUT INSERTED.OrderID
+            VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            INSERT INTO
+            Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
+          children: []
+      - stage: MongoDB
+        sentence:
+          entity: Orders
+          dialect: MongoDB
+          dataSource: MongoDB
+          sentence: >-
+            {
+            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+            }
+          children: []
     errors: 0
     expression: Orders.insert()
     normalizeExpression: >-
@@ -390,9 +525,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -417,9 +552,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -447,10 +582,11 @@ test:
       name: insert
       classtype: Sentence
       children:
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
+          alias: o
         - name: Orders
           classtype: Insert
           children:
@@ -493,7 +629,7 @@ test:
                     - name: requiredDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 4
                   type: any
                   property: requiredDate
@@ -503,7 +639,7 @@ test:
                     - name: shippedDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 5
                   type: any
                   property: shippedDate
@@ -599,9 +735,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -626,9 +762,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -652,68 +788,158 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mysql
-      - stage: postgres
-      - stage: mariadb
-    result: 831
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 835
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 835
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 835
+        id: 836
   - name: insert 5
     data: order
     sentences:
-      - stage: mysql
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
             VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs:
-            - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
+          children:
+            - entity: Orders.details
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 INSERT INTO `Order
                 Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES(?,?,?,?,?)
-              childs: []
-      - stage: postgres
+              children: []
+      - stage: MariaDB
         sentence:
           entity: Orders
-          dialect: postgres
-          dataSource: postgres
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: >-
+            INSERT INTO
+            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+          children:
+            - entity: Orders.details
+              dialect: MariaDB
+              dataSource: MariaDB
+              sentence: >-
+                INSERT INTO `Order
+                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+                VALUES(?,?,?,?,?)
+              children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
             VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
             AS id
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
+          children:
+            - entity: Orders.details
+              dialect: PostgreSQL
+              dataSource: PostgreSQL
               sentence: >-
                 INSERT INTO "Order
                 Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
-              childs: []
-      - stage: mariadb
+              children: []
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
+            OUTPUT INSERTED.OrderID
+            VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
-              childs: []
+                INSERT INTO [Order
+                Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
+                INSERTED.0
+                VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
+              children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            INSERT INTO
+            Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              dataSource: Oracle
+              sentence: >-
+                INSERT INTO "Order
+                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+                VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
+              children: []
+      - stage: MongoDB
+        sentence:
+          entity: Orders
+          dialect: MongoDB
+          dataSource: MongoDB
+          sentence: >-
+            {
+            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+            }
+          children:
+            - entity: Orders.details
+              dialect: MongoDB
+              dataSource: MongoDB
+              sentence: >-
+                {
+                "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                }
+              children: []
     errors: 0
     expression: Orders.insert().include(p=>p.details)
     normalizeExpression: >-
@@ -726,9 +952,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -746,8 +972,8 @@ test:
       - name: country
         type: string
       - name: details
-        type: OrderDetails[]
-        childs:
+        type: Orders.details[]
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -766,9 +992,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -786,8 +1012,8 @@ test:
       - name: country
         type: string
       - name: details
-        type: OrderDetails
-        childs:
+        type: Orders.details
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -805,21 +1031,22 @@ test:
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
-      childs:
-        - entity: OrderDetails
+      children:
+        - entity: Orders.details
           constraints:
-            - message: Cannot be null property orderId in entity OrderDetails
+            - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity OrderDetails
+            - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
     metadata:
       name: insert
       classtype: Sentence
       children:
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
+          alias: o
         - name: Orders
           classtype: Insert
           children:
@@ -862,7 +1089,7 @@ test:
                     - name: requiredDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 4
                   type: any
                   property: requiredDate
@@ -872,7 +1099,7 @@ test:
                     - name: shippedDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 5
                   type: any
                   property: shippedDate
@@ -965,11 +1192,12 @@ test:
             - name: insert
               classtype: Sentence
               children:
-                - name: OrderDetails.o1
+                - name: Orders.details
                   classtype: From
                   children: []
                   type: any
-                - name: OrderDetails
+                  alias: o1
+                - name: Orders.details
                   classtype: Insert
                   children:
                     - name: obj
@@ -1051,11 +1279,11 @@ test:
                   type: decimal
                 - name: discount
                   type: decimal
-              entity: OrderDetails
+              entity: Orders.details
               constraints:
-                - message: Cannot be null property orderId in entity OrderDetails
+                - message: Cannot be null property orderId in entity Orders.details
                   condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity OrderDetails
+                - message: Cannot be null property productId in entity Orders.details
                   condition: isNotNull(productId)
           type: any
           relation:
@@ -1063,7 +1291,7 @@ test:
             type: manyToOne
             composite: true
             from: id
-            entity: OrderDetails
+            entity: Orders.details
             weak: true
             to: orderId
             target: order
@@ -1076,9 +1304,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -1103,9 +1331,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -1129,92 +1357,207 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mysql
-      - stage: postgres
-      - stage: mariadb
-    result: 832
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 835
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 835
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 835
+        id: 836
   - name: insert 6
     data: order
     sentences:
-      - stage: mysql
+      - stage: MySQL
         sentence:
           entity: Orders
-          dialect: mysql
-          dataSource: mysql
+          dialect: MySQL
+          dataSource: MySQL
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
             VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs:
-            - entity: OrderDetails
-              dialect: mysql
-              dataSource: mysql
+          children:
+            - entity: Orders.details
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 INSERT INTO `Order
                 Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES(?,?,?,?,?)
-              childs: []
+              children: []
             - entity: Customers
-              dialect: mysql
-              dataSource: mysql
+              dialect: MySQL
+              dataSource: MySQL
               sentence: >-
                 INSERT INTO
                 Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
                 VALUES(?,?,?,?,?,?,?,?,?)
-              childs: []
-      - stage: postgres
+              children: []
+      - stage: MariaDB
         sentence:
           entity: Orders
-          dialect: postgres
-          dataSource: postgres
+          dialect: MariaDB
+          dataSource: MariaDB
+          sentence: >-
+            INSERT INTO
+            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+          children:
+            - entity: Orders.details
+              dialect: MariaDB
+              dataSource: MariaDB
+              sentence: >-
+                INSERT INTO `Order
+                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
+                VALUES(?,?,?,?,?)
+              children: []
+            - entity: Customers
+              dialect: MariaDB
+              dataSource: MariaDB
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                VALUES(?,?,?,?,?,?,?,?,?)
+              children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          dataSource: PostgreSQL
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
             VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
             AS id
-          childs:
-            - entity: OrderDetails
-              dialect: postgres
-              dataSource: postgres
+          children:
+            - entity: Orders.details
+              dialect: PostgreSQL
+              dataSource: PostgreSQL
               sentence: >-
                 INSERT INTO "Order
                 Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
-              childs: []
+              children: []
             - entity: Customers
-              dialect: postgres
-              dataSource: postgres
+              dialect: PostgreSQL
+              dataSource: PostgreSQL
               sentence: >-
                 INSERT INTO
                 Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
                 VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
-              childs: []
-      - stage: mariadb
+              children: []
+      - stage: SqlServer
         sentence:
           entity: Orders
-          dialect: mariadb
-          dataSource: mariadb
+          dialect: SqlServer
+          dataSource: SqlServer
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-          childs:
-            - entity: OrderDetails
-              dialect: mariadb
-              dataSource: mariadb
+            OUTPUT INSERTED.OrderID
+            VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
-              childs: []
+                INSERT INTO [Order
+                Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
+                INSERTED.0
+                VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
+              children: []
             - entity: Customers
-              dialect: mariadb
-              dataSource: mariadb
+              dialect: SqlServer
+              dataSource: SqlServer
               sentence: >-
                 INSERT INTO
                 Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
-                VALUES(?,?,?,?,?,?,?,?,?)
-              childs: []
+                OUTPUT INSERTED.0
+                VALUES(@id,@name,@contact,@phone,@address,@city,@region,@postalCode,@country)
+              children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          dataSource: Oracle
+          sentence: >-
+            INSERT INTO
+            Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              dataSource: Oracle
+              sentence: >-
+                INSERT INTO "Order
+                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+                VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
+              children: []
+            - entity: Customers
+              dialect: Oracle
+              dataSource: Oracle
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country)
+              children: []
+      - stage: MongoDB
+        sentence:
+          entity: Orders
+          dialect: MongoDB
+          dataSource: MongoDB
+          sentence: >-
+            {
+            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+            }
+          children:
+            - entity: Orders.details
+              dialect: MongoDB
+              dataSource: MongoDB
+              sentence: >-
+                {
+                "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                }
+              children: []
+            - entity: Customers
+              dialect: MongoDB
+              dataSource: MongoDB
+              sentence: >-
+                {
+                "_id":{{id}},"CompanyName":{{name}},"ContactName":{{contact}},"ContactTitle":{{phone}},"Address":{{address}},"City":{{city}},"Region":{{region}},"PostalCode":{{postalCode}},"Country":{{country}}
+                }
+              children: []
     errors: 0
     expression: Orders.insert().include(p=>[p.details,p.customer])
     normalizeExpression: >-
@@ -1227,9 +1570,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -1247,8 +1590,8 @@ test:
       - name: country
         type: string
       - name: details
-        type: OrderDetails[]
-        childs:
+        type: Orders.details[]
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -1261,7 +1604,7 @@ test:
             type: decimal
       - name: customer
         type: Customers
-        childs:
+        children:
           - name: id
             type: string
           - name: name
@@ -1288,9 +1631,9 @@ test:
       - name: orderDate
         type: datetime
       - name: requiredDate
-        type: datetime
+        type: date
       - name: shippedDate
-        type: datetime
+        type: date
       - name: shipViaId
         type: integer
       - name: freight
@@ -1308,8 +1651,8 @@ test:
       - name: country
         type: string
       - name: details
-        type: OrderDetails
-        childs:
+        type: Orders.details
+        children:
           - name: orderId
             type: integer
           - name: productId
@@ -1322,7 +1665,7 @@ test:
             type: decimal
       - name: customer
         type: Customers
-        childs:
+        children:
           - name: id
             type: string
           - name: name
@@ -1348,12 +1691,12 @@ test:
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
-      childs:
-        - entity: OrderDetails
+      children:
+        - entity: Orders.details
           constraints:
-            - message: Cannot be null property orderId in entity OrderDetails
+            - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity OrderDetails
+            - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
         - entity: Customers
           constraints:
@@ -1365,10 +1708,11 @@ test:
       name: insert
       classtype: Sentence
       children:
-        - name: Orders.o
+        - name: Orders
           classtype: From
           children: []
           type: any
+          alias: o
         - name: Orders
           classtype: Insert
           children:
@@ -1411,7 +1755,7 @@ test:
                     - name: requiredDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 4
                   type: any
                   property: requiredDate
@@ -1421,7 +1765,7 @@ test:
                     - name: shippedDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: date
                       number: 5
                   type: any
                   property: shippedDate
@@ -1514,11 +1858,12 @@ test:
             - name: insert
               classtype: Sentence
               children:
-                - name: OrderDetails.o1
+                - name: Orders.details
                   classtype: From
                   children: []
                   type: any
-                - name: OrderDetails
+                  alias: o1
+                - name: Orders.details
                   classtype: Insert
                   children:
                     - name: obj
@@ -1600,11 +1945,11 @@ test:
                   type: decimal
                 - name: discount
                   type: decimal
-              entity: OrderDetails
+              entity: Orders.details
               constraints:
-                - message: Cannot be null property orderId in entity OrderDetails
+                - message: Cannot be null property orderId in entity Orders.details
                   condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity OrderDetails
+                - message: Cannot be null property productId in entity Orders.details
                   condition: isNotNull(productId)
           type: any
           relation:
@@ -1612,7 +1957,7 @@ test:
             type: manyToOne
             composite: true
             from: id
-            entity: OrderDetails
+            entity: Orders.details
             weak: true
             to: orderId
             target: order
@@ -1622,10 +1967,11 @@ test:
             - name: insert
               classtype: Sentence
               children:
-                - name: Customers.c
+                - name: Customers
                   classtype: From
                   children: []
                   type: any
+                  alias: c
                 - name: Customers
                   classtype: Insert
                   children:
@@ -1777,7 +2123,6 @@ test:
             entity: Customers
             to: id
             target: orders
-            targetComposite: true
             type: oneToMany
             weak: false
       type: any
@@ -1789,9 +2134,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -1816,9 +2161,9 @@ test:
         - name: orderDate
           type: datetime
         - name: requiredDate
-          type: datetime
+          type: date
         - name: shippedDate
-          type: datetime
+          type: date
         - name: shipViaId
           type: integer
         - name: freight
@@ -1842,8 +2187,42 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
-      - stage: mysql
-      - stage: postgres
-      - stage: mariadb
-    result: 833
-errors: 0
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 835
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 835
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 835
+        id: 836
+errors: 1

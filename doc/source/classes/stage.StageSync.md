@@ -26,18 +26,18 @@
 
 ### constructor
 
-• **new StageSync**(`state`, `schema`, `routing`, `languageManager`, `executor`, `stage`)
+• **new StageSync**(`state`, `schema`, `routing`, `languages`, `executor`, `options`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `state` | [`StageState`](stage.StageState.md) |
+| `state` | [`StageModel`](stage.StageModel.md) |
 | `schema` | [`SchemaManager`](manager.SchemaManager.md) |
 | `routing` | [`Routing`](manager.Routing.md) |
-| `languageManager` | [`LanguageManager`](language.LanguageManager.md) |
+| `languages` | [`Languages`](manager.Languages.md) |
 | `executor` | [`Executor`](manager.Executor.md) |
-| `stage` | `string` |
+| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
 
 #### Inherited from
 
@@ -45,27 +45,21 @@ StageActionDDL.constructor
 
 #### Defined in
 
-[src/lib/stage/stageActionDDL.ts:13](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/stage/stageActionDDL.ts#L13)
+[src/lib/stage/stageActionDDL.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageActionDDL.ts#L12)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(`tryAllCan?`): `Promise`<`any`[]\>
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `tryAllCan` | `boolean` | `false` |
+▸ **execute**(): `Promise`<[`ExecuteResult`](../interfaces/model.ExecuteResult.md)[]\>
 
 #### Returns
 
-`Promise`<`any`[]\>
+`Promise`<[`ExecuteResult`](../interfaces/model.ExecuteResult.md)[]\>
 
 #### Defined in
 
-[src/lib/stage/stageSync.ts:11](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/stage/stageSync.ts#L11)
+[src/lib/stage/stageSync.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageSync.ts#L11)
 
 ___
 
@@ -83,7 +77,7 @@ StageActionDDL.queries
 
 #### Defined in
 
-[src/lib/stage/stageSync.ts:6](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/stage/stageSync.ts#L6)
+[src/lib/stage/stageSync.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageSync.ts#L6)
 
 ___
 
@@ -101,4 +95,4 @@ StageActionDDL.sentence
 
 #### Defined in
 
-[src/lib/stage/stageActionDDL.ts:23](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/stage/stageActionDDL.ts#L23)
+[src/lib/stage/stageActionDDL.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageActionDDL.ts#L22)

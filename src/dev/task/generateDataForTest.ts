@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { orm, Helper, MetadataSentence } from '../../lib'
-import { Categories, Customers, Products, Orders, OrderDetails } from '../../model'
+import { Categories, Customers, Products, Orders } from '../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
 const fs = require('fs')
@@ -36,10 +36,10 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 			expressionTest.metadata = orm.metadata(expressionTest.expression as string)
 			for (const r in stages) {
 				const stage = stages[r]
-				let sentence:MetadataSentence|undefined
+				let sentence: MetadataSentence | undefined
 				let error
 				try {
-					sentence = orm.sentence(expressionTest.expression as string, 'default', stage)
+					sentence = orm.sentence(expressionTest.expression as string, { stage: stage, view: 'default' })
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -63,7 +63,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 				try {
 					// console.log(expressionTest.expression)
 					const data = expressionTest.data !== undefined ? category.data[expressionTest.data] : {}
-					result = await orm.execute(expressionTest.lambda, data, 'default', stage)
+					result = await orm.execute(expressionTest.lambda, data, { stage: stage, view: 'default' })
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
@@ -123,34 +123,31 @@ async function writeQueryTest (stages: string[]): Promise<number> {
 		// stage: 'source',
 		data: {
 			a: { id: 1 },
-			b: { minValue: 10, from: '1997-01-01', to: '1997-12-31' }
+			b: { minValue: 10, fromDate: '1997-01-01', toDate: '1997-12-31' }
 		},
 		test: [
-			{ name: 'query 1', lambda: () => Products },
-			{ name: 'query 2', lambda: () => Products.map(p => p).page(1, 1) },
-			{ name: 'query 3', lambda: () => Products.page(1, 1) },
+			{ name: 'query 1', lambda: () => Products.sort(p => p.name) },
+			{ name: 'query 2', lambda: () => Products.map(p => p).sort(p => p.id).page(1, 1) },
+			{ name: 'query 3', lambda: () => Products.sort(p => p.id).page(1, 1) },
 			{ name: 'query 4', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => p).sort(p => p.id) },
 			{ name: 'query 5', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).sort(p => p.id) },
-			{ name: 'query 6', data: 'a', lambda: () => Products.map(p => p.category.name) },
-			{ name: 'query 7', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
-			{ name: 'query 8', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
-			{ name: 'query 9', data: 'b', lambda: (minValue: number, from: Date, to: Date) => OrderDetails.filter(p => between(p.order.shippedDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product]) },
-			{ name: 'query 10', lambda: () => OrderDetails.map(p => ({ orderId: p.orderId, subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.orderId) },
-			{ name: 'query 11', lambda: () => Products.page(1, 1) },
+			{ name: 'query 6', data: 'a', lambda: () => Products.map(p => ({ category: p.category.name })).sort(p => p.category) },
+			{ name: 'query 7', data: 'a', lambda: () => Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name]) },
+			{ name: 'query 8', lambda: () => Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name) },
+			{ name: 'query 9', lambda: () => Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)]) },
+			{ name: 'query 10', data: 'b', lambda: (minValue: number, fromDate: Date, toDate: Date) => Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity]) },
+			{ name: 'query 11', lambda: () => Products.sort(p => p.id).page(1, 1) },
 			{ name: 'query 12', lambda: () => Products.first(p => p) },
 			{ name: 'query 13', lambda: () => Products.last(p => p) },
-			{ name: 'query 14', lambda: () => Products.take(p => p) },
-			{ name: 'query 15', lambda: () => Products.page(1, 1) },
-			{ name: 'query 16', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
-			{ name: 'query 17', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p) },
-			{ name: 'query 18', lambda: () => Products.distinct(p => p) },
-			{ name: 'query 19', data: 'a', lambda: () => Products.distinct(p => p.category.name) },
-			{ name: 'query 20', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category) },
-			{ name: 'query 21', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) }
+			{ name: 'query 14', lambda: () => Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })) },
+			{ name: 'query 15', lambda: () => Products.filter(p => p.discontinued !== false).last(p => p.id) },
+			{ name: 'query 16', lambda: () => Products.distinct(p => p).sort(p => p.id) },
+			{ name: 'query 17', data: 'a', lambda: () => Products.distinct(p => ({ category: p.category.name })).sort(p => p.category) },
+			{ name: 'query 18', data: 'a', lambda: () => Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category]) }
 		]
 	})
 }
-async function writeNumeriFunctionsTest (stages: string[]): Promise<number> {
+async function writeNumericFunctionsTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'numeric functions',
 		// stage: 'source',
@@ -183,14 +180,15 @@ async function writeGroupByTest (stages: string[]): Promise<number> {
 			[{ name: 'groupBy 1', lambda: () => Products.map(p => ({ maxPrice: max(p.price) })) },
 				{ name: 'groupBy 2', lambda: () => Products.map(p => ({ minPrice: min(p.price) })) },
 				{ name: 'groupBy 3', lambda: () => Products.map(p => ({ total: sum(p.price) })) },
-				{ name: 'groupBy 4', lambda: () => Products.map(p => ({ average: avg(p.price) })) },
+				{ name: 'groupBy 4', lambda: () => Products.map(p => ({ average: round(avg(p.price), 4) })) },
 				{ name: 'groupBy 5', lambda: () => Products.map(p => ({ count: count(1) })) },
 				{ name: 'groupBy 6', lambda: () => Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) })) },
 				{ name: 'groupBy 7', lambda: () => Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
 				{ name: 'groupBy 8', data: 'a', lambda: (id: number) => Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) })) },
-				{ name: 'groupBy 9', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })) }
-				// { name: 'groupBy 10', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) },
-				// { name: 'groupBy 11', lambda: () => Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) }
+				{ name: 'groupBy 9', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })) },
+				{ name: 'query 10', lambda: () => Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal) }
+				// { name: 'groupBy 11', lambda: () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) },
+				// { name: 'groupBy 12', lambda: () => Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice)) }
 			]
 	})
 }
@@ -283,8 +281,8 @@ async function writeUpdateTest (stages: string[]): Promise<number> {
 				shipViaId: 3,
 				freight: '1.6100',
 				name: 'Ana Trujillo Emparedados y helados',
-				address: 'Avda. de la Constitucin 2222',
-				city: 'Mxico D.F.',
+				address: 'Avda. de la Constitución 2222',
+				city: 'Mexico D.F.',
 				region: null,
 				postalCode: '5021',
 				country: 'Mexico',
@@ -316,8 +314,8 @@ async function writeUpdateTest (stages: string[]): Promise<number> {
 					shipViaId: 1,
 					freight: '43.9000',
 					name: 'Ana Trujillo Emparedados y helados',
-					address: 'Avda. de la Constitucin 2222',
-					city: 'Mxico D.F.',
+					address: 'Avda. de la Constitución 2222',
+					city: 'Mexico D.F.',
 					region: null,
 					postalCode: '5021',
 					country: 'Mexico',
@@ -718,13 +716,13 @@ async function writeDeleteTest (stages: string[]): Promise<number> {
 			}
 		},
 		test:
-			[{ name: 'delete 1', data: 'a', lambda: (id: number) => OrderDetails.delete().filter(p => p.orderId === id) },
+			[{ name: 'delete 1', data: 'a', lambda: (id: number) => Orders.details.delete().filter(p => p.orderId === id) },
 				{ name: 'delete 2', data: 'b', lambda: () => Orders.delete().include(p => p.details) },
 				{ name: 'delete 3', data: 'c', lambda: (id: number) => Orders.delete().filter(p => p.id === id).include(p => p.details) },
 				{ name: 'delete 4', data: 'd', lambda: () => Orders.delete().include(p => p.details) },
-				{ name: 'delete 4', data: 'd', lambda: (entity: any) => OrderDetails.delete(entity) },
+				{ name: 'delete 4', data: 'd', lambda: (entity: any) => Orders.details.delete(entity) },
 				{ name: 'delete 5', data: 'e', lambda: (entity: any) => Orders.delete(entity).include(p => p.details) },
-				{ name: 'delete 6', lambda: () => OrderDetails.deleteAll() }
+				{ name: 'delete 6', lambda: () => Orders.details.deleteAll() }
 			]
 	})
 }
@@ -845,11 +843,11 @@ async function crud () {
 	const order = { customerId: 'VINET', employeeId: 5, orderDate: '1996-07-03T22:00:00.000Z', requiredDate: '1996-07-31T22:00:00.000Z', shippedDate: '1996-07-15T22:00:00.000Z', shipViaId: 3, freight: 32.38, name: 'Vins et alcools Chevalier', address: '59 rue de l-Abbaye', city: 'Reims', region: null, postalCode: '51100', country: 'France', details: [{ productId: 11, unitPrice: 14, quantity: 12, discount: !1 }, { productId: 42, unitPrice: 9.8, quantity: 10, discount: !1 }, { productId: 72, unitPrice: 34.8, quantity: 5, discount: !1 }] }
 
 	try {
-		orm.transaction('source', 'default', async (tr) => {
+		orm.transaction({ stage: 'source', view: 'default' }, async (tr) => {
 			// create order
 			const orderId = await tr.lambda(() => Orders.insert().include(p => p.details), order)
 			// get order
-			const result = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
+			const result = await tr.lambda((id: number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			const order2 = result[0]
 			// updated order
 			order2.address = 'changed 59 rue de l-Abbaye'
@@ -859,13 +857,13 @@ async function crud () {
 			const updateCount = await tr.lambda(() => Orders.update().include(p => p.details), order2)
 			console.log(updateCount)
 			// get order
-			const order3 = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
+			const order3 = await tr.lambda((id: number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			console.log(JSON.stringify(order3))
 			// delete
 			const deleteCount = await tr.lambda(() => Orders.delete().include(p => p.details), order3[0])
 			console.log(deleteCount)
 			// get order
-			const order4 = await tr.lambda((id:number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
+			const order4 = await tr.lambda((id: number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			console.log(JSON.stringify(order4))
 		})
 	} catch (error) {
@@ -884,7 +882,7 @@ async function bulkInsert () {
 			description: 'Sweet and savory sauces, relishes, spreads, and seasonings'
 		}
 	]
-	const result = await exec(async () => (await orm.execute(expression, categories, 'default', 'source')))
+	const result = await exec(async () => (await orm.execute(expression, categories, { stage: 'source', view: 'default' })))
 }
 async function bulkInsert2 () {
 	const expression = 'Orders.bulkInsert().include(p=> p.details)'
@@ -978,64 +976,62 @@ async function bulkInsert2 () {
 			]
 		}
 	]
-	const result = await exec(async () => (await orm.execute(expression, orders, 'default', 'source')))
+	const result = await exec(async () => (await orm.execute(expression, orders, { stage: 'source', view: 'default' })))
 }
 
 async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
-	const data = await orm.stage.export(source).execute()
+	const data = await orm.stage.export({ stage: source }).execute()
 	await Helper.writeFile(exportFile, JSON.stringify(data))
 }
 async function stageImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
 	const content = await Helper.readFile(sourceFile) as string
 	const data = JSON.parse(content)
-	await orm.stage.import(target).execute(data)
+	await orm.stage.import({ stage: target }).execute(data)
 }
 
 export async function apply (stages: string[], callback: any) {
+	let errors = 0
 	try {
 		await orm.init()
-		let errors = 0
-		await orm.stage.sync('source').execute()
-		await stageExport('source')
+		await orm.stage.sync({ stage: 'Source' }).execute()
+		await stageExport('Source')
 		for (const p in stages) {
 			const stage = stages[p]
-			await orm.stage.clean(stage).execute(true)
-			await orm.stage.sync(stage).execute()
-			await stageImport('source', stage)
+			await orm.stage.clean({ stage: stage, tryAllCan: true }).execute()
+			await orm.stage.sync({ stage: stage }).execute()
+			await stageImport('Source', stage)
 			await stageExport(stage)
 		}
+		errors = errors + await writeQueryTest(stages)
+		errors = errors + await writeNumericFunctionsTest(stages)
+		errors = errors + await writeGroupByTest(stages)
+		errors = errors + await writeIncludeTest(stages)
+		errors = errors + await writeInsertsTest(stages)
+		errors = errors + await writeUpdateTest(stages)
 
-		errors = +await writeQueryTest(stages)
-		errors = +await writeNumeriFunctionsTest(stages)
-		errors = +await writeGroupByTest(stages)
-		errors = +await writeIncludeTest(stages)
-		errors = +await writeInsertsTest(stages)
-		errors = +await writeUpdateTest(stages)
-		errors = +await writeDeleteTest(stages)
-		errors = +await writeBulkInsertTest(stages)
+		// errors = errors + await writeDeleteTest(stages)
+		// errors = errors + await writeBulkInsertTest(stages)
 
-		// //operators comparation , matematica
+		// //operators comparative , mathematics
 		// //string functions
 		// //datetime functions
-		// //nullables functions
+		// //null functions
 		// OLDS
 		// await modify(orm)
 		// await crud(orm)
 		// await scriptsByDialect('northwind')
 		// await applySchema(schemas)
 		// await bulkInsert2(orm)
-
 		await orm.end()
 		console.log(`INFO: ${errors} errors`)
-	} catch (error:any) {
+	} catch (error: any) {
+		await orm.end()
 		console.error(error)
 		throw error
 	}
 	callback()
 }
-apply(['mysql', 'postgres', 'mariadb'], function () {
-	console.log('end')
-})
-// apply(['mysql', 'postgres', 'mariadb', 'mssql'], function () { console.log('end') })
+// apply(['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle'], function () { console.log('end') })
+// apply(['MySQL','MariaDB','PostgreSQL','SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })

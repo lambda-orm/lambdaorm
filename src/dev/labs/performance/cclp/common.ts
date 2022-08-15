@@ -11,7 +11,7 @@ export const view = 'default'
 
 // .page(1,10)
 export const expDebtorsExport =
-		`DbDebtors
+	`DbDebtors
 		.include(p=> [p.partyRoleRef
 									.include(p=> p.partyRole
 																.include(p=> [p.individualReference
@@ -49,7 +49,7 @@ export const expDebtorsExport =
 						])
 		`
 export const expDebtorsImport =
-		`DbDebtors.bulkInsert()
+	`DbDebtors.bulkInsert()
 		.include(p=> [p.partyRoleRef
 									.include(p=> p.partyRole
 																.include(p=> [p.individualReference
@@ -93,13 +93,13 @@ export const expAccountPaymentRespsImport =
 					])
 	`
 
-export async function createLocal () {
+export async function createLocal() {
 	// create DDL
-	await orm.stage.clean(locStage).execute(true)
-	await orm.stage.sync(locStage).execute()
+	await orm.stage.clean({stage:locStage, tryAllCan: true }).execute()
+	await orm.stage.sync({stage:locStage}).execute()
 }
 
-export function preImportDebtors (debtors:DbDebtor[], mapping:any) {
+export function preImportDebtors(debtors: DbDebtor[], mapping: any) {
 	for (const i in debtors) {
 		const debtor = debtors[i]
 		debtor.id = undefined
@@ -342,8 +342,8 @@ export function preImportDebtors (debtors:DbDebtor[], mapping:any) {
 		}
 	}
 }
-export function getPaymentResponsibles (debtors: DbDebtor[]):DbPaymentResponsible[] {
-	const paymentResponsibles:DbPaymentResponsible[] = []
+export function getPaymentResponsibles(debtors: DbDebtor[]): DbPaymentResponsible[] {
+	const paymentResponsibles: DbPaymentResponsible[] = []
 	for (const i in debtors) {
 		const debtor = debtors[i]
 		for (const j in debtor.accounts) {
@@ -358,7 +358,7 @@ export function getPaymentResponsibles (debtors: DbDebtor[]):DbPaymentResponsibl
 	}
 	return paymentResponsibles
 }
-export function preImportAccountPaymentRest (debtors:DbDebtor[]) {
+export function preImportAccountPaymentRest(debtors: DbDebtor[]) {
 	for (const i in debtors) {
 		const debtor = debtors[i]
 		const places = debtor.partyRoleRef?.partyRole?.places
@@ -393,8 +393,8 @@ export function preImportAccountPaymentRest (debtors:DbDebtor[]) {
 		}
 	}
 }
-export function getAccountPaymentRest (debtors: DbDebtor[]):DbAccountPaymentResp[] {
-	const accountPaymentResps:DbAccountPaymentResp[] = []
+export function getAccountPaymentRest(debtors: DbDebtor[]): DbAccountPaymentResp[] {
+	const accountPaymentResps: DbAccountPaymentResp[] = []
 	for (const i in debtors) {
 		const debtor = debtors[i]
 		for (const j in debtor.accounts) {
@@ -407,27 +407,27 @@ export function getAccountPaymentRest (debtors: DbDebtor[]):DbAccountPaymentResp
 	}
 	return accountPaymentResps
 }
-export function equalAddress (value1: LocAddress, value2: LocAddress): boolean {
+export function equalAddress(value1: LocAddress, value2: LocAddress): boolean {
 	if (value1.additionalData && value2.additionalData) {
 		return value1.additionalData === value2.additionalData
 	} else {
 		return value1.city === value2.city && value1.postalCode === value2.postalCode && value1.streetName === value2.streetName && value1.streetNrFirst === value2.streetNrFirst
 	}
 }
-export async function sentence () {
-	const sentences = orm.sentence(expDebtorsImport, view, locStage)
+export async function sentence() {
+	const sentences = orm.sentence(expDebtorsImport, {stage:locStage,view:view})
 	await Helper.writeFile(sourcePath + '/sentences.json', JSON.stringify(sentences))
 }
-export async function exportLocal () {
+export async function exportLocal() {
 	const start = new Date().getTime()
-	const debtors = await orm.execute(expDebtorsExport, {}, view, locStage)
+	const debtors = await orm.execute(expDebtorsExport, {}, {stage:locStage,view:view})
 	const get = new Date().getTime()
 	console.log(`export Local: ${get - start}`)
 	await Helper.writeFile(sourcePath + '/confidentional_data/localDebtors.json', JSON.stringify(debtors))
 }
-export async function validate () {
-	const bDebtors:DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/beesionDebtors.json') as string)
-	const lDebtors:DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/localDebtors.json') as string)
+export async function validate() {
+	const bDebtors: DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/beesionDebtors.json') as string)
+	const lDebtors: DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/localDebtors.json') as string)
 
 	for (const i in bDebtors) {
 		const bDebtor = bDebtors[i]

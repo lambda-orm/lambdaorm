@@ -1,16 +1,30 @@
-import { exec } from 'child_process'
 import fs from 'fs'
 import path from 'path'
-import { Delta } from '../index'
+import { Delta, MetadataSentence } from '../index'
 
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
 const CryptoJS = require('crypto-js')
 
 export class Helper {
+	public static sentenceToArray (sentence:MetadataSentence):string[] {
+		const sentences:string[] = []
+		sentences.push(sentence.sentence)
+		if (sentence.children) {
+			sentence.children.forEach(p => Helper.sentenceToArray(p).forEach(p => sentences.push(p)))
+		}
+		return sentences
+	}
+
 	public static replace (string:string, search:string, replace:string) {
 		return string.split(search).join(replace)
-		// con la siguiente opcion falla cuando se hace value=Helper.replace(value,"\\'","\\''")
+		// con la siguiente opción falla cuando se hace value=Helper.replace(value,"\\'","\\''")
+		// return string.replace(new RegExp(search, 'g'), replace)
+	}
+
+	public static transformParameter (name:string) {
+		return Helper.replace(name, '.', '_')
+		// con la siguiente opción falla cuando se hace value=Helper.replace(value,"\\'","\\''")
 		// return string.replace(new RegExp(search, 'g'), replace)
 	}
 
@@ -19,7 +33,7 @@ export class Helper {
 	}
 
 	public static cloneOperand (obj:any):any {
-		const children = []
+		const children:any[] = []
 		if (obj.children) {
 			for (const k in obj.children) {
 				const p = obj.children[k]
@@ -39,7 +53,7 @@ export class Helper {
 		return bytes.toString(CryptoJS.enc.Utf8)
 	}
 
-	public static textTobase64 (value:string):string {
+	public static textToBase64 (value:string):string {
 		return CryptoJS.enc.Base64.parse(value)
 	}
 
@@ -57,17 +71,6 @@ export class Helper {
 
 	public static nvl (value:any, _default:any):any {
 		return !this.isEmpty(value) ? value : _default
-	}
-
-	public static async exec (command: string, cwd:string = process.cwd()):Promise<any> {
-		return new Promise<string>((resolve, reject) => {
-			exec(command, { cwd: cwd }, (error: any, stdout: any, stderr: any) => {
-				if (stdout) return resolve(stdout)
-				if (stderr) return resolve(stderr)
-				if (error) return reject(error)
-				return resolve('')
-			})
-		})
 	}
 
 	public static async existsPath (fullPath:string):Promise<boolean> {
@@ -144,52 +147,48 @@ export class Helper {
 	}
 
 	public static getEnvironmentVariable (text:string):string|undefined {
-		const environmentName = []
-		const index = text.indexOf('$$')
-		if (index < 0) {
+		const startIndex = text.indexOf('${')
+		if (startIndex < 0) {
 			return undefined
 		}
-		const alphanumeric = /[a-zA-Z0-9_]+$/
-		const buffer = text.substring(index + 2).split('')
-		for (let i = 0; i < buffer.length; i++) {
-			const char = buffer[i]
-			if (alphanumeric.test(char)) {
-				environmentName.push(char)
-			} else {
-				break
-			}
+		const endIndex = text.indexOf('}', startIndex + 2)
+		if (endIndex < 0) {
+			throw new Error(`Environment variable not found end character "?" in ${text}`)
 		}
-		return environmentName.join('')
+		return text.substring(startIndex + 2, endIndex)
 	}
 
 	public static solveEnvironmentVariables (source:any): void {
-		if (typeof source === 'object') {
-			for (const name in source) {
-				let child = source[name]
-				if (typeof child === 'string' && child.indexOf('$$') >= 0) {
-					// there can be more than one environment variable in text
-					while (child.indexOf('$$') >= 0) {
-						const envrironmentVariable = Helper.getEnvironmentVariable(child)
-						if (envrironmentVariable) {
-							const environmentVariableValue = process.env[envrironmentVariable]
-							if (environmentVariableValue === undefined || environmentVariableValue === null) {
-								child = Helper.replace(child, '$$' + envrironmentVariable, '')
-							} else {
-								const objValue = Helper.tryParse(environmentVariableValue)
-								if (objValue) {
-									child = Helper.replace(child, '$$' + envrironmentVariable, JSON.stringify(objValue))
-								} else {
-									child = Helper.replace(child, '$$' + envrironmentVariable, environmentVariableValue)
-								}
-							}
-						}
-						source[name] = child
-					}
-				} else if (typeof child === 'object') {
-					Helper.solveEnvironmentVariables(child)
-				}
+		if (typeof source !== 'object') {
+			return
+		}
+		for (const name in source) {
+			const child = source[name]
+			if (typeof child === 'string' && child.indexOf('${') >= 0) {
+				source[name] = Helper.replaceEnvironmentVariable(child)
+			} else if (typeof child === 'object') {
+				Helper.solveEnvironmentVariables(child)
 			}
 		}
+	}
+
+	private static replaceEnvironmentVariable (text:any): any {
+		// there can be more than one environment variable in text
+		while (text.indexOf('${') >= 0) {
+			const environmentVariable = Helper.getEnvironmentVariable(text)
+			if (!environmentVariable) {
+				continue
+			}
+			const environmentVariableValue = process.env[environmentVariable]
+			if (environmentVariableValue === undefined || environmentVariableValue === null) {
+				text = Helper.replace(text, '${' + environmentVariable + '}', '')
+			} else {
+				const objValue = Helper.tryParse(environmentVariableValue)
+				const value = objValue ? JSON.stringify(objValue) : environmentVariableValue
+				text = Helper.replace(text, '${' + environmentVariable + '}', value)
+			}
+		}
+		return text
 	}
 
 	public static deltaWithSimpleArrays (current:any, old?:any):Delta {
@@ -202,49 +201,7 @@ export class Helper {
 			if (old === undefined || old === null) {
 				delta.new.push({ name: name, new: currentValue })
 			} else {
-				const oldValue = old[name]
-				if (oldValue === undefined) {
-					delta.new.push({ name: name, new: currentValue })
-				} else if (oldValue === null && currentValue === null) {
-					delta.unchanged.push({ name: name, value: oldValue })
-				} else if ((oldValue !== null && currentValue === null) || (oldValue === null && currentValue !== null)) {
-					delta.changed.push({ name: name, new: currentValue, old: oldValue, delta: null })
-				} else if (Array.isArray(currentValue)) {
-					if (!Array.isArray(oldValue)) { throw new Error(`current value in ${name} is array by old no`) }
-					if (currentValue.length === 0 && oldValue.length === 0) {
-						delta.unchanged.push({ name: name, value: oldValue })
-					}
-					const arrayDelta = new Delta()
-					const news = currentValue.filter(p => oldValue.indexOf(p) === -1)
-					const unchangeds = currentValue.filter(p => oldValue.indexOf(p) !== -1)
-					const removes = oldValue.filter(p => currentValue.indexOf(p) === -1)
-					const change = news.length + removes.length > 0
-					for (const p in news) {
-						arrayDelta.new.push({ name: p, new: p })
-					}
-					for (const p in removes) {
-						arrayDelta.remove.push({ name: p, old: p })
-					}
-					for (const p in unchangeds) {
-						arrayDelta.unchanged.push({ name: p, value: p })
-					}
-					delta.children.push({ name: name, type: 'array', change: change, delta: arrayDelta })
-				} else if (Helper.isObject(currentValue)) {
-					const objectDelta = Helper.deltaWithSimpleArrays(currentValue, oldValue)
-					const change = objectDelta.changed.length + objectDelta.remove.length + objectDelta.new.length > 0
-					if (change) {
-						delta.changed.push({ name: name, new: currentValue, old: oldValue, delta: objectDelta })
-					} else {
-						delta.unchanged.push({ name: name, value: oldValue })
-					}
-					// const objectDelta = Helper.deltaWithSimpleArrays(currentValue,oldValue)
-					// const change = objectDelta.changed.length + objectDelta.remove.length + objectDelta.new.length > 0
-					// delta.children.push({name:name,type:'object',change:change,delta:objectDelta})
-				} else if (oldValue !== currentValue) {
-					delta.changed.push({ name: name, new: currentValue, old: oldValue, delta: null })
-				} else {
-					delta.unchanged.push({ name: name, value: oldValue })
-				}
+				Helper.deltaValue(name, currentValue, old[name], delta)
 			}
 		}
 		if (old !== undefined || old !== null) {
@@ -257,13 +214,66 @@ export class Helper {
 		return delta
 	}
 
+	private static deltaValue (name:string, currentValue:any, oldValue:any, delta:Delta):void {
+		if (oldValue === undefined) {
+			delta.new.push({ name: name, new: currentValue })
+		} else if (oldValue === null && currentValue === null) {
+			delta.unchanged.push({ name: name, value: oldValue })
+		} else if ((oldValue !== null && currentValue === null) || (oldValue === null && currentValue !== null)) {
+			delta.changed.push({ name: name, new: currentValue, old: oldValue, delta: null })
+		} else if (Array.isArray(currentValue)) {
+			Helper.deltaArrayValue(name, currentValue, oldValue, delta)
+		} else if (Helper.isObject(currentValue)) {
+			const objectDelta = Helper.deltaWithSimpleArrays(currentValue, oldValue)
+			const change = objectDelta.changed.length + objectDelta.remove.length + objectDelta.new.length > 0
+			if (change) {
+				delta.changed.push({ name: name, new: currentValue, old: oldValue, delta: objectDelta })
+			} else {
+				delta.unchanged.push({ name: name, value: oldValue })
+			}
+		} else if (oldValue !== currentValue) {
+			delta.changed.push({ name: name, new: currentValue, old: oldValue, delta: null })
+		} else {
+			delta.unchanged.push({ name: name, value: oldValue })
+		}
+	}
+
+	private static deltaArrayValue (name:string, currentValue:any, oldValue:any, delta:Delta):void {
+		if (!Array.isArray(oldValue)) { throw new Error(`current value in ${name} is array by old no`) }
+		if (currentValue.length === 0 && oldValue.length === 0) {
+			delta.unchanged.push({ name: name, value: oldValue })
+		}
+		const arrayDelta = new Delta()
+		const news = currentValue.filter(p => oldValue.indexOf(p) === -1)
+		const unchanged = currentValue.filter(p => oldValue.indexOf(p) !== -1)
+		const removes = oldValue.filter(p => currentValue.indexOf(p) === -1)
+		const change = news.length + removes.length > 0
+		for (const p in news) {
+			arrayDelta.new.push({ name: p, new: p })
+		}
+		for (const p in removes) {
+			arrayDelta.remove.push({ name: p, old: p })
+		}
+		for (const p in unchanged) {
+			arrayDelta.unchanged.push({ name: p, value: p })
+		}
+		delta.children.push({ name: name, type: 'array', change: change, delta: arrayDelta })
+	}
+
 	public static getType (value: any):string {
 		if (Array.isArray(value)) return 'array'
 		if (typeof value === 'string') {
-			// TODO determinar si es fecha.
-			return 'string'
+			if (Helper.isDate(value)) {
+				return 'datetime'
+			} else {
+				return 'string'
+			}
 		}
 		return typeof value
+	}
+
+	public static isDate (value:any) {
+		return Date.parse(value) > 0
 	}
 
 	public static tryParse (value:string):any|null {
@@ -275,7 +285,12 @@ export class Helper {
 	}
 
 	public static dateFormat (value:any, format:string):string {
-		return DateTime.fromISO(value).toFormat(format)
+		const iso = new Date(value).toISOString()
+		if (format === 'ISO') {
+			return DateTime.fromISO(iso).toISO()
+		} else {
+			return DateTime.fromISO(iso).toFormat(format)
+		}
 	}
 
 	public static escape (value:string):string {
@@ -309,83 +324,118 @@ export class Helper {
 		if (amount !== undefined && amount === 1) {
 			return word
 		}
-		const plural: { [key: string]: string } = {
-			'(quiz)$': '$1zes',
-			'^(ox)$': '$1en',
-			'([m|l])ouse$': '$1ice',
-			'(matr|vert|ind)ix|ex$': '$1ices',
-			'(x|ch|ss|sh)$': '$1es',
-			'([^aeiouy]|qu)y$': '$1ies',
-			'(hive)$': '$1s',
-			'(?:([^f])fe|([lr])f)$': '$1$2ves',
-			'(shea|lea|loa|thie)f$': '$1ves',
-			sis$: 'ses',
-			'([ti])um$': '$1a',
-			'(tomat|potat|ech|her|vet)o$': '$1oes',
-			'(bu)s$': '$1ses',
-			'(alias)$': '$1es',
-			'(octop)us$': '$1i',
-			'(ax|test)is$': '$1es',
-			'(us)$': '$1es',
-			'([^s]+)$': '$1s'
-		}
-		const irregular: { [key: string]: string } = {
-			move: 'moves',
-			foot: 'feet',
-			goose: 'geese',
-			sex: 'sexes',
-			child: 'children',
-			man: 'men',
-			tooth: 'teeth',
-			person: 'people'
-		}
-		const uncountable: string[] = [
-			'sheep',
-			'fish',
-			'deer',
-			'moose',
-			'series',
-			'species',
-			'money',
-			'rice',
-			'information',
-			'equipment',
-			'bison',
-			'cod',
-			'offspring',
-			'pike',
-			'salmon',
-			'shrimp',
-			'swine',
-			'trout',
-			'aircraft',
-			'hovercraft',
-			'spacecraft',
-			'sugar',
-			'tuna',
-			'you',
-			'wood'
-		]
+
 		// save some time in the case that singular and plural are the same
-		if (uncountable.indexOf(word.toLowerCase()) >= 0) {
+		if (Helper._uncountable.indexOf(word.toLowerCase()) >= 0) {
 			return word
 		}
 		// check for irregular forms
-		for (const w in irregular) {
+		for (const w in Helper._irregular) {
 			const pattern = new RegExp(`${w}$`, 'i')
-			const replace = irregular[w]
+			const replace = Helper._irregular[w]
 			if (pattern.test(word)) {
 				return word.replace(pattern, replace)
 			}
 		}
 		// check for matches using regular expressions
-		for (const reg in plural) {
+		for (const reg in Helper._plural) {
 			const pattern = new RegExp(reg, 'i')
 			if (pattern.test(word)) {
-				return word.replace(pattern, plural[reg])
+				return word.replace(pattern, Helper._plural[reg])
 			}
 		}
 		return word
+	}
+
+	private static _plural: { [key: string]: string } = {
+		'(quiz)$': '$1zes',
+		'^(ox)$': '$1en',
+		'([m|l])ouse$': '$1ice',
+		'(matr|vert|ind)ix|ex$': '$1ices',
+		'(x|ch|ss|sh)$': '$1es',
+		'([^aeiouy]|qu)y$': '$1ies',
+		'(hive)$': '$1s',
+		'(?:([^f])fe|([lr])f)$': '$1$2ves',
+		'(shea|lea|loa|thie)f$': '$1ves',
+		sis$: 'ses',
+		'([ti])um$': '$1a',
+		'(tomat|potat|ech|her|vet)o$': '$1oes',
+		'(bu)s$': '$1ses',
+		'(alias)$': '$1es',
+		'(octop)us$': '$1i',
+		'(ax|test)is$': '$1es',
+		'(us)$': '$1es',
+		'([^s]+)$': '$1s'
+	}
+
+	private static _singular: { [key: string]: string } = {
+		'(quiz)zes$': '$1',
+		'(matr)ices$': '$1ix',
+		'(vert|ind)ices$': '$1ex',
+		'^(ox)en$': '$1',
+		'(alias)es$': '$1',
+		'(octop|vir)i$': '$1us',
+		'(cris|ax|test)es$': '$1is',
+		'(shoe)s$': '$1',
+		'(o)es$': '$1',
+		'(bus)es$': '$1',
+		'([m|l])ice$': '$1ouse',
+		'(x|ch|ss|sh)es$': '$1',
+		'(m)ovies$': '$1ovie',
+		'(s)eries$': '$1eries',
+		'([^aeiouy]|qu)ies$': '$1y',
+		'([lr])ves$': '$1f',
+		'(tive)s$': '$1',
+		'(hive)s$': '$1',
+		'(li|wi|kni)ves$': '$1fe',
+		'(shea|loa|lea|thie)ves$': '$1f',
+		'(^analy)ses$': '$1sis',
+		'((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)ses$': '$1$2sis',
+		'([ti])a$': '$1um',
+		'(n)ews$': '$1ews',
+		'(h|bl)ouses$': '$1ouse',
+		'(corpse)s$': '$1',
+		'(us)es$': '$1',
+		s$: ''
+	}
+
+	private static _uncountable: string[] = [
+		'sheep',
+		'fish',
+		'deer',
+		'moose',
+		'series',
+		'species',
+		'money',
+		'rice',
+		'information',
+		'equipment',
+		'bison',
+		'cod',
+		'offspring',
+		'pike',
+		'salmon',
+		'shrimp',
+		'swine',
+		'trout',
+		'aircraft',
+		'hovercraft',
+		'spacecraft',
+		'sugar',
+		'tuna',
+		'you',
+		'wood'
+	]
+
+	private static _irregular: { [key: string]: string } = {
+		move: 'moves',
+		foot: 'feet',
+		goose: 'geese',
+		sex: 'sexes',
+		child: 'children',
+		man: 'men',
+		tooth: 'teeth',
+		person: 'people'
 	}
 
 	/**
@@ -400,90 +450,24 @@ export class Helper {
 		if (amount !== undefined && amount !== 1) {
 			return word
 		}
-		const singular: { [key: string]: string } = {
-			'(quiz)zes$': '$1',
-			'(matr)ices$': '$1ix',
-			'(vert|ind)ices$': '$1ex',
-			'^(ox)en$': '$1',
-			'(alias)es$': '$1',
-			'(octop|vir)i$': '$1us',
-			'(cris|ax|test)es$': '$1is',
-			'(shoe)s$': '$1',
-			'(o)es$': '$1',
-			'(bus)es$': '$1',
-			'([m|l])ice$': '$1ouse',
-			'(x|ch|ss|sh)es$': '$1',
-			'(m)ovies$': '$1ovie',
-			'(s)eries$': '$1eries',
-			'([^aeiouy]|qu)ies$': '$1y',
-			'([lr])ves$': '$1f',
-			'(tive)s$': '$1',
-			'(hive)s$': '$1',
-			'(li|wi|kni)ves$': '$1fe',
-			'(shea|loa|lea|thie)ves$': '$1f',
-			'(^analy)ses$': '$1sis',
-			'((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)ses$': '$1$2sis',
-			'([ti])a$': '$1um',
-			'(n)ews$': '$1ews',
-			'(h|bl)ouses$': '$1ouse',
-			'(corpse)s$': '$1',
-			'(us)es$': '$1',
-			s$: ''
-		}
-		const irregular: { [key: string]: string } = {
-			move: 'moves',
-			foot: 'feet',
-			goose: 'geese',
-			sex: 'sexes',
-			child: 'children',
-			man: 'men',
-			tooth: 'teeth',
-			person: 'people'
-		}
-		const uncountable: string[] = [
-			'sheep',
-			'fish',
-			'deer',
-			'moose',
-			'series',
-			'species',
-			'money',
-			'rice',
-			'information',
-			'equipment',
-			'bison',
-			'cod',
-			'offspring',
-			'pike',
-			'salmon',
-			'shrimp',
-			'swine',
-			'trout',
-			'aircraft',
-			'hovercraft',
-			'spacecraft',
-			'sugar',
-			'tuna',
-			'you',
-			'wood'
-		]
+
 		// save some time in the case that singular and plural are the same
-		if (uncountable.indexOf(word.toLowerCase()) >= 0) {
+		if (Helper._uncountable.indexOf(word.toLowerCase()) >= 0) {
 			return word
 		}
 		// check for irregular forms
-		for (const w in irregular) {
-			const pattern = new RegExp(`${irregular[w]}$`, 'i')
+		for (const w in Helper._irregular) {
+			const pattern = new RegExp(`${Helper._irregular[w]}$`, 'i')
 			const replace = w
 			if (pattern.test(word)) {
 				return word.replace(pattern, replace)
 			}
 		}
 		// check for matches using regular expressions
-		for (const reg in singular) {
+		for (const reg in Helper._singular) {
 			const pattern = new RegExp(reg, 'i')
 			if (pattern.test(word)) {
-				return word.replace(pattern, singular[reg])
+				return word.replace(pattern, Helper._singular[reg])
 			}
 		}
 		return word

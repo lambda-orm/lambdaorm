@@ -1,24 +1,21 @@
-import { Query, Entity, Relation, SchemaError } from '../model'
-import { StageActionDML } from './StageActionDML'
-// import { ExpressionManager, Executor, ModelConfig } from './../manager'
-// import { StageState } from './stageState'
+import { Query, Entity, SchemaError } from '../model'
+import { StageActionDML } from './stageActionDML'
 
 export class StageDelete extends StageActionDML {
-// constructor (state: StageState, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, stage: string, view: string) {
-// super(state, model, expressionManager, executor, stage, view)
-// }
-
 	public async execute (): Promise<void> {
 		const queries = this.build()
-		await this.executor.executeList(this.stage, this.view, queries)
+		await this.executor.executeList(this.options, queries)
 	}
 
 	protected sort (entities: Entity[]): Entity[] {
-		const _entities = entities.map(p => p.name)
+		const onlyUnique = function (value:any, index:number, self:any) {
+			return self.indexOf(value) === index
+		}
+		const _entities = entities.map(p => p.name).filter(onlyUnique)
 		const sortedEntities = this.model.sortByRelations(_entities, _entities).reverse()
 		const result:Entity[] = []
-		for (let i = 0; i < sortedEntities.length; i++) {
-			const entity = entities.find(p => p.name === sortedEntities[i])
+		for (const sortedEntity of sortedEntities) {
+			const entity = entities.find(p => p.name === sortedEntity)
 			if (entity !== undefined) {
 				result.push(entity)
 			}
@@ -28,30 +25,29 @@ export class StageDelete extends StageActionDML {
 
 	protected build (): Query[] {
 		const entities = this.sort(this.model.entities)
-		const queries = this.createUpateQueries(entities)
-		for (const i in entities) {
-			const query = this.createQuery(entities[i])
+		const queries = this.createUpdateQueries(entities)
+		for (const entity of entities) {
+			const query = this.createQuery(entity)
 			queries.push(query)
 		}
 		return queries
 	}
 
-	protected createUpateQueries (entities: Entity[]): Query[] {
+	protected createUpdateQueries (entities: Entity[]): Query[] {
 		const queries:Query[] = []
-		for (const i in entities) {
-			const entity = entities[i]
-			if (entity.relations && !entity.view) {
-				for (const q in entity.relations) {
-					const relation = entity.relations[q] as Relation
-					const fromProperty = entity.properties.find(p => p.name === relation.from)
-					if (fromProperty === undefined) {
-						throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
-					}
-					const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
-					if (isNullable) {
-						const query = this.expressionManager.toQuery(`${entity.name}.updateAll({${relation.from}:null})`, this.stage, this.view)
-						queries.push(query)
-					}
+		for (const entity of entities) {
+			if (entity.view) {
+				continue
+			}
+			for (const relation of entity.relations) {
+				const fromProperty = entity.properties.find(p => p.name === relation.from)
+				if (fromProperty === undefined) {
+					throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
+				}
+				const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
+				if (isNullable) {
+					const query = this.expressionManager.toQuery(`${entity.name}.updateAll({${relation.from}:null})`, this.options)
+					queries.push(query)
 				}
 			}
 		}
@@ -59,6 +55,6 @@ export class StageDelete extends StageActionDML {
 	}
 
 	protected createQuery (entity:Entity):Query {
-		return this.expressionManager.toQuery(`${entity.name}.deleteAll()`, this.stage, this.view)
+		return this.expressionManager.toQuery(`${entity.name}.deleteAll()`, this.options)
 	}
 }

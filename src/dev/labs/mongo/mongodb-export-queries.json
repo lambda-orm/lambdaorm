@@ -1,0 +1,356 @@
+[
+  {
+    "name": "select",
+    "dialect": "MongoDB",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CategoryName\", \"description\":\"$Description\" }} ]",
+    "entity": "Categories",
+    "columns": [
+      {
+        "name": "id",
+        "type": "integer"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "type": "string"
+      }
+    ],
+    "parameters": [],
+    "dataSource": "MongoDB",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "select",
+    "dialect": "MongoDB",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" }} ]",
+    "entity": "Customers",
+    "columns": [
+      {
+        "name": "id",
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "contact",
+        "type": "string"
+      },
+      {
+        "name": "phone",
+        "type": "string"
+      },
+      {
+        "name": "address",
+        "type": "string"
+      },
+      {
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "name": "region",
+        "type": "string"
+      },
+      {
+        "name": "postalCode",
+        "type": "string"
+      },
+      {
+        "name": "country",
+        "type": "string"
+      }
+    ],
+    "parameters": [],
+    "dataSource": "MongoDB",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "select",
+    "dialect": "MongoDB",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"lastName\":\"$LastName\", \"firstName\":\"$FirstName\", \"title\":\"$Title\", \"titleOfCourtesy\":\"$TitleOfCourtesy\", \"birthDate\":\"$BirthDate\", \"hireDate\":\"$HireDate\", \"phone\":\"$HomePhone\", \"reportsToId\":\"$ReportsTo\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" }} ]",
+    "entity": "Employees",
+    "columns": [
+      {
+        "name": "id",
+        "type": "integer"
+      },
+      {
+        "name": "lastName",
+        "type": "string"
+      },
+      {
+        "name": "firstName",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "titleOfCourtesy",
+        "type": "string"
+      },
+      {
+        "name": "birthDate",
+        "type": "datetime"
+      },
+      {
+        "name": "hireDate",
+        "type": "datetime"
+      },
+      {
+        "name": "phone",
+        "type": "string"
+      },
+      {
+        "name": "reportsToId",
+        "type": "integer"
+      },
+      {
+        "name": "address",
+        "type": "string"
+      },
+      {
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "name": "region",
+        "type": "string"
+      },
+      {
+        "name": "postalCode",
+        "type": "string"
+      },
+      {
+        "name": "country",
+        "type": "string"
+      }
+    ],
+    "parameters": [],
+    "dataSource": "MongoDB",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "select",
+    "dialect": "MongoDB",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"phone\":\"$Phone\" }} ]",
+    "entity": "Shippers",
+    "columns": [
+      {
+        "name": "id",
+        "type": "integer"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "phone",
+        "type": "string"
+      }
+    ],
+    "parameters": [],
+    "dataSource": "MongoDB",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "select",
+    "dialect": "MongoDB",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$CompanyName\", \"contact\":\"$ContactName\", \"phone\":\"$Phone\", \"homepage\":\"$HomePage\", \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\", \"postalCode\":\"$PostalCode\", \"country\":\"$Country\" }} ]",
+    "entity": "Suppliers",
+    "columns": [
+      {
+        "name": "id",
+        "type": "integer"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "contact",
+        "type": "string"
+      },
+      {
+        "name": "phone",
+        "type": "string"
+      },
+      {
+        "name": "homepage",
+        "type": "string"
+      },
+      {
+        "name": "address",
+        "type": "string"
+      },
+      {
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "name": "region",
+        "type": "string"
+      },
+      {
+        "name": "postalCode",
+        "type": "string"
+      },
+      {
+        "name": "country",
+        "type": "string"
+      }
+    ],
+    "parameters": [],
+    "dataSource": "MongoDB",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "select",
+    "dialect": "MongoDB",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }} ]",
+    "entity": "Products",
+    "columns": [
+      {
+        "name": "id",
+        "type": "integer"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "supplierId",
+        "type": "integer"
+      },
+      {
+        "name": "categoryId",
+        "type": "integer"
+      },
+      {
+        "name": "quantity",
+        "type": "string"
+      },
+      {
+        "name": "price",
+        "type": "decimal"
+      },
+      {
+        "name": "inStock",
+        "type": "decimal"
+      },
+      {
+        "name": "onOrder",
+        "type": "decimal"
+      },
+      {
+        "name": "reorderLevel",
+        "type": "decimal"
+      },
+      {
+        "name": "discontinued",
+        "type": "boolean"
+      }
+    ],
+    "parameters": [],
+    "dataSource": "MongoDB",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  },
+  {
+    "name": "select",
+    "dialect": "MongoDB",
+    "sentence": "[{ \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\", \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\", \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\", \"freight\":\"$Freight\", \"name\":\"$ShipName\", \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\", \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\", \"country\":\"$ShipCountry\", \"__id\":\"$_id\" ,details: { \"$map\":{ \"input\": \"Order Details\", \"in\": \"orderId\":\"$this.OrderID\", \"productId\":\"$this.ProductID\", \"unitPrice\":\"$this.UnitPrice\", \"quantity\":\"$this.Quantity\", \"discount\":\"$this.Discount\", \"LambdaOrmParentId\":\"$this.OrderID\" }} }} ]",
+    "entity": "Orders",
+    "columns": [
+      {
+        "name": "id",
+        "type": "integer"
+      },
+      {
+        "name": "customerId",
+        "type": "string"
+      },
+      {
+        "name": "employeeId",
+        "type": "integer"
+      },
+      {
+        "name": "orderDate",
+        "type": "datetime"
+      },
+      {
+        "name": "requiredDate",
+        "type": "datetime"
+      },
+      {
+        "name": "shippedDate",
+        "type": "datetime"
+      },
+      {
+        "name": "shipViaId",
+        "type": "integer"
+      },
+      {
+        "name": "freight",
+        "type": "decimal"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "address",
+        "type": "string"
+      },
+      {
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "name": "region",
+        "type": "string"
+      },
+      {
+        "name": "postalCode",
+        "type": "string"
+      },
+      {
+        "name": "country",
+        "type": "string"
+      },
+      {
+        "name": "__id",
+        "type": "integer"
+      }
+    ],
+    "parameters": [],
+    "dataSource": "MongoDB",
+    "constraints": [],
+    "values": [],
+    "defaults": [],
+    "includes": []
+  }
+]

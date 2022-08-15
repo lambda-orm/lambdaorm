@@ -20,6 +20,8 @@ CREATE ROLE "CCLP_DEBTORS" SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN PASSWORD 
 
 ### Oracle
 
+#### Local
+
 Install:
 
 - [Oracle Database XE](https://www.oracle.com/es/database/technologies/appdev/xe.html)
@@ -29,7 +31,20 @@ Install:
 user: system
 password: flavio
 
-Create users:
+#### Docker
+
+``` sh
+docker-compose up -d
+```
+
+Conexion:
+
+- port: 1523
+- sid: ORCLCDB
+- user: system
+- password: SYSTEM
+
+#### Create users
 
 ```sql
 --https://www.discoduroderoer.es/solucion-a-ora-65096-invalid-common-user-or-role-name-en-oracle/
@@ -42,7 +57,7 @@ create user CCLP_LEDGER_ACCOUNTS identified by CCLP_LEDGER_ACCOUNTS;
 create user CCLP_DEBTORS identified by CCLP_DEBTORS;
 ```
 
-Permissions
+Permissions:
 
 ```sql
 GRANT create session,create table,create view,create sequence TO CCLP_LOCATIONS;

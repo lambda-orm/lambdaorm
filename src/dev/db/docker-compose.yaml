@@ -1,12 +1,11 @@
 version: '3'
 
 networks:
-  default:
-    name: lambdaorm
-
+  lambdaORM:
+    driver: bridge
 services:
-  source:
-    container_name: lambdaorm-source
+  Source:
+    container_name: lambdaORM-Source
     image: mysql:5.7
     restart: always
     environment:
@@ -17,19 +16,20 @@ services:
     cap_add:
       - SYS_NICE # CAP_SYS_NICE
     volumes:
-      - source:/var/lib/mysql
+      - ./volume/Source:/var/lib/mysql
     ports:
       - 3306:3306
+    networks:
+      - lambdaORM
     # command: >
-
     #   mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"   
     healthcheck:
       test: [ "CMD", "mysqladmin", "-uroot", "-proot", "status" ]
       interval: 3s
       timeout: 1s
       retries: 10
-  mysql:
-    container_name: lambdaorm-mysql-57
+  MySQL:
+    container_name: lambdaORM-MySQL-57
     image: mysql:5.7
     restart: always
     environment:
@@ -40,19 +40,20 @@ services:
     cap_add:
       - SYS_NICE # CAP_SYS_NICE
     volumes:
-      - mysql:/var/lib/mysql
+      - ./volume/MySQL:/var/lib/mysql
     ports:
       - '3307:3306'
+    networks:
+      - lambdaORM
     # command: >
-
     #   mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"  
     healthcheck:
       test: [ "CMD", "mysqladmin", "-uroot", "-proot", "status" ]
       interval: 3s
       timeout: 1s
       retries: 10
-  postgres:
-    container_name: lambdaorm-postgres-10
+  Postgres:
+    container_name: lambdaORM-Postgres-10
     image: postgres:10
     restart: always
     environment:
@@ -60,33 +61,66 @@ services:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - ./volume/Postgres-data:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+    networks:
+      - lambdaORM
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "test" ]
       interval: 3s
       timeout: 1s
       retries: 10
-  mssql:
-    image: "mcr.microsoft.com/mssql/server:2017-latest-ubuntu"
-    container_name: "lambdaorm-mssql"
-    ports:
-      - "1433:1433"
+  SqlServer:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    container_name: lambdaORM-SqlServer
     environment:
       SA_PASSWORD: "Lambda1234!"
       ACCEPT_EULA: "Y"
-    # volumes:
-    #   - mssql:/var/opt/mssql
-  mongodb:
-    image: "mongo:3.4.18"
-    container_name: lambdaorm-mongo
     ports:
-      - "27017:27017"
+      - "1433:1433"
+    networks:
+      - lambdaORM
     volumes:
-      - mongodb:/data/db
-  mariadb:
-    container_name: lambdaorm-mariadb-103
+      - ./volume/SqlServer:/var/opt/mssql
+  Oracle:
+    container_name: lambdaORM-Oracle-19
+    image: oracledb19c/oracle.19.3.0-ee:oracle19.3.0-ee
+    # image: akaronte/oracle:19.3.0.0
+    environment:
+      ORACLE_SID: ORCLCDB
+      ORACLE_PDB: ORCLCPDB
+      ORACLE_PWD: password
+      ORACLE_CHARACTERSET: WE8MSWIN1252
+    volumes:
+      # - ./volume/oradata:/opt/oracle/oradata # persistent oracle database data
+      #  al usar el volume ./volume/oradata da error de permisos y no crea la instancia dentro del container
+      #  por este motivo se crea el volume oradata:
+      # info: https://github.com/oracle/docker-images/issues/439
+      - oradata:/opt/oracle/oradata # persistent oracle database data
+      - ./oracle:/home/oracle/setup/custom_scripts
+    ports:
+      - 1521:1521
+      - 5500:5500
+      # - 8080:8080
+    networks:
+      - lambdaORM
+  MongoDB:
+    image: mongo:5.0
+    container_name: lambdaORM-MongoDB
+    ports:
+      - '27017:27017'
+    networks:
+      - lambdaORM
+    environment:
+      - MONGO_INITDB_DATABASE=northwind
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=test
+    restart: always
+    volumes:
+      - ./volume/MongoDB:/data/db
+  MariaDB:
+    container_name: lambdaORM-MariaDB-103
     image: mariadb:10.3
     restart: always
     environment:
@@ -95,16 +129,11 @@ services:
       - MYSQL_PASSWORD=test
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      - mariadb-data:/var/lib/mysql
-      - mariadb-log:/var/log/mysql
+      - ./volume/MariaDB-data:/var/lib/mysql
+      - ./volume/MariaDB-log:/var/log/mysql
     ports:
       - 3308:3306
+    networks:
+      - lambdaORM
 volumes:
-  source: null
-  mysql: null
-  postgres: null
-  mariadb-data: null
-  mariadb-log: null
-  mssql: null
-  mongodb: null
-  oracle: null
+  oradata: null

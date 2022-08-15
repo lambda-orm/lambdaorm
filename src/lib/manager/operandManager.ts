@@ -1,23 +1,23 @@
 
-import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Relation } from '../model'
+import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Relation, Entity } from '../model'
 import { ModelConfig } from '.'
 import { Operand, Variable, Constant, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import * as exp from 'js-expressions'
 import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../model/operands'
 
 class EntityContext {
-	public parent?:EntityContext
-	public entityName:string
-	public alias:string
-	public children:EntityContext[]
+	public parent?: EntityContext
+	public entityName: string
+	public alias: string
+	public children: EntityContext[]
 	public joins: any
-	public fields:Property[]
-	public groupByFields:Field[]
-	public arrowVar:string
+	public fields: Property[]
+	public groupByFields: Field[]
+	public arrowVar: string
 
-	constructor (parent?:EntityContext) {
+	constructor (parent?: EntityContext) {
 		this.parent = parent
-		if (parent)parent.children.push(this)
+		if (parent) parent.children.push(this)
 		this.entityName = ''
 		this.alias = ''
 		this.arrowVar = ''
@@ -28,9 +28,9 @@ class EntityContext {
 	}
 }
 class ExpressionContext {
-	public aliases:any
-	public current:EntityContext
-	constructor (current:EntityContext) {
+	public aliases: any
+	public current: EntityContext
+	constructor (current: EntityContext) {
 		this.current = current
 		this.aliases = {}
 	}
@@ -40,22 +40,21 @@ export class OperandManager {
 	private expressionConfig: ExpressionConfig
 	private expressions: Expressions
 
-	constructor (modelConfig: ModelConfig, expressionConfig:ExpressionConfig, expressions: Expressions) {
+	constructor (modelConfig: ModelConfig, expressionConfig: ExpressionConfig, expressions: Expressions) {
 		this.modelConfig = modelConfig
 		this.expressionConfig = expressionConfig
 		this.expressions = expressions
 	}
 
-	public build (node:Node):Sentence {
-		const sentece = this.nodeToOperand(node, new ExpressionContext(new EntityContext())) as Sentence
-		const reduced = this.reduce(sentece)
+	public build (node: Node): Sentence {
+		const sentence = this.nodeToOperand(node, new ExpressionContext(new EntityContext())) as Sentence
+		const reduced = this.reduce(sentence)
 		return this.setParent(reduced) as Sentence
 	}
 
-	public model (sentence:Sentence):MetadataModel[] {
-		const result:MetadataModel[] = []
-		for (let i = 0; i < sentence.columns.length; i++) {
-			const column = sentence.columns[i]
+	public model (sentence: Sentence): MetadataModel[] {
+		const result: MetadataModel[] = []
+		for (const column of sentence.columns) {
 			if (!column.name.startsWith('__')) {
 				result.push({ name: column.name, type: column.type })
 			}
@@ -64,48 +63,47 @@ export class OperandManager {
 		for (const p in includes) {
 			const include = includes[p]
 			const childType = include.relation.entity + (include.relation.type === 'manyToOne' ? '[]' : '')
-			const child:MetadataModel = { name: include.relation.name, type: childType, childs: [] }
-			child.childs = this.model(include.children[0] as Sentence)
+			const child: MetadataModel = { name: include.relation.name, type: childType, children: [] }
+			child.children = this.model(include.children[0] as Sentence)
 			result.push(child)
 		}
 		return result
 	}
 
-	public parameters (sentence:Sentence):MetadataParameter[] {
-		const parameters:MetadataParameter[] = []
-		for (let i = 0; i < sentence.parameters.length; i++) {
-			const parameter = sentence.parameters[i]
+	public parameters (sentence: Sentence): MetadataParameter[] {
+		const parameters: MetadataParameter[] = []
+		for (const parameter of sentence.parameters) {
 			parameters.push({ name: parameter.name, type: parameter.type })
 		}
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
 			const include = includes[p]
-			const relationParameter:MetadataParameter = { name: include.relation.name, type: include.relation.entity, childs: [] }
-			const childsParameters = this.parameters(include.children[0] as Sentence)
-			for (const q in childsParameters) {
-				const childParameter = childsParameters[q]
-				relationParameter.childs?.push(childParameter)
+			const relationParameter: MetadataParameter = { name: include.relation.name, type: include.relation.entity, children: [] }
+			const children = this.parameters(include.children[0] as Sentence)
+			for (const q in children) {
+				const child = children[q]
+				relationParameter.children?.push(child)
 			}
 			parameters.push(relationParameter)
 		}
 		return parameters
 	}
 
-	public constraints (sentence:Sentence):MetadataConstraint {
+	public constraints (sentence: Sentence): MetadataConstraint {
 		const result: MetadataConstraint = { entity: sentence.entity, constraints: sentence.constraints }
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
 			const include = includes[p]
 			const child = this.constraints(include.children[0] as Sentence)
-			if (!result.childs) {
-				result.childs = []
+			if (!result.children) {
+				result.children = []
 			}
-			result.childs.push(child)
+			result.children.push(child)
 		}
 		return result
 	}
 
-	public clone (value:Operand): Operand {
+	public clone (value: Operand): Operand {
 		return this.deserialize(this.serialize(value))
 	}
 
@@ -114,13 +112,13 @@ export class OperandManager {
 	}
 
 	public deserialize (value: string): Operand {
-		return (this._deserialize(JSON.parse(value))) as Operand
+		return (this._deserialize(JSON.parse(value)))
 	}
 
-	private _serialize (operand:Operand):Metadata {
-		const children = []
-		for (const k in operand.children) {
-			children.push(this._serialize(operand.children[k]))
+	private _serialize (operand: Operand): Metadata {
+		const children:Metadata[] = []
+		for (const child of operand.children) {
+			children.push(this._serialize(child))
 		}
 		if (operand instanceof Sentence) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, columns: operand.columns, parameters: operand.parameters, entity: operand.entity, constraints: operand.constraints }
@@ -128,9 +126,17 @@ export class OperandManager {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, relation: operand.relation }
 		} else if (operand instanceof Insert) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, clause: operand.clause }
+		} else if (operand instanceof Update) {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
+		} else if (operand instanceof Delete) {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
 		} else if (operand instanceof KeyValue) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, property: operand.property }
 		} else if (operand instanceof Field) {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, entity: operand.entity, alias: operand.alias, isRoot: operand.isRoot }
+		} else if (operand instanceof From) {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
+		} else if (operand instanceof Join) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, entity: operand.entity, alias: operand.alias }
 		} else if (operand instanceof Variable) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, number: operand.number }
@@ -139,8 +145,8 @@ export class OperandManager {
 		}
 	}
 
-	private _deserialize (value:Metadata):Operand {
-		const children = []
+	private _deserialize (value: Metadata): Operand {
+		const children:Operand[] = []
 		if (value.children) {
 			for (const k in value.children) {
 				children.push(this._deserialize(value.children[k]))
@@ -148,13 +154,23 @@ export class OperandManager {
 		}
 		switch (value.classtype) {
 		case 'Sentence':
-			return new Sentence(value.name, children, value.entity as string, value.alias as string, value.columns || [], value.parameters || [], value.constraints || [], value.values || [], value.defaults || [])
+			return new Sentence({
+				name: value.name,
+				children: children,
+				entity: value.entity as string,
+				alias: value.alias as string,
+				columns: value.columns || [],
+				parameters: value.parameters || [],
+				constraints: value.constraints || [],
+				values: value.values || [],
+				defaults: value.defaults || []
+			})
 		case 'SentenceInclude':
 			return new SentenceInclude(value.name, children, value.relation as Relation)
 		case 'Delete':
-			return new Delete(value.name, children, value.type)
+			return new Delete(value.name, children, value.alias || '')
 		case 'Update':
-			return new Update(value.name, children, value.type)
+			return new Update(value.name, children, value.alias || '')
 		case 'Insert':
 			return new Insert(value.name, children, value.clause as string)
 		case 'Page':
@@ -170,11 +186,11 @@ export class OperandManager {
 		case 'Map':
 			return new Map(value.name, children, value.alias)
 		case 'Join':
-			return new Join(value.name, children, value.alias)
+			return new Join(value.name, children, value.entity || '', value.alias || '')
 		case 'From':
-			return new From(value.name, children, value.alias)
+			return new From(value.name, value.alias || '')
 		case 'Field':
-			return new Field(value.entity as string, value.name, value.type as string, value.alias)
+			return new Field(value.entity as string, value.name, value.type as string, value.alias, value.isRoot)
 		case 'Constant2':
 			return new Constant2(value.name)
 		case 'ArrowFunction':
@@ -244,26 +260,19 @@ export class OperandManager {
 		}
 	}
 
-	public eval (operand:Operand, data:Data):any {
+	public eval (operand: Operand, data: Data): any {
 		this.initialize(operand, new Data(data))
 		return operand.eval()
 	}
 
-	private initialize (operand:Operand, data:Data) {
+	private initialize (operand: Operand, data: Data) {
 		let current = data
-		if (operand instanceof ArrowFunction) {
+		if (operand instanceof ArrowFunction || operand instanceof ChildFunction) {
 			const childData = current.newData()
 			operand.data = childData
 			operand.metadata = this.expressionConfig
 			current = childData
-		} else if (operand instanceof ChildFunction) {
-			const childData = current.newData()
-			operand.data = childData
-			operand.metadata = this.expressionConfig
-			current = childData
-		} else if (operand instanceof FunctionRef) {
-			operand.metadata = this.expressionConfig
-		} else if (operand instanceof Operator) {
+		} else if (operand instanceof FunctionRef || operand instanceof Operator) {
 			operand.metadata = this.expressionConfig
 		} else if (operand instanceof Variable) {
 			operand.data = current
@@ -274,7 +283,7 @@ export class OperandManager {
 		}
 	}
 
-	private reduce (operand:Operand):Operand {
+	private reduce (operand: Operand): Operand {
 		if (operand instanceof Operator) {
 			return this.reduceOperand(operand)
 		} else if (operand instanceof FunctionRef) {
@@ -286,7 +295,7 @@ export class OperandManager {
 		return operand
 	}
 
-	private reduceOperand (operand:Operand):Operand {
+	private reduceOperand (operand: Operand): Operand {
 		let allConstants = true
 		for (const k in operand.children) {
 			const p = operand.children[k]
@@ -310,7 +319,7 @@ export class OperandManager {
 		return operand
 	}
 
-	private setParent (operand:Operand, index = 0, parent?:Operand) {
+	private setParent (operand: Operand, index = 0, parent?: Operand) {
 		try {
 			if (parent) {
 				operand.id = parent.id + '.' + index
@@ -328,17 +337,17 @@ export class OperandManager {
 				this.setParent(p, i, operand)
 			}
 			return operand
-		} catch (error:any) {
+		} catch (error: any) {
 			throw new SintaxisError('set parent: ' + operand.name + ' error: ' + error.toString())
 		}
 	}
 
-	private nodeToOperand (node:Node, expressionContext:ExpressionContext):Operand {
-		let operand:Operand
+	private nodeToOperand (node: Node, expressionContext: ExpressionContext): Operand {
+		let operand: Operand
 		if (node.type === 'arrow' || node.type === 'childFunc') {
 			operand = this.createSentence(node, expressionContext)
 		} else {
-			const children:Operand[] = []
+			const children: Operand[] = []
 			if (node.children) {
 				for (const i in node.children) {
 					const p = node.children[i]
@@ -357,65 +366,19 @@ export class OperandManager {
 		return operand
 	}
 
-	private createOperand (node:Node, children:Operand[], expressionContext:ExpressionContext):Operand {
+	private createOperand (node: Node, children: Operand[], expressionContext: ExpressionContext): Operand {
 		switch (node.type) {
 		case 'const':
 			return new Constant2(node.name)
-		case 'var': {
-			const parts = node.name.split('.')
-			if (parts[0] === expressionContext.current.arrowVar) {
-				if (parts.length === 1) {
-					// TODO, aqui se deberia retornar el array de fields
-					return new Field(expressionContext.current.entityName, '*', 'any', expressionContext.current.alias)
-				} else if (parts.length === 2) {
-					const _field = expressionContext.current.fields.find(p => p.name === parts[1])
-					if (_field) {
-						return new Field(expressionContext.current.entityName, _field.name, _field.type, expressionContext.current.alias)
-					} else {
-						if (this.modelConfig.existsProperty(expressionContext.current.entityName, parts[1])) {
-							const property = this.modelConfig.getProperty(expressionContext.current.entityName, parts[1])
-							return new Field(expressionContext.current.entityName, property.name, property.type, expressionContext.current.alias)
-						} else {
-							const relationInfo = this.modelConfig.getRelation(expressionContext.current.entityName, parts[1])
-							if (relationInfo) {
-								const relation = this.addJoins(parts, parts.length, expressionContext)
-								const relationAlias = expressionContext.current.joins[relation]
-								// TODO, aqui se deberia retornar el array de fields
-								return new Field(relation, '*', 'any', relationAlias + '.*')
-							} else {
-								throw new SintaxisError('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entityName)
-							}
-						}
-					}
-				} else {
-					const propertyName = parts[parts.length - 1]
-					const relation = this.addJoins(parts, parts.length - 1, expressionContext)
-					const info = this.modelConfig.getRelation(expressionContext.current.entityName, relation)
-					const relationAlias = expressionContext.current.joins[relation]
-					const property = info.entity.properties.find(p => p.name === propertyName)
-					if (property) {
-						return new Field(info.entity.name, property.name, property.type, relationAlias)
-					} else {
-						const childRelation = info.entity.relations.find(p => p.name === propertyName)
-						if (childRelation) {
-							const relation2 = this.addJoins(parts, parts.length, expressionContext)
-							const relationAlias2 = expressionContext.current.joins[relation2]
-							// TODO, aqui se deberia retornar el array de fields
-							return new Field(relation2, '*', 'any', relationAlias2 + '.*')
-						} else {
-							throw new SintaxisError('Property ' + propertyName + ' not fount in ' + relation)
-						}
-					}
-				}
-			} else { return new Variable(node.name) }
-		}
+		case 'var':
+			return this.createVariable(node, expressionContext)
 		case 'keyVal':
 			return new KeyValue(node.name, children)
 		case 'array':
 			return new List(node.name, children)
 		case 'obj':
 			return new Obj(node.name, children)
-		case 'oper':
+		case 'operator':
 			return new Operator(node.name, children)
 		case 'funcRef':
 			return new FunctionRef(node.name, children)
@@ -426,116 +389,241 @@ export class OperandManager {
 		}
 	}
 
-	private createSentence (node:Node, expressionContext:ExpressionContext):Sentence {
+	private createVariable (node: Node, expressionContext: ExpressionContext): Operand {
+		const parts = node.name.split('.')
+		if (parts[0] === expressionContext.current.arrowVar) {
+			if (parts.length === 1) {
+				// TODO: here the array of fields should be returned
+				return new Field(expressionContext.current.entityName, '*', 'any', expressionContext.current.alias, true)
+			} else if (parts.length === 2) {
+				return this.createSimpleField(parts, expressionContext)
+			} else {
+				return this.createRelationField(parts, expressionContext)
+			}
+		} else {
+			return new Variable(node.name)
+		}
+	}
+
+	private createSimpleField (parts: string[], expressionContext: ExpressionContext): Operand {
+		const _field = expressionContext.current.fields.find(p => p.name === parts[1])
+		if (_field) {
+			return new Field(expressionContext.current.entityName, _field.name, _field.type, expressionContext.current.alias, true)
+		} else {
+			if (this.modelConfig.existsProperty(expressionContext.current.entityName, parts[1])) {
+				const property = this.modelConfig.getProperty(expressionContext.current.entityName, parts[1])
+				return new Field(expressionContext.current.entityName, property.name, property.type, expressionContext.current.alias, true)
+			} else {
+				const relationInfo = this.modelConfig.getRelation(expressionContext.current.entityName, parts[1])
+				if (relationInfo) {
+					const relation = this.addJoins(parts, parts.length, expressionContext)
+					const relationAlias = expressionContext.current.joins[relation]
+					// TODO: here the array of fields should be returned
+					return new Field(relation, '*', 'any', relationAlias + '.*', true)
+				} else {
+					throw new SintaxisError('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entityName)
+				}
+			}
+		}
+	}
+
+	private createRelationField (parts: string[], expressionContext: ExpressionContext): Operand {
+		const propertyName = parts[parts.length - 1]
+		const relation = this.addJoins(parts, parts.length - 1, expressionContext)
+		const info = this.modelConfig.getRelation(expressionContext.current.entityName, relation)
+		const relationAlias = expressionContext.current.joins[relation]
+		const property = info.entity.properties.find(p => p.name === propertyName)
+		if (property) {
+			return new Field(info.entity.name, property.name, property.type, relationAlias, false)
+		} else {
+			const childRelation = info.entity.relations.find(p => p.name === propertyName)
+			if (childRelation) {
+				const relation2 = this.addJoins(parts, parts.length, expressionContext)
+				const relationAlias2 = expressionContext.current.joins[relation2]
+				// TODO: here the array of fields should be returned
+				return new Field(relation2, '*', 'any', relationAlias2 + '.*', false)
+			} else {
+				throw new SintaxisError('Property ' + propertyName + ' not fount in ' + relation)
+			}
+		}
+	}
+
+	private createSentence (node: Node, expressionContext: ExpressionContext): Sentence {
 		expressionContext.current = new EntityContext(expressionContext.current)
-		let createInclude:any
-		const clauses:any = this.getSentence(node)
+		const clauses: any = this.getSentence(node)
 		expressionContext.current.entityName = clauses.from.name
 		// expressionContext.current.metadata = this.modelConfig.getEntity(expressionContext.current.entityName)
 		expressionContext.current.alias = this.createAlias(expressionContext, expressionContext.current.entityName)
-		let name = ''
-		const children:Operand[] = []
-		let operand = null
-		let selectOperand = null
+
+		const children: Operand[] = []
+		let operand:Operand| undefined
 
 		if (clauses.filter) {
-			// TODO: Si la sentencia es Select, Update o Delete y la entidad tienen una o mas propiedades con key.
-			// Se debe agregar el filtro por esta key
+			// TODO: If the statement is Select, Update or Delete and the entity has one or more properties with key.
+			// The filter must be added by this key
 			const clause = clauses.filter
 			operand = this.createClause(clause, expressionContext)
 			children.push(operand)
 		}
 		if (clauses.from) {
-			operand = new From(expressionContext.current.entityName + '.' + expressionContext.current.alias)
+			operand = new From(expressionContext.current.entityName, expressionContext.current.alias)
 			children.push(operand)
 		}
-		if (clauses.insert) {
-			// TODO: Si la entidad tienen una o mas propiedades con key.
-			// Se debe agregar el seteo de estas propieades usando el key
-			name = 'insert'
-			createInclude = this.createInclude
-			const clause = clauses.insert as Node
-			operand = this.createInsertClause(clause, expressionContext)
-			expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
-			children.push(operand)
+
+		let sentence:Sentence|undefined
+		if (clauses.map) {
+			sentence = this.createSentenceSelect(clauses, expressionContext, children)
+		} else if (clauses.insert) {
+			sentence = this.createSentenceModify('insert', clauses, expressionContext, children)
 		} else if (clauses.bulkInsert) {
-			name = 'bulkInsert'
-			createInclude = this.createInclude
-			const clause = clauses.bulkInsert as Node
-			operand = this.createInsertClause(clause, expressionContext)
-			expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
-			children.push(operand)
+			sentence = this.createSentenceModify('bulkInsert', clauses, expressionContext, children)
 		} else if (clauses.update) {
-			name = 'update'
-			createInclude = this.createInclude
-			const clause = clauses.update as Node
-			operand = this.createUpdateClause(clause, expressionContext)
-			expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
-			children.push(operand)
+			sentence = this.createSentenceModify('update', clauses, expressionContext, children)
 		} else if (clauses.delete) {
-			name = 'delete'
-			createInclude = this.createInclude
-			// const clause = clauses.delete
-			operand = new Delete(expressionContext.current.entityName + '.' + expressionContext.current.alias)
-			children.push(operand)
-		} else if (clauses.map) {
-			name = 'select'
-			createInclude = this.createSelectInclude
-			const clause = clauses.map
-			selectOperand = this.createMapClause(clause, expressionContext)
-			expressionContext.current.fields = this.fieldsInSelect(selectOperand, expressionContext)
-			expressionContext.current.groupByFields = this.groupByFields(selectOperand)
-			children.push(selectOperand)
+			sentence = this.createSentenceDelete(clauses, expressionContext, children)
+		}
+		expressionContext.current = expressionContext.current.parent ? expressionContext.current.parent : new EntityContext()
+		if (!sentence) {
+			throw new SintaxisError('Sentence incomplete')
+		}
+		return sentence
+	}
 
-			if (expressionContext.current.groupByFields.length > 0) {
-				const fields = []
-				for (let i = 0; i < expressionContext.current.groupByFields.length; i++) {
-					const groupByField = expressionContext.current.groupByFields[i].clone()
-					fields.push(groupByField)
-				}
-				if (fields.length === 1) {
-					operand = new GroupBy('groupBy', fields)
-				} else {
-					const array:Operand = new List('array', fields)
-					operand = new GroupBy('groupBy', [array])
-				}
-				children.push(operand)
+	private createSentenceSelect (clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
+		const selectOperand = this.createMapClause(clauses.map, expressionContext)
+		expressionContext.current.fields = this.fieldsInSelect(selectOperand, expressionContext)
+		expressionContext.current.groupByFields = this.groupByFields(selectOperand)
+		children.push(selectOperand)
+
+		if (expressionContext.current.groupByFields.length > 0) {
+			const fields:Field[] = []
+			for (const groupByField of expressionContext.current.groupByFields) {
+				fields.push(groupByField.clone())
 			}
-			if (clauses.having) {
-				const clause = clauses.having
-				operand = this.createClause(clause, expressionContext)
-				children.push(operand)
-			}
-			if (clauses.sort) {
-				const clause = clauses.sort
-				operand = this.createClause(clause, expressionContext)
-				children.push(operand)
-			}
-			if (clauses.page) {
-				const clause = clauses.page
-				const childs = clause.children.map((p:Node) => this.nodeToOperand(p, expressionContext))
-				operand = new Page(clause.name, childs)
-				children.push(operand)
+			if (fields.length === 1) {
+				children.push(new GroupBy('groupBy', fields))
+			} else {
+				const array: Operand = new List('array', fields)
+				children.push(new GroupBy('groupBy', [array]))
 			}
 		}
-		if (clauses.include) {
-			if (!createInclude) {
-				throw new SintaxisError('Include not implemented!!!')
+		if (clauses.having) {
+			children.push(this.createClause(clauses.having, expressionContext))
+		}
+		if (clauses.sort) {
+			children.push(this.createClause(clauses.sort, expressionContext))
+		}
+		if (clauses.page) {
+			if (!clauses.sort) {
+				throw new SintaxisError('Sort clause is required when using Page clause')
 			}
+			const pageChildren = clauses.page.children.filter((p: Node) => p.type !== 'arrow').map((q: Node) => this.nodeToOperand(q, expressionContext))
+			children.push(new Page(clauses.page.name, pageChildren))
+		}
 
-			const clause = clauses.include
-			expressionContext.current.arrowVar = clause.children[1].name
-			const body = clause.children[2]
-			if (body.type === 'array') {
-				for (let i = 0; i < body.children.length; i++) {
-					const include = createInclude.bind(this)(body.children[i], expressionContext)
-					children.push(include)
-				}
-			} else {
-				const include = createInclude.bind(this)(body, expressionContext)
+		if (clauses.include) {
+			this.createSentenceAddIncludes(expressionContext, clauses, this.createSelectInclude, children)
+		}
+		this.createSentenceAddJoins(expressionContext, children)
+		for (const child of children) {
+			this.solveTypes(child, expressionContext)
+		}
+
+		return new Sentence({
+			name: 'select',
+			children: children,
+			entity: expressionContext.current.entityName,
+			alias: expressionContext.current.alias,
+			columns: expressionContext.current.fields,
+			parameters: this.parametersInSentence(children),
+			values: this.getBehaviorReadValues(expressionContext.current.entityName, selectOperand),
+			constraints: [],
+			defaults: []
+		})
+	}
+
+	private createSentenceModify (name:string, clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
+		// TODO: If the entity has one or more properties with key.
+		// These properties must be added using the key
+		let clause:Node|undefined
+		let operand:Operand|undefined
+		if (name === 'insert') {
+			clause = clauses.insert as Node
+			operand = this.createInsertClause(clause, expressionContext)
+		} else if (name === 'bulkInsert') {
+			clause = clauses.bulkInsert as Node
+			operand = this.createInsertClause(clause, expressionContext)
+		} else if (name === 'update') {
+			clause = clauses.update as Node
+			operand = this.createUpdateClause(clause, expressionContext)
+		} else {
+			throw new SintaxisError('clause modify undefined')
+		}
+
+		expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
+		children.push(operand)
+
+		if (clauses.include) {
+			this.createSentenceAddIncludes(expressionContext, clauses, this.createInclude, children)
+		}
+		for (const child of children) {
+			this.solveTypes(child, expressionContext)
+		}
+		const parameters = this.parametersInSentence(children)
+		return new Sentence({
+			name: name,
+			children: children,
+			entity: expressionContext.current.entityName,
+			alias: expressionContext.current.alias,
+			columns: expressionContext.current.fields,
+			parameters: parameters,
+			constraints: this.getConstraints(expressionContext.current.entityName, parameters),
+			values: this.getBehaviorWriteValues(expressionContext.current.entityName, parameters),
+			defaults: name === 'update' ? [] : this.getBehaviorDefaults(expressionContext.current.entityName)
+		})
+	}
+
+	private createSentenceDelete (clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
+		const operand = new Delete(expressionContext.current.entityName, [], expressionContext.current.alias)
+		children.push(operand)
+
+		if (clauses.include) {
+			this.createSentenceAddIncludes(expressionContext, clauses, this.createInclude, children)
+		}
+		for (const child of children) {
+			this.solveTypes(child, expressionContext)
+		}
+		return new Sentence({
+			name: 'update',
+			children: children,
+			entity: expressionContext.current.entityName,
+			alias: expressionContext.current.alias,
+			columns: expressionContext.current.fields,
+			parameters: this.parametersInSentence(children),
+			constraints: [],
+			values: [],
+			defaults: []
+		})
+	}
+
+	private createSentenceAddIncludes (expressionContext: ExpressionContext, clauses: any, createInclude:any, children: Operand[]):void {
+		if (!createInclude) {
+			throw new SintaxisError('Include not implemented!!!')
+		}
+		expressionContext.current.arrowVar = clauses.include.children[1].name
+		const body = clauses.include.children[2]
+		if (body.type === 'array') {
+			for (const child of body.children) {
+				const include = createInclude.bind(this)(child, expressionContext)
 				children.push(include)
 			}
+		} else {
+			const include = createInclude.bind(this)(body, expressionContext)
+			children.push(include)
 		}
+	}
+
+	private createSentenceAddJoins (expressionContext: ExpressionContext, children: Operand[]):void {
 		for (const key in expressionContext.current.joins) {
 			const info = this.modelConfig.getRelation(expressionContext.current.entityName, key)
 			const relatedEntity = info.previousEntity.name
@@ -545,41 +633,18 @@ export class OperandManager {
 			const relationAlias = expressionContext.current.joins[key]
 			const relationProperty = info.entity.properties.find(p => p.name === info.relation.to) as Property
 
-			// TODO: Aqui usar el key para agregar el filtro que corresponda
-			// si una entidad tiene uno o mas propiedades con key, se debe agregar un filtro por el key
+			// TODO: Here use the key to add the corresponding filter
+			// if an entity has one or more properties with a key, a filter must be added by the key
 			const relatedField = new Field(relatedEntity, info.relation.from, relatedProperty.type, relatedAlias)
 			const relationField = new Field(relationEntity, info.relation.to, relationProperty.type, relationAlias)
 			const equal = new Operator('==', [relationField, relatedField])
-			operand = new Join(relationEntity + '.' + relationAlias, [equal])
+			const operand = new Join(relationEntity, [equal], relatedEntity, relationAlias)
 			children.push(operand)
 		}
-		for (let i = 0; i < children.length; i++) {
-			this.solveTypes(children[i], expressionContext)
-		}
-		const parameters = this.parametersInSentence(children)
-
-		let constraints:Constraint[] = []
-		let values: Behavior[] = []
-		let defaults: Behavior[] = []
-
-		if (name === 'select' && selectOperand) {
-			values = this.getBehaviorReadValues(expressionContext.current.entityName, selectOperand)
-		} else if (name === 'insert' || name === 'bulkInsert') {
-			defaults = this.getBehaviorDefaults(expressionContext.current.entityName)
-			values = this.getBehaviorWriteValues(expressionContext.current.entityName, parameters)
-			constraints = this.getConstraints(expressionContext.current.entityName, parameters)
-		} else if (name === 'update') {
-			values = this.getBehaviorWriteValues(expressionContext.current.entityName, parameters)
-			constraints = this.getConstraints(expressionContext.current.entityName, parameters)
-		}
-
-		const sentence = new Sentence(name, children, expressionContext.current.entityName, expressionContext.current.alias, expressionContext.current.fields, parameters, constraints, values, defaults)
-		expressionContext.current = expressionContext.current.parent ? expressionContext.current.parent as EntityContext : new EntityContext()
-		return sentence
 	}
 
-	private getBehaviorDefaults (entityName:string):Behavior[] {
-		const behaviors:Behavior[] = []
+	private getBehaviorDefaults (entityName: string): Behavior[] {
+		const behaviors: Behavior[] = []
 		const entity = this.modelConfig.getEntity(entityName)
 		if (entity && entity.properties) {
 			for (const i in entity.properties) {
@@ -592,67 +657,39 @@ export class OperandManager {
 		return behaviors
 	}
 
-	private getBehaviorReadValues (entityName: string, operand:Operand): Behavior[] {
-		const behaviors: Behavior[] = []
+	private getBehaviorReadValues (entityName: string, operand: Operand): Behavior[] {
 		const entity = this.modelConfig.getEntity(entityName)
-		if (entity && operand.children.length === 1) {
-			let child:Operand
-			if (operand.children[0] instanceof FunctionRef && operand.children[0].name === 'distinct') {
-				child = operand.children[0].children[0]
-			} else {
-				child = operand.children[0]
-			}
+		if (entity === undefined || operand.children.length !== 1) {
+			return []
+		}
+		const child = (operand.children[0] instanceof FunctionRef && operand.children[0].name === 'distinct')
+			? operand.children[0].children[0]
+			: operand.children[0]
 
-			if (child instanceof Obj) {
-				const obj = child
-				for (const p in obj.children) {
-					const keyVal = obj.children[p]
-					if (keyVal.children[0] instanceof Field) {
-						const field = keyVal.children[0] as Field
-						const property = entity.properties.find(p => p.name === field.name)
-						if (property && property.readValue) {
-							const behavior = { alias: keyVal.name, property: property.name, expression: property.readValue }
-							behaviors.push(behavior)
-						}
-					}
-				}
+		if (!(child instanceof Obj)) {
+			return []
+		}
+		const behaviors: Behavior[] = []
+		const obj = child
+		for (const keyVal of obj.children) {
+			if (!(keyVal.children[0] instanceof Field)) {
+				continue
 			}
-			// Expression completer pasa todos los select a Obj
-			// else if (child instanceof List) {
-			// const array = child
-			// for (let i = 0; i < array.children.length; i++) {
-			// const element = array.children[i]
-			// if (element instanceof Field) {
-			// // TODO: resolver el problema de las relaciones
-			// // const parts = element.name.split('.')
-			// const field = element as Field
-			// const property = entity.properties.find(p => p.name === field.name)
-			// if (property && property.readValue) {
-			// const behavior = { alias: field.name, property: property.name, expression: property.readValue }
-			// behaviors.push(behavior)
-			// }
-			// }
-			// }
-			// } else if (child instanceof Field) {
-			// // TODO: resolver el problema de las relaciones
-			// // const parts = child.name.split('.')
-			// const field = child as Field
-			// const property = entity.properties.find(p => p.name === field.name)
-			// if (property && property.readValue) {
-			// const behavior = { alias: field.name, property: property.name, expression: property.readValue }
-			// behaviors.push(behavior)
-			// }
-			// }
+			const field = keyVal.children[0]
+			const property = entity.properties.find(q => q.name === field.name)
+			if (property && property.readValue) {
+				const behavior = { alias: keyVal.name, property: property.name, expression: property.readValue }
+				behaviors.push(behavior)
+			}
 		}
 		return behaviors
 	}
 
 	private getBehaviorWriteValues (entityName: string, parameters: Parameter[]): Behavior[] {
-		const behaviors:Behavior[] = []
+		const behaviors: Behavior[] = []
 		const properties = this.getPropertiesFromParameters(entityName, parameters)
 		if (properties) {
-			for (let i = 0; i < properties.length; i++) {
-				const property = properties[i]
+			for (const property of properties) {
 				if (property.writeValue) {
 					behaviors.push({ property: property.name, expression: property.writeValue })
 				}
@@ -661,12 +698,11 @@ export class OperandManager {
 		return behaviors
 	}
 
-	private getPropertiesFromParameters (entityName: string, parameters: Parameter[]):Property[] {
+	private getPropertiesFromParameters (entityName: string, parameters: Parameter[]): Property[] {
 		const entity = this.modelConfig.getEntity(entityName)
 		const properties: Property[] = []
 		if (entity && entity.properties && parameters) {
-			for (const i in parameters) {
-				const parameter = parameters[i]
+			for (const parameter of parameters) {
 				const property = entity.properties.find(p => p.name === parameter.name)
 				if (property) {
 					properties.push(property)
@@ -676,57 +712,60 @@ export class OperandManager {
 		return properties
 	}
 
-	private getConstraints (entityName: string, parameters: Parameter[]):Constraint[] {
-		const constraints: Constraint[] = []
+	private getConstraints (entityName: string, parameters: Parameter[]): Constraint[] {
 		const queryProperties = this.getPropertiesFromParameters(entityName, parameters)
 		const entity = this.modelConfig.getEntity(entityName)
-		if (entity) {
-			if (entity.constraints) {
-				for (const i in entity.constraints) {
-					const constraint = entity.constraints[i]
-					const contitionProperties = this.expressions.parameters(constraint.condition)
-					let containtAll = true
-					for (const j in contitionProperties) {
-						const contitionParameter = contitionProperties[j]
-						if (!queryProperties.find(p => p.name === contitionParameter.name)) {
-							containtAll = false
-							break
-						}
-					}
-					if (containtAll) {
-						constraints.push(constraint)
-					}
-				}
-			}
-			if (queryProperties) {
-				for (const i in queryProperties) {
-					const property = queryProperties[i]
-					if (property.nullable === false && property.default === undefined && property.key === undefined) {
-						const constraint: Constraint = {
-							message: `Cannot be null property ${property.name} in entity ${entityName}`,
-							condition: `isNotNull(${property.name})`
-						}
-						constraints.push(constraint)
-					}
-					if (property.enum) {
-						const _enum = this.modelConfig.getEnum(property.enum)
-						if (_enum && _enum.values) {
-							const values = _enum.values.map(p => typeof p.value === 'number' ? p.value : '"' + p.value + '"').join(',')
-							const constraint: Constraint = {
-								message: `invalid value for property ${property.name} in entity ${entityName}`,
-								condition: `includes(${property.name},[${values}])`
-							}
-							constraints.push(constraint)
-						}
-					}
-				}
-			}
+		if (entity === undefined) {
+			return []
 		}
-
+		const constraints: Constraint[] = []
+		this.addEntityConstraints(entity, queryProperties, constraints)
+		this.addPropertiesConstraints(entityName, queryProperties, constraints)
 		return constraints
 	}
 
-	private createClause (clause:Node, expressionContext:ExpressionContext):Operand {
+	private addEntityConstraints (entity: Entity, queryProperties: Property[], constraints:Constraint[]): void {
+		if (entity.constraints) {
+			for (const constraint of entity.constraints) {
+				const conditionProperties = this.expressions.parameters(constraint.condition)
+				let all = true
+				for (const conditionParameter of conditionProperties) {
+					if (!queryProperties.find(p => p.name === conditionParameter.name)) {
+						all = false
+						break
+					}
+				}
+				if (all) {
+					constraints.push(constraint)
+				}
+			}
+		}
+	}
+
+	private addPropertiesConstraints (entityName: string, queryProperties: Property[], constraints:Constraint[]): void {
+		for (const property of queryProperties) {
+			if (property.nullable === false && property.default === undefined && property.key === undefined) {
+				const constraint: Constraint = {
+					message: `Cannot be null property ${property.name} in entity ${entityName}`,
+					condition: `isNotNull(${property.name})`
+				}
+				constraints.push(constraint)
+			}
+			if (property.enum) {
+				const _enum = this.modelConfig.getEnum(property.enum)
+				if (_enum && _enum.values) {
+					const values = _enum.values.map(p => typeof p.value === 'number' ? p.value : '"' + p.value + '"').join(',')
+					const constraint: Constraint = {
+						message: `invalid value for property ${property.name} in entity ${entityName}`,
+						condition: `includes(${property.name},[${values}])`
+					}
+					constraints.push(constraint)
+				}
+			}
+		}
+	}
+
+	private createClause (clause: Node, expressionContext: ExpressionContext): Operand {
 		expressionContext.current.arrowVar = clause.children[1].name
 		const child = this.nodeToOperand(clause.children[2], expressionContext)
 		switch (clause.name) {
@@ -737,7 +776,7 @@ export class OperandManager {
 		}
 	}
 
-	private createMapClause (clause:Node, expressionContext:ExpressionContext):Operand {
+	private createMapClause (clause: Node, expressionContext: ExpressionContext): Operand {
 		if (clause.children.length === 3) {
 			expressionContext.current.arrowVar = clause.children[1].name
 			const child = this.nodeToOperand(clause.children[2], expressionContext)
@@ -746,7 +785,7 @@ export class OperandManager {
 		throw new SintaxisError('Sentence Map incorrect!!!')
 	}
 
-	private createInsertClause (clause:Node, expressionContext:ExpressionContext):Operand {
+	private createInsertClause (clause: Node, expressionContext: ExpressionContext): Operand {
 		if (clause.children.length === 2) {
 			// Example: Categories.insert({ name: name, description: description })
 			if (clause.children[1].type === 'obj') {
@@ -763,12 +802,12 @@ export class OperandManager {
 		throw new SintaxisError('Sentence Insert incorrect!!!')
 	}
 
-	private createUpdateClause (clause:Node, expressionContext:ExpressionContext):Operand {
+	private createUpdateClause (clause: Node, expressionContext: ExpressionContext): Operand {
 		if (clause.children.length === 2) {
 			if (clause.children[1].type === 'obj') {
 				// Example: Orders.update({name:'test'})
 				const child = this.nodeToOperand(clause.children[1], expressionContext)
-				return new Update(expressionContext.current.entityName + '.' + expressionContext.current.alias, [child])
+				return new Update(expressionContext.current.entityName, [child], expressionContext.current.alias)
 			} else {
 				throw new SintaxisError('Args incorrect in Sentence Update')
 			}
@@ -776,12 +815,12 @@ export class OperandManager {
 			// Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
 			expressionContext.current.arrowVar = clause.children[1].name
 			const child = this.nodeToOperand(clause.children[2], expressionContext)
-			return new Update(expressionContext.current.entityName + '.' + expressionContext.current.alias, [child])
+			return new Update(expressionContext.current.entityName, [child], expressionContext.current.alias)
 		}
 		throw new SintaxisError('Sentence Update incorrect!!!')
 	}
 
-	private createSelectInclude (node:Node, expressionContext:ExpressionContext):SentenceInclude {
+	private createSelectInclude (node: Node, expressionContext: ExpressionContext): SentenceInclude {
 		let current = node
 		while (current) {
 			if (current.type === 'var') {
@@ -800,11 +839,9 @@ export class OperandManager {
 			}
 		}
 		throw new SintaxisError('Error to create SentenceInclude')
-		// return new SentenceInclude(relation.name, [child], relation, 'LamdaOrmParentId')
-		// return new SentenceInclude(relation.relation.name, [child], relation.relation)
 	}
 
-	private createInclude (node:Node, expressionContext:ExpressionContext):SentenceInclude {
+	private createInclude (node: Node, expressionContext: ExpressionContext): SentenceInclude {
 		let current = node
 		while (current) {
 			if (current.type === 'var') {
@@ -821,11 +858,10 @@ export class OperandManager {
 			} else { break }
 		}
 		throw new SintaxisError('Error to create SentenceInclude')
-		// return new SentenceInclude(relationName, [child], relation, relation.to)
 	}
 
-	private getSentence (node:Node):any {
-		const sentence:any = {}
+	private getSentence (node: Node): any {
+		const sentence: any = {}
 		let current = node
 		while (current) {
 			const name = current.type === 'var' ? 'from' : current.name
@@ -839,7 +875,7 @@ export class OperandManager {
 		return sentence
 	}
 
-	private addJoins (parts:string[], to:number, expressionContext:ExpressionContext):string {
+	private addJoins (parts: string[], to: number, expressionContext: ExpressionContext): string {
 		let relation = ''
 		for (let i = 1; i < to; i++) {
 			relation = (i > 1 ? relation + '.' : '') + parts[i]
@@ -850,13 +886,13 @@ export class OperandManager {
 		return relation
 	}
 
-	private groupByFields (operand:Operand):Field[] {
+	private groupByFields (operand: Operand): Field[] {
 		const data = { fields: [], groupBy: false }
 		this._groupByFields(operand, data)
 		return data.groupBy ? data.fields : []
 	}
 
-	private _groupByFields (operand:Operand, data:any):void {
+	private _groupByFields (operand: Operand, data: any): void {
 		if (operand instanceof Field) {
 			data.fields.push(operand)
 		} else if (operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
@@ -869,18 +905,22 @@ export class OperandManager {
 		}
 	}
 
-	private createAlias (expressionContext:ExpressionContext, name:string, relation?:string):string {
+	private createAlias (expressionContext: ExpressionContext, name: string, relation?: string): string {
 		const c = name.charAt(0).toLowerCase()
 		let alias = c
-		for (let i = 1; expressionContext.aliases[alias]; i++)alias = alias + i
+		let i = 1
+		while (expressionContext.aliases[alias]) {
+			alias = alias + i
+			i++
+		}
 		expressionContext.aliases[alias] = relation || name
 		return alias
 	}
 
-	private fieldsInSelect (operand:Operand, expressionContext:ExpressionContext):Property[] {
+	private fieldsInSelect (operand: Operand, expressionContext: ExpressionContext): Property[] {
 		const fields: Property[] = []
 		if (operand.children.length === 1) {
-			let child:Operand
+			let child: Operand
 			if (operand.children[0] instanceof FunctionRef && operand.children[0].name === 'distinct') {
 				child = operand.children[0].children[0]
 			} else {
@@ -889,10 +929,9 @@ export class OperandManager {
 
 			if (child instanceof Obj) {
 				const obj = child
-				for (const p in obj.children) {
-					const keyVal = obj.children[p]
+				for (const keyVal of obj.children) {
 					if (keyVal.children[0] instanceof Field) {
-						const _field = keyVal.children[0] as Field
+						const _field = keyVal.children[0]
 						const field = { name: keyVal.name, type: _field.type }
 						fields.push(field)
 					} else {
@@ -901,30 +940,6 @@ export class OperandManager {
 					}
 				}
 			}
-			// Expression completer ya resuelve pasar List y field unico a Obj
-			// else if (child instanceof List) {
-			// const array = child
-			// for (let i = 0; i < array.children.length; i++) {
-			// const element = array.children[i]
-			// if (element instanceof Field) {
-			// const parts = element.name.split('.')
-			// const _field = element as Field
-			// const field = { name: parts[parts.length - 1], type: _field.type }
-			// fields.push(field)
-			// } else {
-			// const field = { name: 'field' + i, type: this.solveTypes(element, expressionContext) }
-			// fields.push(field)
-			// }
-			// }
-			// } else if (child instanceof Field) {
-			// const parts = child.name.split('.')
-			// const _field = child as Field
-			// const field = { name: parts[parts.length - 1], type: _field.type }
-			// fields.push(field)
-			// } else {
-			// const field = { name: 'field0', type: this.solveTypes(child, expressionContext) }
-			// fields.push(field)
-			// }
 		}
 		return fields
 	}
@@ -935,8 +950,8 @@ export class OperandManager {
 	* @param expressionContext current ExpressionContext
 	* @returns fields to execute query
 	*/
-	private fieldsInModify (operand:Operand, expressionContext:ExpressionContext):Property[] {
-		const fields:Property[] = []
+	private fieldsInModify (operand: Operand, expressionContext: ExpressionContext): Property[] {
+		const fields: Property[] = []
 		if (operand.children.length === 1) {
 			if (operand.children[0] instanceof Object) {
 				const obj = operand.children[0]
@@ -952,17 +967,17 @@ export class OperandManager {
 		return fields
 	}
 
-	private parametersInSentence (children:Operand[]):Parameter[] {
+	private parametersInSentence (children: Operand[]): Parameter[] {
 		const map = children.find(p => p.name === 'map')
 		const filter = children.find(p => p.name === 'filter')
 		const groupBy = children.find(p => p.name === 'groupBy')
 		const having = children.find(p => p.name === 'having')
 		const sort = children.find(p => p.name === 'sort')
-		const insert = children.find(p => p instanceof Insert) as Insert|undefined
-		const update = children.find(p => p instanceof Update) as Update|undefined
-		const _delete = children.find(p => p instanceof Delete) as Delete|undefined
+		const insert = children.find(p => p instanceof Insert) as Insert | undefined
+		const update = children.find(p => p instanceof Update) as Update | undefined
+		const _delete = children.find(p => p instanceof Delete) as Delete | undefined
 
-		const parameters:Parameter[] = []
+		const parameters: Parameter[] = []
 		if (map) this.loadParameters(map, parameters)
 		if (insert) this.loadParameters(insert, parameters)
 		if (update) this.loadParameters(update, parameters)
@@ -974,88 +989,110 @@ export class OperandManager {
 		return parameters
 	}
 
-	private loadParameters (operand:Operand, parameters:Parameter[]) {
+	private loadParameters (operand: Operand, parameters: Parameter[]) {
 		if (operand instanceof Variable) {
-			if (parameters.find(p => p.name === operand.name) === undefined) {
-				let type:string
-				if (operand.type === '')type = 'any'
-				else if (operand.type === 'T[]')type = 'array'
-				else type = operand.type
-				parameters.push({ name: operand.name, type: type })
-			}
+			// if (parameters.find(p => p.name === operand.name) === undefined) {
+			let type: string
+			if (operand.type === '') type = 'any'
+			else if (operand.type === 'T[]') type = 'array'
+			else type = operand.type
+			parameters.push({ name: operand.name, type: type })
+			// }
 		}
-		for (let i = 0; i < operand.children.length; i++) {
-			this.loadParameters(operand.children[i], parameters)
+		for (const child of operand.children) {
+			this.loadParameters(child, parameters)
 		}
 	}
 
-	// TODO: determinar el tipo de la variable de acuerdo a la expression.
-	// si se usa en un operador con que se esta comparando.
-	// si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
+	// determine the type of the variable according to the expression.
+	// if used in an operator that is being compared to.
+	// if it is used in a function, which type corresponds according to the position it is occupying.
 	// let type = this.solveType(operand,childNumber)
-	private solveTypes (operand:Operand, expressionContext:ExpressionContext):string {
+	private solveTypes (operand: Operand, expressionContext: ExpressionContext): string {
 		if (operand instanceof Constant2 || operand instanceof Field || operand instanceof Variable) return operand.type
 		if (operand instanceof Update || operand instanceof Insert) {
-			if (operand.children.length === 1) {
-				if (operand.children[0] instanceof Object) {
-					const obj = operand.children[0]
-					for (const p in obj.children) {
-						const keyVal = obj.children[p] as KeyValue
-						const entityName = operand.name.includes('.') ? operand.name.split('.')[0] : operand.name
-						const property = this.modelConfig.getProperty(entityName, keyVal.name)
-						if (keyVal.children[0].type === 'any') {
-							keyVal.children[0].type = property.type
-						}
+			this.solveTypesInsertUpdate(operand)
+		}
+		if (!(operand instanceof Sentence || operand instanceof ArrowFunction || operand instanceof ChildFunction) && (operand instanceof Operator || operand instanceof FunctionRef)) {
+			this.solveTypesFunction(operand, expressionContext)
+		}
+		// recorre todos los hijos para resolver el tipo
+		for (const child of operand.children) {
+			this.solveTypes(child, expressionContext)
+		}
+		return operand.type
+	}
+
+	private solveTypesInsertUpdate (operand: Operand):void {
+		if (operand.children.length === 1) {
+			if (operand.children[0] instanceof Object) {
+				const obj = operand.children[0]
+				for (const p in obj.children) {
+					const keyVal = obj.children[p] as KeyValue
+					const entityName = operand.name
+					const property = this.modelConfig.getProperty(entityName, keyVal.name)
+					if (keyVal.children[0].type === 'any') {
+						keyVal.children[0].type = property.type
 					}
 				}
 			}
 		}
-		if (!(operand instanceof Sentence || operand instanceof ArrowFunction || operand instanceof ChildFunction) && (operand instanceof Operator || operand instanceof FunctionRef)) {
-			let tType = 'any'
-			// get metadata of operand
-			const metadata = operand instanceof Operator
-				? this.expressionConfig.getOperator(operand.name, operand.children.length)
-				: this.expressionConfig.getFunction(operand.name)
+	}
 
-			// recorre todos los parametros
+	private solveTypesFunction (operand: Operand, expressionContext: ExpressionContext):void {
+		// get metadata of operand
+		const metadata = operand instanceof Operator
+			? this.expressionConfig.getOperator(operand.name, operand.children.length)
+			: this.expressionConfig.getFunction(operand.name)
+		// loop through all parameters
+		const tType = this.solveTypesParameters(operand, expressionContext, metadata)
+		// in the case that it has been possible to solve T
+		if (tType !== 'any') {
+			// in case the operand is T assigns the type corresponding to the operand
+			if (metadata.return === 'T' && operand.type === 'any') {
+				operand.type = tType
+			}
+			// look for the parameters that are T and the children have not yet been defined to assign the corresponding type
+			if (metadata.params === undefined || metadata.params.length === 0) {
+				return
+			}
 			for (let i = 0; i < metadata.params.length; i++) {
 				const param = metadata.params[i]
 				const child = operand.children[i]
-				if (param.type !== 'T' && param.type !== 'any' && child.type === 'any') {
-					// en el caso que el pametro tenga un tipo defido y el hijo no, asigna al hijo el tipo del parametro
-					child.type = param.type
-				} else if (param.type === 'T' && child.type !== 'any') {
-					// en el caso que el pametro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
-					tType = child.type
-				} else if (param.type === 'T' && child.type === 'any') {
-					// en el caso que el pametro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
-					// en caso de lograrlo determina que T es el tipo de hijo
-					const childType = this.solveTypes(child, expressionContext)
-					if (childType !== 'any') {
-						tType = childType
-						break
-					}
-				}
-			}
-			// en el caso que se haya podido resolver T
-			if (tType !== 'any') {
-				// en el caso que el operando sea T asigna el tipo correspondiente al operando
-				if (metadata.return === 'T' && operand.type === 'any') { operand.type = tType }
-				// busca los parametros que sea T y los hijos aun no fueron definidos para asignarle el tipo correspondiente
-				for (let i = 0; i < metadata.params.length; i++) {
-					const param = metadata.params[i]
-					const child = operand.children[i]
-					if (param.type === 'T' && child.type === 'any') {
-						child.type = tType
-					}
+				if (param.type === 'T' && child.type === 'any') {
+					child.type = tType
 				}
 			}
 		}
-		// recorre todos los hijos para resolver el tipo
-		for (let i = 0; i < operand.children.length; i++) {
-			this.solveTypes(operand.children[i], expressionContext)
-		}
+	}
 
-		return operand.type
+	private solveTypesParameters (operand: Operand, expressionContext: ExpressionContext, metadata:exp.OperatorMetadata):string {
+		let tType = 'any'
+		if (metadata.return !== 'T' && metadata.return !== 'any') {
+			return metadata.return
+		}
+		if (metadata.params === undefined || metadata.params.length === 0) {
+			return 'any'
+		}
+		for (let i = 0; i < metadata.params.length; i++) {
+			const param = metadata.params[i]
+			const child = operand.children[i]
+			if (param.type !== 'T' && param.type !== 'any' && child.type === 'any') {
+				// en el caso que el parámetro tenga un tipo definido y el hijo no, asigna al hijo el tipo del parámetro
+				child.type = param.type
+			} else if (param.type === 'T' && child.type !== 'any') {
+				// en el caso que el parámetro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
+				tType = child.type
+			} else if (param.type === 'T' && child.type === 'any') {
+				// en el caso que el parámetro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
+				// en caso de lograrlo determina que T es el tipo de hijo
+				const childType = this.solveTypes(child, expressionContext)
+				if (childType !== 'any') {
+					tType = childType
+					break
+				}
+			}
+		}
+		return tType
 	}
 }

@@ -20,27 +20,43 @@ export class Constant2 extends Constant {
 export class Field extends Operand {
 	public entity: string
 	public alias?: string
-	constructor (entity: string, name: string, type: string, alias?: string) {
+	public isRoot?: boolean
+	public prefix?: string
+	constructor (entity: string, name: string, type: string, alias?: string, isRoot?: boolean) {
 		super(name, [], type)
 		this.entity = entity
 		this.alias = alias
+		this.isRoot = isRoot
 	}
 
 	public clone () {
-		return new Field(this.entity, this.name, this.type, this.alias)
+		return new Field(this.entity, this.name, this.type, this.alias, this.isRoot)
 	}
 
 	public eval (): any {
-	// TODO:implement
 		throw new MethodNotImplemented('Field', 'eval')
 	}
 }
 export class From extends Operand {
+	public alias: string
+	constructor (name: string, alias: string) {
+		super(name, [], 'any')
+		this.alias = alias
+	}
+
 	public eval (): any {
 		throw new MethodNotImplemented('From', 'eval')
 	}
 }
 export class Join extends Operand {
+	public alias: string
+	public entity:string
+	constructor (name: string, children:Operand[], entity:string, alias: string) {
+		super(name, children, 'any')
+		this.alias = alias
+		this.entity = entity
+	}
+
 	public eval (): any {
 		throw new MethodNotImplemented('Join', 'eval')
 	}
@@ -52,41 +68,61 @@ export class Having extends ArrowFunction { }
 export class Sort extends ArrowFunction { }
 export class Page extends ChildFunction { }
 export class Insert extends ArrowFunction {
-	// public autoincrement?: string
 	public clause: string
-	constructor (name: string, children: Operand[] = [], clause: string) {
+	constructor (name: string, children: Operand[], clause: string) {
 		super(name, children)
-		// this.autoincrement = autoincrement
 		this.clause = clause
 	}
 }
-export class Update extends ArrowFunction { }
-export class Delete extends ArrowFunction { }
+export class Update extends ArrowFunction {
+	public alias: string
+	constructor (name: string, children: Operand[], alias: string) {
+		super(name, children)
+		this.alias = alias
+	}
+}
+export class Delete extends ArrowFunction {
+	public alias: string
+	constructor (name: string, children: Operand[], alias: string) {
+		super(name, children)
+		this.alias = alias
+	}
+}
+
+export interface SentenceArgs{
+	name: string, children: Operand[], entity: string, alias: string, columns: Property[], parameters: Parameter[], constraints: Constraint[], values: Behavior[], defaults: Behavior[]
+}
+
 export class Sentence extends Operand {
 	public columns: Property[]
 	public parameters: Parameter[]
 	public entity: string
 	public alias: string
 	public action: string
-	public constraints:Constraint[]
+	public constraints: Constraint[]
 	public values: Behavior[]
 	public defaults: Behavior[]
 
-	constructor (name: string, children: Operand[], entity: string, alias: string, columns: Property[], parameters: Parameter[], constraints:Constraint[], values: Behavior[], defaults: Behavior[]) {
-		super(name, children)
-		this.entity = entity
-		this.alias = alias
-		this.columns = columns
-		this.parameters = parameters
+	constructor (args:SentenceArgs) {
+		super(args.name, args.children)
+		this.entity = args.entity
+		this.alias = args.alias
+		this.columns = args.columns
+		this.parameters = args.parameters
 		this.action = ''
-		this.constraints = constraints
-		this.values = values
-		this.defaults = defaults
+		this.constraints = args.constraints
+		this.values = args.values
+		this.defaults = args.defaults
 		this.initialize()
 	}
 
 	public getIncludes (): SentenceInclude[] {
 		return this.children.filter(p => p instanceof SentenceInclude) as SentenceInclude[]
+	}
+
+	public getCompositeIncludes (): SentenceInclude[] {
+		const includes = this.getIncludes()
+		return includes.filter(p => p.relation.composite)
 	}
 
 	private initialize () {
@@ -123,8 +159,12 @@ export class Sentence extends Operand {
 	}
 
 	private loadVariables (operand: Operand, variables: Variable[]) {
-		if (operand instanceof Variable) { variables.push(operand) }
-		for (let i = 0; i < operand.children.length; i++) { this.loadVariables(operand.children[i], variables) }
+		if (operand instanceof Variable) {
+			variables.push(operand)
+		}
+		for (const child of operand.children) {
+			this.loadVariables(child, variables)
+		}
 	}
 
 	public eval (): any {
@@ -134,7 +174,7 @@ export class Sentence extends Operand {
 export class SentenceInclude extends Operand {
 	public relation: Relation
 	// public variable: string
-	constructor (name: string, children: Operand[] = [], relation: Relation) {
+	constructor (name: string, children: Operand[], relation: Relation) {
 		super(name, children)
 		this.relation = relation
 		// this.variable = variable

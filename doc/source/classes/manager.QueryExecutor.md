@@ -12,7 +12,7 @@
 
 ### Properties
 
-- [stage](manager.QueryExecutor.md#stage)
+- [options](manager.QueryExecutor.md#options)
 
 ### Methods
 
@@ -25,31 +25,32 @@
 
 ### constructor
 
-• **new QueryExecutor**(`connectionManager`, `languageManager`, `schemaManager`, `stage`, `transactionable?`)
+• **new QueryExecutor**(`connectionManager`, `languages`, `schemaManager`, `expressions`, `options`, `transactional?`)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `connectionManager` | [`ConnectionManager`](connection.ConnectionManager.md) | `undefined` |
-| `languageManager` | [`LanguageManager`](language.LanguageManager.md) | `undefined` |
+| `languages` | [`Languages`](manager.Languages.md) | `undefined` |
 | `schemaManager` | [`SchemaManager`](manager.SchemaManager.md) | `undefined` |
-| `stage` | `string` | `undefined` |
-| `transactionable` | `boolean` | `false` |
+| `expressions` | `Expressions` | `undefined` |
+| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) | `undefined` |
+| `transactional` | `boolean` | `false` |
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:17](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/queryExecutor.ts#L17)
+[src/lib/manager/queryExecutor.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L17)
 
 ## Properties
 
-### stage
+### options
 
-• **stage**: `string`
+• **options**: [`OrmOptions`](../interfaces/model.OrmOptions.md)
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:10](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/queryExecutor.ts#L10)
+[src/lib/manager/queryExecutor.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L9)
 
 ## Methods
 
@@ -63,7 +64,7 @@
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:38](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/queryExecutor.ts#L38)
+[src/lib/manager/queryExecutor.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L39)
 
 ___
 
@@ -84,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:60](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/queryExecutor.ts#L60)
+[src/lib/manager/queryExecutor.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L61)
 
 ___
 
@@ -98,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:52](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/queryExecutor.ts#L52)
+[src/lib/manager/queryExecutor.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L53)
 
 ___
 
@@ -112,4 +113,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/queryExecutor.ts:45](https://github.com/FlavioLionelRita/lambda-orm/blob/c4a0e00/src/lib/manager/queryExecutor.ts#L45)
+[src/lib/manager/queryExecutor.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/queryExecutor.ts#L46)
