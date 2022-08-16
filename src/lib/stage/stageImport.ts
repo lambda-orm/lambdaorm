@@ -16,7 +16,7 @@ export class StageImport extends StageActionDML {
 					const aux:any = {}
 					this.loadExternalIds(entityData.entity, entityData.rows || [], aux)
 					this.solveInternalsIds(entityData.entity, entityData.rows, state)
-					await tr.execute(query, entityData.rows)
+					await tr.executeQuery(query, entityData.rows)
 					this.completeMapping(entityData.entity, entityData.rows || [], aux, state)
 				}
 			}
@@ -54,7 +54,7 @@ export class StageImport extends StageActionDML {
 				for (const p in entity.uniqueKey) {
 					values[entity.uniqueKey[p]] = row.keys[p]
 				}
-				await tr.expression(expression, values)
+				await tr.execute(expression, values)
 			} else {
 				stillPending.push(row)
 			}

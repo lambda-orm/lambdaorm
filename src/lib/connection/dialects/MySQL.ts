@@ -32,7 +32,7 @@ export class MySQLConnectionPool extends ConnectionPool {
 
 	public async init (): Promise<void> {
 		// https://github.com/sidorares/node-mysql2/issues/795
-		// https:// stackoverflow.com/questions/64774472/how-do-i-determine-the-column-type-name-from-the-columntype-integer-value-in-mys
+		// https://stackoverflow.com/questions/64774472/how-do-i-determine-the-column-type-name-from-the-columntype-integer-value-in-mys
 		const casts = {
 			typeCast: function (field: any, next: any) {
 				if (field.type === 'DECIMAL') {

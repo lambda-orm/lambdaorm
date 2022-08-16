@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Parameter, Query, Data, MethodNotImplemented } from '../model'
 import { ConnectionConfig } from './connectionConfig'

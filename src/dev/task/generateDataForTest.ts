@@ -845,25 +845,25 @@ async function crud () {
 	try {
 		orm.transaction({ stage: 'source', view: 'default' }, async (tr) => {
 			// create order
-			const orderId = await tr.lambda(() => Orders.insert().include(p => p.details), order)
+			const orderId = await tr.execute(() => Orders.insert().include(p => p.details), order)
 			// get order
-			const result = await tr.lambda((id: number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
+			const result = await tr.execute((id: number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			const order2 = result[0]
 			// updated order
 			order2.address = 'changed 59 rue de l-Abbaye'
 			order2.details[0].discount = true
 			order2.details[1].unitPrice = 10
 			order2.details[2].quantity = 7
-			const updateCount = await tr.lambda(() => Orders.update().include(p => p.details), order2)
+			const updateCount = await tr.execute(() => Orders.update().include(p => p.details), order2)
 			console.log(updateCount)
 			// get order
-			const order3 = await tr.lambda((id: number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
+			const order3 = await tr.execute((id: number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			console.log(JSON.stringify(order3))
 			// delete
-			const deleteCount = await tr.lambda(() => Orders.delete().include(p => p.details), order3[0])
+			const deleteCount = await tr.execute(() => Orders.delete().include(p => p.details), order3[0])
 			console.log(deleteCount)
 			// get order
-			const order4 = await tr.lambda((id: number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
+			const order4 = await tr.execute((id: number) => Orders.filter(p => p.id === id).include(p => p.details), { id: orderId })
 			console.log(JSON.stringify(order4))
 		})
 	} catch (error) {
