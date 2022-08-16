@@ -376,7 +376,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	protected override buildInsert (operand: Insert, entity: EntityMapping): string {
 		const assigns: string[] = []
 		const template = this.dialect.dml('insert')
-		const templateAssing = this.dialect.operator('=', 2)
+		const templateAssign = this.dialect.operator('=', 2)
 		if (operand.children[0] instanceof Object) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
@@ -392,9 +392,9 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 					name = keyVal.name
 				}
 				const value = this.buildOperand(keyVal.children[0])
-				let assing = templateAssing.replace('{0}', name)
-				assing = assing.replace('{1}', value)
-				assigns.push(assing)
+				let assign = templateAssign.replace('{0}', name)
+				assign = assign.replace('{1}', value)
+				assigns.push(assign)
 			}
 		}
 		return template.replace('{assigns}', assigns.join(','))
