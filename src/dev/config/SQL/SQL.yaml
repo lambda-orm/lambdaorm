@@ -54,7 +54,6 @@ dml:
   bulkInsert: INSERT INTO {name}({fields}) VALUES {values}  
   from: 'FROM {name} {alias} '
   join: 'INNER JOIN {name} {alias} ON {relation}'
-  upsert:  
 others:
   delimiter: '"{name}"'
   separatorSql: ;

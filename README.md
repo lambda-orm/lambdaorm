@@ -1,6 +1,6 @@
 # λORM
 
-**IMPORTANT: the library is in an Alpha version!!!**
+**IMPORTANT: the library is in an Beta version!!!**
 
 λORM is an intermediary between the business model and the persistence of the data.
 Completely decoupling the business model from the data layer.
@@ -60,7 +60,7 @@ But in the case of the States entity, the name of the table and its fields diffe
 
 ![diagram](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema5.svg)
 
-[Configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples#One-schema-related-multiples-databases)
+[View configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples#one-schema-related-multiples-databases)
 
 [More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
 

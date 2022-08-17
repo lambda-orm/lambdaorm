@@ -78,7 +78,11 @@ export class OperandManager {
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
 			const include = includes[p]
-			const relationParameter: MetadataParameter = { name: include.relation.name, type: include.relation.entity, children: [] }
+			const relationParameter: MetadataParameter = {
+				name: include.relation.name,
+				type: include.relation.entity,
+				children: []
+			}
 			const children = this.parameters(include.children[0] as Sentence)
 			for (const q in children) {
 				const child = children[q]
@@ -1004,26 +1008,49 @@ export class OperandManager {
 		}
 	}
 
-	// determine the type of the variable according to the expression.
-	// if used in an operator that is being compared to.
-	// if it is used in a function, which type corresponds according to the position it is occupying.
-	// let type = this.solveType(operand,childNumber)
+	/**
+	 * determine the type of the variable according to the expression.
+	 * if used in an operator that is being compared to.
+	 * if it is used in a function, which type corresponds according to the position it is occupying.
+	 * let type = this.solveType(operand,childNumber)
+	 * @param operand Operand
+	 * @param expressionContext ExpressionContext
+	 * @returns type of operand
+	 */
 	private solveTypes (operand: Operand, expressionContext: ExpressionContext): string {
-		if (operand instanceof Constant2 || operand instanceof Field || operand instanceof Variable) return operand.type
-		if (operand instanceof Update || operand instanceof Insert) {
-			this.solveTypesInsertUpdate(operand)
+		if (operand instanceof Constant2 || operand instanceof Field || operand instanceof Variable) {
+			return operand.type
 		}
-		if (!(operand instanceof Sentence || operand instanceof ArrowFunction || operand instanceof ChildFunction) && (operand instanceof Operator || operand instanceof FunctionRef)) {
-			this.solveTypesFunction(operand, expressionContext)
-		}
-		// recorre todos los hijos para resolver el tipo
-		for (const child of operand.children) {
-			this.solveTypes(child, expressionContext)
+		this.solveTypeFromMetadata(operand, expressionContext)
+		if ((operand instanceof Operator || operand instanceof FunctionRef) && !(operand instanceof Sentence || operand instanceof ArrowFunction || operand instanceof ChildFunction)) {
+			this.solveTemplateType(operand, expressionContext)
+		} else {
+			// loop through all children to resolve type
+			for (const child of operand.children) {
+				this.solveTypes(child, expressionContext)
+			}
 		}
 		return operand.type
 	}
 
-	private solveTypesInsertUpdate (operand: Operand):void {
+	/**
+	 * resolves the types of the operands using the metadata and the model
+	 * @param operand Operand
+	 * @param expressionContext ExpressionContext
+	 */
+	private solveTypeFromMetadata (operand: Operand, expressionContext: ExpressionContext) {
+		if (operand instanceof Update || operand instanceof Insert) {
+			this.solveTypeInsertUpdateFromModel(operand)
+		}
+		if (!(operand instanceof Sentence || operand instanceof ArrowFunction || operand instanceof ChildFunction) && (operand instanceof Operator || operand instanceof FunctionRef)) {
+			this.solveTypeFunctionFromMetadata(operand, expressionContext)
+		}
+		for (const child of operand.children) {
+			this.solveTypeFromMetadata(child, expressionContext)
+		}
+	}
+
+	private solveTypeInsertUpdateFromModel (operand: Operand):void {
 		if (operand.children.length === 1) {
 			if (operand.children[0] instanceof Object) {
 				const obj = operand.children[0]
@@ -1039,60 +1066,116 @@ export class OperandManager {
 		}
 	}
 
-	private solveTypesFunction (operand: Operand, expressionContext: ExpressionContext):void {
+	private solveTypeFunctionFromMetadata (operand: Operand, expressionContext: ExpressionContext):void {
 		// get metadata of operand
 		const metadata = operand instanceof Operator
 			? this.expressionConfig.getOperator(operand.name, operand.children.length)
 			: this.expressionConfig.getFunction(operand.name)
+
+		if (metadata.return !== 'T' && metadata.return !== 'any' && operand.type === 'any') {
+			operand.type = metadata.return
+		}
+
 		// loop through all parameters
-		const tType = this.solveTypesParameters(operand, expressionContext, metadata)
-		// in the case that it has been possible to solve T
-		if (tType !== 'any') {
-			// in case the operand is T assigns the type corresponding to the operand
-			if (metadata.return === 'T' && operand.type === 'any') {
-				operand.type = tType
+		if (metadata.params !== undefined) {
+			for (let i = 0; i < metadata.params.length; i++) {
+				const param = metadata.params[i]
+				const child = operand.children[i]
+				if (param.type !== 'T' && param.type !== 'any' && child.type === 'any') {
+					// in case the parameter has a defined type and the child does not, assign the type of the parameter to the child
+					child.type = param.type
+				}
 			}
-			// look for the parameters that are T and the children have not yet been defined to assign the corresponding type
+		}
+
+		const templateType = this.getTemplateType(operand, expressionContext, metadata)
+		// in the case that it has been possible to solve T
+		if (metadata.return === 'T' && operand.type === 'any' && (templateType !== undefined && templateType !== 'any')) {
+			// in case the operand is T assigns the type corresponding to the operand
+			operand.type = templateType
+
 			if (metadata.params === undefined || metadata.params.length === 0) {
 				return
 			}
+			// look for the parameters that are T and the children have not yet been defined to assign the corresponding type
 			for (let i = 0; i < metadata.params.length; i++) {
 				const param = metadata.params[i]
 				const child = operand.children[i]
 				if (param.type === 'T' && child.type === 'any') {
-					child.type = tType
+					child.type = templateType
 				}
 			}
 		}
 	}
 
-	private solveTypesParameters (operand: Operand, expressionContext: ExpressionContext, metadata:exp.OperatorMetadata):string {
-		let tType = 'any'
-		if (metadata.return !== 'T' && metadata.return !== 'any') {
-			return metadata.return
-		}
-		if (metadata.params === undefined || metadata.params.length === 0) {
-			return 'any'
-		}
-		for (let i = 0; i < metadata.params.length; i++) {
-			const param = metadata.params[i]
-			const child = operand.children[i]
-			if (param.type !== 'T' && param.type !== 'any' && child.type === 'any') {
-				// en el caso que el parámetro tenga un tipo definido y el hijo no, asigna al hijo el tipo del parámetro
-				child.type = param.type
-			} else if (param.type === 'T' && child.type !== 'any') {
-				// en el caso que el parámetro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
-				tType = child.type
-			} else if (param.type === 'T' && child.type === 'any') {
-				// en el caso que el parámetro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
-				// en caso de lograrlo determina que T es el tipo de hijo
-				const childType = this.solveTypes(child, expressionContext)
-				if (childType !== 'any') {
-					tType = childType
-					break
+	private solveTemplateType (operand: Operand, expressionContext: ExpressionContext):void {
+		if (!(operand instanceof Sentence || operand instanceof ArrowFunction || operand instanceof ChildFunction) && (operand instanceof Operator || operand instanceof FunctionRef)) {
+			// get metadata of operand
+			const metadata = operand instanceof Operator
+				? this.expressionConfig.getOperator(operand.name, operand.children.length)
+				: this.expressionConfig.getFunction(operand.name)
+			const templateType = this.getTemplateType(operand, expressionContext, metadata)
+			// in the case that it has been possible to solve T
+			if (templateType !== undefined && templateType !== 'any') {
+				if (metadata.return === 'T' && operand.type === 'any') {
+					// in case the operand is T assigns the type corresponding to the operand
+					operand.type = templateType
+				}
+				// look for the parameters that are T and the children have not yet been defined to assign the corresponding type
+				for (let i = 0; i < metadata.params.length; i++) {
+					const param = metadata.params[i]
+					const child = operand.children[i]
+					if (param.type === 'T' && child.type === 'any') {
+						child.type = templateType
+					}
 				}
 			}
 		}
-		return tType
+		for (const child of operand.children) {
+			this.solveTemplateType(child, expressionContext)
+		}
+	}
+
+	/**
+	 * Get template (T) type
+	 * @param operand
+	 * @param expressionContext
+	 * @param metadata
+	 * @returns type of template if exists
+	 */
+	private getTemplateType (operand: Operand, expressionContext: ExpressionContext, metadata:exp.OperatorMetadata):string|undefined {
+		if (metadata.params === undefined || metadata.params.length === 0) {
+			return undefined
+		}
+		// recorre todos los parámetros buscando resolver T por child.type
+		for (let i = 0; i < metadata.params.length; i++) {
+			const param = metadata.params[i]
+			const child = operand.children[i]
+			if (param.type === 'T' && child.type !== 'any') {
+				// in the case that the parameter is T and the child has a defined type, it determines that T is the type of the child
+				return child.type
+			}
+		}
+		// recorre todos los parámetros buscando resolver T por la resolución del operando
+		let unsolvedTemplateType = false
+		for (let i = 0; i < metadata.params.length; i++) {
+			const param = metadata.params[i]
+			const child = operand.children[i]
+			if (param.type === 'T') {
+				// in case the parameter is T and the child has no defined type, try to resolve the child
+				// if successful, it determines that T is the type of child
+				const childType = this.solveTypes(child, expressionContext)
+				if (childType !== 'any') {
+					return childType
+				} else {
+					unsolvedTemplateType = true
+				}
+			}
+		}
+		if (unsolvedTemplateType) {
+			return 'any'
+		} else {
+			return undefined
+		}
 	}
 }

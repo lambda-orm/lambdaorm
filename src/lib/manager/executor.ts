@@ -25,7 +25,7 @@ export class Executor {
 		let result: any
 		if (query.includes && query.includes.length > 0) {
 			await this.transaction(options, async function (tr: Transaction) {
-				result = await tr.execute(query, data)
+				result = await tr.executeQuery(query, data)
 			})
 		} else {
 			const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, options, false)
@@ -61,7 +61,7 @@ export class Executor {
 		} else {
 			await this.transaction(options, async function (tr: Transaction) {
 				for (const query of queries) {
-					const result = await tr.execute(query)
+					const result = await tr.executeQuery(query)
 					results.push({ result: result })
 				}
 			})
