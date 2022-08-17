@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Query } from '../model'
 import { QueryExecutor, ExpressionManager } from '.'
 
@@ -9,18 +10,17 @@ export class Transaction {
 		this.queryExecutor = queryExecutor
 	}
 
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	public async lambda (lambda: Function, data: any): Promise<any> {
-		const expression = this.expressionManager.toExpression(lambda)
-		return this.expression(expression, data)
-	}
-
-	public async expression (expression:string, data:any):Promise<any> {
+	public async execute(expression: Function, data?: any):Promise<any>;
+	public async execute(expression: string, data?: any):Promise<any>;
+	public async execute (expression: string|Function, data: any = {}): Promise<any> {
+		if (typeof expression !== 'string') {
+			expression = this.expressionManager.toExpression(expression)
+		}
 		const query = this.expressionManager.toQuery(expression, this.queryExecutor.options)
-		return this.execute(query, data)
+		return this.queryExecutor.execute(query, data)
 	}
 
-	public async execute (query: Query, data: any = {}): Promise<any> {
+	public async executeQuery (query: Query, data: any = {}): Promise<any> {
 		return this.queryExecutor.execute(query, data)
 	}
 }

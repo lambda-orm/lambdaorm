@@ -57,8 +57,7 @@
       "delete": "DELETE FROM {name} {alias}",
       "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
       "from": "FROM {name} {alias} ",
-      "join": "INNER JOIN {name} {alias} ON {relation}",
-      "upsert": null
+      "join": "INNER JOIN {name} {alias} ON {relation}"
     },
     "others": {
       "delimiter": "\"{name}\"",
@@ -279,8 +278,7 @@
         "update": "UPDATE {name} {alias} SET {assigns}",
         "remove": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
-        "upsert": null
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "others": {
         "delimiter": "`{name}`",
@@ -523,8 +521,7 @@
         "update": "UPDATE {name} {alias} SET {assigns}",
         "remove": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
-        "upsert": null
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "others": {
         "delimiter": "`{name}`",
@@ -789,8 +786,7 @@
         "remove": "DELETE FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
-        "upsert": null
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "operators": {
         "binary": {
@@ -1011,8 +1007,7 @@
         "remove": "DELETE FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
-        "upsert": null
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "others": {
         "variable": "${number}",
@@ -1251,8 +1246,7 @@
         "delete": "DELETE FROM {name} {alias}",
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
-        "upsert": null
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "others": {
         "delimiter": "\"{name}\"",
@@ -1481,8 +1475,7 @@
         "order": "ORDER BY {0}",
         "remove": "DELETE FROM {name} {alias}",
         "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}",
-        "upsert": null
+        "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "others": {
         "delimiter": "[{name}]",

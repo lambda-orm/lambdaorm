@@ -218,7 +218,7 @@ export class SqlServerConnection extends Connection {
 	private createNonQueryRequest (sentence: string, reject:any, resolve: any):any {
 		return new SqlServerConnectionPool.lib.Request(sentence, (err: any, rowCount: any) => {
 			if (err) {
-				reject(new Error(`SqlServer connection _execute error: ${err}`))
+				reject(new Error(`SqlServer sentence: ${sentence} error: ${err}`))
 			}
 			resolve(rowCount)
 		})

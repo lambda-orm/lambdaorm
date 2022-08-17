@@ -76,9 +76,9 @@ test:
       - name: name
         type: string
       - name: source
-        type: any
+        type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -188,9 +188,9 @@ test:
         - name: name
           type: string
         - name: source
-          type: any
+          type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -278,7 +278,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -368,7 +368,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -460,7 +460,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -550,7 +550,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -642,7 +642,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -732,7 +732,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -824,7 +824,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -918,7 +918,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -1011,7 +1011,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -1101,7 +1101,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -1191,7 +1191,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -1281,7 +1281,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -1371,7 +1371,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -1461,7 +1461,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -1556,7 +1556,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -1646,7 +1646,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -1736,7 +1736,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -1826,7 +1826,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -1920,7 +1920,7 @@ test:
       - name: 'n'
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -2024,7 +2024,7 @@ test:
         - name: 'n'
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -2117,7 +2117,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -2203,7 +2203,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -2295,7 +2295,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -2385,7 +2385,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -2476,7 +2476,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -2566,7 +2566,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -2661,7 +2661,7 @@ test:
       - name: source
         type: number
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -2755,7 +2755,7 @@ test:
         - name: source
           type: number
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
