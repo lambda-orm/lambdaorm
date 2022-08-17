@@ -1,6 +1,6 @@
 # λORM
 
-**IMPORTANT: the library is in an Alpha version!!!**
+**IMPORTANT: the library is in an Beta version!!!**
 
 λORM is an intermediary between the business model and the persistence of the data.
 Completely decoupling the business model from the data layer.
