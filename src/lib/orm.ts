@@ -102,10 +102,18 @@ export class Orm implements IOrm {
 		await this.connectionManager.end()
 	}
 
+	/**
+	 * Get workspace path
+	 */
 	public get workspace (): string {
 		return this.schemaManager.workspace
 	}
 
+	/**
+	 * Get dialect of dataSource
+	 * @param dataSource Name of DataSource
+	 * @returns
+	 */
 	public dialect (dataSource:string): string {
 		return this.schemaManager.dataSource.get(dataSource).dialect
 	}
@@ -139,7 +147,7 @@ export class Orm implements IOrm {
 	}
 
 	/**
-	 * Read lambda expression
+	 * Convert a lambda expression to a query expression
 	 * @param lambda lambda expression
 	 * @returns Expression manager
 	 */
@@ -149,6 +157,7 @@ export class Orm implements IOrm {
 
 	/**
 	 * Normalize expression
+	 * @param expression query expression
 	 * @returns Expression normalized
 	 */
 	public normalize(expression:Function): string
@@ -162,6 +171,7 @@ export class Orm implements IOrm {
 
 	/**
 	 * Get model of expression
+	 * @param expression query expression
 	 * @returns Model of expression
 	 */
 	public model(expression:Function): MetadataModel[]
@@ -175,6 +185,7 @@ export class Orm implements IOrm {
 
 	/**
 	 * Get parameters of expression
+	 * @param expression query expression
 	 * @returns Parameters of expression
 	 */
 	public parameters(expression:Function): MetadataParameter[];
@@ -188,6 +199,7 @@ export class Orm implements IOrm {
 
 	/**
 	 * Get constraints of expression
+	 * @param expression query expression
 	 * @returns Constraints of expression
 	 */
 	public constraints(expression:Function): MetadataConstraint;
@@ -201,6 +213,7 @@ export class Orm implements IOrm {
 
 	/**
 	 * Get metadata of expression
+	 * @param expression query expression
 	 * @returns metadata of expression
 	 */
 	public metadata(expression: Function): Metadata
@@ -214,8 +227,8 @@ export class Orm implements IOrm {
 
 	/**
 	 * Get sentence of expression
-	 * @param expression
-	 * @param dataSource
+	 * @param expression query expression
+	 * @param options options of execution
 	 */
 	public sentence(expression: Function, options?: OrmOptions): MetadataSentence;
 	public sentence(expression: string, options?: OrmOptions): MetadataSentence;
@@ -229,8 +242,9 @@ export class Orm implements IOrm {
 
 	/**
 	 * Execute expression
+	 * @param expression query expression
 	 * @param data Data with variables
-	 * @param dataSource DataStore name
+	 * @param options options of execution
 	 * @returns Result of execution
 	 */
 	public async execute(expression: Function, data?: any, options?: OrmOptions):Promise<any>;
@@ -246,10 +260,10 @@ export class Orm implements IOrm {
 	}
 
 	/**
- * Create a transaction
- * @param stage Database name
- * @param callback Code to be executed in transaction
- */
+	 * Create a transaction
+	 * @param options options of execution
+	 * @param callback Code to be executed in transaction
+	 */
 	public async transaction (options: OrmOptions|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _options = this.schemaManager.solveOptions(options)
 		return this.executor.transaction(_options, callback)

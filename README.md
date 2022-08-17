@@ -2,33 +2,52 @@
 
 **IMPORTANT: the library is in an Beta version!!!**
 
-λORM is an intermediary between the business model and the persistence of the data.
-Completely decoupling the business model from the data layer.
+λORM is an ORM for Node.js which bases its queries on a business model, abstracting from the physical model.
+By means of rules the corresponding Data Source is determined and by definition of mappings how the business model is mapped with the physical one.
+
+What differentiates λORM from other ORMs:
+
+- Obtain or modify records from different Databases in the same query. \
+  These Databases may be from different engines (Example: MySQL, PostgreSQL and MongoDB)
+
+- Abstraction of the physical model, being the same to work with a single database than with multiple ones.
+
+- Define different stages for a business model. \
+  You can define a stage where you work with a MySQL instance and another stage where you work with Oracle and MongoDB.
+  
+- Friendly query syntax, being able to write in the programming language itself as in a string. \
+	Expressions are parsed in the same way as with an expression language.
 
 ## Features
 
-- Schema Configuration
+- Supports MySQL, MariaDB, PostgresSQL, Oracle, SqlServer, SqlJs and MongoDB.
+- TypeScript and JavaScript support
+- [Schema Configuration](#schema-configuration)
 	- Decoupling the business model from physical model
 	- Configuration in json or yml formats
 	- Definition of mappings to map the business model with the physical model
 	- Extends entities
 	- Environment variables
-	- define index, unique key, constraints
-- Query Language
+	- define indices, unique keys and constraints
+- [Query Language](#query-language)
 	- Simple query language based on javascript lambda expressions.
 	- Can write the expression as javascript code or as a string
 	- Crud clauses
 	- Implicit joins and group by
-	- Eager loading using the Include() method.
-	- Metadata from query expression
-- CLI
+	- [Eager loading using the Include() method.](#includes)
+	- [Query expression metadata](#query-expression-metadata)
+- [Repositories and custom repositories](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
+- Using multiple database instances
+- Connection pooling
+- [Transactions and distributed transactions](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
+- [BulkInsert](https://github.com/FlavioLionelRita/lambdaorm/wiki/BulkInsert)
+- High performance
+- Connection pooling
+- [CLI](#cli)
 	- Init and update commands
 	- Run expressions
 	- Sync and drop schema
 	- Imports and exports
-- Repositories
-- Transactions
-- Using multiple database connections
 
 ## Schema Configuration
 
@@ -166,30 +185,25 @@ import { orm } from 'lambdaorm'
 #### Result:
 
 ```json
-[
-  {
-    "name": "Afghanistan",
-    "subregion": "Southern Asia",
-    "latitude": "33.00000000",
-    "longitude": "65.00000000",
-    "states": [ { "name": "Farah", "latitude": "32.49532800", "longitude": "62.26266270" },
-      					{ "name": "Faryab", "latitude": "36.07956130","longitude": "64.90595500" }]
-  },
-  {
-    "name": "United Arab Emirates",
-    "subregion": "Western Asia",
-    "latitude": "24.00000000",
-    "longitude": "54.00000000",
-    "states": [ { "name": "Fujairah","latitude": "25.12880990","longitude": "56.32648490" }]
-  },
-  {
-    "name": "Armenia",
-    "subregion": "Western Asia",
-    "latitude": "40.00000000",
-    "longitude": "45.00000000",
-    "states": []
-  }
-]
+[{"name": "Afghanistan",
+  "subregion": "Southern Asia",
+  "latitude": "33.00000000",
+  "longitude": "65.00000000",
+  "states":[{"name": "Farah", "latitude": "32.49532800", "longitude": "62.26266270" },
+      		{"name": "Faryab", "latitude": "36.07956130","longitude": "64.90595500" }]
+ },
+ {"name": "United Arab Emirates",
+  "subregion": "Western Asia",
+  "latitude": "24.00000000",
+  "longitude": "54.00000000",
+  "states": [{"name": "Fujairah","latitude": "25.12880990","longitude": "56.32648490" }]
+ },
+ {"name": "Armenia",
+  "subregion": "Western Asia",
+  "latitude": "40.00000000",
+  "longitude": "45.00000000",
+  "states": []
+ }]
 ```
 
 ### Repositories
@@ -248,44 +262,41 @@ import { orm } from 'lambdaorm'
 The previous sentence will bring us the following result:
 
 ```json
-[[
-{
-	"orderDate": "1996-07-03T22:00:00.000Z",
-	"customer": { "name": "Vins et alcools Chevalier", "address": "59 rue de l'Abbaye, Reims (51100)  France"
+[{"orderDate": "1996-07-03T22:00:00.000Z",
+  "customer": { "name": "Vins et alcools Chevalier",
+				  "address": "59 rue de l'Abbaye, Reims (51100)  France"
+				},
+  "details":[
+	{"quantity": 12, "unitPrice": 14,
+	  "product": { "name": "Queso Cabrales",
+					"category": { "name": "Dairy Products"}}
 	},
-	"details": [
-		{
-			"quantity": 12, "unitPrice": 14,
-			"product": { "name": "Queso Cabrales", 	"category": { "name": "Dairy Products"}
-			}
-		},
-		{
-			"quantity": 10, "unitPrice": 9.8,
-			"product": { "name": "Singaporean Hokkien Fried Mee",	"category": { "name": "Grains/Cereals" 	}}
-		},
-		{
-			"quantity": 5, "unitPrice": 34.8,
-			"product": { "name": "Mozzarella di Giovanni", "category": { "name": "Dairy Products"	}	}
-		}
-	]
-}
-]]
+	{"quantity": 10, "unitPrice": 9.8,
+	 "product": { "name": "Singaporean Hokkien Fried Mee",
+				  "category": { "name": "Grains/Cereals" 	}}
+	},
+	{"quantity": 5, "unitPrice": 34.8,
+	 "product": { "name": "Mozzarella di Giovanni",
+				  "category": { "name": "Dairy Products" }}
+	}]
+}]
 ```
 
 [More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)
 
-### Metadata
+### Query expression metadata
 
 λORM has the following methods to extract metadata information from expressions.
 
 To execute these methods it is not necessary to connect to the database.
 
-|method    		|Description          															|Path                         				|
-|:------------|:--------------------------------------------------|:------------------------------------|
-|	parameters	| returns the list of parameters in the expression	| orm.parameters(query)								|
-|	model				| returns the model of the result in an execution		| orm.model(query)										|
-|	metadata		| returns the metadata of the expression						| orm.metadata(query)									|
-|	sentence		| returns the sentence in the specified dialect			| orm.sentence(query)									|
+|method    		|Description          															|Path                     		|
+|:------------|:--------------------------------------------------|:----------------------------|
+|	parameters	| Get parameters in the expression									| orm.parameters(expression)	|
+|	model				| Get model of the result in an execution						| orm.model(expression)				|
+|	metadata		| Get metadata of the expression										| orm.metadata(expression)		|
+|	sentence		| Get sentence in the dialect of the physical model	| orm.sentence(expression)		|
+|	constraints	| Get constraints of expression											| orm.constraints(expression)	|
 
 [more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/metadata)
 
