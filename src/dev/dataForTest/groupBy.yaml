@@ -264,7 +264,7 @@ test:
     normalizeExpression: Products.map(p=>{total:sum(p.price)})
     model:
       - name: total
-        type: any
+        type: number
     parameters: []
     constraints:
       entity: Products
@@ -304,7 +304,7 @@ test:
       type: any
       columns:
         - name: total
-          type: any
+          type: number
       parameters: []
       entity: Products
       constraints: []
@@ -374,7 +374,7 @@ test:
     normalizeExpression: Products.map(p=>{average:round(avg(p.price),4)})
     model:
       - name: average
-        type: any
+        type: number
     parameters: []
     constraints:
       entity: Products
@@ -422,7 +422,7 @@ test:
       type: any
       columns:
         - name: average
-          type: any
+          type: number
       parameters: []
       entity: Products
       constraints: []
@@ -488,7 +488,7 @@ test:
     normalizeExpression: Products.map(p=>{count:count(1)})
     model:
       - name: count
-        type: any
+        type: number
     parameters: []
     constraints:
       entity: Products
@@ -525,7 +525,7 @@ test:
       type: any
       columns:
         - name: count
-          type: any
+          type: number
       parameters: []
       entity: Products
       constraints: []
@@ -719,22 +719,22 @@ test:
       - stage: MongoDB
         error: not equal MySQL
         result:
+          - category: 8
+            largestPrice: 62.5
+          - category: 5
+            largestPrice: 38
+          - category: 7
+            largestPrice: 53
           - category: 6
             largestPrice: 123.79
-          - category: 3
-            largestPrice: 81
           - category: 1
             largestPrice: 263.5
           - category: 4
             largestPrice: 55
+          - category: 3
+            largestPrice: 81
           - category: 2
             largestPrice: 43.9
-          - category: 5
-            largestPrice: 38
-          - category: 8
-            largestPrice: 62.5
-          - category: 7
-            largestPrice: 53
     result:
       - category: 1
         largestPrice: 263.5
@@ -960,20 +960,20 @@ test:
         result:
           - category: Confections
             largestPrice: 81
-          - category: Condiments
-            largestPrice: 43.9
+          - category: Produce
+            largestPrice: 53
+          - category: Beverages
+            largestPrice: 263.5
           - category: Seafood
             largestPrice: 62.5
           - category: Dairy Products
             largestPrice: 55
-          - category: Beverages
-            largestPrice: 263.5
           - category: Meat/Poultry
             largestPrice: 123.79
+          - category: Condiments
+            largestPrice: 43.9
           - category: Grains/Cereals
             largestPrice: 38
-          - category: Produce
-            largestPrice: 53
     result:
       - category: Beverages
         largestPrice: 263.5
@@ -1062,7 +1062,7 @@ test:
       - name: source
         type: decimal
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -1150,7 +1150,7 @@ test:
         - name: source
           type: decimal
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
@@ -1438,7 +1438,7 @@ test:
       Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>asc(p.subTotal))
     model:
       - name: subTotal
-        type: any
+        type: number
     parameters: []
     constraints:
       entity: Orders.details
@@ -1530,7 +1530,7 @@ test:
                 - name: subTotal
                   classtype: Field
                   children: []
-                  type: any
+                  type: number
                   entity: Orders.details
                   alias: o
                   isRoot: true
@@ -1539,7 +1539,7 @@ test:
       type: any
       columns:
         - name: subTotal
-          type: any
+          type: number
       parameters: []
       entity: Orders.details
       constraints: []
