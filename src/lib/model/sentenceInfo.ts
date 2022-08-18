@@ -1,4 +1,5 @@
+import { SentenceAction } from '.'
 export interface SentenceInfo {
 	entity: string
-	name: string // [select|insert|update|delete|etc...]
+	action: SentenceAction
 }

@@ -1,4 +1,4 @@
-import { Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent } from '../model'
+import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent } from '../model'
 import { ConnectionConfig } from '../connection'
 import path from 'path'
 import { Helper } from './helper'
@@ -571,7 +571,7 @@ class SchemaExtender {
 	private extendDataSources (schema: Schema) {
 		if (!schema.dataSources || !schema.dataSources.length || schema.dataSources.length === 0) {
 			console.log('DataSources not defined')
-			schema.dataSources = [{ name: 'default', dialect: 'MySQL', mapping: schema.mappings[0].name, connection: null }]
+			schema.dataSources = [{ name: 'default', dialect: Dialect.MySQL, mapping: schema.mappings[0].name, connection: null }]
 		}
 		for (const k in schema.dataSources) {
 			const dataSource = schema.dataSources[k]

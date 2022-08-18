@@ -79,7 +79,7 @@ export class ExpressionManager {
 	}
 
 	private getDataSource (sentence: Sentence, stage: string): DataSource {
-		const sentenceInfo: SentenceInfo = { entity: sentence.entity, name: sentence.name }
+		const sentenceInfo: SentenceInfo = { entity: sentence.entity, action: sentence.action }
 		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
 		return this.schema.dataSource.get(dataSourceName)
 	}

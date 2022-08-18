@@ -1,11 +1,20 @@
-import { Property, Parameter, Relation, Behavior, Constraint } from './index'
+import { SentenceAction, Property, Parameter, Relation, Behavior, Constraint } from './index'
 
 export interface QueryArgs{
-	name: string, dialect: string, dataSource: string, sentence: string, entity: string, columns?: Property[], parameters?: Parameter[], constraints?: Constraint[], values?: Behavior[], defaults?: Behavior[]
+	action: SentenceAction,
+	dialect: string,
+	dataSource: string,
+	sentence: string,
+	entity: string,
+	columns?: Property[],
+	parameters?: Parameter[],
+	constraints?: Constraint[],
+	values?: Behavior[],
+	defaults?: Behavior[]
 }
 
 export class Query {
-	public name: string
+	public action: SentenceAction
 	// eslint-disable-next-line no-use-before-define
 	public includes: Include[]
 	public sentence: string
@@ -18,7 +27,7 @@ export class Query {
 	public values: Behavior[]
 	public defaults: Behavior[]
 	constructor (args:QueryArgs) {
-		this.name = args.name
+		this.action = args.action
 		this.dialect = args.dialect
 		this.sentence = args.sentence
 		this.entity = args.entity

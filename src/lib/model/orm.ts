@@ -3,6 +3,16 @@ import { Schema, MetadataSentence, MetadataParameter, MetadataModel, MetadataCon
 import { Transaction, StageFacade, SchemaManager } from '../manager'
 import { Cache, Expressions } from 'js-expressions'
 
+export enum Dialect {
+  MySQL = 'MySQL',
+  MariaDB = 'MariaDB',
+  PostgreSQL = 'PostgreSQL',
+  SqlServer = 'SqlServer',
+	SQLjs = 'SQLjs',
+	Oracle = 'Oracle',
+	MongoDB = 'MongoDB',
+}
+
 export interface OrmOptions {
 	view?: string
 	stage?: string

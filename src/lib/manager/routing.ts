@@ -1,5 +1,5 @@
 
-import { SentenceInfo, RuleDataSource, ContextInfo, SchemaError } from '../model'
+import { SentenceAction, SentenceInfo, RuleDataSource, ContextInfo, SchemaError } from '../model'
 import { SchemaManager } from './index'
 import { Expressions } from 'js-expressions'
 
@@ -19,13 +19,14 @@ export class Routing {
 	}
 
 	private getContextInfo (sentenceInfo: SentenceInfo):ContextInfo {
+		const dml = [SentenceAction.select, SentenceAction.insert, SentenceAction.bulkInsert, SentenceAction.update, SentenceAction.delete].includes(sentenceInfo.action)
 		return {
 			entity: sentenceInfo.entity,
-			sentence: sentenceInfo.name,
-			read: sentenceInfo.name === 'select',
-			write: sentenceInfo.name !== 'select',
-			dml: sentenceInfo.name !== 'ddl',
-			ddl: sentenceInfo.name === 'ddl'
+			sentence: sentenceInfo.action,
+			read: sentenceInfo.action === SentenceAction.select,
+			write: sentenceInfo.action !== SentenceAction.select,
+			dml: dml,
+			ddl: !dml
 		}
 	}
 

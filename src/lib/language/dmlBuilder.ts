@@ -1,6 +1,6 @@
 
 import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block, Expressions } from 'js-expressions'
-import { EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, DataSource } from '../model'
+import { SentenceCrudAction, SentenceAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, DataSource } from '../model'
 import { MappingConfig, Dialect, Helper } from '../manager'
 
 export abstract class DmlBuilder {
@@ -19,7 +19,7 @@ export abstract class DmlBuilder {
 	public build (sentence: Sentence): Query {
 		const sqlSentence = this.buildSentence(sentence)
 		return new Query({
-			name: sentence.name,
+			action: sentence.action,
 			dialect: this.dataSource.dialect,
 			dataSource: this.dataSource.name,
 			sentence: sqlSentence,
@@ -33,17 +33,17 @@ export abstract class DmlBuilder {
 	}
 
 	protected buildSentence (sentence: Sentence): string {
-		switch (sentence.action) {
-		case 'select':
+		switch (sentence.crudAction) {
+		case SentenceCrudAction.select:
 			return this.buildMapSentence(sentence)
-		case 'insert':
+		case SentenceCrudAction.insert:
 			return this.buildInsertSentence(sentence)
-		case 'update':
+		case SentenceCrudAction.update:
 			return this.buildUpdateSentence(sentence)
-		case 'delete':
+		case SentenceCrudAction.delete:
 			return this.buildDeleteSentence(sentence)
 		default:
-			throw new SintaxisError(`sentence action ${sentence.action} not found`)
+			throw new SintaxisError(`sentence crud action ${sentence.crudAction} not found`)
 		}
 	}
 

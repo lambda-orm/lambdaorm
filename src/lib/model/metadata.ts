@@ -1,5 +1,6 @@
 import { Behavior, Constraint, Property, Relation } from './schema'
 import { Parameter } from './parameter'
+import { SentenceAction } from './operands'
 
 export interface MetadataParameter {
 	name: string

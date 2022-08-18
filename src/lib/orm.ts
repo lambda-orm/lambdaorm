@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { IOrm, OrmOptions, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
+import { Dialect, IOrm, OrmOptions, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
 import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages } from './manager'
 import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './connection'
 import { SqlLanguage } from './language/SQL'
@@ -47,13 +47,13 @@ export class Orm implements IOrm {
 		this.languages = new Languages()
 		this.languages.add(new SqlLanguage(this._expressions))
 		this.languages.add(new NoSqlLanguage(this._expressions))
-		this.connectionManager.addType('MySQL', MySQLConnectionPool)
-		this.connectionManager.addType('MariaDB', MariaDBConnectionPool)
-		this.connectionManager.addType('PostgreSQL', PostgreSQLConnectionPool)
-		this.connectionManager.addType('SqlServer', SqlServerConnectionPool)
-		this.connectionManager.addType('SQLjs', SQLjsConnectionPool)
-		this.connectionManager.addType('Oracle', OracleConnectionPool)
-		this.connectionManager.addType('MongoDB', MongoDBConnectionPool)
+		this.connectionManager.addType(Dialect.MySQL, MySQLConnectionPool)
+		this.connectionManager.addType(Dialect.MariaDB, MariaDBConnectionPool)
+		this.connectionManager.addType(Dialect.PostgreSQL, PostgreSQLConnectionPool)
+		this.connectionManager.addType(Dialect.SqlServer, SqlServerConnectionPool)
+		this.connectionManager.addType(Dialect.SQLjs, SQLjsConnectionPool)
+		this.connectionManager.addType(Dialect.Oracle, OracleConnectionPool)
+		this.connectionManager.addType(Dialect.MongoDB, MongoDBConnectionPool)
 
 		this.routing = new Routing(this.schemaManager, this._expressions)
 		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languages, this._expressions, this.routing)

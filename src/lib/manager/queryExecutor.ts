@@ -1,5 +1,5 @@
 
-import { Data, OrmOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, Constraint, Behavior } from '../model'
+import { SentenceAction, Data, OrmOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, Constraint, Behavior } from '../model'
 import { Connection, ConnectionManager } from '../connection'
 import { MappingConfig } from './schema'
 import { SchemaManager, Helper, Languages, Dialect } from '.'
@@ -60,7 +60,7 @@ export class QueryExecutor {
 
 	public async execute (query: Query, data: any): Promise<any> {
 		const _data = new Data(data)
-		if (['insert', 'update', 'bulkInsert'].includes(query.name)) {
+		if ([SentenceAction.insert, SentenceAction.update, SentenceAction.bulkInsert].includes(query.action)) {
 			await this._execute(query, _data)
 			return _data
 		} else {
@@ -74,31 +74,31 @@ export class QueryExecutor {
 		const mapping = this.schemaManager.mapping.getInstance(dataSource.mapping)
 		const connection = await this.getConnection(dataSource.name)
 		const dialect = this.languages.getDialect(query.dialect)
-		switch (query.name) {
-		case 'select': result = await this.select(query, data, mapping, dialect, connection); break
-		case 'insert': result = await this.insert(query, data, mapping, dialect, connection); break
-		case 'bulkInsert': result = await this.bulkInsert(query, data, mapping, dialect, connection); break
-		case 'update': result = await this.update(query, data, mapping, dialect, connection); break
-		case 'delete': result = await this.delete(query, data, mapping, dialect, connection); break
-		case 'truncateEntity': result = await connection.truncateEntity(mapping, query); break
-		case 'createEntity': result = await connection.createEntity(mapping, query); break
-		case 'createSequence': result = await connection.createSequence(mapping, query); break
-		case 'createFk': result = await connection.createFk(mapping, query); break
-		case 'createIndex': result = await connection.createIndex(mapping, query); break
-		case 'alterProperty': result = await connection.alterProperty(mapping, query); break
-		case 'addProperty': result = await connection.addProperty(mapping, query); break
-		case 'addPk': result = await connection.addPk(mapping, query); break
-		case 'addUk': result = await connection.addUk(mapping, query); break
-		case 'addFk': result = await connection.addFk(mapping, query); break
-		case 'dropSequence': result = await connection.dropSequence(mapping, query); break
-		case 'dropEntity': result = await connection.dropEntity(mapping, query); break
-		case 'dropProperty': result = await connection.dropProperty(mapping, query); break
-		case 'dropPk': result = await connection.dropPk(mapping, query); break
-		case 'dropUk': result = await connection.dropUk(mapping, query); break
-		case 'dropFK': result = await connection.dropFK(mapping, query); break
-		case 'dropIndex': result = await connection.dropIndex(mapping, query); break
+		switch (query.action) {
+		case SentenceAction.select: result = await this.select(query, data, mapping, dialect, connection); break
+		case SentenceAction.insert: result = await this.insert(query, data, mapping, dialect, connection); break
+		case SentenceAction.bulkInsert: result = await this.bulkInsert(query, data, mapping, dialect, connection); break
+		case SentenceAction.update: result = await this.update(query, data, mapping, dialect, connection); break
+		case SentenceAction.delete: result = await this.delete(query, data, mapping, dialect, connection); break
+		case SentenceAction.truncateEntity: result = await connection.truncateEntity(mapping, query); break
+		case SentenceAction.createEntity: result = await connection.createEntity(mapping, query); break
+		case SentenceAction.createSequence: result = await connection.createSequence(mapping, query); break
+		case SentenceAction.createFk: result = await connection.createFk(mapping, query); break
+		case SentenceAction.createIndex: result = await connection.createIndex(mapping, query); break
+		case SentenceAction.alterProperty: result = await connection.alterProperty(mapping, query); break
+		case SentenceAction.addProperty: result = await connection.addProperty(mapping, query); break
+		case SentenceAction.addPk: result = await connection.addPk(mapping, query); break
+		case SentenceAction.addUk: result = await connection.addUk(mapping, query); break
+		case SentenceAction.addFk: result = await connection.addFk(mapping, query); break
+		case SentenceAction.dropSequence: result = await connection.dropSequence(mapping, query); break
+		case SentenceAction.dropEntity: result = await connection.dropEntity(mapping, query); break
+		case SentenceAction.dropProperty: result = await connection.dropProperty(mapping, query); break
+		case SentenceAction.dropPk: result = await connection.dropPk(mapping, query); break
+		case SentenceAction.dropUk: result = await connection.dropUk(mapping, query); break
+		case SentenceAction.dropFk: result = await connection.dropFk(mapping, query); break
+		case SentenceAction.dropIndex: result = await connection.dropIndex(mapping, query); break
 		default:
-			throw new ExecutionError(query.dataSource, query.entity, JSON.stringify(query.sentence), `query ${query.name} undefined`)
+			throw new ExecutionError(query.dataSource, query.entity, JSON.stringify(query.sentence), `query action ${query.action} undefined`)
 		}
 		return result
 	}

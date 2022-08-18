@@ -1,5 +1,5 @@
 import { SchemaManager, ModelConfig, MappingConfig, Routing, Languages, Dialect } from '.'
-import { Mapping, RuleDataSource, Query, Delta, Index, DataSource, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError, ChangedValue } from '../model'
+import { Mapping, RuleDataSource, Query, Delta, Index, DataSource, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError, ChangedValue, SentenceAction } from '../model'
 import { Helper } from '../manager/helper'
 
 export class DDLBuilder {
@@ -413,7 +413,7 @@ export class DDLBuilder {
 	}
 
 	private evalDataSource (dataSource: RuleDataSource, entity: string): boolean {
-		const sentenceInfo: SentenceInfo = { entity: entity, name: 'ddl' }
+		const sentenceInfo: SentenceInfo = { entity: entity, action: SentenceAction.ddl }
 		return this.routing.eval(dataSource, sentenceInfo)
 	}
 
