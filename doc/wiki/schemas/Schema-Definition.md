@@ -43,13 +43,13 @@ mappings:
         properties:
           - name: string
             mapping: string
-dataSources:
+sources:
   - name: string
     dialect: MariaDb | MongoDB | MySQL | Oracle | PostgreSQL | SQLjs | SqlServer
     connection: object | EnvironmentVariable
 stages:
   - name: string
-    dataSources:
+    sources:
       - name: string
         condition: expression									  		 
 ```
@@ -63,7 +63,7 @@ Schema:
 | app 	 				  |  app configuration            						|						|	create 		|
 | enums 	 				|  definitions of enum  of model						|						|						|
 | entities 				|  definitions of entity of model						| yes				|						|
-| dataSources 		|  definitions of dataSource								| yes				|						|
+| sources 		|  definitions of dataSource								| yes				|						|
 | mappings			  |  definitions of mappings									|      			|	create One|
 | stages 				  |  definitions of stages 										|      			|	create One|
 
@@ -158,7 +158,7 @@ Stage:
 | Property 					|      Description					 								|	required	|	default		|
 |-------------------|-------------------------------------------|:---------:|:---------:|
 | name 		 					| name of stage															| yes				|						|
-| dataSources   		| list of dataSources rules			    				| yes				|						|
+| sources   		| list of sources rules			    				| yes				|						|
 
 DataSource Rule:
 

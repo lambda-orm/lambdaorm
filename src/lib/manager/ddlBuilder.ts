@@ -19,7 +19,7 @@ export class DDLBuilder {
 	public drop (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
-		for (const ruleDataSource of stage.dataSources) {
+		for (const ruleDataSource of stage.sources) {
 			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
 			const mapping = mappings.find(p => p.name === dataSource.mapping)
 			if (mapping !== undefined) {
@@ -32,7 +32,7 @@ export class DDLBuilder {
 	public truncate (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
-		for (const ruleDataSource of stage.dataSources) {
+		for (const ruleDataSource of stage.sources) {
 			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
 			const mapping = mappings.find(p => p.name === dataSource.mapping)
 			if (mapping !== undefined) {
@@ -45,7 +45,7 @@ export class DDLBuilder {
 	public sync (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
 		const stage = this.schema.stage.get(this.stage)
-		for (const ruleDataSource of stage.dataSources) {
+		for (const ruleDataSource of stage.sources) {
 			const dataSource = this.schema.dataSource.get(ruleDataSource.name)
 			const oldMapping = mappings.find(p => p.name === dataSource.mapping)
 			const oldEntities = oldMapping !== undefined && oldMapping.entities !== undefined ? oldMapping.entities : null

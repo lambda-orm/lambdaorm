@@ -129,7 +129,7 @@ export interface RuleDataSource {
 }
 export interface Stage {
 	name: string
-	dataSources: RuleDataSource[]
+	sources: RuleDataSource[]
 }
 export interface App {
 	src: string
@@ -142,7 +142,7 @@ export interface Schema {
 	enums: Enum[]
 	views: View[]
 	mappings: Mapping[]
-	dataSources: DataSource[]
+	sources: DataSource[]
 	stages: Stage[]
 }
 export interface SchemaModel {

@@ -338,7 +338,7 @@ mappings:
           - name: realmId
             length: 255
             mapping: realm_id
-dataSources:
+sources:
   - name: main
     mapping: default
     dialect: postgres
@@ -349,7 +349,7 @@ dataSources:
     connection: $$CNN_KEYCLOAK
 stages:
   - name: default
-    dataSources:
+    sources:
       - name: main
         condition: entity != "Users"
       - name: keycloak

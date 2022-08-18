@@ -78,7 +78,7 @@ views:
   -name: default
 mappings:
   - name: default
-dataSources:
+sources:
   - name: postgres
     mapping: default
     dialect: postgres
@@ -90,5 +90,5 @@ dataSources:
       database: "shapes"
 stages:
   - name: default
-    dataSources:
+    sources:
       - name: postgres

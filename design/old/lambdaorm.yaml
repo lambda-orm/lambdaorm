@@ -3,7 +3,7 @@ app:
   data: data
   models: models
   defaultDatastore: source
-dataSources:
+sources:
   - name: source
     schema: northwind
     dialect: mysql

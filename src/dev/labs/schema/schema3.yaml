@@ -52,7 +52,7 @@ mappings:
             mapping: NAME
           - name: countryCode
             mapping: COUNTRY_CODE
-dataSources:
+sources:
   - name: dataSource1
     dialect: mysql
     mapping: mapping1
@@ -73,8 +73,8 @@ dataSources:
       database: test
 stages:
   - name: stage1
-    dataSources:
+    sources:
       - name: dataSource1
   - name: stage2
-    dataSources:
+    sources:
       - name: dataSource2

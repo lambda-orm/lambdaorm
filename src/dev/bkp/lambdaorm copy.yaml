@@ -1,7 +1,7 @@
 path:
   src: path where the project code is located
   data: path where files generated in operations synchronization, export, import, etc. will be stored
-dataSources:
+sources:
   - name: name with which the dataSource will be identified
     schema: dataSource schema name
     dialect: [mysql|mariadb|postgres|mssql|oracle|mongo]

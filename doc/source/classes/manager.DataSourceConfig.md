@@ -12,7 +12,7 @@
 
 ### Properties
 
-- [dataSources](manager.DataSourceConfig.md#datasources)
+- [sources](manager.DataSourceConfig.md#sources)
 - [default](manager.DataSourceConfig.md#default)
 
 ### Methods
@@ -32,9 +32,9 @@
 
 ## Properties
 
-### dataSources
+### sources
 
-• **dataSources**: [`DataSource`](../interfaces/model.DataSource.md)[]
+• **sources**: [`DataSource`](../interfaces/model.DataSource.md)[]
 
 #### Defined in
 

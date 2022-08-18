@@ -74,9 +74,9 @@ export class Orm implements IOrm {
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
 		const schema = await this.schemaManager.init(source)
 		// set connections
-		if (connect && schema.dataSources) {
-			for (const p in schema.dataSources) {
-				const dataSource = schema.dataSources[p]
+		if (connect && schema.sources) {
+			for (const p in schema.sources) {
+				const dataSource = schema.sources[p]
 				this.connectionManager.load(dataSource)
 			}
 		}

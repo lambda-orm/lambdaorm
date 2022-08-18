@@ -1721,8 +1721,8 @@ mappings:
           - name: registrationDate
             readMappingExp: datetime(registrationDate)
 
-dataSources:
-  # Beesion datasources
+sources:
+  # Beesion sources
   - name: beeLocations
     mapping: beesion
     dialect: oracle
@@ -1743,7 +1743,7 @@ dataSources:
     mapping: beesion
     dialect: oracle
     connection: $$BEE_CCLP_DEBTORS
-  # Local datasources
+  # Local sources
   - name: locLocations
     mapping: local
     dialect: postgres
@@ -1766,7 +1766,7 @@ dataSources:
     connection: $$LOC_CCLP_DEBTORS
 stages:
   - name: beesion
-    dataSources:
+    sources:
       - name: beeLocations
         condition: substring(entity,0,3)=="Loc"
       - name: beeParties
@@ -1778,7 +1778,7 @@ stages:
       - name: beeDebtors
         condition: substring(entity,0,2)=="Db"
   - name: local
-    dataSources:
+    sources:
       - name: locLocations
         condition: substring(entity,0,3)=="Loc"
       - name: locParties

@@ -57,18 +57,18 @@ export class StageModel extends StageState<SchemaModel> {
 	}
 
 	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
-		const dataSources: any[] = []
+		const sources: any[] = []
 		for (const i in queries) {
 			const query = queries[i]
-			const dataSource = dataSources.find(p => p.name === query.dataSource)
+			const dataSource = sources.find(p => p.name === query.dataSource)
 			if (dataSource === undefined) {
-				dataSources.push({ name: query.dataSource, queries: [query] })
+				sources.push({ name: query.dataSource, queries: [query] })
 			} else {
 				dataSource.queries.push(query)
 			}
 		}
-		for (const i in dataSources) {
-			const dataSource = dataSources[i]
+		for (const i in sources) {
+			const dataSource = sources[i]
 			const logFile = this.ddlFile(stage, action, dataSource.name)
 			const data = dataSource.queries.map((p: Query) => p.sentence).join(';\n') + ';'
 			await Helper.writeFile(logFile, data)

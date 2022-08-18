@@ -37,7 +37,7 @@ This configuration contains the main sections, paths, databases and schemas.
 			]
 		}
 	],		
-	"dataSources": [
+	"sources": [
     {
       "name": "dataSource1",
 			"mapping": "mapping1",

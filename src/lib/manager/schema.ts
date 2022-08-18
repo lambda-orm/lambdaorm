@@ -410,20 +410,20 @@ export class ViewsConfig {
 }
 
 export class DataSourceConfig {
-	public dataSources: DataSource[]
+	public sources: DataSource[]
 	public default?: string
 
 	constructor () {
-		this.dataSources = []
+		this.sources = []
 	}
 
 	public load (value: DataSource): void {
 		if (value && value.name) {
-			const index = this.dataSources.findIndex(p => p.name === value.name)
+			const index = this.sources.findIndex(p => p.name === value.name)
 			if (index === -1) {
-				this.dataSources.push(value)
+				this.sources.push(value)
 			} else {
-				this.dataSources[index] = value
+				this.sources[index] = value
 			}
 		}
 	}
@@ -431,13 +431,13 @@ export class DataSourceConfig {
 	public get (name?: string): DataSource {
 		const _name = name === undefined ? this.default : name
 		if (_name === undefined) {
-			if (this.dataSources.length === 1) {
-				return this.dataSources[0]
+			if (this.sources.length === 1) {
+				return this.sources[0]
 			} else {
 				throw new SchemaError('the name of the dataSource is required')
 			}
 		}
-		const db = this.dataSources.find(p => p.name === _name)
+		const db = this.sources.find(p => p.name === _name)
 		if (db === undefined) {
 			throw new SchemaError(`default dataSource: ${_name} not found`)
 		}
@@ -482,7 +482,7 @@ class SchemaExtender {
 	}
 
 	public extend (source: Schema): Schema {
-		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [], views: [] }
+		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], sources: [], stages: [], views: [] }
 		if (source) {
 			schema = Helper.clone(source)
 		}
@@ -569,12 +569,12 @@ class SchemaExtender {
 	}
 
 	private extendDataSources (schema: Schema) {
-		if (!schema.dataSources || !schema.dataSources.length || schema.dataSources.length === 0) {
-			console.log('DataSources not defined')
-			schema.dataSources = [{ name: 'default', dialect: Dialect.MySQL, mapping: schema.mappings[0].name, connection: null }]
+		if (!schema.sources || !schema.sources.length || schema.sources.length === 0) {
+			console.log('sources not defined')
+			schema.sources = [{ name: 'default', dialect: Dialect.MySQL, mapping: schema.mappings[0].name, connection: null }]
 		}
-		for (const k in schema.dataSources) {
-			const dataSource = schema.dataSources[k]
+		for (const k in schema.sources) {
+			const dataSource = schema.sources[k]
 			if (dataSource.mapping === undefined) {
 				dataSource.mapping = schema.mappings[0].name
 			}
@@ -583,12 +583,12 @@ class SchemaExtender {
 
 	private extendDataStages (schema: Schema) {
 		if (!schema.stages || !schema.stages.length || schema.stages.length === 0) {
-			schema.stages = [{ name: 'default', dataSources: [{ name: schema.dataSources[0].name }] }]
+			schema.stages = [{ name: 'default', sources: [{ name: schema.sources[0].name }] }]
 		}
 		for (const k in schema.stages) {
 			const stage = schema.stages[k]
-			if (stage.dataSources === undefined) {
-				stage.dataSources = [{ name: schema.dataSources[0].name }]
+			if (stage.sources === undefined) {
+				stage.sources = [{ name: schema.sources[0].name }]
 			}
 		}
 	}
@@ -857,9 +857,9 @@ class SchemaExtender {
 
 	private existsInMapping (schema: Schema, mapping: string, entity: string): boolean {
 		const context: ContextInfo = { entity: entity, sentence: 'ddl', read: false, write: true, dml: false, ddl: true }
-		const dataSourcesNames = schema.dataSources.filter(p => p.mapping === mapping).map(p => p.name)
+		const dataSourcesNames = schema.sources.filter(p => p.mapping === mapping).map(p => p.name)
 		for (const stage of schema.stages) {
-			const ruleDataSources = stage.dataSources.filter(p => dataSourcesNames.includes(p.name))
+			const ruleDataSources = stage.sources.filter(p => dataSourcesNames.includes(p.name))
 			for (const ruleDataSource of ruleDataSources) {
 				if (ruleDataSource.condition === undefined || this.expressions.eval(ruleDataSource.condition, context)) {
 					return true
@@ -890,7 +890,7 @@ export class SchemaManager {
 		this.stage = new StageConfig()
 		this.view = new ViewsConfig()
 		this.extender = new SchemaExtender(this.expressions)
-		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], dataSources: [], stages: [], views: [] }
+		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], sources: [], stages: [], views: [] }
 	}
 
 	public async init (source?: string | Schema): Promise<Schema> {
@@ -909,7 +909,7 @@ export class SchemaManager {
 
 	public async get (source?: string): Promise<Schema> {
 		const configPath = await this.getConfigPath(source)
-		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], dataSources: [], mappings: [], stages: [], views: [] }
+		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], sources: [], mappings: [], stages: [], views: [] }
 		if (configPath) {
 			if (path.extname(configPath) === '.yaml' || path.extname(configPath) === '.yml') {
 				const content = await Helper.readFile(configPath)
@@ -978,7 +978,7 @@ export class SchemaManager {
 				schema.app.model = 'model'
 			}
 		}
-		if (schema.dataSources === undefined) schema.dataSources = []
+		if (schema.sources === undefined) schema.sources = []
 	}
 
 	public async getConfigFileName (workspace: string): Promise<string | undefined> {
@@ -1016,8 +1016,8 @@ export class SchemaManager {
 				this.mapping.load(mapping)
 			}
 		}
-		if (this.schema.dataSources) {
-			for (const dataSource of this.schema.dataSources) {
+		if (this.schema.sources) {
+			for (const dataSource of this.schema.sources) {
 				dataSource.connection = Helper.tryParse(dataSource.connection)
 				const connectionConfig: ConnectionConfig = { name: dataSource.name, dialect: dataSource.dialect, connection: {} }
 				connectionConfig.connection = dataSource.connection

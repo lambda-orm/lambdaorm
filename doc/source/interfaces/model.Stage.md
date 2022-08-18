@@ -8,14 +8,14 @@
 
 ### Properties
 
-- [dataSources](model.Stage.md#datasources)
+- [sources](model.Stage.md#sources)
 - [name](model.Stage.md#name)
 
 ## Properties
 
-### dataSources
+### sources
 
-• **dataSources**: [`RuleDataSource`](model.RuleDataSource.md)[]
+• **sources**: [`RuleDataSource`](model.RuleDataSource.md)[]
 
 #### Defined in
 

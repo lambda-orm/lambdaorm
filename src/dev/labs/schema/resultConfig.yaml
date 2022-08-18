@@ -1108,7 +1108,7 @@ mappings:
             entity: Products
             to: id
             type: oneToMany
-dataSources:
+sources:
   - name: source
     mapping: northwind
     dialect: mysql
@@ -1173,16 +1173,16 @@ dataSources:
 stages:
   - name: source
     defaultDataSource: source
-    dataSources: []
+    sources: []
   - name: mysql
     defaultDataSource: mysql
-    dataSources: []
+    sources: []
   - name: mariadb
     defaultDataSource: mariadb
-    dataSources: []
+    sources: []
   - name: postgres
     defaultDataSource: postgres
-    dataSources: []
+    sources: []
   - name: mssql
     defaultDataSource: mssql
-    dataSources: []
+    sources: []

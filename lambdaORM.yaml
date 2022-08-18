@@ -426,7 +426,7 @@ mappings:
         properties:
           - name: id
             mapping: _id
-dataSources:
+sources:
   - name: Source
     mapping: default
     dialect: MySQL
@@ -457,23 +457,23 @@ dataSources:
     connection: ${ORM_CNN_MONGODB}
 stages:
   - name: Source
-    dataSources:
+    sources:
       - name: Source
   - name: MySQL
-    dataSources:
+    sources:
       - name: MySQL
   - name: MariaDB
-    dataSources:
+    sources:
       - name: MariaDB
   - name: PostgreSQL
-    dataSources:
+    sources:
       - name: PostgreSQL
   - name: SqlServer
-    dataSources:
+    sources:
       - name: SqlServer
   - name: Oracle
-    dataSources:
+    sources:
       - name: Oracle
   - name: MongoDB
-    dataSources:
+    sources:
       - name: MongoDB

@@ -1671,7 +1671,7 @@
       ]
     }
   ],
-  "dataSources": [
+  "sources": [
     {
       "name": "main",
       "mapping": "default",
@@ -1700,7 +1700,7 @@
   "stages": [
     {
       "name": "default",
-      "dataSources": [
+      "sources": [
         {
           "name": "main",
           "condition": "entity != \"Users\""

@@ -9,7 +9,7 @@
 ### Properties
 
 - [app](model.Schema.md#app)
-- [dataSources](model.Schema.md#datasources)
+- [sources](model.Schema.md#sources)
 - [entities](model.Schema.md#entities)
 - [enums](model.Schema.md#enums)
 - [mappings](model.Schema.md#mappings)
@@ -28,9 +28,9 @@
 
 ___
 
-### dataSources
+### sources
 
-• **dataSources**: [`DataSource`](model.DataSource.md)[]
+• **sources**: [`DataSource`](model.DataSource.md)[]
 
 #### Defined in
 

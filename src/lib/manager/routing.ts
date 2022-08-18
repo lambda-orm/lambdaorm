@@ -32,8 +32,8 @@ export class Routing {
 	public getDataSource (sentenceInfo: SentenceInfo, stage?: string):string {
 		const contextInfo = this.getContextInfo(sentenceInfo)
 		const _stage = this.schema.stage.get(stage)
-		for (const i in _stage.dataSources) {
-			const dataSource = _stage.dataSources[i]
+		for (const i in _stage.sources) {
+			const dataSource = _stage.sources[i]
 			if (dataSource.condition === undefined) {
 				return dataSource.name
 			} else {
