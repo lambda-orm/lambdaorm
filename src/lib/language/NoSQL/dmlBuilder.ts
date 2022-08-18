@@ -9,7 +9,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	public override build (sentence: Sentence): Query {
 		if (sentence.crudAction === SentenceCrudAction.select) {
 			const noSQLSentence = this.buildSentence(sentence)
-			return new Query({ action: sentence.action, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
+			return new Query({ action: sentence.action, dialect: this.source.dialect, source: this.source.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
 		} else {
 			const includes:Include[] = []
 			const sentenceIncludes = sentence.getCompositeIncludes()
@@ -21,7 +21,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				includes.push(include)
 			}
 			const noSQLSentence = this.buildSentence(sentence)
-			const query = new Query({ action: SentenceAction[sentence.name], dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
+			const query = new Query({ action: SentenceAction[sentence.name], dialect: this.source.dialect, source: this.source.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
 			query.includes = includes
 			return query
 		}

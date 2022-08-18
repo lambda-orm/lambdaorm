@@ -19,7 +19,7 @@
       }
     ],
     "parameters": [],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [],
     "values": [],
     "defaults": [],
@@ -69,7 +69,7 @@
       }
     ],
     "parameters": [],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [],
     "values": [],
     "defaults": [],
@@ -139,7 +139,7 @@
       }
     ],
     "parameters": [],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [],
     "values": [],
     "defaults": [],
@@ -165,7 +165,7 @@
       }
     ],
     "parameters": [],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [],
     "values": [],
     "defaults": [],
@@ -219,7 +219,7 @@
       }
     ],
     "parameters": [],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [],
     "values": [],
     "defaults": [],
@@ -273,7 +273,7 @@
       }
     ],
     "parameters": [],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [],
     "values": [],
     "defaults": [],
@@ -347,7 +347,7 @@
       }
     ],
     "parameters": [],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [],
     "values": [],
     "defaults": [],

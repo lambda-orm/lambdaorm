@@ -30,7 +30,7 @@ ___
 
 ### sources
 
-• **sources**: [`DataSource`](model.DataSource.md)[]
+• **sources**: [`source`](model.source.md)[]
 
 #### Defined in
 

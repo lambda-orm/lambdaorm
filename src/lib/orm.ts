@@ -76,8 +76,8 @@ export class Orm implements IOrm {
 		// set connections
 		if (connect && schema.sources) {
 			for (const p in schema.sources) {
-				const dataSource = schema.sources[p]
-				this.connectionManager.load(dataSource)
+				const source = schema.sources[p]
+				this.connectionManager.load(source)
 			}
 		}
 		// add enums
@@ -111,12 +111,12 @@ export class Orm implements IOrm {
 	}
 
 	/**
-	 * Get dialect of dataSource
-	 * @param dataSource Name of DataSource
+	 * Get dialect of source
+	 * @param source Name of source
 	 * @returns
 	 */
-	public dialect (dataSource:string): string {
-		return this.schemaManager.dataSource.get(dataSource).dialect
+	public dialect (source:string): string {
+		return this.schemaManager.source.get(source).dialect
 	}
 
 	/**

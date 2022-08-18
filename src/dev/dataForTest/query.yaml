@@ -13,7 +13,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -26,7 +26,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -39,7 +39,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -52,7 +52,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -65,7 +65,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -78,7 +78,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
             "supplierId":"$SupplierID", "categoryId":"$CategoryID",
@@ -3383,7 +3383,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -3396,7 +3396,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -3409,7 +3409,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -3422,7 +3422,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -3435,7 +3435,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -3448,7 +3448,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
             "supplierId":"$SupplierID", "categoryId":"$CategoryID",
@@ -3689,7 +3689,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -3702,7 +3702,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -3715,7 +3715,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -3728,7 +3728,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -3741,7 +3741,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -3754,7 +3754,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
             "supplierId":"$SupplierID", "categoryId":"$CategoryID",
@@ -3996,7 +3996,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -4009,7 +4009,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -4022,7 +4022,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -4035,7 +4035,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -4048,7 +4048,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -4061,7 +4061,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "id":"$_id", "name":"$ProductName", "supplierId":"$SupplierID",
@@ -4315,7 +4315,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -4328,7 +4328,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -4341,7 +4341,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -4354,7 +4354,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -4367,7 +4367,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -4380,7 +4380,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "id":"$_id", "name":"$ProductName", "supplierId":"$SupplierID",
@@ -4634,7 +4634,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT c.CategoryName AS category FROM Products p INNER JOIN
             Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc 
@@ -4643,7 +4643,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT c.CategoryName AS category FROM Products p INNER JOIN
             Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc 
@@ -4652,7 +4652,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT c.CategoryName AS "category" FROM Products p INNER JOIN
             Categories c ON c.CategoryID = p.CategoryID ORDER BY "category" asc 
@@ -4661,7 +4661,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT c.CategoryName AS category FROM Products p INNER JOIN
             Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc 
@@ -4670,7 +4670,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT c.CategoryName AS "category" FROM Products p INNER JOIN
             Categories c ON c.CategoryID = p.CategoryID ORDER BY "category" asc 
@@ -4679,7 +4679,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
             "foreignField": "_id", "as": "c" }}, { "$project" :{ "_id": 0 ,
@@ -4860,7 +4860,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT p.ProductName AS name, c.CategoryName AS category FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
@@ -4870,7 +4870,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT p.ProductName AS name, c.CategoryName AS category FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
@@ -4880,7 +4880,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT p.ProductName AS "name", c.CategoryName AS "category" FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
@@ -4890,7 +4890,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT p.ProductName AS name, c.CategoryName AS category FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
@@ -4900,7 +4900,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductName AS "name", c.CategoryName AS "category" FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
@@ -4910,7 +4910,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
             "foreignField": "_id", "as": "c" }}, { "$project" :{ "_id": 0 ,
@@ -5356,7 +5356,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS name,
             p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
@@ -5367,7 +5367,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS name,
             p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
@@ -5378,7 +5378,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT c.CategoryName AS "category", p.ProductName AS "name",
             p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
@@ -5389,7 +5389,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS name,
             p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
@@ -5400,7 +5400,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT c.CategoryName AS "category", p.ProductName AS "name",
             p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
@@ -5411,7 +5411,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
             "foreignField": "_id", "as": "c" }}, { "$project" :{ "_id": 0 ,
@@ -6490,7 +6490,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS name,
             p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
@@ -6502,7 +6502,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS name,
             p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
@@ -6514,7 +6514,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT c.CategoryName AS "category", p.ProductName AS "name",
             p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
@@ -6526,7 +6526,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS name,
             p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
@@ -6537,7 +6537,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT c.CategoryName AS "category", p.ProductName AS "name",
             p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
@@ -6549,7 +6549,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
             "foreignField": "_id", "as": "c" }}, { "$match" : { "Discontinued":
@@ -6802,7 +6802,7 @@ test:
         sentence:
           entity: Orders.details
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS product,
             o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order
@@ -6816,7 +6816,7 @@ test:
         sentence:
           entity: Orders.details
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS product,
             o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order
@@ -6830,7 +6830,7 @@ test:
         sentence:
           entity: Orders.details
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT c.CategoryName AS "category", p.ProductName AS "product",
             o.UnitPrice AS "unitPrice", o.Quantity AS "quantity" FROM "Order
@@ -6844,7 +6844,7 @@ test:
         sentence:
           entity: Orders.details
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS product,
             o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM [Order
@@ -6858,7 +6858,7 @@ test:
         sentence:
           entity: Orders.details
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT c.CategoryName AS "category", p.ProductName AS "product",
             o.UnitPrice AS "unitPrice", o.Quantity AS "quantity" FROM "Order
@@ -6872,7 +6872,7 @@ test:
         sentence:
           entity: Orders.details
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
             "newRoot": "$\"Order Details\"" } }, { "$lookup" :{ "from":
@@ -20095,7 +20095,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -20108,7 +20108,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -20121,7 +20121,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -20134,7 +20134,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -20147,7 +20147,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -20160,7 +20160,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
             "supplierId":"$SupplierID", "categoryId":"$CategoryID",
@@ -20401,7 +20401,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -20414,7 +20414,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -20427,7 +20427,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -20440,7 +20440,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -20453,7 +20453,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -20466,7 +20466,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
             "supplierId":"$SupplierID", "categoryId":"$CategoryID",
@@ -20707,7 +20707,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -20720,7 +20720,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -20733,7 +20733,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -20746,7 +20746,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
             supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
@@ -20759,7 +20759,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
             "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
@@ -20772,7 +20772,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$project" :{ "_id": 0 , "id":"$_id", "name":"$ProductName",
             "supplierId":"$SupplierID", "categoryId":"$CategoryID",
@@ -21025,7 +21025,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS name,
             p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
@@ -21036,7 +21036,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS name,
             p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
@@ -21047,7 +21047,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT c.CategoryName AS "category", p.ProductName AS "name",
             p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
@@ -21058,7 +21058,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT c.CategoryName AS category, p.ProductName AS name,
             p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
@@ -21069,7 +21069,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT c.CategoryName AS "category", p.ProductName AS "name",
             p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
@@ -21080,7 +21080,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
             "foreignField": "_id", "as": "c" }}, { "$project" :{ "_id": 0 ,
@@ -21248,7 +21248,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <>
             FALSE ORDER BY p.ProductID desc  LIMIT 0,1 
@@ -21257,7 +21257,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <>
             FALSE ORDER BY p.ProductID desc  LIMIT 0,1 
@@ -21266,7 +21266,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT p.ProductID AS "id" FROM Products p  WHERE p.Discontinued <>
             FALSE ORDER BY p.ProductID desc  OFFSET 0 LIMIT 1 
@@ -21275,7 +21275,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <> 0
             ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
@@ -21284,7 +21284,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductID AS "id" FROM Products p  WHERE p.Discontinued <>
             'N' ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY 
@@ -21293,7 +21293,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "Discontinued": { "$ne": false } } }, { "$project"
             :{ "_id": 0 , "id":"$_id" }} , { "$sort" :{ "_id":-1 } } , { "$skip"
@@ -21409,7 +21409,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT DISTINCT p.ProductID AS id, p.ProductName AS name,
             p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -21422,7 +21422,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT DISTINCT p.ProductID AS id, p.ProductName AS name,
             p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -21435,7 +21435,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT DISTINCT p.ProductID AS "id", p.ProductName AS "name",
             p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -21448,7 +21448,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT DISTINCT p.ProductID AS id, p.ProductName AS name,
             p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -21461,7 +21461,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT DISTINCT p.ProductID AS "id", p.ProductName AS "name",
             p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -21474,7 +21474,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$group" :{ "_id" : null , "__distinct":{ "$addToSet": {
             "id":"$_id", "name":"$ProductName", "supplierId":"$SupplierID",
@@ -24012,7 +24012,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT DISTINCT c.CategoryName AS category FROM Products p INNER
             JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category
@@ -24022,7 +24022,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT DISTINCT c.CategoryName AS category FROM Products p INNER
             JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category
@@ -24032,7 +24032,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT DISTINCT c.CategoryName AS "category" FROM Products p INNER
             JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY "category"
@@ -24042,7 +24042,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT DISTINCT c.CategoryName AS category FROM Products p INNER
             JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category
@@ -24052,7 +24052,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT DISTINCT c.CategoryName AS "category" FROM Products p INNER
             JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY "category"
@@ -24062,7 +24062,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
             "foreignField": "_id", "as": "c" }}, { "$group" :{ "_id" : null ,
@@ -24189,7 +24189,7 @@ test:
         sentence:
           entity: Products
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS
             category FROM Products p INNER JOIN Categories c ON c.CategoryID =
@@ -24199,7 +24199,7 @@ test:
         sentence:
           entity: Products
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS
             category FROM Products p INNER JOIN Categories c ON c.CategoryID =
@@ -24209,7 +24209,7 @@ test:
         sentence:
           entity: Products
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT DISTINCT p.QuantityPerUnit AS "quantity", c.CategoryName AS
             "category" FROM Products p INNER JOIN Categories c ON c.CategoryID =
@@ -24219,7 +24219,7 @@ test:
         sentence:
           entity: Products
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS
             category FROM Products p INNER JOIN Categories c ON c.CategoryID =
@@ -24229,7 +24229,7 @@ test:
         sentence:
           entity: Products
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT DISTINCT p.QuantityPerUnit AS "quantity", c.CategoryName AS
             "category" FROM Products p INNER JOIN Categories c ON c.CategoryID =
@@ -24239,7 +24239,7 @@ test:
         sentence:
           entity: Products
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$lookup" :{ "from": "Categories", "localField": "CategoryID" ,
             "foreignField": "_id", "as": "c" }}, { "$group" :{ "_id" : null ,

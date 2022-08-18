@@ -45,7 +45,7 @@
 - [ChildDelta](../interfaces/model.ChildDelta.md)
 - [Constraint](../interfaces/model.Constraint.md)
 - [ContextInfo](../interfaces/model.ContextInfo.md)
-- [DataSource](../interfaces/model.DataSource.md)
+- [source](../interfaces/model.source.md)
 - [Dependent](../interfaces/model.Dependent.md)
 - [DialectFormat](../interfaces/model.DialectFormat.md)
 - [Entity](../interfaces/model.Entity.md)

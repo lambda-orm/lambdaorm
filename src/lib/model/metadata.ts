@@ -22,7 +22,7 @@ export interface MetadataConstraint {
 export interface MetadataSentence {
 	entity: string
 	dialect: string
-	dataSource: string
+	source: string
 	sentence: string
 	children?: MetadataSentence[]
 }

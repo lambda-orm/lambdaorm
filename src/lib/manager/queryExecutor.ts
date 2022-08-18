@@ -24,14 +24,14 @@ export class QueryExecutor {
 		this.connections = {}
 	}
 
-	private async getConnection (dataSource: string): Promise<Connection> {
-		let connection = this.connections[dataSource]
+	private async getConnection (source: string): Promise<Connection> {
+		let connection = this.connections[source]
 		if (connection === undefined) {
-			connection = await this.connectionManager.acquire(dataSource)
+			connection = await this.connectionManager.acquire(source)
 			if (this.transactional) {
 				await connection.beginTransaction()
 			}
-			this.connections[dataSource] = connection
+			this.connections[source] = connection
 		}
 		return connection
 	}
@@ -70,9 +70,9 @@ export class QueryExecutor {
 
 	private async _execute (query: Query, data: Data): Promise<any> {
 		let result: any
-		const dataSource = this.schemaManager.dataSource.get(query.dataSource)
-		const mapping = this.schemaManager.mapping.getInstance(dataSource.mapping)
-		const connection = await this.getConnection(dataSource.name)
+		const source = this.schemaManager.source.get(query.source)
+		const mapping = this.schemaManager.mapping.getInstance(source.mapping)
+		const connection = await this.getConnection(source.name)
 		const dialect = this.languages.getDialect(query.dialect)
 		switch (query.action) {
 		case SentenceAction.select: result = await this.select(query, data, mapping, dialect, connection); break
@@ -98,7 +98,7 @@ export class QueryExecutor {
 		case SentenceAction.dropFk: result = await connection.dropFk(mapping, query); break
 		case SentenceAction.dropIndex: result = await connection.dropIndex(mapping, query); break
 		default:
-			throw new ExecutionError(query.dataSource, query.entity, JSON.stringify(query.sentence), `query action ${query.action} undefined`)
+			throw new ExecutionError(query.source, query.entity, JSON.stringify(query.sentence), `query action ${query.action} undefined`)
 		}
 		return result
 	}
@@ -445,7 +445,7 @@ export class QueryExecutor {
 			const parentId = item[include.relation.from]
 			const child = item[include.relation.name]
 			if (!parentId) {
-				throw new ExecutionError(query.dataSource, query.entity, JSON.stringify(query.sentence), `parentId not found in ${include.relation.from}`, item)
+				throw new ExecutionError(query.source, query.entity, JSON.stringify(query.sentence), `parentId not found in ${include.relation.from}`, item)
 			}
 			if (child) {
 				child[include.relation.to] = parentId
@@ -600,7 +600,7 @@ export class QueryExecutor {
 
 	private constraint (query: Query, constraint:Constraint, data: any): void {
 		if (!this.expressions.eval(constraint.condition, data)) {
-			throw new ValidationError(query.dataSource, query.entity, JSON.stringify(query.sentence), constraint.message, data)
+			throw new ValidationError(query.source, query.entity, JSON.stringify(query.sentence), constraint.message, data)
 		}
 	}
 

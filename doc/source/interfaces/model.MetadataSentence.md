@@ -9,7 +9,7 @@
 ### Properties
 
 - [children](model.MetadataSentence.md#children)
-- [dataSource](model.MetadataSentence.md#datasource)
+- [source](model.MetadataSentence.md#source)
 - [dialect](model.MetadataSentence.md#dialect)
 - [entity](model.MetadataSentence.md#entity)
 - [sentence](model.MetadataSentence.md#sentence)
@@ -26,9 +26,9 @@
 
 ___
 
-### dataSource
+### source
 
-• **dataSource**: `string`
+• **source**: `string`
 
 #### Defined in
 

@@ -117,7 +117,7 @@ export interface View {
 	entities: EntityView[]
 }
 
-export interface DataSource {
+export interface source {
 	name: string
 	dialect: string
 	mapping: string
@@ -142,7 +142,7 @@ export interface Schema {
 	enums: Enum[]
 	views: View[]
 	mappings: Mapping[]
-	sources: DataSource[]
+	sources: source[]
 	stages: Stage[]
 }
 export interface SchemaModel {

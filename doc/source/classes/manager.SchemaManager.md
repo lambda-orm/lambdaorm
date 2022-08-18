@@ -12,7 +12,7 @@
 
 ### Properties
 
-- [dataSource](manager.SchemaManager.md#datasource)
+- [source](manager.SchemaManager.md#source)
 - [mapping](manager.SchemaManager.md#mapping)
 - [model](manager.SchemaManager.md#model)
 - [schema](manager.SchemaManager.md#schema)
@@ -49,9 +49,9 @@
 
 ## Properties
 
-### dataSource
+### source
 
-• **dataSource**: [`DataSourceConfig`](manager.DataSourceConfig.md)
+• **source**: [`DataSourceConfig`](manager.DataSourceConfig.md)
 
 #### Defined in
 

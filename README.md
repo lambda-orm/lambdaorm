@@ -71,7 +71,7 @@ This configuration contains the following sections.
 ### Schema Configuration Example:
 
 This example poses a stage where two sources are accessed.
-Data source 1 is MySQL and contains the Countries table and dataSource 2 is PostgreSQL contains the States table.
+Data source 1 is MySQL and contains the Countries table and source 2 is PostgreSQL contains the States table.
 
 In the case of the Countries entity, both the name of the table and the fields coincide with the name of the entity and the name of the properties, so the mapping is transparent.
 

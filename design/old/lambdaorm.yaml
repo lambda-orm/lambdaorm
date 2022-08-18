@@ -28,9 +28,9 @@ sources:
 # context:
 #   - name: source
 #     schema: northwind
-#     dataSource: source
+#     source: source
 #     rules:
-#       - dataSource: postgres
+#       - source: postgres
 #         entities: ["Countries"]
 #         actions: ["read"] # [create|read|update|delete]
 #         expression: code == 'ARG'

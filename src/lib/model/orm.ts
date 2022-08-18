@@ -34,7 +34,7 @@ export abstract class ActionObserver {
 export interface IOrm
 {
 	get workspace(): string
-	dialect (dataSource:string): string
+	dialect (source:string): string
 	get stage(): StageFacade
 	get schema(): SchemaManager
 	get expressions(): Expressions

@@ -292,7 +292,7 @@ CNN_POSTGRES={"host":"0.0.0.0","port":5433,"user":"test","password":"test","data
 ## One schema related multiples databases II
 
 This example poses a stage where two sources are accessed.
-Data source 1 is mysql and contains the Countries table and dataSource 2 is postgres contains the States table.
+Data source 1 is mysql and contains the Countries table and source 2 is postgres contains the States table.
 
 In the case of the Countries entity, both the name of the table and the fields coincide with the name of the entity and the name of the properties, so the mapping is transparent.
 

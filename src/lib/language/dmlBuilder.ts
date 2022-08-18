@@ -1,16 +1,16 @@
 
 import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block, Expressions } from 'js-expressions'
-import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, DataSource } from '../model'
+import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source } from '../model'
 import { MappingConfig, Dialect, Helper } from '../manager'
 
 export abstract class DmlBuilder {
-	protected dataSource: DataSource
+	protected source: source
 	protected mapping: MappingConfig
 	protected dialect: Dialect
 	protected expressions: Expressions
 
-	constructor (dataSource: DataSource, mapping: MappingConfig, dialect: Dialect, expressions: Expressions) {
-		this.dataSource = dataSource
+	constructor (source: source, mapping: MappingConfig, dialect: Dialect, expressions: Expressions) {
+		this.source = source
 		this.mapping = mapping
 		this.expressions = expressions
 		this.dialect = dialect
@@ -20,8 +20,8 @@ export abstract class DmlBuilder {
 		const sqlSentence = this.buildSentence(sentence)
 		return new Query({
 			action: sentence.action,
-			dialect: this.dataSource.dialect,
-			dataSource: this.dataSource.name,
+			dialect: this.source.dialect,
+			source: this.source.name,
 			sentence: sqlSentence,
 			entity: sentence.entity,
 			columns: sentence.columns,

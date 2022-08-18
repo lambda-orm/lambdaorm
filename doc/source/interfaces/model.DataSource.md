@@ -1,17 +1,17 @@
-[Lambda ORM](../README.md) / [model](../modules/model.md) / DataSource
+[Lambda ORM](../README.md) / [model](../modules/model.md) / source
 
-# Interface: DataSource
+# Interface: source
 
-[model](../modules/model.md).DataSource
+[model](../modules/model.md).source
 
 ## Table of contents
 
 ### Properties
 
-- [connection](model.DataSource.md#connection)
-- [dialect](model.DataSource.md#dialect)
-- [mapping](model.DataSource.md#mapping)
-- [name](model.DataSource.md#name)
+- [connection](model.source.md#connection)
+- [dialect](model.source.md#dialect)
+- [mapping](model.source.md#mapping)
+- [name](model.source.md#name)
 
 ## Properties
 

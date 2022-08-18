@@ -32,13 +32,13 @@
 
 ### constructor
 
-• **new ExecutionError**(`dataSource`, `entity`, `sentence`, `message`, `data?`)
+• **new ExecutionError**(`source`, `entity`, `sentence`, `message`, `data?`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dataSource` | `string` |
+| `source` | `string` |
 | `entity` | `string` |
 | `sentence` | `string` |
 | `message` | `string` |

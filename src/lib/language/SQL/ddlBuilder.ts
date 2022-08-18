@@ -6,7 +6,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 	public truncateEntity (entity: EntityMapping): Query | undefined {
 		let text = this.dialect.ddl('truncateEntity')
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
-		return new Query({ action: SentenceAction.truncateEntity, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: text, entity: entity.name })
+		return new Query({ action: SentenceAction.truncateEntity, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
 	}
 
 	public createEntity (entity: EntityMapping): Query | undefined {
@@ -25,7 +25,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
 		text = text.replace('{define}', define.join(','))
 
-		return new Query({ action: SentenceAction.createEntity, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: text, entity: entity.name })
+		return new Query({ action: SentenceAction.createEntity, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
 	}
 
 	private createColumn (entity: EntityMapping, property: PropertyMapping): string {
@@ -66,13 +66,13 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		text = text.replace('{column}', this.dialect.delimiter(column.mapping))
 		text = text.replace('{fTable}', this.dialect.delimiter(fEntity.mapping))
 		text = text.replace('{fColumn}', this.dialect.delimiter(fColumn.mapping))
-		return new Query({ action: SentenceAction.addFk, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+		return new Query({ action: SentenceAction.addFk, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
 	}
 
 	public createSequence (entity: EntityMapping): Query | undefined {
 		let text = this.dialect.ddl('createSequence')
 		text = text.replace('{name}', this.dialect.delimiter(entity.sequence))
-		return new Query({ action: SentenceAction.createSequence, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: text, entity: entity.name })
+		return new Query({ action: SentenceAction.createSequence, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
 	}
 
 	public createIndex (entity: EntityMapping, index: Index): Query | undefined {
@@ -88,21 +88,21 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_' + index.name))
 		text = text.replace('{table}', this.dialect.delimiter(entity.mapping))
 		text = text.replace('{columns}', columns.join(','))
-		return new Query({ action: SentenceAction.createIndex, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: text, entity: entity.name })
+		return new Query({ action: SentenceAction.createIndex, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
 	}
 
 	public alterProperty (entity: EntityMapping, property: Property): Query | undefined {
 		let text = this.property(entity, property)
 		text = this.dialect.ddl('alterProperty').replace('{columnDefine}', text)
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
-		return new Query({ action: SentenceAction.alterProperty, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+		return new Query({ action: SentenceAction.alterProperty, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
 	}
 
 	public addProperty (entity: EntityMapping, property: Property): Query | undefined {
 		let text = this.property(entity, property)
 		text = this.dialect.ddl('addProperty').replace('{columnDefine}', text)
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
-		return new Query({ action: SentenceAction.addProperty, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+		return new Query({ action: SentenceAction.addProperty, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
 	}
 
 	private property (entity: EntityMapping, property: Property):string {
@@ -141,7 +141,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		let text = this.dialect.ddl(ddl)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + suffix))
 		text = text.replace('{columns}', columns.join(','))
-		return new Query({ action: ddl, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+		return new Query({ action: ddl, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
 	}
 
 	public addFk (entity: EntityMapping, relation: Relation): Query | undefined {
@@ -163,13 +163,13 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		text = text.replace('{column}', this.dialect.delimiter(column.mapping))
 		text = text.replace('{fTable}', this.dialect.delimiter(fEntity.mapping))
 		text = text.replace('{fColumn}', this.dialect.delimiter(fColumn.mapping))
-		return new Query({ action: SentenceAction.addFk, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+		return new Query({ action: SentenceAction.addFk, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
 	}
 
 	public dropEntity (entity: EntityMapping): Query | undefined {
 		let text = this.dialect.ddl(SentenceAction.dropEntity)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
-		return new Query({ action: SentenceAction.dropEntity, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: text, entity: entity.name })
+		return new Query({ action: SentenceAction.dropEntity, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
 	}
 
 	public dropProperty (entity: EntityMapping, property: Property): Query | undefined {
@@ -177,21 +177,21 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
 		let text = this.dialect.ddl('dropProperty')
 		text = text.replace('{name}', this.dialect.delimiter(propertyMapping.mapping))
-		return new Query({ action: SentenceAction.dropProperty, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+		return new Query({ action: SentenceAction.dropProperty, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
 	}
 
 	public dropPk (entity: EntityMapping): Query | undefined {
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
 		let text = this.dialect.ddl(SentenceAction.dropPk)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_PK'))
-		return new Query({ action: SentenceAction.dropPk, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+		return new Query({ action: SentenceAction.dropPk, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
 	}
 
 	public dropUk (entity: EntityMapping): Query | undefined {
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
 		let text = this.dialect.ddl(SentenceAction.dropUk)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_UK'))
-		return new Query({ action: SentenceAction.dropUk, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+		return new Query({ action: SentenceAction.dropUk, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
 	}
 
 	public setNull (entity: EntityMapping, relation: Relation): Query | undefined {
@@ -210,26 +210,26 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
 		text = Helper.replace(text, '{alias}', alias)
 		text = text.replace('{assigns}', assign)
-		return new Query({ action: SentenceAction.update, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: text, entity: entity.name })
+		return new Query({ action: SentenceAction.update, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
 	}
 
 	public dropFk (entity: EntityMapping, relation: Relation): Query | undefined {
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
 		let text = this.dialect.ddl(SentenceAction.dropFk)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_' + relation.name + '_FK'))
-		return new Query({ action: SentenceAction.dropFk, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+		return new Query({ action: SentenceAction.dropFk, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
 	}
 
 	public dropIndex (entity: EntityMapping, index: Index): Query | undefined {
 		let text = this.dialect.ddl(SentenceAction.dropIndex)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_' + index.name))
 		text = text.replace('{table}', this.dialect.delimiter(entity.mapping))
-		return new Query({ action: SentenceAction.dropIndex, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: text, entity: entity.name })
+		return new Query({ action: SentenceAction.dropIndex, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
 	}
 
 	public dropSequence (entity: EntityMapping): Query | undefined {
 		let text = this.dialect.ddl(SentenceAction.dropSequence)
 		text = text.replace('{name}', this.dialect.delimiter(entity.sequence))
-		return new Query({ action: SentenceAction.dropSequence, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: text, entity: entity.name })
+		return new Query({ action: SentenceAction.dropSequence, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
 	}
 }

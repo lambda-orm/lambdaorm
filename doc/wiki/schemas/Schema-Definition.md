@@ -63,7 +63,7 @@ Schema:
 | app 	 				  |  app configuration            						|						|	create 		|
 | enums 	 				|  definitions of enum  of model						|						|						|
 | entities 				|  definitions of entity of model						| yes				|						|
-| sources 		|  definitions of dataSource								| yes				|						|
+| sources 		|  definitions of source								| yes				|						|
 | mappings			  |  definitions of mappings									|      			|	create One|
 | stages 				  |  definitions of stages 										|      			|	create One|
 
@@ -122,7 +122,7 @@ Data Source:
 
 | Property 				|      Description					 								|	required	|	default		|
 |-----------------|-------------------------------------------|:---------:|:---------:|
-| name 		 				| name of dataSource												| yes				|						|
+| name 		 				| name of source												| yes				|						|
 | mapping 				| name of reference to mapping 							|   				|	first 		|
 | dialect 				| dialect of data source				    				| yes				|						|
 | connection 			| string connection 				    				    | yes				|						|
@@ -160,9 +160,9 @@ Stage:
 | name 		 					| name of stage															| yes				|						|
 | sources   		| list of sources rules			    				| yes				|						|
 
-DataSource Rule:
+source Rule:
 
 | Property 					|      Description					 								|	required	|	default		|
 |-------------------|-------------------------------------------|:---------:|:---------:|
-| name 		 					| name of dataSource												| yes				|						|
+| name 		 					| name of source												| yes				|						|
 | condition     		| boolean expression to evaluate    				|   				|	 true			|

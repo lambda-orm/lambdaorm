@@ -35,13 +35,13 @@
 
 ### constructor
 
-• **new LanguageDDLBuilder**(`dataSource`, `mapping`, `dialect`)
+• **new LanguageDDLBuilder**(`source`, `mapping`, `dialect`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dataSource` | [`DataSource`](../interfaces/model.DataSource.md) |
+| `source` | [`source`](../interfaces/model.source.md) |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
 | `dialect` | [`Dialect`](manager.Dialect.md) |
 

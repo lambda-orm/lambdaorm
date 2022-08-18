@@ -2,7 +2,7 @@
 
 ## Concepts
 
-- [dataSource](https://www.talend.com/resources/data-source/)
+- [source](https://www.talend.com/resources/data-source/)
 
 ### Domain Model
 

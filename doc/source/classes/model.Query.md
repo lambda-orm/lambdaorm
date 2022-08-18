@@ -14,7 +14,7 @@
 
 - [columns](model.Query.md#columns)
 - [constraints](model.Query.md#constraints)
-- [dataSource](model.Query.md#datasource)
+- [source](model.Query.md#source)
 - [defaults](model.Query.md#defaults)
 - [dialect](model.Query.md#dialect)
 - [entity](model.Query.md#entity)
@@ -62,9 +62,9 @@ ___
 
 ___
 
-### dataSource
+### source
 
-• **dataSource**: `string`
+• **source**: `string`
 
 #### Defined in
 

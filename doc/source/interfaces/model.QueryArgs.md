@@ -10,7 +10,7 @@
 
 - [columns](model.QueryArgs.md#columns)
 - [constraints](model.QueryArgs.md#constraints)
-- [dataSource](model.QueryArgs.md#datasource)
+- [source](model.QueryArgs.md#source)
 - [defaults](model.QueryArgs.md#defaults)
 - [dialect](model.QueryArgs.md#dialect)
 - [entity](model.QueryArgs.md#entity)
@@ -41,9 +41,9 @@ ___
 
 ___
 
-### dataSource
+### source
 
-• **dataSource**: `string`
+• **source**: `string`
 
 #### Defined in
 

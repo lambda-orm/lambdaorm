@@ -34,7 +34,7 @@
 
 ### sources
 
-• **sources**: [`DataSource`](../interfaces/model.DataSource.md)[]
+• **sources**: [`source`](../interfaces/model.source.md)[]
 
 #### Defined in
 
@@ -54,7 +54,7 @@ ___
 
 ### get
 
-▸ **get**(`name?`): [`DataSource`](../interfaces/model.DataSource.md)
+▸ **get**(`name?`): [`source`](../interfaces/model.source.md)
 
 #### Parameters
 
@@ -64,7 +64,7 @@ ___
 
 #### Returns
 
-[`DataSource`](../interfaces/model.DataSource.md)
+[`source`](../interfaces/model.source.md)
 
 #### Defined in
 
@@ -80,7 +80,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `value` | [`DataSource`](../interfaces/model.DataSource.md) |
+| `value` | [`source`](../interfaces/model.source.md) |
 
 #### Returns
 

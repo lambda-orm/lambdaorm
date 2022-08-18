@@ -60,26 +60,26 @@ export class StageModel extends StageState<SchemaModel> {
 		const sources: any[] = []
 		for (const i in queries) {
 			const query = queries[i]
-			const dataSource = sources.find(p => p.name === query.dataSource)
-			if (dataSource === undefined) {
-				sources.push({ name: query.dataSource, queries: [query] })
+			const source = sources.find(p => p.name === query.source)
+			if (source === undefined) {
+				sources.push({ name: query.source, queries: [query] })
 			} else {
-				dataSource.queries.push(query)
+				source.queries.push(query)
 			}
 		}
 		for (const i in sources) {
-			const dataSource = sources[i]
-			const logFile = this.ddlFile(stage, action, dataSource.name)
-			const data = dataSource.queries.map((p: Query) => p.sentence).join(';\n') + ';'
+			const source = sources[i]
+			const logFile = this.ddlFile(stage, action, source.name)
+			const data = source.queries.map((p: Query) => p.sentence).join(';\n') + ';'
 			await Helper.writeFile(logFile, data)
 		}
 	}
 
-	private ddlFile (stage: string, action:string, dataSource:string) {
+	private ddlFile (stage: string, action:string, source:string) {
 		let date = new Date().toISOString()
 		date = Helper.replace(date, ':', '')
 		date = Helper.replace(date, '.', '')
 		date = Helper.replace(date, '-', '')
-		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-ddl-${date}-${action}-${dataSource}.txt`)
+		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-ddl-${date}-${action}-${source}.txt`)
 	}
 }

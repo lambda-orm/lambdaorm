@@ -1,4 +1,4 @@
-import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, DataSource, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent } from '../model'
+import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent } from '../model'
 import { ConnectionConfig } from '../connection'
 import path from 'path'
 import { Helper } from './helper'
@@ -410,14 +410,14 @@ export class ViewsConfig {
 }
 
 export class DataSourceConfig {
-	public sources: DataSource[]
+	public sources: source[]
 	public default?: string
 
 	constructor () {
 		this.sources = []
 	}
 
-	public load (value: DataSource): void {
+	public load (value: source): void {
 		if (value && value.name) {
 			const index = this.sources.findIndex(p => p.name === value.name)
 			if (index === -1) {
@@ -428,18 +428,18 @@ export class DataSourceConfig {
 		}
 	}
 
-	public get (name?: string): DataSource {
+	public get (name?: string): source {
 		const _name = name === undefined ? this.default : name
 		if (_name === undefined) {
 			if (this.sources.length === 1) {
 				return this.sources[0]
 			} else {
-				throw new SchemaError('the name of the dataSource is required')
+				throw new SchemaError('the name of the source is required')
 			}
 		}
 		const db = this.sources.find(p => p.name === _name)
 		if (db === undefined) {
-			throw new SchemaError(`default dataSource: ${_name} not found`)
+			throw new SchemaError(`default source: ${_name} not found`)
 		}
 		return db
 	}
@@ -574,9 +574,9 @@ class SchemaExtender {
 			schema.sources = [{ name: 'default', dialect: Dialect.MySQL, mapping: schema.mappings[0].name, connection: null }]
 		}
 		for (const k in schema.sources) {
-			const dataSource = schema.sources[k]
-			if (dataSource.mapping === undefined) {
-				dataSource.mapping = schema.mappings[0].name
+			const source = schema.sources[k]
+			if (source.mapping === undefined) {
+				source.mapping = schema.mappings[0].name
 			}
 		}
 	}
@@ -871,7 +871,7 @@ class SchemaExtender {
 }
 
 export class SchemaManager {
-	public dataSource: DataSourceConfig
+	public source: DataSourceConfig
 	public model: ModelConfig
 	public mapping: MappingsConfig
 	public stage: StageConfig
@@ -884,7 +884,7 @@ export class SchemaManager {
 	constructor (workspace: string, expressions: Expressions) {
 		this.expressions = expressions
 		this.workspace = workspace
-		this.dataSource = new DataSourceConfig()
+		this.source = new DataSourceConfig()
 		this.model = new ModelConfig()
 		this.mapping = new MappingsConfig()
 		this.stage = new StageConfig()
@@ -1017,11 +1017,11 @@ export class SchemaManager {
 			}
 		}
 		if (this.schema.sources) {
-			for (const dataSource of this.schema.sources) {
-				dataSource.connection = Helper.tryParse(dataSource.connection)
-				const connectionConfig: ConnectionConfig = { name: dataSource.name, dialect: dataSource.dialect, connection: {} }
-				connectionConfig.connection = dataSource.connection
-				this.dataSource.load(dataSource)
+			for (const source of this.schema.sources) {
+				source.connection = Helper.tryParse(source.connection)
+				const connectionConfig: ConnectionConfig = { name: source.name, dialect: source.dialect, connection: {} }
+				connectionConfig.connection = source.connection
+				this.source.load(source)
 			}
 		}
 		if (this.schema.stages) {

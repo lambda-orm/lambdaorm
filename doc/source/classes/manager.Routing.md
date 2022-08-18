@@ -36,13 +36,13 @@
 
 ### eval
 
-▸ **eval**(`dataSource`, `sentenceInfo`): `boolean`
+▸ **eval**(`source`, `sentenceInfo`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dataSource` | [`RuleDataSource`](../interfaces/model.RuleDataSource.md) |
+| `source` | [`RuleDataSource`](../interfaces/model.RuleDataSource.md) |
 | `sentenceInfo` | [`SentenceInfo`](../interfaces/model.SentenceInfo.md) |
 
 #### Returns

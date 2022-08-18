@@ -132,13 +132,13 @@ ___
 
 ### dialect
 
-▸ **dialect**(`dataSource`): `string`
+▸ **dialect**(`source`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dataSource` | `string` |
+| `source` | `string` |
 
 #### Returns
 

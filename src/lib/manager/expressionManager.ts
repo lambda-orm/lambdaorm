@@ -1,4 +1,4 @@
-import { ObservableAction, Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, DataSource, SentenceInfo } from '../model'
+import { ObservableAction, Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, source, SentenceInfo } from '../model'
 import { SchemaManager, ExpressionNormalizer, Routing, OperandManager, Languages, ViewConfig, SentenceCompleter } from '.'
 import { Helper } from './helper'
 import { Expressions, Cache } from 'js-expressions'
@@ -79,10 +79,10 @@ export class ExpressionManager {
 		}
 	}
 
-	private getDataSource (sentence: Sentence, stage: string): DataSource {
+	private getDataSource (sentence: Sentence, stage: string): source {
 		const sentenceInfo: SentenceInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
 		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
-		return this.schema.dataSource.get(dataSourceName)
+		return this.schema.source.get(dataSourceName)
 	}
 
 	private complete (sentence: Sentence, view: ViewConfig, stage: string) {
@@ -91,17 +91,17 @@ export class ExpressionManager {
 			const sentenceInclude = sentenceIncludes[p]
 			this.complete(sentenceInclude.children[0] as Sentence, view, stage)
 		}
-		const dataSource = this.getDataSource(sentence, stage)
-		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
+		const source = this.getDataSource(sentence, stage)
+		const mapping = this.schema.mapping.getInstance(source.mapping)
 		this.sentenceCompleter.complete(mapping, view, sentence)
 	}
 
 	private dmlBuild (sentence: Sentence, view: ViewConfig, stage: string): Query {
 		const includes:Include[] = []
-		const dataSource = this.getDataSource(sentence, stage)
-		const language = this.languages.getByDialect(dataSource.dialect)
-		const dialect = this.languages.getDialect(dataSource.dialect)
-		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
+		const source = this.getDataSource(sentence, stage)
+		const language = this.languages.getByDialect(source.dialect)
+		const dialect = this.languages.getDialect(source.dialect)
+		const mapping = this.schema.mapping.getInstance(source.mapping)
 		const sentenceIncludes = sentence.getIncludes()
 		for (const p in sentenceIncludes) {
 			const sentenceInclude = sentenceIncludes[p]
@@ -111,7 +111,7 @@ export class ExpressionManager {
 				includes.push(include)
 			}
 		}
-		const query = language.dmlBuild(dataSource, mapping, sentence)
+		const query = language.dmlBuild(source, mapping, sentence)
 		query.includes = query.includes.concat(includes)
 		return query
 	}
@@ -181,7 +181,7 @@ export class ExpressionManager {
 	}
 
 	private _sentence (query: Query): MetadataSentence {
-		const mainSentence: MetadataSentence = { entity: query.entity, dialect: query.dialect, dataSource: query.dataSource, sentence: query.sentence, children: [] }
+		const mainSentence: MetadataSentence = { entity: query.entity, dialect: query.dialect, source: query.source, sentence: query.sentence, children: [] }
 		for (const p in query.includes) {
 			const include = query.includes[p]
 			const includeSentence = this._sentence(include.query)

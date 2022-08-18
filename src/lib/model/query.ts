@@ -3,7 +3,7 @@ import { SentenceAction, Property, Parameter, Relation, Behavior, Constraint } f
 export interface QueryArgs{
 	action: SentenceAction,
 	dialect: string,
-	dataSource: string,
+	source: string,
 	sentence: string,
 	entity: string,
 	columns?: Property[],
@@ -20,7 +20,7 @@ export class Query {
 	public expression?: string
 	public sentence: string
 	public dialect: string
-	public dataSource: string
+	public source: string
 	public entity: string
 	public columns: Property[]
 	public parameters: Parameter[]
@@ -32,7 +32,7 @@ export class Query {
 		this.dialect = args.dialect
 		this.sentence = args.sentence
 		this.entity = args.entity
-		this.dataSource = args.dataSource
+		this.source = args.source
 		this.columns = args.columns || []
 		this.parameters = args.parameters || []
 		this.constraints = args.constraints || []

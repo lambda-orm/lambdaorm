@@ -12,10 +12,10 @@ export class Routing {
 		this.expressions = expressions
 	}
 
-	public eval (dataSource:RuleDataSource, sentenceInfo: SentenceInfo):boolean {
+	public eval (source:RuleDataSource, sentenceInfo: SentenceInfo):boolean {
 		const contextInfo = this.getContextInfo(sentenceInfo)
-		if (dataSource.condition === undefined) return true
-		return this.expressions.eval(dataSource.condition, contextInfo)
+		if (source.condition === undefined) return true
+		return this.expressions.eval(source.condition, contextInfo)
 	}
 
 	private getContextInfo (sentenceInfo: SentenceInfo):ContextInfo {
@@ -33,13 +33,13 @@ export class Routing {
 		const contextInfo = this.getContextInfo(sentenceInfo)
 		const _stage = this.schema.stage.get(stage)
 		for (const i in _stage.sources) {
-			const dataSource = _stage.sources[i]
-			if (dataSource.condition === undefined) {
-				return dataSource.name
+			const source = _stage.sources[i]
+			if (source.condition === undefined) {
+				return source.name
 			} else {
-				const result = this.expressions.eval(dataSource.condition, contextInfo)
+				const result = this.expressions.eval(source.condition, contextInfo)
 				if (result) {
-					return dataSource.name
+					return source.name
 				}
 			}
 		}

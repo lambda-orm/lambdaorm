@@ -74,13 +74,13 @@ ___
 
 ### ddlBuilder
 
-▸ `Abstract` **ddlBuilder**(`dataSource`, `mapping`): [`LanguageDDLBuilder`](manager.LanguageDDLBuilder.md)
+▸ `Abstract` **ddlBuilder**(`source`, `mapping`): [`LanguageDDLBuilder`](manager.LanguageDDLBuilder.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dataSource` | [`DataSource`](../interfaces/model.DataSource.md) |
+| `source` | [`source`](../interfaces/model.source.md) |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
 
 #### Returns
@@ -95,13 +95,13 @@ ___
 
 ### dmlBuild
 
-▸ `Abstract` **dmlBuild**(`dataSource`, `mapping`, `sentence`): [`Query`](model.Query.md)
+▸ `Abstract` **dmlBuild**(`source`, `mapping`, `sentence`): [`Query`](model.Query.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dataSource` | [`DataSource`](../interfaces/model.DataSource.md) |
+| `source` | [`source`](../interfaces/model.source.md) |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
 | `sentence` | [`Sentence`](model.Sentence.md) |
 
