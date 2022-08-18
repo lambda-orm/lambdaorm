@@ -17,6 +17,7 @@ export class Query {
 	public action: SentenceAction
 	// eslint-disable-next-line no-use-before-define
 	public includes: Include[]
+	public expression?: string
 	public sentence: string
 	public dialect: string
 	public dataSource: string

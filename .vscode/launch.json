@@ -15,6 +15,16 @@
 			"envFile": "${workspaceFolder}/test.env"
 		},
 		{
+			"name": "lab-listener",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/lab-listener.ts",
+			"envFile": "${workspaceFolder}/test.env"
+		},
+		{
 			"name": "lab performance northwind",
 			"type": "node",
 			"request": "launch",

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { Dialect, IOrm, OrmOptions, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
+import { ActionObserver, Dialect, IOrm, OrmOptions, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Query } from './model'
 import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages } from './manager'
 import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './connection'
 import { SqlLanguage } from './language/SQL'
@@ -24,6 +24,7 @@ export class Orm implements IOrm {
 	private static _instance: Orm
 	private schemaManager: SchemaManager
 	private _expressions: Expressions
+	private observers:any={};
 
 	/**
  * Singleton
@@ -254,9 +255,16 @@ export class Orm implements IOrm {
 			expression = this.expressionManager.toExpression(expression)
 		}
 		const _options = this.schemaManager.solveOptions(options)
-
 		const query = this.expressionManager.toQuery(expression, _options)
-		return this.executor.execute(query, data, _options)
+		try {
+			this.beforeExecutionNotify(query, data, _options)
+			const result = await this.executor.execute(query, data, _options)
+			this.afterExecutionNotify(query, data, _options, result)
+			return result
+		} catch (error) {
+			this.errorExecutionNotify(query, data, _options, error)
+			throw error
+		}
 	}
 
 	/**
@@ -267,5 +275,77 @@ export class Orm implements IOrm {
 	public async transaction (options: OrmOptions|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _options = this.schemaManager.solveOptions(options)
 		return this.executor.transaction(_options, callback)
+	}
+
+	// Listeners and subscribers
+
+	public subscribe (observer:ActionObserver):void {
+		if (!this.observers[observer.action]) {
+			this.observers[observer.action] = []
+		}
+		this.observers[observer.action].push(observer)
+	}
+
+	public unsubscribe (observer:ActionObserver): void {
+		const observers = this.observers[observer.action]
+		if (!observers) {
+			return
+		}
+		const index = observers.indexOf(observer)
+		if (index === -1) {
+			throw new Error('Subject: Nonexistent observer.')
+		}
+		observers.splice(index, 1)
+	}
+
+	private beforeExecutionNotify (query: Query, data: any, options: OrmOptions) {
+		const observers = this.observers[query.action]
+		if (!observers) {
+			return
+		}
+		observers.forEach((observer:ActionObserver) => {
+			if (observer.condition === undefined) {
+				observer.before(query, data, options)
+			} else {
+				const context = { query: query, options: options }
+				if (this.expressions.eval(observer.condition, context)) {
+					observer.before(query, data, options)
+				}
+			}
+		})
+	}
+
+	private afterExecutionNotify (query: Query, data: any, options: OrmOptions, result:any) {
+		const observers = this.observers[query.action]
+		if (!observers) {
+			return
+		}
+		observers.forEach((observer:ActionObserver) => {
+			if (observer.condition === undefined) {
+				observer.after(query, data, options, result)
+			} else {
+				const context = { query: query, options: options }
+				if (this.expressions.eval(observer.condition, context)) {
+					observer.after(query, data, options, result)
+				}
+			}
+		})
+	}
+
+	private errorExecutionNotify (query: Query, data: any, options: OrmOptions, error:any) {
+		const observers = this.observers[query.action]
+		if (!observers) {
+			return
+		}
+		observers.forEach((observer:ActionObserver) => {
+			if (observer.condition === undefined) {
+				observer.error(query, data, options, error)
+			} else {
+				const context = { query: query, options: options }
+				if (this.expressions.eval(observer.condition, context)) {
+					observer.error(query, data, options, error)
+				}
+			}
+		})
 	}
 }

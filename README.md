@@ -38,11 +38,11 @@ What differentiates λORM from other ORMs:
 	- [Query expression metadata](#query-expression-metadata)
 - [Repositories and custom repositories](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
 - Using multiple database instances
-- Connection pooling
 - [Transactions and distributed transactions](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
 - [BulkInsert](https://github.com/FlavioLionelRita/lambdaorm/wiki/BulkInsert)
-- High performance
 - Connection pooling
+- Listeners and subscribers
+- High performance
 - [CLI](#cli)
 	- Init and update commands
 	- Run expressions
@@ -79,7 +79,7 @@ But in the case of the States entity, the name of the table and its fields diffe
 
 ![diagram](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema5.svg)
 
-[View configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples#one-schema-related-multiples-databases)
+[View schema configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples#one-schema-related-multiples-databases)
 
 [More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
 
@@ -96,12 +96,12 @@ Expressions can also be sent as a string
 
 ```ts
 Countries
-	.filter(p=> p.region == region)
-	.page(1,3)
+	.filter(p=> p.region == region)	
 	.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
 	.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
 		  .map(p=> [p.name,p.latitude,p.longitude])
 	)
+	.page(1,3)
 ```
 
 where the SQL equivalent of the expression is:
@@ -148,12 +148,12 @@ import { orm } from 'lambdaorm'
 (async () => {
 	await orm.init()	
 	const query = (region:string) => 
-		Countries.filter(p=> p.region == region)
-			.page(1,3)
+		Countries.filter(p=> p.region == region)			
 			.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
 			.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
 				.map(p=> [p.name,p.latitude,p.longitude])
 			)
+			.page(1,3)
 	const result = await orm.execute(query, { region: 'Asia' })
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
@@ -170,12 +170,12 @@ import { orm } from 'lambdaorm'
 	await orm.init()	
 	const query = `
 	Countries
-		.filter(p=> p.region == region)
-		.page(1,3)
+		.filter(p=> p.region == region)		
 		.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
 		.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
 			.map(p=> [p.name,p.latitude,p.longitude])
-		)`																								    
+		)
+		.page(1,3)`																								    
 	const result = await orm.execute(query, { region: 'Asia' })
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
