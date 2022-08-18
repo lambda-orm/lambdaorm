@@ -29,7 +29,7 @@
 
 #### Defined in
 
-[src/lib/manager/languages.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/languages.ts#L10)
+[src/lib/manager/languages.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/languages.ts#L10)
 
 ## Properties
 
@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/lib/manager/languages.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/languages.ts#L7)
+[src/lib/manager/languages.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/languages.ts#L7)
 
 ## Methods
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/lib/manager/languages.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/languages.ts#L15)
+[src/lib/manager/languages.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/languages.ts#L15)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/languages.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/languages.ts#L24)
+[src/lib/manager/languages.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/languages.ts#L24)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/languages.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/languages.ts#L32)
+[src/lib/manager/languages.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/languages.ts#L32)
 
 ___
 
@@ -119,4 +119,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/languages.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/languages.ts#L43)
+[src/lib/manager/languages.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/languages.ts#L43)

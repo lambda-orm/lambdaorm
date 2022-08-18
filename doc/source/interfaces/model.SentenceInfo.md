@@ -8,10 +8,20 @@
 
 ### Properties
 
+- [action](model.SentenceInfo.md#action)
 - [entity](model.SentenceInfo.md#entity)
-- [name](model.SentenceInfo.md#name)
 
 ## Properties
+
+### action
+
+• **action**: [`ObservableAction`](../enums/model.ObservableAction.md)
+
+#### Defined in
+
+[src/lib/model/sentenceInfo.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/sentenceInfo.ts#L4)
+
+___
 
 ### entity
 
@@ -19,14 +29,4 @@
 
 #### Defined in
 
-[src/lib/model/sentenceInfo.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/sentenceInfo.ts#L2)
-
-___
-
-### name
-
-• **name**: `string`
-
-#### Defined in
-
-[src/lib/model/sentenceInfo.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/sentenceInfo.ts#L3)
+[src/lib/model/sentenceInfo.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/sentenceInfo.ts#L3)

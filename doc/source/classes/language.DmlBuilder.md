@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/lib/language/dmlBuilder.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/language/dmlBuilder.ts#L12)
+[src/lib/language/dmlBuilder.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/language/dmlBuilder.ts#L12)
 
 ## Methods
 
@@ -51,4 +51,4 @@
 
 #### Defined in
 
-[src/lib/language/dmlBuilder.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/language/dmlBuilder.ts#L19)
+[src/lib/language/dmlBuilder.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/language/dmlBuilder.ts#L19)

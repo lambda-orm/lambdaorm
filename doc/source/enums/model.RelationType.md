@@ -6,38 +6,38 @@
 
 ## Table of contents
 
-### Enumeration members
+### Enumeration Members
 
 - [manyToOne](model.RelationType.md#manytoone)
 - [oneToMany](model.RelationType.md#onetomany)
 - [oneToOne](model.RelationType.md#onetoone)
 
-## Enumeration members
+## Enumeration Members
 
 ### manyToOne
 
-• **manyToOne** = `"manyToOne"`
+• **manyToOne**
 
 #### Defined in
 
-[src/lib/model/schema.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L3)
+[src/lib/model/schema.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/schema.ts#L3)
 
 ___
 
 ### oneToMany
 
-• **oneToMany** = `"oneToMany"`
+• **oneToMany**
 
 #### Defined in
 
-[src/lib/model/schema.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L2)
+[src/lib/model/schema.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/schema.ts#L2)
 
 ___
 
 ### oneToOne
 
-• **oneToOne** = `"oneToOne"`
+• **oneToOne**
 
 #### Defined in
 
-[src/lib/model/schema.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L4)
+[src/lib/model/schema.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/schema.ts#L4)
