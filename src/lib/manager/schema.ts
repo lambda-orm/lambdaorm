@@ -676,10 +676,14 @@ class SchemaExtender {
 
 	private completeRelations (entities: Entity[]): void {
 		for (const source of entities) {
-			for (const sourceRelation of source.relations) {
-				if (sourceRelation.target && (sourceRelation.type === RelationType.oneToMany || sourceRelation.type === RelationType.oneToOne)) {
-					this.completeRelation(source, sourceRelation, entities)
+			if (source.relations) {
+				for (const sourceRelation of source.relations) {
+					if (sourceRelation.target && (sourceRelation.type === RelationType.oneToMany || sourceRelation.type === RelationType.oneToOne)) {
+						this.completeRelation(source, sourceRelation, entities)
+					}
 				}
+			} else {
+				source.relations = []
 			}
 		}
 	}
@@ -894,7 +898,7 @@ export class SchemaManager {
 	}
 
 	public async init (source?: string | Schema): Promise<Schema> {
-		let schema
+		let schema: string | Schema
 		if (!source || typeof source === 'string') {
 			schema = await this.get(source)
 		} else {
