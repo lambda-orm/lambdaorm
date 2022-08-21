@@ -1,5 +1,4 @@
 import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent } from '../model'
-import { ConnectionConfig } from '../connection'
 import path from 'path'
 import { Helper } from './helper'
 import { Expressions } from 'js-expressions'
@@ -1022,9 +1021,16 @@ export class SchemaManager {
 		}
 		if (this.schema.sources) {
 			for (const source of this.schema.sources) {
-				source.connection = Helper.tryParse(source.connection)
-				const connectionConfig: ConnectionConfig = { name: source.name, dialect: source.dialect, connection: {} }
-				connectionConfig.connection = source.connection
+				if (typeof source.connection === 'string') {
+					const connection = Helper.tryParse(source.connection)
+					if (connection) {
+						source.connection = connection
+					} else {
+						throw new SchemaError(`Connection "${source.connection}" not serializable`)
+					}
+				} else if (typeof source.connection !== 'object') {
+					throw new SchemaError(`The source "${source.name}" connection to is not defined as an object`)
+				}
 				this.source.load(source)
 			}
 		}
