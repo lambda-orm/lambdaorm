@@ -2,11 +2,11 @@ import { orm } from '../../lib'
 
 export async function apply (callback: any) {
 	try {
-		await orm.init()
-		const stage = 'SqlServer'	
+		await orm.init('/home/flavio/develop/lambdaorm/src/dev/labs/lab01/lambdaORM.yaml')
+		const stage = 'default'	
 			// UPDATE e SET ReportsTo = @reportsToId FROM Employees e WHERE (e.LastName = @lastName AND e.FirstName = @firstName)
-		const query = 'Employees.filter(p=> p.firstName== firstName && p.lastName== lastName).update({reportsToId:reportsToId})'
-		const context = { reportsToId:1,firstName:'test',lastName:'xxx' }
+		const query = 'Countries.page(1,10).include(p=>p.states)'
+		const context = { }
 
 		const sentence = orm.sentence(query,{stage: stage})
 		console.log(sentence)

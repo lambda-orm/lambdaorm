@@ -68,11 +68,21 @@ export abstract class DmlBuilder {
 		}
 
 		let text = this.buildArrowFunction(map) + ' ' + this.buildFrom(from) + ' ' + this.buildJoins(entity, joins)
-		if (filter) text = text + this.buildArrowFunction(filter) + ' '
-		if (groupBy) text = text + this.buildArrowFunction(groupBy) + ' '
-		if (having) text = text + this.buildArrowFunction(having) + ' '
-		if (sort) text = text + this.buildArrowFunction(sort) + ' '
-		if (page) text = this.buildPage(text, page)
+		if (filter) {
+			text = text + this.buildArrowFunction(filter) + ' '
+		}
+		if (groupBy) {
+			text = text + this.buildArrowFunction(groupBy) + ' '
+		}
+		if (having) {
+			text = text + this.buildArrowFunction(having) + ' '
+		}
+		if (sort) {
+			text = text + this.buildArrowFunction(sort) + ' '
+		}
+		if (page) {
+			text = this.buildPage(text, page)
+		}
 		return text
 	}
 
@@ -225,8 +235,15 @@ export abstract class DmlBuilder {
 
 	protected buildPage (sentence: string, operand: Page): string {
 		let template = this.dialect.dml('page')
-		let page = parseInt(operand.children[0].name)
-		const records = parseInt(operand.children[1].name)
+		let page = 1
+		let records = 10
+		if (operand.children.length === 2) {
+			page = parseInt(operand.children[0].name)
+			records = parseInt(operand.children[1].name)
+		} else if (operand.children.length === 3) {
+			page = parseInt(operand.children[1].name)
+			records = parseInt(operand.children[2].name)
+		}
 		if (page < 1) page = 1
 		template = template.replace('{sentence}', sentence)
 		template = template.replace('{offset}', ((page - 1) * records).toString())
