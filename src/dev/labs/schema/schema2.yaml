@@ -41,7 +41,7 @@ entities:
         from: countryCode
         entity: Countries
         to: iso3
-dataSources:
+sources:
   - name: dataSource1
     dialect: mysql
     connection:

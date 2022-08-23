@@ -55,7 +55,7 @@ ModelConfigBase&lt;Entity, Property\&gt;.constructor
 
 #### Defined in
 
-[src/lib/manager/schema.ts:247](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L247)
+[src/lib/manager/schema.ts:247](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L247)
 
 ## Properties
 
@@ -69,7 +69,7 @@ ModelConfigBase.entities
 
 #### Defined in
 
-[src/lib/manager/schema.ts:244](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L244)
+[src/lib/manager/schema.ts:244](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L244)
 
 ___
 
@@ -83,7 +83,7 @@ ModelConfigBase.enums
 
 #### Defined in
 
-[src/lib/manager/schema.ts:245](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L245)
+[src/lib/manager/schema.ts:245](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L245)
 
 ## Methods
 
@@ -108,7 +108,7 @@ ModelConfigBase.existsProperty
 
 #### Defined in
 
-[src/lib/manager/schema.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L40)
+[src/lib/manager/schema.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L40)
 
 ___
 
@@ -132,7 +132,7 @@ ModelConfigBase.getAutoIncrement
 
 #### Defined in
 
-[src/lib/manager/schema.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L59)
+[src/lib/manager/schema.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L59)
 
 ___
 
@@ -156,7 +156,7 @@ ModelConfigBase.getEntity
 
 #### Defined in
 
-[src/lib/manager/schema.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L13)
+[src/lib/manager/schema.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L13)
 
 ___
 
@@ -180,7 +180,7 @@ ModelConfigBase.getEnum
 
 #### Defined in
 
-[src/lib/manager/schema.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L25)
+[src/lib/manager/schema.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L25)
 
 ___
 
@@ -204,7 +204,7 @@ ModelConfigBase.getFieldIds
 
 #### Defined in
 
-[src/lib/manager/schema.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L67)
+[src/lib/manager/schema.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L67)
 
 ___
 
@@ -228,7 +228,7 @@ ModelConfigBase.getForcedEntity
 
 #### Defined in
 
-[src/lib/manager/schema.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L17)
+[src/lib/manager/schema.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L17)
 
 ___
 
@@ -253,7 +253,7 @@ ModelConfigBase.getProperty
 
 #### Defined in
 
-[src/lib/manager/schema.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L47)
+[src/lib/manager/schema.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L47)
 
 ___
 
@@ -278,7 +278,7 @@ ModelConfigBase.getRelation
 
 #### Defined in
 
-[src/lib/manager/schema.ts:217](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L217)
+[src/lib/manager/schema.ts:217](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L217)
 
 ___
 
@@ -302,7 +302,7 @@ ModelConfigBase.isChild
 
 #### Defined in
 
-[src/lib/manager/schema.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L29)
+[src/lib/manager/schema.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L29)
 
 ___
 
@@ -320,7 +320,7 @@ ModelConfigBase.listEntities
 
 #### Defined in
 
-[src/lib/manager/schema.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L75)
+[src/lib/manager/schema.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L75)
 
 ___
 
@@ -348,7 +348,7 @@ ModelConfigBase.sortByDependencies
 
 #### Defined in
 
-[src/lib/manager/schema.ts:106](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L106)
+[src/lib/manager/schema.ts:106](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L106)
 
 ___
 
@@ -377,4 +377,4 @@ ModelConfigBase.sortByRelations
 
 #### Defined in
 
-[src/lib/manager/schema.ts:84](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L84)
+[src/lib/manager/schema.ts:84](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L84)

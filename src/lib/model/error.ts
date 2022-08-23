@@ -35,14 +35,14 @@ export class ConnectionError extends Error {
 }
 
 export class ValidationError extends Error {
-	constructor (dataSource: string, entity: string, sentence: string, message: string, data: any = {}) {
-		super(`ERROR: ${message} DATA_SOURCE: ${dataSource} ENTITY: ${entity} SENTENCE: ${sentence}  DATA:${JSON.stringify(data)}`)
+	constructor (source: string, entity: string, sentence: string, message: string, data: any = {}) {
+		super(`ERROR: ${message} DATA_SOURCE: ${source} ENTITY: ${entity} SENTENCE: ${sentence}  DATA:${JSON.stringify(data)}`)
 		this.name = 'ValidationError'
 	}
 }
 export class ExecutionError extends Error {
-	constructor (dataSource: string, entity: string, sentence: string, message: string, data: any = {}) {
-		super(`ERROR: ${message} DATA_SOURCE: ${dataSource} ENTITY: ${entity} SENTENCE: ${sentence}  DATA:${JSON.stringify(data)}`)
+	constructor (source: string, entity: string, sentence: string, message: string, data: any = {}) {
+		super(`ERROR: ${message} DATA_SOURCE: ${source} ENTITY: ${entity} SENTENCE: ${sentence}  DATA:${JSON.stringify(data)}`)
 		this.name = 'ExecutionError'
 	}
 }

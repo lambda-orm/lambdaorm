@@ -24,7 +24,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property name in entity Categories",
@@ -116,7 +116,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property id in entity Customers",
@@ -244,7 +244,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property lastName in entity Employees",
@@ -284,7 +284,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property name in entity Shippers",
@@ -376,7 +376,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property name in entity Suppliers",
@@ -468,7 +468,7 @@
         "type": "boolean"
       }
     ],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property name in entity Products",
@@ -596,7 +596,7 @@
         "type": "string"
       }
     ],
-    "dataSource": "MongoDB",
+    "source": "MongoDB",
     "constraints": [
       {
         "message": "Cannot be null property customerId in entity Orders",

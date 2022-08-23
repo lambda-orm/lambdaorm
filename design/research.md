@@ -2,7 +2,7 @@
 
 ## Concepts
 
-- [dataSource](https://www.talend.com/resources/data-source/)
+- [source](https://www.talend.com/resources/data-source/)
 
 ### Domain Model
 
@@ -262,6 +262,12 @@ npm install -g gulp-cli
 
 - [The Scale Cube](https://microservices.io/articles/scalecube.html)
 
-## Language
+## Pending features
 
 - [upsert](https://sqltemuco.wordpress.com/2016/06/14/upsert-el-nuevo-comando/)
+
+### Listeners and subscribers
+
+- [TypeOrm Doc](https://orkhan.gitbook.io/typeorm/docs/listeners-and-subscribers)
+- [TypeOrm Example](https://medium.com/@Semyonic/subscribers-a-k-a-entity-listeners-of-typeorm-on-nestjs-a97ac75acc2d)
+- [TypeOrm Example](https://betterprogramming.pub/typeorm-listeners-exploring-best-practices-and-caveats-5397f4bb8c11)

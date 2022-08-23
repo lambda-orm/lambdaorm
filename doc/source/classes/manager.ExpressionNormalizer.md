@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/manager/expressionNormalizer.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionNormalizer.ts#L12)
+[src/lib/manager/expressionNormalizer.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionNormalizer.ts#L12)
 
 ## Methods
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[src/lib/manager/expressionNormalizer.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/expressionNormalizer.ts#L16)
+[src/lib/manager/expressionNormalizer.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionNormalizer.ts#L16)

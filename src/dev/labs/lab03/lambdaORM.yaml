@@ -1,0 +1,74 @@
+app:
+  src: src
+  data: data
+  model: model
+entities:
+  - name: Countries
+    primaryKey: ["iso3"]
+    uniqueKey: ["name"]
+    properties:
+      - name: name
+        nullable: false
+      - name: iso3
+        length: 3
+        nullable: false
+    relations:
+      - name: states
+        type: manyToOne
+        composite: true
+        from: iso3
+        entity: States
+        to: countryCode
+  - name: States
+    primaryKey: ["id"]
+    uniqueKey: ["countryCode", "name"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+      - name: name
+        nullable: false
+      - name: countryCode
+        nullable: false
+        length: 3
+    relations:
+      - name: country
+        from: countryCode
+        entity: Countries
+        to: iso3
+mappings:
+  - name: mapping1
+  - name: mapping2
+    entities:
+      - name: Countries
+        mapping: TBL_COUNTRIES
+        properties:
+          - name: iso3
+            mapping: ISO3
+          - name: name
+            mapping: NAME
+      - name: States
+        mapping: TBL_STATES
+        properties:
+          - name: id
+            mapping: ID
+          - name: name
+            mapping: NAME
+          - name: countryCode
+            mapping: COUNTRY_CODE
+sources:
+  - name: source1
+    dialect: MySQL
+    mapping: mapping1
+    connection: ${CNN_MYSQL}
+  - name: source2
+    dialect: PostgreSQL
+    mapping: mapping2
+    connection: ${CNN_POSTGRES}
+stages:
+  - name: stage1
+    sources:
+      - name: source1
+  - name: stage2
+    sources:
+      - name: source2

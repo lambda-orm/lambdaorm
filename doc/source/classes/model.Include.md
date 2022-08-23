@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[src/lib/model/query.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L38)
+[src/lib/model/query.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L48)
 
 ## Properties
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/lib/model/query.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L35)
+[src/lib/model/query.ts:45](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L45)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L36)
+[src/lib/model/query.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L46)
 
 ___
 
@@ -62,4 +62,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/query.ts#L37)
+[src/lib/model/query.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L47)

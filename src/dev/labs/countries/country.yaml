@@ -45,7 +45,7 @@ entities:
         from: countryCode
         entity: Countries
         to: iso3
-dataSources:
+sources:
   - name: dataSource1
     dialect: MySQL
     mapping: mapping1
@@ -73,7 +73,7 @@ mappings:
             mapping: LONGITUDE
 stages:
   - name: stage1
-    dataSources:
+    sources:
       - name: dataSource1
         condition: entity == "Countries"
       - name: dataSource2

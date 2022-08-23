@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.2.1-beta",
+	"version": "0.2.7-beta",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -69,7 +69,7 @@
 		"ts-jest": "^27.0.5",
 		"ts-node": "^10.0.0",
 		"typedoc": "^0.22.11",
-		"typedoc-plugin-markdown": "^3.11.14",
+		"typedoc-plugin-markdown": "3.11.14",
 		"typescript": "^4.3.5"
 	},
 	"keywords": [

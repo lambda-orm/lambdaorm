@@ -89,6 +89,39 @@ export class Delete extends ArrowFunction {
 	}
 }
 
+export enum SentenceCrudAction {
+	undefined = 'undefined',
+	select = 'select',
+	insert = 'insert',
+	update = 'update',
+	delete = 'delete'
+}
+export enum SentenceAction {
+	select = 'select',
+	insert = 'insert',
+	bulkInsert = 'bulkInsert',
+	update = 'update',
+	delete = 'delete',
+	truncateEntity = 'truncateEntity',
+	createEntity = 'createEntity',
+	createSequence = 'createSequence',
+	createFk = 'createFk',
+	createIndex = 'createIndex',
+	alterProperty = 'alterProperty',
+	addProperty = 'addProperty',
+	addPk = 'addPk',
+	addUk = 'addUk',
+	addFk = 'addFk',
+	dropSequence = 'dropSequence',
+	dropEntity = 'dropEntity',
+	dropProperty = 'dropProperty',
+	dropPk = 'dropPk',
+	dropUk = 'dropUk',
+	dropFk = 'dropFk',
+	dropIndex = 'dropIndex',
+	ddl = 'ddl'
+}
+
 export interface SentenceArgs{
 	name: string, children: Operand[], entity: string, alias: string, columns: Property[], parameters: Parameter[], constraints: Constraint[], values: Behavior[], defaults: Behavior[]
 }
@@ -98,18 +131,20 @@ export class Sentence extends Operand {
 	public parameters: Parameter[]
 	public entity: string
 	public alias: string
-	public action: string
+	public action: SentenceAction
+	public crudAction: SentenceCrudAction
 	public constraints: Constraint[]
 	public values: Behavior[]
 	public defaults: Behavior[]
 
 	constructor (args:SentenceArgs) {
 		super(args.name, args.children)
+		this.action = SentenceAction[args.name]
+		this.crudAction = SentenceCrudAction.undefined
 		this.entity = args.entity
 		this.alias = args.alias
 		this.columns = args.columns
 		this.parameters = args.parameters
-		this.action = ''
 		this.constraints = args.constraints
 		this.values = args.values
 		this.defaults = args.defaults
@@ -137,16 +172,16 @@ export class Sentence extends Operand {
 
 		const variables: Variable[] = []
 		if (map) {
-			this.action = 'select'
+			this.crudAction = SentenceCrudAction.select
 			this.loadVariables(map, variables)
 		} else if (insert) {
-			this.action = 'insert'
+			this.crudAction = SentenceCrudAction.insert
 			this.loadVariables(insert, variables)
 		} else if (update) {
-			this.action = 'update'
+			this.crudAction = SentenceCrudAction.update
 			this.loadVariables(update, variables)
 		} else if (_delete) {
-			this.action = 'delete'
+			this.crudAction = SentenceCrudAction.delete
 			this.loadVariables(_delete, variables)
 		}
 		if (filter) this.loadVariables(filter, variables)

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Schema, MetadataSentence, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from './index'
+import { Query, Schema, MetadataSentence, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from './index'
 import { Transaction, StageFacade, SchemaManager } from '../manager'
 import { Cache, Expressions } from 'js-expressions'
 
@@ -10,10 +10,31 @@ export interface OrmOptions {
 	tryAllCan?:boolean
 }
 
+export enum ObservableAction {
+	select = 'select',
+	insert = 'insert',
+	bulkInsert = 'bulkInsert',
+	update = 'update',
+	delete = 'delete',
+	ddl = 'ddl'
+}
+
+export abstract class ActionObserver {
+	public action:ObservableAction
+	public condition?:string
+	constructor (action:ObservableAction, condition?:string) {
+		this.action = action
+		this.condition = condition
+	}
+
+	public abstract before (query: Query, data: any, options: OrmOptions):void;
+	public abstract after (query: Query, data: any, options: OrmOptions, result:any):void;
+	public abstract error (query: Query, data: any, options: OrmOptions, error:any):void;
+}
 export interface IOrm
 {
 	get workspace(): string
-	dialect (dataSource:string): string
+	dialect (source:string): string
 	get stage(): StageFacade
 	get schema(): SchemaManager
 	get expressions(): Expressions

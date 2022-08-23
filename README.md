@@ -38,16 +38,12 @@ What differentiates λORM from other ORMs:
 	- [Query expression metadata](#query-expression-metadata)
 - [Repositories and custom repositories](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
 - Using multiple database instances
-- Connection pooling
 - [Transactions and distributed transactions](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
 - [BulkInsert](https://github.com/FlavioLionelRita/lambdaorm/wiki/BulkInsert)
-- High performance
 - Connection pooling
+- Listeners and subscribers
+- High performance
 - [CLI](#cli)
-	- Init and update commands
-	- Run expressions
-	- Sync and drop schema
-	- Imports and exports
 
 ## Schema Configuration
 
@@ -70,8 +66,8 @@ This configuration contains the following sections.
 
 ### Schema Configuration Example:
 
-This example poses a stage where two dataSources are accessed.
-Data source 1 is MySQL and contains the Countries table and dataSource 2 is PostgreSQL contains the States table.
+This example poses a stage where two sources are accessed.
+Data source 1 is MySQL and contains the Countries table and source 2 is PostgreSQL contains the States table.
 
 In the case of the Countries entity, both the name of the table and the fields coincide with the name of the entity and the name of the properties, so the mapping is transparent.
 
@@ -79,7 +75,7 @@ But in the case of the States entity, the name of the table and its fields diffe
 
 ![diagram](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema5.svg)
 
-[View configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples#one-schema-related-multiples-databases)
+[View schema configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples#one-schema-related-multiples-databases)
 
 [More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
 
@@ -96,12 +92,12 @@ Expressions can also be sent as a string
 
 ```ts
 Countries
-	.filter(p=> p.region == region)
-	.page(1,3)
+	.filter(p=> p.region == region)	
 	.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
 	.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
 		  .map(p=> [p.name,p.latitude,p.longitude])
 	)
+	.page(1,3)
 ```
 
 where the SQL equivalent of the expression is:
@@ -115,6 +111,7 @@ LIMIT 0,3
 SELECT s.NAME AS "name", s.LATITUDE AS "latitude", s.LONGITUDE AS "longitude", s.COUNTRY_CODE AS "__parentId" 
 FROM TBL_STATES s  
 WHERE SUBSTR(s.NAME,1,1) = 'F'
+  AND s.s.COUNTRY_CODE IN (?) 
 ```
 
 ### Advantage:
@@ -148,12 +145,12 @@ import { orm } from 'lambdaorm'
 (async () => {
 	await orm.init()	
 	const query = (region:string) => 
-		Countries.filter(p=> p.region == region)
-			.page(1,3)
+		Countries.filter(p=> p.region == region)			
 			.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
 			.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
 				.map(p=> [p.name,p.latitude,p.longitude])
 			)
+			.page(1,3)
 	const result = await orm.execute(query, { region: 'Asia' })
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
@@ -170,12 +167,12 @@ import { orm } from 'lambdaorm'
 	await orm.init()	
 	const query = `
 	Countries
-		.filter(p=> p.region == region)
-		.page(1,3)
+		.filter(p=> p.region == region)		
 		.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
 		.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
 			.map(p=> [p.name,p.latitude,p.longitude])
-		)`																								    
+		)
+		.page(1,3)`																								    
 	const result = await orm.execute(query, { region: 'Asia' })
 	console.log(JSON.stringify(result, null, 2))
 	await orm.end()
@@ -308,6 +305,19 @@ Install the package globally to use the CLI commands to help you create and main
 npm install lambdaorm-cli -g
 ```
 
+### CLI Commands
+
+| Command    	| Description                                  									  |
+|:------------|:----------------------------------------------------------------|
+|	version	 		| Prints lambdaorm version this project uses.											|
+|	init				| Generates lambdaorm project structure.													|
+|	update			| update model, packages and project structure.										|
+|	sync				|	Synchronize database.																						|
+|	import			| Import data from file to database																|
+|	export			| Export data from a database 																		|
+|	execute			| Execute an expression lambda or return information							|
+|	drop				|	Removes all database objects but not the database.							|
+
 [CLI package](https://www.npmjs.com/package/lambdaorm-cli)
 
 ## Documentation
@@ -317,7 +327,6 @@ npm install lambdaorm-cli -g
 - [Transaction](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
 - Schemas
 	- [Schema](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
-	- [Definition](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Definition)
 	- [Examples](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples)
 - Queries
 	- [Select](https://github.com/FlavioLionelRita/lambdaorm/wiki/Select)
@@ -337,5 +346,6 @@ npm install lambdaorm-cli -g
 	- [Sort](https://github.com/FlavioLionelRita/lambdaorm/wiki/Sort)
 	- [String](https://github.com/FlavioLionelRita/lambdaorm/wiki/String)
 - [Metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Metadata)
+- [CLI](https://www.npmjs.com/package/lambdaorm-cli)
 - [Labs](https://github.com/FlavioLionelRita/lambdaorm/wiki/Labs)
 - [Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/source/README.md)

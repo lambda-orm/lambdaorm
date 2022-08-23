@@ -12,8 +12,8 @@
 
 ### Properties
 
-- [dataSources](manager.DataSourceConfig.md#datasources)
 - [default](manager.DataSourceConfig.md#default)
+- [sources](manager.DataSourceConfig.md#sources)
 
 ### Methods
 
@@ -28,19 +28,9 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:416](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L416)
+[src/lib/manager/schema.ts:416](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L416)
 
 ## Properties
-
-### dataSources
-
-• **dataSources**: [`DataSource`](../interfaces/model.DataSource.md)[]
-
-#### Defined in
-
-[src/lib/manager/schema.ts:413](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L413)
-
-___
 
 ### default
 
@@ -48,13 +38,23 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:414](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L414)
+[src/lib/manager/schema.ts:414](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L414)
+
+___
+
+### sources
+
+• **sources**: [`source`](../interfaces/model.source.md)[]
+
+#### Defined in
+
+[src/lib/manager/schema.ts:413](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L413)
 
 ## Methods
 
 ### get
 
-▸ **get**(`name?`): [`DataSource`](../interfaces/model.DataSource.md)
+▸ **get**(`name?`): [`source`](../interfaces/model.source.md)
 
 #### Parameters
 
@@ -64,11 +64,11 @@ ___
 
 #### Returns
 
-[`DataSource`](../interfaces/model.DataSource.md)
+[`source`](../interfaces/model.source.md)
 
 #### Defined in
 
-[src/lib/manager/schema.ts:431](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L431)
+[src/lib/manager/schema.ts:431](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L431)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `value` | [`DataSource`](../interfaces/model.DataSource.md) |
+| `value` | [`source`](../interfaces/model.source.md) |
 
 #### Returns
 
@@ -88,4 +88,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:420](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/schema.ts#L420)
+[src/lib/manager/schema.ts:420](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L420)

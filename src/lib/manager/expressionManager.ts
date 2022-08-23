@@ -1,7 +1,7 @@
-import { Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, DataSource, SentenceInfo } from '../model'
+import { ObservableAction, Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, source, SentenceInfo } from '../model'
 import { SchemaManager, ExpressionNormalizer, Routing, OperandManager, Languages, ViewConfig, SentenceCompleter } from '.'
 import { Helper } from './helper'
-import { Expressions, Operand, Cache } from 'js-expressions'
+import { Expressions, Cache } from 'js-expressions'
 
 export class ExpressionManager {
 	private cache: Cache
@@ -43,9 +43,9 @@ export class ExpressionManager {
 	/**
 	 * Build expression
 	 * @param expression expression to build
-	 * @returns Operand
+	 * @returns Sentence
 	 */
-	public toOperand (expression: string): Operand {
+	private toSentence (expression: string): Sentence {
 		const minifyExpression = this.expressions.parser.minify(expression)
 		const key = `${minifyExpression}_toOperand`
 		const value = this.cache.get(key)
@@ -57,7 +57,7 @@ export class ExpressionManager {
 			this.cache.set(key, this.operandManager.serialize(operand))
 			return operand
 		} else {
-			return this.operandManager.deserialize(value)
+			return this.operandManager.deserialize(value) as Sentence
 		}
 	}
 
@@ -67,10 +67,11 @@ export class ExpressionManager {
 		const key = `${minifyExpression}_${options.stage}_${options.view}`
 		const value = this.cache.get(key)
 		if (!value) {
-			const sentence = this.toOperand(minifyExpression) as Sentence
+			const sentence = this.toSentence(minifyExpression)
 			const view = this.schema.view.getInstance(_view.name)
 			this.complete(sentence, view, options.stage as string)
 			const query = this.dmlBuild(sentence, view, options.stage as string)
+			query.expression = minifyExpression
 			this.cache.set(key, JSON.stringify(query))
 			return query
 		} else {
@@ -78,10 +79,10 @@ export class ExpressionManager {
 		}
 	}
 
-	private getDataSource (sentence: Sentence, stage: string): DataSource {
-		const sentenceInfo: SentenceInfo = { entity: sentence.entity, name: sentence.name }
+	private getDataSource (sentence: Sentence, stage: string): source {
+		const sentenceInfo: SentenceInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
 		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
-		return this.schema.dataSource.get(dataSourceName)
+		return this.schema.source.get(dataSourceName)
 	}
 
 	private complete (sentence: Sentence, view: ViewConfig, stage: string) {
@@ -90,17 +91,17 @@ export class ExpressionManager {
 			const sentenceInclude = sentenceIncludes[p]
 			this.complete(sentenceInclude.children[0] as Sentence, view, stage)
 		}
-		const dataSource = this.getDataSource(sentence, stage)
-		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
+		const source = this.getDataSource(sentence, stage)
+		const mapping = this.schema.mapping.getInstance(source.mapping)
 		this.sentenceCompleter.complete(mapping, view, sentence)
 	}
 
 	private dmlBuild (sentence: Sentence, view: ViewConfig, stage: string): Query {
 		const includes:Include[] = []
-		const dataSource = this.getDataSource(sentence, stage)
-		const language = this.languages.getByDialect(dataSource.dialect)
-		const dialect = this.languages.getDialect(dataSource.dialect)
-		const mapping = this.schema.mapping.getInstance(dataSource.mapping)
+		const source = this.getDataSource(sentence, stage)
+		const language = this.languages.getByDialect(source.dialect)
+		const dialect = this.languages.getDialect(source.dialect)
+		const mapping = this.schema.mapping.getInstance(source.mapping)
 		const sentenceIncludes = sentence.getIncludes()
 		for (const p in sentenceIncludes) {
 			const sentenceInclude = sentenceIncludes[p]
@@ -110,7 +111,7 @@ export class ExpressionManager {
 				includes.push(include)
 			}
 		}
-		const query = language.dmlBuild(dataSource, mapping, sentence)
+		const query = language.dmlBuild(source, mapping, sentence)
 		query.includes = query.includes.concat(includes)
 		return query
 	}
@@ -150,8 +151,8 @@ export class ExpressionManager {
 	 * @returns Model of expression
 	 */
 	public model (expression: string): MetadataModel[] {
-		const operand = this.toOperand(expression)
-		return this.operandManager.model(operand as Sentence)
+		const sentence = this.toSentence(expression)
+		return this.operandManager.model(sentence)
 	}
 
 	/**
@@ -160,8 +161,8 @@ export class ExpressionManager {
 	 * @returns constraints
 	 */
 	public constraints (expression: string): MetadataConstraint {
-		const operand = this.toOperand(expression)
-		return this.operandManager.constraints(operand as Sentence)
+		const sentence = this.toSentence(expression)
+		return this.operandManager.constraints(sentence)
 	}
 
 	/**
@@ -170,8 +171,8 @@ export class ExpressionManager {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): MetadataParameter[] {
-		const operand = this.toOperand(expression)
-		return this.operandManager.parameters(operand as Sentence)
+		const sentence = this.toSentence(expression)
+		return this.operandManager.parameters(sentence)
 	}
 
 	public sentence (expression: string, options: OrmOptions): MetadataSentence {
@@ -180,7 +181,7 @@ export class ExpressionManager {
 	}
 
 	private _sentence (query: Query): MetadataSentence {
-		const mainSentence: MetadataSentence = { entity: query.entity, dialect: query.dialect, dataSource: query.dataSource, sentence: query.sentence, children: [] }
+		const mainSentence: MetadataSentence = { entity: query.entity, dialect: query.dialect, source: query.source, sentence: query.sentence, children: [] }
 		for (const p in query.includes) {
 			const include = query.includes[p]
 			const includeSentence = this._sentence(include.query)
@@ -195,7 +196,7 @@ export class ExpressionManager {
 	 * @returns metadata of expression
 	 */
 	public metadata (expression: string): Metadata {
-		const operand = this.toOperand(expression)
-		return JSON.parse(this.operandManager.serialize(operand)) as Metadata
+		const sentence = this.toSentence(expression)
+		return JSON.parse(this.operandManager.serialize(sentence)) as Metadata
 	}
 }

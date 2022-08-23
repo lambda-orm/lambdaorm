@@ -13,8 +13,7 @@
 ### Methods
 
 - [execute](manager.Transaction.md#execute)
-- [expression](manager.Transaction.md#expression)
-- [lambda](manager.Transaction.md#lambda)
+- [executeQuery](manager.Transaction.md#executequery)
 
 ## Constructors
 
@@ -31,13 +30,51 @@
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/transaction.ts#L7)
+[src/lib/manager/transaction.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/transaction.ts#L8)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(`query`, `data?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `expression` | `Function` |
+| `data?` | `any` |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Defined in
+
+[src/lib/manager/transaction.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/transaction.ts#L13)
+
+▸ **execute**(`expression`, `data?`): `Promise`<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `expression` | `string` |
+| `data?` | `any` |
+
+#### Returns
+
+`Promise`<`any`\>
+
+#### Defined in
+
+[src/lib/manager/transaction.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/transaction.ts#L14)
+
+___
+
+### executeQuery
+
+▸ **executeQuery**(`query`, `data?`): `Promise`<`any`\>
 
 #### Parameters
 
@@ -52,46 +89,4 @@
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/transaction.ts#L23)
-
-___
-
-### expression
-
-▸ **expression**(`expression`, `data`): `Promise`<`any`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `data` | `any` |
-
-#### Returns
-
-`Promise`<`any`\>
-
-#### Defined in
-
-[src/lib/manager/transaction.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/transaction.ts#L18)
-
-___
-
-### lambda
-
-▸ **lambda**(`lambda`, `data`): `Promise`<`any`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `lambda` | `Function` |
-| `data` | `any` |
-
-#### Returns
-
-`Promise`<`any`\>
-
-#### Defined in
-
-[src/lib/manager/transaction.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/transaction.ts#L13)
+[src/lib/manager/transaction.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/transaction.ts#L23)

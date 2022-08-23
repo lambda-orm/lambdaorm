@@ -1,5 +1,5 @@
 import { MappingConfig, ViewConfig } from '.'
-import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, Constant2, PropertyMapping, PropertyView } from '../model'
+import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, Constant2, PropertyMapping, PropertyView, SentenceAction } from '../model'
 import { Expressions, Variable, Operand, Operator, KeyValue } from 'js-expressions'
 
 export class SentenceCompleter {
@@ -12,17 +12,17 @@ export class SentenceCompleter {
 	public complete (mapping: MappingConfig, view: ViewConfig, sentence: Sentence) {
 		const entity = mapping.getEntity(sentence.entity) as EntityMapping
 		if (entity.filter || entity.hadKeys) {
-			if (sentence.name !== 'insert' && sentence.name !== 'bulkInsert') {
+			if (sentence.name !== SentenceAction.insert && sentence.name !== SentenceAction.bulkInsert) {
 				this.solveFilter(sentence, entity)
 			}
-			if (entity.hadKeys && ['insert', 'bulkInsert', 'update'].includes(sentence.name)) {
+			if (entity.hadKeys && [SentenceAction.insert, SentenceAction.bulkInsert, SentenceAction.update].includes(sentence.action)) {
 				this.solveKeys(sentence, entity)
 			}
-			if (sentence.name === 'select') {
+			if (sentence.action === SentenceAction.select) {
 				this.solveJoin(sentence, mapping)
 			}
 		}
-		if (sentence.name === 'select' && (entity.hadReadExps || entity.hadReadMappingExp || entity.hadViewReadExp)) {
+		if (sentence.action === SentenceAction.select && (entity.hadReadExps || entity.hadReadMappingExp || entity.hadViewReadExp)) {
 			this.solveProperties(sentence, mapping, view)
 		}
 	}

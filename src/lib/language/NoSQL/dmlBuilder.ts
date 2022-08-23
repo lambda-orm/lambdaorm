@@ -1,15 +1,15 @@
 /* eslint-disable no-tabs */
 
 import { Operand, KeyValue, Operator, FunctionRef, Obj } from 'js-expressions'
-import { Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SchemaError, EntityMapping, RelationType } from '../../model'
+import { SentenceCrudAction, SentenceAction, Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SchemaError, EntityMapping, RelationType } from '../../model'
 import { DmlBuilder } from '../dmlBuilder'
 import { Helper } from '../../manager'
 
 export class NoSqlDMLBuilder extends DmlBuilder {
 	public override build (sentence: Sentence): Query {
-		if (sentence.action === 'select') {
+		if (sentence.crudAction === SentenceCrudAction.select) {
 			const noSQLSentence = this.buildSentence(sentence)
-			return new Query({ name: sentence.name, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
+			return new Query({ action: sentence.action, dialect: this.source.dialect, source: this.source.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
 		} else {
 			const includes:Include[] = []
 			const sentenceIncludes = sentence.getCompositeIncludes()
@@ -21,7 +21,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				includes.push(include)
 			}
 			const noSQLSentence = this.buildSentence(sentence)
-			const query = new Query({ name: sentence.name, dialect: this.dataSource.dialect, dataSource: this.dataSource.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
+			const query = new Query({ action: SentenceAction[sentence.name], dialect: this.source.dialect, source: this.source.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
 			query.includes = includes
 			return query
 		}

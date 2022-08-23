@@ -1,5 +1,5 @@
 
-import { SentenceInfo, RuleDataSource, ContextInfo, SchemaError } from '../model'
+import { ObservableAction, SentenceInfo, RuleDataSource, ContextInfo, SchemaError } from '../model'
 import { SchemaManager } from './index'
 import { Expressions } from 'js-expressions'
 
@@ -12,34 +12,34 @@ export class Routing {
 		this.expressions = expressions
 	}
 
-	public eval (dataSource:RuleDataSource, sentenceInfo: SentenceInfo):boolean {
+	public eval (source:RuleDataSource, sentenceInfo: SentenceInfo):boolean {
 		const contextInfo = this.getContextInfo(sentenceInfo)
-		if (dataSource.condition === undefined) return true
-		return this.expressions.eval(dataSource.condition, contextInfo)
+		if (source.condition === undefined) return true
+		return this.expressions.eval(source.condition, contextInfo)
 	}
 
 	private getContextInfo (sentenceInfo: SentenceInfo):ContextInfo {
 		return {
 			entity: sentenceInfo.entity,
-			sentence: sentenceInfo.name,
-			read: sentenceInfo.name === 'select',
-			write: sentenceInfo.name !== 'select',
-			dml: sentenceInfo.name !== 'ddl',
-			ddl: sentenceInfo.name === 'ddl'
+			sentence: sentenceInfo.action,
+			read: sentenceInfo.action === ObservableAction.select,
+			write: sentenceInfo.action !== ObservableAction.select,
+			dml: sentenceInfo.action !== ObservableAction.ddl,
+			ddl: sentenceInfo.action === ObservableAction.ddl
 		}
 	}
 
 	public getDataSource (sentenceInfo: SentenceInfo, stage?: string):string {
 		const contextInfo = this.getContextInfo(sentenceInfo)
 		const _stage = this.schema.stage.get(stage)
-		for (const i in _stage.dataSources) {
-			const dataSource = _stage.dataSources[i]
-			if (dataSource.condition === undefined) {
-				return dataSource.name
+		for (const i in _stage.sources) {
+			const source = _stage.sources[i]
+			if (source.condition === undefined) {
+				return source.name
 			} else {
-				const result = this.expressions.eval(dataSource.condition, contextInfo)
+				const result = this.expressions.eval(source.condition, contextInfo)
 				if (result) {
-					return dataSource.name
+					return source.name
 				}
 			}
 		}

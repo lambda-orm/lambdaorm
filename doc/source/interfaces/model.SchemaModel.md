@@ -18,4 +18,4 @@
 
 #### Defined in
 
-[src/lib/model/schema.ts:149](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/schema.ts#L149)
+[src/lib/model/schema.ts:149](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/schema.ts#L149)

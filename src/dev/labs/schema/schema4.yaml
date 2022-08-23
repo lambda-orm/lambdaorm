@@ -32,7 +32,7 @@ entities:
         from: countryCode
         entity: Countries
         to: iso3
-dataSources:
+sources:
   - name: dataSource1
     dialect: mysql
     connection:
@@ -51,7 +51,7 @@ dataSources:
       database: test
 stages:
   - name: stage1
-    dataSources:
+    sources:
       - name: dataSource1
         condition: entity == "Countries"
       - name: dataSource2

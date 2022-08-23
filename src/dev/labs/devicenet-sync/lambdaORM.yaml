@@ -34,7 +34,7 @@ enums:
       - name: guest
         value: guest
 entities:
-  # abtracts
+  # abstracts
   - name: Basics
     abstract: true
     properties:
@@ -60,7 +60,7 @@ entities:
         length: 32
       - name: serialNumber
         length: 32
-  # model strcuture define
+  # model structure define
   - name: Users
     view: true
     extends: Basics
@@ -81,8 +81,8 @@ entities:
         nullable: false
         length: 255
         readExp: mask(email)
-        # writeValue: encrypt(lower(email),"$$USERS_SECRET_KEY")
-        # readValue: decrypt(email,"$$USERS_SECRET_KEY")
+        # writeValue: encrypt(lower(email),"${USERS_SECRET_KEY}")
+        # readValue: decrypt(email,"${USERS_SECRET_KEY}")
     constraints:
       - message: invalid email
         condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
@@ -132,7 +132,7 @@ entities:
     primaryKey: ["id"]
     uniqueKey: ["name"]
     properties:
-      # tipo + identificador (el identificador es de acuerdo al tipo , en un telefono es el imei, en una pc la mac)
+      # type + identifier (the identifier is according to the type, in a phone it is the IMEI, in a PC the mac)
       - name: id
         length: 32
         nullable: false
@@ -175,7 +175,7 @@ entities:
       - name: id
         length: 50
         nullable: false
-        # el ID del componente debe ser establecido por el  dispositivo, ejemplo  deviceID + name , ejempo 233943849384483-cam01
+        # the component ID must be set by the device, example deviceID + name , example 233943849384483-cam01
         default: concat(deviceId,"-",lower(substring(replace(name," ","-"),0,16)))
       - name: deviceId
         length: 32
@@ -244,7 +244,7 @@ entities:
         type: decimal
       - name: wifiSignal
         type: decimal
-      - name: batery
+      - name: battery
         type: decimal
       - name: temperature
         type: decimal
@@ -260,7 +260,7 @@ entities:
     extends: Basics
     primaryKey: ["id"]
     properties:
-      #  el id es el fullpath del file, ejemplo: /deviceId/componentId/202202100922.mp3
+      #  the id is the fullPath of the file, example: /deviceId/componentId/202202100922.mp3
       - name: id
         length: 255
         nullable: false
@@ -293,7 +293,7 @@ entities:
     constraints:
       - message: endDate cannot be less than startDate
         condition: startDate<=endDate
-  # TODO: crear solo la relacion en la entidad source y agregar la info para crear luego la relacion en la entidad target
+  # TODO: crear solo la relación en la entidad source y agregar la info para crear luego la relación en la entidad target
   # TODO: Definir Task, Activity, ProgramedTask, etc
 views:
   - name: default
@@ -322,7 +322,7 @@ mappings:
     entities:
       - name: Users
         mapping: user_entity
-        filter: realmId == "$$REALM_ID"
+        filter: realmId == "${REALM_ID}"
         properties:
           - name: username
             mapping: username
@@ -338,18 +338,18 @@ mappings:
           - name: realmId
             length: 255
             mapping: realm_id
-dataSources:
+sources:
   - name: main
     mapping: default
-    dialect: postgres
-    connection: $$CNN_POSTGRES
+    dialect: PostgreSQL
+    connection: ${CNN_POSTGRES}
   - name: keycloak
     mapping: keycloak
-    dialect: postgres
-    connection: $$CNN_KEYCLOAK
+    dialect: PostgreSQL
+    connection: ${CNN_KEYCLOAK}
 stages:
   - name: default
-    dataSources:
+    sources:
       - name: main
         condition: entity != "Users"
       - name: keycloak

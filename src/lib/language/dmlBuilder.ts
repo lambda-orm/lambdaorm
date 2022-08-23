@@ -1,16 +1,16 @@
 
 import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block, Expressions } from 'js-expressions'
-import { EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, DataSource } from '../model'
+import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source } from '../model'
 import { MappingConfig, Dialect, Helper } from '../manager'
 
 export abstract class DmlBuilder {
-	protected dataSource: DataSource
+	protected source: source
 	protected mapping: MappingConfig
 	protected dialect: Dialect
 	protected expressions: Expressions
 
-	constructor (dataSource: DataSource, mapping: MappingConfig, dialect: Dialect, expressions: Expressions) {
-		this.dataSource = dataSource
+	constructor (source: source, mapping: MappingConfig, dialect: Dialect, expressions: Expressions) {
+		this.source = source
 		this.mapping = mapping
 		this.expressions = expressions
 		this.dialect = dialect
@@ -19,9 +19,9 @@ export abstract class DmlBuilder {
 	public build (sentence: Sentence): Query {
 		const sqlSentence = this.buildSentence(sentence)
 		return new Query({
-			name: sentence.name,
-			dialect: this.dataSource.dialect,
-			dataSource: this.dataSource.name,
+			action: sentence.action,
+			dialect: this.source.dialect,
+			source: this.source.name,
 			sentence: sqlSentence,
 			entity: sentence.entity,
 			columns: sentence.columns,
@@ -33,17 +33,17 @@ export abstract class DmlBuilder {
 	}
 
 	protected buildSentence (sentence: Sentence): string {
-		switch (sentence.action) {
-		case 'select':
+		switch (sentence.crudAction) {
+		case SentenceCrudAction.select:
 			return this.buildMapSentence(sentence)
-		case 'insert':
+		case SentenceCrudAction.insert:
 			return this.buildInsertSentence(sentence)
-		case 'update':
+		case SentenceCrudAction.update:
 			return this.buildUpdateSentence(sentence)
-		case 'delete':
+		case SentenceCrudAction.delete:
 			return this.buildDeleteSentence(sentence)
 		default:
-			throw new SintaxisError(`sentence action ${sentence.action} not found`)
+			throw new SintaxisError(`sentence crud action ${sentence.crudAction} not found`)
 		}
 	}
 
@@ -68,11 +68,21 @@ export abstract class DmlBuilder {
 		}
 
 		let text = this.buildArrowFunction(map) + ' ' + this.buildFrom(from) + ' ' + this.buildJoins(entity, joins)
-		if (filter) text = text + this.buildArrowFunction(filter) + ' '
-		if (groupBy) text = text + this.buildArrowFunction(groupBy) + ' '
-		if (having) text = text + this.buildArrowFunction(having) + ' '
-		if (sort) text = text + this.buildArrowFunction(sort) + ' '
-		if (page) text = this.buildPage(text, page)
+		if (filter) {
+			text = text + this.buildArrowFunction(filter) + ' '
+		}
+		if (groupBy) {
+			text = text + this.buildArrowFunction(groupBy) + ' '
+		}
+		if (having) {
+			text = text + this.buildArrowFunction(having) + ' '
+		}
+		if (sort) {
+			text = text + this.buildArrowFunction(sort) + ' '
+		}
+		if (page) {
+			text = this.buildPage(text, page)
+		}
 		return text
 	}
 
@@ -225,8 +235,15 @@ export abstract class DmlBuilder {
 
 	protected buildPage (sentence: string, operand: Page): string {
 		let template = this.dialect.dml('page')
-		let page = parseInt(operand.children[0].name)
-		const records = parseInt(operand.children[1].name)
+		let page = 1
+		let records = 10
+		if (operand.children.length === 2) {
+			page = parseInt(operand.children[0].name)
+			records = parseInt(operand.children[1].name)
+		} else if (operand.children.length === 3) {
+			page = parseInt(operand.children[1].name)
+			records = parseInt(operand.children[2].name)
+		}
 		if (page < 1) page = 1
 		template = template.replace('{sentence}', sentence)
 		template = template.replace('{offset}', ((page - 1) * records).toString())
