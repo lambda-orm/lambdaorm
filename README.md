@@ -44,10 +44,6 @@ What differentiates λORM from other ORMs:
 - Listeners and subscribers
 - High performance
 - [CLI](#cli)
-	- Init and update commands
-	- Run expressions
-	- Sync and drop schema
-	- Imports and exports
 
 ## Schema Configuration
 
@@ -115,6 +111,7 @@ LIMIT 0,3
 SELECT s.NAME AS "name", s.LATITUDE AS "latitude", s.LONGITUDE AS "longitude", s.COUNTRY_CODE AS "__parentId" 
 FROM TBL_STATES s  
 WHERE SUBSTR(s.NAME,1,1) = 'F'
+  AND s.s.COUNTRY_CODE IN (?) 
 ```
 
 ### Advantage:
@@ -308,6 +305,19 @@ Install the package globally to use the CLI commands to help you create and main
 npm install lambdaorm-cli -g
 ```
 
+### CLI Commands
+
+| Command    	| Description                                  									  |
+|:------------|:----------------------------------------------------------------|
+|	version	 		| Prints lambdaorm version this project uses.											|
+|	init				| Generates lambdaorm project structure.													|
+|	update			| update model, packages and project structure.										|
+|	sync				|	Synchronize database.																						|
+|	import			| Import data from file to database																|
+|	export			| Export data from a database 																		|
+|	execute			| Execute an expression lambda or return information							|
+|	drop				|	Removes all database objects but not the database.							|
+
 [CLI package](https://www.npmjs.com/package/lambdaorm-cli)
 
 ## Documentation
@@ -317,7 +327,6 @@ npm install lambdaorm-cli -g
 - [Transaction](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
 - Schemas
 	- [Schema](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
-	- [Definition](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Definition)
 	- [Examples](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples)
 - Queries
 	- [Select](https://github.com/FlavioLionelRita/lambdaorm/wiki/Select)
@@ -337,5 +346,6 @@ npm install lambdaorm-cli -g
 	- [Sort](https://github.com/FlavioLionelRita/lambdaorm/wiki/Sort)
 	- [String](https://github.com/FlavioLionelRita/lambdaorm/wiki/String)
 - [Metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Metadata)
+- [CLI](https://www.npmjs.com/package/lambdaorm-cli)
 - [Labs](https://github.com/FlavioLionelRita/lambdaorm/wiki/Labs)
 - [Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/source/README.md)

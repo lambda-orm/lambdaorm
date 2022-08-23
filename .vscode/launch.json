@@ -291,16 +291,6 @@
 			],
 			"stopOnEntry": false
 		},
-		// {
-		// 	"name": "populate databases",
-		// 	"type": "node",
-		// 	"request": "launch",
-		// 	"program": "/usr/bin/grunt",
-		// 	"args": [
-		// 		"populate-databases"
-		// 	],
-		// 	"stopOnEntry": false
-		// },
 		{
 			"name": "populate databases",
 			"type": "node",
@@ -311,16 +301,6 @@
 			"program": "${workspaceFolder}/src/dev/task/populateDatabases.ts",
 			"envFile": "${workspaceFolder}/test.env"
 		},
-		// {
-		// 	"name": "generate data for test",
-		// 	"type": "node",
-		// 	"request": "launch",
-		// 	"program": "/usr/bin/grunt",
-		// 	"args": [
-		// 		"generate-data-for-test"
-		// 	],
-		// 	"stopOnEntry": false
-		// },
 		{
 			"name": "generate data for test",
 			"type": "node",
@@ -331,16 +311,6 @@
 			"program": "${workspaceFolder}/src/dev/task/generateDataForTest.ts",
 			"envFile": "${workspaceFolder}/test.env"
 		},
-		// {
-		// 	"name": "generate test",
-		// 	"type": "node",
-		// 	"request": "launch",
-		// 	"program": "/usr/bin/grunt",
-		// 	"args": [
-		// 		"generate-test"
-		// 	],
-		// 	"stopOnEntry": false
-		// },
 		{
 			"name": "generate test",
 			"type": "node",
@@ -360,16 +330,16 @@
 				"build-test"
 			],
 			"stopOnEntry": false
+		},
+		{
+			"name": "lab03 sync",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/lab03/sync-test.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/lab03/.env"
 		}
-		// {
-		// 	"type": "node",
-		// 	"request": "launch",
-		// 	"name": "generate test",
-		// 	"skipFiles": [
-		// 		"<node_internals>/**"
-		// 	],
-		// 	"program": "${workspaceFolder}/src/dev/task/generateTest.ts",
-		// 	"envFile": "${workspaceFolder}/test.env"
-		// },
 	]
 }
