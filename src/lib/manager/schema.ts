@@ -1,4 +1,4 @@
-import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent } from '../model'
+import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent, ObservableAction } from '../model'
 import path from 'path'
 import { Helper } from './helper'
 import { Expressions } from 'js-expressions'
@@ -859,7 +859,7 @@ class SchemaExtender {
 	}
 
 	private existsInMapping (schema: Schema, mapping: string, entity: string): boolean {
-		const context: ContextInfo = { entity: entity, sentence: 'ddl', read: false, write: true, dml: false, ddl: true }
+		const context: ContextInfo = { entity: entity, action: ObservableAction.ddl, read: false, write: true, dml: false, ddl: true }
 		const dataSourcesNames = schema.sources.filter(p => p.mapping === mapping).map(p => p.name)
 		for (const stage of schema.stages) {
 			const ruleDataSources = stage.sources.filter(p => dataSourcesNames.includes(p.name))

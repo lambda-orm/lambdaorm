@@ -4,12 +4,13 @@ Lambda ORM has the following methods to extract metadata information from expres
 
 To execute these methods it is not necessary to connect to the database.
 
-|method    		|Description          															|Path                         						  						|
-|:------------|:--------------------------------------------------|:------------------------------------------------------|
-|	parameters	| returns the list of parameters in the expression	| orm.lambda(query).parameters(schema) 									|
-|	model				| returns the model of the result in an execution		| orm.lambda(query).model(schema)												|
-|	metadata		| returns the metadata of the expression						| orm.lambda(query).metadata(schema)										|
-|	sentence		| returns the sentence in the specified dialect			| orm.lambda(query).sentence('MySQL','northwind')				|
+|method    		|Description          															|Path                     		|
+|:------------|:--------------------------------------------------|:----------------------------|
+|	parameters	| Get parameters in the expression									| orm.parameters(expression)	|
+|	model				| Get model of the result in an execution						| orm.model(expression)				|
+|	metadata		| Get metadata of the expression										| orm.metadata(expression)		|
+|	sentence		| Get sentence in the dialect of the physical model	| orm.sentence(expression)		|
+|	constraints	| Get constraints of expression											| orm.constraints(expression)	|
 
 ## Example:
 
@@ -22,13 +23,16 @@ await orm.init()
 try {
 	const query = (id:number) => Orders.filter(p => p.id === id).include(p => p.details).map(p => ({ name: p.orderDate, customer: p.customer.name }))
 
-	const parameters = await orm.lambda(query).parameters('northwind')
-	const model = await orm.lambda(query).model('northwind')
-	const metadata = await orm.lambda(query).metadata('northwind')
-	const sql = await orm.lambda(query).sentence('MySQL', 'northwind')
+	const parameters = await orm.parameters(query)
+	const model = await orm.model(query)	
+	const sentences = await orm.sentence(query)
+  const constraints = await orm.constraints(query)
+  const metadata = await orm.metadata(query)
 
 	console.log(JSON.stringify(parameters, null, 2))
 	console.log(JSON.stringify(model, null, 2))
+  console.log(JSON.stringify(sentences, null, 2))
+  console.log(JSON.stringify(constraints, null, 2))
 	console.log(JSON.stringify(metadata))
 	console.log(sql)
 } catch (error) {

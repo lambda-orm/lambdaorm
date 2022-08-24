@@ -21,7 +21,7 @@ export class Routing {
 	private getContextInfo (sentenceInfo: SentenceInfo):ContextInfo {
 		return {
 			entity: sentenceInfo.entity,
-			sentence: sentenceInfo.action,
+			action: sentenceInfo.action,
 			read: sentenceInfo.action === ObservableAction.select,
 			write: sentenceInfo.action !== ObservableAction.select,
 			dml: sentenceInfo.action !== ObservableAction.ddl,

@@ -1,6 +1,7 @@
+import { ObservableAction } from './index'
 export interface ContextInfo {
 	entity: string
-	sentence: string,
+	action: ObservableAction,
 	read: boolean,
 	write: boolean
 	dml: boolean

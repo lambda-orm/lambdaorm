@@ -20,12 +20,14 @@
 		"firstname",
 		"Flavio",
 		"fullmane",
+		"Glup",
 		"Gruntfile",
 		"imei",
 		"IMEI",
 		"initcap",
 		"instantclient",
 		"keycloak",
+		"kong",
 		"lambdaorm",
 		"lastname",
 		"LONGLONG",
@@ -53,6 +55,7 @@
 		"trunc",
 		"typedoc",
 		"uadmin",
+		"upsert",
 		"uroot",
 		"VARCHAR"
 	]
