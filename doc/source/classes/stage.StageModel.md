@@ -42,7 +42,7 @@ StageState<SchemaModel\>.constructor
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageState.ts#L9)
+[src/lib/stage/stageState.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/stage/stageState.ts#L9)
 
 ## Methods
 
@@ -64,7 +64,7 @@ StageState<SchemaModel\>.constructor
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageState.ts#L59)
+[src/lib/stage/stageState.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/stage/stageState.ts#L59)
 
 ___
 
@@ -88,7 +88,7 @@ StageState.get
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageState.ts#L13)
+[src/lib/stage/stageState.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/stage/stageState.ts#L13)
 
 ___
 
@@ -112,7 +112,7 @@ StageState.getFile
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageState.ts#L55)
+[src/lib/stage/stageState.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/stage/stageState.ts#L55)
 
 ___
 
@@ -136,7 +136,7 @@ StageState.remove
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageState.ts#L30)
+[src/lib/stage/stageState.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/stage/stageState.ts#L30)
 
 ___
 
@@ -161,4 +161,4 @@ StageState.update
 
 #### Defined in
 
-[src/lib/stage/stageState.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/stage/stageState.ts#L25)
+[src/lib/stage/stageState.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/stage/stageState.ts#L25)

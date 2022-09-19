@@ -12,16 +12,13 @@
 
 ### Methods
 
-- [base64ToText](manager.Helper.md#base64totext)
 - [clearLambda](manager.Helper.md#clearlambda)
 - [clone](manager.Helper.md#clone)
 - [cloneOperand](manager.Helper.md#cloneoperand)
 - [copyFile](manager.Helper.md#copyfile)
 - [createIfNotExists](manager.Helper.md#createifnotexists)
 - [dateFormat](manager.Helper.md#dateformat)
-- [decrypt](manager.Helper.md#decrypt)
 - [deltaWithSimpleArrays](manager.Helper.md#deltawithsimplearrays)
-- [encrypt](manager.Helper.md#encrypt)
 - [escape](manager.Helper.md#escape)
 - [existsPath](manager.Helper.md#existspath)
 - [getEnvironmentVariable](manager.Helper.md#getenvironmentvariable)
@@ -36,9 +33,10 @@
 - [readFile](manager.Helper.md#readfile)
 - [removeFile](manager.Helper.md#removefile)
 - [replace](manager.Helper.md#replace)
+- [resolvePath](manager.Helper.md#resolvepath)
+- [sentenceToArray](manager.Helper.md#sentencetoarray)
 - [singular](manager.Helper.md#singular)
 - [solveEnvironmentVariables](manager.Helper.md#solveenvironmentvariables)
-- [textToBase64](manager.Helper.md#texttobase64)
 - [transformParameter](manager.Helper.md#transformparameter)
 - [tryParse](manager.Helper.md#tryparse)
 - [tsType](manager.Helper.md#tstype)
@@ -51,26 +49,6 @@
 • **new Helper**()
 
 ## Methods
-
-### base64ToText
-
-▸ `Static` **base64ToText**(`value`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[src/lib/manager/helper.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L51)
-
-___
 
 ### clearLambda
 
@@ -88,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:134](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L134)
+[src/lib/manager/helper.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L145)
 
 ___
 
@@ -108,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L22)
+[src/lib/manager/helper.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L30)
 
 ___
 
@@ -128,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L26)
+[src/lib/manager/helper.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L34)
 
 ___
 
@@ -149,19 +127,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:100](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L100)
+[src/lib/manager/helper.ts:106](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L106)
 
 ___
 
 ### createIfNotExists
 
-▸ `Static` **createIfNotExists**(`fullPath`): `Promise`<`void`\>
+▸ `Static` **createIfNotExists**(`_path`): `Promise`<`void`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `fullPath` | `string` |
+| `_path` | `string` |
 
 #### Returns
 
@@ -169,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L79)
+[src/lib/manager/helper.ts:82](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L82)
 
 ___
 
@@ -190,28 +168,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:278](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L278)
-
-___
-
-### decrypt
-
-▸ `Static` **decrypt**(`value`, `key`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` |
-| `key` | `string` |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[src/lib/manager/helper.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L42)
+[src/lib/manager/helper.ts:289](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L289)
 
 ___
 
@@ -232,28 +189,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:185](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L185)
-
-___
-
-### encrypt
-
-▸ `Static` **encrypt**(`value`, `key`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` |
-| `key` | `string` |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[src/lib/manager/helper.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L38)
+[src/lib/manager/helper.ts:196](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L196)
 
 ___
 
@@ -273,19 +209,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:287](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L287)
+[src/lib/manager/helper.ts:298](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L298)
 
 ___
 
 ### existsPath
 
-▸ `Static` **existsPath**(`fullPath`): `Promise`<`boolean`\>
+▸ `Static` **existsPath**(`_path`): `Promise`<`boolean`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `fullPath` | `string` |
+| `_path` | `string` |
 
 #### Returns
 
@@ -293,7 +229,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L67)
+[src/lib/manager/helper.ts:69](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L69)
 
 ___
 
@@ -313,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:140](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L140)
+[src/lib/manager/helper.ts:151](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L151)
 
 ___
 
@@ -333,7 +269,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:254](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L254)
+[src/lib/manager/helper.ts:265](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L265)
 
 ___
 
@@ -353,7 +289,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:266](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L266)
+[src/lib/manager/helper.ts:277](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L277)
 
 ___
 
@@ -373,7 +309,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L59)
+[src/lib/manager/helper.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L50)
 
 ___
 
@@ -393,19 +329,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L55)
+[src/lib/manager/helper.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L46)
 
 ___
 
 ### lstat
 
-▸ `Static` **lstat**(`fullPath`): `Promise`<`Stats`\>
+▸ `Static` **lstat**(`_path`): `Promise`<`Stats`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `fullPath` | `string` |
+| `_path` | `string` |
 
 #### Returns
 
@@ -413,19 +349,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L125)
+[src/lib/manager/helper.ts:135](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L135)
 
 ___
 
 ### mkdir
 
-▸ `Static` **mkdir**(`fullPath`): `Promise`<`void`\>
+▸ `Static` **mkdir**(`_path`): `Promise`<`void`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `fullPath` | `string` |
+| `_path` | `string` |
 
 #### Returns
 
@@ -433,7 +369,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:119](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L119)
+[src/lib/manager/helper.ts:128](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L128)
 
 ___
 
@@ -454,7 +390,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L63)
+[src/lib/manager/helper.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L54)
 
 ___
 
@@ -479,7 +415,7 @@ Returns the plural of an English word.
 
 #### Defined in
 
-[src/lib/manager/helper.ts:314](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L314)
+[src/lib/manager/helper.ts:325](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L325)
 
 ___
 
@@ -499,19 +435,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:86](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L86)
+[src/lib/manager/helper.ts:90](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L90)
 
 ___
 
 ### removeFile
 
-▸ `Static` **removeFile**(`fullPath`): `Promise`<`void`\>
+▸ `Static` **removeFile**(`filePath`): `Promise`<`void`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `fullPath` | `string` |
+| `filePath` | `string` |
 
 #### Returns
 
@@ -519,7 +455,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:93](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L93)
+[src/lib/manager/helper.ts:98](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L98)
 
 ___
 
@@ -541,7 +477,47 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L10)
+[src/lib/manager/helper.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L18)
+
+___
+
+### resolvePath
+
+▸ `Static` **resolvePath**(`source`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `source` | `string` |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/lib/manager/helper.ts:58](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L58)
+
+___
+
+### sentenceToArray
+
+▸ `Static` **sentenceToArray**(`sentence`): `string`[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `sentence` | [`MetadataSentence`](../interfaces/model.MetadataSentence.md) |
+
+#### Returns
+
+`string`[]
+
+#### Defined in
+
+[src/lib/manager/helper.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L9)
 
 ___
 
@@ -566,7 +542,7 @@ Returns the singular of an English word.
 
 #### Defined in
 
-[src/lib/manager/helper.ts:440](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L440)
+[src/lib/manager/helper.ts:451](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L451)
 
 ___
 
@@ -586,27 +562,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:152](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L152)
-
-___
-
-### textToBase64
-
-▸ `Static` **textToBase64**(`value`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[src/lib/manager/helper.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L47)
+[src/lib/manager/helper.ts:163](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L163)
 
 ___
 
@@ -626,7 +582,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L16)
+[src/lib/manager/helper.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L24)
 
 ___
 
@@ -646,7 +602,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:270](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L270)
+[src/lib/manager/helper.ts:281](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L281)
 
 ___
 
@@ -666,7 +622,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:291](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L291)
+[src/lib/manager/helper.ts:302](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L302)
 
 ___
 
@@ -687,4 +643,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/helper.ts:109](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/helper.ts#L109)
+[src/lib/manager/helper.ts:117](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/helper.ts#L117)

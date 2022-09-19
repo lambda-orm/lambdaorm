@@ -26,10 +26,10 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: name
-        nullable: false
+        required: true
       - name: description
         length: 1000
   - name: Customers
@@ -41,9 +41,9 @@ entities:
     properties:
       - name: id
         length: 5
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: contact
       - name: phone
   - name: Employees
@@ -53,12 +53,12 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: lastName
-        nullable: false
+        required: true
       - name: firstName
-        nullable: false
+        required: true
       - name: title
       - name: titleOfCourtesy
       - name: birthDate
@@ -79,10 +79,10 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: name
-        nullable: false
+        required: true
       - name: phone
         length: 20
   - name: Suppliers
@@ -92,10 +92,10 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: name
-        nullable: false
+        required: true
       - name: contact
       - name: phone
         length: 20
@@ -107,12 +107,12 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: name
-        nullable: false
+        required: true
       - name: supplierId
-        nullable: false
+        required: true
         type: integer
       - name: categoryId
         type: integer
@@ -153,13 +153,13 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: customerId
-        nullable: false
+        required: true
         length: 5
       - name: employeeId
-        nullable: false
+        required: true
         type: integer
       - name: orderDate
         type: datetime
@@ -193,10 +193,10 @@ entities:
     primaryKey: ["orderId", "productId"]
     properties:
       - name: orderId
-        nullable: false
+        required: true
         type: integer
       - name: productId
-        nullable: false
+        required: true
         type: integer
       - name: unitPrice
         type: decimal
@@ -426,7 +426,7 @@ mappings:
         properties:
           - name: id
             mapping: _id
-dataSources:
+sources:
   - name: Source
     mapping: default
     dialect: MySQL
@@ -457,23 +457,23 @@ dataSources:
     connection: ${ORM_CNN_MONGODB}
 stages:
   - name: Source
-    dataSources:
+    sources:
       - name: Source
   - name: MySQL
-    dataSources:
+    sources:
       - name: MySQL
   - name: MariaDB
-    dataSources:
+    sources:
       - name: MariaDB
   - name: PostgreSQL
-    dataSources:
+    sources:
       - name: PostgreSQL
   - name: SqlServer
-    dataSources:
+    sources:
       - name: SqlServer
   - name: Oracle
-    dataSources:
+    sources:
       - name: Oracle
   - name: MongoDB
-    dataSources:
+    sources:
       - name: MongoDB

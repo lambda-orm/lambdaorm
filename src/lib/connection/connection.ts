@@ -171,7 +171,7 @@ export abstract class Connection {
 		return this.executeDDL(query)
 	}
 
-	public async dropFK (_mapping: MappingConfig, query: Query): Promise<any> {
+	public async dropFk (_mapping: MappingConfig, query: Query): Promise<any> {
 		return this.executeDDL(query)
 	}
 

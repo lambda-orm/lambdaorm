@@ -58,7 +58,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/model/operands.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L25)
+[src/lib/model/operands.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L25)
 
 ## Properties
 
@@ -68,7 +68,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/model/operands.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L22)
+[src/lib/model/operands.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L22)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L21)
+[src/lib/model/operands.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L21)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L23)
+[src/lib/model/operands.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L23)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L24)
+[src/lib/model/operands.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L24)
 
 ___
 
@@ -214,7 +214,7 @@ Operand.clone
 
 #### Defined in
 
-[src/lib/model/operands.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L32)
+[src/lib/model/operands.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L32)
 
 ___
 
@@ -232,7 +232,7 @@ Operand.eval
 
 #### Defined in
 
-[src/lib/model/operands.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L36)
+[src/lib/model/operands.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L36)
 
 ___
 

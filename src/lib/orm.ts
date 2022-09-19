@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { IOrm, OrmOptions, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata } from './model'
+import { ActionObserver, Dialect, IOrm, OrmOptions, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Query } from './model'
 import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages } from './manager'
 import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './connection'
 import { SqlLanguage } from './language/SQL'
@@ -24,6 +24,7 @@ export class Orm implements IOrm {
 	private static _instance: Orm
 	private schemaManager: SchemaManager
 	private _expressions: Expressions
+	private observers:any={};
 
 	/**
  * Singleton
@@ -47,13 +48,13 @@ export class Orm implements IOrm {
 		this.languages = new Languages()
 		this.languages.add(new SqlLanguage(this._expressions))
 		this.languages.add(new NoSqlLanguage(this._expressions))
-		this.connectionManager.addType('MySQL', MySQLConnectionPool)
-		this.connectionManager.addType('MariaDB', MariaDBConnectionPool)
-		this.connectionManager.addType('PostgreSQL', PostgreSQLConnectionPool)
-		this.connectionManager.addType('SqlServer', SqlServerConnectionPool)
-		this.connectionManager.addType('SQLjs', SQLjsConnectionPool)
-		this.connectionManager.addType('Oracle', OracleConnectionPool)
-		this.connectionManager.addType('MongoDB', MongoDBConnectionPool)
+		this.connectionManager.addType(Dialect.MySQL, MySQLConnectionPool)
+		this.connectionManager.addType(Dialect.MariaDB, MariaDBConnectionPool)
+		this.connectionManager.addType(Dialect.PostgreSQL, PostgreSQLConnectionPool)
+		this.connectionManager.addType(Dialect.SqlServer, SqlServerConnectionPool)
+		this.connectionManager.addType(Dialect.SQLjs, SQLjsConnectionPool)
+		this.connectionManager.addType(Dialect.Oracle, OracleConnectionPool)
+		this.connectionManager.addType(Dialect.MongoDB, MongoDBConnectionPool)
 
 		this.routing = new Routing(this.schemaManager, this._expressions)
 		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languages, this._expressions, this.routing)
@@ -73,10 +74,10 @@ export class Orm implements IOrm {
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
 		const schema = await this.schemaManager.init(source)
 		// set connections
-		if (connect && schema.dataSources) {
-			for (const p in schema.dataSources) {
-				const dataSource = schema.dataSources[p]
-				this.connectionManager.load(dataSource)
+		if (connect && schema.sources) {
+			for (const p in schema.sources) {
+				const source = schema.sources[p]
+				this.connectionManager.load(source)
 			}
 		}
 		// add enums
@@ -110,12 +111,12 @@ export class Orm implements IOrm {
 	}
 
 	/**
-	 * Get dialect of dataSource
-	 * @param dataSource Name of DataSource
+	 * Get dialect of source
+	 * @param source Name of source
 	 * @returns
 	 */
-	public dialect (dataSource:string): string {
-		return this.schemaManager.dataSource.get(dataSource).dialect
+	public dialect (source:string): string {
+		return this.schemaManager.source.get(source).dialect
 	}
 
 	/**
@@ -250,13 +251,18 @@ export class Orm implements IOrm {
 	public async execute(expression: Function, data?: any, options?: OrmOptions):Promise<any>;
 	public async execute(expression: string, data?: any, options?: OrmOptions):Promise<any>;
 	public async execute (expression: string|Function, data: any = {}, options: OrmOptions|undefined = undefined): Promise<any> {
-		if (typeof expression !== 'string') {
-			expression = this.expressionManager.toExpression(expression)
-		}
+		const _expression = typeof expression !== 'string' ? this.expressionManager.toExpression(expression) : expression
 		const _options = this.schemaManager.solveOptions(options)
-
-		const query = this.expressionManager.toQuery(expression, _options)
-		return this.executor.execute(query, data, _options)
+		const query = this.expressionManager.toQuery(_expression, _options)
+		try {
+			this.beforeExecutionNotify(_expression, query, data, _options)
+			const result = await this.executor.execute(query, data, _options)
+			this.afterExecutionNotify(_expression, query, data, _options, result)
+			return result
+		} catch (error) {
+			this.errorExecutionNotify(_expression, query, data, _options, error)
+			throw error
+		}
 	}
 
 	/**
@@ -267,5 +273,80 @@ export class Orm implements IOrm {
 	public async transaction (options: OrmOptions|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _options = this.schemaManager.solveOptions(options)
 		return this.executor.transaction(_options, callback)
+	}
+
+	// Listeners and subscribers
+
+	public subscribe (observer:ActionObserver):void {
+		if (!this.observers[observer.action]) {
+			this.observers[observer.action] = []
+		}
+		this.observers[observer.action].push(observer)
+	}
+
+	public unsubscribe (observer:ActionObserver): void {
+		const observers = this.observers[observer.action]
+		if (!observers) {
+			return
+		}
+		const index = observers.indexOf(observer)
+		if (index === -1) {
+			throw new Error('Subject: Nonexistent observer.')
+		}
+		observers.splice(index, 1)
+	}
+
+	private beforeExecutionNotify (expression:string, query: Query, data: any, options: OrmOptions) {
+		const observers = this.observers[query.action]
+		if (!observers) {
+			return
+		}
+		const args = { expression: expression, query: query, data: data, options: options }
+		observers.forEach((observer:ActionObserver) => {
+			if (observer.condition === undefined) {
+				observer.before(args)
+			} else {
+				const context = { query: query, options: options }
+				if (this.expressions.eval(observer.condition, context)) {
+					observer.before(args)
+				}
+			}
+		})
+	}
+
+	private afterExecutionNotify (expression:string, query: Query, data: any, options: OrmOptions, result:any) {
+		const observers = this.observers[query.action]
+		if (!observers) {
+			return
+		}
+		const args = { expression: expression, query: query, data: data, options: options, result: result }
+		observers.forEach((observer:ActionObserver) => {
+			if (observer.condition === undefined) {
+				observer.after(args)
+			} else {
+				const context = { query: query, options: options }
+				if (this.expressions.eval(observer.condition, context)) {
+					observer.after(args)
+				}
+			}
+		})
+	}
+
+	private errorExecutionNotify (expression:string, query: Query, data: any, options: OrmOptions, error:any) {
+		const observers = this.observers[query.action]
+		if (!observers) {
+			return
+		}
+		const args = { expression: expression, query: query, data: data, options: options, error: error }
+		observers.forEach((observer:ActionObserver) => {
+			if (observer.condition === undefined) {
+				observer.error(args)
+			} else {
+				const context = { query: query, options: options }
+				if (this.expressions.eval(observer.condition, context)) {
+					observer.error(args)
+				}
+			}
+		})
 	}
 }

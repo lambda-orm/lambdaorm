@@ -1,7 +1,7 @@
 import { LanguageDDLBuilder, MappingConfig } from '.'
 import { Dialect } from './dialect'
 import { Expressions } from 'js-expressions'
-import { NotImplemented, DataSource, Query, Sentence } from '../model'
+import { NotImplemented, source, Query, Sentence } from '../model'
 
 export abstract class Language {
 	public dialects: Dialect[]
@@ -29,7 +29,7 @@ export abstract class Language {
 		return dialect
 	}
 
-	public abstract ddlBuilder(dataSource: DataSource, mapping: MappingConfig): LanguageDDLBuilder
+	public abstract ddlBuilder(source: source, mapping: MappingConfig): LanguageDDLBuilder
 
-	public abstract dmlBuild(dataSource: DataSource, mapping: MappingConfig, sentence: Sentence): Query
+	public abstract dmlBuild(source: source, mapping: MappingConfig, sentence: Sentence): Query
 }

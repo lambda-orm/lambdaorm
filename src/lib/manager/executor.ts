@@ -71,7 +71,7 @@ export class Executor {
 
 	/**
  * Create a transaction
- * @param dataSource Database name
+ * @param source Database name
  * @param callback Code to be executed in transaction
  */
 	public async transaction (options: OrmOptions, callback: { (tr: Transaction): Promise<void> }): Promise<void> {

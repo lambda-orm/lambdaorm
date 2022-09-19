@@ -180,13 +180,13 @@ declare function sinh(value:number):number
 declare function tan(value:number):number
 /** Get hyperbolic tangent */
 declare function tanh(value:number):number
-/** runcate num  */
+/** Truncate num  */
 declare function trunc(value:number, decimals:number):number
 // string:---------------------------------------------------------
 /** Get character from ASCII code */
 declare function chr(value:string):string
 /**  Capitalize words */
-declare function initcap(value:string):string
+// declare function initcap(value:string):string
 /** Lowercase string */
 declare function lower(value:string):string
 /** Pad the left-side of string */
@@ -205,6 +205,8 @@ declare function rpad(value:string, len:number, pad:string):string
 declare function rtrim(value:string):string
 /** Get a substring of string */
 declare function substr(value:string, from:number, count:number):string
+/** Get a substring of string */
+declare function substring(value:string, from:number, count:number):string
 /** Remove characters */
 declare function trim(value:string):string
 /** Uppercase string */
@@ -215,7 +217,7 @@ declare function concat(...values:string[]):string
 
 // datetime:
 /** Get the current time */
-declare function curtime():Date
+declare function curTime():Date
 /** Get the current date */
 declare function today():Date
 /** Get the current datetime */

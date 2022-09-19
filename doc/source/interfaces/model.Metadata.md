@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/lib/model/metadata.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L44)
+[src/lib/model/metadata.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L44)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L33)
+[src/lib/model/metadata.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L33)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L31)
+[src/lib/model/metadata.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L31)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L43)
+[src/lib/model/metadata.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L43)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L36)
+[src/lib/model/metadata.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L36)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L39)
+[src/lib/model/metadata.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L39)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L41)
+[src/lib/model/metadata.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L41)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L35)
+[src/lib/model/metadata.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L35)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:45](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L45)
+[src/lib/model/metadata.ts:45](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L45)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L32)
+[src/lib/model/metadata.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L32)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L46)
+[src/lib/model/metadata.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L46)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L38)
+[src/lib/model/metadata.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L38)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L37)
+[src/lib/model/metadata.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L37)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L42)
+[src/lib/model/metadata.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L42)
 
 ___
 
@@ -173,7 +173,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L34)
+[src/lib/model/metadata.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L34)
 
 ___
 
@@ -183,4 +183,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L40)
+[src/lib/model/metadata.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L40)

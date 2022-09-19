@@ -229,7 +229,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
             ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
@@ -240,7 +240,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
             ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
@@ -251,7 +251,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
             $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
@@ -262,7 +262,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             UPDATE o SET CustomerID = @customerId,EmployeeID =
             @employeeId,OrderDate = @orderDate,RequiredDate =
@@ -276,7 +276,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
             :employeeId,OrderDate = :orderDate,RequiredDate =
@@ -289,7 +289,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             {"set":"{ \"$set\" :{
             \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}}
@@ -638,7 +638,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
             ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
@@ -649,7 +649,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
             ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
@@ -660,7 +660,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
             $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
@@ -671,7 +671,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             UPDATE o SET CustomerID = @entity_customerId,EmployeeID =
             @entity_employeeId,OrderDate = @entity_orderDate,RequiredDate =
@@ -686,7 +686,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             UPDATE Orders o SET CustomerID = :entity_customerId,EmployeeID =
             :entity_employeeId,OrderDate = :entity_orderDate,RequiredDate =
@@ -701,7 +701,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             {"set":"{ \"$set\" :{
             \"CustomerID\":{{entity_customerId}},\"EmployeeID\":{{entity_employeeId}},\"OrderDate\":{{entity_orderDate}},\"RequiredDate\":{{entity_requiredDate}},\"ShippedDate\":{{entity_shippedDate}},\"ShipVia\":{{entity_shipViaId}},\"Freight\":{{entity_freight}},\"ShipName\":{{entity_name}},\"ShipAddress\":{{entity_address}},\"ShipCity\":{{entity_city}},\"ShipRegion\":{{entity_region}},\"ShipPostalCode\":{{entity_postalCode}},\"ShipCountry\":{{entity_country}}
@@ -1044,42 +1044,42 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
           children: []
       - stage: MariaDB
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
           children: []
       - stage: PostgreSQL
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: 'UPDATE Orders o SET ShipPostalCode = $1 '
           children: []
       - stage: SqlServer
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: 'UPDATE o SET ShipPostalCode = @postalCode FROM Orders o '
           children: []
       - stage: Oracle
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: 'UPDATE Orders o SET ShipPostalCode = :postalCode '
           children: []
       - stage: MongoDB
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             {"set":"{ \"$set\" :{ \"ShipPostalCode\":{{postalCode}}
             }}","filter":{}}
@@ -1151,28 +1151,28 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
           children: []
       - stage: MariaDB
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
           children: []
       - stage: PostgreSQL
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
           children: []
       - stage: SqlServer
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             UPDATE o SET ShipName = @entity_name FROM Orders o WHERE o.OrderID =
             @entity_id 
@@ -1181,7 +1181,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
             :entity_id 
@@ -1190,7 +1190,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             {"set":"{ \"$set\" :{ \"ShipName\":{{entity_name}} }}","filter":"{
             \"_id\":{{entity_id}} }"}
@@ -1315,12 +1315,12 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
           children:
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
                 ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
@@ -1330,12 +1330,12 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
           children:
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
                 ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
@@ -1345,12 +1345,12 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
           children:
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
                 $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
@@ -1360,14 +1360,14 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             UPDATE o SET ShipName = @entity_name FROM Orders o WHERE o.OrderID =
             @entity_id 
           children:
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 UPDATE o1 SET OrderID = @orderId,ProductID =
                 @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount
@@ -1378,14 +1378,14 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
             :entity_id 
           children:
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
                 :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount
@@ -1396,14 +1396,14 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             {"set":"{ \"$set\" :{ \"ShipName\":{{entity_name}} }}","filter":"{
             \"_id\":{{entity_id}} }"}
           children:
             - entity: Orders.details
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 {"set":"{ \"$set\" :{
                 \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}}
@@ -1730,12 +1730,12 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
           children:
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
                 = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
@@ -1745,12 +1745,12 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
           children:
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
                 = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
@@ -1760,12 +1760,12 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
           children:
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity
                 = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = $1 AND
@@ -1775,14 +1775,14 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             UPDATE o SET ShipName = @entity_name FROM Orders o WHERE o.OrderID =
             @entity_id 
           children:
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 UPDATE o1 SET UnitPrice = o1.UnitPrice,Quantity =
                 o1.Quantity,Discount = o1.Discount FROM [Order Details] o1 WHERE
@@ -1792,14 +1792,14 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
             :entity_id 
           children:
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity
                 = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID =
@@ -1809,14 +1809,14 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             {"set":"{ \"$set\" :{ \"ShipName\":{{entity_name}} }}","filter":"{
             \"_id\":{{entity_id}} }"}
           children:
             - entity: Orders.details
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 {"set":"{ \"$set\" :{
                 \"UnitPrice\":\"UnitPrice\",\"Quantity\":\"Quantity\",\"Discount\":\"Discount\"
@@ -2093,12 +2093,12 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
           children:
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
                 = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
@@ -2107,12 +2107,12 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
           children:
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
                 = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
@@ -2121,12 +2121,12 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
           children:
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID
                 = o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) 
@@ -2135,14 +2135,14 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             UPDATE o SET ShipName = @entity_name FROM Orders o WHERE o.OrderID =
             @entity_id 
           children:
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 UPDATE o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID
                 FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
@@ -2152,14 +2152,14 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
             :entity_id 
           children:
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID
                 = o1.ProductID WHERE (o1.OrderID = :orderId AND o1.ProductID =
@@ -2169,14 +2169,14 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             {"set":"{ \"$set\" :{ \"ShipName\":{{entity_name}} }}","filter":"{
             \"_id\":{{entity_id}} }"}
           children:
             - entity: Orders.details
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 {"set":"{ \"$set\" :{
                 \"UnitPrice\":\"UnitPrice\",\"ProductID\":\"ProductID\"
@@ -2437,7 +2437,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
             ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
@@ -2446,7 +2446,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
                 ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
@@ -2456,7 +2456,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
             ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
@@ -2465,7 +2465,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
                 ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
@@ -2475,7 +2475,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
             $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
@@ -2484,7 +2484,7 @@ test:
           children:
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
                 $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
@@ -2494,7 +2494,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             UPDATE o SET CustomerID = @customerId,EmployeeID =
             @employeeId,OrderDate = @orderDate,RequiredDate =
@@ -2506,7 +2506,7 @@ test:
           children:
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 UPDATE o1 SET OrderID = @orderId,ProductID =
                 @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount
@@ -2517,7 +2517,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
             :employeeId,OrderDate = :orderDate,RequiredDate =
@@ -2528,7 +2528,7 @@ test:
           children:
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
                 :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount
@@ -2539,7 +2539,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             {"set":"{ \"$set\" :{
             \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}}
@@ -2547,7 +2547,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 {"set":"{ \"$set\" :{
                 \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}}
@@ -3098,7 +3098,7 @@ test:
         sentence:
           entity: Customers
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
             ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
@@ -3106,7 +3106,7 @@ test:
           children:
             - entity: Orders
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
                 ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
@@ -3115,7 +3115,7 @@ test:
               children:
                 - entity: Orders.details
                   dialect: MySQL
-                  dataSource: MySQL
+                  source: MySQL
                   sentence: >-
                     UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
                     ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
@@ -3125,7 +3125,7 @@ test:
         sentence:
           entity: Customers
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
             ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
@@ -3133,7 +3133,7 @@ test:
           children:
             - entity: Orders
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
                 ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
@@ -3142,7 +3142,7 @@ test:
               children:
                 - entity: Orders.details
                   dialect: MariaDB
-                  dataSource: MariaDB
+                  source: MariaDB
                   sentence: >-
                     UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
                     ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
@@ -3152,7 +3152,7 @@ test:
         sentence:
           entity: Customers
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName
             = $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode
@@ -3160,7 +3160,7 @@ test:
           children:
             - entity: Orders
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
                 $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
@@ -3170,7 +3170,7 @@ test:
               children:
                 - entity: Orders.details
                   dialect: PostgreSQL
-                  dataSource: PostgreSQL
+                  source: PostgreSQL
                   sentence: >-
                     UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
                     $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE
@@ -3180,7 +3180,7 @@ test:
         sentence:
           entity: Customers
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             UPDATE c SET CustomerID = @id,CompanyName = @name,ContactName =
             @contact,ContactTitle = @phone,Address = @address,City =
@@ -3189,7 +3189,7 @@ test:
           children:
             - entity: Orders
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 UPDATE o SET CustomerID = @customerId,EmployeeID =
                 @employeeId,OrderDate = @orderDate,RequiredDate =
@@ -3201,7 +3201,7 @@ test:
               children:
                 - entity: Orders.details
                   dialect: SqlServer
-                  dataSource: SqlServer
+                  source: SqlServer
                   sentence: >-
                     UPDATE o1 SET OrderID = @orderId,ProductID =
                     @productId,UnitPrice = @unitPrice,Quantity =
@@ -3212,7 +3212,7 @@ test:
         sentence:
           entity: Customers
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             UPDATE Customers c SET CustomerID = :id,CompanyName =
             :name,ContactName = :contact,ContactTitle = :phone,Address =
@@ -3221,7 +3221,7 @@ test:
           children:
             - entity: Orders
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
                 :employeeId,OrderDate = :orderDate,RequiredDate =
@@ -3232,7 +3232,7 @@ test:
               children:
                 - entity: Orders.details
                   dialect: Oracle
-                  dataSource: Oracle
+                  source: Oracle
                   sentence: >-
                     UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
                     :productId,UnitPrice = :unitPrice,Quantity =
@@ -3243,7 +3243,7 @@ test:
         sentence:
           entity: Customers
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             {"set":"{ \"$set\" :{
             \"\"_id\"\":{{id}},\"CompanyName\":{{name}},\"ContactName\":{{contact}},\"ContactTitle\":{{phone}},\"Address\":{{address}},\"City\":{{city}},\"Region\":{{region}},\"PostalCode\":{{postalCode}},\"Country\":{{country}}
@@ -3251,7 +3251,7 @@ test:
           children:
             - entity: Orders
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 {"set":"{ \"$set\" :{
                 \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}}
@@ -3259,7 +3259,7 @@ test:
               children:
                 - entity: Orders.details
                   dialect: MongoDB
-                  dataSource: MongoDB
+                  source: MongoDB
                   sentence: >-
                     {"set":"{ \"$set\" :{
                     \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}}

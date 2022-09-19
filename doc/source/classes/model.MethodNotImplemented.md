@@ -47,7 +47,7 @@ Error.constructor
 
 #### Defined in
 
-[src/lib/model/error.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/error.ts#L10)
+[src/lib/model/error.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/error.ts#L10)
 
 ## Properties
 
@@ -61,7 +61,7 @@ Error.message
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1023
+node_modules/typescript/lib/lib.es5.d.ts:1029
 
 ___
 
@@ -75,7 +75,7 @@ Error.name
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1022
+node_modules/typescript/lib/lib.es5.d.ts:1028
 
 ___
 
@@ -89,7 +89,7 @@ Error.stack
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1024
+node_modules/typescript/lib/lib.es5.d.ts:1030
 
 ___
 

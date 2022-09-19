@@ -38,8 +38,10 @@ Facade through which you can access all the functionalities of the library.
 - [parameters](orm.Orm.md#parameters)
 - [sentence](orm.Orm.md#sentence)
 - [setCache](orm.Orm.md#setcache)
+- [subscribe](orm.Orm.md#subscribe)
 - [toExpression](orm.Orm.md#toexpression)
 - [transaction](orm.Orm.md#transaction)
+- [unsubscribe](orm.Orm.md#unsubscribe)
 
 ## Constructors
 
@@ -55,7 +57,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-[src/lib/orm.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L38)
+[src/lib/orm.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L39)
 
 ## Accessors
 
@@ -69,7 +71,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-[src/lib/orm.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L64)
+[src/lib/orm.ts:65](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L65)
 
 ___
 
@@ -89,7 +91,7 @@ IOrm.expressions
 
 #### Defined in
 
-[src/lib/orm.ts:130](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L130)
+[src/lib/orm.ts:139](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L139)
 
 ___
 
@@ -109,7 +111,7 @@ IOrm.schema
 
 #### Defined in
 
-[src/lib/orm.ts:123](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L123)
+[src/lib/orm.ts:132](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L132)
 
 ___
 
@@ -129,13 +131,15 @@ IOrm.stage
 
 #### Defined in
 
-[src/lib/orm.ts:116](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L116)
+[src/lib/orm.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L125)
 
 ___
 
 ### workspace
 
 • `get` **workspace**(): `string`
+
+Get workspace path
 
 #### Returns
 
@@ -147,7 +151,7 @@ IOrm.workspace
 
 #### Defined in
 
-[src/lib/orm.ts:105](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L105)
+[src/lib/orm.ts:109](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L109)
 
 ___
 
@@ -163,7 +167,7 @@ Singleton
 
 #### Defined in
 
-[src/lib/orm.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L31)
+[src/lib/orm.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L32)
 
 ## Methods
 
@@ -175,9 +179,9 @@ Get constraints of expression
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `Function` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `expression` | `Function` | query expression |
 
 #### Returns
 
@@ -191,7 +195,7 @@ Constraints of expression
 
 #### Defined in
 
-[src/lib/orm.ts:193](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L193)
+[src/lib/orm.ts:206](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L206)
 
 ▸ **constraints**(`expression`): [`MetadataConstraint`](../interfaces/model.MetadataConstraint.md)
 
@@ -211,19 +215,21 @@ Constraints of expression
 
 #### Defined in
 
-[src/lib/orm.ts:194](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L194)
+[src/lib/orm.ts:207](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L207)
 
 ___
 
 ### dialect
 
-▸ **dialect**(`dataSource`): `string`
+▸ **dialect**(`source`): `string`
+
+Get dialect of source
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `dataSource` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `source` | `string` | Name of source |
 
 #### Returns
 
@@ -235,7 +241,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm.ts:109](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L109)
+[src/lib/orm.ts:118](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L118)
 
 ___
 
@@ -255,7 +261,7 @@ Frees the resources used, for example the connection pools
 
 #### Defined in
 
-[src/lib/orm.ts:101](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L101)
+[src/lib/orm.ts:102](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L102)
 
 ___
 
@@ -269,9 +275,9 @@ Execute expression
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `expression` | `Function` | - |
+| `expression` | `Function` | query expression |
 | `data?` | `any` | Data with variables |
-| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) | - |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) | options of execution |
 
 #### Returns
 
@@ -285,7 +291,7 @@ Result of execution
 
 #### Defined in
 
-[src/lib/orm.ts:236](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L236)
+[src/lib/orm.ts:251](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L251)
 
 ▸ **execute**(`expression`, `data?`, `options?`): `Promise`<`any`\>
 
@@ -307,7 +313,7 @@ Result of execution
 
 #### Defined in
 
-[src/lib/orm.ts:237](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L237)
+[src/lib/orm.ts:252](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L252)
 
 ___
 
@@ -336,7 +342,7 @@ promise void
 
 #### Defined in
 
-[src/lib/orm.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L73)
+[src/lib/orm.ts:74](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L74)
 
 ___
 
@@ -348,9 +354,9 @@ Get metadata of expression
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `Function` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `expression` | `Function` | query expression |
 
 #### Returns
 
@@ -364,7 +370,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/orm.ts:206](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L206)
+[src/lib/orm.ts:220](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L220)
 
 ▸ **metadata**(`expression`): [`Metadata`](../interfaces/model.Metadata.md)
 
@@ -384,7 +390,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/orm.ts:207](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L207)
+[src/lib/orm.ts:221](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L221)
 
 ___
 
@@ -396,9 +402,9 @@ Get model of expression
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `Function` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `expression` | `Function` | query expression |
 
 #### Returns
 
@@ -412,7 +418,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/orm.ts:167](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L167)
+[src/lib/orm.ts:178](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L178)
 
 ▸ **model**(`expression`): [`MetadataModel`](../interfaces/model.MetadataModel.md)[]
 
@@ -432,7 +438,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/orm.ts:168](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L168)
+[src/lib/orm.ts:179](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L179)
 
 ___
 
@@ -444,9 +450,9 @@ Normalize expression
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `Function` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `expression` | `Function` | query expression |
 
 #### Returns
 
@@ -460,7 +466,7 @@ Expression normalized
 
 #### Defined in
 
-[src/lib/orm.ts:154](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L154)
+[src/lib/orm.ts:164](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L164)
 
 ▸ **normalize**(`expression`): `string`
 
@@ -480,7 +486,7 @@ Expression normalized
 
 #### Defined in
 
-[src/lib/orm.ts:155](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L155)
+[src/lib/orm.ts:165](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L165)
 
 ___
 
@@ -492,9 +498,9 @@ Get parameters of expression
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `Function` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `expression` | `Function` | query expression |
 
 #### Returns
 
@@ -508,7 +514,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/orm.ts:180](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L180)
+[src/lib/orm.ts:192](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L192)
 
 ▸ **parameters**(`expression`): [`MetadataParameter`](../interfaces/model.MetadataParameter.md)[]
 
@@ -528,7 +534,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/orm.ts:181](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L181)
+[src/lib/orm.ts:193](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L193)
 
 ___
 
@@ -540,10 +546,10 @@ Get sentence of expression
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `Function` |
-| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `expression` | `Function` | query expression |
+| `options?` | [`OrmOptions`](../interfaces/model.OrmOptions.md) | options of execution |
 
 #### Returns
 
@@ -555,7 +561,7 @@ Get sentence of expression
 
 #### Defined in
 
-[src/lib/orm.ts:220](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L220)
+[src/lib/orm.ts:234](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L234)
 
 ▸ **sentence**(`expression`, `options?`): [`MetadataSentence`](../interfaces/model.MetadataSentence.md)
 
@@ -576,7 +582,7 @@ Get sentence of expression
 
 #### Defined in
 
-[src/lib/orm.ts:221](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L221)
+[src/lib/orm.ts:235](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L235)
 
 ___
 
@@ -602,7 +608,27 @@ set to cache manager
 
 #### Defined in
 
-[src/lib/orm.ts:137](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L137)
+[src/lib/orm.ts:146](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L146)
+
+___
+
+### subscribe
+
+▸ **subscribe**(`observer`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `observer` | [`ActionObserver`](model.ActionObserver.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/lib/orm.ts:280](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L280)
 
 ___
 
@@ -610,7 +636,7 @@ ___
 
 ▸ **toExpression**(`lambda`): `string`
 
-Read lambda expression
+Convert a lambda expression to a query expression
 
 #### Parameters
 
@@ -626,7 +652,7 @@ Expression manager
 
 #### Defined in
 
-[src/lib/orm.ts:146](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L146)
+[src/lib/orm.ts:155](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L155)
 
 ___
 
@@ -640,7 +666,7 @@ Create a transaction
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | `undefined` \| [`OrmOptions`](../interfaces/model.OrmOptions.md) | - |
+| `options` | `undefined` \| [`OrmOptions`](../interfaces/model.OrmOptions.md) | options of execution |
 | `callback` | (`tr`: [`Transaction`](manager.Transaction.md)) => `Promise`<`void`\> | Code to be executed in transaction |
 
 #### Returns
@@ -653,4 +679,24 @@ Create a transaction
 
 #### Defined in
 
-[src/lib/orm.ts:253](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/orm.ts#L253)
+[src/lib/orm.ts:273](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L273)
+
+___
+
+### unsubscribe
+
+▸ **unsubscribe**(`observer`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `observer` | [`ActionObserver`](model.ActionObserver.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/lib/orm.ts:287](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/orm.ts#L287)

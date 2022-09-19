@@ -16,14 +16,14 @@
 							"name": "id",
 							"length": 32,
 							"default": "lower(substring(replace(name,\" \",\"-\"),0,32))",
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "id"
 						},
 						{
 							"name": "name",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "name"
 						},
@@ -77,28 +77,28 @@
 							"name": "id",
 							"default": "`${groupId}-${username}`",
 							"length": 64,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "id"
 						},
 						{
 							"name": "username",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "username"
 						},
 						{
 							"name": "groupId",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "groupId"
 						},
 						{
 							"name": "role",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"enum": "Role",
 							"type": "string",
 							"mapping": "role"
@@ -140,7 +140,7 @@
 						{
 							"name": "id",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"default": "concat(type,\"-\",switch(type){case\"phone\":imei;default:mac;})",
 							"type": "string",
 							"mapping": "id"
@@ -148,7 +148,7 @@
 						{
 							"name": "type",
 							"length": 16,
-							"nullable": false,
+							"required": true,
 							"enum": "DeviceType",
 							"type": "string",
 							"mapping": "type"
@@ -156,14 +156,14 @@
 						{
 							"name": "name",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "name"
 						},
 						{
 							"name": "ownerId",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "ownerId"
 						},
@@ -327,7 +327,7 @@
 						{
 							"name": "id",
 							"length": 50,
-							"nullable": false,
+							"required": true,
 							"default": "concat(deviceId,\"-\",lower(substring(replace(name,\" \",\"-\"),0,16)))",
 							"type": "string",
 							"mapping": "id"
@@ -335,21 +335,21 @@
 						{
 							"name": "deviceId",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "deviceId"
 						},
 						{
 							"name": "name",
 							"length": 16,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "name"
 						},
 						{
 							"name": "type",
 							"length": 16,
-							"nullable": false,
+							"required": true,
 							"enum": "ComponentType",
 							"type": "string",
 							"mapping": "type"
@@ -433,14 +433,14 @@
 						{
 							"name": "id",
 							"type": "integer",
-							"nullable": false,
+							"required": true,
 							"autoIncrement": true,
 							"mapping": "id"
 						},
 						{
 							"name": "deviceId",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "deviceId"
 						},
@@ -479,7 +479,7 @@
 						{
 							"name": "id",
 							"type": "integer",
-							"nullable": false,
+							"required": true,
 							"mapping": "id"
 						},
 						{
@@ -521,7 +521,7 @@
 						{
 							"name": "id",
 							"type": "integer",
-							"nullable": false,
+							"required": true,
 							"mapping": "id"
 						},
 						{
@@ -621,14 +621,14 @@
 						{
 							"name": "id",
 							"length": 255,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "id"
 						},
 						{
 							"name": "type",
 							"length": 16,
-							"nullable": false,
+							"required": true,
 							"enum": "FileType",
 							"type": "string",
 							"mapping": "type"
@@ -636,7 +636,7 @@
 						{
 							"name": "deviceId",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"mapping": "deviceId"
 						},
@@ -649,13 +649,13 @@
 						{
 							"name": "startDate",
 							"type": "datetime",
-							"nullable": false,
+							"required": true,
 							"mapping": "startDate"
 						},
 						{
 							"name": "endDate",
 							"type": "datetime",
-							"nullable": false,
+							"required": true,
 							"mapping": "endDate"
 						},
 						{
@@ -708,27 +708,27 @@
 							"name": "username",
 							"mapping": "username",
 							"length": 32,
-							"nullable": false,
+							"required": true,
 							"type": "string"
 						},
 						{
 							"name": "firstname",
 							"mapping": "first_name",
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"length": 80
 						},
 						{
 							"name": "lastname",
 							"mapping": "last_name",
-							"nullable": false,
+							"required": true,
 							"type": "string",
 							"length": 80
 						},
 						{
 							"name": "email",
 							"mapping": "email",
-							"nullable": false,
+							"required": true,
 							"length": 255,
 							"readExp": "mask(email)",
 							"type": "string"

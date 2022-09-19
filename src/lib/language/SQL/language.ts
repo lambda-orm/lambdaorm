@@ -1,5 +1,5 @@
 import { LanguageDDLBuilder, MappingConfig } from '../../manager'
-import { DataSource, Sentence, Query } from '../../model'
+import { source, Sentence, Query } from '../../model'
 import { Language } from '../../manager/language'
 import { SqlDMLBuilder } from './dmlBuilder'
 import { SqlDDLBuilder } from './ddlBuilder'
@@ -12,11 +12,11 @@ export class SqlLanguage extends Language {
 		this.solveComposite = false
 	}
 
-	public ddlBuilder (dataSource: DataSource, mapping: MappingConfig): LanguageDDLBuilder {
-		return new SqlDDLBuilder(dataSource, mapping, this.getDialect(dataSource.dialect))
+	public ddlBuilder (source: source, mapping: MappingConfig): LanguageDDLBuilder {
+		return new SqlDDLBuilder(source, mapping, this.getDialect(source.dialect))
 	}
 
-	public dmlBuild (dataSource: DataSource, mapping: MappingConfig, sentence: Sentence): Query {
-		return new SqlDMLBuilder(dataSource, mapping, this.getDialect(dataSource.dialect), this.expressions).build(sentence)
+	public dmlBuild (source: source, mapping: MappingConfig, sentence: Sentence): Query {
+		return new SqlDMLBuilder(source, mapping, this.getDialect(source.dialect), this.expressions).build(sentence)
 	}
 }

@@ -3,7 +3,6 @@
 - [Transaction](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
 - Schemas
 	- [Schema](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
-	- [Definition](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Definition)
 	- [Examples](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples)
 - Queries
 	- [Select](https://github.com/FlavioLionelRita/lambdaorm/wiki/Select)

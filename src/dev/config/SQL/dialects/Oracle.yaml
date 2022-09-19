@@ -13,7 +13,7 @@ others:
   variable: ":{name}"
 ddl:
   createEntity: "CREATE TABLE {name} ({define})"
-  incrementalColumDefine: "{name} {type} {nullable}"
+  incrementalColumDefine: "{name} {type} {required}"
   dropEntity: "DROP TABLE {name}"
   dropPk: "DROP CONSTRAINT {name}"
   dropUk: "DROP CONSTRAINT {name}"

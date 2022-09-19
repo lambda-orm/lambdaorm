@@ -23,6 +23,7 @@
 - [children](model.Sentence.md#children)
 - [columns](model.Sentence.md#columns)
 - [constraints](model.Sentence.md#constraints)
+- [crudAction](model.Sentence.md#crudaction)
 - [defaults](model.Sentence.md#defaults)
 - [entity](model.Sentence.md#entity)
 - [id](model.Sentence.md#id)
@@ -60,17 +61,17 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/model/operands.ts:106](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L106)
+[src/lib/model/operands.ts:140](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L140)
 
 ## Properties
 
 ### action
 
-• **action**: `string`
+• **action**: [`SentenceAction`](../enums/model.SentenceAction.md)
 
 #### Defined in
 
-[src/lib/model/operands.ts:101](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L101)
+[src/lib/model/operands.ts:134](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L134)
 
 ___
 
@@ -80,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:100](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L100)
+[src/lib/model/operands.ts:133](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L133)
 
 ___
 
@@ -104,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:97](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L97)
+[src/lib/model/operands.ts:130](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L130)
 
 ___
 
@@ -114,7 +115,17 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:102](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L102)
+[src/lib/model/operands.ts:136](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L136)
+
+___
+
+### crudAction
+
+• **crudAction**: [`SentenceCrudAction`](../enums/model.SentenceCrudAction.md)
+
+#### Defined in
+
+[src/lib/model/operands.ts:135](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L135)
 
 ___
 
@@ -124,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:104](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L104)
+[src/lib/model/operands.ts:138](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L138)
 
 ___
 
@@ -134,7 +145,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:99](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L99)
+[src/lib/model/operands.ts:132](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L132)
 
 ___
 
@@ -200,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:98](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L98)
+[src/lib/model/operands.ts:131](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L131)
 
 ___
 
@@ -238,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:103](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L103)
+[src/lib/model/operands.ts:137](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L137)
 
 ## Methods
 
@@ -274,7 +285,7 @@ Operand.eval
 
 #### Defined in
 
-[src/lib/model/operands.ts:170](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L170)
+[src/lib/model/operands.ts:205](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L205)
 
 ___
 
@@ -288,7 +299,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:123](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L123)
+[src/lib/model/operands.ts:158](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L158)
 
 ___
 
@@ -302,7 +313,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:119](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/operands.ts#L119)
+[src/lib/model/operands.ts:154](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L154)
 
 ___
 

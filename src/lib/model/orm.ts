@@ -9,11 +9,10 @@ export interface OrmOptions {
 	chunkSize?:number
 	tryAllCan?:boolean
 }
-
 export interface IOrm
 {
 	get workspace(): string
-	dialect (dataSource:string): string
+	dialect (source:string): string
 	get stage(): StageFacade
 	get schema(): SchemaManager
 	get expressions(): Expressions

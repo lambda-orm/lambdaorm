@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L12)
+[src/lib/manager/dialect.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L12)
 
 ## Properties
 
@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L5)
+[src/lib/manager/dialect.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L5)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L4)
+[src/lib/manager/dialect.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L4)
 
 ## Accessors
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L63)
+[src/lib/manager/dialect.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L63)
 
 ## Methods
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:83](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L83)
+[src/lib/manager/dialect.ts:83](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L83)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:91](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L91)
+[src/lib/manager/dialect.ts:91](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L91)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L75)
+[src/lib/manager/dialect.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L75)
 
 ___
 
@@ -161,7 +161,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L71)
+[src/lib/manager/dialect.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L71)
 
 ___
 
@@ -181,7 +181,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:111](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L111)
+[src/lib/manager/dialect.ts:111](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L111)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:99](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L99)
+[src/lib/manager/dialect.ts:99](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L99)
 
 ___
 
@@ -223,7 +223,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L67)
+[src/lib/manager/dialect.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L67)
 
 ___
 
@@ -243,7 +243,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L79)
+[src/lib/manager/dialect.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L79)
 
 ___
 
@@ -263,4 +263,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/dialect.ts:87](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/dialect.ts#L87)
+[src/lib/manager/dialect.ts:87](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/dialect.ts#L87)

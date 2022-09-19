@@ -10,7 +10,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -22,7 +22,7 @@ test:
           children:
             - entity: Customers
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -34,7 +34,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -46,7 +46,7 @@ test:
           children:
             - entity: Customers
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -58,7 +58,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -71,7 +71,7 @@ test:
           children:
             - entity: Customers
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -84,7 +84,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -96,7 +96,7 @@ test:
           children:
             - entity: Customers
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -108,7 +108,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -121,7 +121,7 @@ test:
           children:
             - entity: Customers
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -134,7 +134,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
@@ -147,7 +147,7 @@ test:
           children:
             - entity: Customers
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -741,7 +741,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -753,7 +753,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -764,7 +764,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -776,7 +776,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -787,7 +787,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -799,7 +799,7 @@ test:
           children:
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
@@ -810,7 +810,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -822,7 +822,7 @@ test:
           children:
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -833,7 +833,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -845,7 +845,7 @@ test:
           children:
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
@@ -857,7 +857,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
@@ -1447,7 +1447,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -1459,7 +1459,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -1468,7 +1468,7 @@ test:
               children: []
             - entity: Customers
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -1480,7 +1480,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -1492,7 +1492,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -1501,7 +1501,7 @@ test:
               children: []
             - entity: Customers
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -1513,7 +1513,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1526,7 +1526,7 @@ test:
           children:
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
@@ -1535,7 +1535,7 @@ test:
               children: []
             - entity: Customers
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -1548,7 +1548,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -1560,7 +1560,7 @@ test:
           children:
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -1569,7 +1569,7 @@ test:
               children: []
             - entity: Customers
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -1581,7 +1581,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1594,7 +1594,7 @@ test:
           children:
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
@@ -1604,7 +1604,7 @@ test:
               children: []
             - entity: Customers
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -1617,7 +1617,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
@@ -1634,7 +1634,7 @@ test:
           children:
             - entity: Customers
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -2486,7 +2486,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -2498,7 +2498,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -2508,7 +2508,7 @@ test:
               children:
                 - entity: Products
                   dialect: MySQL
-                  dataSource: MySQL
+                  source: MySQL
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -2520,7 +2520,7 @@ test:
                   children: []
             - entity: Customers
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -2532,7 +2532,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -2544,7 +2544,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -2554,7 +2554,7 @@ test:
               children:
                 - entity: Products
                   dialect: MariaDB
-                  dataSource: MariaDB
+                  source: MariaDB
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -2566,7 +2566,7 @@ test:
                   children: []
             - entity: Customers
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -2578,7 +2578,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -2591,7 +2591,7 @@ test:
           children:
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
@@ -2601,7 +2601,7 @@ test:
               children:
                 - entity: Products
                   dialect: PostgreSQL
-                  dataSource: PostgreSQL
+                  source: PostgreSQL
                   sentence: >-
                     SELECT p.ProductID AS "id", p.ProductName AS "name",
                     p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -2613,7 +2613,7 @@ test:
                   children: []
             - entity: Customers
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -2626,7 +2626,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -2638,7 +2638,7 @@ test:
           children:
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -2648,7 +2648,7 @@ test:
               children:
                 - entity: Products
                   dialect: SqlServer
-                  dataSource: SqlServer
+                  source: SqlServer
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -2660,7 +2660,7 @@ test:
                   children: []
             - entity: Customers
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -2672,7 +2672,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -2685,7 +2685,7 @@ test:
           children:
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
@@ -2695,7 +2695,7 @@ test:
               children:
                 - entity: Products
                   dialect: Oracle
-                  dataSource: Oracle
+                  source: Oracle
                   sentence: >-
                     SELECT p.ProductID AS "id", p.ProductName AS "name",
                     p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -2707,7 +2707,7 @@ test:
                   children: []
             - entity: Customers
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -2720,7 +2720,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
@@ -2738,7 +2738,7 @@ test:
           children:
             - entity: Customers
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -3926,7 +3926,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -3938,7 +3938,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -3948,7 +3948,7 @@ test:
               children:
                 - entity: Products
                   dialect: MySQL
-                  dataSource: MySQL
+                  source: MySQL
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -3961,7 +3961,7 @@ test:
                   children:
                     - entity: Categories
                       dialect: MySQL
-                      dataSource: MySQL
+                      source: MySQL
                       sentence: >-
                         SELECT c.CategoryID AS id, c.CategoryName AS name,
                         c.Description AS description, c.CategoryID AS
@@ -3970,7 +3970,7 @@ test:
                       children: []
             - entity: Customers
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT c1.CustomerID AS id, c1.CompanyName AS name,
                 c1.ContactName AS contact, c1.ContactTitle AS phone, c1.Address
@@ -3983,7 +3983,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -3995,7 +3995,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -4005,7 +4005,7 @@ test:
               children:
                 - entity: Products
                   dialect: MariaDB
-                  dataSource: MariaDB
+                  source: MariaDB
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -4018,7 +4018,7 @@ test:
                   children:
                     - entity: Categories
                       dialect: MariaDB
-                      dataSource: MariaDB
+                      source: MariaDB
                       sentence: >-
                         SELECT c.CategoryID AS id, c.CategoryName AS name,
                         c.Description AS description, c.CategoryID AS
@@ -4027,7 +4027,7 @@ test:
                       children: []
             - entity: Customers
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT c1.CustomerID AS id, c1.CompanyName AS name,
                 c1.ContactName AS contact, c1.ContactTitle AS phone, c1.Address
@@ -4040,7 +4040,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -4053,7 +4053,7 @@ test:
           children:
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
@@ -4063,7 +4063,7 @@ test:
               children:
                 - entity: Products
                   dialect: PostgreSQL
-                  dataSource: PostgreSQL
+                  source: PostgreSQL
                   sentence: >-
                     SELECT p.ProductID AS "id", p.ProductName AS "name",
                     p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -4076,7 +4076,7 @@ test:
                   children:
                     - entity: Categories
                       dialect: PostgreSQL
-                      dataSource: PostgreSQL
+                      source: PostgreSQL
                       sentence: >-
                         SELECT c.CategoryID AS "id", c.CategoryName AS "name",
                         c.Description AS "description", c.CategoryID AS
@@ -4085,7 +4085,7 @@ test:
                       children: []
             - entity: Customers
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT c1.CustomerID AS "id", c1.CompanyName AS "name",
                 c1.ContactName AS "contact", c1.ContactTitle AS "phone",
@@ -4098,7 +4098,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -4110,7 +4110,7 @@ test:
           children:
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT o1.OrderID AS orderId, o1.ProductID AS productId,
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
@@ -4120,7 +4120,7 @@ test:
               children:
                 - entity: Products
                   dialect: SqlServer
-                  dataSource: SqlServer
+                  source: SqlServer
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -4133,7 +4133,7 @@ test:
                   children:
                     - entity: Categories
                       dialect: SqlServer
-                      dataSource: SqlServer
+                      source: SqlServer
                       sentence: >-
                         SELECT c.CategoryID AS id, c.CategoryName AS name,
                         c.Description AS description, c.CategoryID AS
@@ -4142,7 +4142,7 @@ test:
                       children: []
             - entity: Customers
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT c1.CustomerID AS id, c1.CompanyName AS name,
                 c1.ContactName AS contact, c1.ContactTitle AS phone, c1.Address
@@ -4155,7 +4155,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -4168,7 +4168,7 @@ test:
           children:
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
@@ -4178,7 +4178,7 @@ test:
               children:
                 - entity: Products
                   dialect: Oracle
-                  dataSource: Oracle
+                  source: Oracle
                   sentence: >-
                     SELECT p.ProductID AS "id", p.ProductName AS "name",
                     p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -4191,7 +4191,7 @@ test:
                   children:
                     - entity: Categories
                       dialect: Oracle
-                      dataSource: Oracle
+                      source: Oracle
                       sentence: >-
                         SELECT c.CategoryID AS "id", c.CategoryName AS "name",
                         c.Description AS "description", c.CategoryID AS
@@ -4200,7 +4200,7 @@ test:
                       children: []
             - entity: Customers
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT c1.CustomerID AS "id", c1.CompanyName AS "name",
                 c1.ContactName AS "contact", c1.ContactTitle AS "phone",
@@ -4213,7 +4213,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
@@ -4231,7 +4231,7 @@ test:
           children:
             - entity: Customers
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -5590,7 +5590,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -5602,7 +5602,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
@@ -5610,7 +5610,7 @@ test:
               children: []
             - entity: Customers
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -5622,7 +5622,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -5634,7 +5634,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
@@ -5642,7 +5642,7 @@ test:
               children: []
             - entity: Customers
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -5654,7 +5654,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -5667,7 +5667,7 @@ test:
           children:
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
                 o1.ProductID AS "productId", o1.OrderID AS "LambdaOrmParentId"
@@ -5675,7 +5675,7 @@ test:
               children: []
             - entity: Customers
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -5688,7 +5688,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -5700,7 +5700,7 @@ test:
           children:
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
@@ -5708,7 +5708,7 @@ test:
               children: []
             - entity: Customers
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -5720,7 +5720,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -5733,7 +5733,7 @@ test:
           children:
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
                 o1.ProductID AS "productId", o1.OrderID AS "LambdaOrmParentId"
@@ -5742,7 +5742,7 @@ test:
               children: []
             - entity: Customers
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -5755,7 +5755,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
@@ -5771,7 +5771,7 @@ test:
           children:
             - entity: Customers
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -6572,7 +6572,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -6584,7 +6584,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.ProductID AS `__productId`,
@@ -6593,7 +6593,7 @@ test:
               children:
                 - entity: Products
                   dialect: MySQL
-                  dataSource: MySQL
+                  source: MySQL
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -6605,7 +6605,7 @@ test:
                   children: []
             - entity: Customers
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -6617,7 +6617,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -6629,7 +6629,7 @@ test:
           children:
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.ProductID AS `__productId`,
@@ -6638,7 +6638,7 @@ test:
               children:
                 - entity: Products
                   dialect: MariaDB
-                  dataSource: MariaDB
+                  source: MariaDB
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -6650,7 +6650,7 @@ test:
                   children: []
             - entity: Customers
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -6662,7 +6662,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -6675,7 +6675,7 @@ test:
           children:
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
                 o1.ProductID AS "productId", o1.ProductID AS "__productId",
@@ -6684,7 +6684,7 @@ test:
               children:
                 - entity: Products
                   dialect: PostgreSQL
-                  dataSource: PostgreSQL
+                  source: PostgreSQL
                   sentence: >-
                     SELECT p.ProductID AS "id", p.ProductName AS "name",
                     p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -6696,7 +6696,7 @@ test:
                   children: []
             - entity: Customers
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -6709,7 +6709,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -6721,7 +6721,7 @@ test:
           children:
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.ProductID AS [__productId],
@@ -6730,7 +6730,7 @@ test:
               children:
                 - entity: Products
                   dialect: SqlServer
-                  dataSource: SqlServer
+                  source: SqlServer
                   sentence: >-
                     SELECT p.ProductID AS id, p.ProductName AS name,
                     p.SupplierID AS supplierId, p.CategoryID AS categoryId,
@@ -6742,7 +6742,7 @@ test:
                   children: []
             - entity: Customers
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
                 AS contact, c.ContactTitle AS phone, c.Address AS address,
@@ -6754,7 +6754,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -6767,7 +6767,7 @@ test:
           children:
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
                 o1.ProductID AS "productId", o1.ProductID AS "__productId",
@@ -6776,7 +6776,7 @@ test:
               children:
                 - entity: Products
                   dialect: Oracle
-                  dataSource: Oracle
+                  source: Oracle
                   sentence: >-
                     SELECT p.ProductID AS "id", p.ProductName AS "name",
                     p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -6788,7 +6788,7 @@ test:
                   children: []
             - entity: Customers
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -6801,7 +6801,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
@@ -6818,7 +6818,7 @@ test:
           children:
             - entity: Customers
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
@@ -7954,7 +7954,7 @@ test:
         sentence:
           entity: Orders
           dialect: MySQL
-          dataSource: MySQL
+          source: MySQL
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -7967,14 +7967,14 @@ test:
           children:
             - entity: Customers
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
                 FROM Customers c  WHERE  c.CustomerID IN (?) 
               children: []
             - entity: Orders.details
               dialect: MySQL
-              dataSource: MySQL
+              source: MySQL
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId
@@ -7982,7 +7982,7 @@ test:
               children:
                 - entity: Products
                   dialect: MySQL
-                  dataSource: MySQL
+                  source: MySQL
                   sentence: >-
                     SELECT p.ProductName AS name, p.CategoryID AS
                     `__categoryId`, p.ProductID AS LambdaOrmParentId FROM
@@ -7990,7 +7990,7 @@ test:
                   children:
                     - entity: Categories
                       dialect: MySQL
-                      dataSource: MySQL
+                      source: MySQL
                       sentence: >-
                         SELECT c1.CategoryName AS name, c1.CategoryID AS
                         LambdaOrmParentId FROM Categories c1  WHERE 
@@ -8000,7 +8000,7 @@ test:
         sentence:
           entity: Orders
           dialect: MariaDB
-          dataSource: MariaDB
+          source: MariaDB
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -8013,14 +8013,14 @@ test:
           children:
             - entity: Customers
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
                 FROM Customers c  WHERE  c.CustomerID IN (?) 
               children: []
             - entity: Orders.details
               dialect: MariaDB
-              dataSource: MariaDB
+              source: MariaDB
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId
@@ -8028,7 +8028,7 @@ test:
               children:
                 - entity: Products
                   dialect: MariaDB
-                  dataSource: MariaDB
+                  source: MariaDB
                   sentence: >-
                     SELECT p.ProductName AS name, p.CategoryID AS
                     `__categoryId`, p.ProductID AS LambdaOrmParentId FROM
@@ -8036,7 +8036,7 @@ test:
                   children:
                     - entity: Categories
                       dialect: MariaDB
-                      dataSource: MariaDB
+                      source: MariaDB
                       sentence: >-
                         SELECT c1.CategoryName AS name, c1.CategoryID AS
                         LambdaOrmParentId FROM Categories c1  WHERE 
@@ -8046,7 +8046,7 @@ test:
         sentence:
           entity: Orders
           dialect: PostgreSQL
-          dataSource: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -8059,7 +8059,7 @@ test:
           children:
             - entity: Customers
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT c.CompanyName AS "name", c.CustomerID AS
                 "LambdaOrmParentId" FROM Customers c  WHERE  c.CustomerID IN
@@ -8067,7 +8067,7 @@ test:
               children: []
             - entity: Orders.details
               dialect: PostgreSQL
-              dataSource: PostgreSQL
+              source: PostgreSQL
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
                 o1.ProductID AS "__productId", o1.OrderID AS "LambdaOrmParentId"
@@ -8075,7 +8075,7 @@ test:
               children:
                 - entity: Products
                   dialect: PostgreSQL
-                  dataSource: PostgreSQL
+                  source: PostgreSQL
                   sentence: >-
                     SELECT p.ProductName AS "name", p.CategoryID AS
                     "__categoryId", p.ProductID AS "LambdaOrmParentId" FROM
@@ -8083,7 +8083,7 @@ test:
                   children:
                     - entity: Categories
                       dialect: PostgreSQL
-                      dataSource: PostgreSQL
+                      source: PostgreSQL
                       sentence: >-
                         SELECT c1.CategoryName AS "name", c1.CategoryID AS
                         "LambdaOrmParentId" FROM Categories c1  WHERE 
@@ -8093,7 +8093,7 @@ test:
         sentence:
           entity: Orders
           dialect: SqlServer
-          dataSource: SqlServer
+          source: SqlServer
           sentence: >-
             SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS
             employeeId, o.OrderDate AS orderDate, o.RequiredDate AS
@@ -8106,14 +8106,14 @@ test:
           children:
             - entity: Customers
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
                 FROM Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
               children: []
             - entity: Orders.details
               dialect: SqlServer
-              dataSource: SqlServer
+              source: SqlServer
               sentence: >-
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS [__productId], o1.OrderID AS LambdaOrmParentId
@@ -8122,7 +8122,7 @@ test:
               children:
                 - entity: Products
                   dialect: SqlServer
-                  dataSource: SqlServer
+                  source: SqlServer
                   sentence: >-
                     SELECT p.ProductName AS name, p.CategoryID AS
                     [__categoryId], p.ProductID AS LambdaOrmParentId FROM
@@ -8130,7 +8130,7 @@ test:
                   children:
                     - entity: Categories
                       dialect: SqlServer
-                      dataSource: SqlServer
+                      source: SqlServer
                       sentence: >-
                         SELECT c1.CategoryName AS name, c1.CategoryID AS
                         LambdaOrmParentId FROM Categories c1  WHERE 
@@ -8140,7 +8140,7 @@ test:
         sentence:
           entity: Orders
           dialect: Oracle
-          dataSource: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -8153,7 +8153,7 @@ test:
           children:
             - entity: Customers
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT c.CompanyName AS "name", c.CustomerID AS
                 "LambdaOrmParentId" FROM Customers c  WHERE  c.CustomerID IN
@@ -8161,7 +8161,7 @@ test:
               children: []
             - entity: Orders.details
               dialect: Oracle
-              dataSource: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
                 o1.ProductID AS "__productId", o1.OrderID AS "LambdaOrmParentId"
@@ -8170,7 +8170,7 @@ test:
               children:
                 - entity: Products
                   dialect: Oracle
-                  dataSource: Oracle
+                  source: Oracle
                   sentence: >-
                     SELECT p.ProductName AS "name", p.CategoryID AS
                     "__categoryId", p.ProductID AS "LambdaOrmParentId" FROM
@@ -8178,7 +8178,7 @@ test:
                   children:
                     - entity: Categories
                       dialect: Oracle
-                      dataSource: Oracle
+                      source: Oracle
                       sentence: >-
                         SELECT c1.CategoryName AS "name", c1.CategoryID AS
                         "LambdaOrmParentId" FROM Categories c1  WHERE 
@@ -8188,7 +8188,7 @@ test:
         sentence:
           entity: Orders
           dialect: MongoDB
-          dataSource: MongoDB
+          source: MongoDB
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
@@ -8204,7 +8204,7 @@ test:
           children:
             - entity: Customers
               dialect: MongoDB
-              dataSource: MongoDB
+              source: MongoDB
               sentence: >-
                 [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
                 "$project" :{ "_id": 0 , "name":"$CompanyName",

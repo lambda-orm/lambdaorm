@@ -128,7 +128,7 @@ export class OracleConnection extends Connection {
 		const result = await this.cnx.executeMany(sql, binds, options)
 
 		if (result.rowsAffected !== binds.length) {
-			throw new ExecutionError(query.dataSource, query.entity, query.sentence, `${binds.length - result.rowsAffected} records not imported!`, binds)
+			throw new ExecutionError(query.source, query.entity, query.sentence, `${binds.length - result.rowsAffected} records not imported!`, binds)
 		}
 		if (autoIncrementInfo) {
 			const ids: any[] = []

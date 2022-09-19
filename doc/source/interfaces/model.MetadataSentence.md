@@ -9,10 +9,10 @@
 ### Properties
 
 - [children](model.MetadataSentence.md#children)
-- [dataSource](model.MetadataSentence.md#datasource)
 - [dialect](model.MetadataSentence.md#dialect)
 - [entity](model.MetadataSentence.md#entity)
 - [sentence](model.MetadataSentence.md#sentence)
+- [source](model.MetadataSentence.md#source)
 
 ## Properties
 
@@ -22,17 +22,7 @@
 
 #### Defined in
 
-[src/lib/model/metadata.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L27)
-
-___
-
-### dataSource
-
-• **dataSource**: `string`
-
-#### Defined in
-
-[src/lib/model/metadata.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L25)
+[src/lib/model/metadata.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L27)
 
 ___
 
@@ -42,7 +32,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L24)
+[src/lib/model/metadata.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L24)
 
 ___
 
@@ -52,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L23)
+[src/lib/model/metadata.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L23)
 
 ___
 
@@ -62,4 +52,14 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/model/metadata.ts#L26)
+[src/lib/model/metadata.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L26)
+
+___
+
+### source
+
+• **source**: `string`
+
+#### Defined in
+
+[src/lib/model/metadata.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L25)

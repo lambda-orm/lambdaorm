@@ -1,5 +1,5 @@
 
-import { Property, Parameter, Data, Behavior, Constraint, SintaxisError, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Relation, Entity } from '../model'
+import { SentenceAction, Property, Parameter, Data, Behavior, Constraint, SintaxisError, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Relation, Entity } from '../model'
 import { ModelConfig } from '.'
 import { Operand, Variable, Constant, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import * as exp from 'js-expressions'
@@ -478,11 +478,11 @@ export class OperandManager {
 		if (clauses.map) {
 			sentence = this.createSentenceSelect(clauses, expressionContext, children)
 		} else if (clauses.insert) {
-			sentence = this.createSentenceModify('insert', clauses, expressionContext, children)
+			sentence = this.createSentenceModify(SentenceAction.insert, clauses, expressionContext, children)
 		} else if (clauses.bulkInsert) {
-			sentence = this.createSentenceModify('bulkInsert', clauses, expressionContext, children)
+			sentence = this.createSentenceModify(SentenceAction.bulkInsert, clauses, expressionContext, children)
 		} else if (clauses.update) {
-			sentence = this.createSentenceModify('update', clauses, expressionContext, children)
+			sentence = this.createSentenceModify(SentenceAction.update, clauses, expressionContext, children)
 		} else if (clauses.delete) {
 			sentence = this.createSentenceDelete(clauses, expressionContext, children)
 		}
@@ -534,7 +534,7 @@ export class OperandManager {
 		}
 
 		return new Sentence({
-			name: 'select',
+			name: SentenceAction.select,
 			children: children,
 			entity: expressionContext.current.entityName,
 			alias: expressionContext.current.alias,
@@ -546,18 +546,18 @@ export class OperandManager {
 		})
 	}
 
-	private createSentenceModify (name:string, clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
+	private createSentenceModify (name:SentenceAction, clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
 		// TODO: If the entity has one or more properties with key.
 		// These properties must be added using the key
 		let clause:Node|undefined
 		let operand:Operand|undefined
-		if (name === 'insert') {
+		if (name === SentenceAction.insert) {
 			clause = clauses.insert as Node
 			operand = this.createInsertClause(clause, expressionContext)
-		} else if (name === 'bulkInsert') {
+		} else if (name === SentenceAction.bulkInsert) {
 			clause = clauses.bulkInsert as Node
 			operand = this.createInsertClause(clause, expressionContext)
-		} else if (name === 'update') {
+		} else if (name === SentenceAction.update) {
 			clause = clauses.update as Node
 			operand = this.createUpdateClause(clause, expressionContext)
 		} else {
@@ -598,7 +598,7 @@ export class OperandManager {
 			this.solveTypes(child, expressionContext)
 		}
 		return new Sentence({
-			name: 'update',
+			name: SentenceAction.update,
 			children: children,
 			entity: expressionContext.current.entityName,
 			alias: expressionContext.current.alias,
@@ -748,7 +748,7 @@ export class OperandManager {
 
 	private addPropertiesConstraints (entityName: string, queryProperties: Property[], constraints:Constraint[]): void {
 		for (const property of queryProperties) {
-			if (property.nullable === false && property.default === undefined && property.key === undefined) {
+			if (property.required && property.default === undefined && property.key === undefined) {
 				const constraint: Constraint = {
 					message: `Cannot be null property ${property.name} in entity ${entityName}`,
 					condition: `isNotNull(${property.name})`

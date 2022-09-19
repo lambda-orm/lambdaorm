@@ -6,14 +6,14 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: refType
         length: 50
-        nullable: false
+        required: true
       - name: refId
         length: 100
-        nullable: false
+        required: true
       - name: name
         length: 200
   # Location settings
@@ -23,51 +23,51 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: name
         length: 60
-        nullable: false
+        required: true
       - name: iso
         length: 2
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
       - name: numericCode
         length: 5
-        nullable: false
+        required: true
   - name: LocAreaTypes
     primaryKey: ["id"]
     uniqueKey: ["code"]
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 30
-        nullable: false
+        required: true
       - name: name
         length: 100
-        nullable: false
+        required: true
   - name: LocAreas
     primaryKey: ["id"]
     uniqueKey: ["code"]
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: typeId
         type: integer
-        nullable: false
+        required: true
       - name: code
         length: 30
-        nullable: false
+        required: true
       - name: name
         length: 200
-        nullable: false
+        required: true
     relations:
       - name: type
         from: typeId
@@ -80,11 +80,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: countryId
         type: integer
-        nullable: false
+        required: true
       - name: streetName
         length: 250
       - name: streetNrFirst
@@ -106,14 +106,14 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: addressId
         type: integer
-        nullable: false
+        required: true
       - name: areaId
         type: integer
-        nullable: false
+        required: true
     relations:
       - name: address
         from: addressId
@@ -131,14 +131,14 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 10
-        nullable: false
+        required: true
       - name: name
         length: 50
-        nullable: false
+        required: true
       - name: exclusiveType
         length: 30
   - name: PmMaritalStatuses
@@ -147,49 +147,49 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 10
-        nullable: false
+        required: true
       - name: name
         length: 50
-        nullable: false
+        required: true
   - name: PmIdentificationTypes
     primaryKey: ["id"]
     uniqueKey: ["code"]
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 30
-        nullable: false
+        required: true
       - name: name
         length: 80
-        nullable: false
+        required: true
   - name: PmIndustryTypes
     primaryKey: ["id"]
     uniqueKey: ["code"]
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 30
-        nullable: false
+        required: true
       - name: name
         length: 255
-        nullable: false
+        required: true
   # Party business
   - name: PmParties
     primaryKey: ["id"]
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: individualId
         type: integer
@@ -197,10 +197,10 @@ entities:
         type: integer
       - name: statusId
         type: integer
-        nullable: false
+        required: true
       - name: registredDate
         type: datetime
-        nullable: false
+        required: true
         default: now()
     relations:
       - name: status
@@ -212,17 +212,17 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: identificationTypeId
         type: integer
-        nullable: false
+        required: true
       - name: partyId
         type: integer
-        nullable: false
+        required: true
       - name: indentificationValue
         length: 100
-        nullable: false
+        required: true
       - name: source
         length: 30
     relations:
@@ -240,11 +240,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: partyId
         type: integer
-        nullable: false
+        required: true
       - name: genderId
         type: integer
       - name: birthDate
@@ -271,11 +271,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: individualId
         type: integer
-        nullable: false
+        required: true
       - name: givenNames
         length: 200
       - name: middleNames
@@ -295,11 +295,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: partyId
         type: integer
-        nullable: false
+        required: true
       - name: legalPeriodFrom
         type: datetime
       - name: currentNameId
@@ -328,11 +328,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: organizationId
         type: integer
-        nullable: false
+        required: true
       - name: tradingName
         length: 100
     relations:
@@ -348,14 +348,14 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 30
-        nullable: false
+        required: true
       - name: name
         length: 100
-        nullable: false
+        required: true
       - name: validFrom
         type: datetime
   - name: PrPartyRoleStatuses
@@ -364,14 +364,14 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 20
-        nullable: false
+        required: true
       - name: name
         length: 50
-        nullable: false
+        required: true
   # PartyRole business
   - name: PrReferences
     extends: SrbReferences
@@ -423,21 +423,21 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: statusId
         type: integer
-        nullable: false
+        required: true
       - name: name
         length: 100
       - name: partyId
         type: integer
-        nullable: false
+        required: true
       - name: validFrom
         type: datetime
       - name: partyRoleSpecId
         type: integer
-        nullable: false
+        required: true
     relations:
       - name: status
         from: statusId
@@ -462,14 +462,14 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: partyRoleId
         type: integer
-        nullable: false
+        required: true
       - name: placeRefId
         type: integer
-        nullable: false
+        required: true
     relations:
       - name: partyRole
         from: partyRoleId
@@ -489,42 +489,42 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 50
-        nullable: false
+        required: true
       - name: name
         length: 100
-        nullable: false
+        required: true
       - name: description
         length: 150
       - name: disabled
         type: boolean
-        nullable: false
+        required: true
       - name: balanceType
         type: integer
-        nullable: false
+        required: true
       - name: incresedBy
         type: integer
-        nullable: false
+        required: true
   - name: LamStatementCycles
     primaryKey: ["id"]
     uniqueKey: ["code"]
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 50
-        nullable: false
+        required: true
       - name: name
         length: 100
-        nullable: false
+        required: true
       - name: cycleDay
         type: integer
-        nullable: false
+        required: true
       - name: description
         length: 150
       - name: disabled
@@ -551,82 +551,82 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: creditorCode
         length: 50
-        nullable: false
+        required: true
       - name: name
         length: 100
-        nullable: false
+        required: true
       - name: partyRoleId
         type: integer
-        nullable: false
+        required: true
       - name: locAddressId
         type: integer
-        nullable: false
+        required: true
       - name: streetName
         length: 70
-        nullable: false
+        required: true
       - name: streetNumber
         length: 10
-        nullable: false
+        required: true
       - name: postalCode
         length: 20
-        nullable: false
+        required: true
       - name: cityName
         length: 50
-        nullable: false
+        required: true
       - name: country
         length: 5
-        nullable: false
+        required: true
       - name: contactName
         length: 50
-        nullable: false
+        required: true
       - name: contactEmail
         length: 50
-        nullable: false
+        required: true
       - name: contactPartyId
         type: integer
-        nullable: false
+        required: true
   - name: LamAccounts
     primaryKey: ["id"]
     uniqueKey: ["accountNumber"]
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: accountNumber
         length: 50
-        nullable: false
+        required: true
       - name: name
         length: 100
-        nullable: false
+        required: true
       - name: currencyRefId
         type: integer
         # TODO: Pendig solver
-        # nullable: false
+        # required: true
       - name: accountTypeId
         type: integer
         # TODO: Pendig solver
-        # nullable: false
+        # required: true
       - name: accountStatusId
         type: integer
       - name: accountHolderRefId
         type: integer
       # TODO: Pendig solver
-      #   nullable: false
+      #   required: true
       - name: balance
         type: decimal
-        nullable: false
+        required: true
       - name: statementCycleId
         type: integer
         # TODO: Pendig solver
-        # nullable: false
+        # required: true
       - name: registrationDate
         type: datetime
-        nullable: false
+        required: true
       # TODO: Pendig solver
       - name: creditorId
         type: integer
@@ -660,25 +660,25 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: accountStatus
         type: integer
-        nullable: false
+        required: true
       - name: registerDate
         type: datetime
-        nullable: false
+        required: true
       - name: userRefId
         type: integer
-        nullable: false
+        required: true
       - name: reason
         length: 50
-        nullable: false
+        required: true
       - name: remarks
         length: 250
       - name: accountId
         type: integer
-        nullable: false
+        required: true
     relations:
       - name: userRef
         from: userRefId
@@ -696,39 +696,39 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 30
-        nullable: false
+        required: true
       - name: name
         length: 100
-        nullable: false
+        required: true
       - name: description
         length: 150
-        nullable: false
+        required: true
       - name: disabled
         type: boolean
-        nullable: false
+        required: true
   - name: DbPaymentMethodTypes
     primaryKey: ["id"]
     uniqueKey: ["code"]
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 50
-        nullable: false
+        required: true
       - name: name
         length: 100
-        nullable: false
+        required: true
       - name: description
         length: 150
       - name: disabled
         type: boolean
-        nullable: false
+        required: true
       - name: autoPay
         type: boolean
   - name: DbDebtorStages
@@ -737,25 +737,25 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: code
         length: 50
-        nullable: false
+        required: true
       - name: name
         length: 100
-        nullable: false
+        required: true
       - name: description
         length: 150
-        nullable: false
+        required: true
       - name: color
         length: 30
-        nullable: false
+        required: true
       - name: stagePosition
         type: integer
       - name: disabled
         type: boolean
-        nullable: false
+        required: true
   # Debtor business
   - name: DbReferences
     extends: SrbReferences
@@ -800,14 +800,14 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: debtorNumber
         length: 50
-        nullable: false
+        required: true
       - name: name
         length: 200
-        nullable: false
+        required: true
       - name: partyRoleRefId
         type: integer
       - name: debtorStatusId
@@ -822,7 +822,7 @@ entities:
         type: integer
       - name: referenceNumber
         length: 50
-        nullable: false
+        required: true
       - name: lastModificationDate
         type: datetime
       - name: registrationDate
@@ -849,25 +849,25 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: debtorStatus
         type: integer
-        nullable: false
+        required: true
       - name: registrationDate
         type: datetime
-        nullable: false
+        required: true
       - name: userRefId
         type: integer
-        nullable: false
+        required: true
       - name: reason
         length: 50
-        nullable: false
+        required: true
       - name: remarks
         length: 250
       - name: debtorId
         type: integer
-        nullable: false
+        required: true
     relations:
       - name: userRef
         from: userRefId
@@ -883,11 +883,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: name
         length: 150
-        nullable: false
+        required: true
       - name: referenceNumber
         length: 50
   - name: DbPaymentResponsibleMethods
@@ -895,17 +895,17 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: methodStatus
         type: integer
-        nullable: false
+        required: true
       - name: paymentMethodTypeId
         type: integer
-        nullable: false
+        required: true
       - name: paymentResponsibleId
         type: integer
-        nullable: false
+        required: true
       - name: bankId
         type: integer
       - name: cardNumber
@@ -921,38 +921,38 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: debtorAccountId
         type: integer
-        nullable: false
+        required: true
       - name: paymentResponsibleId
         type: integer
-        nullable: false
+        required: true
       - name: LocAddressRefId
         type: integer
-        nullable: false
+        required: true
       - name: isMain
         type: boolean
       - name: paymentMethodRefId
         type: integer
-        nullable: false
+        required: true
   - name: DbAccountServices
     primaryKey: ["id"]
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: name
         length: 150
-        nullable: false
+        required: true
       - name: referenceNumber
         length: 45
-        nullable: false
+        required: true
       - name: accountId
         type: integer
-        nullable: false
+        required: true
       - name: serialNumber
         length: 50
       - name: registrationDate
@@ -984,16 +984,16 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: accountNumber
         length: 50
-        nullable: false
+        required: true
       - name: name
         length: 150
       - name: debtorId
         type: integer
-        nullable: false
+        required: true
       - name: actualPastDue
         type: integer
       - name: writeOff
@@ -1040,28 +1040,28 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: accountStatus
         type: integer
-        nullable: false
+        required: true
       - name: registrationDate
         type: datetime
-        nullable: false
+        required: true
         default: now()
       - name: userRefId
         type: integer
-        nullable: false
+        required: true
       - name: isActive
         type: boolean
       - name: reason
         length: 50
       - name: remarks
         length: 250
-        nullable: false
+        required: true
       - name: accountId
         type: integer
-        nullable: false
+        required: true
     relations:
       - name: userRef
         from: userRefId
@@ -1721,8 +1721,8 @@ mappings:
           - name: registrationDate
             readMappingExp: datetime(registrationDate)
 
-dataSources:
-  # Beesion datasources
+sources:
+  # Beesion sources
   - name: beeLocations
     mapping: beesion
     dialect: oracle
@@ -1743,7 +1743,7 @@ dataSources:
     mapping: beesion
     dialect: oracle
     connection: $$BEE_CCLP_DEBTORS
-  # Local datasources
+  # Local sources
   - name: locLocations
     mapping: local
     dialect: postgres
@@ -1766,7 +1766,7 @@ dataSources:
     connection: $$LOC_CCLP_DEBTORS
 stages:
   - name: beesion
-    dataSources:
+    sources:
       - name: beeLocations
         condition: substring(entity,0,3)=="Loc"
       - name: beeParties
@@ -1778,7 +1778,7 @@ stages:
       - name: beeDebtors
         condition: substring(entity,0,2)=="Db"
   - name: local
-    dataSources:
+    sources:
       - name: locLocations
         condition: substring(entity,0,3)=="Loc"
       - name: locParties

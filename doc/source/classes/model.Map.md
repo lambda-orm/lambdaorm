@@ -82,7 +82,7 @@ ArrowFunction.data
 
 #### Defined in
 
-node_modules/js-expressions/operand/operands.d.ts:59
+node_modules/js-expressions/operand/operands.d.ts:62
 
 ___
 
@@ -138,7 +138,7 @@ ArrowFunction.metadata
 
 #### Defined in
 
-node_modules/js-expressions/operand/operands.d.ts:52
+node_modules/js-expressions/operand/operands.d.ts:55
 
 ___
 
@@ -216,7 +216,7 @@ ArrowFunction.eval
 
 #### Defined in
 
-node_modules/js-expressions/operand/operands.d.ts:53
+node_modules/js-expressions/operand/operands.d.ts:56
 
 ___
 

@@ -18,20 +18,20 @@
 
 ### constructor
 
-• **new DmlBuilder**(`dataSource`, `mapping`, `dialect`, `expressions`)
+• **new DmlBuilder**(`source`, `mapping`, `dialect`, `expressions`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dataSource` | [`DataSource`](../interfaces/model.DataSource.md) |
+| `source` | [`source`](../interfaces/model.source.md) |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
 | `dialect` | [`Dialect`](manager.Dialect.md) |
 | `expressions` | `Expressions` |
 
 #### Defined in
 
-[src/lib/language/dmlBuilder.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/language/dmlBuilder.ts#L12)
+[src/lib/language/dmlBuilder.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/language/dmlBuilder.ts#L12)
 
 ## Methods
 
@@ -51,4 +51,4 @@
 
 #### Defined in
 
-[src/lib/language/dmlBuilder.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/language/dmlBuilder.ts#L19)
+[src/lib/language/dmlBuilder.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/language/dmlBuilder.ts#L19)

@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/lib/repository/query.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L7)
+[src/lib/repository/query.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L7)
 
 ## Methods
 
@@ -89,7 +89,7 @@
 
 #### Defined in
 
-[src/lib/repository/query.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L24)
+[src/lib/repository/query.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L24)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:76](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L76)
+[src/lib/repository/query.ts:76](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L76)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L12)
+[src/lib/repository/query.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L12)
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:66](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L66)
+[src/lib/repository/query.ts:66](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L66)
 
 ___
 
@@ -191,7 +191,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L71)
+[src/lib/repository/query.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L71)
 
 ___
 
@@ -217,7 +217,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L61)
+[src/lib/repository/query.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L61)
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L36)
+[src/lib/repository/query.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L36)
 
 ___
 
@@ -253,7 +253,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L20)
+[src/lib/repository/query.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L20)
 
 ___
 
@@ -271,7 +271,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L16)
+[src/lib/repository/query.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L16)
 
 ___
 
@@ -296,7 +296,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L43)
+[src/lib/repository/query.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L43)
 
 ___
 
@@ -314,7 +314,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L28)
+[src/lib/repository/query.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L28)
 
 ___
 
@@ -332,7 +332,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L32)
+[src/lib/repository/query.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L32)
 
 ___
 
@@ -356,4 +356,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/query.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/repository/query.ts#L49)
+[src/lib/repository/query.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/repository/query.ts#L49)

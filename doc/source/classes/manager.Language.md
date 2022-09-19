@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/lib/manager/language.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/language.ts#L12)
+[src/lib/manager/language.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/language.ts#L12)
 
 ## Properties
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/lib/manager/language.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/language.ts#L7)
+[src/lib/manager/language.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/language.ts#L7)
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/language.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/language.ts#L8)
+[src/lib/manager/language.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/language.ts#L8)
 
 ___
 
@@ -68,19 +68,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/language.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/language.ts#L9)
+[src/lib/manager/language.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/language.ts#L9)
 
 ## Methods
 
 ### ddlBuilder
 
-▸ `Abstract` **ddlBuilder**(`dataSource`, `mapping`): [`LanguageDDLBuilder`](manager.LanguageDDLBuilder.md)
+▸ `Abstract` **ddlBuilder**(`source`, `mapping`): [`LanguageDDLBuilder`](manager.LanguageDDLBuilder.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dataSource` | [`DataSource`](../interfaces/model.DataSource.md) |
+| `source` | [`source`](../interfaces/model.source.md) |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
 
 #### Returns
@@ -89,19 +89,19 @@ ___
 
 #### Defined in
 
-[src/lib/manager/language.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/language.ts#L32)
+[src/lib/manager/language.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/language.ts#L32)
 
 ___
 
 ### dmlBuild
 
-▸ `Abstract` **dmlBuild**(`dataSource`, `mapping`, `sentence`): [`Query`](model.Query.md)
+▸ `Abstract` **dmlBuild**(`source`, `mapping`, `sentence`): [`Query`](model.Query.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dataSource` | [`DataSource`](../interfaces/model.DataSource.md) |
+| `source` | [`source`](../interfaces/model.source.md) |
 | `mapping` | [`MappingConfig`](manager.MappingConfig.md) |
 | `sentence` | [`Sentence`](model.Sentence.md) |
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/language.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/language.ts#L34)
+[src/lib/manager/language.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/language.ts#L34)
 
 ___
 
@@ -131,4 +131,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/language.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/7350fa3/src/lib/manager/language.ts#L24)
+[src/lib/manager/language.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/language.ts#L24)

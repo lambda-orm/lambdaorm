@@ -1,7 +1,7 @@
 const fs = require('fs')
 require('dotenv').config({ path: './test.env' })
 
-const dataSources = ['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB']
+const sources = ['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB']
 
 module.exports = function (grunt) {
 	// Load the plugins
@@ -11,10 +11,10 @@ module.exports = function (grunt) {
 		exec: {
 			db_up: { cmd: './db.sh up', options: { cwd: './src/dev/db' } },
 			db_down: { cmd: './db.sh down', options: { cwd: './src/dev/db' } },
-			clean_data: { cmd: './clean_data.sh ' + dataSources.join(','), options: { cwd: './src/dev/task' } },
+			clean_data: { cmd: './clean_data.sh ' + sources.join(','), options: { cwd: './src/dev/task' } },
 			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
 			lint: { cmd: 'npx eslint src ' },
-			unit_test: { cmd: 'npx jest --config jest-unit-config.json ' },
+			test: { cmd: 'npx jest --config jest-unit-config.json ' },
 			integration_test: { cmd: 'npx jest --config jest-integration-config.json ' },
 			tsc: { cmd: 'npx tsc ' },
 			typedoc: { cmd: 'npx typedoc ' }
@@ -52,12 +52,12 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('populate-databases', 'populate databases for test', function () {
 		const task = require('./build/dev/task/populateDatabases')
-		task.apply(dataSources, this.async())
+		task.apply(sources, this.async())
 	})
 
 	grunt.registerTask('generate-data-for-test', 'generate data for test', function () {
 		const task = require('./build/dev/task/generateDataForTest')
-		task.apply(dataSources, this.async())
+		task.apply(sources, this.async())
 	})
 
 	grunt.registerTask('build-config', 'build configuration', function () {
@@ -74,7 +74,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('generate-test', 'generate test', function () {
 		const task = require('./build/dev/task/generateTest')
 		const dataForTestPath = './src/dev/dataForTest'
-		task.apply(dataForTestPath, dataSources, this.async())
+		task.apply(dataForTestPath, sources, this.async())
 	})
 
 	grunt.registerTask('clean-test', ['exec:clean_test'])
@@ -84,7 +84,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('build-test', ['db-up', 'clean-test', 'generate-data-for-test', 'generate-test', 'db-down'])
 	grunt.registerTask('build', ['clean:build', 'build-config', 'exec:tsc', 'copy:sintaxis'])
 	grunt.registerTask('lint', ['exec:lint'])
-	grunt.registerTask('unit-test', ['exec:unit_test'])
+	grunt.registerTask('test', ['exec:test'])
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])
 	grunt.registerTask('dist', ['clean:dist', 'copy:lib', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:typedoc'])

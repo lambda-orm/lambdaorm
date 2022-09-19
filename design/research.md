@@ -2,7 +2,7 @@
 
 ## Concepts
 
-- [dataSource](https://www.talend.com/resources/data-source/)
+- [source](https://www.talend.com/resources/data-source/)
 
 ### Domain Model
 
@@ -41,8 +41,35 @@
 
 ### Posibles referentes a quienes mostrar
 
-- [martin fowler](https://martinfowler.com/aboutMe.html)
-- [martin fowler wiki](https://en.wikipedia.org/wiki/Martin_Fowler_(software_engineer))
+LambdaORM:
+
+- Martin Fowler
+	- [website](https://martinfowler.com/aboutMe.html)
+	- [wiki](https://en.wikipedia.org/wiki/Martin_Fowler_(software_engineer))
+
+JEXP:
+
+- jq
+	- [website](https://stedolan.github.io/jq/)
+	- [tutorial](https://stedolan.github.io/jq/tutorial/)
+
+- Raul Prieto Fernandez
+  - [website](https://www.raulprietofernandez.net/)
+  - Comment: Lo he contactado por su website
+	- Status: Envié mensaje
+
+- Jonathan Cook
+	- [author](https://www.baeldung.com/linux/author/jonathan-cook)
+	- [blog](https://www.baeldung.com/linux/jq-command-json)
+	- [twitter](https://twitter.com/messages)
+	- Status: Pendiente enviar mensaje
+	- Message:
+		Hello good day.
+		I have read your blog about "Guide to Linux jq Command for JSON Processing"
+		and I wanted to ask you if you could take a look at this CLI application that I have developed and it is similar.
+		https://www.npmjs.com/package/jexp
+
+		Thank you very much
 
 ## Cache
 
@@ -262,6 +289,12 @@ npm install -g gulp-cli
 
 - [The Scale Cube](https://microservices.io/articles/scalecube.html)
 
-## Language
+## Pending features
 
 - [upsert](https://sqltemuco.wordpress.com/2016/06/14/upsert-el-nuevo-comando/)
+
+### Listeners and subscribers
+
+- [TypeOrm Doc](https://orkhan.gitbook.io/typeorm/docs/listeners-and-subscribers)
+- [TypeOrm Example](https://medium.com/@Semyonic/subscribers-a-k-a-entity-listeners-of-typeorm-on-nestjs-a97ac75acc2d)
+- [TypeOrm Example](https://betterprogramming.pub/typeorm-listeners-exploring-best-practices-and-caveats-5397f4bb8c11)

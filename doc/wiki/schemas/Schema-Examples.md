@@ -13,10 +13,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
     relations:
       - name: states
         type: manyToOne
@@ -30,18 +30,18 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: countryCode
-        nullable: false
+        required: true
         length: 3
     relations:
       - name: country
         from: countryCode
         entity: Countries
         to: iso3
-dataSources:
+sources:
   - name: dataSource1
     dialect: mysql
     connection:
@@ -77,10 +77,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
     relations:
       - name: states
         type: manyToOne
@@ -95,18 +95,18 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: countryCode
-        nullable: false
+        required: true
         length: 3
     relations:
       - name: country
         from: countryCode
         entity: Countries
         to: iso3
-dataSources:
+sources:
   - name: dataSource1
     dialect: mysql
     connection:
@@ -134,10 +134,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
     relations:
       - name: states
         type: manyToOne
@@ -151,11 +151,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: countryCode
-        nullable: false
+        required: true
         length: 3
     relations:
       - name: country
@@ -182,7 +182,7 @@ mappings:
             mapping: NAME
           - name: countryCode
             mapping: COUNTRY_CODE
-dataSources:
+sources:
   - name: dataSource1
     dialect: mysql
     mapping: mapping1
@@ -203,10 +203,10 @@ dataSources:
       database: test
 stages:
   - name: stage1
-    dataSources:
+    sources:
       - name: dataSource1
   - name: stage2
-    dataSources:
+    sources:
       - name: dataSource2
 ```
 
@@ -227,10 +227,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
     relations:
       - name: states
         type: manyToOne
@@ -244,18 +244,18 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: countryCode
-        nullable: false
+        required: true
         length: 3
     relations:
       - name: country
         from: countryCode
         entity: Countries
         to: iso3
-dataSources:
+sources:
   - name: dataSource1
     dialect: mysql
     connection:
@@ -274,7 +274,7 @@ dataSources:
       database: test
 stages:
   - name: stage1
-    dataSources:
+    sources:
       - name: dataSource2
         condition: entity == "States"
       - name: dataSource1
@@ -291,8 +291,8 @@ CNN_POSTGRES={"host":"0.0.0.0","port":5433,"user":"test","password":"test","data
 
 ## One schema related multiples databases II
 
-This example poses a stage where two dataSources are accessed.
-Data source 1 is mysql and contains the Countries table and dataSource 2 is postgres contains the States table.
+This example poses a stage where two sources are accessed.
+Data source 1 is mysql and contains the Countries table and source 2 is postgres contains the States table.
 
 In the case of the Countries entity, both the name of the table and the fields coincide with the name of the entity and the name of the properties, so the mapping is transparent.
 
@@ -315,10 +315,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
       - name: region
       - name: subregion
     relations:
@@ -335,18 +335,18 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: countryCode
-        nullable: false
+        required: true
         length: 3
     relations:
       - name: country
         from: countryCode
         entity: Countries
         to: iso3
-dataSources:
+sources:
   - name: dataSource1
     dialect: mysql
     mapping: mapping1
@@ -374,7 +374,7 @@ mappings:
             mapping: LONGITUDE
 stages:
   - name: stage1
-    dataSources:
+    sources:
       - name: dataSource2
         condition: entity == "States"
       - name: dataSource1
