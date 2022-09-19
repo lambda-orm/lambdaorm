@@ -191,7 +191,7 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 	private hadDependents (entity: TEntity, sorted: string[], dependent:Dependent, parent?: string): boolean {
 		// if the relationship is not weak
 		if (!dependent.relation.weak) {
-			// look for the related property to see if the dependency is nullable
+			// look for the related property to see if the dependency is not required
 			const dependentEntity = this.getEntity(dependent.entity)
 			if (dependentEntity === undefined) {
 				throw new SchemaError('Not exists entity:' + dependent.entity)
@@ -200,12 +200,12 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 			if (dependentProperty === undefined) {
 				throw new SchemaError(`property ${dependent.relation.from} not found in ${entity.name} `)
 			}
-			const isNullable = dependentProperty.nullable !== undefined ? dependentProperty.nullable : true
-			// if the relation is nullable
+
+			// if the relation is not required
 			// and the related entity is not included in the entities sorted by dependency
 			// and the parent entity is null or is the same as the relation
 			// in this case it cannot be determined that this entity can still be included in the list of entities ordered by dependency.
-			if (!isNullable && !sorted.includes(dependent.entity) && (parent === null || parent !== dependent.entity)) {
+			if (dependentProperty.required && !sorted.includes(dependent.entity) && (parent === null || parent !== dependent.entity)) {
 				return true
 			}
 		}

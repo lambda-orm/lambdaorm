@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/model/orm.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L25)
+[src/lib/model/observer.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L25)
 
 ## Properties
 
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/lib/model/orm.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L23)
+[src/lib/model/observer.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L23)
 
 ___
 
@@ -56,22 +56,19 @@ ___
 
 #### Defined in
 
-[src/lib/model/orm.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L24)
+[src/lib/model/observer.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L24)
 
 ## Methods
 
 ### after
 
-▸ `Abstract` **after**(`query`, `data`, `options`, `result`): `void`
+▸ `Abstract` **after**(`args`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `query` | [`Query`](model.Query.md) |
-| `data` | `any` |
-| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
-| `result` | `any` |
+| `args` | [`ActionObserverArgs`](../interfaces/model.ActionObserverArgs.md) |
 
 #### Returns
 
@@ -79,21 +76,19 @@ ___
 
 #### Defined in
 
-[src/lib/model/orm.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L31)
+[src/lib/model/observer.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L31)
 
 ___
 
 ### before
 
-▸ `Abstract` **before**(`query`, `data`, `options`): `void`
+▸ `Abstract` **before**(`args`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `query` | [`Query`](model.Query.md) |
-| `data` | `any` |
-| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
+| `args` | [`ActionObserverArgs`](../interfaces/model.ActionObserverArgs.md) |
 
 #### Returns
 
@@ -101,22 +96,19 @@ ___
 
 #### Defined in
 
-[src/lib/model/orm.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L30)
+[src/lib/model/observer.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L30)
 
 ___
 
 ### error
 
-▸ `Abstract` **error**(`query`, `data`, `options`, `error`): `void`
+▸ `Abstract` **error**(`args`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `query` | [`Query`](model.Query.md) |
-| `data` | `any` |
-| `options` | [`OrmOptions`](../interfaces/model.OrmOptions.md) |
-| `error` | `any` |
+| `args` | [`ActionObserverArgs`](../interfaces/model.ActionObserverArgs.md) |
 
 #### Returns
 
@@ -124,4 +116,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/orm.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L32)
+[src/lib/model/observer.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L32)

@@ -69,16 +69,16 @@ entities:
     properties:
       - name: username
         length: 32
-        nullable: false
+        required: true
       - name: firstname
-        nullable: false
+        required: true
       - name: lastname
-        nullable: false
+        required: true
       - name: fullmane
         view: true
         readExp: concat(lastname,", ",firstname)
       - name: email
-        nullable: false
+        required: true
         length: 255
         readExp: mask(email)
         # writeValue: encrypt(lower(email),"${USERS_SECRET_KEY}")
@@ -94,10 +94,10 @@ entities:
       - name: id
         length: 32
         default: lower(substring(replace(name," ","-"),0,32))
-        nullable: false
+        required: true
       - name: name
         length: 32
-        nullable: false
+        required: true
   - name: Groups.Users
     primaryKey: ["id"]
     uniqueKey: ["groupId", "username"]
@@ -105,16 +105,16 @@ entities:
       - name: id
         default: "`${groupId}-${username}`"
         length: 64
-        nullable: false
+        required: true
       - name: username
         length: 32
-        nullable: false
+        required: true
       - name: groupId
         length: 32
-        nullable: false
+        required: true
       - name: role
         length: 32
-        nullable: false
+        required: true
         enum: Role
     relations:
       - name: group
@@ -135,18 +135,18 @@ entities:
       # type + identifier (the identifier is according to the type, in a phone it is the IMEI, in a PC the mac)
       - name: id
         length: 32
-        nullable: false
+        required: true
         default: 'concat(type,"-",switch(type){case"phone":imei;default:mac;})'
       - name: type
         length: 16
-        nullable: false
+        required: true
         enum: DeviceType
       - name: name
         length: 32
-        nullable: false
+        required: true
       - name: ownerId
         length: 32
-        nullable: false
+        required: true
       - name: so
         length: 32
       - name: imei
@@ -174,18 +174,18 @@ entities:
     properties:
       - name: id
         length: 50
-        nullable: false
+        required: true
         # the component ID must be set by the device, example deviceID + name , example 233943849384483-cam01
         default: concat(deviceId,"-",lower(substring(replace(name," ","-"),0,16)))
       - name: deviceId
         length: 32
-        nullable: false
+        required: true
       - name: name
         length: 16
-        nullable: false
+        required: true
       - name: type
         length: 16
-        nullable: false
+        required: true
         enum: ComponentType
     relations:
       - name: device
@@ -203,11 +203,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: deviceId
         length: 32
-        nullable: false
+        required: true
       - name: time
         type: datetime
     relations:
@@ -222,7 +222,7 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
     relations:
       - name: status
         type: oneToOne
@@ -235,7 +235,7 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: cpu
         type: decimal
       - name: gpu
@@ -263,22 +263,22 @@ entities:
       #  the id is the fullPath of the file, example: /deviceId/componentId/202202100922.mp3
       - name: id
         length: 255
-        nullable: false
+        required: true
       - name: type
         length: 16
-        nullable: false
+        required: true
         enum: FileType
       - name: deviceId
         length: 32
-        nullable: false
+        required: true
       - name: componentId
         length: 50
       - name: startDate
         type: datetime
-        nullable: false
+        required: true
       - name: endDate
         type: datetime
-        nullable: false
+        required: true
     relations:
       - name: device
         from: deviceId

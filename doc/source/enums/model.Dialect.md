@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/lib/model/dialect.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/dialect.ts#L3)
+[src/lib/model/dialect.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/dialect.ts#L3)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/dialect.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/dialect.ts#L8)
+[src/lib/model/dialect.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/dialect.ts#L8)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/dialect.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/dialect.ts#L2)
+[src/lib/model/dialect.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/dialect.ts#L2)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/dialect.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/dialect.ts#L7)
+[src/lib/model/dialect.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/dialect.ts#L7)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/dialect.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/dialect.ts#L4)
+[src/lib/model/dialect.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/dialect.ts#L4)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/dialect.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/dialect.ts#L6)
+[src/lib/model/dialect.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/dialect.ts#L6)
 
 ___
 
@@ -84,4 +84,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/dialect.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/dialect.ts#L5)
+[src/lib/model/dialect.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/dialect.ts#L5)

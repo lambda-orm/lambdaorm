@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/lib/model/sentenceInfo.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/sentenceInfo.ts#L4)
+[src/lib/model/sentenceInfo.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/sentenceInfo.ts#L4)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/sentenceInfo.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/sentenceInfo.ts#L3)
+[src/lib/model/sentenceInfo.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/sentenceInfo.ts#L3)

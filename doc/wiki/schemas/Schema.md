@@ -35,7 +35,7 @@ entities:
       mapping: string
       type: string | integer | decimal | boolean | datetime | date | time
       length: number 
-      nullable: boolean
+      required: boolean
       autoIncrement: boolean
       view: boolean
       key: string
@@ -163,15 +163,15 @@ entities:
     properties:
       - name: id
         length: 32
-        nullable: false
+        required: true
         default: 'concat(type,"-",switch(type){case"phone":imei;default:mac;})'
       - name: type
         length: 16
-        nullable: false
+        required: true
         enum: DeviceType
       - name: name
         length: 32
-        nullable: false  
+        required: true  
   ...       
 ```
 
@@ -213,10 +213,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
 ```
 
 #### Set Entity as view
@@ -238,9 +238,9 @@ entities:
     properties:
       - name: username
         length: 32
-        nullable: false
+        required: true
       - name: firstname
-        nullable: false
+        required: true
       - name: lastname
   ...
 ```
@@ -252,7 +252,7 @@ entities:
 | name 		 				| name of property  												| yes				|						|
 | type 		 				| type of property													| yes				|	 string		|
 | length 		 			| length of property type										| 					|		80			|
-| nullable 		 		| if the field is nullable									| 					|		true		|
+| required 		 		| if the field is required									| 					|		false		|
 | autoIncrement		| if the field is self-incrementing					| 					|		false		|
 | view 		 		    | if the field is a view										| 					|						|
 | default 		 		| expression default resolved on server	    | 					|						|
@@ -279,11 +279,11 @@ entities:
     properties:
       - name: username
         length: 32
-        nullable: false
+        required: true
       - name: firstname
-        nullable: false
+        required: true
       - name: lastname
-        nullable: false
+        required: true
       - name: fullmane
         view: true
         readExp: concat(lastname,", ",firstname)
@@ -310,10 +310,10 @@ entities:
       - name: id
         length: 32
         default: lower(substring(replace(name," ","-"),0,32))
-        nullable: false
+        required: true
       - name: name
         length: 32
-        nullable: false
+        required: true
 ```
 
 #### Read and write value in Property
@@ -335,16 +335,16 @@ entities:
     properties:
       - name: username
         length: 32
-        nullable: false
+        required: true
       - name: firstname
-        nullable: false
+        required: true
       - name: lastname
-        nullable: false
+        required: true
       - name: fullmane
         view: true
         readExp: concat(lastname,", ",firstname)
       - name: email
-        nullable: false
+        required: true
         length: 255
         writeValue: encrypt(lower(email),"${USERS_SECRET_KEY}")
         readValue: decrypt(email,"${USERS_SECRET_KEY}")
@@ -370,13 +370,13 @@ entities:
     uniqueKey: ["type","name"]    
     properties:
       - name: code
-        nullable: false
+        required: true
         length: 16
       - name: type
-        nullable: false
+        required: true
         length: 16 
       - name: name
-        nullable: false
+        required: true
   - name: Country
     extends: Locations
     properties:
@@ -450,11 +450,11 @@ Example:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: deviceId
         length: 32
-        nullable: false
+        required: true
       - name: time
         type: datetime
     relations:
@@ -485,15 +485,15 @@ entities:
     properties:
       - name: id
         length: 32
-        nullable: false
+        required: true
         default: 'concat(type,"-",switch(type){case"phone":imei;default:mac;})'
       - name: type
         length: 16
-        nullable: false
+        required: true
         enum: DeviceType
       - name: name
         length: 32
-        nullable: false
+        required: true
       ...
   - name: Devices.Components
     extends: Products
@@ -502,14 +502,14 @@ entities:
     properties:
       - name: id
         length: 50
-        nullable: false
+        required: true
         default: concat(deviceId,"-",lower(substring(replace(name," ","-"),0,16)))
       - name: deviceId
         length: 32
-        nullable: false
+        required: true
       - name: name
         length: 16
-        nullable: false
+        required: true
       ...
     relations:
       - name: device
@@ -533,7 +533,7 @@ These expressions will be executed by the expression engine [js-expressions](htt
 All constraints are validated when inserting or updating a record. \
 The ORM will create various constraints based on other definitions, for example:
 
-- When you define a property as not nullable, a constraint will be created that will validate that this property is not null.
+- When you define a property as required, a constraint will be created that will validate that this property is not null.
 - When defining that a property is of an **Enum** type, a constraint is created that validates that the value is within this enum.
 
 It is also possible to add a constraint for which the **message** and the **condition** must be defined. \
@@ -547,7 +547,7 @@ entities:
     properties:
       ...
       - name: email
-        nullable: false
+        required: true
         length: 255
         readExp: mask(email)
         writeValue: encrypt(lower(email),"${USERS_SECRET_KEY}")
@@ -559,20 +559,20 @@ entities:
     properties:
       - name: id
         length: 255
-        nullable: false
+        required: true
       - name: type
         length: 16
-        nullable: false
+        required: true
         enum: FileType
       - name: deviceId
         length: 32
-        nullable: false
+        required: true
       - name: startDate
         type: datetime
-        nullable: false
+        required: true
       - name: endDate
         type: datetime
-        nullable: false
+        required: true
     constraints:
       - message: endDate cannot be less than startDate
         condition: startDate<=endDate
@@ -912,10 +912,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
 mappings:
   - name: mapping1
     entities:
@@ -943,8 +943,8 @@ configuration using json
 			"primaryKey": [ "iso3"  ],
 			"uniqueKey": [ "name" ],
 			"properties": [
-        { "name": "iso3", "nullable": false, "type": "string", "length": 3 },
-				{ "name": "name", "nullable": false, "type": "string" }				
+        { "name": "iso3", "required": true, "type": "string", "length": 3 },
+				{ "name": "name", "required": true, "type": "string" }				
 			]
 		}
 	],

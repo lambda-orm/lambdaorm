@@ -4,13 +4,13 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: shapeId
         type: integer
-        nullable: false
+        required: true
       - name: type
-        nullable: false
+        required: true
     relations:
       - name: shape
         type: oneToOne
@@ -23,15 +23,15 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: geometryId
         type: integer
-        nullable: false
+        required: true
       - name: lat
-        nullable: false
+        required: true
       - name: long
-        nullable: false
+        required: true
       - name: alt
     relations:
       - name: geometry
@@ -44,20 +44,20 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: type
-        nullable: false
+        required: true
   - name: Shapes.Properties
     primaryKey: ["id"]
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
         autoIncrement: true
       - name: shapeId
         type: integer
-        nullable: false
+        required: true
       - name: MAPBLKLOT
       - name: BLKLOT
       - name: BLOCK_NUM

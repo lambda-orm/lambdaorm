@@ -34,12 +34,12 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
 		}
 		type = property.length ? type.replace('{0}', property.length.toString()) : type
-		const nullable = property.nullable !== undefined && property.nullable === false ? this.dialect.other('notNullable') : ''
+		const required = property.required ? this.dialect.other('notNullable') : ''
 
 		let text = property.autoIncrement ? this.dialect.ddl('incrementalColumDefine') : this.dialect.ddl('columnDefine')
 		text = text.replace('{name}', this.dialect.delimiter(property.mapping))
 		text = text.replace('{type}', type)
-		text = text.replace('{nullable}', nullable)
+		text = text.replace('{required}', required)
 		return text
 	}
 
@@ -112,12 +112,12 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
 		}
 		type = property.length ? type.replace('{0}', property.length.toString()) : type
-		const nullable = property.nullable !== undefined && property.nullable === false ? this.dialect.other('notNullable') : ''
+		const required = property.required ? this.dialect.other('notNullable') : ''
 
 		let text = property.autoIncrement ? this.dialect.ddl('incrementalColumDefine') : this.dialect.ddl('columnDefine')
 		text = text.replace('{name}', this.dialect.delimiter(propertyMapping.mapping))
 		text = text.replace('{type}', type)
-		return text.replace('{nullable}', nullable)
+		return text.replace('{required}', required)
 	}
 
 	public addPk (entity: EntityMapping, primaryKeys: string[]): Query | undefined {

@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionManager.ts#L16)
+[src/lib/manager/expressionManager.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/expressionManager.ts#L16)
 
 ## Methods
 
@@ -63,7 +63,7 @@ constraints
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:163](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionManager.ts#L163)
+[src/lib/manager/expressionManager.ts:162](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/expressionManager.ts#L162)
 
 ___
 
@@ -87,7 +87,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:198](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionManager.ts#L198)
+[src/lib/manager/expressionManager.ts:197](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/expressionManager.ts#L197)
 
 ___
 
@@ -111,7 +111,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:153](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionManager.ts#L153)
+[src/lib/manager/expressionManager.ts:152](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/expressionManager.ts#L152)
 
 ___
 
@@ -135,7 +135,7 @@ full expression
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionManager.ts#L32)
+[src/lib/manager/expressionManager.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/expressionManager.ts#L32)
 
 ___
 
@@ -159,7 +159,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:173](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionManager.ts#L173)
+[src/lib/manager/expressionManager.ts:172](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/expressionManager.ts#L172)
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:178](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionManager.ts#L178)
+[src/lib/manager/expressionManager.ts:177](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/expressionManager.ts#L177)
 
 ___
 
@@ -204,7 +204,7 @@ String expression
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionManager.ts#L125)
+[src/lib/manager/expressionManager.ts:124](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/expressionManager.ts#L124)
 
 ___
 
@@ -225,4 +225,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/expressionManager.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/expressionManager.ts#L64)
+[src/lib/manager/expressionManager.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/expressionManager.ts#L64)

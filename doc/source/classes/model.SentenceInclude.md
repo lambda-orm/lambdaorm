@@ -53,7 +53,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/model/operands.ts:212](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/operands.ts#L212)
+[src/lib/model/operands.ts:212](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L212)
 
 ## Properties
 
@@ -147,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:210](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/operands.ts#L210)
+[src/lib/model/operands.ts:210](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L210)
 
 ___
 
@@ -197,7 +197,7 @@ Operand.eval
 
 #### Defined in
 
-[src/lib/model/operands.ts:218](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/operands.ts#L218)
+[src/lib/model/operands.ts:218](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L218)
 
 ___
 

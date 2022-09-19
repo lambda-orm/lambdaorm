@@ -8,14 +8,24 @@
 
 ### Properties
 
+- [action](model.ContextInfo.md#action)
 - [ddl](model.ContextInfo.md#ddl)
 - [dml](model.ContextInfo.md#dml)
 - [entity](model.ContextInfo.md#entity)
 - [read](model.ContextInfo.md#read)
-- [sentence](model.ContextInfo.md#sentence)
 - [write](model.ContextInfo.md#write)
 
 ## Properties
+
+### action
+
+• **action**: [`ObservableAction`](../enums/model.ObservableAction.md)
+
+#### Defined in
+
+[src/lib/model/contextInfo.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/contextInfo.ts#L4)
+
+___
 
 ### ddl
 
@@ -23,7 +33,7 @@
 
 #### Defined in
 
-[src/lib/model/contextInfo.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/contextInfo.ts#L7)
+[src/lib/model/contextInfo.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/contextInfo.ts#L8)
 
 ___
 
@@ -33,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/contextInfo.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/contextInfo.ts#L6)
+[src/lib/model/contextInfo.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/contextInfo.ts#L7)
 
 ___
 
@@ -43,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/contextInfo.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/contextInfo.ts#L2)
+[src/lib/model/contextInfo.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/contextInfo.ts#L3)
 
 ___
 
@@ -53,17 +63,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/contextInfo.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/contextInfo.ts#L4)
-
-___
-
-### sentence
-
-• **sentence**: `string`
-
-#### Defined in
-
-[src/lib/model/contextInfo.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/contextInfo.ts#L3)
+[src/lib/model/contextInfo.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/contextInfo.ts#L5)
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/contextInfo.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/contextInfo.ts#L5)
+[src/lib/model/contextInfo.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/contextInfo.ts#L6)

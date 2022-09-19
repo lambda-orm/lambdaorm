@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/transaction.ts#L8)
+[src/lib/manager/transaction.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/transaction.ts#L8)
 
 ## Methods
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/transaction.ts#L13)
+[src/lib/manager/transaction.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/transaction.ts#L13)
 
 ▸ **execute**(`expression`, `data?`): `Promise`<`any`\>
 
@@ -68,7 +68,7 @@
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/transaction.ts#L14)
+[src/lib/manager/transaction.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/transaction.ts#L14)
 
 ___
 
@@ -89,4 +89,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/transaction.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/transaction.ts#L23)
+[src/lib/manager/transaction.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/transaction.ts#L23)

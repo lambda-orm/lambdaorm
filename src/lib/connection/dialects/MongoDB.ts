@@ -136,7 +136,7 @@ export class MongodbConnection extends Connection {
 			const target = list[i]
 			const children = source[include.relation.name]
 			const fromProperty = mapping.getProperty(query.entity, include.relation.from)
-			if (include.relation.type === RelationType.manyToOne || (include.relation.type === RelationType.oneToOne && !!fromProperty.nullable)) {
+			if (include.relation.type === RelationType.manyToOne || (include.relation.type === RelationType.oneToOne && !fromProperty.required)) {
 				// Assign parentID to child relation property
 				for (const _children of children) {
 					const toProperty = mapping.getProperty(include.relation.entity, include.relation.to)

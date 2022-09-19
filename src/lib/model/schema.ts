@@ -20,7 +20,7 @@ export interface Property {
 	name: string
 	type: string
 	length?: number
-	nullable?: boolean
+	required?: boolean
 	primaryKey?: boolean
 	autoIncrement?: boolean
 	view?: boolean

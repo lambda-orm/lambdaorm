@@ -18,7 +18,6 @@
 - [defaults](model.Query.md#defaults)
 - [dialect](model.Query.md#dialect)
 - [entity](model.Query.md#entity)
-- [expression](model.Query.md#expression)
 - [includes](model.Query.md#includes)
 - [parameters](model.Query.md#parameters)
 - [sentence](model.Query.md#sentence)
@@ -39,7 +38,7 @@
 
 #### Defined in
 
-[src/lib/model/query.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L30)
+[src/lib/model/query.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L29)
 
 ## Properties
 
@@ -49,7 +48,7 @@
 
 #### Defined in
 
-[src/lib/model/query.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L17)
+[src/lib/model/query.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L17)
 
 ___
 
@@ -59,7 +58,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L25)
+[src/lib/model/query.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L24)
 
 ___
 
@@ -69,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L27)
+[src/lib/model/query.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L26)
 
 ___
 
@@ -79,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L29)
+[src/lib/model/query.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L28)
 
 ___
 
@@ -89,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L22)
+[src/lib/model/query.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L21)
 
 ___
 
@@ -99,17 +98,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L24)
-
-___
-
-### expression
-
-• `Optional` **expression**: `string`
-
-#### Defined in
-
-[src/lib/model/query.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L20)
+[src/lib/model/query.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L23)
 
 ___
 
@@ -119,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L19)
+[src/lib/model/query.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L19)
 
 ___
 
@@ -129,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L26)
+[src/lib/model/query.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L25)
 
 ___
 
@@ -139,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L21)
+[src/lib/model/query.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L20)
 
 ___
 
@@ -149,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L23)
+[src/lib/model/query.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L22)
 
 ___
 
@@ -159,4 +148,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L28)
+[src/lib/model/query.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L27)

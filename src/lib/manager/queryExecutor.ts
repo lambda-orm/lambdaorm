@@ -328,7 +328,7 @@ export class QueryExecutor {
 	private async bulkInsert (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any[]> {
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
-		// before insert the relationships of the type oneToMany and oneToOne with relation not nullable\
+		// before insert the relationships of the type oneToMany and oneToOne with relation required
 		await this.bulkInsertIncludesBefore(query, data, entity, dialect)
 
 		// insert data
@@ -346,7 +346,7 @@ export class QueryExecutor {
 			}
 		}
 
-		// after insert the relationships of the type manyToOne and oneToOne with relation nullable
+		// after insert the relationships of the type manyToOne and oneToOne with relation not required
 		await this.bulkInsertIncludesAfter(query, data, mapping, dialect)
 
 		return ids
@@ -359,7 +359,7 @@ export class QueryExecutor {
 
 				if (include.relation.type === RelationType.oneToMany) {
 					await this.bulkInsertIncludeBeforeOneToMany(include, data)
-				} else if (include.relation.type === RelationType.oneToOne && relationProperty && !relationProperty.nullable) {
+				} else if (include.relation.type === RelationType.oneToOne && relationProperty && relationProperty.required) {
 					await this.bulkInsertIncludeBeforeOneToOne(include, data)
 				}
 			}
@@ -415,7 +415,7 @@ export class QueryExecutor {
 				const relationProperty = mapping.getProperty(query.entity, include.relation.from)
 				if (include.relation.type === RelationType.manyToOne) {
 					await this.bulkInsertIncludeAfterManyToOne(include, data)
-				} else if (include.relation.type === RelationType.oneToOne && !!relationProperty.nullable) {
+				} else if (include.relation.type === RelationType.oneToOne && !relationProperty.required) {
 					await this.bulkInsertIncludeAfterOneToOne(query, include, data)
 				}
 			}

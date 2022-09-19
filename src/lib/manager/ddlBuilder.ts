@@ -109,12 +109,12 @@ export class DDLBuilder {
 
 	private _dropRelation (source: source, entity:EntityMapping, relation:Relation, queries: Query[]) {
 		if (!relation.weak) {
-			// busca la propiedad relacionada para saber si es nullable la relación
+			// look for the related property to see if the relation is not required
 			const fromProperty = entity.properties.find(r => r.name === relation.from)
 			if (fromProperty === undefined) {
 				throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
 			}
-			const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
+			const isNullable = !fromProperty.required
 			if (isNullable) {
 				this.addQuery(queries, this.builder(source).setNull(entity, relation))
 			}

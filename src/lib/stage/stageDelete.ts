@@ -44,8 +44,7 @@ export class StageDelete extends StageActionDML {
 				if (fromProperty === undefined) {
 					throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
 				}
-				const isNullable = fromProperty.nullable !== undefined ? fromProperty.nullable : true
-				if (isNullable) {
+				if (!fromProperty.required) {
 					const query = this.expressionManager.toQuery(`${entity.name}.updateAll({${relation.from}:null})`, this.options)
 					queries.push(query)
 				}
