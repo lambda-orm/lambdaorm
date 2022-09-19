@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 			clean_data: { cmd: './clean_data.sh ' + sources.join(','), options: { cwd: './src/dev/task' } },
 			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
 			lint: { cmd: 'npx eslint src ' },
-			unit_test: { cmd: 'npx jest --config jest-unit-config.json ' },
+			test: { cmd: 'npx jest --config jest-unit-config.json ' },
 			integration_test: { cmd: 'npx jest --config jest-integration-config.json ' },
 			tsc: { cmd: 'npx tsc ' },
 			typedoc: { cmd: 'npx typedoc ' }
@@ -84,7 +84,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('build-test', ['db-up', 'clean-test', 'generate-data-for-test', 'generate-test', 'db-down'])
 	grunt.registerTask('build', ['clean:build', 'build-config', 'exec:tsc', 'copy:sintaxis'])
 	grunt.registerTask('lint', ['exec:lint'])
-	grunt.registerTask('unit-test', ['exec:unit_test'])
+	grunt.registerTask('test', ['exec:test'])
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])
 	grunt.registerTask('dist', ['clean:dist', 'copy:lib', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:typedoc'])

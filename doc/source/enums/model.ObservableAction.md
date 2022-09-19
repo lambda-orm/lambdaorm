@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/lib/model/orm.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L16)
+[src/lib/model/observer.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L7)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/orm.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L19)
+[src/lib/model/observer.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L10)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/orm.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L18)
+[src/lib/model/observer.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L9)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/orm.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L15)
+[src/lib/model/observer.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L6)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/orm.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L14)
+[src/lib/model/observer.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L5)
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/orm.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/orm.ts#L17)
+[src/lib/model/observer.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/observer.ts#L8)

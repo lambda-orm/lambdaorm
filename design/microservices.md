@@ -4,8 +4,8 @@
 
 -[Design](https://docs.microsoft.com/es-es/dotnet/architecture/microservices/multi-container-microservice-net-applications/microservice-application-design)
 
-- [Paterns](https://arquitecturacloud.com/patrones-de-microservicios/)
-- [info microservices](https://reactiveprogramming.io/blog/es/estilos-arquitectonicos/microservicios)
+- [Patterns](https://arquitecturacloud.com/patrones-de-microservicios/)
+- [info microservice](https://reactiveprogramming.io/blog/es/estilos-arquitectonicos/microservicios)
 
 ### Data management architecture:
 
@@ -14,7 +14,7 @@
 - [Shared database](https://microservices.io/patterns/data/shared-database.html)
 - CQRS:
 	- [Command Query Responsibility Segregation (CQRS)](https://microservices.io/patterns/data/cqrs.html)
-	- [description](https://docs.microsoft.com/es-es/azure/architecture/patterns/cqrs)
+	- [Description](https://docs.microsoft.com/es-es/azure/architecture/patterns/cqrs)
 - [API Composition](https://microservices.io/patterns/data/api-composition.html)
 - [Saga](https://microservices.io/patterns/data/saga.html)
 - [Domain event](https://microservices.io/patterns/data/domain-event.html)
@@ -37,8 +37,8 @@
 
 ### Service Mesh
 
-- [que es](https://galvarado.com.mx/post/hablando-de-microservicios-que-es-service-mesh/)
-- [desciption](https://www.paradigmadigital.com/dev/consolida-arquitectura-microservicios-service-mesh/)
+- [What is it](https://galvarado.com.mx/post/hablando-de-microservicios-que-es-service-mesh/)
+- [description](https://www.paradigmadigital.com/dev/consolida-arquitectura-microservicios-service-mesh/)
 
 ### Service Discovery
 

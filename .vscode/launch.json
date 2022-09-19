@@ -340,6 +340,16 @@
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab03/sync-test.ts",
 			"envFile": "${workspaceFolder}/src/dev/labs/lab03/.env"
+		},
+		{
+			"name": "lab placement",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/placement/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/placement/.env"
 		}
 	]
 }

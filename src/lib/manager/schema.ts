@@ -1,6 +1,6 @@
-import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent } from '../model'
+import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent, ObservableAction } from '../model'
 import path from 'path'
-import { Helper } from './helper'
+import { Helper } from './'
 import { Expressions } from 'js-expressions'
 
 const yaml = require('js-yaml')
@@ -191,7 +191,7 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 	private hadDependents (entity: TEntity, sorted: string[], dependent:Dependent, parent?: string): boolean {
 		// if the relationship is not weak
 		if (!dependent.relation.weak) {
-			// look for the related property to see if the dependency is nullable
+			// look for the related property to see if the dependency is not required
 			const dependentEntity = this.getEntity(dependent.entity)
 			if (dependentEntity === undefined) {
 				throw new SchemaError('Not exists entity:' + dependent.entity)
@@ -200,12 +200,12 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 			if (dependentProperty === undefined) {
 				throw new SchemaError(`property ${dependent.relation.from} not found in ${entity.name} `)
 			}
-			const isNullable = dependentProperty.nullable !== undefined ? dependentProperty.nullable : true
-			// if the relation is nullable
+
+			// if the relation is not required
 			// and the related entity is not included in the entities sorted by dependency
 			// and the parent entity is null or is the same as the relation
 			// in this case it cannot be determined that this entity can still be included in the list of entities ordered by dependency.
-			if (!isNullable && !sorted.includes(dependent.entity) && (parent === null || parent !== dependent.entity)) {
+			if (dependentProperty.required && !sorted.includes(dependent.entity) && (parent === null || parent !== dependent.entity)) {
 				return true
 			}
 		}
@@ -473,7 +473,6 @@ export class StageConfig {
 		return stage
 	}
 }
-
 class SchemaExtender {
 	private expressions: Expressions
 	constructor (expressions: Expressions) {
@@ -558,7 +557,7 @@ class SchemaExtender {
 		}
 		// extend mapping for model
 		for (const k in schema.mappings) {
-			this.extendObject(schema.mappings[k], { entities: schema.entities })
+			Helper.extendObject(schema.mappings[k], { entities: schema.entities })
 			schema.mappings[k] = this.clearMapping(schema.mappings[k])
 			const mapping = schema.mappings[k]
 			if (mapping && mapping.entities) {
@@ -653,6 +652,9 @@ class SchemaExtender {
 	private completeEntityProperties (entity: Entity):void {
 		if (entity.properties !== undefined) {
 			for (const property of entity.properties) {
+				if (property.required === undefined) {
+					property.required = entity.primaryKey.includes(property.name) || entity.uniqueKey.includes(property.name)
+				}
 				if (property.type === undefined) property.type = 'string'
 				if (property.type === 'string' && property.length === undefined) property.length = 80
 				if (property.length !== undefined && isNaN(property.length)) {
@@ -734,11 +736,11 @@ class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			this.extendObject(entity.properties, base.properties)
+			Helper.extendObject(entity.properties, base.properties)
 		}
 		// extend relations
 		if (base.relations.length > 0) {
-			this.extendObject(entity.relations, base.relations)
+			Helper.extendObject(entity.relations, base.relations)
 		}
 		// elimina dado que ya fue extendido
 		delete entity.extends
@@ -751,7 +753,7 @@ class SchemaExtender {
 				throw new SchemaError(`${mapping.extends} not found`)
 			}
 			this.extendMapping(base, mappings)
-			this.extendObject(mapping, base)
+			Helper.extendObject(mapping, base)
 			// elimina dado que ya fue extendido
 			delete mapping.extends
 		}
@@ -782,7 +784,7 @@ class SchemaExtender {
 			if (entity.indexes === undefined) {
 				entity.indexes = []
 			}
-			this.extendObject(entity.indexes, base.indexes)
+			Helper.extendObject(entity.indexes, base.indexes)
 		}
 	}
 
@@ -791,31 +793,31 @@ class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			this.extendObject(entity.properties, base.properties)
+			Helper.extendObject(entity.properties, base.properties)
 		}
 	}
 
-	private extendObject (obj: any, base: any) {
-		if (Array.isArray(base)) {
-			for (const baseChild of base) {
-				const objChild = obj.find((p: any) => p.name === baseChild.name)
-				if (objChild === undefined) {
-					obj.push(Helper.clone(baseChild))
-				} else {
-					this.extendObject(objChild, baseChild)
-				}
-			}
-		} else if (typeof base === 'object') {
-			for (const k in base) {
-				if (obj[k] === undefined) {
-					obj[k] = Helper.clone(base[k])
-				} else if (typeof obj[k] === 'object') {
-					this.extendObject(obj[k], base[k])
-				}
-			}
-		}
-		return obj
-	}
+	// private extendObject (obj: any, base: any) {
+	// if (Array.isArray(base)) {
+	// for (const baseChild of base) {
+	// const objChild = obj.find((p: any) => p.name === baseChild.name)
+	// if (objChild === undefined) {
+	// obj.push(Helper.clone(baseChild))
+	// } else {
+	// this.extendObject(objChild, baseChild)
+	// }
+	// }
+	// } else if (typeof base === 'object') {
+	// for (const k in base) {
+	// if (obj[k] === undefined) {
+	// obj[k] = Helper.clone(base[k])
+	// } else if (typeof obj[k] === 'object') {
+	// this.extendObject(obj[k], base[k])
+	// }
+	// }
+	// }
+	// return obj
+	// }
 
 	private completeMapping (mapping: Mapping): void {
 		for (const entity of mapping.entities) {
@@ -859,7 +861,7 @@ class SchemaExtender {
 	}
 
 	private existsInMapping (schema: Schema, mapping: string, entity: string): boolean {
-		const context: ContextInfo = { entity: entity, sentence: 'ddl', read: false, write: true, dml: false, ddl: true }
+		const context: ContextInfo = { entity: entity, action: ObservableAction.ddl, read: false, write: true, dml: false, ddl: true }
 		const dataSourcesNames = schema.sources.filter(p => p.mapping === mapping).map(p => p.name)
 		for (const stage of schema.stages) {
 			const ruleDataSources = stage.sources.filter(p => dataSourcesNames.includes(p.name))

@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/connection/dialects/PostgreSQL.ts#L10)
+[src/lib/connection/dialects/PostgreSQL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/connection/dialects/PostgreSQL.ts#L10)
 
 ## Properties
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/connection/connectionPool.ts#L6)
+[src/lib/connection/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/connection/connectionPool.ts#L6)
 
 ## Methods
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/connection/dialects/PostgreSQL.ts#L46)
+[src/lib/connection/dialects/PostgreSQL.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/connection/dialects/PostgreSQL.ts#L46)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/connection/dialects/PostgreSQL.ts#L56)
+[src/lib/connection/dialects/PostgreSQL.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/connection/dialects/PostgreSQL.ts#L56)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/connection/dialects/PostgreSQL.ts#L42)
+[src/lib/connection/dialects/PostgreSQL.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/connection/dialects/PostgreSQL.ts#L42)
 
 ___
 
@@ -137,4 +137,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/dialects/PostgreSQL.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/connection/dialects/PostgreSQL.ts#L52)
+[src/lib/connection/dialects/PostgreSQL.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/connection/dialects/PostgreSQL.ts#L52)

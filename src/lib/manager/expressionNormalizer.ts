@@ -1,5 +1,5 @@
 
-import { Helper } from './helper'
+import { Helper } from './'
 import { Entity, SchemaError, SintaxisError } from '../model'
 import { SchemaManager } from '.'
 import { Node } from 'js-expressions'

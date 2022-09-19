@@ -1,6 +1,6 @@
 import { ObservableAction, Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, source, SentenceInfo } from '../model'
 import { SchemaManager, ExpressionNormalizer, Routing, OperandManager, Languages, ViewConfig, SentenceCompleter } from '.'
-import { Helper } from './helper'
+import { Helper } from './'
 import { Expressions, Cache } from 'js-expressions'
 
 export class ExpressionManager {
@@ -71,7 +71,6 @@ export class ExpressionManager {
 			const view = this.schema.view.getInstance(_view.name)
 			this.complete(sentence, view, options.stage as string)
 			const query = this.dmlBuild(sentence, view, options.stage as string)
-			query.expression = minifyExpression
 			this.cache.set(key, JSON.stringify(query))
 			return query
 		} else {

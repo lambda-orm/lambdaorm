@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/lib/model/query.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L57)
+[src/lib/model/query.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L56)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/query.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/query.ts#L56)
+[src/lib/model/query.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/query.ts#L55)

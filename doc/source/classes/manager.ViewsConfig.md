@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:374](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L374)
+[src/lib/manager/schema.ts:373](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/schema.ts#L373)
 
 ## Properties
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:372](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L372)
+[src/lib/manager/schema.ts:371](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/schema.ts#L371)
 
 ## Methods
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[src/lib/manager/schema.ts:392](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L392)
+[src/lib/manager/schema.ts:391](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/schema.ts#L391)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:403](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L403)
+[src/lib/manager/schema.ts:402](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/schema.ts#L402)
 
 ___
 
@@ -98,4 +98,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/schema.ts:378](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/schema.ts#L378)
+[src/lib/manager/schema.ts:377](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/schema.ts#L377)

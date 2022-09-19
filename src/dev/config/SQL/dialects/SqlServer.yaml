@@ -3,7 +3,7 @@ types:
   boolean: BIT
 ddl:
   createPk: "PRIMARY KEY ({columns})"
-  incrementalColumDefine: "{name} {type} {nullable} IDENTITY (1, 1)"
+  incrementalColumDefine: "{name} {type} {required} IDENTITY (1, 1)"
   dropPk: "DROP CONSTRAINT {name}"
   dropUk: "DROP CONSTRAINT {name}"
   dropFk: "DROP CONSTRAINT {name}"

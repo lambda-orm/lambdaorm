@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[src/lib/model/metadata.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/metadata.ts#L27)
+[src/lib/model/metadata.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L27)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/metadata.ts#L24)
+[src/lib/model/metadata.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L24)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/metadata.ts#L23)
+[src/lib/model/metadata.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L23)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/metadata.ts#L26)
+[src/lib/model/metadata.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L26)
 
 ___
 
@@ -62,4 +62,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/metadata.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/metadata.ts#L25)
+[src/lib/model/metadata.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/metadata.ts#L25)

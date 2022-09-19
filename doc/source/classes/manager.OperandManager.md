@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/lib/manager/operandManager.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/operandManager.ts#L43)
+[src/lib/manager/operandManager.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/operandManager.ts#L43)
 
 ## Methods
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/lib/manager/operandManager.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/operandManager.ts#L49)
+[src/lib/manager/operandManager.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/operandManager.ts#L49)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/operandManager.ts:110](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/operandManager.ts#L110)
+[src/lib/manager/operandManager.ts:110](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/operandManager.ts#L110)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/operandManager.ts:96](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/operandManager.ts#L96)
+[src/lib/manager/operandManager.ts:96](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/operandManager.ts#L96)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/operandManager.ts:118](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/operandManager.ts#L118)
+[src/lib/manager/operandManager.ts:118](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/operandManager.ts#L118)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/operandManager.ts:267](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/operandManager.ts#L267)
+[src/lib/manager/operandManager.ts:267](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/operandManager.ts#L267)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/operandManager.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/operandManager.ts#L55)
+[src/lib/manager/operandManager.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/operandManager.ts#L55)
 
 ___
 
@@ -178,7 +178,7 @@ ___
 
 #### Defined in
 
-[src/lib/manager/operandManager.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/operandManager.ts#L73)
+[src/lib/manager/operandManager.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/operandManager.ts#L73)
 
 ___
 
@@ -198,4 +198,4 @@ ___
 
 #### Defined in
 
-[src/lib/manager/operandManager.ts:114](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/manager/operandManager.ts#L114)
+[src/lib/manager/operandManager.ts:114](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/manager/operandManager.ts#L114)

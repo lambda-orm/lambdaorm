@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[src/lib/model/operands.ts:97](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/operands.ts#L97)
+[src/lib/model/operands.ts:97](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L97)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:95](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/operands.ts#L95)
+[src/lib/model/operands.ts:95](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L95)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:94](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/operands.ts#L94)
+[src/lib/model/operands.ts:94](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L94)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:93](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/operands.ts#L93)
+[src/lib/model/operands.ts:93](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L93)
 
 ___
 
@@ -62,4 +62,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/operands.ts:96](https://github.com/FlavioLionelRita/lambdaorm/blob/15e828d/src/lib/model/operands.ts#L96)
+[src/lib/model/operands.ts:96](https://github.com/FlavioLionelRita/lambdaorm/blob/0fd718a/src/lib/model/operands.ts#L96)

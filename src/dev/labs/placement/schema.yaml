@@ -1,0 +1,70 @@
+app:
+  src: src
+  data: data
+  model: model
+entities:
+  - name: PlacementDebtors
+    primaryKey: ["id"]
+    uniqueKey: []
+    properties:
+      - name: id
+        type: integer
+      - name: placed
+        type: integer        
+      - name: place
+      - name: status
+      - name: entity   
+      - name: creation
+        type: datetime
+  - name: InsightDebtors
+    primaryKey: ["id"]
+    uniqueKey: []
+    properties:
+      - name: id
+      - name: placed
+      - name: place
+      - name: status            
+      - name: creation
+        type: datetime          
+sources:
+  - name: source
+    dialect: PostgreSQL
+    mapping: default
+    connection: ${CNN_PLACEMENT}
+  - name: insight
+    dialect: MongoDB
+    mapping: default
+    connection: ${CNN_INSIGHT}      
+mappings:
+  - name: default
+    entities:
+      - name: PlacementDebtors
+        mapping: pl_placement_view
+        filter: entity == "collector"
+        properties:
+        - name: place
+          mapping: place_name
+        - name: placed
+          mapping: placed_id
+        - name: entity
+          mapping: place_entity  
+        - name: creation
+          mapping: creation_date
+      - name: InsightDebtors
+        mapping: insight_debtor
+        properties:
+        - name: id
+          mapping: _id
+        - name: placed
+          mapping: identifier
+        - name: placed
+          mapping: placementPlaced
+        - name: creation
+          mapping: placementCreation                 
+stages:
+  - name: default
+    sources:
+      - name: source
+        condition: entity=="PlacementDebtors"
+      - name: insight
+        condition: entity=="InsightDebtors"

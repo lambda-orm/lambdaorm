@@ -13,10 +13,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
     relations:
       - name: states
         type: manyToOne
@@ -30,11 +30,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: countryCode
-        nullable: false
+        required: true
         length: 3
     relations:
       - name: country
@@ -77,10 +77,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
     relations:
       - name: states
         type: manyToOne
@@ -95,11 +95,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: countryCode
-        nullable: false
+        required: true
         length: 3
     relations:
       - name: country
@@ -134,10 +134,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
     relations:
       - name: states
         type: manyToOne
@@ -151,11 +151,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: countryCode
-        nullable: false
+        required: true
         length: 3
     relations:
       - name: country
@@ -227,10 +227,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
     relations:
       - name: states
         type: manyToOne
@@ -244,11 +244,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: countryCode
-        nullable: false
+        required: true
         length: 3
     relations:
       - name: country
@@ -315,10 +315,10 @@ entities:
     uniqueKey: ["name"]
     properties:
       - name: name
-        nullable: false
+        required: true
       - name: iso3
         length: 3
-        nullable: false
+        required: true
       - name: region
       - name: subregion
     relations:
@@ -335,11 +335,11 @@ entities:
     properties:
       - name: id
         type: integer
-        nullable: false
+        required: true
       - name: name
-        nullable: false
+        required: true
       - name: countryCode
-        nullable: false
+        required: true
         length: 3
     relations:
       - name: country

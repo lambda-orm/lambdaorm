@@ -14,10 +14,10 @@ model:
       properties:
         - name: id
           type: integer
-          nullable: false
+          required: true
           autoIncrement: true
         - name: name
-          nullable: false
+          required: true
           type: string
           length: 80
         - name: description
@@ -33,10 +33,10 @@ model:
       properties:
         - name: id
           length: 5
-          nullable: false
+          required: true
           type: string
         - name: name
-          nullable: false
+          required: true
           type: string
           length: 80
         - name: contact
@@ -76,14 +76,14 @@ model:
       properties:
         - name: id
           type: integer
-          nullable: false
+          required: true
           autoIncrement: true
         - name: lastName
-          nullable: false
+          required: true
           type: string
           length: 80
         - name: firstName
-          nullable: false
+          required: true
           type: string
           length: 80
         - name: title
@@ -130,10 +130,10 @@ model:
       properties:
         - name: id
           type: integer
-          nullable: false
+          required: true
           autoIncrement: true
         - name: name
-          nullable: false
+          required: true
           type: string
           length: 80
         - name: phone
@@ -147,10 +147,10 @@ model:
       properties:
         - name: id
           type: integer
-          nullable: false
+          required: true
           autoIncrement: true
         - name: name
-          nullable: false
+          required: true
           type: string
           length: 80
         - name: contact
@@ -186,14 +186,14 @@ model:
       properties:
         - name: id
           type: integer
-          nullable: false
+          required: true
           autoIncrement: true
         - name: name
-          nullable: false
+          required: true
           type: string
           length: 80
         - name: supplierId
-          nullable: false
+          required: true
           type: integer
         - name: categoryId
           type: integer
@@ -239,14 +239,14 @@ model:
       properties:
         - name: id
           type: integer
-          nullable: false
+          required: true
           autoIncrement: true
         - name: customerId
-          nullable: false
+          required: true
           length: 5
           type: string
         - name: employeeId
-          nullable: false
+          required: true
           type: integer
         - name: orderDate
           type: datetime
@@ -299,10 +299,10 @@ model:
         - productId
       properties:
         - name: orderId
-          nullable: false
+          required: true
           type: integer
         - name: productId
-          nullable: false
+          required: true
           type: integer
         - name: unitPrice
           type: decimal
@@ -330,11 +330,11 @@ mappings:
           - name: id
             mapping: CategoryID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: name
             mapping: CategoryName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: description
@@ -351,11 +351,11 @@ mappings:
           - name: id
             mapping: CustomerID
             length: 5
-            nullable: false
+            required: true
             type: string
           - name: name
             mapping: CompanyName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: contact
@@ -405,16 +405,16 @@ mappings:
           - name: id
             mapping: EmployeeID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: lastName
             mapping: LastName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: firstName
             mapping: FirstName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: title
@@ -475,11 +475,11 @@ mappings:
           - name: id
             mapping: ShipperID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: name
             mapping: CompanyName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: phone
@@ -496,11 +496,11 @@ mappings:
           - name: id
             mapping: SupplierID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: name
             mapping: CompanyName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: contact
@@ -545,16 +545,16 @@ mappings:
           - name: id
             mapping: ProductID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: name
             mapping: ProductName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: supplierId
             mapping: SupplierID
-            nullable: false
+            required: true
             type: integer
           - name: categoryId
             mapping: CategoryID
@@ -605,16 +605,16 @@ mappings:
           - name: id
             mapping: OrderID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: customerId
             mapping: CustomerID
-            nullable: false
+            required: true
             length: 5
             type: string
           - name: employeeId
             mapping: EmployeeID
-            nullable: false
+            required: true
             type: integer
           - name: orderDate
             mapping: OrderDate
@@ -686,11 +686,11 @@ mappings:
         properties:
           - name: orderId
             mapping: OrderID
-            nullable: false
+            required: true
             type: integer
           - name: productId
             mapping: ProductID
-            nullable: false
+            required: true
             type: integer
           - name: unitPrice
             mapping: UnitPrice
@@ -723,11 +723,11 @@ mappings:
           - name: id
             mapping: CategoryID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: name
             mapping: CategoryName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: description
@@ -744,11 +744,11 @@ mappings:
           - name: id
             mapping: CustomerID
             length: 5
-            nullable: false
+            required: true
             type: string
           - name: name
             mapping: CompanyName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: contact
@@ -798,16 +798,16 @@ mappings:
           - name: id
             mapping: EmployeeID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: lastName
             mapping: LastName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: firstName
             mapping: FirstName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: title
@@ -868,11 +868,11 @@ mappings:
           - name: id
             mapping: ShipperID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: name
             mapping: CompanyName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: phone
@@ -889,11 +889,11 @@ mappings:
           - name: id
             mapping: SupplierID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: name
             mapping: CompanyName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: contact
@@ -938,16 +938,16 @@ mappings:
           - name: id
             mapping: ProductID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: name
             mapping: ProductName
-            nullable: false
+            required: true
             type: string
             length: 80
           - name: supplierId
             mapping: SupplierID
-            nullable: false
+            required: true
             type: integer
           - name: categoryId
             mapping: CategoryID
@@ -998,16 +998,16 @@ mappings:
           - name: id
             mapping: OrderID
             type: integer
-            nullable: false
+            required: true
             autoIncrement: true
           - name: customerId
             mapping: CustomerID
-            nullable: false
+            required: true
             length: 5
             type: string
           - name: employeeId
             mapping: EmployeeID
-            nullable: false
+            required: true
             type: integer
           - name: orderDate
             mapping: OrderDate
@@ -1079,11 +1079,11 @@ mappings:
         properties:
           - name: orderId
             mapping: OrderID
-            nullable: false
+            required: true
             type: integer
           - name: productId
             mapping: ProductID
-            nullable: false
+            required: true
             type: integer
           - name: unitPrice
             mapping: UnitPrice
