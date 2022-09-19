@@ -32,7 +32,7 @@
 	},
 	"dependencies": {
 		"crypto-js": "^4.1.1",
-		"h3lp": "^0.0.4",
+		"h3lp": "^0.0.5",
 		"js-expressions": "^1.0.7",
 		"js-yaml": "^4.1.0",
 		"luxon": "^2.0.2",

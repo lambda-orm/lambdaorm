@@ -1,6 +1,5 @@
 export * from './data'
 export * from './orm'
-export * from './delta'
 export * from './parameter'
 export * from './schema'
 export * from './query'

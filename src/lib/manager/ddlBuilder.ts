@@ -1,6 +1,7 @@
 import { SchemaManager, ModelConfig, MappingConfig, Routing, Languages, Dialect } from '.'
-import { ObservableAction, Mapping, RuleDataSource, Query, Delta, Index, source, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError, ChangedValue } from '../model'
+import { ObservableAction, Mapping, RuleDataSource, Query, Index, source, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError } from '../model'
 import { Helper } from '../manager'
+import { Delta, ChangedValue } from 'h3lp'
 
 export class DDLBuilder {
 	private languages: Languages
