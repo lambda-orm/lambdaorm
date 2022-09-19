@@ -1,6 +1,6 @@
 import { ObservableAction, Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, source, SentenceInfo } from '../model'
 import { SchemaManager, ExpressionNormalizer, Routing, OperandManager, Languages, ViewConfig, SentenceCompleter } from '.'
-import { Helper } from './helper'
+import { Helper } from './'
 import { Expressions, Cache } from 'js-expressions'
 
 export class ExpressionManager {

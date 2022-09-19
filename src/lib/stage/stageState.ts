@@ -1,6 +1,5 @@
 import { SchemaModel, SchemaMapping, Query } from '../model'
-import { SchemaManager } from '../manager'
-import { Helper } from '../manager/helper'
+import { SchemaManager, Helper } from '../manager'
 const path = require('path')
 
 abstract class StageState<T> {

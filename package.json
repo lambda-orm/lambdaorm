@@ -25,13 +25,14 @@
 		"build-test": "grunt build-test",
 		"generate-data-for-test": "grunt generate-data-for-test",
 		"generate-test": "grunt generate-test",
-		"unit-test": "grunt unit-test",
+		"test": "grunt test",
 		"integration-test": "grunt integration-test",
 		"dist": "grunt dist",
 		"doc": "grunt doc"
 	},
 	"dependencies": {
 		"crypto-js": "^4.1.1",
+		"h3lp": "^0.0.4",
 		"js-expressions": "^1.0.7",
 		"js-yaml": "^4.1.0",
 		"luxon": "^2.0.2",

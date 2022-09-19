@@ -1,6 +1,6 @@
 import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent, ObservableAction } from '../model'
 import path from 'path'
-import { Helper } from './helper'
+import { Helper } from './'
 import { Expressions } from 'js-expressions'
 
 const yaml = require('js-yaml')
@@ -652,6 +652,9 @@ class SchemaExtender {
 	private completeEntityProperties (entity: Entity):void {
 		if (entity.properties !== undefined) {
 			for (const property of entity.properties) {
+				if (property.required === undefined) {
+					property.required = entity.primaryKey.includes(property.name) || entity.uniqueKey.includes(property.name)
+				}
 				if (property.type === undefined) property.type = 'string'
 				if (property.type === 'string' && property.length === undefined) property.length = 80
 				if (property.length !== undefined && isNaN(property.length)) {
