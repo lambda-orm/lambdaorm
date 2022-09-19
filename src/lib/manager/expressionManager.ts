@@ -71,7 +71,6 @@ export class ExpressionManager {
 			const view = this.schema.view.getInstance(_view.name)
 			this.complete(sentence, view, options.stage as string)
 			const query = this.dmlBuild(sentence, view, options.stage as string)
-			query.expression = minifyExpression
 			this.cache.set(key, JSON.stringify(query))
 			return query
 		} else {

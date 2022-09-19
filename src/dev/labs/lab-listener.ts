@@ -1,20 +1,20 @@
-import { orm ,ActionObserver ,ObservableAction, OrmOptions, Query } from '../../lib'
+import { orm ,ActionObserver ,ObservableAction, ActionObserverArgs } from '../../lib'
 
 class EmployeeUpdateObserver extends ActionObserver {
 	constructor() {
 		super(ObservableAction.update,'query.entity=="Employees"')
 	}
 
-	public before(query: Query, data: any, options: OrmOptions): void {
-		console.log(`before sentence: ${query.sentence}`)
+	public before(args:ActionObserverArgs): void {
+		console.log(`before expression: ${args.expression}`)
 	}
 
-	public after(query: Query, data: any, options: OrmOptions, result: any): void {
-		console.log(`after result: ${JSON.stringify(result)}`)
+	public after(args:ActionObserverArgs): void {
+		console.log(`after result: ${JSON.stringify(args.result)}`)
 	}
 
-	public error(query: Query, data: any, options: OrmOptions, error: any): void {
-		console.log(`error: ${error.message}`)
+	public error(args:ActionObserverArgs): void {
+		console.log(`error: ${args.error.message}`)
 	}	
 }
 

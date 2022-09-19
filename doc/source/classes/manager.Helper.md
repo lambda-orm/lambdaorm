@@ -12,7 +12,7 @@
 
 ### Methods
 
-- [base64ToText](manager.Helper.md#base64totext)
+- [getBase64](manager.Helper.md#getBase64)
 - [clearLambda](manager.Helper.md#clearlambda)
 - [clone](manager.Helper.md#clone)
 - [cloneOperand](manager.Helper.md#cloneoperand)
@@ -39,7 +39,7 @@
 - [sentenceToArray](manager.Helper.md#sentencetoarray)
 - [singular](manager.Helper.md#singular)
 - [solveEnvironmentVariables](manager.Helper.md#solveenvironmentvariables)
-- [textToBase64](manager.Helper.md#texttobase64)
+- [toBase64](manager.Helper.md#toBase64)
 - [transformParameter](manager.Helper.md#transformparameter)
 - [tryParse](manager.Helper.md#tryparse)
 - [tsType](manager.Helper.md#tstype)
@@ -53,9 +53,9 @@
 
 ## Methods
 
-### base64ToText
+### getBase64
 
-▸ `Static` **base64ToText**(`value`): `string`
+▸ `Static` **getBase64**(`value`): `string`
 
 #### Parameters
 
@@ -611,9 +611,9 @@ ___
 
 ___
 
-### textToBase64
+### toBase64
 
-▸ `Static` **textToBase64**(`value`): `string`
+▸ `Static` **toBase64**(`value`): `string`
 
 #### Parameters
 

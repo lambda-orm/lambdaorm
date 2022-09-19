@@ -473,7 +473,6 @@ export class StageConfig {
 		return stage
 	}
 }
-
 class SchemaExtender {
 	private expressions: Expressions
 	constructor (expressions: Expressions) {

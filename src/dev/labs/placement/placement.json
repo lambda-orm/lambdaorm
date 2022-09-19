@@ -1,0 +1,370 @@
+[
+  {
+    "id": 46,
+    "placed": 429,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-19T13:50:15.000Z"
+  },
+  {
+    "id": 45,
+    "placed": 421,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-19T06:37:35.000Z"
+  },
+  {
+    "id": 44,
+    "placed": 419,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-19T05:45:24.000Z"
+  },
+  {
+    "id": 43,
+    "placed": 413,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-19T05:25:20.000Z"
+  },
+  {
+    "id": 42,
+    "placed": 412,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-19T05:25:17.000Z"
+  },
+  {
+    "id": 41,
+    "placed": 415,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-19T05:24:47.000Z"
+  },
+  {
+    "id": 40,
+    "placed": 414,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-19T05:24:45.000Z"
+  },
+  {
+    "id": 39,
+    "placed": 416,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-19T05:24:43.000Z"
+  },
+  {
+    "id": 38,
+    "placed": 409,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T22:59:59.000Z"
+  },
+  {
+    "id": 37,
+    "placed": 407,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T19:19:07.000Z"
+  },
+  {
+    "id": 36,
+    "placed": 405,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T15:22:13.000Z"
+  },
+  {
+    "id": 35,
+    "placed": 403,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T12:35:35.000Z"
+  },
+  {
+    "id": 34,
+    "placed": 397,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T12:32:36.000Z"
+  },
+  {
+    "id": 33,
+    "placed": 396,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T12:32:34.000Z"
+  },
+  {
+    "id": 32,
+    "placed": 399,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T12:32:33.000Z"
+  },
+  {
+    "id": 31,
+    "placed": 398,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T12:32:13.000Z"
+  },
+  {
+    "id": 30,
+    "placed": 401,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T12:32:11.000Z"
+  },
+  {
+    "id": 29,
+    "placed": 389,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:42:32.000Z"
+  },
+  {
+    "id": 28,
+    "placed": 372,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:36:28.000Z"
+  },
+  {
+    "id": 27,
+    "placed": 380,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:35:33.000Z"
+  },
+  {
+    "id": 26,
+    "placed": 373,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:35:31.000Z"
+  },
+  {
+    "id": 25,
+    "placed": 375,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:35:29.000Z"
+  },
+  {
+    "id": 24,
+    "placed": 374,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:35:28.000Z"
+  },
+  {
+    "id": 23,
+    "placed": 377,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:35:26.000Z"
+  },
+  {
+    "id": 22,
+    "placed": 381,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:34:59.000Z"
+  },
+  {
+    "id": 21,
+    "placed": 383,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:34:58.000Z"
+  },
+  {
+    "id": 20,
+    "placed": 382,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:34:56.000Z"
+  },
+  {
+    "id": 19,
+    "placed": 384,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-16T07:34:54.000Z"
+  },
+  {
+    "id": 18,
+    "placed": 367,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-15T17:59:27.000Z"
+  },
+  {
+    "id": 17,
+    "placed": 239,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-15T13:28:25.000Z"
+  },
+  {
+    "id": 16,
+    "placed": 365,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-15T10:22:40.000Z"
+  },
+  {
+    "id": 15,
+    "placed": 354,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-15T05:46:34.000Z"
+  },
+  {
+    "id": 14,
+    "placed": 355,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-15T05:45:40.000Z"
+  },
+  {
+    "id": 13,
+    "placed": 357,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-15T05:45:39.000Z"
+  },
+  {
+    "id": 12,
+    "placed": 356,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-15T05:45:38.000Z"
+  },
+  {
+    "id": 11,
+    "placed": 359,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-15T05:45:36.000Z"
+  },
+  {
+    "id": 10,
+    "placed": 351,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-14T23:10:12.000Z"
+  },
+  {
+    "id": 9,
+    "placed": 305,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-14T15:29:11.000Z"
+  },
+  {
+    "id": 8,
+    "placed": 350,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-14T14:48:00.000Z"
+  },
+  {
+    "id": 7,
+    "placed": 349,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-14T14:40:02.000Z"
+  },
+  {
+    "id": 6,
+    "placed": 342,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-14T14:25:01.000Z"
+  },
+  {
+    "id": 5,
+    "placed": 343,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-14T14:24:59.000Z"
+  },
+  {
+    "id": 4,
+    "placed": 345,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-14T14:24:31.000Z"
+  },
+  {
+    "id": 3,
+    "placed": 344,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-14T14:24:29.000Z"
+  },
+  {
+    "id": 2,
+    "placed": 346,
+    "place": "agency_a",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-14T14:24:28.000Z"
+  },
+  {
+    "id": 1,
+    "placed": 301,
+    "place": "agency_b",
+    "status": "Created",
+    "entity": "collector",
+    "creation": "2022-09-14T14:24:26.000Z"
+  }
+]

@@ -4,7 +4,6 @@ import { Delta, MetadataSentence } from '../index'
 
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
-const CryptoJS = require('crypto-js')
 
 export class Helper {
 	public static sentenceToArray (sentence:MetadataSentence):string[] {
@@ -44,23 +43,6 @@ export class Helper {
 		return new obj.constructor(obj.name, children)
 	}
 
-	public static encrypt (value:string, key:string):string {
-		return CryptoJS.AES.encrypt(value, key).toString()
-	}
-
-	public static decrypt (value:string, key:string):string {
-		const bytes = CryptoJS.AES.decrypt(value, key)
-		return bytes.toString(CryptoJS.enc.Utf8)
-	}
-
-	public static textToBase64 (value:string):string {
-		return CryptoJS.enc.Base64.parse(value)
-	}
-
-	public static base64ToText (value:string):string {
-		return CryptoJS.enc.Base64.stringify(value)
-	}
-
 	public static isObject (obj:any):boolean {
 		return obj && typeof obj === 'object' && obj.constructor === Object
 	}
@@ -73,7 +55,19 @@ export class Helper {
 		return !this.isEmpty(value) ? value : _default
 	}
 
-	public static async existsPath (fullPath:string):Promise<boolean> {
+	public static resolvePath (source:string):string {
+		const _source = source.trim()
+		if (_source.startsWith('.')) {
+			return path.join(process.cwd(), source)
+		}
+		if (_source.startsWith('~')) {
+			return _source.replace('~', process.env.HOME as string)
+		}
+		return source
+	}
+
+	public static async existsPath (_path:string):Promise<boolean> {
+		const fullPath = Helper.resolvePath(_path)
 		return new Promise<boolean>((resolve) => {
 			fs.access(fullPath, (err) => {
 				if (err) {
@@ -85,7 +79,8 @@ export class Helper {
 		})
 	}
 
-	public static async createIfNotExists (fullPath:string):Promise<void> {
+	public static async createIfNotExists (_path:string):Promise<void> {
+		const fullPath = Helper.resolvePath(_path)
 		if (await Helper.existsPath(fullPath)) { return }
 		return new Promise<void>((resolve, reject) => {
 			fs.mkdir(fullPath, { recursive: true }, err => err ? reject(err) : resolve())
@@ -93,13 +88,15 @@ export class Helper {
 	}
 
 	public static async readFile (filePath: string): Promise<string|null> {
-		if (!await Helper.existsPath(filePath)) { return null }
+		const fullPath = Helper.resolvePath(filePath)
+		if (!await Helper.existsPath(fullPath)) { return null }
 		return new Promise<string>((resolve, reject) => {
-			fs.readFile(filePath, (err, data) => err ? reject(err) : resolve(data.toString('utf8')))
+			fs.readFile(fullPath, (err, data) => err ? reject(err) : resolve(data.toString('utf8')))
 		})
 	}
 
-	public static async removeFile (fullPath:string):Promise<void> {
+	public static async removeFile (filePath:string):Promise<void> {
+		const fullPath = Helper.resolvePath(filePath)
 		if (!await Helper.existsPath(fullPath)) { return }
 		return new Promise<void>((resolve, reject) => {
 			fs.unlink(fullPath, err => err ? reject(err) : resolve())
@@ -107,31 +104,36 @@ export class Helper {
 	}
 
 	public static async copyFile (src: string, dest:string): Promise<void> {
-		if (!await Helper.existsPath(src)) {
+		const srcFullPath = Helper.resolvePath(src)
+		const destFullPath = Helper.resolvePath(dest)
+		if (!await Helper.existsPath(srcFullPath)) {
 			throw new Error(`not exists ${src}`)
 		}
 		return new Promise<void>((resolve, reject) => {
-			fs.copyFile(src, dest, err => err ? reject(err) : resolve())
+			fs.copyFile(srcFullPath, destFullPath, err => err ? reject(err) : resolve())
 		})
 	}
 
 	public static async writeFile (filePath: string, content: string): Promise<void> {
-		const dir = path.dirname(filePath)
+		const fullPath = Helper.resolvePath(filePath)
+		const dir = path.dirname(fullPath)
 		if (!await Helper.existsPath(dir)) {
 			await Helper.mkdir(dir)
 		}
 		return new Promise<void>((resolve, reject) => {
-			fs.writeFile(filePath, content, { encoding: 'utf8' }, err => err ? reject(err) : resolve())
+			fs.writeFile(fullPath, content, { encoding: 'utf8' }, err => err ? reject(err) : resolve())
 		})
 	}
 
-	public static async mkdir (fullPath:string):Promise<void> {
+	public static async mkdir (_path:string):Promise<void> {
+		const fullPath = Helper.resolvePath(_path)
 		return new Promise<void>((resolve, reject) => {
 			fs.mkdir(fullPath, { recursive: true }, err => err ? reject(err) : resolve())
 		})
 	}
 
-	public static async lstat (fullPath:string):Promise<fs.Stats> {
+	public static async lstat (_path:string):Promise<fs.Stats> {
+		const fullPath = Helper.resolvePath(_path)
 		return new Promise<fs.Stats>((resolve, reject) => {
 			fs.lstat(fullPath, (err, stats) => err
 				? reject(err)

@@ -251,18 +251,16 @@ export class Orm implements IOrm {
 	public async execute(expression: Function, data?: any, options?: OrmOptions):Promise<any>;
 	public async execute(expression: string, data?: any, options?: OrmOptions):Promise<any>;
 	public async execute (expression: string|Function, data: any = {}, options: OrmOptions|undefined = undefined): Promise<any> {
-		if (typeof expression !== 'string') {
-			expression = this.expressionManager.toExpression(expression)
-		}
+		const _expression = typeof expression !== 'string' ? this.expressionManager.toExpression(expression) : expression
 		const _options = this.schemaManager.solveOptions(options)
-		const query = this.expressionManager.toQuery(expression, _options)
+		const query = this.expressionManager.toQuery(_expression, _options)
 		try {
-			this.beforeExecutionNotify(query, data, _options)
+			this.beforeExecutionNotify(_expression, query, data, _options)
 			const result = await this.executor.execute(query, data, _options)
-			this.afterExecutionNotify(query, data, _options, result)
+			this.afterExecutionNotify(_expression, query, data, _options, result)
 			return result
 		} catch (error) {
-			this.errorExecutionNotify(query, data, _options, error)
+			this.errorExecutionNotify(_expression, query, data, _options, error)
 			throw error
 		}
 	}
@@ -298,52 +296,55 @@ export class Orm implements IOrm {
 		observers.splice(index, 1)
 	}
 
-	private beforeExecutionNotify (query: Query, data: any, options: OrmOptions) {
+	private beforeExecutionNotify (expression:string, query: Query, data: any, options: OrmOptions) {
 		const observers = this.observers[query.action]
 		if (!observers) {
 			return
 		}
+		const args = { expression: expression, query: query, data: data, options: options }
 		observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
-				observer.before(query, data, options)
+				observer.before(args)
 			} else {
 				const context = { query: query, options: options }
 				if (this.expressions.eval(observer.condition, context)) {
-					observer.before(query, data, options)
+					observer.before(args)
 				}
 			}
 		})
 	}
 
-	private afterExecutionNotify (query: Query, data: any, options: OrmOptions, result:any) {
+	private afterExecutionNotify (expression:string, query: Query, data: any, options: OrmOptions, result:any) {
 		const observers = this.observers[query.action]
 		if (!observers) {
 			return
 		}
+		const args = { expression: expression, query: query, data: data, options: options, result: result }
 		observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
-				observer.after(query, data, options, result)
+				observer.after(args)
 			} else {
 				const context = { query: query, options: options }
 				if (this.expressions.eval(observer.condition, context)) {
-					observer.after(query, data, options, result)
+					observer.after(args)
 				}
 			}
 		})
 	}
 
-	private errorExecutionNotify (query: Query, data: any, options: OrmOptions, error:any) {
+	private errorExecutionNotify (expression:string, query: Query, data: any, options: OrmOptions, error:any) {
 		const observers = this.observers[query.action]
 		if (!observers) {
 			return
 		}
+		const args = { expression: expression, query: query, data: data, options: options, error: error }
 		observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
-				observer.error(query, data, options, error)
+				observer.error(args)
 			} else {
 				const context = { query: query, options: options }
 				if (this.expressions.eval(observer.condition, context)) {
-					observer.error(query, data, options, error)
+					observer.error(args)
 				}
 			}
 		})
