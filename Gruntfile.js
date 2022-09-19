@@ -17,7 +17,9 @@ module.exports = function (grunt) {
 			test: { cmd: 'npx jest --config jest-unit-config.json ' },
 			integration_test: { cmd: 'npx jest --config jest-integration-config.json ' },
 			tsc: { cmd: 'npx tsc ' },
-			typedoc: { cmd: 'npx typedoc ' }
+			release: { cmd: './release.sh' },
+			to_develop: { cmd: './to_develop.sh' },
+			doc: { cmd: 'npx typedoc ' }
 		},
 		clean: {
 			build: ['build'],
@@ -82,11 +84,14 @@ module.exports = function (grunt) {
 	grunt.registerTask('db-down', ['exec:db_down', 'clean-data'])
 	grunt.registerTask('db-up', ['db-down', 'exec:db_up', 'populate-source', 'populate-databases'])
 	grunt.registerTask('build-test', ['db-up', 'clean-test', 'generate-data-for-test', 'generate-test', 'db-down'])
-	grunt.registerTask('build', ['clean:build', 'build-config', 'exec:tsc', 'copy:sintaxis'])
 	grunt.registerTask('lint', ['exec:lint'])
+	grunt.registerTask('build', ['lint', 'clean:build', 'build-config', 'exec:tsc', 'copy:sintaxis'])
 	grunt.registerTask('test', ['exec:test'])
+	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])
-	grunt.registerTask('dist', ['clean:dist', 'copy:lib', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
-	grunt.registerTask('doc', ['build-wiki', 'exec:typedoc'])
+	grunt.registerTask('dist', ['build', 'test', 'clean:dist', 'copy:lib', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('release', ['dist', 'exec:release'])
+	grunt.registerTask('to_develop', ['build', 'exec:to_develop'])
+
 	grunt.registerTask('default', [])
 }

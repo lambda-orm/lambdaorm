@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.2.8-beta",
+	"version": "0.2.9-beta",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -28,6 +28,8 @@
 		"test": "grunt test",
 		"integration-test": "grunt integration-test",
 		"dist": "grunt dist",
+		"to_develop": "grunt to_develop",
+		"release": "grunt release",
 		"doc": "grunt doc"
 	},
 	"dependencies": {
