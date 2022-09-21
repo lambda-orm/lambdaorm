@@ -719,20 +719,20 @@ test:
       - stage: MongoDB
         error: not equal MySQL
         result:
-          - category: 1
-            largestPrice: 263.5
-          - category: 5
-            largestPrice: 38
-          - category: 8
-            largestPrice: 62.5
-          - category: 7
-            largestPrice: 53
-          - category: 2
-            largestPrice: 43.9
           - category: 6
             largestPrice: 123.79
+          - category: 7
+            largestPrice: 53
+          - category: 8
+            largestPrice: 62.5
+          - category: 5
+            largestPrice: 38
           - category: 4
             largestPrice: 55
+          - category: 1
+            largestPrice: 263.5
+          - category: 2
+            largestPrice: 43.9
           - category: 3
             largestPrice: 81
     result:
@@ -958,22 +958,22 @@ test:
       - stage: MongoDB
         error: not equal MySQL
         result:
-          - category: Produce
-            largestPrice: 53
-          - category: Confections
-            largestPrice: 81
           - category: Condiments
             largestPrice: 43.9
+          - category: Meat/Poultry
+            largestPrice: 123.79
+          - category: Beverages
+            largestPrice: 263.5
+          - category: Grains/Cereals
+            largestPrice: 38
+          - category: Confections
+            largestPrice: 81
           - category: Seafood
             largestPrice: 62.5
           - category: Dairy Products
             largestPrice: 55
-          - category: Beverages
-            largestPrice: 263.5
-          - category: Meat/Poultry
-            largestPrice: 123.79
-          - category: Grains/Cereals
-            largestPrice: 38
+          - category: Produce
+            largestPrice: 53
     result:
       - category: Beverages
         largestPrice: 263.5

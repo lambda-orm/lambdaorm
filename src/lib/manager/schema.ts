@@ -522,6 +522,9 @@ class SchemaExtender {
 		if (entity.primaryKey === undefined) {
 			entity.primaryKey = []
 		}
+		if (entity.required === undefined) {
+			entity.required = []
+		}
 		if (entity.indexes === undefined) {
 			entity.indexes = []
 		}
@@ -557,7 +560,7 @@ class SchemaExtender {
 		}
 		// extend mapping for model
 		for (const k in schema.mappings) {
-			Helper.extendObject(schema.mappings[k], { entities: schema.entities })
+			Helper.extends(schema.mappings[k], { entities: schema.entities })
 			schema.mappings[k] = this.clearMapping(schema.mappings[k])
 			const mapping = schema.mappings[k]
 			if (mapping && mapping.entities) {
@@ -652,8 +655,10 @@ class SchemaExtender {
 	private completeEntityProperties (entity: Entity):void {
 		if (entity.properties !== undefined) {
 			for (const property of entity.properties) {
-				if (property.required === undefined) {
-					property.required = entity.primaryKey.includes(property.name) || entity.uniqueKey.includes(property.name)
+				if (property.autoIncrement) {
+					property.required = false
+				} else if (property.required === undefined) {
+					property.required = (entity.required.includes(property.name) || entity.primaryKey.includes(property.name) || entity.uniqueKey.includes(property.name))
 				}
 				if (property.type === undefined) property.type = 'string'
 				if (property.type === 'string' && property.length === undefined) property.length = 80
@@ -736,11 +741,11 @@ class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			Helper.extendObject(entity.properties, base.properties)
+			Helper.extends(entity.properties, base.properties)
 		}
 		// extend relations
 		if (base.relations.length > 0) {
-			Helper.extendObject(entity.relations, base.relations)
+			Helper.extends(entity.relations, base.relations)
 		}
 		// elimina dado que ya fue extendido
 		delete entity.extends
@@ -753,7 +758,7 @@ class SchemaExtender {
 				throw new SchemaError(`${mapping.extends} not found`)
 			}
 			this.extendMapping(base, mappings)
-			Helper.extendObject(mapping, base)
+			Helper.extends(mapping, base)
 			// elimina dado que ya fue extendido
 			delete mapping.extends
 		}
@@ -784,7 +789,7 @@ class SchemaExtender {
 			if (entity.indexes === undefined) {
 				entity.indexes = []
 			}
-			Helper.extendObject(entity.indexes, base.indexes)
+			Helper.extends(entity.indexes, base.indexes)
 		}
 	}
 
@@ -793,18 +798,18 @@ class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			Helper.extendObject(entity.properties, base.properties)
+			Helper.extends(entity.properties, base.properties)
 		}
 	}
 
-	// private extendObject (obj: any, base: any) {
+	// private extends (obj: any, base: any) {
 	// if (Array.isArray(base)) {
 	// for (const baseChild of base) {
 	// const objChild = obj.find((p: any) => p.name === baseChild.name)
 	// if (objChild === undefined) {
 	// obj.push(Helper.clone(baseChild))
 	// } else {
-	// this.extendObject(objChild, baseChild)
+	// this.extends(objChild, baseChild)
 	// }
 	// }
 	// } else if (typeof base === 'object') {
@@ -812,7 +817,7 @@ class SchemaExtender {
 	// if (obj[k] === undefined) {
 	// obj[k] = Helper.clone(base[k])
 	// } else if (typeof obj[k] === 'object') {
-	// this.extendObject(obj[k], base[k])
+	// this.extends(obj[k], base[k])
 	// }
 	// }
 	// }

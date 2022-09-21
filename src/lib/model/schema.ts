@@ -56,9 +56,10 @@ export interface Entity {
 	abstract?: boolean
 	singular?: string
 	view?: boolean
-	uniqueKey: string[]
-	indexes: Index[]
 	primaryKey: string[]
+	uniqueKey: string[]
+	required: string[]
+	indexes: Index[]
 	properties: Property[]
 	relations: Relation[]
 	dependents: Dependent[]

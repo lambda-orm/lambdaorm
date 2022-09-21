@@ -1,10 +1,10 @@
 
-import { Helper } from 'h3lp'
+import { H3lp } from 'h3lp'
 import { MetadataSentence } from '../index'
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
 
-export class OrmHelper extends Helper {
+export class OrmHelper extends H3lp {
 	public sentenceToArray (sentence:MetadataSentence):string[] {
 		const sentences:string[] = []
 		sentences.push(sentence.sentence)
