@@ -227,7 +227,7 @@ export class SqlServerConnection extends Connection {
 	protected solveArrayParameters (query: Query, data: Data, sentence: string): string {
 		let _sentence = sentence
 		for (const parameter of query.parameters) {
-			if (parameter.type === 'array') {
+			if (parameter.type === 'array' || (parameter.type === 'any' && Array.isArray(parameter.value))) {
 				let list:any
 				const value = data.get(parameter.name)
 				if (value.length > 0) {
@@ -237,7 +237,7 @@ export class SqlServerConnection extends Connection {
 						for (const item of value) {
 							let _item = item
 							_item = Helper.escape(_item)
-							_item = Helper.replace(_item, '\\\'', '\\\'\'')
+							_item = Helper.string.replace(_item, '\\\'', '\\\'\'')
 							values.push(_item)
 						}
 						list = values.join(',')
@@ -247,7 +247,7 @@ export class SqlServerConnection extends Connection {
 				} else {
 					list = ''
 				}
-				_sentence = Helper.replace(_sentence, '@' + parameter.name, list)
+				_sentence = Helper.string.replace(_sentence, '@' + parameter.name, list)
 			}
 		}
 		return _sentence
@@ -294,12 +294,12 @@ export class SqlServerConnection extends Connection {
 				value = value ? 1 : 0; break
 			case 'string':
 				if (value.includes('\'')) {
-					value = `'${Helper.replace(value, '\'', '\'\'')}'`
+					value = `'${Helper.string.replace(value, '\'', '\'\'')}'`
 				} else {
 					value = `'${value}'`
 				}
 				// value = Helper.escape(value)
-				// value = Helper.replace(value, '\\\'', '\\\'\'')
+				// value = Helper.string.replace(value, '\\\'', '\\\'\'')
 				break
 			case 'datetime':
 				value = Helper.escape(this.writeDateTime(value, mapping, dialect))

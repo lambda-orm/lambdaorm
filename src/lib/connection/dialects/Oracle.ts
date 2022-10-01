@@ -33,7 +33,7 @@ export class OracleConnectionPool extends ConnectionPool {
 					libPath = process.env.HOME + '/Downloads/instantclient_21_3'
 				}
 			}
-			if (libPath && await Helper.existsPath(libPath)) {
+			if (libPath && await Helper.fs.exists(libPath)) {
 				OracleConnectionPool.lib.initOracleClient({ libDir: libPath })
 			}
 		}
@@ -223,16 +223,16 @@ export class OracleConnection extends Connection {
 					for (const _item of param.value) {
 						let item = _item
 						item = Helper.escape(item)
-						item = Helper.replace(item, '\\\'', '\\\'\'')
+						item = Helper.string.replace(item, '\\\'', '\\\'\'')
 						list.push(item)
 					}
-					sql = Helper.replace(sql, `:${param.name}`, list.join(','))
+					sql = Helper.string.replace(sql, `:${param.name}`, list.join(','))
 				} else {
-					sql = Helper.replace(sql, `:${param.name}`, param.value.join(','))
+					sql = Helper.string.replace(sql, `:${param.name}`, param.value.join(','))
 				}
 			} else {
 				// if empty array
-				sql = Helper.replace(sql, `:${param.name}`, '')
+				sql = Helper.string.replace(sql, `:${param.name}`, '')
 			}
 		}
 		return { sql: sql, values: values }

@@ -11,9 +11,9 @@ abstract class StageState<T> {
 
 	public async get (name:string):Promise<T> {
 		const file = this.getFile(name)
-		const exists = await Helper.existsPath(file)
+		const exists = await Helper.fs.exists(file)
 		if (exists) {
-			const content = await Helper.readFile(file)
+			const content = await Helper.fs.read(file)
 			if (content) {
 				return JSON.parse(content)
 			}
@@ -23,12 +23,12 @@ abstract class StageState<T> {
 
 	public async update (name:string, data:T):Promise<void> {
 		const file = this.getFile(name)
-		await Helper.writeFile(file, JSON.stringify(data))
+		await Helper.fs.write(file, JSON.stringify(data))
 	}
 
 	public async remove (name:string):Promise<any> {
 		const file = this.getFile(name)
-		await Helper.removeFile(file)
+		await Helper.fs.remove(file)
 	}
 
 	protected abstract empty():T
@@ -70,15 +70,15 @@ export class StageModel extends StageState<SchemaModel> {
 			const source = sources[i]
 			const logFile = this.ddlFile(stage, action, source.name)
 			const data = source.queries.map((p: Query) => p.sentence).join(';\n') + ';'
-			await Helper.writeFile(logFile, data)
+			await Helper.fs.write(logFile, data)
 		}
 	}
 
 	private ddlFile (stage: string, action:string, source:string) {
 		let date = new Date().toISOString()
-		date = Helper.replace(date, ':', '')
-		date = Helper.replace(date, '.', '')
-		date = Helper.replace(date, '-', '')
+		date = Helper.string.replace(date, ':', '')
+		date = Helper.string.replace(date, '.', '')
+		date = Helper.string.replace(date, '-', '')
 		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-ddl-${date}-${action}-${source}.txt`)
 	}
 }

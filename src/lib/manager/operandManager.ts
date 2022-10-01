@@ -311,7 +311,7 @@ export class OperandManager {
 		if (allConstants) {
 			const value = this.eval(operand, new Data({}))
 			const constant = new Constant2(value)
-			constant.parent = operand.parent
+			// constant.parent = operand.parent
 			constant.index = operand.index
 			return constant
 		} else {
@@ -327,12 +327,12 @@ export class OperandManager {
 		try {
 			if (parent) {
 				operand.id = parent.id + '.' + index
-				operand.parent = parent
+				// operand.parent = parent
 				operand.index = index
 				operand.level = parent.level ? parent.level + 1 : 0
 			} else {
 				operand.id = '0'
-				operand.parent = undefined
+				// operand.parent = undefined
 				operand.index = 0
 				operand.level = 0
 			}
@@ -363,7 +363,7 @@ export class OperandManager {
 			operand = this.createOperand(node, children, expressionContext)
 			for (let i = 0; i < children.length; i++) {
 				const child = children[i]
-				child.parent = operand
+				// child.parent = operand
 				child.index = i
 			}
 		}
@@ -1018,7 +1018,10 @@ export class OperandManager {
 	 * @returns type of operand
 	 */
 	private solveTypes (operand: Operand, expressionContext: ExpressionContext): string {
-		if (operand instanceof Constant2 || operand instanceof Field || operand instanceof Variable) {
+		if (operand instanceof Constant2 || operand instanceof Field) {
+			return operand.type
+		}
+		if (operand instanceof Variable) {
 			return operand.type
 		}
 		this.solveTypeFromMetadata(operand, expressionContext)

@@ -12,7 +12,7 @@ async function execute () {
 		await orm.stage.sync({stage:stage}).execute()
 		let sync = new Date().getTime()
 		console.log(`sync: ${sync - clean}`)
-		const content = await Helper.readFile(`${sourcePath}/shapes.json`) as string
+		const content = await Helper.fs.read(`${sourcePath}/shapes.json`) as string
 		const data = JSON.parse(content)
 		const readFile = new Date().getTime()
 		console.log(`readFile: ${readFile - sync}`)

@@ -142,7 +142,7 @@ export class MySqlConnection extends Connection {
 		// see how this case can be resolved to always use execute.
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		for (const param of params) {
-			if (param.type === 'array') {
+			if (param.type === 'array' || (param.type === 'any' && Array.isArray(param.value))) {
 				useExecute = false
 				break
 			}

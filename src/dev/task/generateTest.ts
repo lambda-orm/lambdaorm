@@ -73,7 +73,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 
 	const content = lines.join('\n')
 	const testFolder = 'src/test/__tests__'
-	if (!await Helper.existsPath(testFolder)) {
+	if (!await Helper.fs.exists(testFolder)) {
 		fs.mkdirSync(testFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)
@@ -107,7 +107,7 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 
 	const content = lines.join('\n')
 	const testFolder = 'src/test/__integration__'
-	if (!await Helper.existsPath(testFolder)) {
+	if (!await Helper.fs.exists(testFolder)) {
 		fs.mkdirSync(testFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)

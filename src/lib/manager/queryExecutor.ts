@@ -616,7 +616,7 @@ export class QueryExecutor {
 				// since the expression contains the name of the property and not the alias
 				// the property must be added with the alias value.
 				for (const item of data) {
-					const context = Helper.clone(item)
+					const context = Helper.obj.clone(item)
 					context[valueBehavior.property] = item[valueBehavior.alias]
 					item[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
 				}

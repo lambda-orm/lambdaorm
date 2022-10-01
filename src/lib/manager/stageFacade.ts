@@ -47,7 +47,7 @@ export class StageFacade {
 
 	public async exists (name:string) {
 		const file = this.stageModel.getFile(name)
-		return Helper.existsPath(file)
+		return Helper.fs.exists(file)
 	}
 
 	public sync (options?:OrmOptions):StageSync {

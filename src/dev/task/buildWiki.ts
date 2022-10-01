@@ -31,7 +31,7 @@ async function writeFunctions (category:string, list: any): Promise<void> {
 
 	const content = lines.join('\n')
 	const targetFolder = 'doc/wiki'
-	if (!await Helper.existsPath(targetFolder)) {
+	if (!await Helper.fs.exists(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(targetFolder, 'function_' + category.replace(' ', '_') + '.md'), content)
@@ -65,7 +65,7 @@ async function writeOperators (category:string, list: any): Promise<void> {
 
 	const content = lines.join('\n')
 	const targetFolder = 'doc/wiki'
-	if (!await Helper.existsPath(targetFolder)) {
+	if (!await Helper.fs.exists(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(targetFolder, 'operator_' + category.replace(' ', '_') + '.md'), content)

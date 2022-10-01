@@ -151,7 +151,7 @@ export abstract class DmlBuilder {
 			throw new SchemaError(`not found mapping for ${from.name}`)
 		}
 		template = template.replace('{name}', this.dialect.delimiter(entityMapping))
-		template = Helper.replace(template, '{alias}', from.alias)
+		template = Helper.string.replace(template, '{alias}', from.alias)
 		return template.trim()
 	}
 
@@ -220,16 +220,16 @@ export abstract class DmlBuilder {
 				assigns.push(assign)
 			}
 		}
-		template = Helper.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
-		template = Helper.replace(template, '{alias}', operand.alias)
+		template = Helper.string.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
+		template = Helper.string.replace(template, '{alias}', operand.alias)
 		template = template.replace('{assigns}', assigns.join(','))
 		return template.trim() + ' '
 	}
 
 	protected buildDelete (operand: Delete, entity: EntityMapping): string {
 		let template = this.dialect.dml('delete')
-		template = Helper.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
-		template = Helper.replace(template, '{alias}', operand.alias)
+		template = Helper.string.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
+		template = Helper.string.replace(template, '{alias}', operand.alias)
 		return template.trim() + ' '
 	}
 
@@ -247,7 +247,7 @@ export abstract class DmlBuilder {
 		if (page < 1) page = 1
 		template = template.replace('{sentence}', sentence)
 		template = template.replace('{offset}', ((page - 1) * records).toString())
-		template = Helper.replace(template, '{records}', records.toString())
+		template = Helper.string.replace(template, '{records}', records.toString())
 		return template.trim() + ' '
 	}
 
@@ -283,7 +283,7 @@ export abstract class DmlBuilder {
 		let template = this.dialect.dml(operand.name)
 		for (let i = 0; i < operand.children.length; i++) {
 			const text = this.buildOperand(operand.children[i])
-			template = Helper.replace(template, '{' + i + '}', text)
+			template = Helper.string.replace(template, '{' + i + '}', text)
 		}
 		return template.trim()
 	}
@@ -296,13 +296,13 @@ export abstract class DmlBuilder {
 			const template = funcData.template
 			text = this.buildOperand(operand.children[0])
 			for (let i = 1; i < operand.children.length; i++) {
-				text = Helper.replace(template, '{accumulated}', text)
-				text = Helper.replace(text, '{value}', this.buildOperand(operand.children[i]))
+				text = Helper.string.replace(template, '{accumulated}', text)
+				text = Helper.string.replace(text, '{value}', this.buildOperand(operand.children[i]))
 			}
 		} else {
 			text = funcData.template
 			for (let i = 0; i < operand.children.length; i++) {
-				text = Helper.replace(text, '{' + i + '}', this.buildOperand(operand.children[i]))
+				text = Helper.string.replace(text, '{' + i + '}', this.buildOperand(operand.children[i]))
 			}
 		}
 		return text

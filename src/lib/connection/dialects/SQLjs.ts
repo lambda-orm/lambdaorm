@@ -16,7 +16,7 @@ export class SQLjsConnectionPool extends ConnectionPool {
 	public async init (): Promise<void> {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const me = this
-		const fileBuffer = await Helper.readFile(me.config.connection)
+		const fileBuffer = await Helper.fs.read(me.config.connection)
 		this.db = await new Promise<void>((resolve, reject) => {
 			SQLjsConnectionPool.lib.then(function (SQL: any) {
 				// Load the db
@@ -41,7 +41,7 @@ export class SQLjsConnectionPool extends ConnectionPool {
 
 	public async end (): Promise<void> {
 		const data = this.db.export()
-		await Helper.writeFile(this.config.connection, data)
+		await Helper.fs.write(this.config.connection, data)
 	}
 }
 

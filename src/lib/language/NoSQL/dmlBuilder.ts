@@ -96,7 +96,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			throw new SchemaError(`relation ${relationName} not found in ${parentEntityName}`)
 		}
 		let newRoot = `$${mappings.join('.')}`
-		newRoot = Helper.replace(newRoot, '"', '\\"')
+		newRoot = Helper.string.replace(newRoot, '"', '\\"')
 		let text = ''
 		if (relation.type === RelationType.manyToOne) {
 			text = this.dialect.dml('unwind').replace('{0}', newRoot)
@@ -175,7 +175,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		text = text.replace('{1}', groupColumnsText)
 		text = text + ', ' + templateProject.replace('{0}', projectColumns)
 		// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
-		return Helper.replace(text, '"$this.', '"$$this.')
+		return Helper.string.replace(text, '"$this.', '"$$this.')
 	}
 
 	protected getMap (map:Map, sentence: Sentence): any {
@@ -192,7 +192,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			const template = this.hadGroupFunction(map) ? this.dialect.dml('mapGroup') : this.dialect.dml('rootMap')
 			const result = template.replace('{0}', mapText)
 			// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
-			return Helper.replace(result, '"$this.', '"$$this.')
+			return Helper.string.replace(result, '"$this.', '"$$this.')
 			// Example:
 			// {
 			// 	$project: {

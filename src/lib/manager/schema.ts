@@ -482,7 +482,7 @@ class SchemaExtender {
 	public extend (source: Schema): Schema {
 		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], sources: [], stages: [], views: [] }
 		if (source) {
-			schema = Helper.clone(source)
+			schema = Helper.obj.clone(source)
 		}
 		this.extendEntities(schema)
 		this.extendMappings(schema)
@@ -560,7 +560,7 @@ class SchemaExtender {
 		}
 		// extend mapping for model
 		for (const k in schema.mappings) {
-			Helper.extends(schema.mappings[k], { entities: schema.entities })
+			Helper.obj.extends(schema.mappings[k], { entities: schema.entities })
 			schema.mappings[k] = this.clearMapping(schema.mappings[k])
 			const mapping = schema.mappings[k]
 			if (mapping && mapping.entities) {
@@ -741,11 +741,11 @@ class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			Helper.extends(entity.properties, base.properties)
+			Helper.obj.extends(entity.properties, base.properties)
 		}
 		// extend relations
 		if (base.relations.length > 0) {
-			Helper.extends(entity.relations, base.relations)
+			Helper.obj.extends(entity.relations, base.relations)
 		}
 		// elimina dado que ya fue extendido
 		delete entity.extends
@@ -758,7 +758,7 @@ class SchemaExtender {
 				throw new SchemaError(`${mapping.extends} not found`)
 			}
 			this.extendMapping(base, mappings)
-			Helper.extends(mapping, base)
+			Helper.obj.extends(mapping, base)
 			// elimina dado que ya fue extendido
 			delete mapping.extends
 		}
@@ -789,7 +789,7 @@ class SchemaExtender {
 			if (entity.indexes === undefined) {
 				entity.indexes = []
 			}
-			Helper.extends(entity.indexes, base.indexes)
+			Helper.obj.extends(entity.indexes, base.indexes)
 		}
 	}
 
@@ -798,7 +798,7 @@ class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			Helper.extends(entity.properties, base.properties)
+			Helper.obj.extends(entity.properties, base.properties)
 		}
 	}
 
@@ -807,7 +807,7 @@ class SchemaExtender {
 	// for (const baseChild of base) {
 	// const objChild = obj.find((p: any) => p.name === baseChild.name)
 	// if (objChild === undefined) {
-	// obj.push(Helper.clone(baseChild))
+	// obj.push(Helper.obj.clone(baseChild))
 	// } else {
 	// this.extends(objChild, baseChild)
 	// }
@@ -815,7 +815,7 @@ class SchemaExtender {
 	// } else if (typeof base === 'object') {
 	// for (const k in base) {
 	// if (obj[k] === undefined) {
-	// obj[k] = Helper.clone(base[k])
+	// obj[k] = Helper.obj.clone(base[k])
 	// } else if (typeof obj[k] === 'object') {
 	// this.extends(obj[k], base[k])
 	// }
@@ -826,7 +826,7 @@ class SchemaExtender {
 
 	private completeMapping (mapping: Mapping): void {
 		for (const entity of mapping.entities) {
-			if (Helper.isEmpty(entity.mapping)) {
+			if (Helper.validator.isEmpty(entity.mapping)) {
 				entity.mapping = entity.name
 			}
 			if (entity.properties === undefined || entity.properties.length === 0) {
@@ -834,7 +834,7 @@ class SchemaExtender {
 				continue
 			}
 			for (const property of entity.properties) {
-				if (Helper.isEmpty(property.mapping)) {
+				if (Helper.validator.isEmpty(property.mapping)) {
 					property.mapping = property.name
 				}
 			}
@@ -913,7 +913,7 @@ export class SchemaManager {
 			}
 			schema = source
 		}
-		Helper.solveEnvironmentVariables(schema)
+		Helper.env.solve(schema)
 		return this.load(schema)
 	}
 
@@ -922,14 +922,14 @@ export class SchemaManager {
 		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], sources: [], mappings: [], stages: [], views: [] }
 		if (configPath) {
 			if (path.extname(configPath) === '.yaml' || path.extname(configPath) === '.yml') {
-				const content = await Helper.readFile(configPath)
+				const content = await Helper.fs.read(configPath)
 				if (content !== null) {
 					schema = yaml.load(content)
 				} else {
 					throw new SchemaError(`Schema file: ${configPath} empty`)
 				}
 			} else if (path.extname(configPath) === '.json') {
-				const content = await Helper.readFile(configPath)
+				const content = await Helper.fs.read(configPath)
 				if (content !== null) {
 					schema = JSON.parse(content)
 				} else {
@@ -951,8 +951,8 @@ export class SchemaManager {
 		if (source === undefined) {
 			configFile = await this.getConfigFileName(workspace)
 		} else if (typeof source === 'string') {
-			if (await Helper.existsPath(source)) {
-				const lstat = await Helper.lstat(source)
+			if (await Helper.fs.exists(source)) {
+				const lstat = await Helper.fs.lstat(source)
 				if (lstat.isFile()) {
 					configFile = path.basename(source)
 					workspace = path.dirname(source)
@@ -992,11 +992,11 @@ export class SchemaManager {
 	}
 
 	public async getConfigFileName (workspace: string): Promise<string | undefined> {
-		if (await Helper.existsPath(path.join(workspace, 'lambdaORM.yaml'))) {
+		if (await Helper.fs.exists(path.join(workspace, 'lambdaORM.yaml'))) {
 			return 'lambdaORM.yaml'
-		} else if (await Helper.existsPath(path.join(workspace, 'lambdaORM.yml'))) {
+		} else if (await Helper.fs.exists(path.join(workspace, 'lambdaORM.yml'))) {
 			return 'lambdaORM.yml'
-		} else if (await Helper.existsPath(path.join(workspace, 'lambdaORM.json'))) {
+		} else if (await Helper.fs.exists(path.join(workspace, 'lambdaORM.json'))) {
 			return 'lambdaORM.json'
 		} else {
 			return undefined
@@ -1029,7 +1029,7 @@ export class SchemaManager {
 		if (this.schema.sources) {
 			for (const source of this.schema.sources) {
 				if (typeof source.connection === 'string') {
-					const connection = Helper.tryParse(source.connection)
+					const connection = Helper.utils.tryParse(source.connection)
 					if (connection) {
 						source.connection = connection
 					} else {

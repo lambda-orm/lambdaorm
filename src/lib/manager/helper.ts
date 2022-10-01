@@ -28,8 +28,8 @@ export class OrmHelper extends H3lp {
 	}
 
 	public transformParameter (name:string) {
-		return this.replace(name, '.', '_')
-		// con la siguiente opción falla cuando se hace value=Helper.replace(value,"\\'","\\''")
+		return this.string.replace(name, '.', '_')
+		// con la siguiente opción falla cuando se hace value=Helper.string.replace(value,"\\'","\\''")
 		// return string.replace(new RegExp(search, 'g'), replace)
 	}
 

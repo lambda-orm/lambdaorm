@@ -252,7 +252,7 @@ export class ExpressionNormalizer {
 		if (field.name.startsWith(arrowVar + '.')) {
 			key = field.name.replace(arrowVar + '.', '')
 			if (key.includes('.')) {
-				key = Helper.replace(key, '.', '_')
+				key = Helper.string.replace(key, '.', '_')
 			}
 		} else {
 			key = field.name

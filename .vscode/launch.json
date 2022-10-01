@@ -350,6 +350,16 @@
 			],
 			"program": "${workspaceFolder}/src/dev/labs/placement/index.ts",
 			"envFile": "${workspaceFolder}/src/dev/labs/placement/.env"
+		},
+		{
+			"name": "lab Process Entries",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/processEntry/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/processEntry/.env"
 		}
 	]
 }

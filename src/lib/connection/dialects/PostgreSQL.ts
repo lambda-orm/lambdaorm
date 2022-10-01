@@ -122,7 +122,7 @@ export class PostgreSQLConnection extends Connection {
 			case 'string':
 				if (value.includes('\'')) {
 					// value = Helper.escape(value)
-					value = `'${Helper.replace(value, '\'', '\'\'')}'`
+					value = `'${Helper.string.replace(value, '\'', '\'\'')}'`
 				} else {
 				// value = Helper.escape(value)
 					value = `'${value}'`
@@ -186,7 +186,7 @@ export class PostgreSQLConnection extends Connection {
 
 		for (let i = 0; i < params.length; i++) {
 			const param = params[i]
-			if (param.type !== 'array') {
+			if (param.type === 'array' || (param.type === 'any' && Array.isArray(param.value))) {
 				values.push(param.value)
 				continue
 			}
@@ -205,12 +205,12 @@ export class PostgreSQLConnection extends Connection {
 			const type = typeof param.value[0]
 			switch (type) {
 			case 'string':
-				sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
+				sql = Helper.string.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
 				values.push(param.value)
 				break
 			case 'bigint':
 			case 'number':
-				sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
+				sql = Helper.string.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
 				values.push(param.value)
 				break
 			default:
