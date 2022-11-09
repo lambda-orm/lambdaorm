@@ -2,7 +2,7 @@
 
 import { Connection, ConnectionPool } from '..'
 import { SchemaError, Query, Data, ExecutionError, PropertyMapping } from '../../model'
-import { MappingConfig, Dialect, Helper } from '../../manager'
+import { MappingConfig, Dialect, helper } from '../../manager'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples
@@ -32,23 +32,19 @@ export class OracleConnectionPool extends ConnectionPool {
 				} else if (process.platform === 'darwin') { // macOS
 					libPath = process.env.HOME + '/Downloads/instantclient_21_3'
 				}
-			}
-			if (libPath && await Helper.fs.exists(libPath)) {
-				OracleConnectionPool.lib.initOracleClient({ libDir: libPath })
+				if (libPath && await helper.fs.exists(libPath)) {
+					await OracleConnectionPool.lib.initOracleClient({ libDir: libPath })
+				}
 			}
 		}
-	}
-
-	private async createPool (): Promise<any> {
-		if (!OracleConnectionPool.lib) {
-			await this.init()
-		}
-		return OracleConnectionPool.lib.createPool(this.config.connection)
 	}
 
 	public async acquire (): Promise<Connection> {
 		if (!this.pool) {
-			this.pool = await this.createPool()
+			if (!OracleConnectionPool.lib) {
+				await this.init()
+			}
+			this.pool = await OracleConnectionPool.lib.createPool(this.config.connection)
 		}
 		const cnx = await this.pool.getConnection()
 		return new OracleConnection(cnx, this)
@@ -207,7 +203,7 @@ export class OracleConnection extends Connection {
 		let sql = query.sentence
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		for (const param of params) {
-			if (param.type !== 'array') {
+			if (param.type !== 'array' && !(param.type === 'any' && Array.isArray(param.value))) {
 				if (param.type === 'datetime' || param.type === 'date' || param.type === 'time') {
 					values[param.name] = new Date(param.value)
 				} else {
@@ -222,17 +218,17 @@ export class OracleConnection extends Connection {
 					const list:string[] = []
 					for (const _item of param.value) {
 						let item = _item
-						item = Helper.escape(item)
-						item = Helper.string.replace(item, '\\\'', '\\\'\'')
+						item = helper.escape(item)
+						item = helper.string.replace(item, '\\\'', '\\\'\'')
 						list.push(item)
 					}
-					sql = Helper.string.replace(sql, `:${param.name}`, list.join(','))
+					sql = helper.string.replace(sql, `:${param.name}`, list.join(','))
 				} else {
-					sql = Helper.string.replace(sql, `:${param.name}`, param.value.join(','))
+					sql = helper.string.replace(sql, `:${param.name}`, param.value.join(','))
 				}
 			} else {
 				// if empty array
-				sql = Helper.string.replace(sql, `:${param.name}`, '')
+				sql = helper.string.replace(sql, `:${param.name}`, '')
 			}
 		}
 		return { sql: sql, values: values }

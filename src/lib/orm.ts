@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { ActionObserver, Dialect, IOrm, OrmOptions, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Query } from './model'
-import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages } from './manager'
+import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages, helper } from './manager'
 import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './connection'
 import { SqlLanguage } from './language/SQL'
 import { NoSqlLanguage } from './language/NoSQL'
 import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
 import modelConfig from './expression/model.json'
 import { OrmExtensionLib } from './expression/extension'
-
 /**
  * Facade through which you can access all the functionalities of the library.
  */
@@ -75,19 +74,17 @@ export class Orm implements IOrm {
 		const schema = await this.schemaManager.init(source)
 		// set connections
 		if (connect && schema.sources) {
-			for (const p in schema.sources) {
-				const source = schema.sources[p]
+			for (const source of schema.sources.filter(p => helper.validator.isNotEmpty(p.connection))) {
 				this.connectionManager.load(source)
 			}
 		}
 		// add enums
 		if (schema.enums) {
 			const enums: any = {}
-			for (const i in schema.enums) {
-				const _enum = schema.enums[i]
+			for (const _enum of schema.enums) {
 				const values:any = {}
-				for (const j in _enum.values) {
-					values[_enum.values[j].name] = _enum.values[j].value
+				for (const enumValue of _enum.values) {
+					values[enumValue.name] = enumValue.value
 				}
 				enums[_enum.name] = values
 			}

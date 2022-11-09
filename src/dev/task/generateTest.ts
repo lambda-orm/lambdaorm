@@ -1,4 +1,4 @@
-import { Helper } from '../../lib'
+import { helper } from '../../lib'
 
 import { CategoryTest, ExpressionTest } from './testModel'
 import fs from 'fs'
@@ -7,7 +7,7 @@ const ConfigExtends = require('config-extends')
 
 async function writeUnitTest (stages: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
-	lines.push('import { orm,Helper } from \'../../lib\'')
+	lines.push('import { orm, helper } from \'../../lib\'')
 	lines.push('beforeAll(async () => {')
 	lines.push('\trequire(\'dotenv\').config({ path: \'./test.env\' })')
 	lines.push('\tawait orm.init()')
@@ -73,7 +73,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 
 	const content = lines.join('\n')
 	const testFolder = 'src/test/__tests__'
-	if (!await Helper.fs.exists(testFolder)) {
+	if (!await helper.fs.exists(testFolder)) {
 		fs.mkdirSync(testFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)
@@ -107,7 +107,7 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 
 	const content = lines.join('\n')
 	const testFolder = 'src/test/__integration__'
-	if (!await Helper.fs.exists(testFolder)) {
+	if (!await helper.fs.exists(testFolder)) {
 		fs.mkdirSync(testFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)

@@ -73,6 +73,17 @@ ALTER USER CCLP_LEDGER_ACCOUNTS quota unlimited on USERS;
 ALTER USER CCLP_DEBTORS quota unlimited on USERS;
 ```
 
+## Tasks
+
+### Migration
+
+Plan:
+
+- exportar los diferentes módulos
+- crear un nuevo modelo optimizado
+- migrar al nuevo modelo
+- desarrollar un nuevo api usando Kotlin.
+
 ## uninstall
 
 ``` sh

@@ -2,7 +2,7 @@
 import { SentenceAction, Data, OrmOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, Constraint, Behavior } from '../model'
 import { Connection, ConnectionManager } from '../connection'
 import { MappingConfig } from './schema'
-import { SchemaManager, Helper, Languages, Dialect } from '.'
+import { SchemaManager, helper, Languages, Dialect } from '.'
 import { Expressions } from 'js-expressions'
 
 export class QueryExecutor {
@@ -616,7 +616,7 @@ export class QueryExecutor {
 				// since the expression contains the name of the property and not the alias
 				// the property must be added with the alias value.
 				for (const item of data) {
-					const context = Helper.obj.clone(item)
+					const context = helper.obj.clone(item)
 					context[valueBehavior.property] = item[valueBehavior.alias]
 					item[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
 				}

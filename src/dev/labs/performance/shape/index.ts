@@ -1,4 +1,4 @@
-import { orm, Helper } from '../../../../lib'
+import { orm, helper } from '../../../../lib'
 const sourcePath = 'src/dev/labs/performance/shape'
 
 async function execute () {
@@ -12,7 +12,7 @@ async function execute () {
 		await orm.stage.sync({stage:stage}).execute()
 		let sync = new Date().getTime()
 		console.log(`sync: ${sync - clean}`)
-		const content = await Helper.fs.read(`${sourcePath}/shapes.json`) as string
+		const content = await helper.fs.read(`${sourcePath}/shapes.json`) as string
 		const data = JSON.parse(content)
 		const readFile = new Date().getTime()
 		console.log(`readFile: ${readFile - sync}`)
@@ -46,7 +46,7 @@ async function execute () {
 
 // async function transform () {
 // try {
-// const content = await Helper.readFile(`${sourcePath}/example/large2.json`) as string
+// const content = await helper.readFile(`${sourcePath}/example/large2.json`) as string
 // const data = JSON.parse(content)
 // for (const i in data) {
 // const item = data[i]
@@ -59,7 +59,7 @@ async function execute () {
 // item.geometry.coordinates = coordinates
 // }
 // }
-// await Helper.writeFile(`${sourcePath}/shapes.json`, JSON.stringify(data, null, 2))
+// await helper.writeFile(`${sourcePath}/shapes.json`, JSON.stringify(data, null, 2))
 // } catch (error:any) {
 // console.error(error)
 // }

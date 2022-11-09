@@ -1,4 +1,4 @@
-import { OrmHelper } from './helper'
+import { Helper } from './helper'
 export * from './expressionManager'
 export * from './expressionNormalizer'
 export * from './transaction'
@@ -14,4 +14,4 @@ export * from './ddlBuilder'
 export * from './languages'
 export * from './dialect'
 export * from './sentenceCompleter'
-export const Helper = new OrmHelper()
+export const helper = new Helper()

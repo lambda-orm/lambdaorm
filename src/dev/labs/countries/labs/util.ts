@@ -1,4 +1,4 @@
-import { orm, Helper } from '../../../../lib'
+import { orm, helper } from '../../../../lib'
 
 export async function show (list:string[], data:any) {
 	const tests:string[] = []
@@ -10,7 +10,7 @@ export async function show (list:string[], data:any) {
 		try {
 			await orm.init('./src/dev/labs/countries/country.yaml')
 			const _sentence = orm.sentence(expression)
-			sentence =Helper.sentenceToArray(_sentence).join('\n')
+			sentence =helper.sentenceToArray(_sentence).join('\n')
 			const result = await orm.execute(expression, data)
 			let expect:any
 			if (result === null) {

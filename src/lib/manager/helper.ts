@@ -4,7 +4,7 @@ import { MetadataSentence } from '../index'
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
 
-export class OrmHelper extends H3lp {
+export class Helper extends H3lp {
 	public sentenceToArray (sentence:MetadataSentence):string[] {
 		const sentences:string[] = []
 		sentences.push(sentence.sentence)
@@ -35,8 +35,9 @@ export class OrmHelper extends H3lp {
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public clearLambda (func:Function) {
-		const str = func.toString().trim()
+		let str = func.toString().trim()
 		const index = str.indexOf('=>') + 2
-		return str.substring(index, str.length).trim()
+		str = str.substring(index, str.length).trim()
+		return this.string.replace(str, 'model_1.', '')
 	}
 }

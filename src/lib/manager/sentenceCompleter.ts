@@ -11,6 +11,9 @@ export class SentenceCompleter {
 
 	public complete (mapping: MappingConfig, view: ViewConfig, sentence: Sentence) {
 		const entity = mapping.getEntity(sentence.entity) as EntityMapping
+		if (!entity) {
+			throw new SchemaError(`${sentence.entity} entity in ${mapping.name} mapping not found`)
+		}
 		if (entity.filter || entity.hadKeys) {
 			if (sentence.name !== SentenceAction.insert && sentence.name !== SentenceAction.bulkInsert) {
 				this.solveFilter(sentence, entity)

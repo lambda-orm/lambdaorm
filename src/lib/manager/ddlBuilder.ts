@@ -1,6 +1,6 @@
 import { SchemaManager, ModelConfig, MappingConfig, Routing, Languages, Dialect } from '.'
 import { ObservableAction, Mapping, RuleDataSource, Query, Index, source, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError } from '../model'
-import { Helper } from '../manager'
+import { helper } from '../manager'
 import { Delta, ChangedValue } from 'h3lp'
 
 export class DDLBuilder {
@@ -52,7 +52,7 @@ export class DDLBuilder {
 			const oldEntities = oldMapping !== undefined && oldMapping.entities !== undefined ? oldMapping.entities : null
 			const currentMapping = this.schema.mapping.mappings.find(p => p.name === source.mapping)
 			const currentEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
-			const delta = Helper.delta.deltaWithSimpleArrays(currentEntities, oldEntities)
+			const delta = helper.delta.deltaWithSimpleArrays(currentEntities, oldEntities)
 			// remove for entities changes
 			this._syncRemoveForEntitiesChanges(source, ruleDataSource, oldEntities || [], delta, queries)
 			// remove for entities removed

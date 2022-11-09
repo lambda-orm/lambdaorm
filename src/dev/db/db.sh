@@ -8,9 +8,9 @@ wait-dbs(){
 	wait-until-healthy 'lambdaORM-MySQL-57'
 	wait-until-healthy 'lambdaORM-Postgres-10'
 	wait-until-healthy 'lambdaORM-Oracle-19' 600
-	# wait-until-healthy 'lambdaORM-SqlServer'	
-	# wait-until-healthy 'lambdaORM-MongoDB'
-	# wait-until-healthy 'lambdaORM-MariaDB-103'		
+	wait-until-healthy 'lambdaORM-SqlServer'	
+	wait-until-healthy 'lambdaORM-MongoDB'
+	wait-until-healthy 'lambdaORM-MariaDB-103'		
 }
 
 wait-until-healthy(){
@@ -59,7 +59,9 @@ create_db_users(){
   # TODO: solve "Error executing child process: Error: Process exited with code 127"
 
 	docker exec -it lambdaORM-Oracle-19 sqlplus system/password @/home/oracle/setup/custom_scripts/startup.sql
-  
+	# Error ORA-12637
+	docker exec lambdaORM-Oracle-19 "/bin/sh" -c "echo DISABLE_OOB=ON>>/opt/oracle/oradata/dbconfig/ORCLCDB/sqlnet.ora"
+	docker restart lambdaORM-Oracle-19  
 }
 
 up(){

@@ -55,6 +55,16 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"
 		},
 		{
+			"name": "lab CCLP migration",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/cclp/migration.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"
+		},
+		{
 			"name": "lab CCLP file to local",
 			"type": "node",
 			"request": "launch",

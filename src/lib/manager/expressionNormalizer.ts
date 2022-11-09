@@ -1,5 +1,5 @@
 
-import { Helper } from './'
+import { helper } from './'
 import { Entity, SchemaError, SintaxisError } from '../model'
 import { SchemaManager } from '.'
 import { Node } from 'js-expressions'
@@ -252,7 +252,7 @@ export class ExpressionNormalizer {
 		if (field.name.startsWith(arrowVar + '.')) {
 			key = field.name.replace(arrowVar + '.', '')
 			if (key.includes('.')) {
-				key = Helper.string.replace(key, '.', '_')
+				key = helper.string.replace(key, '.', '_')
 			}
 		} else {
 			key = field.name

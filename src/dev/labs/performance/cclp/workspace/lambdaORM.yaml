@@ -2065,66 +2065,66 @@ sources:
   # Beesion sources
   - name: beeLocations
     mapping: beesion
-    dialect: oracle
-    connection: $$BEE_CCLP_LOCATIONS
+    dialect: Oracle
+    connection: ${BEE_CCLP_LOCATIONS}
   - name: beeParties
     mapping: beesion
-    dialect: oracle
-    connection: $$BEE_CCLP_PARTIES
+    dialect: Oracle
+    connection: ${BEE_CCLP_PARTIES}
   - name: beePartyRoles
     mapping: beesion
-    dialect: oracle
-    connection: $$BEE_CCLP_PARTY_ROLES
+    dialect: Oracle
+    connection: ${BEE_CCLP_PARTY_ROLES}
   - name: beeLedgerAccounts
     mapping: beesion
-    dialect: oracle
-    connection: $$BEE_CCLP_LEDGER_ACCOUNTS
+    dialect: Oracle
+    connection: ${BEE_CCLP_LEDGER_ACCOUNTS}
   - name: beeDebtors
     mapping: beesion
-    dialect: oracle
-    connection: $$BEE_CCLP_DEBTORS
+    dialect: Oracle
+    connection: ${BEE_CCLP_DEBTORS}
   # Local sources
   - name: locLocations
     mapping: local
-    dialect: postgres
-    connection: $$LOC_CCLP_LOCATIONS
+    dialect: PostgreSQL
+    connection: ${LOC_CCLP_LOCATIONS}
   - name: locParties
     mapping: local
-    dialect: postgres
-    connection: $$LOC_CCLP_PARTIES
+    dialect: PostgreSQL
+    connection: ${LOC_CCLP_PARTIES}
   - name: locPartyRoles
     mapping: local
-    dialect: postgres
-    connection: $$LOC_CCLP_PARTY_ROLES
+    dialect: PostgreSQL
+    connection: ${LOC_CCLP_PARTY_ROLES}
   - name: locLedgerAccounts
     mapping: local
-    dialect: postgres
-    connection: $$LOC_CCLP_LEDGER_ACCOUNTS
+    dialect: PostgreSQL
+    connection: ${LOC_CCLP_LEDGER_ACCOUNTS}
   - name: LocDebtors
     mapping: local
-    dialect: postgres
-    connection: $$LOC_CCLP_DEBTORS
+    dialect: PostgreSQL
+    connection: ${LOC_CCLP_DEBTORS}
     # Local Oracle sources
   - name: locOraLocations
     mapping: localOracle
-    dialect: oracle
-    connection: $$LOC_ORA_CCLP_LOCATIONS
+    dialect: Oracle
+    connection: ${LOC_ORA_CCLP_LOCATIONS}
   - name: locOraParties
     mapping: localOracle
-    dialect: oracle
-    connection: $$LOC_ORA_CCLP_PARTIES
+    dialect: Oracle
+    connection: ${LOC_ORA_CCLP_PARTIES}
   - name: locOraPartyRoles
     mapping: localOracle
-    dialect: oracle
-    connection: $$LOC_ORA_CCLP_PARTY_ROLES
+    dialect: Oracle
+    connection: ${LOC_ORA_CCLP_PARTY_ROLES}
   - name: locOraLedgerAccounts
     mapping: localOracle
-    dialect: oracle
-    connection: $$LOC_ORA_CCLP_LEDGER_ACCOUNTS
+    dialect: Oracle
+    connection: ${LOC_ORA_CCLP_LEDGER_ACCOUNTS}
   - name: locOraDebtors
     mapping: localOracle
-    dialect: oracle
-    connection: $$LOC_ORA_CCLP_DEBTORS
+    dialect: Oracle
+    connection: ${LOC_ORA_CCLP_DEBTORS}
 stages:
   - name: beesion
     sources:

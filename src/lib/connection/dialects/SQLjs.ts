@@ -3,7 +3,7 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data } from '../../model'
-import { MappingConfig, Dialect, Helper } from '../../manager'
+import { MappingConfig, Dialect, helper } from '../../manager'
 
 export class SQLjsConnectionPool extends ConnectionPool {
 	private static lib: any
@@ -16,7 +16,7 @@ export class SQLjsConnectionPool extends ConnectionPool {
 	public async init (): Promise<void> {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const me = this
-		const fileBuffer = await Helper.fs.read(me.config.connection)
+		const fileBuffer = await helper.fs.read(me.config.connection)
 		this.db = await new Promise<void>((resolve, reject) => {
 			SQLjsConnectionPool.lib.then(function (SQL: any) {
 				// Load the db
@@ -41,7 +41,7 @@ export class SQLjsConnectionPool extends ConnectionPool {
 
 	public async end (): Promise<void> {
 		const data = this.db.export()
-		await Helper.fs.write(this.config.connection, data)
+		await helper.fs.write(this.config.connection, data)
 	}
 }
 

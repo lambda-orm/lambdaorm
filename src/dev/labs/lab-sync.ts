@@ -1,4 +1,4 @@
-import { Orm, Helper } from '../../lib'
+import { Orm, helper } from '../../lib'
 import path from 'path'
 
 (async () => {
@@ -13,7 +13,7 @@ import path from 'path'
 		result = await orm.execute('Countries.deleteAll()')
 		result = await orm.execute('States.deleteAll()')
 
-		const strData = await Helper.fs.read(path.join(process.cwd(), '/labs/countries/data.json' as string))
+		const strData = await helper.fs.read(path.join(process.cwd(), '/labs/countries/data.json' as string))
 		const data = JSON.parse(strData as string)
 
 		result = await orm.execute('Countries.bulkInsert().include(p => p.states)', data)

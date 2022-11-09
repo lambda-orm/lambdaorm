@@ -7,7 +7,7 @@ import { StageExport } from '../stage/stageExport'
 import { StageTruncate } from '../stage/stageTruncate'
 import { StageImport } from '../stage/stageImport'
 import { StageDelete } from '../stage/stageDelete'
-import { Helper } from './'
+import { helper } from './'
 import { SchemaError, Stage, View, OrmOptions } from './../model'
 
 export class StageFacade {
@@ -47,7 +47,7 @@ export class StageFacade {
 
 	public async exists (name:string) {
 		const file = this.stageModel.getFile(name)
-		return Helper.fs.exists(file)
+		return helper.fs.exists(file)
 	}
 
 	public sync (options?:OrmOptions):StageSync {

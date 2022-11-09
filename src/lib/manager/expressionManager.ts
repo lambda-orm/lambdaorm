@@ -1,6 +1,6 @@
 import { ObservableAction, Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, source, SentenceInfo } from '../model'
 import { SchemaManager, ExpressionNormalizer, Routing, OperandManager, Languages, ViewConfig, SentenceCompleter } from '.'
-import { Helper } from './'
+import { helper } from './'
 import { Expressions, Cache } from 'js-expressions'
 
 export class ExpressionManager {
@@ -125,7 +125,7 @@ export class ExpressionManager {
 		if (!func) {
 			throw new SintaxisError('empty lambda function}')
 		}
-		const expression = Helper.clearLambda(func)
+		const expression = helper.clearLambda(func)
 		const node = this.expressions.parser.parse(expression)
 		let aux = node
 		while (aux.type !== 'var') {

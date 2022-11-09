@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Parameter, Query, Data } from '../../model'
-import { MappingConfig, Dialect, Helper } from '../../manager'
+import { MappingConfig, Dialect, helper } from '../../manager'
 
 export class SqlServerConnectionPool extends ConnectionPool {
 	public static lib: any
@@ -227,17 +227,17 @@ export class SqlServerConnection extends Connection {
 	protected solveArrayParameters (query: Query, data: Data, sentence: string): string {
 		let _sentence = sentence
 		for (const parameter of query.parameters) {
-			if (parameter.type === 'array' || (parameter.type === 'any' && Array.isArray(parameter.value))) {
+			const value = data.get(parameter.name)
+			if (parameter.type === 'array' || (parameter.type === 'any' && Array.isArray(value))) {
 				let list:any
-				const value = data.get(parameter.name)
 				if (value.length > 0) {
 					const type = typeof value[0]
 					if (type === 'string') {
 						const values: string[] = []
 						for (const item of value) {
 							let _item = item
-							_item = Helper.escape(_item)
-							_item = Helper.string.replace(_item, '\\\'', '\\\'\'')
+							_item = helper.escape(_item)
+							_item = helper.string.replace(_item, '\\\'', '\\\'\'')
 							values.push(_item)
 						}
 						list = values.join(',')
@@ -247,7 +247,7 @@ export class SqlServerConnection extends Connection {
 				} else {
 					list = ''
 				}
-				_sentence = Helper.string.replace(_sentence, '@' + parameter.name, list)
+				_sentence = helper.string.replace(_sentence, '@' + parameter.name, list)
 			}
 		}
 		return _sentence
@@ -294,21 +294,21 @@ export class SqlServerConnection extends Connection {
 				value = value ? 1 : 0; break
 			case 'string':
 				if (value.includes('\'')) {
-					value = `'${Helper.string.replace(value, '\'', '\'\'')}'`
+					value = `'${helper.string.replace(value, '\'', '\'\'')}'`
 				} else {
 					value = `'${value}'`
 				}
-				// value = Helper.escape(value)
-				// value = Helper.string.replace(value, '\\\'', '\\\'\'')
+				// value = helper.escape(value)
+				// value = helper.string.replace(value, '\\\'', '\\\'\'')
 				break
 			case 'datetime':
-				value = Helper.escape(this.writeDateTime(value, mapping, dialect))
+				value = helper.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case 'date':
-				value = Helper.escape(this.writeDate(value, mapping, dialect))
+				value = helper.escape(this.writeDate(value, mapping, dialect))
 				break
 			case 'time':
-				value = Helper.escape(this.writeTime(value, mapping, dialect))
+				value = helper.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}

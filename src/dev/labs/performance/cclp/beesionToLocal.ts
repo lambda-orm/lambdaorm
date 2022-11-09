@@ -1,4 +1,4 @@
-import { Helper, orm } from '../../../../lib'
+import { helper, orm } from '../../../../lib'
 import {
 	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses, PmIdentificationTypes, PrPartyRoleSpecs, PrPartyRoleStatuses,
 	LamAccountTypes, LamStatementCycles, LamCurrencyReferences, DbDebtorTypes, DbPaymentMethodTypes, DbDebtorStages, DbDebtor,
@@ -33,26 +33,26 @@ async function loadLocalSettings () {
 	const dbUserReferences = await orm.execute(() => DbUserReferences, {}, { stage: beeStage,view:view})
 	const dbBanks = await orm.execute(() => DbBanks, {}, { stage: beeStage,view:view})
 
-	const _countries = Helper.obj.clone(countries)
-	const _areaTypes = Helper.obj.clone(areaTypes)
-	const _industryTypes = Helper.obj.clone(industryTypes)
-	const _partyStatuses = Helper.obj.clone(partyStatuses)
-	const _maritalStatuses = Helper.obj.clone(maritalStatuses)
-	const _identificationTypes = Helper.obj.clone(identificationTypes)
-	const _contactMediumTypes = Helper.obj.clone(contactMediumTypes)
-	const _genders = Helper.obj.clone(genders)
-	const _partyRoleSpecs = Helper.obj.clone(partyRoleSpecs)
-	const _partyRoleStatuses = Helper.obj.clone(partyRoleStatuses)
-	const _accountTypes = Helper.obj.clone(accountTypes)
-	const _statementCycles = Helper.obj.clone(statementCycles)
-	const _debtorTypes = Helper.obj.clone(debtorTypes)
-	const _paymentMethodTypes = Helper.obj.clone(paymentMethodTypes)
-	const _debtorStages = Helper.obj.clone(debtorStages)
-	const _lamCreditors = Helper.obj.clone(lamCreditors)
-	const _lamCurrencyReferences = Helper.obj.clone(lamCurrencyReferences)
-	const _lamUserReferences = Helper.obj.clone(lamUserReferences)
-	const _dbUserReferences = Helper.obj.clone(dbUserReferences)
-	const _dbBanks = Helper.obj.clone(dbBanks)
+	const _countries = helper.obj.clone(countries)
+	const _areaTypes = helper.obj.clone(areaTypes)
+	const _industryTypes = helper.obj.clone(industryTypes)
+	const _partyStatuses = helper.obj.clone(partyStatuses)
+	const _maritalStatuses = helper.obj.clone(maritalStatuses)
+	const _identificationTypes = helper.obj.clone(identificationTypes)
+	const _contactMediumTypes = helper.obj.clone(contactMediumTypes)
+	const _genders = helper.obj.clone(genders)
+	const _partyRoleSpecs = helper.obj.clone(partyRoleSpecs)
+	const _partyRoleStatuses = helper.obj.clone(partyRoleStatuses)
+	const _accountTypes = helper.obj.clone(accountTypes)
+	const _statementCycles = helper.obj.clone(statementCycles)
+	const _debtorTypes = helper.obj.clone(debtorTypes)
+	const _paymentMethodTypes = helper.obj.clone(paymentMethodTypes)
+	const _debtorStages = helper.obj.clone(debtorStages)
+	const _lamCreditors = helper.obj.clone(lamCreditors)
+	const _lamCurrencyReferences = helper.obj.clone(lamCurrencyReferences)
+	const _lamUserReferences = helper.obj.clone(lamUserReferences)
+	const _dbUserReferences = helper.obj.clone(dbUserReferences)
+	const _dbBanks = helper.obj.clone(dbBanks)
 
 	// Load setting
 	await orm.execute('LocCountries.bulkInsert()', _countries,{ stage: locStage,view:view})
@@ -184,7 +184,7 @@ async function loadLocalSettings () {
 		mapping.dbBanks[source.id] = _dbBanks.find((p: any) => p.bic === source.bic).id
 	}
 
-	await Helper.fs.write(sourcePath + '/confidentional_data/mapping.json', JSON.stringify(mapping))
+	await helper.fs.write(sourcePath + '/confidentional_data/mapping.json', JSON.stringify(mapping))
 }
 
 async function _export () {
@@ -192,12 +192,12 @@ async function _export () {
 	const debtors:DbDebtor[] = await orm.execute(expDebtorsExport, {}, { stage: beeStage,view:view})
 	const get = new Date().getTime()
 	console.log(`export: ${get - start}`)
-	await Helper.fs.write(sourcePath + '/confidentional_data/beesionDebtors.json', JSON.stringify(debtors))
+	await helper.fs.write(sourcePath + '/confidentional_data/beesionDebtors.json', JSON.stringify(debtors))
 }
 
 async function _import () {
-	const mapping = JSON.parse(await Helper.fs.read(sourcePath + '/confidentional_data/mapping.json') as string)
-	const debtors:DbDebtor[] = JSON.parse(await Helper.fs.read(sourcePath + '/confidentional_data/beesionDebtors.json') as string)
+	const mapping = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/mapping.json') as string)
+	const debtors:DbDebtor[] = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/beesionDebtors.json') as string)
 	preImportDebtors(debtors, mapping)
 	let start = new Date().getTime()
 	await orm.execute(expDebtorsImport, debtors,{ stage: locStage,view:view})
@@ -220,7 +220,7 @@ async function _import () {
 
 async function execute () {
 	try {
-		await orm.init(`${sourcePath}/workspace/lambdaorm.yaml`)
+		await orm.init(`${sourcePath}/workspace/lambdaORM.yaml`)
 		await createLocal()
 		await loadLocalSettings()
 		await _export()

@@ -1,4 +1,4 @@
-import { Orm, Helper } from '../../../lib'
+import { Orm, helper } from '../../../lib'
 import path from 'path'
 
 // function getUsers () {
@@ -110,7 +110,7 @@ function getDevices () {
 		// // console.log(JSON.stringify(await orm.execute('Components.deleteAll()')))
 		// // console.log(JSON.stringify(await orm.execute('Devices.deleteAll()')))
 
-		Helper.fs.write(path.join(workspace, 'schema.json'), JSON.stringify(orm.schema.schema, null, 2))
+		helper.fs.write(path.join(workspace, 'schema.json'), JSON.stringify(orm.schema.schema, null, 2))
 
 		// await orm.stage.clean(orm.defaultStage.name).execute()
 	} catch (error:any) {

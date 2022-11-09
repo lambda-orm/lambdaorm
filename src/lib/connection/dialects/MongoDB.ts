@@ -3,7 +3,7 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Parameter, Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../model'
-import { MappingConfig, Dialect, Helper } from '../../manager'
+import { MappingConfig, Dialect, helper } from '../../manager'
 
 export class MongoDBConnectionPool extends ConnectionPool {
 	private static lib: any
@@ -256,7 +256,7 @@ export class MongodbConnection extends Connection {
 			if (query.parameters && query.parameters.length > 0) {
 				for (const param of query.parameters) {
 					const value = this.getValue(mapping, dialect, item[param.name], param.type)
-					strObj = Helper.string.replace(strObj || template, `{{${param.name}}}`, value)
+					strObj = helper.string.replace(strObj || template, `{{${param.name}}}`, value)
 				}
 			} else {
 				strObj = template
@@ -273,7 +273,7 @@ export class MongodbConnection extends Connection {
 		if (params.length && params.length > 0) {
 			for (const param of params) {
 				const value = this.getValue(mapping, dialect, param.value, param.type)
-				result = Helper.string.replace(result || template, `{{${param.name}}}`, value)
+				result = helper.string.replace(result || template, `{{${param.name}}}`, value)
 			}
 		} else {
 			result = template
@@ -300,8 +300,8 @@ export class MongodbConnection extends Connection {
 			return source ? 'true' : 'false'
 		case 'string':
 			value = typeof source === 'string' ? source : source.toString()
-			value = Helper.string.replace(value, '\n', '\\n')
-			value = Helper.string.replace(value, '"', '\\"')
+			value = helper.string.replace(value, '\n', '\\n')
+			value = helper.string.replace(value, '"', '\\"')
 			return `"${value}"`
 		case 'datetime':
 			return `"${this.writeDateTime(source, mapping, dialect)}"`
@@ -311,8 +311,8 @@ export class MongodbConnection extends Connection {
 			return `"${this.writeTime(source, mapping, dialect)}"`
 		default:
 			if (typeof source === 'string') {
-				value = Helper.string.replace(source, '\n', '\\n')
-				value = Helper.string.replace(value, '"', '\\"')
+				value = helper.string.replace(source, '\n', '\\n')
+				value = helper.string.replace(value, '"', '\\"')
 				return `"${value}"`
 			} else {
 				return source

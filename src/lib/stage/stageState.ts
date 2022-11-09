@@ -1,5 +1,5 @@
-import { SchemaModel, SchemaMapping, Query } from '../model'
-import { SchemaManager, Helper } from '../manager'
+import { SchemaModel, SchemaMapping, Query, Dialect } from '../model'
+import { SchemaManager, helper } from '../manager'
 const path = require('path')
 
 abstract class StageState<T> {
@@ -11,9 +11,9 @@ abstract class StageState<T> {
 
 	public async get (name:string):Promise<T> {
 		const file = this.getFile(name)
-		const exists = await Helper.fs.exists(file)
+		const exists = await helper.fs.exists(file)
 		if (exists) {
-			const content = await Helper.fs.read(file)
+			const content = await helper.fs.read(file)
 			if (content) {
 				return JSON.parse(content)
 			}
@@ -23,12 +23,12 @@ abstract class StageState<T> {
 
 	public async update (name:string, data:T):Promise<void> {
 		const file = this.getFile(name)
-		await Helper.fs.write(file, JSON.stringify(data))
+		await helper.fs.write(file, JSON.stringify(data))
 	}
 
 	public async remove (name:string):Promise<any> {
 		const file = this.getFile(name)
-		await Helper.fs.remove(file)
+		await helper.fs.remove(file)
 	}
 
 	protected abstract empty():T
@@ -61,24 +61,25 @@ export class StageModel extends StageState<SchemaModel> {
 			const query = queries[i]
 			const source = sources.find(p => p.name === query.source)
 			if (source === undefined) {
-				sources.push({ name: query.source, queries: [query] })
+				sources.push({ name: query.source, dialect: query.dialect, queries: [query] })
 			} else {
 				source.queries.push(query)
 			}
 		}
 		for (const i in sources) {
 			const source = sources[i]
-			const logFile = this.ddlFile(stage, action, source.name)
+			const logFile = this.ddlFile(stage, action, source)
 			const data = source.queries.map((p: Query) => p.sentence).join(';\n') + ';'
-			await Helper.fs.write(logFile, data)
+			await helper.fs.write(logFile, data)
 		}
 	}
 
-	private ddlFile (stage: string, action:string, source:string) {
+	private ddlFile (stage: string, action:string, source:any) {
 		let date = new Date().toISOString()
-		date = Helper.string.replace(date, ':', '')
-		date = Helper.string.replace(date, '.', '')
-		date = Helper.string.replace(date, '-', '')
-		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-ddl-${date}-${action}-${source}.txt`)
+		const extension = [Dialect.MongoDB].includes(source.dialect) ? 'json' : 'sql'
+		date = helper.string.replace(date, ':', '')
+		date = helper.string.replace(date, '.', '')
+		date = helper.string.replace(date, '-', '')
+		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
 	}
 }
