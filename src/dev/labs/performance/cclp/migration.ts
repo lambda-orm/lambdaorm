@@ -10,12 +10,21 @@ import {
 	LamUserReferences, DbUserReferences,PmNationalReferences, PmContactMediumTypes, LamCreditors, PmGenders, DbBanks
 } from './workspace/src/model'
 
+interface PmMapping { 
+	industryTypes: any
+	partyStatuses: any
+	maritalStatuses: any
+	identificationTypes: any
+	contactMediumTypes:any
+	nationalReferences:any
+	genders: any 
+}
 
 
 class CollectionMigration {
 	constructor(private readonly orm:IOrm){}
 
-	public async createPmMapping():Promise<void> {
+	public async createPmMapping():Promise<PmMapping> {
 
 		const options = { stage: beeStage }
 		const genders = await this.orm.execute(() => PmGenders, {}, options)
@@ -26,50 +35,43 @@ class CollectionMigration {
 		const contactMediumTypes = await this.orm.execute(() => PmContactMediumTypes, {}, options)
 		const nationalReferences = await this.orm.execute(() => PmNationalReferences, {}, options)
 			
-		const mapping: any = { industryTypes: {}, partyStatuses: {}, maritalStatuses: {}, identificationTypes: {}, contactMediumTypes: {}, nationalReferences: {}, genders: {} }
-		for (const i in industryTypes) {
-			const source = industryTypes[i]
-			mapping.industryTypes[source.code] = source.id
+		const mapping: PmMapping = { industryTypes: {}, partyStatuses: {}, maritalStatuses: {}, identificationTypes: {}, contactMediumTypes: {}, nationalReferences: {}, genders: {} }
+		for (const source of industryTypes) {
+			mapping.industryTypes[source.id] = source
 		}
-		for (const i in partyStatuses) {
-			const source = partyStatuses[i]
-			mapping.partyStatuses[source.code] = source.id
+		for (const source of partyStatuses) {
+			mapping.partyStatuses[source.id] = source
 		}
-		for (const i in maritalStatuses) {
-			const source = maritalStatuses[i]
-			mapping.maritalStatuses[source.code] = source.id
+		for (const source of  maritalStatuses) {
+			mapping.maritalStatuses[source.id] = source
 		}
-		for (const i in identificationTypes) {
-			const source = identificationTypes[i]
-			mapping.identificationTypes[source.code] = source.id
+		for (const source of  identificationTypes) {
+			mapping.identificationTypes[source.id] = source
 		}
-		for (const i in contactMediumTypes) {
-			const source = contactMediumTypes[i]
-			mapping.contactMediumTypes[source.code] = source.id
+		for (const source of  contactMediumTypes) {
+			mapping.contactMediumTypes[source.id] = source
 		}
-		for (const i in nationalReferences) {
-			const source = nationalReferences[i]
-			mapping.nationalReferences[source.refId] = source.id
+		for (const source of  nationalReferences) {
+			mapping.nationalReferences[source.id] = source
 		}
-		for (const i in genders) {
-			const source = genders[i]
-			mapping.genders[source.code] = source.id
+		for (const source of  genders) {
+			mapping.genders[source.id] = source
 		}
-		await helper.fs.write(sourcePath + '/confidential_data/pmMapping.json', JSON.stringify(mapping))
-
+		return mapping
 	}
+
+
 
 }
 
-
-
-
 async function execute () {
 	try {
-		await orm.init(`${sourcePath}/workspace/lambdaORM.yaml`)
+		await orm.init(`${sourcePath}/workspace/cclpSchema.yaml`)
 
 		const migration = new CollectionMigration(orm)
-		await migration.createPmMapping()	
+		const pmMapping = await migration.createPmMapping()	
+
+		await helper.fs.write(sourcePath + '/confidential_data/pmMapping.json', JSON.stringify(pmMapping))
 
 	} catch (error: any) {
 		console.error(error)

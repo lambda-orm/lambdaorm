@@ -22,7 +22,7 @@ async function updateLocMapping () {
 			mapping.areas[areaSource.code] = areaSource.id
 		}
 	}
-	await helper.fs.write(sourcePath + '/confidentional_data/locMapping.json', JSON.stringify(mapping))
+	await helper.fs.write(sourcePath + '/confidential_data/locMapping.json', JSON.stringify(mapping))
 }
 
 async function updatePmMapping () {
@@ -63,7 +63,7 @@ async function updatePmMapping () {
 		const source = genders[i]
 		mapping.genders[source.code] = source.id
 	}
-	await helper.fs.write(sourcePath + '/confidentional_data/pmMapping.json', JSON.stringify(mapping))
+	await helper.fs.write(sourcePath + '/confidential_data/pmMapping.json', JSON.stringify(mapping))
 }
 
 async function updatePrMapping () {
@@ -78,7 +78,7 @@ async function updatePrMapping () {
 		const source = partyRoleStatuses[i]
 		mapping.partyRoleStatuses[source.code] = source.id
 	}
-	await helper.fs.write(sourcePath + '/confidentional_data/prMapping.json', JSON.stringify(mapping))
+	await helper.fs.write(sourcePath + '/confidential_data/prMapping.json', JSON.stringify(mapping))
 }
 
 async function updateLamMapping () {
@@ -109,7 +109,7 @@ async function updateLamMapping () {
 		const source = lamUserReferences[i]
 		mapping.lamUserReferences[source.refId] = source.id
 	}
-	await helper.fs.write(sourcePath + '/confidentional_data/lamMapping.json', JSON.stringify(mapping))
+	await helper.fs.write(sourcePath + '/confidential_data/lamMapping.json', JSON.stringify(mapping))
 }
 
 async function updateDbMapping () {
@@ -140,17 +140,17 @@ async function updateDbMapping () {
 		const source = banks[i]
 		mapping.banks[source.bic] = source.id
 	}
-	await helper.fs.write(sourcePath + '/confidentional_data/dbMapping.json', JSON.stringify(mapping))
+	await helper.fs.write(sourcePath + '/confidential_data/dbMapping.json', JSON.stringify(mapping))
 }
 
 async function _import () {
-	const locMapping:any = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/locMapping.json') as string)
-	const pmMapping:any = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/pmMapping.json') as string)
-	const prMapping: any = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/prMapping.json') as string)
-	const lamMapping: any = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/lamMapping.json') as string)
-	const dbMapping: any = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/dbMapping.json') as string)
+	const locMapping:any = JSON.parse(await helper.fs.read(sourcePath + '/confidential_data/locMapping.json') as string)
+	const pmMapping:any = JSON.parse(await helper.fs.read(sourcePath + '/confidential_data/pmMapping.json') as string)
+	const prMapping: any = JSON.parse(await helper.fs.read(sourcePath + '/confidential_data/prMapping.json') as string)
+	const lamMapping: any = JSON.parse(await helper.fs.read(sourcePath + '/confidential_data/lamMapping.json') as string)
+	const dbMapping: any = JSON.parse(await helper.fs.read(sourcePath + '/confidential_data/dbMapping.json') as string)
 
-	const messages:any = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/debtors-025-5000-records.json') as string)
+	const messages:any = JSON.parse(await helper.fs.read(sourcePath + '/confidential_data/debtors-025-5000-records.json') as string)
 	const debtors = toDbDebtor(messages as Message[], locMapping, pmMapping, prMapping, lamMapping, dbMapping)
 
 	let start = new Date().getTime()
@@ -488,7 +488,7 @@ async function  createFile(key:string,count: number) {
 	for (let i = 0; i < count; i++) {
 		messages.push(createDebtorExample(key+i))
 	}
-	await helper.fs.write(sourcePath + `/confidentional_data/debtors-${key}-${count}-records.json`,JSON.stringify(messages))
+	await helper.fs.write(sourcePath + `/confidential_data/debtors-${key}-${count}-records.json`,JSON.stringify(messages))
 }
 
 function createDebtorExample(nro:string): any { 
@@ -604,7 +604,7 @@ function createDebtorExample(nro:string): any {
 
 async function execute () {
 	try {
-		await orm.init(`${sourcePath}/workspace/lambdaORM.yaml`)
+		await orm.init(`${sourcePath}/workspace/cclpSchema.yaml`)
 		// await updateLocMapping()
 		// await updatePmMapping()
 		// await updatePrMapping()

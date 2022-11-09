@@ -1,0 +1,434 @@
+enums:
+  - name: PartyStatus
+    values:
+      - name: Created
+        value: CREATED
+      - name: Active
+        value: ACTIVE  
+      - name: InProgress
+        value: IN_PROGRESS  
+      - name: Inactive
+        value: INACTIVE
+  - name: IdentificationType
+    values:
+      - name: Not available
+        value: NOT_AVAILABLE
+      - name: DNI
+        value: DNI  
+      - name: RUC
+        value: RUC  
+      - name: Passport
+        value: PASSPORT
+      - name: CIP
+        value: CIP
+      - name: CE
+        value: CE
+      - name: CDI
+        value: CDI                   
+  - name: Gender
+    values:
+      - name: Male
+        value: MALE
+      - name: Female
+        value: FEMALE 
+  - name: MaritalStatus
+    values:
+      - name: Married
+        value: MARRIED
+      - name: Divorced
+        value: DIVORCED  
+      - name: Single
+        value: SINGLE  
+      - name: Widower
+        value: WIDOWER
+      - name: Concubinage
+        value: CONCUBINAGE
+      - name: Separation
+        value: SEPARATION
+  - name: ContactMediumType
+    values:
+      - name: Phone
+        value: Phone
+      - name: CellPhone
+        value: CellPhone  
+      - name: SecondaryPhone
+        value: SecondaryPhone  
+      - name: WorkPhone
+        value: WorkPhone
+      - name: Email
+        value: Email
+      - name: WorkEmail
+        value: WorkEmail
+      - name: Twitter
+        value: Twitter 
+      - name: Instagram
+        value: Instagram
+      - name: Facebook
+        value: Facebook
+      - name: Skype
+        value: Skype                                 
+entities:
+  # Abstracts
+  - name: Basics
+    abstract: true
+    properties:
+      - name: created
+        type: datetime
+        default: now()
+      - name: createdBy
+        length: 50  
+  # Party
+  - name: PmIndustryTypes
+    primaryKey: ["id"]
+    uniqueKey: ["code"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: code
+        length: 30
+        required: true
+      - name: name
+        length: 255
+        required: true
+  - name: PmParties
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: individualId
+        type: integer
+      - name: organizationId
+        type: integer
+      - name: mainContactMediumId
+        type: integer  
+      - name: status
+        enum: PartyStatus
+        length: 16
+        required: true
+      - name: registeredDate
+        type: datetime
+        required: true
+        default: now()
+    relations:
+      - name: mainContactMedium
+        from: mainContactMediumId
+        entity: PmPartyContactMediums
+        to: id
+        type: oneToOne  
+  - name: PmIdentifications
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: identificationType
+        enum: IdentificationType
+        length: 16
+        required: true
+      - name: partyId
+        type: integer
+        required: true
+      - name: identificationValue
+        length: 100
+        required: true
+      - name: source
+        length: 30
+    relations:
+      - name: party
+        from: partyId
+        entity: PmParties
+        to: id
+        target: identifications
+  - name: PmPartyContactMediums
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: contactMediumType
+        enum: ContactMediumType
+        length: 16
+        required: true
+      - name: partyId
+        type: integer
+        required: true
+      - name: mediumValue
+        length: 100
+        required: true      
+      - name: isFavorite
+        type: boolean
+      - name: source
+        length: 30
+      - name: createdBy
+        length: 50
+    relations:
+      - name: party
+        from: partyId
+        entity: PmParties
+        to: id
+        target: contactMediums
+  - name: PmIndividuals
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: partyId
+        type: integer
+        required: true
+      - name: gender
+        enum: Gender
+        length: 16
+      - name: maritalStatus
+        enum: MaritalStatus
+        length: 16  
+      - name: birthDate
+        type: datetime
+      - name: deathDate
+        type: datetime
+      - name: nationalityCode
+        type: string
+        length: 3
+        # use ISO3
+      - name: givenNames
+        length: 200
+      - name: middleNames
+        length: 100
+      - name: familyNames
+        length: 100
+      - name: legalName
+        length: 500
+    relations:
+      - name: party
+        type: oneToOne
+        from: partyId
+        entity: PmParties
+        to: id
+  - name: PmOrganizations
+    extends: Basics
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: partyId
+        type: integer
+        required: true
+      - name: legalPeriodFrom
+        type: datetime
+      - name: industryTypeId
+        type: integer
+      - name: commercialDescription
+        length: 400
+      - name: tradingName
+        length: 100  
+    relations:
+      - name: party
+        type: oneToOne
+        from: partyId
+        entity: PmParties
+        to: id
+        target: organization
+      - name: industryType
+        from: industryTypeId
+        entity: PmIndustryTypes
+        to: ids
+views:
+  - name: default
+mappings:
+  - name: default
+    entities:
+      # Abstracts 
+      - name: Basics
+        abstract: true
+        properties:
+          - name: created
+            mapping: CREATED
+          - name: createdBy
+            mapping: CREATED_BY  
+      #  Party
+      - name: PmIndustryTypes
+        mapping: TBL_PM_INDUSTRY_TYPE
+        sequence: SQ_PM_INDUSTRY_TYPE
+        properties:
+          - name: id
+            mapping: INDUSTRY_TYPE_ID
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: PmParties
+        extends: Basics
+        mapping: TBL_PM_PARTY
+        sequence: SQ_PM_PARTY
+        properties:
+          - name: id
+            mapping: PARTY_ID
+          - name: individualId
+            mapping: INDIVIDUAL_ID
+          - name: organizationId
+            mapping: ORGANIZATION_ID
+          - name: status
+            mapping: STATUS
+          - name: registeredDate
+            mapping: REGISTER_DATE
+          - name: mainContactMediumId
+            mapping: MAIN_CONTACT_MEDIUM_ID 
+      - name: PmIdentifications
+        extends: Basics
+        mapping: TBL_PM_IDENTIFICATION
+        sequence: SQ_PM_IDENTIFICATION
+        properties:
+          - name: id
+            mapping: IDENTIFICATION_ID
+          - name: identificationType
+            mapping: IDENTIFICATION_TYPE
+          - name: partyId
+            mapping: PARTY_ID
+          - name: identificationValue
+            mapping: IDENTIFICATION_VALUE
+          - name: source
+            mapping: SOURCE
+      - name: PmPartyContactMediums
+        extends: Basics
+        mapping: TBL_PM_PARTY_CONTACT_MEDIUM
+        sequence: SQ_PM_PARTY_CONTACT_MEDIUM
+        properties:
+          - name: id
+            mapping: PARTY_CONTACT_MEDIUM_ID
+          - name: contactMediumType
+            mapping: CONTACT_MEDIUM_TYPE
+          - name: partyId
+            mapping: PARTY_ID
+          - name: mediumValue
+            mapping: MEDIUM_VALUE
+          - name: isFavorite
+            mapping: IS_FAVORITE
+          - name: source
+            mapping: SOURCE
+          - name: createdBy
+            mapping: CREATED_BY
+      - name: PmIndividuals
+        extends: Basics
+        mapping: TBL_PM_INDIVIDUAL
+        sequence: SQ_PM_INDIVIDUAL
+        properties:
+          - name: id
+            mapping: INDIVIDUAL_ID
+          - name: partyId
+            mapping: PARTY_ID
+          - name: gender
+            mapping: GENDER
+          - name: maritalStatus
+            mapping: MARITAL_STATUS  
+          - name: birthDate
+            mapping: BIRTH_DATE
+          - name: deathDate
+            mapping: DEATH_DATE
+          - name: nationalityCode
+            mapping: NATIONALITY_CODE
+          - name: givenNames
+            mapping: GIVEN_NAMES
+          - name: middleNames
+            mapping: MIDDLE_NAMES
+          - name: familyNames
+            mapping: FAMILY_NAMES
+          - name: legalName
+            mapping: LEGAL_NAME     
+      - name: PmOrganizations
+        extends: Basics
+        mapping: TBL_PM_ORGANIZATION
+        sequence: SQ_PM_ORGANIZATION
+        properties:
+          - name: id
+            mapping: ORGANIZATION_ID
+          - name: partyId
+            mapping: PARTY_ID
+          - name: legalPeriodFrom
+            mapping: LEGAL_PERIOD_FROM
+          - name: tradingName
+            mapping: TRADING_NAME
+          - name: industryTypeId
+            mapping: INDUSTRY_TYPE_ID
+          - name: commercialDescription
+            mapping: COMMERCIAL_DESCRIPTION
+sources:
+  # sources
+  - name: locations
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${CNX_LOCATIONS}
+  - name: parties
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${CNX_PARTIES}
+  - name: partyRoles
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${CNX_PARTY_ROLES}
+  - name: ledgerAccounts
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${CNX_LEDGER_ACCOUNTS}
+  - name: debtors
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${CNX_DEBTORS}
+    # Oracle sources
+  - name: oraLocations
+    mapping: default
+    dialect: Oracle
+    connection: ${ORA_LOCATIONS}
+  - name: oraParties
+    mapping: default
+    dialect: Oracle
+    connection: ${ORA_PARTIES}
+  - name: oraPartyRoles
+    mapping: default
+    dialect: Oracle
+    connection: ${ORA_PARTY_ROLES}
+  - name: oraLedgerAccounts
+    mapping: default
+    dialect: Oracle
+    connection: ${ORA_LEDGER_ACCOUNTS}
+  - name: oraDebtors
+    mapping: default
+    dialect: Oracle
+    connection: ${ORA_DEBTORS}
+stages:
+  - name: PostgreSQL
+    sources:
+      - name: locations
+        condition: substring(entity,0,3)=="Loc"
+      - name: parties
+        condition: substring(entity,0,2)=="Pm"
+      - name: partyRoles
+        condition: substring(entity,0,2)=="Pr"
+      - name: ledgerAccounts
+        condition: substring(entity,0,3)=="Lam"
+      - name: debtors
+        condition: substring(entity,0,2)=="Db"
+  - name: Oracle
+    sources:
+      - name: oraLocations
+        condition: substring(entity,0,3)=="Loc"
+      - name: oraParties
+        condition: substring(entity,0,2)=="Pm"
+      - name: oraPartyRoles
+        condition: substring(entity,0,2)=="Pr"
+      - name: oraLedgerAccounts
+        condition: substring(entity,0,3)=="Lam"
+      - name: oraDebtors
+        condition: substring(entity,0,2)=="Db"

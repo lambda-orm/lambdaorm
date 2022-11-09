@@ -184,7 +184,7 @@ async function loadLocalSettings () {
 		mapping.dbBanks[source.id] = _dbBanks.find((p: any) => p.bic === source.bic).id
 	}
 
-	await helper.fs.write(sourcePath + '/confidentional_data/mapping.json', JSON.stringify(mapping))
+	await helper.fs.write(sourcePath + '/confidential_data/mapping.json', JSON.stringify(mapping))
 }
 
 async function _export () {
@@ -192,12 +192,12 @@ async function _export () {
 	const debtors:DbDebtor[] = await orm.execute(expDebtorsExport, {}, { stage: beeStage,view:view})
 	const get = new Date().getTime()
 	console.log(`export: ${get - start}`)
-	await helper.fs.write(sourcePath + '/confidentional_data/beesionDebtors.json', JSON.stringify(debtors))
+	await helper.fs.write(sourcePath + '/confidential_data/beesionDebtors.json', JSON.stringify(debtors))
 }
 
 async function _import () {
-	const mapping = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/mapping.json') as string)
-	const debtors:DbDebtor[] = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/beesionDebtors.json') as string)
+	const mapping = JSON.parse(await helper.fs.read(sourcePath + '/confidential_data/mapping.json') as string)
+	const debtors:DbDebtor[] = JSON.parse(await helper.fs.read(sourcePath + '/confidential_data/beesionDebtors.json') as string)
 	preImportDebtors(debtors, mapping)
 	let start = new Date().getTime()
 	await orm.execute(expDebtorsImport, debtors,{ stage: locStage,view:view})
@@ -220,7 +220,7 @@ async function _import () {
 
 async function execute () {
 	try {
-		await orm.init(`${sourcePath}/workspace/lambdaORM.yaml`)
+		await orm.init(`${sourcePath}/workspace/cclpSchema.yaml`)
 		await createLocal()
 		await loadLocalSettings()
 		await _export()
