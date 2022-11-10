@@ -2,7 +2,7 @@ import { Orm, helper, IOrm, OrmOptions } from '../../../../lib'
 import {sourcePath } from './common'
 import {
 	PmIndividuals, PmOrganizations,	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses, 
-	PmIdentificationTypes, PmContactMediumTypes, PmGenders,  PmIndividual, PmOrganization, PmParty, PmNationalReferences
+	PmIdentificationTypes, PmContactMediumTypes, PmGenders,  PmIndividual, PmOrganization, PmParty, PmNationalReferences, PmIndustryType
 } from './workspace/src/model'
 import * as c  from './collections/workspace/src/model'
 
@@ -20,26 +20,22 @@ interface LocMapping {
 	areaTypes: any
 	areas: any
 }
-
 interface ExportData {
 	pmMapping:PmMapping
 	locMapping: LocMapping
 	individuals:PmIndividual[]
 	organizations:PmOrganization[]
 }
-
 interface ImportData {	
 	industryTypes?:c.PmIndustryType[]
 	individuals?:c.PmIndividual[]
 	organizations?:c.PmOrganization[]
 }
-
 class CollectionExporter {
 	private orm: IOrm
 	constructor(workspace:string, private readonly options:OrmOptions ){
 		this.orm = new Orm(workspace)
 	}
-
 	public async export(): Promise<any> {
 		try {
 			await this.orm.init()
@@ -57,7 +53,6 @@ class CollectionExporter {
 			await this.orm.end()
 		}
 	}
-
 	public async getExportData(): Promise<ExportData> {
 		return {
 			pmMapping: JSON.parse(await helper.fs.read(`${this.orm.workspace}/confidential_data/pmMapping.json`) as string),
@@ -66,7 +61,6 @@ class CollectionExporter {
 			organizations:JSON.parse(await helper.fs.read(`${this.orm.workspace}/confidential_data/organizations.json`) as string)
 		}
 	}
-
 	private async getLocMapping(): Promise<LocMapping> {
 		const countries = await this.orm.execute(() => LocCountries, {}, this.options)
 		const areaTypes = await this.orm.execute(() => LocAreaTypes.include(p => p.areas), {}, this.options)
@@ -82,7 +76,6 @@ class CollectionExporter {
 		}
 		return mapping
 	}
-
 	private async getPmMapping():Promise<PmMapping> {		
 		const genders = await this.orm.execute(() => PmGenders, {}, this.options)
 		const industryTypes = await this.orm.execute(() => PmIndustryTypes, {},this.options )
@@ -123,7 +116,6 @@ class CollectionExporter {
 		return await this.orm.execute(() => PmOrganizations.include(p=> [ p.party.include( p=> [p.indentifications, p.contactMediums] ), p.currentName ]), {}, this.options)
 	}
 }
-
 class CollectionImporter {
 	private orm: IOrm
 	constructor(workspace:string, private readonly options:OrmOptions ){
@@ -133,7 +125,8 @@ class CollectionImporter {
 		const importData:ImportData = {}
 		try {
 			await this.orm.init()
-			await this.orm.stage.sync(this.options).execute()
+			await this.orm.stage.clean(this.options).execute()
+			await this.orm.stage.sync(this.options).execute()			
 			let industryTypes = this.getIndustryTypes(exportData)
 			let individuals = this.getIndividuals(exportData)
 			let organizations = this.getOrganizations(exportData)
@@ -155,7 +148,7 @@ class CollectionImporter {
   private getIndustryTypes(exportData:ExportData) : c.PmIndustryType[] {
 		const pmMapping = exportData.pmMapping
 		const industryTypes:c.PmIndustryType[] = []
-		for(const sIndustryType of pmMapping.industryTypes) {	
+		for(const sIndustryType of Object.values(pmMapping.industryTypes) as PmIndustryType[]) {	
 			const tIndustryType = new c.PmIndustryType()
 			tIndustryType.code = sIndustryType.code
 			tIndustryType.name = sIndustryType.name
@@ -223,16 +216,14 @@ class CollectionImporter {
 		if (sParty.indentifications) {
 			for(const sIdentification of sParty.indentifications) {
 					const tIdentification = new c.PmIdentification()
-					tIdentification.type = sIdentification.identificationTypeId ? pmMapping.identificationTypes[sIdentification.identificationTypeId].code : undefined
+					tIdentification.type = sIdentification.identificationTypeId ? pmMapping.identificationTypes[sIdentification.identificationTypeId].name : undefined
 					tIdentification.value = sIdentification.indentificationValue
 					tIdentification.source = sIdentification.source
 					tParty.identifications.push(tIdentification)
 			}
 		}
 		return tParty
-	}
-
-	
+	}	
 	private async insertIndustryTypes(industryTypes:c.PmIndustryType[]): Promise<c.PmIndustryType[]> {
 		return this.orm.execute('PmIndustryTypes.bulkInsert()',industryTypes,this.options)	
 	}
@@ -243,11 +234,10 @@ class CollectionImporter {
 		return this.orm.execute('PmOrganizations.bulkInsert().include(p=>p.party.include(p=> [p.identifications,p.contactMediums]))',organizations,this.options)	
 	}
 }	
-
 async function execute () {	
 	try {
 		const exporter =  new CollectionExporter(`${sourcePath}/workspace`, { stage: 'beesion' })
-		const importer =  new CollectionImporter(`${sourcePath}/collections/workspace`, { stage: 'PostgreSQL'})
+		const importer =  new CollectionImporter(`${sourcePath}/collections/workspace`, { stage: 'PostgreSQL', tryAllCan: true})
 		// await exporter.export()
 		const exportData = await exporter.getExportData()
 		const importData = await importer.import(exportData)
@@ -255,5 +245,4 @@ async function execute () {
 		console.error(error)
 	} 
 }
-
 execute()

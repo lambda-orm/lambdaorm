@@ -12,13 +12,13 @@ enums:
   - name: IdentificationType
     values:
       - name: NotAvailable
-        value: NOT_AVAILABLE
+        value: "NO DISPONIBLE"
       - name: DNI
         value: DNI  
       - name: RUC
         value: RUC  
       - name: Passport
-        value: PASSPORT
+        value: PASAPORTE
       - name: CIP
         value: CIP
       - name: CE
@@ -28,23 +28,27 @@ enums:
   - name: Gender
     values:
       - name: Male
-        value: MALE
+        value: M
       - name: Female
-        value: FEMALE 
+        value: F
+      - name: Undefined
+        value: U
   - name: MaritalStatus
     values:
       - name: Married
-        value: MARRIED
+        value: CASADO
       - name: Divorced
-        value: DIVORCED  
+        value: DIVORCIADO  
       - name: Single
-        value: SINGLE  
+        value: SOLTERO  
       - name: Widower
-        value: WIDOWER
+        value: VIUDO
       - name: Concubinage
-        value: CONCUBINAGE
+        value: CONCUBINATO
       - name: Separation
-        value: SEPARATION
+        value: SEPARACION
+      - name: Undefined
+        value: UNDEFINED
   - name: ContactMediumType
     values:
       - name: Phone
@@ -66,7 +70,13 @@ enums:
       - name: Facebook
         value: Facebook
       - name: Skype
-        value: Skype                                 
+        value: Skype
+      - name: MainMobile
+        value: MainMobile
+      - name: MainPhone
+        value: MainPhone
+      - name: SecPhone
+        value: SecPhone                                     
 entities:
   # Abstracts
   - name: Basics
@@ -150,7 +160,7 @@ entities:
         required: true
       - name: value
         length: 100
-        required: true
+        # required: true
       - name: isMain
         type: boolean        
       - name: isFavorite
@@ -179,9 +189,9 @@ entities:
       - name: gender
         enum: Gender
         length: 16
-      - name: maritalStatus
-        enum: MaritalStatus
-        length: 16  
+      # - name: maritalStatus
+      #   enum: MaritalStatus
+      #   length: 16 
       - name: birthDate
         type: datetime
       - name: deathDate
@@ -250,7 +260,6 @@ mappings:
       #  Party
       - name: PmIndustryTypes
         mapping: TBL_PM_INDUSTRY_TYPE
-        sequence: SQ_PM_INDUSTRY_TYPE
         properties:
           - name: code
             mapping: CODE
@@ -259,7 +268,6 @@ mappings:
       - name: PmParties
         extends: Basics
         mapping: TBL_PM_PARTY
-        sequence: SQ_PM_PARTY
         properties:
           - name: id
             mapping: PARTY_ID
@@ -271,12 +279,9 @@ mappings:
             mapping: STATUS
           - name: registeredDate
             mapping: REGISTER_DATE
-          - name: mainContactMediumId
-            mapping: MAIN_CONTACT_MEDIUM_ID 
       - name: PmIdentifications
         extends: Basics
         mapping: TBL_PM_IDENTIFICATION
-        sequence: SQ_PM_IDENTIFICATION
         properties:
           - name: id
             mapping: IDENTIFICATION_ID
@@ -291,7 +296,6 @@ mappings:
       - name: PmPartyContactMediums
         extends: Basics
         mapping: TBL_PM_PARTY_CONTACT_MEDIUM
-        sequence: SQ_PM_PARTY_CONTACT_MEDIUM
         properties:
           - name: id
             mapping: PARTY_CONTACT_MEDIUM_ID
@@ -312,7 +316,6 @@ mappings:
       - name: PmIndividuals
         extends: Basics
         mapping: TBL_PM_INDIVIDUAL
-        sequence: SQ_PM_INDIVIDUAL
         properties:
           - name: id
             mapping: INDIVIDUAL_ID
@@ -320,8 +323,8 @@ mappings:
             mapping: PARTY_ID
           - name: gender
             mapping: GENDER
-          - name: maritalStatus
-            mapping: MARITAL_STATUS  
+          # - name: maritalStatus
+          #   mapping: MARITAL_STATUS  
           - name: birthDate
             mapping: BIRTH_DATE
           - name: deathDate
@@ -339,7 +342,6 @@ mappings:
       - name: PmOrganizations
         extends: Basics
         mapping: TBL_PM_ORGANIZATION
-        sequence: SQ_PM_ORGANIZATION
         properties:
           - name: id
             mapping: ORGANIZATION_ID
@@ -353,6 +355,23 @@ mappings:
             mapping: INDUSTRY_TYPE_CODE
           - name: commercialDescription
             mapping: COMMERCIAL_DESCRIPTION
+  - name: oracle
+    extends: default
+    entities:
+      #  Party
+      - name: PmIndustryTypes
+        sequence: SQ_PM_INDUSTRY_TYPE
+      - name: PmParties
+        sequence: SQ_PM_PARTY
+      - name: PmIdentifications
+        sequence: SQ_PM_IDENTIFICATION
+      - name: PmPartyContactMediums
+        sequence: SQ_PM_PARTY_CONTACT_MEDIUM
+      - name: PmIndividuals
+        mapping: TBL_PM_INDIVIDUAL
+        sequence: SQ_PM_INDIVIDUAL  
+      - name: PmOrganizations
+        sequence: SQ_PM_ORGANIZATION
 sources:
   # Postgres sources
   - name: locations
@@ -377,23 +396,23 @@ sources:
     connection: ${PSG_DEBTORS}
     # Oracle sources
   - name: oraLocations
-    mapping: default
+    mapping: oracle
     dialect: Oracle
     connection: ${ORA_LOCATIONS}
   - name: oraParties
-    mapping: default
+    mapping: oracle
     dialect: Oracle
     connection: ${ORA_PARTIES}
   - name: oraPartyRoles
-    mapping: default
+    mapping: oracle
     dialect: Oracle
     connection: ${ORA_PARTY_ROLES}
   - name: oraLedgerAccounts
-    mapping: default
+    mapping: oracle
     dialect: Oracle
     connection: ${ORA_LEDGER_ACCOUNTS}
   - name: oraDebtors
-    mapping: default
+    mapping: oracle
     dialect: Oracle
     connection: ${ORA_DEBTORS}
   # Insight source

@@ -600,7 +600,7 @@ export class QueryExecutor {
 
 	private constraint (query: Query, constraint:Constraint, data: any): void {
 		if (!this.expressions.eval(constraint.condition, data)) {
-			throw new ValidationError(query.source, query.entity, JSON.stringify(query.sentence), constraint.message, data)
+			throw new ValidationError(query.source, query.entity, constraint.condition, JSON.stringify(query.sentence), constraint.message, data)
 		}
 	}
 
