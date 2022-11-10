@@ -79,13 +79,8 @@ entities:
         length: 50  
   # Party
   - name: PmIndustryTypes
-    primaryKey: ["id"]
-    uniqueKey: ["code"]
+    primaryKey: ["code"]
     properties:
-      - name: id
-        type: integer
-        required: true
-        autoIncrement: true
       - name: code
         length: 30
         required: true
@@ -257,8 +252,6 @@ mappings:
         mapping: TBL_PM_INDUSTRY_TYPE
         sequence: SQ_PM_INDUSTRY_TYPE
         properties:
-          - name: id
-            mapping: INDUSTRY_TYPE_ID
           - name: code
             mapping: CODE
           - name: name

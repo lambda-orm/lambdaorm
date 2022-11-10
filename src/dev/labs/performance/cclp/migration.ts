@@ -117,7 +117,7 @@ class CollectionExporter {
 		return mapping
 	}
 	private async getIndividuals():Promise<PmIndividual[]> {
-		return await this.orm.execute(() => PmIndividuals.include(p=> [ p.party.include( p=> p.indentifications ), p.currentName ]), {}, this.options)
+		return await this.orm.execute(() => PmIndividuals.include(p=> [ p.party.include( p=> [p.indentifications, p.contactMediums]), p.currentName ]), {}, this.options)
 	}
 	private async getOrganizations():Promise<PmOrganization[]> {
 		return await this.orm.execute(() => PmOrganizations.include(p=> [ p.party.include( p=> [p.indentifications, p.contactMediums] ), p.currentName ]), {}, this.options)
@@ -250,7 +250,7 @@ async function execute () {
 		const importer =  new CollectionImporter(`${sourcePath}/collections/workspace`, { stage: 'PostgreSQL'})
 		// await exporter.export()
 		const exportData = await exporter.getExportData()
-		await importer.import(exportData)
+		const importData = await importer.import(exportData)
 	} catch (error: any) {
 		console.error(error)
 	} 
