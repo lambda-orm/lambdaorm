@@ -71,7 +71,7 @@ export class Orm implements IOrm {
  * @returns promise void
  */
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
-		const schema = await this.schemaManager.init(source)
+		const schema = await this.schemaManager.init(source || this.schemaManager.workspace)
 		// set connections
 		if (connect && schema.sources) {
 			for (const source of schema.sources.filter(p => helper.validator.isNotEmpty(p.connection))) {

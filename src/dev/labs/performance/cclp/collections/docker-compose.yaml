@@ -9,18 +9,18 @@ services:
     image: postgres:10
     restart: always
     environment:
-      - POSTGRES_DB=COLLECTIONS
-      - POSTGRES_USER=COLLECTIONS
-      - POSTGRES_PASSWORD=COLLECTIONS
+      - POSTGRES_DB=collections
+      - POSTGRES_USER=collections
+      - POSTGRES_PASSWORD=collections
     volumes:
-      - ./volume/Postgres-data:/var/lib/postgresql/data
-      # - ./postgres_init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./volume/collectionsPostgres:/var/lib/postgresql/data
+      - ./sql/postgresInit.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '5432:5432'
     networks:
       - collections
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "COLLECTIONS" ]
+      test: [ "CMD", "pg_isready", "-U", "collections" ]
       interval: 3s
       timeout: 1s
       retries: 10
@@ -38,7 +38,7 @@ services:
       #  por este motivo se crea el volume oradata:
       # info: https://github.com/oracle/docker-images/issues/439
       - oradata:/opt/oracle/oradata # persistent oracle database data
-      - ./oracle:/home/oracle/setup/custom_scripts
+      - ./sql/oracle.sql:/home/oracle/setup/custom_scripts/init.sql
     ports:
       - 1521:1521
       - 5500:5500
@@ -62,18 +62,18 @@ services:
     container_name: collectionsInsight
     image: postgres:10
     restart: always
-    environment:
-      - POSTGRES_DB=INSIGHT
-      - POSTGRES_USER=INSIGHT
-      - POSTGRES_PASSWORD=INSIGHT
+    environment:      
+      - POSTGRES_DB=insight
+      - POSTGRES_USER=insight
+      - POSTGRES_PASSWORD=insight
     volumes:
-      - ./volume/Postgres-data:/var/lib/postgresql/data
+      - ./volume/collectionsInsight:/var/lib/postgresql/data
     ports:
       - '5433:5432'
     networks:
       - collections
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "INSIGHT" ]
+      test: [ "CMD", "pg_isready", "-U", "insight" ]
       interval: 3s
       timeout: 1s
       retries: 10    

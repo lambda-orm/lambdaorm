@@ -1,9 +1,0 @@
-conn sys/password as sysdba;
-
-alter session set "_ORACLE_SCRIPT"=true;
-
-CREATE USER COLLECTIONS IDENTIFIED BY COLLECTIONS;
-
-GRANT ALL PRIVILEGES TO COLLECTIONS;
-
-exit;

@@ -43,7 +43,7 @@ wait-until-healthy(){
 create_db_users(){
 	
 
-	docker exec -it collectionsOracle sqlplus system/password @/home/oracle/setup/custom_scripts/startup.sql
+	docker exec -it collectionsOracle sqlplus system/password @/home/oracle/setup/custom_scripts/init.sql
 	# Error ORA-12637
 	docker exec collectionsOracle "/bin/sh" -c "echo DISABLE_OOB=ON>>/opt/oracle/oradata/dbconfig/ORCLCDB/sqlnet.ora"
 	docker restart collectionsOracle 
@@ -60,7 +60,7 @@ up(){
 down(){	
 	docker-compose down --remove-orphans
 	sudo chmod 755 ./volume/*
-	sudo rm -fR ./volume/*
+	sudo rm -fR ./volume
 	docker volume rm collections_oradata	
 	echo "INFO: stopped Databases (if it was running)."
 }

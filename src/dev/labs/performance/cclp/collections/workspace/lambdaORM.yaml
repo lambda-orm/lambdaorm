@@ -11,7 +11,7 @@ enums:
         value: INACTIVE
   - name: IdentificationType
     values:
-      - name: Not available
+      - name: NotAvailable
         value: NOT_AVAILABLE
       - name: DNI
         value: DNI  
@@ -104,8 +104,6 @@ entities:
         type: integer
       - name: organizationId
         type: integer
-      - name: mainContactMediumId
-        type: integer  
       - name: status
         enum: PartyStatus
         length: 16
@@ -114,12 +112,6 @@ entities:
         type: datetime
         required: true
         default: now()
-    relations:
-      - name: mainContactMedium
-        from: mainContactMediumId
-        entity: PmPartyContactMediums
-        to: id
-        type: oneToOne  
   - name: PmIdentifications
     extends: Basics
     primaryKey: ["id"]
@@ -128,14 +120,14 @@ entities:
         type: integer
         required: true
         autoIncrement: true
-      - name: identificationType
+      - name: type
         enum: IdentificationType
         length: 16
         required: true
       - name: partyId
         type: integer
         required: true
-      - name: identificationValue
+      - name: value
         length: 100
         required: true
       - name: source
@@ -154,16 +146,18 @@ entities:
         type: integer
         required: true
         autoIncrement: true
-      - name: contactMediumType
+      - name: type
         enum: ContactMediumType
         length: 16
         required: true
       - name: partyId
         type: integer
         required: true
-      - name: mediumValue
+      - name: value
         length: 100
-        required: true      
+        required: true
+      - name: isMain
+        type: boolean        
       - name: isFavorite
         type: boolean
       - name: source
@@ -228,8 +222,8 @@ entities:
         required: true
       - name: legalPeriodFrom
         type: datetime
-      - name: industryTypeId
-        type: integer
+      - name: industryTypeCode
+        length: 30
       - name: commercialDescription
         length: 400
       - name: tradingName
@@ -242,9 +236,9 @@ entities:
         to: id
         target: organization
       - name: industryType
-        from: industryTypeId
+        from: industryTypeCode
         entity: PmIndustryTypes
-        to: ids
+        to: code
 views:
   - name: default
 mappings:
@@ -293,12 +287,12 @@ mappings:
         properties:
           - name: id
             mapping: IDENTIFICATION_ID
-          - name: identificationType
-            mapping: IDENTIFICATION_TYPE
+          - name: type
+            mapping: TYPE
           - name: partyId
             mapping: PARTY_ID
-          - name: identificationValue
-            mapping: IDENTIFICATION_VALUE
+          - name: value
+            mapping: VALUE
           - name: source
             mapping: SOURCE
       - name: PmPartyContactMediums
@@ -308,12 +302,14 @@ mappings:
         properties:
           - name: id
             mapping: PARTY_CONTACT_MEDIUM_ID
-          - name: contactMediumType
-            mapping: CONTACT_MEDIUM_TYPE
+          - name: type
+            mapping: TYPE
           - name: partyId
             mapping: PARTY_ID
-          - name: mediumValue
-            mapping: MEDIUM_VALUE
+          - name: value
+            mapping: VALUE
+          - name: isMain
+            mapping: IS_MAIN  
           - name: isFavorite
             mapping: IS_FAVORITE
           - name: source
@@ -360,32 +356,32 @@ mappings:
             mapping: LEGAL_PERIOD_FROM
           - name: tradingName
             mapping: TRADING_NAME
-          - name: industryTypeId
-            mapping: INDUSTRY_TYPE_ID
+          - name: industryTypeCode
+            mapping: INDUSTRY_TYPE_CODE
           - name: commercialDescription
             mapping: COMMERCIAL_DESCRIPTION
 sources:
-  # sources
+  # Postgres sources
   - name: locations
     mapping: default
     dialect: PostgreSQL
-    connection: ${CNX_LOCATIONS}
+    connection: ${PSG_LOCATIONS}
   - name: parties
     mapping: default
     dialect: PostgreSQL
-    connection: ${CNX_PARTIES}
+    connection: ${PSG_PARTIES}
   - name: partyRoles
     mapping: default
     dialect: PostgreSQL
-    connection: ${CNX_PARTY_ROLES}
+    connection: ${PSG_PARTY_ROLES}
   - name: ledgerAccounts
     mapping: default
     dialect: PostgreSQL
-    connection: ${CNX_LEDGER_ACCOUNTS}
+    connection: ${PSG_LEDGER_ACCOUNTS}
   - name: debtors
     mapping: default
     dialect: PostgreSQL
-    connection: ${CNX_DEBTORS}
+    connection: ${PSG_DEBTORS}
     # Oracle sources
   - name: oraLocations
     mapping: default
@@ -407,6 +403,11 @@ sources:
     mapping: default
     dialect: Oracle
     connection: ${ORA_DEBTORS}
+  # Insight source
+  - name: insights
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${PSG_INSIGHTS}
 stages:
   - name: PostgreSQL
     sources:
@@ -432,3 +433,6 @@ stages:
         condition: substring(entity,0,3)=="Lam"
       - name: oraDebtors
         condition: substring(entity,0,2)=="Db"
+  - name: Insight
+    sources:
+      - name: insights

@@ -547,10 +547,9 @@ class SchemaExtender {
 			schema.mappings = [{ name: 'default', entities: [] }]
 		} else {
 			// extend entities into mapping
-			for (const k in schema.mappings) {
-				const entities = schema.mappings[k].entities || []
-				for (const entity of entities) {
-					this.extendEntityMapping(entity, entities)
+			for (const mapping of schema.mappings) {
+				for (const entity of mapping.entities) {
+					this.extendEntityMapping(entity, mapping.entities)
 				}
 			}
 			// extends mappings
@@ -560,7 +559,7 @@ class SchemaExtender {
 		}
 		// extend mapping for model
 		for (const k in schema.mappings) {
-			schema.mappings[k] = helper.obj.extends(schema.mappings[k], { entities: schema.entities })
+			schema.mappings[k].entities = helper.obj.extends(schema.mappings[k].entities, schema.entities)
 			schema.mappings[k] = this.clearMapping(schema.mappings[k])
 			const mapping = schema.mappings[k]
 			if (mapping && mapping.entities) {
@@ -801,28 +800,6 @@ class SchemaExtender {
 			entity.properties = helper.obj.extends(entity.properties, base.properties)
 		}
 	}
-
-	// private extends (obj: any, base: any) {
-	// if (Array.isArray(base)) {
-	// for (const baseChild of base) {
-	// const objChild = obj.find((p: any) => p.name === baseChild.name)
-	// if (objChild === undefined) {
-	// obj.push(helper.obj.clone(baseChild))
-	// } else {
-	// this.extends(objChild, baseChild)
-	// }
-	// }
-	// } else if (typeof base === 'object') {
-	// for (const k in base) {
-	// if (obj[k] === undefined) {
-	// obj[k] = helper.obj.clone(base[k])
-	// } else if (typeof obj[k] === 'object') {
-	// this.extends(obj[k], base[k])
-	// }
-	// }
-	// }
-	// return obj
-	// }
 
 	private completeMapping (mapping: Mapping): void {
 		for (const entity of mapping.entities) {

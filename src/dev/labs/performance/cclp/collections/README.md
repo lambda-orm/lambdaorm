@@ -56,6 +56,12 @@ ALTER USER LEDGER_ACCOUNTS quota unlimited on USERS;
 ALTER USER DEBTORS quota unlimited on USERS;
 ```
 
+## Update Model
+
+```sh
+lambdaorm update 
+```
+
 ## uninstall
 
 ``` sh
