@@ -219,16 +219,16 @@ export class OracleConnection extends Connection {
 					for (const _item of param.value) {
 						let item = _item
 						item = helper.escape(item)
-						item = helper.string.replace(item, '\\\'', '\\\'\'')
+						item = helper.str.replace(item, '\\\'', '\\\'\'')
 						list.push(item)
 					}
-					sql = helper.string.replace(sql, `:${param.name}`, list.join(','))
+					sql = helper.str.replace(sql, `:${param.name}`, list.join(','))
 				} else {
-					sql = helper.string.replace(sql, `:${param.name}`, param.value.join(','))
+					sql = helper.str.replace(sql, `:${param.name}`, param.value.join(','))
 				}
 			} else {
 				// if empty array
-				sql = helper.string.replace(sql, `:${param.name}`, '')
+				sql = helper.str.replace(sql, `:${param.name}`, '')
 			}
 		}
 		return { sql: sql, values: values }

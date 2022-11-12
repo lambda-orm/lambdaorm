@@ -52,7 +52,7 @@ export class DDLBuilder {
 			const oldEntities = oldMapping !== undefined && oldMapping.entities !== undefined ? oldMapping.entities : null
 			const currentMapping = this.schema.mapping.mappings.find(p => p.name === source.mapping)
 			const currentEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
-			const delta = helper.delta.deltaWithSimpleArrays(currentEntities, oldEntities)
+			const delta = helper.obj.delta(currentEntities, oldEntities)
 			// remove for entities changes
 			this._syncRemoveForEntitiesChanges(source, ruleDataSource, oldEntities || [], delta, queries)
 			// remove for entities removed

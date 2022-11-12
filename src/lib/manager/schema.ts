@@ -803,7 +803,7 @@ class SchemaExtender {
 
 	private completeMapping (mapping: Mapping): void {
 		for (const entity of mapping.entities) {
-			if (helper.validator.isEmpty(entity.mapping)) {
+			if (helper.val.isEmpty(entity.mapping)) {
 				entity.mapping = entity.name
 			}
 			if (entity.properties === undefined || entity.properties.length === 0) {
@@ -811,7 +811,7 @@ class SchemaExtender {
 				continue
 			}
 			for (const property of entity.properties) {
-				if (helper.validator.isEmpty(property.mapping)) {
+				if (helper.val.isEmpty(property.mapping)) {
 					property.mapping = property.name
 				}
 			}
@@ -1005,7 +1005,7 @@ export class SchemaManager {
 		}
 		if (this.schema.sources) {
 			for (const source of this.schema.sources) {
-				if (helper.validator.isEmpty(source.connection)) {
+				if (helper.val.isEmpty(source.connection)) {
 					console.log(`WARNING|source:"${source.name}"|connection is empty`)
 					continue
 				}

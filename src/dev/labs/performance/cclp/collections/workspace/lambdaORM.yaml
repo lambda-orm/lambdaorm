@@ -1,4 +1,10 @@
 enums:
+  - name: PartyType
+    values:
+      - name: Individual
+        value: Individual
+      - name: Organization
+        value: Organization  
   - name: PartyStatus
     values:
       - name: Created
@@ -87,7 +93,7 @@ entities:
         default: now()
       - name: createdBy
         length: 50  
-  # Party
+  # Party settings
   - name: PmIndustryTypes
     primaryKey: ["code"]
     properties:
@@ -97,6 +103,7 @@ entities:
       - name: name
         length: 255
         required: true
+  # Party business
   - name: PmParties
     extends: Basics
     primaryKey: ["id"]
@@ -105,10 +112,9 @@ entities:
         type: integer
         required: true
         autoIncrement: true
-      - name: individualId
-        type: integer
-      - name: organizationId
-        type: integer
+      - name: type
+        enum: PartyType
+        length: 16
       - name: status
         enum: PartyStatus
         length: 16
@@ -142,7 +148,7 @@ entities:
         from: partyId
         entity: PmParties
         to: id
-        target: identifications
+        target: identifications       
   - name: PmPartyContactMediums
     extends: Basics
     primaryKey: ["id"]
@@ -177,15 +183,16 @@ entities:
         target: contactMediums
   - name: PmIndividuals
     extends: Basics
-    primaryKey: ["id"]
+    primaryKey: ["partyId"]
+    uniqueKey:  ["code"]
     properties:
-      - name: id
-        type: integer
-        required: true
-        autoIncrement: true
       - name: partyId
         type: integer
         required: true
+      - name: code
+        length: 32
+        required: true
+        default: 'lpad(toString(partyId),16,"0")'    
       - name: gender
         enum: Gender
         length: 16
@@ -214,17 +221,32 @@ entities:
         from: partyId
         entity: PmParties
         to: id
+      - name: identifications
+        type: manyToOne
+        from: partyId
+        entity: PmIdentifications
+        to: partyId
+      - name: contactMediums
+        type: manyToOne
+        from: partyId
+        entity: PmPartyContactMediums
+        to: partyId         
   - name: PmOrganizations
     extends: Basics
-    primaryKey: ["id"]
+    primaryKey: ["partyId"]
+    uniqueKey:  ["code"]
     properties:
-      - name: id
-        type: integer
-        required: true
-        autoIncrement: true
       - name: partyId
         type: integer
         required: true
+      - name: code
+        length: 32
+        required: true
+        default: 'lpad(toString(partyId),16,"0")'   
+      - name: rootId
+        type: integer
+      - name: parentId
+        type: integer     
       - name: legalPeriodFrom
         type: datetime
       - name: industryTypeCode
@@ -239,11 +261,30 @@ entities:
         from: partyId
         entity: PmParties
         to: id
-        target: organization
+      - name: parent
+        from: parentId
+        entity: PmOrganizations
+        to: partyId        
+        target: children
+      - name: root
+        from: rootId
+        entity: PmOrganizations
+        to: partyId        
+        target: descendants  
       - name: industryType
         from: industryTypeCode
         entity: PmIndustryTypes
         to: code
+      - name: identifications
+        type: manyToOne
+        from: partyId
+        entity: PmIdentifications
+        to: partyId
+      - name: contactMediums
+        type: manyToOne
+        from: partyId
+        entity: PmPartyContactMediums
+        to: partyId   
 views:
   - name: default
 mappings:

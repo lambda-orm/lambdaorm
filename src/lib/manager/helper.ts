@@ -28,8 +28,8 @@ export class Helper extends H3lp {
 	}
 
 	public transformParameter (name:string) {
-		return this.string.replace(name, '.', '_')
-		// con la siguiente opción falla cuando se hace value=Helper.string.replace(value,"\\'","\\''")
+		return this.str.replace(name, '.', '_')
+		// con la siguiente opción falla cuando se hace value=Helper.str.replace(value,"\\'","\\''")
 		// return string.replace(new RegExp(search, 'g'), replace)
 	}
 
@@ -38,6 +38,6 @@ export class Helper extends H3lp {
 		let str = func.toString().trim()
 		const index = str.indexOf('=>') + 2
 		str = str.substring(index, str.length).trim()
-		return this.string.replace(str, 'model_1.', '')
+		return this.str.replace(str, 'model_1.', '')
 	}
 }

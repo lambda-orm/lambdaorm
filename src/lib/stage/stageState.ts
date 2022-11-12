@@ -77,9 +77,9 @@ export class StageModel extends StageState<SchemaModel> {
 	private ddlFile (stage: string, action:string, source:any) {
 		let date = new Date().toISOString()
 		const extension = [Dialect.MongoDB].includes(source.dialect) ? 'json' : 'sql'
-		date = helper.string.replace(date, ':', '')
-		date = helper.string.replace(date, '.', '')
-		date = helper.string.replace(date, '-', '')
+		date = helper.str.replace(date, ':', '')
+		date = helper.str.replace(date, '.', '')
+		date = helper.str.replace(date, '-', '')
 		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
 	}
 }

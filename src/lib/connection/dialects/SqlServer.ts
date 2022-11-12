@@ -237,7 +237,7 @@ export class SqlServerConnection extends Connection {
 						for (const item of value) {
 							let _item = item
 							_item = helper.escape(_item)
-							_item = helper.string.replace(_item, '\\\'', '\\\'\'')
+							_item = helper.str.replace(_item, '\\\'', '\\\'\'')
 							values.push(_item)
 						}
 						list = values.join(',')
@@ -247,7 +247,7 @@ export class SqlServerConnection extends Connection {
 				} else {
 					list = ''
 				}
-				_sentence = helper.string.replace(_sentence, '@' + parameter.name, list)
+				_sentence = helper.str.replace(_sentence, '@' + parameter.name, list)
 			}
 		}
 		return _sentence
@@ -294,12 +294,12 @@ export class SqlServerConnection extends Connection {
 				value = value ? 1 : 0; break
 			case 'string':
 				if (value.includes('\'')) {
-					value = `'${helper.string.replace(value, '\'', '\'\'')}'`
+					value = `'${helper.str.replace(value, '\'', '\'\'')}'`
 				} else {
 					value = `'${value}'`
 				}
 				// value = helper.escape(value)
-				// value = helper.string.replace(value, '\\\'', '\\\'\'')
+				// value = helper.str.replace(value, '\\\'', '\\\'\'')
 				break
 			case 'datetime':
 				value = helper.escape(this.writeDateTime(value, mapping, dialect))

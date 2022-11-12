@@ -10,9 +10,9 @@ import { orm, helper } from '../../../lib'
 			const entries = JSON.parse(content)	
 			const data = entries.map( (p:any) => ({ id: p.id
 																						, category: 'CapEntry'
-																						 , keywords: [helper.string.normalize(p.creditorAccount.ledgerAccountId,{toLower:true})
-																												 ,helper.string.normalize(p.referenceNumber,{toLower:true})
-																												 ,helper.string.normalize(p.currency+p.amount.toString(),{toLower:true})  
+																						 , keywords: [helper.str.normalize(p.creditorAccount.ledgerAccountId,{toLower:true})
+																												 ,helper.str.normalize(p.referenceNumber,{toLower:true})
+																												 ,helper.str.normalize(p.currency+p.amount.toString(),{toLower:true})  
 																												 ] 
 																						, data: { id: p.id
 																							      , processId : p.processId

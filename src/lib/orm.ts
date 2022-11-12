@@ -74,7 +74,7 @@ export class Orm implements IOrm {
 		const schema = await this.schemaManager.init(source || this.schemaManager.workspace)
 		// set connections
 		if (connect && schema.sources) {
-			for (const source of schema.sources.filter(p => helper.validator.isNotEmpty(p.connection))) {
+			for (const source of schema.sources.filter(p => helper.val.isNotEmpty(p.connection))) {
 				this.connectionManager.load(source)
 			}
 		}
