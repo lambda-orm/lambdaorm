@@ -2,9 +2,9 @@ enums:
   - name: PartyType
     values:
       - name: Individual
-        value: Individual
+        value: IND
       - name: Organization
-        value: Organization  
+        value: ORG
   - name: PartyStatus
     values:
       - name: Created
@@ -106,7 +106,7 @@ entities:
   # Party business
   - name: PmParties
     extends: Basics
-    primaryKey: ["id"]
+    primaryKey: [id]
     properties:
       - name: id
         type: integer
@@ -114,10 +114,10 @@ entities:
         autoIncrement: true
       - name: type
         enum: PartyType
-        length: 16
+        length: 3
       - name: status
         enum: PartyStatus
-        length: 16
+        length: 12
         required: true
       - name: registeredDate
         type: datetime
@@ -125,18 +125,19 @@ entities:
         default: now()
   - name: PmIdentifications
     extends: Basics
-    primaryKey: ["id"]
+    primaryKey: [id]
+    # uniqueKey: [partyId,type]
     properties:
       - name: id
         type: integer
         required: true
         autoIncrement: true
+      - name: partyId
+        type: integer
+        required: true  
       - name: type
         enum: IdentificationType
         length: 16
-        required: true
-      - name: partyId
-        type: integer
         required: true
       - name: value
         length: 100
@@ -149,21 +150,21 @@ entities:
         entity: PmParties
         to: id
         target: identifications       
-  - name: PmPartyContactMediums
+  - name: PmContactMediums
     extends: Basics
-    primaryKey: ["id"]
+    primaryKey: [id]
     properties:
       - name: id
         type: integer
         required: true
         autoIncrement: true
+      - name: partyId
+        type: integer
+        required: true  
       - name: type
         enum: ContactMediumType
         length: 16
-        required: true
-      - name: partyId
-        type: integer
-        required: true
+        required: true    
       - name: value
         length: 100
         # required: true
@@ -183,8 +184,8 @@ entities:
         target: contactMediums
   - name: PmIndividuals
     extends: Basics
-    primaryKey: ["partyId"]
-    uniqueKey:  ["code"]
+    primaryKey: [partyId]
+    uniqueKey:  [code]
     properties:
       - name: partyId
         type: integer
@@ -233,8 +234,8 @@ entities:
         to: partyId         
   - name: PmOrganizations
     extends: Basics
-    primaryKey: ["partyId"]
-    uniqueKey:  ["code"]
+    primaryKey: [partyId]
+    uniqueKey:  [code]
     properties:
       - name: partyId
         type: integer
@@ -311,11 +312,9 @@ mappings:
         mapping: TBL_PM_PARTY
         properties:
           - name: id
-            mapping: PARTY_ID
-          - name: individualId
-            mapping: INDIVIDUAL_ID
-          - name: organizationId
-            mapping: ORGANIZATION_ID
+            mapping: ID
+          - name: type
+            mapping: TYPE
           - name: status
             mapping: STATUS
           - name: registeredDate
@@ -325,25 +324,25 @@ mappings:
         mapping: TBL_PM_IDENTIFICATION
         properties:
           - name: id
-            mapping: IDENTIFICATION_ID
+            mapping: ID
           - name: type
             mapping: TYPE
-          - name: partyId
-            mapping: PARTY_ID
           - name: value
-            mapping: VALUE
+            mapping: VALUE  
+          - name: partyId
+            mapping: PARTY_ID         
           - name: source
             mapping: SOURCE
-      - name: PmPartyContactMediums
+      - name: PmContactMediums
         extends: Basics
-        mapping: TBL_PM_PARTY_CONTACT_MEDIUM
+        mapping: TBL_PM_CONTACT_MEDIUM
         properties:
           - name: id
-            mapping: PARTY_CONTACT_MEDIUM_ID
-          - name: type
-            mapping: TYPE
+            mapping: ID
           - name: partyId
-            mapping: PARTY_ID
+            mapping: PARTY_ID  
+          - name: type
+            mapping: TYPE         
           - name: value
             mapping: VALUE
           - name: isMain
@@ -358,8 +357,6 @@ mappings:
         extends: Basics
         mapping: TBL_PM_INDIVIDUAL
         properties:
-          - name: id
-            mapping: INDIVIDUAL_ID
           - name: partyId
             mapping: PARTY_ID
           - name: gender
@@ -384,8 +381,6 @@ mappings:
         extends: Basics
         mapping: TBL_PM_ORGANIZATION
         properties:
-          - name: id
-            mapping: ORGANIZATION_ID
           - name: partyId
             mapping: PARTY_ID
           - name: legalPeriodFrom

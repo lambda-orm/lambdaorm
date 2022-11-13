@@ -6,183 +6,84 @@ test:
   - name: groupBy 1
     sentences: []
     errors: 1
-    expression: Products.map(p=>{maxPrice:max(p.price)})
-    normalizeExpression: Products.map(p=>{maxPrice:max(p.price)})
-    error: 'TypeError: Cannot read property ''type'' of undefined'
+    expression: __Products.map(p=>{maxPrice:max(p.price)})
+    error: >-
+      SintaxisError: complete expression:
+      __Products.map(p=>{maxPrice:max(p.price)}) error: SchemaError: entity
+      __Products not found
   - name: groupBy 2
     sentences: []
     errors: 1
-    expression: Products.map(p=>{minPrice:min(p.price)})
-    normalizeExpression: Products.map(p=>{minPrice:min(p.price)})
-    error: 'TypeError: Cannot read property ''type'' of undefined'
+    expression: __Products.map(p=>{minPrice:min(p.price)})
+    error: >-
+      SintaxisError: complete expression:
+      __Products.map(p=>{minPrice:min(p.price)}) error: SchemaError: entity
+      __Products not found
   - name: groupBy 3
     sentences: []
     errors: 1
-    expression: Products.map(p=>{total:sum(p.price)})
-    normalizeExpression: Products.map(p=>{total:sum(p.price)})
-    error: 'TypeError: Cannot read property ''type'' of undefined'
+    expression: __Products.map(p=>{total:sum(p.price)})
+    error: >-
+      SintaxisError: complete expression:
+      __Products.map(p=>{total:sum(p.price)}) error: SchemaError: entity
+      __Products not found
   - name: groupBy 4
     sentences: []
     errors: 1
-    expression: Products.map(p=>{average:round(avg(p.price),4)})
-    normalizeExpression: Products.map(p=>{average:round(avg(p.price),4)})
-    error: 'TypeError: Cannot read property ''type'' of undefined'
+    expression: __Products.map(p=>{average:round(avg(p.price),4)})
+    error: >-
+      SintaxisError: complete expression:
+      __Products.map(p=>{average:round(avg(p.price),4)}) error: SchemaError:
+      entity __Products not found
   - name: groupBy 5
     sentences: []
     errors: 1
-    expression: Products.map(p=>{count:count(1)})
-    normalizeExpression: Products.map(p=>{count:count(1)})
-    error: 'TypeError: Cannot read property ''type'' of undefined'
+    expression: __Products.map(p=>{count:count(1)})
+    error: >-
+      SintaxisError: complete expression: __Products.map(p=>{count:count(1)})
+      error: SchemaError: entity __Products not found
   - name: groupBy 6
     sentences: []
     errors: 1
-    expression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
-    normalizeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
-    error: 'TypeError: Cannot read property ''type'' of undefined'
+    expression: __Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
+    error: >-
+      SintaxisError: complete expression:
+      __Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
+      error: SchemaError: entity __Products not found
   - name: groupBy 7
     sentences: []
     errors: 1
-    expression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
-    normalizeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
-    error: 'TypeError: Cannot read property ''type'' of undefined'
+    expression: __Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
+    error: >-
+      SintaxisError: complete expression:
+      __Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
+      error: SchemaError: entity __Products not found
   - name: groupBy 8
     data: a
-    sentences:
-      - stage: Oracle
-        sentence:
-          entity: Products
-          dialect: Oracle
-          source: Oracle
-          sentence: >-
-            SELECT p.ProductName AS "name", p.UnitPrice AS "source",
-            ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID =
-            :id 
-          children: []
-    errors: 0
+    sentences: []
+    errors: 1
     expression: >-
-      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
-    normalizeExpression: >-
-      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
-    model:
-      - name: name
-        type: string
-      - name: source
-        type: decimal
-      - name: result
-        type: number
-    parameters:
-      - name: id
-        type: integer
-    constraints:
-      entity: Products
-      constraints: []
-    metadata:
-      name: select
-      classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '==='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-                - name: id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 1
-              type: any
-          type: any
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: source
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: result
-                  classtype: KeyValue
-                  children:
-                    - name: abs
-                      classtype: FunctionRef
-                      children:
-                        - name: price
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                  type: any
-              type: object
-          type: any
-      type: any
-      columns:
-        - name: name
-          type: string
-        - name: source
-          type: decimal
-        - name: result
-          type: number
-      parameters:
-        - name: id
-          type: integer
-      entity: Products
-      constraints: []
-    executions:
-      - stage: Oracle
-    result:
-      - name: Chai
-        source: 18
-        result: 18
+      __Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
+    error: >-
+      SintaxisError: complete expression:
+      __Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
+      error: SchemaError: entity __Products not found
   - name: groupBy 9
     sentences: []
     errors: 1
     expression: >-
-      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
-    normalizeExpression: >-
-      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
-    error: 'TypeError: Cannot read property ''type'' of undefined'
+      __Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
+    error: >-
+      SintaxisError: complete expression:
+      __Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
+      error: SchemaError: entity __Products not found
   - name: query 10
     sentences: []
     errors: 1
     expression: >-
-      Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>p.subTotal)
-    normalizeExpression: >-
-      Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>asc(p.subTotal))
-    error: 'TypeError: Cannot read property ''type'' of undefined'
-errors: 9
+      details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>p.subTotal)
+    error: >-
+      SintaxisError: complete expression:
+      details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>p.subTotal)
+      error: SchemaError: entity details not found
+errors: 10

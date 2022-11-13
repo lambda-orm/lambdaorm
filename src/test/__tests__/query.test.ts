@@ -339,51 +339,51 @@ describe('Metadata', () => {
 		expect(parametersExpected).toStrictEqual(parameters)
 		expect(constraintsExpected).toStrictEqual(constraints)
 	})
-	test('query 16', async () => {
-		const expression = 'Products.distinct(p=>p).sort(p=>p.id)'
-		const modelExpected :any= [{"name":"id","type":"integer"},{"name":"name","type":"string"},{"name":"supplierId","type":"integer"},{"name":"categoryId","type":"integer"},{"name":"quantity","type":"string"},{"name":"price","type":"decimal"},{"name":"inStock","type":"decimal"},{"name":"onOrder","type":"decimal"},{"name":"reorderLevel","type":"decimal"},{"name":"discontinued","type":"boolean"}]
-		const parametersExpected:any = []
-		const metadataExpected :any= {"name":"select","classtype":"Sentence","children":[{"name":"Products","classtype":"From","children":[],"type":"any","alias":"p"},{"name":"map","classtype":"Map","children":[{"name":"distinct","classtype":"FunctionRef","children":[{"name":"obj","classtype":"Obj","children":[{"name":"id","classtype":"KeyValue","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"name","classtype":"KeyValue","children":[{"name":"name","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"supplierId","classtype":"KeyValue","children":[{"name":"supplierId","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"categoryId","classtype":"KeyValue","children":[{"name":"categoryId","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"quantity","classtype":"KeyValue","children":[{"name":"quantity","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"price","classtype":"KeyValue","children":[{"name":"price","classtype":"Field","children":[],"type":"decimal","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"inStock","classtype":"KeyValue","children":[{"name":"inStock","classtype":"Field","children":[],"type":"decimal","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"onOrder","classtype":"KeyValue","children":[{"name":"onOrder","classtype":"Field","children":[],"type":"decimal","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"reorderLevel","classtype":"KeyValue","children":[{"name":"reorderLevel","classtype":"Field","children":[],"type":"decimal","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"discontinued","classtype":"KeyValue","children":[{"name":"discontinued","classtype":"Field","children":[],"type":"boolean","entity":"Products","alias":"p","isRoot":true}],"type":"any"}],"type":"object"}],"type":"any"}],"type":"any"},{"name":"sort","classtype":"Sort","children":[{"name":"asc","classtype":"FunctionRef","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p","isRoot":true}],"type":"any"}],"type":"any"}],"type":"any","columns":[{"name":"id","type":"integer"},{"name":"name","type":"string"},{"name":"supplierId","type":"integer"},{"name":"categoryId","type":"integer"},{"name":"quantity","type":"string"},{"name":"price","type":"decimal"},{"name":"inStock","type":"decimal"},{"name":"onOrder","type":"decimal"},{"name":"reorderLevel","type":"decimal"},{"name":"discontinued","type":"boolean"}],"parameters":[],"entity":"Products","constraints":[]}
-		const constraintsExpected :any= {"entity":"Products","constraints":[]}
-		const model = orm.model(expression)
-		const parameters = orm.parameters(expression)
-		const constraints = orm.constraints(expression)
-		const metadata = orm.metadata(expression)
-		expect(modelExpected).toStrictEqual(model)
-		expect(metadataExpected.columns).toStrictEqual(metadata.columns)
-		expect(parametersExpected).toStrictEqual(parameters)
-		expect(constraintsExpected).toStrictEqual(constraints)
-	})
-	test('query 17', async () => {
-		const expression = 'Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)'
-		const modelExpected :any= [{"name":"category","type":"string"}]
-		const parametersExpected:any = []
-		const metadataExpected :any= {"name":"select","classtype":"Sentence","children":[{"name":"Products","classtype":"From","children":[],"type":"any","alias":"p"},{"name":"map","classtype":"Map","children":[{"name":"distinct","classtype":"FunctionRef","children":[{"name":"obj","classtype":"Obj","children":[{"name":"category","classtype":"KeyValue","children":[{"name":"name","classtype":"Field","children":[],"type":"string","entity":"Categories","alias":"c","isRoot":false}],"type":"any"}],"type":"object"}],"type":"any"}],"type":"any"},{"name":"sort","classtype":"Sort","children":[{"name":"asc","classtype":"FunctionRef","children":[{"name":"category","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"}],"type":"any"},{"name":"Categories","classtype":"Join","children":[{"name":"==","classtype":"Operator","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Categories","alias":"c"},{"name":"categoryId","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p"}],"type":"any"}],"type":"any","entity":"Products","alias":"c"}],"type":"any","columns":[{"name":"category","type":"string"}],"parameters":[],"entity":"Products","constraints":[]}
-		const constraintsExpected :any= {"entity":"Products","constraints":[]}
-		const model = orm.model(expression)
-		const parameters = orm.parameters(expression)
-		const constraints = orm.constraints(expression)
-		const metadata = orm.metadata(expression)
-		expect(modelExpected).toStrictEqual(model)
-		expect(metadataExpected.columns).toStrictEqual(metadata.columns)
-		expect(parametersExpected).toStrictEqual(parameters)
-		expect(constraintsExpected).toStrictEqual(constraints)
-	})
-	test('query 18', async () => {
-		const expression = 'Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>[p.quantity,p.category])'
-		const modelExpected :any= [{"name":"quantity","type":"string"},{"name":"category","type":"string"}]
-		const parametersExpected:any = []
-		const metadataExpected :any= {"name":"select","classtype":"Sentence","children":[{"name":"Products","classtype":"From","children":[],"type":"any","alias":"p"},{"name":"map","classtype":"Map","children":[{"name":"distinct","classtype":"FunctionRef","children":[{"name":"obj","classtype":"Obj","children":[{"name":"quantity","classtype":"KeyValue","children":[{"name":"quantity","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"category","classtype":"KeyValue","children":[{"name":"name","classtype":"Field","children":[],"type":"string","entity":"Categories","alias":"c","isRoot":false}],"type":"any"}],"type":"object"}],"type":"any"}],"type":"any"},{"name":"sort","classtype":"Sort","children":[{"name":"array","classtype":"List","children":[{"name":"asc","classtype":"FunctionRef","children":[{"name":"quantity","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"asc","classtype":"FunctionRef","children":[{"name":"category","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"}],"type":"array"}],"type":"any"},{"name":"Categories","classtype":"Join","children":[{"name":"==","classtype":"Operator","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Categories","alias":"c"},{"name":"categoryId","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p"}],"type":"any"}],"type":"any","entity":"Products","alias":"c"}],"type":"any","columns":[{"name":"quantity","type":"string"},{"name":"category","type":"string"}],"parameters":[],"entity":"Products","constraints":[]}
-		const constraintsExpected :any= {"entity":"Products","constraints":[]}
-		const model = orm.model(expression)
-		const parameters = orm.parameters(expression)
-		const constraints = orm.constraints(expression)
-		const metadata = orm.metadata(expression)
-		expect(modelExpected).toStrictEqual(model)
-		expect(metadataExpected.columns).toStrictEqual(metadata.columns)
-		expect(parametersExpected).toStrictEqual(parameters)
-		expect(constraintsExpected).toStrictEqual(constraints)
-	})
+	// test('query 16', async () => {
+	// 	const expression = 'Products.distinct(p=>p).sort(p=>p.id)'
+	// 	const modelExpected :any= [{"name":"id","type":"integer"},{"name":"name","type":"string"},{"name":"supplierId","type":"integer"},{"name":"categoryId","type":"integer"},{"name":"quantity","type":"string"},{"name":"price","type":"decimal"},{"name":"inStock","type":"decimal"},{"name":"onOrder","type":"decimal"},{"name":"reorderLevel","type":"decimal"},{"name":"discontinued","type":"boolean"}]
+	// 	const parametersExpected:any = []
+	// 	const metadataExpected :any= {"name":"select","classtype":"Sentence","children":[{"name":"Products","classtype":"From","children":[],"type":"any","alias":"p"},{"name":"map","classtype":"Map","children":[{"name":"distinct","classtype":"FunctionRef","children":[{"name":"obj","classtype":"Obj","children":[{"name":"id","classtype":"KeyValue","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"name","classtype":"KeyValue","children":[{"name":"name","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"supplierId","classtype":"KeyValue","children":[{"name":"supplierId","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"categoryId","classtype":"KeyValue","children":[{"name":"categoryId","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"quantity","classtype":"KeyValue","children":[{"name":"quantity","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"price","classtype":"KeyValue","children":[{"name":"price","classtype":"Field","children":[],"type":"decimal","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"inStock","classtype":"KeyValue","children":[{"name":"inStock","classtype":"Field","children":[],"type":"decimal","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"onOrder","classtype":"KeyValue","children":[{"name":"onOrder","classtype":"Field","children":[],"type":"decimal","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"reorderLevel","classtype":"KeyValue","children":[{"name":"reorderLevel","classtype":"Field","children":[],"type":"decimal","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"discontinued","classtype":"KeyValue","children":[{"name":"discontinued","classtype":"Field","children":[],"type":"boolean","entity":"Products","alias":"p","isRoot":true}],"type":"any"}],"type":"object"}],"type":"any"}],"type":"any"},{"name":"sort","classtype":"Sort","children":[{"name":"asc","classtype":"FunctionRef","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p","isRoot":true}],"type":"any"}],"type":"any"}],"type":"any","columns":[{"name":"id","type":"integer"},{"name":"name","type":"string"},{"name":"supplierId","type":"integer"},{"name":"categoryId","type":"integer"},{"name":"quantity","type":"string"},{"name":"price","type":"decimal"},{"name":"inStock","type":"decimal"},{"name":"onOrder","type":"decimal"},{"name":"reorderLevel","type":"decimal"},{"name":"discontinued","type":"boolean"}],"parameters":[],"entity":"Products","constraints":[]}
+	// 	const constraintsExpected :any= {"entity":"Products","constraints":[]}
+	// 	const model = orm.model(expression)
+	// 	const parameters = orm.parameters(expression)
+	// 	const constraints = orm.constraints(expression)
+	// 	const metadata = orm.metadata(expression)
+	// 	expect(modelExpected).toStrictEqual(model)
+	// 	expect(metadataExpected.columns).toStrictEqual(metadata.columns)
+	// 	expect(parametersExpected).toStrictEqual(parameters)
+	// 	expect(constraintsExpected).toStrictEqual(constraints)
+	// })
+	// test('query 17', async () => {
+	// 	const expression = 'Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)'
+	// 	const modelExpected :any= [{"name":"category","type":"string"}]
+	// 	const parametersExpected:any = []
+	// 	const metadataExpected :any= {"name":"select","classtype":"Sentence","children":[{"name":"Products","classtype":"From","children":[],"type":"any","alias":"p"},{"name":"map","classtype":"Map","children":[{"name":"distinct","classtype":"FunctionRef","children":[{"name":"obj","classtype":"Obj","children":[{"name":"category","classtype":"KeyValue","children":[{"name":"name","classtype":"Field","children":[],"type":"string","entity":"Categories","alias":"c","isRoot":false}],"type":"any"}],"type":"object"}],"type":"any"}],"type":"any"},{"name":"sort","classtype":"Sort","children":[{"name":"asc","classtype":"FunctionRef","children":[{"name":"category","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"}],"type":"any"},{"name":"Categories","classtype":"Join","children":[{"name":"==","classtype":"Operator","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Categories","alias":"c"},{"name":"categoryId","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p"}],"type":"any"}],"type":"any","entity":"Products","alias":"c"}],"type":"any","columns":[{"name":"category","type":"string"}],"parameters":[],"entity":"Products","constraints":[]}
+	// 	const constraintsExpected :any= {"entity":"Products","constraints":[]}
+	// 	const model = orm.model(expression)
+	// 	const parameters = orm.parameters(expression)
+	// 	const constraints = orm.constraints(expression)
+	// 	const metadata = orm.metadata(expression)
+	// 	expect(modelExpected).toStrictEqual(model)
+	// 	expect(metadataExpected.columns).toStrictEqual(metadata.columns)
+	// 	expect(parametersExpected).toStrictEqual(parameters)
+	// 	expect(constraintsExpected).toStrictEqual(constraints)
+	// })
+	// test('query 18', async () => {
+	// 	const expression = 'Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>[p.quantity,p.category])'
+	// 	const modelExpected :any= [{"name":"quantity","type":"string"},{"name":"category","type":"string"}]
+	// 	const parametersExpected:any = []
+	// 	const metadataExpected :any= {"name":"select","classtype":"Sentence","children":[{"name":"Products","classtype":"From","children":[],"type":"any","alias":"p"},{"name":"map","classtype":"Map","children":[{"name":"distinct","classtype":"FunctionRef","children":[{"name":"obj","classtype":"Obj","children":[{"name":"quantity","classtype":"KeyValue","children":[{"name":"quantity","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"category","classtype":"KeyValue","children":[{"name":"name","classtype":"Field","children":[],"type":"string","entity":"Categories","alias":"c","isRoot":false}],"type":"any"}],"type":"object"}],"type":"any"}],"type":"any"},{"name":"sort","classtype":"Sort","children":[{"name":"array","classtype":"List","children":[{"name":"asc","classtype":"FunctionRef","children":[{"name":"quantity","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"},{"name":"asc","classtype":"FunctionRef","children":[{"name":"category","classtype":"Field","children":[],"type":"string","entity":"Products","alias":"p","isRoot":true}],"type":"any"}],"type":"array"}],"type":"any"},{"name":"Categories","classtype":"Join","children":[{"name":"==","classtype":"Operator","children":[{"name":"id","classtype":"Field","children":[],"type":"integer","entity":"Categories","alias":"c"},{"name":"categoryId","classtype":"Field","children":[],"type":"integer","entity":"Products","alias":"p"}],"type":"any"}],"type":"any","entity":"Products","alias":"c"}],"type":"any","columns":[{"name":"quantity","type":"string"},{"name":"category","type":"string"}],"parameters":[],"entity":"Products","constraints":[]}
+	// 	const constraintsExpected :any= {"entity":"Products","constraints":[]}
+	// 	const model = orm.model(expression)
+	// 	const parameters = orm.parameters(expression)
+	// 	const constraints = orm.constraints(expression)
+	// 	const metadata = orm.metadata(expression)
+	// 	expect(modelExpected).toStrictEqual(model)
+	// 	expect(metadataExpected.columns).toStrictEqual(metadata.columns)
+	// 	expect(parametersExpected).toStrictEqual(parameters)
+	// 	expect(constraintsExpected).toStrictEqual(constraints)
+	// })
 })
 describe('Sentences', () => {
 	test('query 1', async () => {
@@ -701,67 +701,67 @@ describe('Sentences', () => {
 		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 	})
-	test('query 16', async () => {
-		const expression = 'Products.distinct(p=>p).sort(p=>p.id)'
-		const MySQLExpected = {"entity":"Products","dialect":"MySQL","source":"MySQL","sentence":"SELECT DISTINCT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc ","children":[]}
-		let MySQL = orm.sentence(expression,{stage:'MySQL'})
-		expect(MySQLExpected).toStrictEqual(MySQL)
-		const MariaDBExpected = {"entity":"Products","dialect":"MariaDB","source":"MariaDB","sentence":"SELECT DISTINCT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc ","children":[]}
-		let MariaDB = orm.sentence(expression,{stage:'MariaDB'})
-		expect(MariaDBExpected).toStrictEqual(MariaDB)
-		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"SELECT DISTINCT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc ","children":[]}
-		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
-		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT DISTINCT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc ","children":[]}
-		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
-		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT DISTINCT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }}}}, { \"$sort\" :{ \"_id\":1 } }]","children":[]}
-		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
-		expect(MongoDBExpected).toStrictEqual(MongoDB)
-	})
-	test('query 17', async () => {
-		const expression = 'Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)'
-		const MySQLExpected = {"entity":"Products","dialect":"MySQL","source":"MySQL","sentence":"SELECT DISTINCT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ","children":[]}
-		let MySQL = orm.sentence(expression,{stage:'MySQL'})
-		expect(MySQLExpected).toStrictEqual(MySQL)
-		const MariaDBExpected = {"entity":"Products","dialect":"MariaDB","source":"MariaDB","sentence":"SELECT DISTINCT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ","children":[]}
-		let MariaDB = orm.sentence(expression,{stage:'MariaDB'})
-		expect(MariaDBExpected).toStrictEqual(MariaDB)
-		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"SELECT DISTINCT c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc ","children":[]}
-		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
-		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT DISTINCT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ","children":[]}
-		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
-		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT DISTINCT c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] } }}}}, { \"$sort\" :{ \"category\":1 } }]","children":[]}
-		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
-		expect(MongoDBExpected).toStrictEqual(MongoDB)
-	})
-	test('query 18', async () => {
-		const expression = 'Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>[p.quantity,p.category])'
-		const MySQLExpected = {"entity":"Products","dialect":"MySQL","source":"MySQL","sentence":"SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc ","children":[]}
-		let MySQL = orm.sentence(expression,{stage:'MySQL'})
-		expect(MySQLExpected).toStrictEqual(MySQL)
-		const MariaDBExpected = {"entity":"Products","dialect":"MariaDB","source":"MariaDB","sentence":"SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc ","children":[]}
-		let MariaDB = orm.sentence(expression,{stage:'MariaDB'})
-		expect(MariaDBExpected).toStrictEqual(MariaDB)
-		const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"SELECT DISTINCT p.QuantityPerUnit AS \"quantity\", c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, \"category\" asc ","children":[]}
-		let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
-		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc ","children":[]}
-		let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
-		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT DISTINCT p.QuantityPerUnit AS \"quantity\", c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, \"category\" asc ","children":[]}
-		let Oracle = orm.sentence(expression,{stage:'Oracle'})
-		expect(OracleExpected).toStrictEqual(Oracle)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { \"quantity\":\"$QuantityPerUnit\", \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] } }}}}, { \"$sort\" :{ \"QuantityPerUnit\":1, \"category\":1 } }]","children":[]}
-		let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
-		expect(MongoDBExpected).toStrictEqual(MongoDB)
-	})
+	// test('query 16', async () => {
+	// 	const expression = 'Products.distinct(p=>p).sort(p=>p.id)'
+	// 	const MySQLExpected = {"entity":"Products","dialect":"MySQL","source":"MySQL","sentence":"SELECT DISTINCT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc ","children":[]}
+	// 	let MySQL = orm.sentence(expression,{stage:'MySQL'})
+	// 	expect(MySQLExpected).toStrictEqual(MySQL)
+	// 	const MariaDBExpected = {"entity":"Products","dialect":"MariaDB","source":"MariaDB","sentence":"SELECT DISTINCT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc ","children":[]}
+	// 	let MariaDB = orm.sentence(expression,{stage:'MariaDB'})
+	// 	expect(MariaDBExpected).toStrictEqual(MariaDB)
+	// 	const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"SELECT DISTINCT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc ","children":[]}
+	// 	let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
+	// 	expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
+	// 	const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT DISTINCT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc ","children":[]}
+	// 	let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
+	// 	expect(SqlServerExpected).toStrictEqual(SqlServer)
+	// 	const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT DISTINCT p.ProductID AS \"id\", p.ProductName AS \"name\", p.SupplierID AS \"supplierId\", p.CategoryID AS \"categoryId\", p.QuantityPerUnit AS \"quantity\", p.UnitPrice AS \"price\", p.UnitsInStock AS \"inStock\", p.UnitsOnOrder AS \"onOrder\", p.ReorderLevel AS \"reorderLevel\", p.Discontinued AS \"discontinued\" FROM Products p  ORDER BY p.ProductID asc ","children":[]}
+	// 	let Oracle = orm.sentence(expression,{stage:'Oracle'})
+	// 	expect(OracleExpected).toStrictEqual(Oracle)
+	// 	const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { \"id\":\"$_id\", \"name\":\"$ProductName\", \"supplierId\":\"$SupplierID\", \"categoryId\":\"$CategoryID\", \"quantity\":\"$QuantityPerUnit\", \"price\":\"$UnitPrice\", \"inStock\":\"$UnitsInStock\", \"onOrder\":\"$UnitsOnOrder\", \"reorderLevel\":\"$ReorderLevel\", \"discontinued\":\"$Discontinued\" }}}}, { \"$sort\" :{ \"_id\":1 } }]","children":[]}
+	// 	let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+	// 	expect(MongoDBExpected).toStrictEqual(MongoDB)
+	// })
+	// test('query 17', async () => {
+	// 	const expression = 'Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)'
+	// 	const MySQLExpected = {"entity":"Products","dialect":"MySQL","source":"MySQL","sentence":"SELECT DISTINCT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ","children":[]}
+	// 	let MySQL = orm.sentence(expression,{stage:'MySQL'})
+	// 	expect(MySQLExpected).toStrictEqual(MySQL)
+	// 	const MariaDBExpected = {"entity":"Products","dialect":"MariaDB","source":"MariaDB","sentence":"SELECT DISTINCT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ","children":[]}
+	// 	let MariaDB = orm.sentence(expression,{stage:'MariaDB'})
+	// 	expect(MariaDBExpected).toStrictEqual(MariaDB)
+	// 	const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"SELECT DISTINCT c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc ","children":[]}
+	// 	let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
+	// 	expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
+	// 	const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT DISTINCT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ","children":[]}
+	// 	let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
+	// 	expect(SqlServerExpected).toStrictEqual(SqlServer)
+	// 	const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT DISTINCT c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY \"category\" asc ","children":[]}
+	// 	let Oracle = orm.sentence(expression,{stage:'Oracle'})
+	// 	expect(OracleExpected).toStrictEqual(Oracle)
+	// 	const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] } }}}}, { \"$sort\" :{ \"category\":1 } }]","children":[]}
+	// 	let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+	// 	expect(MongoDBExpected).toStrictEqual(MongoDB)
+	// })
+	// test('query 18', async () => {
+	// 	const expression = 'Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>[p.quantity,p.category])'
+	// 	const MySQLExpected = {"entity":"Products","dialect":"MySQL","source":"MySQL","sentence":"SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc ","children":[]}
+	// 	let MySQL = orm.sentence(expression,{stage:'MySQL'})
+	// 	expect(MySQLExpected).toStrictEqual(MySQL)
+	// 	const MariaDBExpected = {"entity":"Products","dialect":"MariaDB","source":"MariaDB","sentence":"SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc ","children":[]}
+	// 	let MariaDB = orm.sentence(expression,{stage:'MariaDB'})
+	// 	expect(MariaDBExpected).toStrictEqual(MariaDB)
+	// 	const PostgreSQLExpected = {"entity":"Products","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"SELECT DISTINCT p.QuantityPerUnit AS \"quantity\", c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, \"category\" asc ","children":[]}
+	// 	let PostgreSQL = orm.sentence(expression,{stage:'PostgreSQL'})
+	// 	expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
+	// 	const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc ","children":[]}
+	// 	let SqlServer = orm.sentence(expression,{stage:'SqlServer'})
+	// 	expect(SqlServerExpected).toStrictEqual(SqlServer)
+	// 	const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT DISTINCT p.QuantityPerUnit AS \"quantity\", c.CategoryName AS \"category\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, \"category\" asc ","children":[]}
+	// 	let Oracle = orm.sentence(expression,{stage:'Oracle'})
+	// 	expect(OracleExpected).toStrictEqual(Oracle)
+	// 	const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$lookup\" :{ \"from\": \"Categories\", \"localField\": \"CategoryID\" , \"foreignField\": \"_id\", \"as\": \"c\" }}, { \"$group\" :{ \"_id\" : null , \"__distinct\":{ \"$addToSet\": { \"quantity\":\"$QuantityPerUnit\", \"category\":{ \"$arrayElemAt\": [\"$c.CategoryName\", 0] } }}}}, { \"$sort\" :{ \"QuantityPerUnit\":1, \"category\":1 } }]","children":[]}
+	// 	let MongoDB = orm.sentence(expression,{stage:'MongoDB'})
+	// 	expect(MongoDBExpected).toStrictEqual(MongoDB)
+	// })
 })

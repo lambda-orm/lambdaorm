@@ -7,10 +7,10 @@ wait-dbs(){
 	wait-until-healthy 'lambdaORM-Source'
 	wait-until-healthy 'lambdaORM-MySQL-57'
 	wait-until-healthy 'lambdaORM-Postgres-10'
-	wait-until-healthy 'lambdaORM-Oracle-19' 600
-	wait-until-healthy 'lambdaORM-SqlServer'	
-	wait-until-healthy 'lambdaORM-MongoDB'
-	wait-until-healthy 'lambdaORM-MariaDB-103'		
+	# wait-until-healthy 'lambdaORM-MariaDB-103'
+	wait-until-healthy 'lambdaORM-Oracle-19' 300
+	# wait-until-healthy 'lambdaORM-SqlServer'	
+	# wait-until-healthy 'lambdaORM-MongoDB'			
 }
 
 wait-until-healthy(){

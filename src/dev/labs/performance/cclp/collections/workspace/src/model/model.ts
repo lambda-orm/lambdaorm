@@ -1,6 +1,10 @@
 /* eslint-disable no-use-before-define */
 // THIS FILE IS NOT EDITABLE, IS MANAGED BY LAMBDA ORM
-import { Queryable } from 'lambdaorm'
+import { Queryable } from '../../../../../../../../lib'
+export enum PartyType{
+	Individual = 'IND',
+	Organization = 'ORG'
+}
 export enum PartyStatus{
 	Created = 'CREATED',
 	Active = 'ACTIVE',
@@ -8,25 +12,27 @@ export enum PartyStatus{
 	Inactive = 'INACTIVE'
 }
 export enum IdentificationType{
-	NotAvailable = 'NOT_AVAILABLE',
+	NotAvailable = 'NO DISPONIBLE',
 	DNI = 'DNI',
 	RUC = 'RUC',
-	Passport = 'PASSPORT',
+	Passport = 'PASAPORTE',
 	CIP = 'CIP',
 	CE = 'CE',
 	CDI = 'CDI'
 }
 export enum Gender{
-	Male = 'MALE',
-	Female = 'FEMALE'
+	Male = 'M',
+	Female = 'F',
+	Undefined = 'U'
 }
 export enum MaritalStatus{
-	Married = 'MARRIED',
-	Divorced = 'DIVORCED',
-	Single = 'SINGLE',
-	Widower = 'WIDOWER',
-	Concubinage = 'CONCUBINAGE',
-	Separation = 'SEPARATION'
+	Married = 'CASADO',
+	Divorced = 'DIVORCIADO',
+	Single = 'SOLTERO',
+	Widower = 'VIUDO',
+	Concubinage = 'CONCUBINATO',
+	Separation = 'SEPARACION',
+	Undefined = 'UNDEFINED'
 }
 export enum ContactMediumType{
 	Phone = 'Phone',
@@ -38,7 +44,10 @@ export enum ContactMediumType{
 	Twitter = 'Twitter',
 	Instagram = 'Instagram',
 	Facebook = 'Facebook',
-	Skype = 'Skype'
+	Skype = 'Skype',
+	MainMobile = 'MainMobile',
+	MainPhone = 'MainPhone',
+	SecPhone = 'SecPhone'
 }
 export abstract class Basic {
 	created?: Date
@@ -49,12 +58,10 @@ export interface QryBasic {
 	createdBy: string
 }
 export class PmIndustryType {
-	id?: number
 	code?: string
 	name?: string
 }
 export interface QryPmIndustryType {
-	id: number
 	code: string
 	name: string
 }
@@ -66,23 +73,19 @@ export class PmParty extends Basic {
 	}
 
 	id?: number
-	individualId?: number
-	organizationId?: number
+	type?: PartyType
 	status?: PartyStatus
 	registeredDate?: Date
 	identifications: PmIdentification[]
 	contactMediums: PmPartyContactMedium[]
-	organization?: PmOrganization
 }
 export interface QryPmParty extends QryBasic {
 	id: number
-	individualId: number
-	organizationId: number
+	type: PartyType
 	status: PartyStatus
 	registeredDate: Date
 	identifications: ManyToOne<PmIdentification> & PmIdentification[]
 	contactMediums: ManyToOne<PmPartyContactMedium> & PmPartyContactMedium[]
-	organization: PmOrganization & OneToOne<PmOrganization> & PmOrganization
 }
 export class PmIdentification extends Basic {
 	id?: number
@@ -104,7 +107,7 @@ export class PmPartyContactMedium extends Basic {
 	id?: number
 	type?: ContactMediumType
 	partyId?: number
-	mediumValue?: string
+	value?: string
 	isMain?: boolean
 	isFavorite?: boolean
 	source?: string
@@ -115,7 +118,7 @@ export interface QryPmPartyContactMedium extends QryBasic {
 	id: number
 	type: ContactMediumType
 	partyId: number
-	mediumValue: string
+	value: string
 	isMain: boolean
 	isFavorite: boolean
 	source: string
@@ -123,10 +126,15 @@ export interface QryPmPartyContactMedium extends QryBasic {
 	party: PmParty & OneToMany<PmParty> & PmParty
 }
 export class PmIndividual extends Basic {
-	id?: number
+	constructor () {
+		super()
+		this.identifications = []
+		this.contactMediums = []
+	}
+
 	partyId?: number
+	code?: string
 	gender?: Gender
-	maritalStatus?: MaritalStatus
 	birthDate?: Date
 	deathDate?: Date
 	nationalityCode?: string
@@ -135,12 +143,13 @@ export class PmIndividual extends Basic {
 	familyNames?: string
 	legalName?: string
 	party?: PmParty
+	identifications: PmIdentification[]
+	contactMediums: PmPartyContactMedium[]
 }
 export interface QryPmIndividual extends QryBasic {
-	id: number
 	partyId: number
+	code: string
 	gender: Gender
-	maritalStatus: MaritalStatus
 	birthDate: Date
 	deathDate: Date
 	nationalityCode: string
@@ -149,26 +158,52 @@ export interface QryPmIndividual extends QryBasic {
 	familyNames: string
 	legalName: string
 	party: PmParty & OneToOne<PmParty> & PmParty
+	identifications: ManyToOne<PmIdentification> & PmIdentification[]
+	contactMediums: ManyToOne<PmPartyContactMedium> & PmPartyContactMedium[]
 }
 export class PmOrganization extends Basic {
-	id?: number
+	constructor () {
+		super()
+		this.identifications = []
+		this.contactMediums = []
+		this.children = []
+		this.descendants = []
+	}
+
 	partyId?: number
+	code?: string
+	rootId?: number
+	parentId?: number
 	legalPeriodFrom?: Date
 	industryTypeCode?: string
 	commercialDescription?: string
 	tradingName?: string
 	party?: PmParty
+	parent?: PmOrganization
+	root?: PmOrganization
 	industryType?: PmIndustryType
+	identifications: PmIdentification[]
+	contactMediums: PmPartyContactMedium[]
+	children: PmOrganization[]
+	descendants: PmOrganization[]
 }
 export interface QryPmOrganization extends QryBasic {
-	id: number
 	partyId: number
+	code: string
+	rootId: number
+	parentId: number
 	legalPeriodFrom: Date
 	industryTypeCode: string
 	commercialDescription: string
 	tradingName: string
 	party: PmParty & OneToOne<PmParty> & PmParty
+	parent: PmOrganization & OneToMany<PmOrganization> & PmOrganization
+	root: PmOrganization & OneToMany<PmOrganization> & PmOrganization
 	industryType: PmIndustryType & OneToMany<PmIndustryType> & PmIndustryType
+	identifications: ManyToOne<PmIdentification> & PmIdentification[]
+	contactMediums: ManyToOne<PmPartyContactMedium> & PmPartyContactMedium[]
+	children: ManyToOne<PmOrganization> & PmOrganization[]
+	descendants: ManyToOne<PmOrganization> & PmOrganization[]
 }
 export let PmIndustryTypes: Queryable<QryPmIndustryType>
 export let PmParties: Queryable<QryPmParty>

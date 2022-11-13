@@ -997,7 +997,7 @@ export class OperandManager {
 		if (operand instanceof Variable) {
 			// if (parameters.find(p => p.name === operand.name) === undefined) {
 			let type: string
-			if (operand.type === '') type = 'any'
+			if (operand.type === '' || operand.type === 'T') type = 'any'
 			else if (operand.type === 'T[]') type = 'array'
 			else type = operand.type
 			parameters.push({ name: operand.name, type: type })
@@ -1075,7 +1075,7 @@ export class OperandManager {
 			? this.expressionConfig.getOperator(operand.name, operand.children.length)
 			: this.expressionConfig.getFunction(operand.name)
 
-		if (metadata.return !== 'T' && metadata.return !== 'any' && operand.type === 'any') {
+		if (!['T', 'T[]', 'any', 'any[]'].includes(metadata.return) && operand.type === 'any') {
 			operand.type = metadata.return
 		}
 
@@ -1084,7 +1084,7 @@ export class OperandManager {
 			for (let i = 0; i < metadata.params.length; i++) {
 				const param = metadata.params[i]
 				const child = operand.children[i]
-				if (param.type !== 'T' && param.type !== 'any' && child.type === 'any') {
+				if (['T', 'T[]', 'any', 'any[]'].includes(param.type) && child.type === 'any') {
 					// in case the parameter has a defined type and the child does not, assign the type of the parameter to the child
 					child.type = param.type
 				}

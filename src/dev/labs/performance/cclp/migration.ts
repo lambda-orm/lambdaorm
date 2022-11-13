@@ -1,10 +1,10 @@
 import { Orm, helper, IOrm, OrmOptions } from '../../../../lib'
 import {sourcePath } from './common'
 import {
-	PmIndividuals, PmOrganizations,	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses, 
+	PmIndividuals, PmOrganizations,	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses,
 	PmIdentificationTypes, PmContactMediumTypes, PmGenders,  PmIndividual, PmOrganization, PmParty, PmNationalReferences, PmIndustryType
 } from './workspace/src/model'
-import * as c  from './collections/workspace/src/model'
+import * as c  from './collections/workspace/src/model/model'
 
 interface PmMapping { 
 	industryTypes: any
@@ -160,7 +160,7 @@ class CollectionImporter {
 		const individuals:c.PmIndividual[] = []
 		const pmMapping = exportData.pmMapping
 		for(const sIndividual of exportData.individuals) {			
-			const tIndividual = new c.PmIndividual()
+			const tIndividual = new c.PmIndividual()			 
 			tIndividual.birthDate = sIndividual.birthDate? new Date(sIndividual.birthDate): undefined
 			tIndividual.deathDate = sIndividual.deathDate? new Date(sIndividual.deathDate): undefined
 			tIndividual.gender =  sIndividual.genderId ? pmMapping.genders[sIndividual.genderId].code: undefined
@@ -172,7 +172,7 @@ class CollectionImporter {
 				tIndividual.middleNames = sIndividual.currentName.middleNames
 			}			
 			if(sIndividual.party) { 
-				tIndividual.party = this.getParty(sIndividual.party, pmMapping)
+				tIndividual.party = this.getParty(sIndividual.party, pmMapping,c.PartyType.Individual)
 			}
 			individuals.push(tIndividual)
 		}
@@ -190,14 +190,15 @@ class CollectionImporter {
 				tOrganization.tradingName = sOrganization.currentName.tradingName
 			}			
 			if(sOrganization.party) { 
-				tOrganization.party = this.getParty(sOrganization.party, pmMapping)
+				tOrganization.party = this.getParty(sOrganization.party, pmMapping,c.PartyType.Organization)
 			}
 			organizations.push(tOrganization)
 		}
 		return organizations
 	}
-	private getParty(sParty:PmParty,pmMapping:PmMapping):c.PmParty {
-		const tParty = new c.PmParty()	
+	private getParty(sParty:PmParty,pmMapping:PmMapping,type: c.PartyType):c.PmParty {
+		const tParty = new c.PmParty()
+		tParty.type = type 	
 		tParty.status =  sParty.statusId ? pmMapping.partyStatuses[sParty.statusId].code : undefined
 			
 		tParty.contactMediums = []
@@ -215,8 +216,11 @@ class CollectionImporter {
 		tParty.identifications = []
 		if (sParty.indentifications) {
 			for(const sIdentification of sParty.indentifications) {
+					if(sIdentification.identificationTypeId === undefined || pmMapping.identificationTypes[sIdentification.identificationTypeId].name === c.IdentificationType.NotAvailable) {
+						continue
+					}
 					const tIdentification = new c.PmIdentification()
-					tIdentification.type = sIdentification.identificationTypeId ? pmMapping.identificationTypes[sIdentification.identificationTypeId].name : undefined
+					tIdentification.type = pmMapping.identificationTypes[sIdentification.identificationTypeId].name
 					tIdentification.value = sIdentification.indentificationValue
 					tIdentification.source = sIdentification.source
 					tParty.identifications.push(tIdentification)

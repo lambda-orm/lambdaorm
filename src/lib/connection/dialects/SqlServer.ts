@@ -185,7 +185,7 @@ export class SqlServerConnection extends Connection {
 				if (data) {
 					const params = this.dataToParameters(mapping, dialect, query, data)
 					if (params.length > 0) {
-						me.addParameters(request, params)
+						me.addParameters(query.sentence, request, params)
 					}
 				}
 				return me.cnx.execSql(request)
@@ -201,7 +201,7 @@ export class SqlServerConnection extends Connection {
 			const request = this.createNonQueryRequest(query.sentence, reject, resolve)
 			const params = this.dataToParameters(mapping, dialect, query, data)
 			if (params.length > 0) {
-				me.addParameters(request, params)
+				me.addParameters(query.sentence, request, params)
 			}
 			return me.cnx.execSql(request)
 		})
@@ -253,7 +253,7 @@ export class SqlServerConnection extends Connection {
 		return _sentence
 	}
 
-	private addParameters (request: any, params: Parameter[] = []) {
+	private addParameters (sentence: string, request: any, params: Parameter[] = []) {
 		for (const param of params) {
 			if (request.parameters.find(p => p.name === param.name) !== undefined) {
 				continue
@@ -267,6 +267,8 @@ export class SqlServerConnection extends Connection {
 			case 'datetime': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.DateTime, param.value); break
 			case 'date': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Date, param.value); break
 			case 'time': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Time, param.value); break
+			case 'any':
+				throw new Error(`Param: ${param.name} is any type in sentence: ${sentence}`)
 			}
 		}
 	}
