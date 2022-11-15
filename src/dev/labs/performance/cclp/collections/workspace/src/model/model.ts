@@ -77,7 +77,7 @@ export class PmParty extends Basic {
 	status?: PartyStatus
 	registeredDate?: Date
 	identifications: PmIdentification[]
-	contactMediums: PmPartyContactMedium[]
+	contactMediums: PmContactMedium[]
 }
 export interface QryPmParty extends QryBasic {
 	id: number
@@ -85,7 +85,7 @@ export interface QryPmParty extends QryBasic {
 	status: PartyStatus
 	registeredDate: Date
 	identifications: ManyToOne<PmIdentification> & PmIdentification[]
-	contactMediums: ManyToOne<PmPartyContactMedium> & PmPartyContactMedium[]
+	contactMediums: ManyToOne<PmContactMedium> & PmContactMedium[]
 }
 export class PmIdentification extends Basic {
 	id?: number
@@ -103,7 +103,7 @@ export interface QryPmIdentification extends QryBasic {
 	source: string
 	party: PmParty & OneToMany<PmParty> & PmParty
 }
-export class PmPartyContactMedium extends Basic {
+export class PmContactMedium extends Basic {
 	id?: number
 	type?: ContactMediumType
 	partyId?: number
@@ -114,7 +114,7 @@ export class PmPartyContactMedium extends Basic {
 	createdBy?: string
 	party?: PmParty
 }
-export interface QryPmPartyContactMedium extends QryBasic {
+export interface QryPmContactMedium extends QryBasic {
 	id: number
 	type: ContactMediumType
 	partyId: number
@@ -144,7 +144,7 @@ export class PmIndividual extends Basic {
 	legalName?: string
 	party?: PmParty
 	identifications: PmIdentification[]
-	contactMediums: PmPartyContactMedium[]
+	contactMediums: PmContactMedium[]
 }
 export interface QryPmIndividual extends QryBasic {
 	partyId: number
@@ -159,7 +159,7 @@ export interface QryPmIndividual extends QryBasic {
 	legalName: string
 	party: PmParty & OneToOne<PmParty> & PmParty
 	identifications: ManyToOne<PmIdentification> & PmIdentification[]
-	contactMediums: ManyToOne<PmPartyContactMedium> & PmPartyContactMedium[]
+	contactMediums: ManyToOne<PmContactMedium> & PmContactMedium[]
 }
 export class PmOrganization extends Basic {
 	constructor () {
@@ -183,7 +183,7 @@ export class PmOrganization extends Basic {
 	root?: PmOrganization
 	industryType?: PmIndustryType
 	identifications: PmIdentification[]
-	contactMediums: PmPartyContactMedium[]
+	contactMediums: PmContactMedium[]
 	children: PmOrganization[]
 	descendants: PmOrganization[]
 }
@@ -201,13 +201,13 @@ export interface QryPmOrganization extends QryBasic {
 	root: PmOrganization & OneToMany<PmOrganization> & PmOrganization
 	industryType: PmIndustryType & OneToMany<PmIndustryType> & PmIndustryType
 	identifications: ManyToOne<PmIdentification> & PmIdentification[]
-	contactMediums: ManyToOne<PmPartyContactMedium> & PmPartyContactMedium[]
+	contactMediums: ManyToOne<PmContactMedium> & PmContactMedium[]
 	children: ManyToOne<PmOrganization> & PmOrganization[]
 	descendants: ManyToOne<PmOrganization> & PmOrganization[]
 }
 export let PmIndustryTypes: Queryable<QryPmIndustryType>
 export let PmParties: Queryable<QryPmParty>
 export let PmIdentifications: Queryable<QryPmIdentification>
-export let PmPartyContactMediums: Queryable<QryPmPartyContactMedium>
+export let PmPartyContactMediums: Queryable<QryPmContactMedium>
 export let PmIndividuals: Queryable<QryPmIndividual>
 export let PmOrganizations: Queryable<QryPmOrganization>

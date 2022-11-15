@@ -222,16 +222,16 @@ entities:
         from: partyId
         entity: PmParties
         to: id
-      - name: identifications
-        type: manyToOne
-        from: partyId
-        entity: PmIdentifications
-        to: partyId
-      - name: contactMediums
-        type: manyToOne
-        from: partyId
-        entity: PmPartyContactMediums
-        to: partyId         
+      # - name: identifications
+      #   type: manyToOne
+      #   from: partyId
+      #   entity: PmIdentifications
+      #   to: partyId
+      # - name: contactMediums
+      #   type: manyToOne
+      #   from: partyId
+      #   entity: PmContactMediums
+      #   to: partyId         
   - name: PmOrganizations
     extends: Basics
     primaryKey: [partyId]
@@ -276,16 +276,16 @@ entities:
         from: industryTypeCode
         entity: PmIndustryTypes
         to: code
-      - name: identifications
-        type: manyToOne
-        from: partyId
-        entity: PmIdentifications
-        to: partyId
-      - name: contactMediums
-        type: manyToOne
-        from: partyId
-        entity: PmPartyContactMediums
-        to: partyId   
+      # - name: identifications
+      #   type: manyToOne
+      #   from: partyId
+      #   entity: PmIdentifications
+      #   to: partyId
+      # - name: contactMediums
+      #   type: manyToOne
+      #   from: partyId
+      #   entity: PmContactMediums
+      #   to: partyId   
 views:
   - name: default
 mappings:
@@ -401,7 +401,7 @@ mappings:
         sequence: SQ_PM_PARTY
       - name: PmIdentifications
         sequence: SQ_PM_IDENTIFICATION
-      - name: PmPartyContactMediums
+      - name: PmContactMediums
         sequence: SQ_PM_PARTY_CONTACT_MEDIUM
       - name: PmIndividuals
         mapping: TBL_PM_INDIVIDUAL

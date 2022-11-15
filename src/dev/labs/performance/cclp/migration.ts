@@ -133,11 +133,14 @@ class CollectionImporter {
 			importData.industryTypes = await this.insertIndustryTypes(industryTypes)
 			importData.individuals = await this.insertIndividuals(individuals)
 			importData.organizations = await this.insertOrganizations(organizations)
+			const stageData = await this.orm.stage.export(this.options).execute()
 			
 			await helper.fs.write(`${this.orm.workspace}/confidential_data/industryTypes.json`, JSON.stringify(industryTypes))
 			await helper.fs.write(`${this.orm.workspace}/confidential_data/individuals.json`, JSON.stringify(individuals))
 			await helper.fs.write(`${this.orm.workspace}/confidential_data/organizations.json`, JSON.stringify(organizations))
-			
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/data.json`, JSON.stringify(importData))
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/export.json`, JSON.stringify(stageData))
+						
 		} catch (error: any) {
 			console.error(error)
 		} finally {
@@ -204,7 +207,7 @@ class CollectionImporter {
 		tParty.contactMediums = []
 		if (sParty.contactMediums) {
 			for(const sContactMedium of sParty.contactMediums) {
-					const tContactMedium = new c.PmPartyContactMedium()
+					const tContactMedium = new c.PmContactMedium()
 					tContactMedium.isFavorite = sContactMedium.isFavorite
 					tContactMedium.isMain = sContactMedium.isMain
 					tContactMedium.type = sContactMedium.contactMediumTypeId ? pmMapping.contactMediumTypes[sContactMedium.contactMediumTypeId].code : undefined
