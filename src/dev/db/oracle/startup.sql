@@ -1,4 +1,4 @@
-conn sys/password as sysdba;
+conn sys/ORACLE123 as sysdba;
 
 alter session set "_ORACLE_SCRIPT"=true;
 

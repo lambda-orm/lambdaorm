@@ -1,0 +1,829 @@
+{
+	"name": "select",
+	"classtype": "Sentence",
+	"children": [
+		{
+			"name": "PmIndividuals",
+			"classtype": "From",
+			"children": [],
+			"type": "any",
+			"alias": "p"
+		},
+		{
+			"name": "map",
+			"classtype": "Map",
+			"children": [
+				{
+					"name": "obj",
+					"classtype": "Obj",
+					"children": [
+						{
+							"name": "code",
+							"classtype": "KeyValue",
+							"children": [
+								{
+									"name": "code",
+									"classtype": "Field",
+									"children": [],
+									"type": "string",
+									"entity": "PmIndividuals",
+									"alias": "p",
+									"isRoot": true
+								}
+							],
+							"type": "any"
+						},
+						{
+							"name": "sexo",
+							"classtype": "KeyValue",
+							"children": [
+								{
+									"name": "gender",
+									"classtype": "Field",
+									"children": [],
+									"type": "string",
+									"entity": "PmIndividuals",
+									"alias": "p",
+									"isRoot": true
+								}
+							],
+							"type": "any"
+						},
+						{
+							"name": "name",
+							"classtype": "KeyValue",
+							"children": [
+								{
+									"name": "concat",
+									"classtype": "FunctionRef",
+									"children": [
+										{
+											"name": "givenNames",
+											"classtype": "Field",
+											"children": [],
+											"type": "string",
+											"entity": "PmIndividuals",
+											"alias": "p",
+											"isRoot": true
+										},
+										{
+											"name": ", ",
+											"classtype": "Constant2",
+											"children": [],
+											"type": "string"
+										},
+										{
+											"name": "familyNames",
+											"classtype": "Field",
+											"children": [],
+											"type": "string",
+											"entity": "PmIndividuals",
+											"alias": "p",
+											"isRoot": true
+										}
+									],
+									"type": "string"
+								}
+							],
+							"type": "any"
+						},
+						{
+							"name": "__partyId",
+							"classtype": "KeyValue",
+							"children": [
+								{
+									"name": "partyId",
+									"classtype": "Field",
+									"children": [],
+									"type": "integer",
+									"entity": "PmIndividuals",
+									"alias": "p",
+									"isRoot": true
+								}
+							],
+							"type": "any"
+						}
+					],
+					"type": "object"
+				}
+			],
+			"type": "any"
+		},
+		{
+			"name": "party",
+			"classtype": "SentenceInclude",
+			"children": [
+				{
+					"name": "select",
+					"classtype": "Sentence",
+					"children": [
+						{
+							"name": "filter",
+							"classtype": "Filter",
+							"children": [
+								{
+									"name": "includes",
+									"classtype": "FunctionRef",
+									"children": [
+										{
+											"name": "id",
+											"classtype": "Field",
+											"children": [],
+											"type": "integer",
+											"entity": "PmParties",
+											"alias": "p1",
+											"isRoot": true
+										},
+										{
+											"name": "LambdaOrmParentId",
+											"classtype": "Variable",
+											"children": [],
+											"type": "T[]",
+											"number": 1
+										}
+									],
+									"type": "boolean"
+								}
+							],
+							"type": "any"
+						},
+						{
+							"name": "PmParties",
+							"classtype": "From",
+							"children": [],
+							"type": "any",
+							"alias": "p1"
+						},
+						{
+							"name": "map",
+							"classtype": "Map",
+							"children": [
+								{
+									"name": "obj",
+									"classtype": "Obj",
+									"children": [
+										{
+											"name": "id",
+											"classtype": "KeyValue",
+											"children": [
+												{
+													"name": "id",
+													"classtype": "Field",
+													"children": [],
+													"type": "integer",
+													"entity": "PmParties",
+													"alias": "p1",
+													"isRoot": true
+												}
+											],
+											"type": "any"
+										},
+										{
+											"name": "type",
+											"classtype": "KeyValue",
+											"children": [
+												{
+													"name": "type",
+													"classtype": "Field",
+													"children": [],
+													"type": "string",
+													"entity": "PmParties",
+													"alias": "p1",
+													"isRoot": true
+												}
+											],
+											"type": "any"
+										},
+										{
+											"name": "status",
+											"classtype": "KeyValue",
+											"children": [
+												{
+													"name": "status",
+													"classtype": "Field",
+													"children": [],
+													"type": "string",
+													"entity": "PmParties",
+													"alias": "p1",
+													"isRoot": true
+												}
+											],
+											"type": "any"
+										},
+										{
+											"name": "registeredDate",
+											"classtype": "KeyValue",
+											"children": [
+												{
+													"name": "registeredDate",
+													"classtype": "Field",
+													"children": [],
+													"type": "datetime",
+													"entity": "PmParties",
+													"alias": "p1",
+													"isRoot": true
+												}
+											],
+											"type": "any"
+										},
+										{
+											"name": "created",
+											"classtype": "KeyValue",
+											"children": [
+												{
+													"name": "created",
+													"classtype": "Field",
+													"children": [],
+													"type": "datetime",
+													"entity": "PmParties",
+													"alias": "p1",
+													"isRoot": true
+												}
+											],
+											"type": "any"
+										},
+										{
+											"name": "createdBy",
+											"classtype": "KeyValue",
+											"children": [
+												{
+													"name": "createdBy",
+													"classtype": "Field",
+													"children": [],
+													"type": "string",
+													"entity": "PmParties",
+													"alias": "p1",
+													"isRoot": true
+												}
+											],
+											"type": "any"
+										},
+										{
+											"name": "__id",
+											"classtype": "KeyValue",
+											"children": [
+												{
+													"name": "id",
+													"classtype": "Field",
+													"children": [],
+													"type": "integer",
+													"entity": "PmParties",
+													"alias": "p1",
+													"isRoot": true
+												}
+											],
+											"type": "any"
+										},
+										{
+											"name": "__id",
+											"classtype": "KeyValue",
+											"children": [
+												{
+													"name": "id",
+													"classtype": "Field",
+													"children": [],
+													"type": "integer",
+													"entity": "PmParties",
+													"alias": "p1",
+													"isRoot": true
+												}
+											],
+											"type": "any"
+										},
+										{
+											"name": "LambdaOrmParentId",
+											"classtype": "KeyValue",
+											"children": [
+												{
+													"name": "id",
+													"classtype": "Field",
+													"children": [],
+													"type": "integer",
+													"entity": "PmParties",
+													"alias": "p1",
+													"isRoot": true
+												}
+											],
+											"type": "any"
+										}
+									],
+									"type": "object"
+								}
+							],
+							"type": "any"
+						},
+						{
+							"name": "identifications",
+							"classtype": "SentenceInclude",
+							"children": [
+								{
+									"name": "select",
+									"classtype": "Sentence",
+									"children": [
+										{
+											"name": "filter",
+											"classtype": "Filter",
+											"children": [
+												{
+													"name": "includes",
+													"classtype": "FunctionRef",
+													"children": [
+														{
+															"name": "partyId",
+															"classtype": "Field",
+															"children": [],
+															"type": "integer",
+															"entity": "PmIdentifications",
+															"alias": "p12",
+															"isRoot": true
+														},
+														{
+															"name": "LambdaOrmParentId",
+															"classtype": "Variable",
+															"children": [],
+															"type": "T[]",
+															"number": 1
+														}
+													],
+													"type": "boolean"
+												}
+											],
+											"type": "any"
+										},
+										{
+											"name": "PmIdentifications",
+											"classtype": "From",
+											"children": [],
+											"type": "any",
+											"alias": "p12"
+										},
+										{
+											"name": "map",
+											"classtype": "Map",
+											"children": [
+												{
+													"name": "obj",
+													"classtype": "Obj",
+													"children": [
+														{
+															"name": "type",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "type",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "string",
+																	"entity": "PmIdentifications",
+																	"alias": "p12",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "value",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "value",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "string",
+																	"entity": "PmIdentifications",
+																	"alias": "p12",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "LambdaOrmParentId",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "partyId",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "integer",
+																	"entity": "PmIdentifications",
+																	"alias": "p12",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														}
+													],
+													"type": "object"
+												}
+											],
+											"type": "any"
+										}
+									],
+									"type": "any",
+									"columns": [
+										{
+											"name": "type",
+											"type": "string"
+										},
+										{
+											"name": "value",
+											"type": "string"
+										},
+										{
+											"name": "LambdaOrmParentId",
+											"type": "integer"
+										}
+									],
+									"parameters": [
+										{
+											"name": "LambdaOrmParentId",
+											"type": "array"
+										}
+									],
+									"entity": "PmIdentifications",
+									"constraints": []
+								}
+							],
+							"type": "any",
+							"relation": {
+								"name": "identifications",
+								"type": "manyToOne",
+								"composite": false,
+								"from": "id",
+								"entity": "PmIdentifications",
+								"weak": true,
+								"to": "partyId",
+								"target": "party"
+							}
+						},
+						{
+							"name": "contactMediums",
+							"classtype": "SentenceInclude",
+							"children": [
+								{
+									"name": "select",
+									"classtype": "Sentence",
+									"children": [
+										{
+											"name": "filter",
+											"classtype": "Filter",
+											"children": [
+												{
+													"name": "includes",
+													"classtype": "FunctionRef",
+													"children": [
+														{
+															"name": "partyId",
+															"classtype": "Field",
+															"children": [],
+															"type": "integer",
+															"entity": "PmContactMediums",
+															"alias": "p123",
+															"isRoot": true
+														},
+														{
+															"name": "LambdaOrmParentId",
+															"classtype": "Variable",
+															"children": [],
+															"type": "T[]",
+															"number": 1
+														}
+													],
+													"type": "boolean"
+												}
+											],
+											"type": "any"
+										},
+										{
+											"name": "PmContactMediums",
+											"classtype": "From",
+											"children": [],
+											"type": "any",
+											"alias": "p123"
+										},
+										{
+											"name": "map",
+											"classtype": "Map",
+											"children": [
+												{
+													"name": "obj",
+													"classtype": "Obj",
+													"children": [
+														{
+															"name": "id",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "id",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "integer",
+																	"entity": "PmContactMediums",
+																	"alias": "p123",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "partyId",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "partyId",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "integer",
+																	"entity": "PmContactMediums",
+																	"alias": "p123",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "type",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "type",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "string",
+																	"entity": "PmContactMediums",
+																	"alias": "p123",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "value",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "value",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "string",
+																	"entity": "PmContactMediums",
+																	"alias": "p123",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "isMain",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "isMain",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "boolean",
+																	"entity": "PmContactMediums",
+																	"alias": "p123",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "isFavorite",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "isFavorite",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "boolean",
+																	"entity": "PmContactMediums",
+																	"alias": "p123",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "source",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "source",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "string",
+																	"entity": "PmContactMediums",
+																	"alias": "p123",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "createdBy",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "createdBy",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "string",
+																	"entity": "PmContactMediums",
+																	"alias": "p123",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "created",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "created",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "datetime",
+																	"entity": "PmContactMediums",
+																	"alias": "p123",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														},
+														{
+															"name": "LambdaOrmParentId",
+															"classtype": "KeyValue",
+															"children": [
+																{
+																	"name": "partyId",
+																	"classtype": "Field",
+																	"children": [],
+																	"type": "integer",
+																	"entity": "PmContactMediums",
+																	"alias": "p123",
+																	"isRoot": true
+																}
+															],
+															"type": "any"
+														}
+													],
+													"type": "object"
+												}
+											],
+											"type": "any"
+										}
+									],
+									"type": "any",
+									"columns": [
+										{
+											"name": "id",
+											"type": "integer"
+										},
+										{
+											"name": "partyId",
+											"type": "integer"
+										},
+										{
+											"name": "type",
+											"type": "string"
+										},
+										{
+											"name": "value",
+											"type": "string"
+										},
+										{
+											"name": "isMain",
+											"type": "boolean"
+										},
+										{
+											"name": "isFavorite",
+											"type": "boolean"
+										},
+										{
+											"name": "source",
+											"type": "string"
+										},
+										{
+											"name": "createdBy",
+											"type": "string"
+										},
+										{
+											"name": "created",
+											"type": "datetime"
+										},
+										{
+											"name": "LambdaOrmParentId",
+											"type": "integer"
+										}
+									],
+									"parameters": [
+										{
+											"name": "LambdaOrmParentId",
+											"type": "array"
+										}
+									],
+									"entity": "PmContactMediums",
+									"constraints": []
+								}
+							],
+							"type": "any",
+							"relation": {
+								"name": "contactMediums",
+								"type": "manyToOne",
+								"composite": false,
+								"from": "id",
+								"entity": "PmContactMediums",
+								"weak": true,
+								"to": "partyId",
+								"target": "party"
+							}
+						}
+					],
+					"type": "any",
+					"columns": [
+						{
+							"name": "id",
+							"type": "integer"
+						},
+						{
+							"name": "type",
+							"type": "string"
+						},
+						{
+							"name": "status",
+							"type": "string"
+						},
+						{
+							"name": "registeredDate",
+							"type": "datetime"
+						},
+						{
+							"name": "created",
+							"type": "datetime"
+						},
+						{
+							"name": "createdBy",
+							"type": "string"
+						},
+						{
+							"name": "__id",
+							"type": "integer"
+						},
+						{
+							"name": "__id",
+							"type": "integer"
+						},
+						{
+							"name": "LambdaOrmParentId",
+							"type": "integer"
+						}
+					],
+					"parameters": [
+						{
+							"name": "LambdaOrmParentId",
+							"type": "array"
+						}
+					],
+					"entity": "PmParties",
+					"constraints": []
+				}
+			],
+			"type": "any",
+			"relation": {
+				"name": "party",
+				"type": "oneToOne",
+				"from": "partyId",
+				"entity": "PmParties",
+				"to": "id",
+				"target": "individual",
+				"weak": false
+			}
+		}
+	],
+	"type": "any",
+	"columns": [
+		{
+			"name": "code",
+			"type": "string"
+		},
+		{
+			"name": "sexo",
+			"type": "string"
+		},
+		{
+			"name": "name",
+			"type": "string"
+		},
+		{
+			"name": "__partyId",
+			"type": "integer"
+		}
+	],
+	"parameters": [],
+	"entity": "PmIndividuals",
+	"constraints": []
+}

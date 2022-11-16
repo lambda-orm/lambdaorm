@@ -362,8 +362,6 @@ test:
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
-        - message: Cannot be null property id in entity Orders
-          condition: isNotNull(id)
     metadata:
       name: update
       classtype: Sentence
@@ -595,8 +593,6 @@ test:
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
-        - message: Cannot be null property id in entity Orders
-          condition: isNotNull(id)
     executions:
       - stage: MySQL
       - stage: MariaDB
@@ -2651,8 +2647,6 @@ test:
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
-        - message: Cannot be null property id in entity Orders
-          condition: isNotNull(id)
       children:
         - entity: Orders.details
           constraints:
@@ -3052,8 +3046,6 @@ test:
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
-        - message: Cannot be null property id in entity Orders
-          condition: isNotNull(id)
     executions:
       - stage: MongoDB
         error: >-
@@ -3416,8 +3408,6 @@ test:
               condition: isNotNull(customerId)
             - message: Cannot be null property employeeId in entity Orders
               condition: isNotNull(employeeId)
-            - message: Cannot be null property id in entity Orders
-              condition: isNotNull(id)
           children:
             - entity: Orders.details
               constraints:
@@ -3955,8 +3945,6 @@ test:
                   condition: isNotNull(customerId)
                 - message: Cannot be null property employeeId in entity Orders
                   condition: isNotNull(employeeId)
-                - message: Cannot be null property id in entity Orders
-                  condition: isNotNull(id)
           type: any
           relation:
             name: orders

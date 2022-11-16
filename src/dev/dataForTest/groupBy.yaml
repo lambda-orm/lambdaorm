@@ -52,7 +52,7 @@ test:
     normalizeExpression: Products.map(p=>{maxPrice:max(p.price)})
     model:
       - name: maxPrice
-        type: decimal
+        type: any
     parameters: []
     constraints:
       entity: Products
@@ -92,7 +92,7 @@ test:
       type: any
       columns:
         - name: maxPrice
-          type: decimal
+          type: any
       parameters: []
       entity: Products
       constraints: []
@@ -158,7 +158,7 @@ test:
     normalizeExpression: Products.map(p=>{minPrice:min(p.price)})
     model:
       - name: minPrice
-        type: decimal
+        type: any
     parameters: []
     constraints:
       entity: Products
@@ -198,7 +198,7 @@ test:
       type: any
       columns:
         - name: minPrice
-          type: decimal
+          type: any
       parameters: []
       entity: Products
       constraints: []
@@ -606,7 +606,7 @@ test:
       - name: category
         type: integer
       - name: largestPrice
-        type: decimal
+        type: any
     parameters: []
     constraints:
       entity: Products
@@ -670,7 +670,7 @@ test:
         - name: category
           type: integer
         - name: largestPrice
-          type: decimal
+          type: any
       parameters: []
       entity: Products
       constraints: []
@@ -719,22 +719,22 @@ test:
       - stage: MongoDB
         error: not equal MySQL
         result:
-          - category: 1
-            largestPrice: 263.5
-          - category: 5
-            largestPrice: 38
-          - category: 8
-            largestPrice: 62.5
+          - category: 3
+            largestPrice: 81
           - category: 7
             largestPrice: 53
+          - category: 8
+            largestPrice: 62.5
+          - category: 5
+            largestPrice: 38
+          - category: 4
+            largestPrice: 55
+          - category: 1
+            largestPrice: 263.5
           - category: 2
             largestPrice: 43.9
           - category: 6
             largestPrice: 123.79
-          - category: 4
-            largestPrice: 55
-          - category: 3
-            largestPrice: 81
     result:
       - category: 1
         largestPrice: 263.5
@@ -823,7 +823,7 @@ test:
       - name: category
         type: string
       - name: largestPrice
-        type: decimal
+        type: any
     parameters: []
     constraints:
       entity: Products
@@ -909,7 +909,7 @@ test:
         - name: category
           type: string
         - name: largestPrice
-          type: decimal
+          type: any
       parameters: []
       entity: Products
       constraints: []
@@ -958,22 +958,22 @@ test:
       - stage: MongoDB
         error: not equal MySQL
         result:
-          - category: Produce
-            largestPrice: 53
-          - category: Confections
-            largestPrice: 81
           - category: Condiments
             largestPrice: 43.9
-          - category: Seafood
-            largestPrice: 62.5
-          - category: Dairy Products
-            largestPrice: 55
           - category: Beverages
             largestPrice: 263.5
           - category: Meat/Poultry
             largestPrice: 123.79
           - category: Grains/Cereals
             largestPrice: 38
+          - category: Confections
+            largestPrice: 81
+          - category: Dairy Products
+            largestPrice: 55
+          - category: Seafood
+            largestPrice: 62.5
+          - category: Produce
+            largestPrice: 53
     result:
       - category: Beverages
         largestPrice: 263.5
@@ -1243,7 +1243,7 @@ test:
       - name: category
         type: string
       - name: largestPrice
-        type: decimal
+        type: any
     parameters: []
     constraints:
       entity: Products
@@ -1352,7 +1352,7 @@ test:
         - name: category
           type: string
         - name: largestPrice
-          type: decimal
+          type: any
       parameters: []
       entity: Products
       constraints: []

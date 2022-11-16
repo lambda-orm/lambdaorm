@@ -1,0 +1,588 @@
+enums:
+  - name: AreaType
+    values:
+      - name: Country
+        value: Country
+      - name: Region
+        value: Region
+      - name: State
+        value: State
+      - name: Department
+        value: Department
+      - name: City
+        value: City
+  - name: StreetType
+  # https://www.gimme-shelter.com/steet-types-designations-abbreviations-50006/
+    values:
+      - name: Street
+        value: ST
+      - name: Avenue
+        value: AV               
+  - name: PartyType
+    values:
+      - name: Individual
+        value: IND
+      - name: Organization
+        value: ORG
+  - name: PartyStatus
+    values:
+      - name: Created
+        value: CREATED
+      - name: Active
+        value: ACTIVE  
+      - name: InProgress
+        value: IN_PROGRESS  
+      - name: Inactive
+        value: INACTIVE
+  - name: IdentificationType
+    values:
+      - name: NotAvailable
+        value: "NO DISPONIBLE"
+      - name: DNI
+        value: DNI  
+      - name: RUC
+        value: RUC  
+      - name: Passport
+        value: PASAPORTE
+      - name: CIP
+        value: CIP
+      - name: CE
+        value: CE
+      - name: CDI
+        value: CDI                   
+  - name: Gender
+    values:
+      - name: Male
+        value: M
+      - name: Female
+        value: F
+      - name: Undefined
+        value: U
+  - name: MaritalStatus
+    values:
+      - name: Married
+        value: CASADO
+      - name: Divorced
+        value: DIVORCIADO  
+      - name: Single
+        value: SOLTERO  
+      - name: Widower
+        value: VIUDO
+      - name: Concubinage
+        value: CONCUBINATO
+      - name: Separation
+        value: SEPARACION
+      - name: Undefined
+        value: UNDEFINED
+  - name: ContactMediumType
+    values:
+      - name: Phone
+        value: Phone
+      - name: CellPhone
+        value: CellPhone  
+      - name: SecondaryPhone
+        value: SecondaryPhone  
+      - name: WorkPhone
+        value: WorkPhone
+      - name: Email
+        value: Email
+      - name: WorkEmail
+        value: WorkEmail
+      - name: Twitter
+        value: Twitter 
+      - name: Instagram
+        value: Instagram
+      - name: Facebook
+        value: Facebook
+      - name: Skype
+        value: Skype
+      - name: MainMobile
+        value: MainMobile
+      - name: MainPhone
+        value: MainPhone
+      - name: SecPhone
+        value: SecPhone                                     
+entities:
+  # Abstracts
+  - name: Basics
+    abstract: true
+    properties:
+      - name: created
+        type: datetime
+        default: now()
+      - name: createdBy
+        length: 50  
+  # Location settings
+  - name: LocCountries
+    primaryKey: ["iso3"]
+    properties:
+      - name: iso3
+        length: 3
+        required: true
+      - name: name
+        length: 60
+        required: true
+      - name: iso
+        length: 2
+        required: true
+      - name: numericCode
+        length: 5
+        required: true
+  - name: LocAreas
+    primaryKey: ["code"]
+    properties:
+      - name: code
+        length: 16
+        required: true
+      - name: parentCode
+        length: 16  
+      - name: countryCode
+        length: 3
+        required: true  
+      - name: type
+        enum: AreaType
+        length: 16 
+        required: true             
+      - name: name
+        length: 200
+        required: true
+    relations:
+      - name: country
+        from: countryCode
+        entity: LocCountries
+        to: iso3
+        target: areas
+      - name: parent
+        from: parentCode
+        entity: LocAreas
+        to: code
+        target: children  
+  # Location business
+  - name: LocAddresses
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: countryCode
+        length: 3
+        required: true
+      - name: areaCode
+        length: 16
+        required: true  
+      - name: streetName
+        length: 250
+      - name: streetType
+        enum: StreetType
+        length: 3 
+      - name: streetNrFirst
+        length: 20
+      - name: postalCode
+        length: 30
+      - name: city
+        length: 100
+      - name: additionalData
+        length: 100
+    relations:
+      - name: country
+        from: countryId
+        entity: LocCountries
+        to: iso3
+      - name: area
+        from: areaCode
+        entity: LocAreas
+        to: code   
+  # Party settings
+  - name: PmIndustryTypes
+    primaryKey: ["code"]
+    properties:
+      - name: code
+        length: 30
+        required: true
+      - name: name
+        length: 255
+        required: true
+  # Party business
+  - name: PmParties
+    extends: Basics
+    primaryKey: [id]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: type
+        enum: PartyType
+        length: 3
+      - name: status
+        enum: PartyStatus
+        length: 12
+        required: true
+      - name: registeredDate
+        type: datetime
+        required: true
+        default: now()
+  - name: PmIdentifications
+    extends: Basics
+    primaryKey: [id]
+    # uniqueKey: [partyId,type]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: partyId
+        type: integer
+        required: true  
+      - name: type
+        enum: IdentificationType
+        length: 16
+        required: true
+      - name: value
+        length: 100
+        required: true
+      - name: source
+        length: 30
+    relations:
+      - name: party
+        from: partyId
+        entity: PmParties
+        to: id
+        target: identifications       
+  - name: PmContactMediums
+    extends: Basics
+    primaryKey: [id]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: partyId
+        type: integer
+        required: true  
+      - name: type
+        enum: ContactMediumType
+        length: 16
+        required: true    
+      - name: value
+        length: 100
+        # required: true
+      - name: isMain
+        type: boolean        
+      - name: isFavorite
+        type: boolean
+      - name: source
+        length: 30
+      - name: createdBy
+        length: 50
+    relations:
+      - name: party
+        from: partyId
+        entity: PmParties
+        to: id
+        target: contactMediums
+  - name: PmIndividuals
+    extends: Basics
+    primaryKey: [partyId]
+    uniqueKey:  [code]
+    properties:
+      - name: partyId
+        type: integer
+        required: true
+      - name: code
+        length: 32
+        required: true
+        default: 'lpad(toString(partyId),16,"0")'    
+      - name: gender
+        enum: Gender
+        length: 16
+      # - name: maritalStatus
+      #   enum: MaritalStatus
+      #   length: 16 
+      - name: birthDate
+        type: datetime
+      - name: deathDate
+        type: datetime
+      - name: nationalityCode
+        type: string
+        length: 3
+        # use ISO3
+      - name: givenNames
+        length: 200
+      - name: middleNames
+        length: 100
+      - name: familyNames
+        length: 100
+      - name: legalName
+        length: 500
+    relations:
+      - name: party
+        type: oneToOne
+        from: partyId
+        entity: PmParties
+        to: id
+        target: individual 
+      # - name: identifications
+      #   type: manyToOne
+      #   from: partyId
+      #   entity: PmIdentifications
+      #   to: partyId
+      # - name: contactMediums
+      #   type: manyToOne
+      #   from: partyId
+      #   entity: PmContactMediums
+      #   to: partyId         
+  - name: PmOrganizations
+    extends: Basics
+    primaryKey: [partyId]
+    uniqueKey:  [code]
+    properties:
+      - name: partyId
+        type: integer
+        required: true
+      - name: code
+        length: 32
+        required: true
+        default: 'lpad(toString(partyId),16,"0")'   
+      - name: rootId
+        type: integer
+      - name: parentId
+        type: integer     
+      - name: legalPeriodFrom
+        type: datetime
+      - name: industryTypeCode
+        length: 30
+      - name: commercialDescription
+        length: 400
+      - name: tradingName
+        length: 100  
+    relations:
+      - name: party
+        type: oneToOne
+        from: partyId
+        entity: PmParties
+        to: id
+        target: organization
+      - name: parent
+        from: parentId
+        entity: PmOrganizations
+        to: partyId        
+        target: children
+      - name: root
+        from: rootId
+        entity: PmOrganizations
+        to: partyId        
+        target: descendants  
+      - name: industryType
+        from: industryTypeCode
+        entity: PmIndustryTypes
+        to: code
+      # - name: identifications
+      #   type: manyToOne
+      #   from: partyId
+      #   entity: PmIdentifications
+      #   to: partyId
+      # - name: contactMediums
+      #   type: manyToOne
+      #   from: partyId
+      #   entity: PmContactMediums
+      #   to: partyId   
+views:
+  - name: default
+mappings:
+  - name: default
+    entities:
+      # Abstracts 
+      - name: Basics
+        abstract: true
+        properties:
+          - name: created
+            mapping: CREATED
+          - name: createdBy
+            mapping: CREATED_BY  
+      #  Party
+      - name: PmIndustryTypes
+        mapping: TBL_PM_INDUSTRY_TYPE
+        properties:
+          - name: code
+            mapping: CODE
+          - name: name
+            mapping: NAME
+      - name: PmParties
+        extends: Basics
+        mapping: TBL_PM_PARTY
+        properties:
+          - name: id
+            mapping: ID
+          - name: type
+            mapping: TYPE
+          - name: status
+            mapping: STATUS
+          - name: registeredDate
+            mapping: REGISTER_DATE
+      - name: PmIdentifications
+        extends: Basics
+        mapping: TBL_PM_IDENTIFICATION
+        properties:
+          - name: id
+            mapping: ID
+          - name: type
+            mapping: TYPE
+          - name: value
+            mapping: VALUE  
+          - name: partyId
+            mapping: PARTY_ID         
+          - name: source
+            mapping: SOURCE
+      - name: PmContactMediums
+        extends: Basics
+        mapping: TBL_PM_CONTACT_MEDIUM
+        properties:
+          - name: id
+            mapping: ID
+          - name: partyId
+            mapping: PARTY_ID  
+          - name: type
+            mapping: TYPE         
+          - name: value
+            mapping: VALUE
+          - name: isMain
+            mapping: IS_MAIN  
+          - name: isFavorite
+            mapping: IS_FAVORITE
+          - name: source
+            mapping: SOURCE
+          - name: createdBy
+            mapping: CREATED_BY
+      - name: PmIndividuals
+        extends: Basics
+        mapping: TBL_PM_INDIVIDUAL
+        properties:
+          - name: partyId
+            mapping: PARTY_ID
+          - name: gender
+            mapping: GENDER
+          # - name: maritalStatus
+          #   mapping: MARITAL_STATUS  
+          - name: birthDate
+            mapping: BIRTH_DATE
+          - name: deathDate
+            mapping: DEATH_DATE
+          - name: nationalityCode
+            mapping: NATIONALITY_CODE
+          - name: givenNames
+            mapping: GIVEN_NAMES
+          - name: middleNames
+            mapping: MIDDLE_NAMES
+          - name: familyNames
+            mapping: FAMILY_NAMES
+          - name: legalName
+            mapping: LEGAL_NAME     
+      - name: PmOrganizations
+        extends: Basics
+        mapping: TBL_PM_ORGANIZATION
+        properties:
+          - name: partyId
+            mapping: PARTY_ID
+          - name: legalPeriodFrom
+            mapping: LEGAL_PERIOD_FROM
+          - name: tradingName
+            mapping: TRADING_NAME
+          - name: industryTypeCode
+            mapping: INDUSTRY_TYPE_CODE
+          - name: commercialDescription
+            mapping: COMMERCIAL_DESCRIPTION
+  - name: oracle
+    extends: default
+    entities:
+      #  Party
+      - name: PmIndustryTypes
+        sequence: SQ_PM_INDUSTRY_TYPE
+      - name: PmParties
+        sequence: SQ_PM_PARTY
+      - name: PmIdentifications
+        sequence: SQ_PM_IDENTIFICATION
+      - name: PmContactMediums
+        sequence: SQ_PM_PARTY_CONTACT_MEDIUM
+      - name: PmIndividuals
+        mapping: TBL_PM_INDIVIDUAL
+        sequence: SQ_PM_INDIVIDUAL  
+      - name: PmOrganizations
+        sequence: SQ_PM_ORGANIZATION
+sources:
+  # Postgres sources
+  - name: locations
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${PSG_LOCATIONS}
+  - name: parties
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${PSG_PARTIES}
+  - name: partyRoles
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${PSG_PARTY_ROLES}
+  - name: ledgerAccounts
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${PSG_LEDGER_ACCOUNTS}
+  - name: debtors
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${PSG_DEBTORS}
+    # Oracle sources
+  - name: oraLocations
+    mapping: oracle
+    dialect: Oracle
+    connection: ${ORA_LOCATIONS}
+  - name: oraParties
+    mapping: oracle
+    dialect: Oracle
+    connection: ${ORA_PARTIES}
+  - name: oraPartyRoles
+    mapping: oracle
+    dialect: Oracle
+    connection: ${ORA_PARTY_ROLES}
+  - name: oraLedgerAccounts
+    mapping: oracle
+    dialect: Oracle
+    connection: ${ORA_LEDGER_ACCOUNTS}
+  - name: oraDebtors
+    mapping: oracle
+    dialect: Oracle
+    connection: ${ORA_DEBTORS}
+  # Insight source
+  - name: insights
+    mapping: default
+    dialect: PostgreSQL
+    connection: ${PSG_INSIGHTS}
+stages:
+  - name: PostgreSQL
+    sources:
+      - name: locations
+        condition: substring(entity,0,3)=="Loc"
+      - name: parties
+        condition: substring(entity,0,2)=="Pm"
+      - name: partyRoles
+        condition: substring(entity,0,2)=="Pr"
+      - name: ledgerAccounts
+        condition: substring(entity,0,3)=="Lam"
+      - name: debtors
+        condition: substring(entity,0,2)=="Db"
+  - name: Oracle
+    sources:
+      - name: oraLocations
+        condition: substring(entity,0,3)=="Loc"
+      - name: oraParties
+        condition: substring(entity,0,2)=="Pm"
+      - name: oraPartyRoles
+        condition: substring(entity,0,2)=="Pr"
+      - name: oraLedgerAccounts
+        condition: substring(entity,0,3)=="Lam"
+      - name: oraDebtors
+        condition: substring(entity,0,2)=="Db"
+  - name: Insight
+    sources:
+      - name: insights

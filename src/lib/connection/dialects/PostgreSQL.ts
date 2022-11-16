@@ -1,7 +1,7 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data, Parameter } from '../../model'
-import { MappingConfig, Dialect, Helper } from '../../manager'
+import { MappingConfig, Dialect, helper } from '../../manager'
 
 // https://node-postgres.com/features/connecting
 
@@ -121,21 +121,21 @@ export class PostgreSQLConnection extends Connection {
 				value = value ? 'true' : 'false'; break
 			case 'string':
 				if (value.includes('\'')) {
-					// value = Helper.escape(value)
-					value = `'${Helper.replace(value, '\'', '\'\'')}'`
+					// value = helper.escape(value)
+					value = `'${helper.str.replace(value, '\'', '\'\'')}'`
 				} else {
-				// value = Helper.escape(value)
+				// value = helper.escape(value)
 					value = `'${value}'`
 				}
 				break
 			case 'datetime':
-				value = Helper.escape(this.writeDateTime(value, mapping, dialect))
+				value = helper.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case 'date':
-				value = Helper.escape(this.writeDate(value, mapping, dialect))
+				value = helper.escape(this.writeDate(value, mapping, dialect))
 				break
 			case 'time':
-				value = Helper.escape(this.writeTime(value, mapping, dialect))
+				value = helper.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}
@@ -186,43 +186,45 @@ export class PostgreSQLConnection extends Connection {
 
 		for (let i = 0; i < params.length; i++) {
 			const param = params[i]
-			if (param.type !== 'array') {
-				values.push(param.value)
-				continue
-			}
-			// https://stackoverflow.com/questions/10720420/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
-			// https://www.it-swarm-es.com/es/node.js/node-postgres-como-ejecutar-la-consulta-where-col-lista-de-valores-dinamicos/1066948040/
-			// https://www.postgresql.org/docs/9.2/functions-array.html
-			// https://newbedev.com/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
-			if (param.value.length === 0) {
-				values.push([])
-				continue
-			}
-			if (param.value.length === 1) {
-				values.push(param.value[0])
-				continue
-			}
-			const type = typeof param.value[0]
-			switch (type) {
-			case 'string':
-				sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
-				values.push(param.value)
-				break
-			case 'bigint':
-			case 'number':
-				sql = Helper.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
-				values.push(param.value)
-				break
-			default:
+			if (param.type === 'array' || (param.type === 'any' && Array.isArray(param.value))) {
+				// https://stackoverflow.com/questions/10720420/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
+				// https://www.it-swarm-es.com/es/node.js/node-postgres-como-ejecutar-la-consulta-where-col-lista-de-valores-dinamicos/1066948040/
+				// https://www.postgresql.org/docs/9.2/functions-array.html
+				// https://newbedev.com/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
+				if (param.value.length === 0) {
+					values.push([])
+					continue
+				}
+				if (param.value.length === 1) {
+					values.push(param.value[0])
+					continue
+				}
+				const type = typeof param.value[0]
+				switch (type) {
+				case 'string':
+					sql = helper.str.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
+					values.push(param.value)
+					break
+				case 'bigint':
+				case 'number':
+					sql = helper.str.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
+					values.push(param.value)
+					break
+				default:
+					values.push(param.value)
+				}
+			} else {
 				values.push(param.value)
 			}
 		}
 		try {
+			let result = null
 			if (values && values.length > 0) {
-				return this.cnx.query(sql, values)
+				result = await this.cnx.query(sql, values)
 			} else {
-				return this.cnx.query(sql)
+				result = await this.cnx.query(sql)
 			}
+			return result
 		} catch (error) {
 			console.error(error)
 			throw error

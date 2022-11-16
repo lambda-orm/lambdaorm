@@ -1,4 +1,4 @@
-import { orm, Helper } from '../../../lib'
+import { orm, helper } from '../../../lib'
 
 export async function apply (callback: any) {
 	try {
@@ -6,7 +6,7 @@ export async function apply (callback: any) {
 
 		await orm.stage.clean().execute()
 		await orm.stage.sync().execute()
-		const content = await Helper.readFile('./src/dev/labs/countries/data.json')
+		const content = await helper.fs.read('./src/dev/labs/countries/data.json')
 		const data = JSON.parse(content as string)
 		await orm.execute(`Countries.bulkInsert().include(p => p.states)`, data)
 

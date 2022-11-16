@@ -1,10 +1,10 @@
 
-import { Helper } from 'h3lp'
+import { H3lp } from 'h3lp'
 import { MetadataSentence } from '../index'
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
 
-export class OrmHelper extends Helper {
+export class Helper extends H3lp {
 	public sentenceToArray (sentence:MetadataSentence):string[] {
 		const sentences:string[] = []
 		sentences.push(sentence.sentence)
@@ -28,15 +28,31 @@ export class OrmHelper extends Helper {
 	}
 
 	public transformParameter (name:string) {
-		return this.replace(name, '.', '_')
-		// con la siguiente opción falla cuando se hace value=Helper.replace(value,"\\'","\\''")
+		return this.str.replace(name, '.', '_')
+		// con la siguiente opción falla cuando se hace value=Helper.str.replace(value,"\\'","\\''")
 		// return string.replace(new RegExp(search, 'g'), replace)
 	}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
-	public clearLambda (func:Function) {
-		const str = func.toString().trim()
-		const index = str.indexOf('=>') + 2
-		return str.substring(index, str.length).trim()
+	public clearLambda (func:Function):string {
+		let str = func.toString().trim()
+		let index = str.indexOf('=>') + 2
+		str = str.substring(index, str.length).trim()
+		index = str.indexOf('(')
+		if (index > -1) {
+			// Example: xxx.Products.map()
+			const form = str.substring(0, index).trim()
+			const parts = form.split('.')
+			if (parts.length > 2) {
+				return this.str.replace(str, parts[0] + '.', '')
+			}
+		} else {
+			// Example: xxx.Products
+			const parts = str.split('.')
+			if (parts.length > 1) {
+				return this.str.replace(str, parts[0] + '.', '')
+			}
+		}
+		return str
 	}
 }

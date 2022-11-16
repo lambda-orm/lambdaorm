@@ -1,6 +1,6 @@
 import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent, ObservableAction } from '../model'
 import path from 'path'
-import { Helper } from './'
+import { helper } from './'
 import { Expressions } from 'js-expressions'
 
 const yaml = require('js-yaml')
@@ -482,7 +482,7 @@ class SchemaExtender {
 	public extend (source: Schema): Schema {
 		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], sources: [], stages: [], views: [] }
 		if (source) {
-			schema = Helper.clone(source)
+			schema = helper.obj.clone(source)
 		}
 		this.extendEntities(schema)
 		this.extendMappings(schema)
@@ -522,6 +522,9 @@ class SchemaExtender {
 		if (entity.primaryKey === undefined) {
 			entity.primaryKey = []
 		}
+		if (entity.required === undefined) {
+			entity.required = []
+		}
 		if (entity.indexes === undefined) {
 			entity.indexes = []
 		}
@@ -544,10 +547,9 @@ class SchemaExtender {
 			schema.mappings = [{ name: 'default', entities: [] }]
 		} else {
 			// extend entities into mapping
-			for (const k in schema.mappings) {
-				const entities = schema.mappings[k].entities || []
-				for (const entity of entities) {
-					this.extendEntityMapping(entity, entities)
+			for (const mapping of schema.mappings) {
+				for (const entity of mapping.entities) {
+					this.extendEntityMapping(entity, mapping.entities)
 				}
 			}
 			// extends mappings
@@ -557,7 +559,7 @@ class SchemaExtender {
 		}
 		// extend mapping for model
 		for (const k in schema.mappings) {
-			Helper.extendObject(schema.mappings[k], { entities: schema.entities })
+			schema.mappings[k].entities = helper.obj.extends(schema.mappings[k].entities, schema.entities)
 			schema.mappings[k] = this.clearMapping(schema.mappings[k])
 			const mapping = schema.mappings[k]
 			if (mapping && mapping.entities) {
@@ -652,8 +654,10 @@ class SchemaExtender {
 	private completeEntityProperties (entity: Entity):void {
 		if (entity.properties !== undefined) {
 			for (const property of entity.properties) {
-				if (property.required === undefined) {
-					property.required = entity.primaryKey.includes(property.name) || entity.uniqueKey.includes(property.name)
+				if (property.autoIncrement) {
+					property.required = false
+				} else if (property.required === undefined) {
+					property.required = (entity.required.includes(property.name) || entity.primaryKey.includes(property.name) || entity.uniqueKey.includes(property.name))
 				}
 				if (property.type === undefined) property.type = 'string'
 				if (property.type === 'string' && property.length === undefined) property.length = 80
@@ -736,11 +740,11 @@ class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			Helper.extendObject(entity.properties, base.properties)
+			entity.properties = helper.obj.extends(entity.properties, base.properties)
 		}
 		// extend relations
 		if (base.relations.length > 0) {
-			Helper.extendObject(entity.relations, base.relations)
+			entity.relations = helper.obj.extends(entity.relations, base.relations)
 		}
 		// elimina dado que ya fue extendido
 		delete entity.extends
@@ -753,7 +757,7 @@ class SchemaExtender {
 				throw new SchemaError(`${mapping.extends} not found`)
 			}
 			this.extendMapping(base, mappings)
-			Helper.extendObject(mapping, base)
+			mapping.entities = helper.obj.extends(mapping.entities, base.entities)
 			// elimina dado que ya fue extendido
 			delete mapping.extends
 		}
@@ -784,7 +788,7 @@ class SchemaExtender {
 			if (entity.indexes === undefined) {
 				entity.indexes = []
 			}
-			Helper.extendObject(entity.indexes, base.indexes)
+			entity.indexes = helper.obj.extends(entity.indexes, base.indexes)
 		}
 	}
 
@@ -793,35 +797,13 @@ class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			Helper.extendObject(entity.properties, base.properties)
+			entity.properties = helper.obj.extends(entity.properties, base.properties)
 		}
 	}
 
-	// private extendObject (obj: any, base: any) {
-	// if (Array.isArray(base)) {
-	// for (const baseChild of base) {
-	// const objChild = obj.find((p: any) => p.name === baseChild.name)
-	// if (objChild === undefined) {
-	// obj.push(Helper.clone(baseChild))
-	// } else {
-	// this.extendObject(objChild, baseChild)
-	// }
-	// }
-	// } else if (typeof base === 'object') {
-	// for (const k in base) {
-	// if (obj[k] === undefined) {
-	// obj[k] = Helper.clone(base[k])
-	// } else if (typeof obj[k] === 'object') {
-	// this.extendObject(obj[k], base[k])
-	// }
-	// }
-	// }
-	// return obj
-	// }
-
 	private completeMapping (mapping: Mapping): void {
 		for (const entity of mapping.entities) {
-			if (Helper.isEmpty(entity.mapping)) {
+			if (helper.val.isEmpty(entity.mapping)) {
 				entity.mapping = entity.name
 			}
 			if (entity.properties === undefined || entity.properties.length === 0) {
@@ -829,7 +811,7 @@ class SchemaExtender {
 				continue
 			}
 			for (const property of entity.properties) {
-				if (Helper.isEmpty(property.mapping)) {
+				if (helper.val.isEmpty(property.mapping)) {
 					property.mapping = property.name
 				}
 			}
@@ -908,7 +890,7 @@ export class SchemaManager {
 			}
 			schema = source
 		}
-		Helper.solveEnvironmentVariables(schema)
+		schema = helper.utils.solveEnvironmentVars(schema) as Schema
 		return this.load(schema)
 	}
 
@@ -917,14 +899,14 @@ export class SchemaManager {
 		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], sources: [], mappings: [], stages: [], views: [] }
 		if (configPath) {
 			if (path.extname(configPath) === '.yaml' || path.extname(configPath) === '.yml') {
-				const content = await Helper.readFile(configPath)
+				const content = await helper.fs.read(configPath)
 				if (content !== null) {
 					schema = yaml.load(content)
 				} else {
 					throw new SchemaError(`Schema file: ${configPath} empty`)
 				}
 			} else if (path.extname(configPath) === '.json') {
-				const content = await Helper.readFile(configPath)
+				const content = await helper.fs.read(configPath)
 				if (content !== null) {
 					schema = JSON.parse(content)
 				} else {
@@ -946,8 +928,8 @@ export class SchemaManager {
 		if (source === undefined) {
 			configFile = await this.getConfigFileName(workspace)
 		} else if (typeof source === 'string') {
-			if (await Helper.existsPath(source)) {
-				const lstat = await Helper.lstat(source)
+			if (await helper.fs.exists(source)) {
+				const lstat = await helper.fs.lstat(source)
 				if (lstat.isFile()) {
 					configFile = path.basename(source)
 					workspace = path.dirname(source)
@@ -987,11 +969,11 @@ export class SchemaManager {
 	}
 
 	public async getConfigFileName (workspace: string): Promise<string | undefined> {
-		if (await Helper.existsPath(path.join(workspace, 'lambdaORM.yaml'))) {
+		if (await helper.fs.exists(path.join(workspace, 'lambdaORM.yaml'))) {
 			return 'lambdaORM.yaml'
-		} else if (await Helper.existsPath(path.join(workspace, 'lambdaORM.yml'))) {
+		} else if (await helper.fs.exists(path.join(workspace, 'lambdaORM.yml'))) {
 			return 'lambdaORM.yml'
-		} else if (await Helper.existsPath(path.join(workspace, 'lambdaORM.json'))) {
+		} else if (await helper.fs.exists(path.join(workspace, 'lambdaORM.json'))) {
 			return 'lambdaORM.json'
 		} else {
 			return undefined
@@ -1023,8 +1005,16 @@ export class SchemaManager {
 		}
 		if (this.schema.sources) {
 			for (const source of this.schema.sources) {
+				if (helper.val.isEmpty(source.connection)) {
+					console.log(`WARNING|source:"${source.name}"|connection is empty`)
+					continue
+				}
 				if (typeof source.connection === 'string') {
-					const connection = Helper.tryParse(source.connection)
+					if (source.connection.includes('${')) {
+						console.log(`WARNING|source:"${source.name}"|had environment variables unsolved`)
+						continue
+					}
+					const connection = helper.utils.tryParse(source.connection)
 					if (connection) {
 						source.connection = connection
 					} else {

@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.2.8-beta",
+	"version": "0.2.11-beta",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -28,12 +28,14 @@
 		"test": "grunt test",
 		"integration-test": "grunt integration-test",
 		"dist": "grunt dist",
+		"to_develop": "grunt to_develop",
+		"release": "grunt release",
 		"doc": "grunt doc"
 	},
 	"dependencies": {
 		"crypto-js": "^4.1.1",
-		"h3lp": "^0.0.5",
-		"js-expressions": "^1.0.7",
+		"h3lp": "1.0.3",
+		"js-expressions": "1.2.1",
 		"js-yaml": "^4.1.0",
 		"luxon": "^2.0.2",
 		"sqlstring": "^2.3.2"

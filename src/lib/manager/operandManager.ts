@@ -311,7 +311,7 @@ export class OperandManager {
 		if (allConstants) {
 			const value = this.eval(operand, new Data({}))
 			const constant = new Constant2(value)
-			constant.parent = operand.parent
+			// constant.parent = operand.parent
 			constant.index = operand.index
 			return constant
 		} else {
@@ -327,12 +327,12 @@ export class OperandManager {
 		try {
 			if (parent) {
 				operand.id = parent.id + '.' + index
-				operand.parent = parent
+				// operand.parent = parent
 				operand.index = index
 				operand.level = parent.level ? parent.level + 1 : 0
 			} else {
 				operand.id = '0'
-				operand.parent = undefined
+				// operand.parent = undefined
 				operand.index = 0
 				operand.level = 0
 			}
@@ -363,7 +363,7 @@ export class OperandManager {
 			operand = this.createOperand(node, children, expressionContext)
 			for (let i = 0; i < children.length; i++) {
 				const child = children[i]
-				child.parent = operand
+				// child.parent = operand
 				child.index = i
 			}
 		}
@@ -761,7 +761,7 @@ export class OperandManager {
 					const values = _enum.values.map(p => typeof p.value === 'number' ? p.value : '"' + p.value + '"').join(',')
 					const constraint: Constraint = {
 						message: `invalid value for property ${property.name} in entity ${entityName}`,
-						condition: `includes(${property.name},[${values}])`
+						condition: `in([${values}],${property.name})`
 					}
 					constraints.push(constraint)
 				}
@@ -997,7 +997,7 @@ export class OperandManager {
 		if (operand instanceof Variable) {
 			// if (parameters.find(p => p.name === operand.name) === undefined) {
 			let type: string
-			if (operand.type === '') type = 'any'
+			if (operand.type === '' || operand.type === 'T') type = 'any'
 			else if (operand.type === 'T[]') type = 'array'
 			else type = operand.type
 			parameters.push({ name: operand.name, type: type })
@@ -1018,17 +1018,25 @@ export class OperandManager {
 	 * @returns type of operand
 	 */
 	private solveTypes (operand: Operand, expressionContext: ExpressionContext): string {
-		if (operand instanceof Constant2 || operand instanceof Field || operand instanceof Variable) {
+		if (operand instanceof Constant2 || operand instanceof Field) {
+			return operand.type
+		}
+		if (operand instanceof Variable) {
 			return operand.type
 		}
 		this.solveTypeFromMetadata(operand, expressionContext)
 		if ((operand instanceof Operator || operand instanceof FunctionRef) && !(operand instanceof Sentence || operand instanceof ArrowFunction || operand instanceof ChildFunction)) {
 			this.solveTemplateType(operand, expressionContext)
-		} else {
-			// loop through all children to resolve type
-			for (const child of operand.children) {
-				this.solveTypes(child, expressionContext)
-			}
+		}
+		// else {
+		// // loop through all children to resolve type
+		// for (const child of operand.children) {
+		// this.solveTypes(child, expressionContext)
+		// }
+		// }
+		// loop through all children to resolve type
+		for (const child of operand.children) {
+			this.solveTypes(child, expressionContext)
 		}
 		return operand.type
 	}
@@ -1072,7 +1080,7 @@ export class OperandManager {
 			? this.expressionConfig.getOperator(operand.name, operand.children.length)
 			: this.expressionConfig.getFunction(operand.name)
 
-		if (metadata.return !== 'T' && metadata.return !== 'any' && operand.type === 'any') {
+		if (!['T', 'T[]', 'any', 'any[]'].includes(metadata.return) && operand.type === 'any') {
 			operand.type = metadata.return
 		}
 
@@ -1081,7 +1089,7 @@ export class OperandManager {
 			for (let i = 0; i < metadata.params.length; i++) {
 				const param = metadata.params[i]
 				const child = operand.children[i]
-				if (param.type !== 'T' && param.type !== 'any' && child.type === 'any') {
+				if (['T', 'T[]', 'any', 'any[]'].includes(param.type) && child.type === 'any') {
 					// in case the parameter has a defined type and the child does not, assign the type of the parameter to the child
 					child.type = param.type
 				}
@@ -1125,7 +1133,7 @@ export class OperandManager {
 				for (let i = 0; i < metadata.params.length; i++) {
 					const param = metadata.params[i]
 					const child = operand.children[i]
-					if (param.type === 'T' && child.type === 'any') {
+					if (param.type === 'T' && (child.type === 'any' || child.type === 'T')) {
 						child.type = templateType
 					}
 				}

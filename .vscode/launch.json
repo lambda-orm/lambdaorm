@@ -53,7 +53,7 @@
 			],
 			"program": "${workspaceFolder}/src/dev/labs/performance/cclp/beesionToLocal.ts",
 			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"
-		},
+		},		
 		{
 			"name": "lab CCLP file to local",
 			"type": "node",
@@ -62,6 +62,16 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/performance/cclp/fileToLocal.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"
+		},
+		{
+			"name": "lab CCLP Migration",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/cclp/migration.ts",
 			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"
 		},
 		{
@@ -350,6 +360,16 @@
 			],
 			"program": "${workspaceFolder}/src/dev/labs/placement/index.ts",
 			"envFile": "${workspaceFolder}/src/dev/labs/placement/.env"
+		},
+		{
+			"name": "lab Process Entries",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/processEntry/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/processEntry/.env"
 		}
 	]
 }

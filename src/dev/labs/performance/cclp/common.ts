@@ -1,4 +1,4 @@
-import { Helper, orm } from '../../../../lib'
+import { helper, orm } from '../../../../lib'
 import {
 	DbDebtor, DbPaymentResponsible, PrPartyRole, LocAddress, DbAccountPaymentResp, PrPartyRolePlace, PrAddressReference,
 	DbPartyRoleReference, PrIndividualReference, PmIndividual, PmParty, DbDebtorAccount
@@ -312,16 +312,16 @@ export function preImportDebtors(debtors: DbDebtor[], mapping: any) {
 										}
 									}
 								}
-								// Busca la direccion en partyRole.places.placeRef.address , en el caso de no encontrarla la agrea
+								// Busca la dirección en partyRole.places.placeRef.address , en el caso de no encontrarla la agrea
 								const partyRoleAddress = partyRole.places.find(p => p.placeRef ? equalAddress(p.placeRef?.address as LocAddress, address) : false)
 								if (!partyRoleAddress) {
-									const prAddressReference: PrAddressReference = { refType: 'Address', address: Helper.clone(address) as LocAddress }
+									const prAddressReference: PrAddressReference = { refType: 'Address', address: helper.obj.clone(address) as LocAddress }
 									const partyRolePlace: PrPartyRolePlace = { placeRef: prAddressReference }
 									partyRole.places.push(partyRolePlace)
 								}
 							} else {
-								// IMPORTANTE: En el caso que locAddressRef.address sea nulo, se asigna la primera direccion del party.
-								// en realidad este registro deberia ser excluido dado que no se podria importar.
+								// IMPORTANTE: En el caso que locAddressRef.address sea nulo, se asigna la primera dirección del party.
+								// en realidad este registro debería ser excluido dado que no se podría importar.
 								locAddressRef.address = partyRole.places.filter(p => p.placeRef !== undefined).map(p => p.placeRef?.address)[0]
 							}
 						}
@@ -416,18 +416,18 @@ export function equalAddress(value1: LocAddress, value2: LocAddress): boolean {
 }
 export async function sentence() {
 	const sentences = orm.sentence(expDebtorsImport, {stage:locStage,view:view})
-	await Helper.writeFile(sourcePath + '/sentences.json', JSON.stringify(sentences))
+	await helper.fs.write(sourcePath + '/sentences.json', JSON.stringify(sentences))
 }
 export async function exportLocal() {
 	const start = new Date().getTime()
 	const debtors = await orm.execute(expDebtorsExport, {}, {stage:locStage,view:view})
 	const get = new Date().getTime()
 	console.log(`export Local: ${get - start}`)
-	await Helper.writeFile(sourcePath + '/confidentional_data/localDebtors.json', JSON.stringify(debtors))
+	await helper.fs.write(sourcePath + '/confidentional_data/localDebtors.json', JSON.stringify(debtors))
 }
 export async function validate() {
-	const bDebtors: DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/beesionDebtors.json') as string)
-	const lDebtors: DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/localDebtors.json') as string)
+	const bDebtors: DbDebtor[] = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/beesionDebtors.json') as string)
+	const lDebtors: DbDebtor[] = JSON.parse(await helper.fs.read(sourcePath + '/confidentional_data/localDebtors.json') as string)
 
 	for (const i in bDebtors) {
 		const bDebtor = bDebtors[i]

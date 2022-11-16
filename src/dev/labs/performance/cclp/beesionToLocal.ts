@@ -1,4 +1,4 @@
-import { Helper, orm } from '../../../../lib'
+import { helper, orm } from '../../../../lib'
 import {
 	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses, PmIdentificationTypes, PrPartyRoleSpecs, PrPartyRoleStatuses,
 	LamAccountTypes, LamStatementCycles, LamCurrencyReferences, DbDebtorTypes, DbPaymentMethodTypes, DbDebtorStages, DbDebtor,
@@ -33,28 +33,28 @@ async function loadLocalSettings () {
 	const dbUserReferences = await orm.execute(() => DbUserReferences, {}, { stage: beeStage,view:view})
 	const dbBanks = await orm.execute(() => DbBanks, {}, { stage: beeStage,view:view})
 
-	const _countries = Helper.clone(countries)
-	const _areaTypes = Helper.clone(areaTypes)
-	const _industryTypes = Helper.clone(industryTypes)
-	const _partyStatuses = Helper.clone(partyStatuses)
-	const _maritalStatuses = Helper.clone(maritalStatuses)
-	const _identificationTypes = Helper.clone(identificationTypes)
-	const _contactMediumTypes = Helper.clone(contactMediumTypes)
-	const _genders = Helper.clone(genders)
-	const _partyRoleSpecs = Helper.clone(partyRoleSpecs)
-	const _partyRoleStatuses = Helper.clone(partyRoleStatuses)
-	const _accountTypes = Helper.clone(accountTypes)
-	const _statementCycles = Helper.clone(statementCycles)
-	const _debtorTypes = Helper.clone(debtorTypes)
-	const _paymentMethodTypes = Helper.clone(paymentMethodTypes)
-	const _debtorStages = Helper.clone(debtorStages)
-	const _lamCreditors = Helper.clone(lamCreditors)
-	const _lamCurrencyReferences = Helper.clone(lamCurrencyReferences)
-	const _lamUserReferences = Helper.clone(lamUserReferences)
-	const _dbUserReferences = Helper.clone(dbUserReferences)
-	const _dbBanks = Helper.clone(dbBanks)
+	const _countries = helper.obj.clone(countries)
+	const _areaTypes = helper.obj.clone(areaTypes)
+	const _industryTypes = helper.obj.clone(industryTypes)
+	const _partyStatuses = helper.obj.clone(partyStatuses)
+	const _maritalStatuses = helper.obj.clone(maritalStatuses)
+	const _identificationTypes = helper.obj.clone(identificationTypes)
+	const _contactMediumTypes = helper.obj.clone(contactMediumTypes)
+	const _genders = helper.obj.clone(genders)
+	const _partyRoleSpecs = helper.obj.clone(partyRoleSpecs)
+	const _partyRoleStatuses = helper.obj.clone(partyRoleStatuses)
+	const _accountTypes = helper.obj.clone(accountTypes)
+	const _statementCycles = helper.obj.clone(statementCycles)
+	const _debtorTypes = helper.obj.clone(debtorTypes)
+	const _paymentMethodTypes = helper.obj.clone(paymentMethodTypes)
+	const _debtorStages = helper.obj.clone(debtorStages)
+	const _lamCreditors = helper.obj.clone(lamCreditors)
+	const _lamCurrencyReferences = helper.obj.clone(lamCurrencyReferences)
+	const _lamUserReferences = helper.obj.clone(lamUserReferences)
+	const _dbUserReferences = helper.obj.clone(dbUserReferences)
+	const _dbBanks = helper.obj.clone(dbBanks)
 
-	// Load settins
+	// Load setting
 	await orm.execute('LocCountries.bulkInsert()', _countries,{ stage: locStage,view:view})
 	await orm.execute('LocAreaTypes.bulkInsert().include(p=> p.areas )', _areaTypes,{ stage: locStage,view:view})
 	await orm.execute('PmIndustryTypes.bulkInsert()', _industryTypes,{ stage: locStage,view:view})
@@ -184,7 +184,7 @@ async function loadLocalSettings () {
 		mapping.dbBanks[source.id] = _dbBanks.find((p: any) => p.bic === source.bic).id
 	}
 
-	await Helper.writeFile(sourcePath + '/confidentional_data/mapping.json', JSON.stringify(mapping))
+	await helper.fs.write(sourcePath + '/confidential_data/mapping.json', JSON.stringify(mapping))
 }
 
 async function _export () {
@@ -192,12 +192,12 @@ async function _export () {
 	const debtors:DbDebtor[] = await orm.execute(expDebtorsExport, {}, { stage: beeStage,view:view})
 	const get = new Date().getTime()
 	console.log(`export: ${get - start}`)
-	await Helper.writeFile(sourcePath + '/confidentional_data/beesionDebtors.json', JSON.stringify(debtors))
+	await helper.fs.write(sourcePath + '/confidential_data/beesionDebtors.json', JSON.stringify(debtors))
 }
 
 async function _import () {
-	const mapping = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/mapping.json') as string)
-	const debtors:DbDebtor[] = JSON.parse(await Helper.readFile(sourcePath + '/confidentional_data/beesionDebtors.json') as string)
+	const mapping = JSON.parse(await helper.fs.read(sourcePath + '/confidential_data/mapping.json') as string)
+	const debtors:DbDebtor[] = JSON.parse(await helper.fs.read(sourcePath + '/confidential_data/beesionDebtors.json') as string)
 	preImportDebtors(debtors, mapping)
 	let start = new Date().getTime()
 	await orm.execute(expDebtorsImport, debtors,{ stage: locStage,view:view})
@@ -220,7 +220,7 @@ async function _import () {
 
 async function execute () {
 	try {
-		await orm.init(`${sourcePath}/workspace/lambdaorm.yaml`)
+		await orm.init(`${sourcePath}/workspace/cclpSchema.yaml`)
 		await createLocal()
 		await loadLocalSettings()
 		await _export()
@@ -244,11 +244,11 @@ async function execute () {
 execute()
 
 // TEST:
-// importar todos los debtos en Postgress
-// completar el bulkinsert en oracle y comenzar a migrar a oracle.
+// importar todos los debtos en PostgresSQL
+// completar el bulkInsert en oracle y comenzar a migrar a oracle.
 // CURRENT:
 // pasar a trabajar con el archivo real (y no con los datos que se traen desde beesion oracle)
 // PENDING:
-// modificar bulkinsert para que permita transacciones por lote o por item o poder deshabilitarlo.
-// modificar bulkinsert para que en le caso de transacciones por item o deshabilitadas , retorne los registros que no pudieron ser importados completamente
-// trabajar con lambdaORM como servicio y no como libreria.
+// modificar bulkInsert para que permita transacciones por lote o por item o poder deshabilitar.
+// modificar bulkInsert para que en le caso de transacciones por item o deshabilitadas , retorne los registros que no pudieron ser importados completamente
+// trabajar con lambdaORM como servicio y no como librería.

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Parameter, Query, Data } from '../../model'
-import { MappingConfig, Dialect, Helper } from '../../manager'
+import { MappingConfig, Dialect, helper } from '../../manager'
 
 export class SqlServerConnectionPool extends ConnectionPool {
 	public static lib: any
@@ -185,7 +185,7 @@ export class SqlServerConnection extends Connection {
 				if (data) {
 					const params = this.dataToParameters(mapping, dialect, query, data)
 					if (params.length > 0) {
-						me.addParameters(request, params)
+						me.addParameters(query.sentence, request, params)
 					}
 				}
 				return me.cnx.execSql(request)
@@ -201,7 +201,7 @@ export class SqlServerConnection extends Connection {
 			const request = this.createNonQueryRequest(query.sentence, reject, resolve)
 			const params = this.dataToParameters(mapping, dialect, query, data)
 			if (params.length > 0) {
-				me.addParameters(request, params)
+				me.addParameters(query.sentence, request, params)
 			}
 			return me.cnx.execSql(request)
 		})
@@ -227,17 +227,17 @@ export class SqlServerConnection extends Connection {
 	protected solveArrayParameters (query: Query, data: Data, sentence: string): string {
 		let _sentence = sentence
 		for (const parameter of query.parameters) {
-			if (parameter.type === 'array') {
+			const value = data.get(parameter.name)
+			if (parameter.type === 'array' || (parameter.type === 'any' && Array.isArray(value))) {
 				let list:any
-				const value = data.get(parameter.name)
 				if (value.length > 0) {
 					const type = typeof value[0]
 					if (type === 'string') {
 						const values: string[] = []
 						for (const item of value) {
 							let _item = item
-							_item = Helper.escape(_item)
-							_item = Helper.replace(_item, '\\\'', '\\\'\'')
+							_item = helper.escape(_item)
+							_item = helper.str.replace(_item, '\\\'', '\\\'\'')
 							values.push(_item)
 						}
 						list = values.join(',')
@@ -247,13 +247,13 @@ export class SqlServerConnection extends Connection {
 				} else {
 					list = ''
 				}
-				_sentence = Helper.replace(_sentence, '@' + parameter.name, list)
+				_sentence = helper.str.replace(_sentence, '@' + parameter.name, list)
 			}
 		}
 		return _sentence
 	}
 
-	private addParameters (request: any, params: Parameter[] = []) {
+	private addParameters (sentence: string, request: any, params: Parameter[] = []) {
 		for (const param of params) {
 			if (request.parameters.find(p => p.name === param.name) !== undefined) {
 				continue
@@ -267,6 +267,8 @@ export class SqlServerConnection extends Connection {
 			case 'datetime': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.DateTime, param.value); break
 			case 'date': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Date, param.value); break
 			case 'time': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Time, param.value); break
+			case 'any':
+				throw new Error(`Param: ${param.name} is any type in sentence: ${sentence}`)
 			}
 		}
 	}
@@ -294,21 +296,21 @@ export class SqlServerConnection extends Connection {
 				value = value ? 1 : 0; break
 			case 'string':
 				if (value.includes('\'')) {
-					value = `'${Helper.replace(value, '\'', '\'\'')}'`
+					value = `'${helper.str.replace(value, '\'', '\'\'')}'`
 				} else {
 					value = `'${value}'`
 				}
-				// value = Helper.escape(value)
-				// value = Helper.replace(value, '\\\'', '\\\'\'')
+				// value = helper.escape(value)
+				// value = helper.str.replace(value, '\\\'', '\\\'\'')
 				break
 			case 'datetime':
-				value = Helper.escape(this.writeDateTime(value, mapping, dialect))
+				value = helper.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case 'date':
-				value = Helper.escape(this.writeDate(value, mapping, dialect))
+				value = helper.escape(this.writeDate(value, mapping, dialect))
 				break
 			case 'time':
-				value = Helper.escape(this.writeTime(value, mapping, dialect))
+				value = helper.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}

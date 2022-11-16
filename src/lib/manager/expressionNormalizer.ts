@@ -1,5 +1,5 @@
 
-import { Helper } from './'
+import { helper } from './'
 import { Entity, SchemaError, SintaxisError } from '../model'
 import { SchemaManager } from '.'
 import { Node } from 'js-expressions'
@@ -252,7 +252,7 @@ export class ExpressionNormalizer {
 		if (field.name.startsWith(arrowVar + '.')) {
 			key = field.name.replace(arrowVar + '.', '')
 			if (key.includes('.')) {
-				key = Helper.replace(key, '.', '_')
+				key = helper.str.replace(key, '.', '_')
 			}
 		} else {
 			key = field.name
@@ -389,7 +389,7 @@ export class ExpressionNormalizer {
 		const arrowFilterVar = childFilter ? childFilter.children[1].name : 'p'
 		const fieldRelation = new Node(arrowFilterVar + '.' + relation.to, 'var') // new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping)
 		const varRelation = new Node('LambdaOrmParentId', 'var')
-		const filterInclude = new Node('includes', 'funcRef', [fieldRelation, varRelation])
+		const filterInclude = new Node('in', 'funcRef', [varRelation, fieldRelation])
 		if (!childFilter) {
 			const varFilterArrowNode = new Node(arrowFilterVar, 'var', [])
 			map.children[0] = new Node('filter', 'arrow', [map.children[0], varFilterArrowNode, filterInclude])

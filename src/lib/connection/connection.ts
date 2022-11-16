@@ -2,7 +2,7 @@
 
 import { Parameter, Query, Data, MethodNotImplemented } from '../model'
 import { ConnectionConfig } from './connectionConfig'
-import { MappingConfig, Dialect, Helper } from '../manager'
+import { MappingConfig, Dialect, helper } from '../manager'
 
 export abstract class Connection {
 	public cnx: any
@@ -71,24 +71,24 @@ export abstract class Connection {
 			} else {
 				value = null
 			}
-			parameters.push({ name: Helper.transformParameter(parameter.name), type: parameter.type, value: value })
+			parameters.push({ name: helper.transformParameter(parameter.name), type: parameter.type, value: value })
 		}
 		return parameters
 	}
 
 	protected writeDateTime (value: any, mapping: MappingConfig, dialect: Dialect): any {
 		const format = mapping.format?.datetime || dialect.format.datetime
-		return format ? Helper.dateFormat(value, format) : value
+		return format ? helper.dateFormat(value, format) : value
 	}
 
 	public writeDate (value: any, mapping: MappingConfig, dialect: Dialect): any {
 		const format = mapping.format?.date || dialect.format.date
-		return format ? Helper.dateFormat(value, format) : value
+		return format ? helper.dateFormat(value, format) : value
 	}
 
 	public writeTime (value: any, mapping: MappingConfig, dialect: Dialect): any {
 		const format = mapping.format?.time || dialect.format.time
-		return format ? Helper.dateFormat(value, format) : value
+		return format ? helper.dateFormat(value, format) : value
 	}
 
 	public abstract select(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any>

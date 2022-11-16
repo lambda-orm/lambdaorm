@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { orm, Helper, MetadataSentence } from '../../lib'
+import { orm, helper, MetadataSentence } from '../../lib'
 import { Categories, Customers, Products, Orders } from '../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 
@@ -981,12 +981,13 @@ async function bulkInsert2 () {
 
 async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
+	console.log(JSON.stringify(orm.stage.export({ stage: source }).sentence(), null, 2))
 	const data = await orm.stage.export({ stage: source }).execute()
-	await Helper.writeFile(exportFile, JSON.stringify(data))
+	await helper.fs.write(exportFile, JSON.stringify(data))
 }
 async function stageImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
-	const content = await Helper.readFile(sourceFile) as string
+	const content = await helper.fs.read(sourceFile) as string
 	const data = JSON.parse(content)
 	await orm.stage.import({ stage: target }).execute(data)
 }
@@ -1033,5 +1034,5 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })
+// apply(['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })
 // apply(['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })

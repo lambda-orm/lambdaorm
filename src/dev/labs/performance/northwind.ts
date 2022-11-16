@@ -1,14 +1,14 @@
 
-import { orm, Helper } from '../../../lib'
+import { orm, helper } from '../../../lib'
 
 async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
 	const data = await orm.stage.export({stage:source}).execute()
-	await Helper.writeFile(exportFile, JSON.stringify(data))
+	await helper.fs.write(exportFile, JSON.stringify(data))
 }
 async function stageImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
-	const content = await Helper.readFile(sourceFile) as string
+	const content = await helper.fs.read(sourceFile) as string
 	const data = JSON.parse(content)
 	await orm.stage.import({stage:target}).execute(data)
 }

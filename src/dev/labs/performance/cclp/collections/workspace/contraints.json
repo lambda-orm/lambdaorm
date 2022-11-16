@@ -1,0 +1,20 @@
+{
+  "entity": "PmIndividuals",
+  "constraints": [],
+  "children": [
+    {
+      "entity": "PmParties",
+      "constraints": [],
+      "children": [
+        {
+          "entity": "PmIdentifications",
+          "constraints": []
+        },
+        {
+          "entity": "PmContactMediums",
+          "constraints": []
+        }
+      ]
+    }
+  ]
+}

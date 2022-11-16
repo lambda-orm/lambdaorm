@@ -9,7 +9,9 @@
 	"editor.tabSize": 2,
 	"editor.insertSpaces": false,
 	"cSpell.words": [
+		"beesion",
 		"builtins",
+		"cclp",
 		"classtype",
 		"concat",
 		"cqrs",
@@ -41,6 +43,8 @@
 		"NEWDECIMAL",
 		"northwind",
 		"odbc",
+		"Omni",
+		"omnibox",
 		"oracledb",
 		"ORCLCDB",
 		"padmin",
