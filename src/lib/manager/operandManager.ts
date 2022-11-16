@@ -761,7 +761,7 @@ export class OperandManager {
 					const values = _enum.values.map(p => typeof p.value === 'number' ? p.value : '"' + p.value + '"').join(',')
 					const constraint: Constraint = {
 						message: `invalid value for property ${property.name} in entity ${entityName}`,
-						condition: `includes([${values}],${property.name})`
+						condition: `in([${values}],${property.name})`
 					}
 					constraints.push(constraint)
 				}

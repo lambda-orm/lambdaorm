@@ -389,7 +389,7 @@ export class ExpressionNormalizer {
 		const arrowFilterVar = childFilter ? childFilter.children[1].name : 'p'
 		const fieldRelation = new Node(arrowFilterVar + '.' + relation.to, 'var') // new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping)
 		const varRelation = new Node('LambdaOrmParentId', 'var')
-		const filterInclude = new Node('includes', 'funcRef', [fieldRelation, varRelation])
+		const filterInclude = new Node('in', 'funcRef', [varRelation, fieldRelation])
 		if (!childFilter) {
 			const varFilterArrowNode = new Node(arrowFilterVar, 'var', [])
 			map.children[0] = new Node('filter', 'arrow', [map.children[0], varFilterArrowNode, filterInclude])

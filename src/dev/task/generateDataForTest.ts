@@ -981,6 +981,7 @@ async function bulkInsert2 () {
 
 async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
+	console.log(JSON.stringify(orm.stage.export({ stage: source }).sentence(), null, 2))
 	const data = await orm.stage.export({ stage: source }).execute()
 	await helper.fs.write(exportFile, JSON.stringify(data))
 }
