@@ -20,10 +20,11 @@ export class Orm implements IOrm {
 	private expressionManager: ExpressionManager
 	private routing: Routing
 	private executor:Executor
+	// eslint-disable-next-line no-use-before-define
 	private static _instance: Orm
 	private schemaManager: SchemaManager
 	private _expressions: Expressions
-	private observers:any={};
+	private observers:any = {}
 
 	/**
  * Singleton
@@ -88,7 +89,7 @@ export class Orm implements IOrm {
 				}
 				enums[_enum.name] = values
 			}
-			expressions.config.load({ enums: enums })
+			expressions.config.load({ enums })
 		}
 		return schema
 	}
@@ -298,12 +299,12 @@ export class Orm implements IOrm {
 		if (!observers) {
 			return
 		}
-		const args = { expression: expression, query: query, data: data, options: options }
+		const args = { expression, query, data, options }
 		observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.before(args)
 			} else {
-				const context = { query: query, options: options }
+				const context = { query, options }
 				if (this.expressions.eval(observer.condition, context)) {
 					observer.before(args)
 				}
@@ -316,12 +317,12 @@ export class Orm implements IOrm {
 		if (!observers) {
 			return
 		}
-		const args = { expression: expression, query: query, data: data, options: options, result: result }
+		const args = { expression, query, data, options, result }
 		observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.after(args)
 			} else {
-				const context = { query: query, options: options }
+				const context = { query, options }
 				if (this.expressions.eval(observer.condition, context)) {
 					observer.after(args)
 				}
@@ -334,12 +335,12 @@ export class Orm implements IOrm {
 		if (!observers) {
 			return
 		}
-		const args = { expression: expression, query: query, data: data, options: options, error: error }
+		const args = { expression, query, data, options, error }
 		observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.error(args)
 			} else {
-				const context = { query: query, options: options }
+				const context = { query, options }
 				if (this.expressions.eval(observer.condition, context)) {
 					observer.error(args)
 				}

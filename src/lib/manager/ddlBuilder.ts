@@ -414,7 +414,7 @@ export class DDLBuilder {
 	}
 
 	private evalDataSource (source: RuleDataSource, entity: string): boolean {
-		const sentenceInfo: SentenceInfo = { entity: entity, action: ObservableAction.ddl }
+		const sentenceInfo: SentenceInfo = { entity, action: ObservableAction.ddl }
 		return this.routing.eval(source, sentenceInfo)
 	}
 

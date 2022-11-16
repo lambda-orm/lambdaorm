@@ -19,8 +19,8 @@ export async function apply (stages: string[], callback: any) {
 		await stageExport('Source')
 		for (const p in stages) {
 			const stage = stages[p]
-			await orm.stage.clean({ stage: stage, tryAllCan: true }).execute()
-			await orm.stage.sync({ stage: stage }).execute()
+			await orm.stage.clean({ stage, tryAllCan: true }).execute()
+			await orm.stage.sync({ stage }).execute()
 			await stageImport('Source', stage)
 			await stageExport(stage)
 		}

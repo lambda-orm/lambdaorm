@@ -188,7 +188,7 @@ export class QueryExecutor {
 				ids.push(id)
 			}
 		}
-		return { ids: ids, result: result }
+		return { ids, result }
 	}
 
 	private selectChunkIds (result: any[], keyId: string): any[] {

@@ -39,17 +39,17 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 				let sentence: MetadataSentence | undefined
 				let error
 				try {
-					sentence = orm.sentence(expressionTest.expression as string, { stage: stage, view: 'default' })
+					sentence = orm.sentence(expressionTest.expression as string, { stage, view: 'default' })
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
 					if (error !== undefined) {
-						expressionTest.sentences.push({ stage: stage, error: error })
+						expressionTest.sentences.push({ stage, error })
 						expressionTest.errors++
 					} else if (sentence !== undefined) {
-						expressionTest.sentences.push({ stage: stage, sentence: sentence })
+						expressionTest.sentences.push({ stage, sentence })
 					} else {
-						expressionTest.sentences.push({ stage: stage, error: `error sentence ${stage} ${category.name}:${expressionTest.name}` })
+						expressionTest.sentences.push({ stage, error: `error sentence ${stage} ${category.name}:${expressionTest.name}` })
 						expressionTest.errors++
 					}
 				}
@@ -63,17 +63,17 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 				try {
 					// console.log(expressionTest.expression)
 					const data = expressionTest.data !== undefined ? category.data[expressionTest.data] : {}
-					result = await orm.execute(expressionTest.lambda, data, { stage: stage, view: 'default' })
+					result = await orm.execute(expressionTest.lambda, data, { stage, view: 'default' })
 				} catch (err: any) {
 					error = err.toString()
 				} finally {
 					if (error !== undefined) {
-						expressionTest.executions.push({ stage: stage, error: error })
+						expressionTest.executions.push({ stage, error })
 						expressionTest.errors++
 					} else if (result !== undefined) {
-						results.push({ stage: stage, result: result })
+						results.push({ stage, result })
 					} else {
-						expressionTest.executions.push({ stage: stage, error: `error execution ${stage} ${category.name}:${expressionTest.name}` })
+						expressionTest.executions.push({ stage, error: `error execution ${stage} ${category.name}:${expressionTest.name}` })
 						expressionTest.errors++
 					}
 				}
@@ -257,7 +257,7 @@ async function writeInsertsTest (stages: string[]): Promise<number> {
 		test:
 			[
 				{ name: 'insert 1', data: 'a', lambda: () => Categories.insert() },
-				{ name: 'insert 2', data: 'b', lambda: (name: string, description: string) => Categories.insert(() => ({ name: name, description: description })) },
+				{ name: 'insert 2', data: 'b', lambda: (name: string, description: string) => Categories.insert(() => ({ name, description })) },
 				// { name: 'insert 3', data: 'c', lambda: (entity: Category) => Categories.insert(entity) },
 				{ name: 'insert 3', data: 'c', lambda: (entity: any) => Categories.insert(entity) },
 				{ name: 'insert 4', data: 'order', lambda: () => Orders.insert() },
@@ -556,7 +556,7 @@ async function writeUpdateTest (stages: string[]): Promise<number> {
 				{ name: 'update 1', data: 'a', lambda: () => Orders.update() },
 				// { name: 'update 2', data: 'b', lambda: (entity: Order) => Orders.update(entity) },
 				{ name: 'update 2', data: 'b', lambda: (entity: any) => Orders.update(entity) },
-				{ name: 'update 3', data: 'c', lambda: (postalCode: string) => Orders.updateAll(() => ({ postalCode: postalCode })) },
+				{ name: 'update 3', data: 'c', lambda: (postalCode: string) => Orders.updateAll(() => ({ postalCode })) },
 				// { name: 'update 4', data: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).filter(p => p.id === entity.id) },
 				// { name: 'update 5', data: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
 				// { name: 'update 6', data: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
@@ -1000,8 +1000,8 @@ export async function apply (stages: string[], callback: any) {
 		await stageExport('Source')
 		for (const p in stages) {
 			const stage = stages[p]
-			await orm.stage.clean({ stage: stage, tryAllCan: true }).execute()
-			await orm.stage.sync({ stage: stage }).execute()
+			await orm.stage.clean({ stage, tryAllCan: true }).execute()
+			await orm.stage.sync({ stage }).execute()
 			await stageImport('Source', stage)
 			await stageExport(stage)
 		}

@@ -6,15 +6,17 @@ import * as exp from 'js-expressions'
 import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../model/operands'
 
 class EntityContext {
+	// eslint-disable-next-line no-use-before-define
 	public parent?: EntityContext
 	public entityName: string
 	public alias: string
+	// eslint-disable-next-line no-use-before-define
 	public children: EntityContext[]
 	public joins: any
 	public fields: Property[]
 	public groupByFields: Field[]
 	public arrowVar: string
-
+	// eslint-disable-next-line no-use-before-define
 	constructor (parent?: EntityContext) {
 		this.parent = parent
 		if (parent) parent.children.push(this)
@@ -125,27 +127,27 @@ export class OperandManager {
 			children.push(this._serialize(child))
 		}
 		if (operand instanceof Sentence) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, columns: operand.columns, parameters: operand.parameters, entity: operand.entity, constraints: operand.constraints }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type, columns: operand.columns, parameters: operand.parameters, entity: operand.entity, constraints: operand.constraints }
 		} else if (operand instanceof SentenceInclude) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, relation: operand.relation }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type, relation: operand.relation }
 		} else if (operand instanceof Insert) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, clause: operand.clause }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type, clause: operand.clause }
 		} else if (operand instanceof Update) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type, alias: operand.alias }
 		} else if (operand instanceof Delete) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type, alias: operand.alias }
 		} else if (operand instanceof KeyValue) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, property: operand.property }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type, property: operand.property }
 		} else if (operand instanceof Field) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, entity: operand.entity, alias: operand.alias, isRoot: operand.isRoot }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type, entity: operand.entity, alias: operand.alias, isRoot: operand.isRoot }
 		} else if (operand instanceof From) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, alias: operand.alias }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type, alias: operand.alias }
 		} else if (operand instanceof Join) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, entity: operand.entity, alias: operand.alias }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type, entity: operand.entity, alias: operand.alias }
 		} else if (operand instanceof Variable) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, number: operand.number }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type, number: operand.number }
 		} else {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type }
+			return { name: operand.name, classtype: operand.constructor.name, children, type: operand.type }
 		}
 	}
 
@@ -160,7 +162,7 @@ export class OperandManager {
 		case 'Sentence':
 			return new Sentence({
 				name: value.name,
-				children: children,
+				children,
 				entity: value.entity as string,
 				alias: value.alias as string,
 				columns: value.columns || [],
@@ -535,7 +537,7 @@ export class OperandManager {
 
 		return new Sentence({
 			name: SentenceAction.select,
-			children: children,
+			children,
 			entity: expressionContext.current.entityName,
 			alias: expressionContext.current.alias,
 			columns: expressionContext.current.fields,
@@ -575,12 +577,12 @@ export class OperandManager {
 		}
 		const parameters = this.parametersInSentence(children)
 		return new Sentence({
-			name: name,
-			children: children,
+			name,
+			children,
 			entity: expressionContext.current.entityName,
 			alias: expressionContext.current.alias,
 			columns: expressionContext.current.fields,
-			parameters: parameters,
+			parameters,
 			constraints: this.getConstraints(expressionContext.current.entityName, parameters),
 			values: this.getBehaviorWriteValues(expressionContext.current.entityName, parameters),
 			defaults: name === 'update' ? [] : this.getBehaviorDefaults(expressionContext.current.entityName)
@@ -599,7 +601,7 @@ export class OperandManager {
 		}
 		return new Sentence({
 			name: SentenceAction.update,
-			children: children,
+			children,
 			entity: expressionContext.current.entityName,
 			alias: expressionContext.current.alias,
 			columns: expressionContext.current.fields,
@@ -1000,7 +1002,7 @@ export class OperandManager {
 			if (operand.type === '' || operand.type === 'T') type = 'any'
 			else if (operand.type === 'T[]') type = 'array'
 			else type = operand.type
-			parameters.push({ name: operand.name, type: type })
+			parameters.push({ name: operand.name, type })
 			// }
 		}
 		for (const child of operand.children) {
