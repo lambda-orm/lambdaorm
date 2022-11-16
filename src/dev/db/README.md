@@ -56,7 +56,7 @@ Conexión:
 - port: 1521
 - sid: ORCLCDB
 - user: system
-- password: password
+- password: ORACLE123
 
 ```sql
 alter session set "_ORACLE_SCRIPT"=true;

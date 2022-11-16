@@ -40,14 +40,14 @@ export class Helper extends H3lp {
 		str = str.substring(index, str.length).trim()
 		index = str.indexOf('(')
 		if (index > -1) {
-			// Example: model.Products.map()
+			// Example: xxx.Products.map()
 			const form = str.substring(0, index).trim()
 			const parts = form.split('.')
 			if (parts.length > 2) {
 				return this.str.replace(str, parts[0] + '.', '')
 			}
 		} else {
-			// Example: model.Products
+			// Example: xxx.Products
 			const parts = str.split('.')
 			if (parts.length > 1) {
 				return this.str.replace(str, parts[0] + '.', '')

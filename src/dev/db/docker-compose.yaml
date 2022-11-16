@@ -85,13 +85,17 @@ services:
       - ./volume/SqlServer:/var/opt/mssql
   Oracle:
     container_name: lambdaORM-Oracle-19
-    image: oracledb19c/oracle.19.3.0-ee:oracle19.3.0-ee
-    # image: akaronte/oracle:19.3.0.0
+    # image: oracledb19c/oracle.19.3.0-ee:oracle19.3.0-ee
+    image: akaronte/oracle:19.3.0.0
     environment:
+      SVC_HOST: db19c-oracle-db
+      SVC_PORT: '1521'
       ORACLE_SID: ORCLCDB
-      ORACLE_PDB: ORCLCPDB
-      ORACLE_PWD: password
-      ORACLE_CHARACTERSET: WE8MSWIN1252
+      ORACLE_PDB: ORCLPDB1
+      ORACLE_PWD: ORACLE123
+      ORACLE_CHARACTERSET: AL32UTF8
+      # ORACLE_EDITION: enterprise
+      ENABLE_ARCHIVELOG: 'false'
     volumes:
       # - ./volume/oradata:/opt/oracle/oradata # persistent oracle database data
       #  al usar el volume ./volume/oradata da error de permisos y no crea la instancia dentro del container

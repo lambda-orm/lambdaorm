@@ -7,7 +7,7 @@ const ConfigExtends = require('config-extends')
 
 async function writeUnitTest (stages: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
-	lines.push('import { orm, helper } from \'../../lib\'')
+	lines.push('import { orm, helper } from \'../..\'')
 	lines.push('beforeAll(async () => {')
 	lines.push('\trequire(\'dotenv\').config({ path: \'./test.env\' })')
 	lines.push('\tawait orm.init()')
@@ -72,7 +72,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 	lines.push('})')
 
 	const content = lines.join('\n')
-	const testFolder = 'src/test/__tests__'
+	const testFolder = 'src/lib/test/__tests__'
 	if (!await helper.fs.exists(testFolder)) {
 		fs.mkdirSync(testFolder, { recursive: true })
 	}
@@ -81,7 +81,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 async function writeIntegrationTest (stages: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
 
-	lines.push('import { orm } from \'../../lib\'')
+	lines.push('import { orm } from \'../..\'')
 	lines.push('beforeAll(async () => {')
 	lines.push('\trequire(\'dotenv\').config({ path: \'./test.env\' })')
 	lines.push('\tawait orm.init()')
@@ -106,7 +106,7 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 	lines.push('})')
 
 	const content = lines.join('\n')
-	const testFolder = 'src/test/__integration__'
+	const testFolder = 'src/lib/test/__integration__'
 	if (!await helper.fs.exists(testFolder)) {
 		fs.mkdirSync(testFolder, { recursive: true })
 	}
