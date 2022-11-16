@@ -1,4 +1,23 @@
 enums:
+  - name: AreaType
+    values:
+      - name: Country
+        value: Country
+      - name: Region
+        value: Region
+      - name: State
+        value: State
+      - name: Department
+        value: Department
+      - name: City
+        value: City
+  - name: StreetType
+  # https://www.gimme-shelter.com/steet-types-designations-abbreviations-50006/
+    values:
+      - name: Street
+        value: ST
+      - name: Avenue
+        value: AV               
   - name: PartyType
     values:
       - name: Individual
@@ -93,6 +112,87 @@ entities:
         default: now()
       - name: createdBy
         length: 50  
+  # Location settings
+  - name: LocCountries
+    primaryKey: ["iso3"]
+    properties:
+      - name: iso3
+        length: 3
+        required: true
+      - name: name
+        length: 60
+        required: true
+      - name: iso
+        length: 2
+        required: true
+      - name: numericCode
+        length: 5
+        required: true
+  - name: LocAreas
+    primaryKey: ["code"]
+    properties:
+      - name: code
+        length: 16
+        required: true
+      - name: parentCode
+        length: 16  
+      - name: countryCode
+        length: 3
+        required: true  
+      - name: type
+        enum: AreaType
+        length: 16 
+        required: true             
+      - name: name
+        length: 200
+        required: true
+    relations:
+      - name: country
+        from: countryCode
+        entity: LocCountries
+        to: iso3
+        target: areas
+      - name: parent
+        from: parentCode
+        entity: LocAreas
+        to: code
+        target: children  
+  # Location business
+  - name: LocAddresses
+    primaryKey: ["id"]
+    properties:
+      - name: id
+        type: integer
+        required: true
+        autoIncrement: true
+      - name: countryCode
+        length: 3
+        required: true
+      - name: areaCode
+        length: 16
+        required: true  
+      - name: streetName
+        length: 250
+      - name: streetType
+        enum: StreetType
+        length: 3 
+      - name: streetNrFirst
+        length: 20
+      - name: postalCode
+        length: 30
+      - name: city
+        length: 100
+      - name: additionalData
+        length: 100
+    relations:
+      - name: country
+        from: countryId
+        entity: LocCountries
+        to: iso3
+      - name: area
+        from: areaCode
+        entity: LocAreas
+        to: code   
   # Party settings
   - name: PmIndustryTypes
     primaryKey: ["code"]
@@ -222,6 +322,7 @@ entities:
         from: partyId
         entity: PmParties
         to: id
+        target: individual 
       # - name: identifications
       #   type: manyToOne
       #   from: partyId
@@ -262,6 +363,7 @@ entities:
         from: partyId
         entity: PmParties
         to: id
+        target: organization
       - name: parent
         from: parentId
         entity: PmOrganizations

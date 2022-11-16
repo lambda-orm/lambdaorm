@@ -1,0 +1,30 @@
+{
+  "entity": "PmIndividuals",
+  "dialect": "PostgreSQL",
+  "source": "parties",
+  "sentence": "SELECT p.code AS \"code\", p.GENDER AS \"sexo\", p.GIVEN_NAMES || ', ' || p.FAMILY_NAMES AS \"name\", p.PARTY_ID AS \"__partyId\" FROM TBL_PM_INDIVIDUAL p  ",
+  "children": [
+    {
+      "entity": "PmParties",
+      "dialect": "PostgreSQL",
+      "source": "parties",
+      "sentence": "SELECT p1.ID AS \"id\", p1.TYPE AS \"type\", p1.STATUS AS \"status\", p1.REGISTER_DATE AS \"registeredDate\", p1.CREATED AS \"created\", p1.CREATED_BY AS \"createdBy\", p1.ID AS \"__id\", p1.ID AS \"__id\", p1.ID AS \"LambdaOrmParentId\" FROM TBL_PM_PARTY p1  WHERE  p1.ID IN ($1) ",
+      "children": [
+        {
+          "entity": "PmIdentifications",
+          "dialect": "PostgreSQL",
+          "source": "parties",
+          "sentence": "SELECT p12.TYPE AS \"type\", p12.VALUE AS \"value\", p12.PARTY_ID AS \"LambdaOrmParentId\" FROM TBL_PM_IDENTIFICATION p12  WHERE  p12.PARTY_ID IN ($1) ",
+          "children": []
+        },
+        {
+          "entity": "PmContactMediums",
+          "dialect": "PostgreSQL",
+          "source": "parties",
+          "sentence": "SELECT p123.ID AS \"id\", p123.PARTY_ID AS \"partyId\", p123.TYPE AS \"type\", p123.VALUE AS \"value\", p123.IS_MAIN AS \"isMain\", p123.IS_FAVORITE AS \"isFavorite\", p123.SOURCE AS \"source\", p123.CREATED_BY AS \"createdBy\", p123.CREATED AS \"created\", p123.PARTY_ID AS \"LambdaOrmParentId\" FROM TBL_PM_CONTACT_MEDIUM p123  WHERE  p123.PARTY_ID IN ($1) ",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

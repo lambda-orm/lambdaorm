@@ -2,7 +2,7 @@ import { Orm, helper, IOrm, OrmOptions } from '../../../../lib'
 import {sourcePath } from './common'
 import {
 	PmIndividuals, PmOrganizations,	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses,
-	PmIdentificationTypes, PmContactMediumTypes, PmGenders,  PmIndividual, PmOrganization, PmParty, PmNationalReferences, PmIndustryType
+	PmIdentificationTypes, PmContactMediumTypes, PmGenders,  PmIndividual, PmOrganization, PmParty, PmNationalReferences, PmIndustryType, LocAreas, LocAddresses
 } from './workspace/src/model'
 import * as c  from './collections/workspace/src/model/model'
 
@@ -15,10 +15,8 @@ interface PmMapping {
 	nationalReferences:any
 	genders: any 
 }
-interface LocMapping { 
-	countries: any
+interface LocMapping { 	
 	areaTypes: any
-	areas: any
 }
 interface ExportData {
 	pmMapping:PmMapping
@@ -39,12 +37,20 @@ class CollectionExporter {
 	public async export(): Promise<any> {
 		try {
 			await this.orm.init()
-			const pmMapping = await this.getPmMapping()
+			
 			const locMapping = await this.getLocMapping()
-			const individuals = await this.getIndividuals()
-			const organizations = await this.getOrganizations()					
-			await helper.fs.write(`${this.orm.workspace}/confidential_data/pmMapping.json`, JSON.stringify(pmMapping))
+			const countries = await this.orm.execute(() => LocCountries, {}, this.options)
+			const areas = await this.orm.execute(() => LocAreas, {}, this.options)
+			const addresses = await this.orm.execute(() => LocAddresses, {}, this.options)
 			await helper.fs.write(`${this.orm.workspace}/confidential_data/locMapping.json`, JSON.stringify(locMapping))
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/countries.json`, JSON.stringify(countries))
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/areas.json`, JSON.stringify(areas))
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/addresses.json`, JSON.stringify(addresses))
+
+			const pmMapping = await this.getPmMapping()
+			const individuals = await this.getIndividuals()
+			const organizations = await this.getOrganizations()
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/pmMapping.json`, JSON.stringify(pmMapping))			
 			await helper.fs.write(`${this.orm.workspace}/confidential_data/individuals.json`, JSON.stringify(individuals))
 			await helper.fs.write(`${this.orm.workspace}/confidential_data/organizations.json`, JSON.stringify(organizations))
 		} catch (error: any) {
@@ -62,17 +68,14 @@ class CollectionExporter {
 		}
 	}
 	private async getLocMapping(): Promise<LocMapping> {
-		const countries = await this.orm.execute(() => LocCountries, {}, this.options)
-		const areaTypes = await this.orm.execute(() => LocAreaTypes.include(p => p.areas), {}, this.options)
-		const mapping: LocMapping = { countries: {}, areaTypes: {}, areas: {} }
-		for (const source of countries) {
-			mapping.countries[source.id] = source
-		}
+		// const countries = await this.orm.execute(() => LocCountries, {}, this.options)
+		const areaTypes = await this.orm.execute(() => LocAreaTypes, {}, this.options)
+		const mapping: LocMapping = { areaTypes: {}}
+		// for (const source of countries) {
+		// 	mapping.countries[source.id] = source
+		// }
 		for (const areaType of areaTypes) {
 			mapping.areaTypes[areaType.id] = areaType
-			for (const area of areaType.areas) {
-				mapping.areas[area.id] = area
-			}
 		}
 		return mapping
 	}
@@ -110,7 +113,7 @@ class CollectionExporter {
 		return mapping
 	}
 	private async getIndividuals():Promise<PmIndividual[]> {
-		return await this.orm.execute(() => PmIndividuals.include(p=> [ p.party.include( p=> [p.indentifications, p.contactMediums]), p.currentName ]), {}, this.options)
+		return await this.orm.execute(() => PmIndividuals.include(p=> [ p.party.include( p=> [p.indentifications, p.contactMediums]).map(p=> [p.status, p.registredDate ] ) , p.currentName ]).map( p=> p.deathDate ), {}, this.options)
 	}
 	private async getOrganizations():Promise<PmOrganization[]> {
 		return await this.orm.execute(() => PmOrganizations.include(p=> [ p.party.include( p=> [p.indentifications, p.contactMediums] ), p.currentName ]), {}, this.options)
