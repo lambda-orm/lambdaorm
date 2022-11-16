@@ -1027,11 +1027,16 @@ export class OperandManager {
 		this.solveTypeFromMetadata(operand, expressionContext)
 		if ((operand instanceof Operator || operand instanceof FunctionRef) && !(operand instanceof Sentence || operand instanceof ArrowFunction || operand instanceof ChildFunction)) {
 			this.solveTemplateType(operand, expressionContext)
-		} else {
-			// loop through all children to resolve type
-			for (const child of operand.children) {
-				this.solveTypes(child, expressionContext)
-			}
+		}
+		// else {
+		// // loop through all children to resolve type
+		// for (const child of operand.children) {
+		// this.solveTypes(child, expressionContext)
+		// }
+		// }
+		// loop through all children to resolve type
+		for (const child of operand.children) {
+			this.solveTypes(child, expressionContext)
 		}
 		return operand.type
 	}
@@ -1128,7 +1133,7 @@ export class OperandManager {
 				for (let i = 0; i < metadata.params.length; i++) {
 					const param = metadata.params[i]
 					const child = operand.children[i]
-					if (param.type === 'T' && child.type === 'any') {
+					if (param.type === 'T' && (child.type === 'any' || child.type === 'T')) {
 						child.type = templateType
 					}
 				}

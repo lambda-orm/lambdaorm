@@ -34,10 +34,25 @@ export class Helper extends H3lp {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
-	public clearLambda (func:Function) {
+	public clearLambda (func:Function):string {
 		let str = func.toString().trim()
-		const index = str.indexOf('=>') + 2
+		let index = str.indexOf('=>') + 2
 		str = str.substring(index, str.length).trim()
-		return this.str.replace(str, 'model_1.', '')
+		index = str.indexOf('(')
+		if (index > -1) {
+			// Example: model.Products.map()
+			const form = str.substring(0, index).trim()
+			const parts = form.split('.')
+			if (parts.length > 2) {
+				return this.str.replace(str, parts[0] + '.', '')
+			}
+		} else {
+			// Example: model.Products
+			const parts = str.split('.')
+			if (parts.length > 1) {
+				return this.str.replace(str, parts[0] + '.', '')
+			}
+		}
+		return str
 	}
 }

@@ -4,86 +4,942 @@ data:
     id: 1
 test:
   - name: groupBy 1
-    sentences: []
-    errors: 1
-    expression: __Products.map(p=>{maxPrice:max(p.price)})
-    error: >-
-      SintaxisError: complete expression:
-      __Products.map(p=>{maxPrice:max(p.price)}) error: SchemaError: entity
-      __Products not found
+    sentences:
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: 'SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p  '
+          children: []
+    errors: 0
+    expression: Products.map(p=>{maxPrice:max(p.price)})
+    normalizeExpression: Products.map(p=>{maxPrice:max(p.price)})
+    model:
+      - name: maxPrice
+        type: any
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Products
+          classtype: From
+          children: []
+          type: any
+          alias: p
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: maxPrice
+                  classtype: KeyValue
+                  children:
+                    - name: max
+                      classtype: FunctionRef
+                      children:
+                        - name: price
+                          classtype: Field
+                          children: []
+                          type: decimal
+                          entity: Products
+                          alias: p
+                          isRoot: true
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
+        - name: maxPrice
+          type: any
+      parameters: []
+      entity: Products
+      constraints: []
+    executions:
+      - stage: SqlServer
+    result:
+      - maxPrice: 263.5
   - name: groupBy 2
-    sentences: []
-    errors: 1
-    expression: __Products.map(p=>{minPrice:min(p.price)})
-    error: >-
-      SintaxisError: complete expression:
-      __Products.map(p=>{minPrice:min(p.price)}) error: SchemaError: entity
-      __Products not found
+    sentences:
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: 'SELECT MIN(p.UnitPrice) AS minPrice FROM Products p  '
+          children: []
+    errors: 0
+    expression: Products.map(p=>{minPrice:min(p.price)})
+    normalizeExpression: Products.map(p=>{minPrice:min(p.price)})
+    model:
+      - name: minPrice
+        type: any
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Products
+          classtype: From
+          children: []
+          type: any
+          alias: p
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: minPrice
+                  classtype: KeyValue
+                  children:
+                    - name: min
+                      classtype: FunctionRef
+                      children:
+                        - name: price
+                          classtype: Field
+                          children: []
+                          type: decimal
+                          entity: Products
+                          alias: p
+                          isRoot: true
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
+        - name: minPrice
+          type: any
+      parameters: []
+      entity: Products
+      constraints: []
+    executions:
+      - stage: SqlServer
+    result:
+      - minPrice: 2.5
   - name: groupBy 3
-    sentences: []
-    errors: 1
-    expression: __Products.map(p=>{total:sum(p.price)})
-    error: >-
-      SintaxisError: complete expression:
-      __Products.map(p=>{total:sum(p.price)}) error: SchemaError: entity
-      __Products not found
+    sentences:
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: 'SELECT SUM(p.UnitPrice) AS total FROM Products p  '
+          children: []
+    errors: 0
+    expression: Products.map(p=>{total:sum(p.price)})
+    normalizeExpression: Products.map(p=>{total:sum(p.price)})
+    model:
+      - name: total
+        type: number
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Products
+          classtype: From
+          children: []
+          type: any
+          alias: p
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: total
+                  classtype: KeyValue
+                  children:
+                    - name: sum
+                      classtype: FunctionRef
+                      children:
+                        - name: price
+                          classtype: Field
+                          children: []
+                          type: decimal
+                          entity: Products
+                          alias: p
+                          isRoot: true
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
+        - name: total
+          type: number
+      parameters: []
+      entity: Products
+      constraints: []
+    executions:
+      - stage: SqlServer
+    result:
+      - total: 2222.71
   - name: groupBy 4
-    sentences: []
-    errors: 1
-    expression: __Products.map(p=>{average:round(avg(p.price),4)})
-    error: >-
-      SintaxisError: complete expression:
-      __Products.map(p=>{average:round(avg(p.price),4)}) error: SchemaError:
-      entity __Products not found
+    sentences:
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: 'SELECT ROUND(AVG(p.UnitPrice),4) AS average FROM Products p  '
+          children: []
+    errors: 0
+    expression: Products.map(p=>{average:round(avg(p.price),4)})
+    normalizeExpression: Products.map(p=>{average:round(avg(p.price),4)})
+    model:
+      - name: average
+        type: number
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Products
+          classtype: From
+          children: []
+          type: any
+          alias: p
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: average
+                  classtype: KeyValue
+                  children:
+                    - name: round
+                      classtype: FunctionRef
+                      children:
+                        - name: avg
+                          classtype: FunctionRef
+                          children:
+                            - name: price
+                              classtype: Field
+                              children: []
+                              type: decimal
+                              entity: Products
+                              alias: p
+                              isRoot: true
+                          type: any
+                        - name: 4
+                          classtype: Constant2
+                          children: []
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
+        - name: average
+          type: number
+      parameters: []
+      entity: Products
+      constraints: []
+    executions:
+      - stage: SqlServer
+    result:
+      - average: 28.8664
   - name: groupBy 5
-    sentences: []
-    errors: 1
-    expression: __Products.map(p=>{count:count(1)})
-    error: >-
-      SintaxisError: complete expression: __Products.map(p=>{count:count(1)})
-      error: SchemaError: entity __Products not found
+    sentences:
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: 'SELECT COUNT(1) AS count FROM Products p  '
+          children: []
+    errors: 0
+    expression: Products.map(p=>{count:count(1)})
+    normalizeExpression: Products.map(p=>{count:count(1)})
+    model:
+      - name: count
+        type: number
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Products
+          classtype: From
+          children: []
+          type: any
+          alias: p
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: count
+                  classtype: KeyValue
+                  children:
+                    - name: count
+                      classtype: FunctionRef
+                      children:
+                        - name: 1
+                          classtype: Constant2
+                          children: []
+                          type: number
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
+        - name: count
+          type: number
+      parameters: []
+      entity: Products
+      constraints: []
+    executions:
+      - stage: SqlServer
+    result:
+      - count: 77
   - name: groupBy 6
-    sentences: []
-    errors: 1
-    expression: __Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
-    error: >-
-      SintaxisError: complete expression:
-      __Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
-      error: SchemaError: entity __Products not found
+    sentences:
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p  GROUP BY p.CategoryID 
+          children: []
+    errors: 0
+    expression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
+    normalizeExpression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
+    model:
+      - name: category
+        type: integer
+      - name: largestPrice
+        type: any
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Products
+          classtype: From
+          children: []
+          type: any
+          alias: p
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: category
+                  classtype: KeyValue
+                  children:
+                    - name: categoryId
+                      classtype: Field
+                      children: []
+                      type: integer
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: largestPrice
+                  classtype: KeyValue
+                  children:
+                    - name: max
+                      classtype: FunctionRef
+                      children:
+                        - name: price
+                          classtype: Field
+                          children: []
+                          type: decimal
+                          entity: Products
+                          alias: p
+                          isRoot: true
+                      type: any
+                  type: any
+              type: object
+          type: any
+        - name: groupBy
+          classtype: GroupBy
+          children:
+            - name: categoryId
+              classtype: Field
+              children: []
+              type: integer
+              entity: Products
+              alias: p
+              isRoot: true
+          type: any
+      type: any
+      columns:
+        - name: category
+          type: integer
+        - name: largestPrice
+          type: any
+      parameters: []
+      entity: Products
+      constraints: []
+    executions:
+      - stage: SqlServer
+    result:
+      - category: 1
+        largestPrice: 263.5
+      - category: 2
+        largestPrice: 43.9
+      - category: 3
+        largestPrice: 81
+      - category: 4
+        largestPrice: 55
+      - category: 5
+        largestPrice: 38
+      - category: 6
+        largestPrice: 123.79
+      - category: 7
+        largestPrice: 53
+      - category: 8
+        largestPrice: 62.5
   - name: groupBy 7
-    sentences: []
-    errors: 1
-    expression: __Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
-    error: >-
-      SintaxisError: complete expression:
-      __Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
-      error: SchemaError: entity __Products not found
+    sentences:
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID GROUP BY c.CategoryName 
+          children: []
+    errors: 0
+    expression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
+    normalizeExpression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
+    model:
+      - name: category
+        type: string
+      - name: largestPrice
+        type: any
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Products
+          classtype: From
+          children: []
+          type: any
+          alias: p
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: category
+                  classtype: KeyValue
+                  children:
+                    - name: name
+                      classtype: Field
+                      children: []
+                      type: string
+                      entity: Categories
+                      alias: c
+                      isRoot: false
+                  type: any
+                - name: largestPrice
+                  classtype: KeyValue
+                  children:
+                    - name: max
+                      classtype: FunctionRef
+                      children:
+                        - name: price
+                          classtype: Field
+                          children: []
+                          type: decimal
+                          entity: Products
+                          alias: p
+                          isRoot: true
+                      type: any
+                  type: any
+              type: object
+          type: any
+        - name: groupBy
+          classtype: GroupBy
+          children:
+            - name: name
+              classtype: Field
+              children: []
+              type: string
+              entity: Categories
+              alias: c
+              isRoot: false
+          type: any
+        - name: Categories
+          classtype: Join
+          children:
+            - name: '=='
+              classtype: Operator
+              children:
+                - name: id
+                  classtype: Field
+                  children: []
+                  type: integer
+                  entity: Categories
+                  alias: c
+                - name: categoryId
+                  classtype: Field
+                  children: []
+                  type: integer
+                  entity: Products
+                  alias: p
+              type: any
+          type: any
+          entity: Products
+          alias: c
+      type: any
+      columns:
+        - name: category
+          type: string
+        - name: largestPrice
+          type: any
+      parameters: []
+      entity: Products
+      constraints: []
+    executions:
+      - stage: SqlServer
+    result:
+      - category: Beverages
+        largestPrice: 263.5
+      - category: Condiments
+        largestPrice: 43.9
+      - category: Confections
+        largestPrice: 81
+      - category: Dairy Products
+        largestPrice: 55
+      - category: Grains/Cereals
+        largestPrice: 38
+      - category: Meat/Poultry
+        largestPrice: 123.79
+      - category: Produce
+        largestPrice: 53
+      - category: Seafood
+        largestPrice: 62.5
   - name: groupBy 8
     data: a
-    sentences: []
-    errors: 1
+    sentences:
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, p.UnitPrice AS source,
+            ABS(p.UnitPrice) AS result FROM Products p  WHERE p.ProductID = @id 
+          children: []
+    errors: 0
     expression: >-
-      __Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
-    error: >-
-      SintaxisError: complete expression:
-      __Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
-      error: SchemaError: entity __Products not found
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
+    normalizeExpression: >-
+      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
+    model:
+      - name: name
+        type: string
+      - name: source
+        type: decimal
+      - name: result
+        type: number
+    parameters:
+      - name: id
+        type: integer
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: filter
+          classtype: Filter
+          children:
+            - name: '==='
+              classtype: Operator
+              children:
+                - name: id
+                  classtype: Field
+                  children: []
+                  type: integer
+                  entity: Products
+                  alias: p
+                  isRoot: true
+                - name: id
+                  classtype: Variable
+                  children: []
+                  type: integer
+                  number: 1
+              type: any
+          type: any
+        - name: Products
+          classtype: From
+          children: []
+          type: any
+          alias: p
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: name
+                  classtype: KeyValue
+                  children:
+                    - name: name
+                      classtype: Field
+                      children: []
+                      type: string
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: source
+                  classtype: KeyValue
+                  children:
+                    - name: price
+                      classtype: Field
+                      children: []
+                      type: decimal
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: result
+                  classtype: KeyValue
+                  children:
+                    - name: abs
+                      classtype: FunctionRef
+                      children:
+                        - name: price
+                          classtype: Field
+                          children: []
+                          type: decimal
+                          entity: Products
+                          alias: p
+                          isRoot: true
+                      type: any
+                  type: any
+              type: object
+          type: any
+      type: any
+      columns:
+        - name: name
+          type: string
+        - name: source
+          type: decimal
+        - name: result
+          type: number
+      parameters:
+        - name: id
+          type: integer
+      entity: Products
+      constraints: []
+    executions:
+      - stage: SqlServer
+    result:
+      - name: Chai
+        source: 18
+        result: 18
   - name: groupBy 9
-    sentences: []
-    errors: 1
+    sentences:
+      - stage: SqlServer
+        sentence:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
+          children: []
+    errors: 0
     expression: >-
-      __Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
-    error: >-
-      SintaxisError: complete expression:
-      __Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
-      error: SchemaError: entity __Products not found
+      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
+    normalizeExpression: >-
+      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
+    model:
+      - name: category
+        type: string
+      - name: largestPrice
+        type: any
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Products
+          classtype: From
+          children: []
+          type: any
+          alias: p
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: category
+                  classtype: KeyValue
+                  children:
+                    - name: name
+                      classtype: Field
+                      children: []
+                      type: string
+                      entity: Categories
+                      alias: c
+                      isRoot: false
+                  type: any
+                - name: largestPrice
+                  classtype: KeyValue
+                  children:
+                    - name: max
+                      classtype: FunctionRef
+                      children:
+                        - name: price
+                          classtype: Field
+                          children: []
+                          type: decimal
+                          entity: Products
+                          alias: p
+                          isRoot: true
+                      type: any
+                  type: any
+              type: object
+          type: any
+        - name: groupBy
+          classtype: GroupBy
+          children:
+            - name: name
+              classtype: Field
+              children: []
+              type: string
+              entity: Categories
+              alias: c
+              isRoot: false
+          type: any
+        - name: having
+          classtype: Having
+          children:
+            - name: '>'
+              classtype: Operator
+              children:
+                - name: max
+                  classtype: FunctionRef
+                  children:
+                    - name: price
+                      classtype: Field
+                      children: []
+                      type: decimal
+                      entity: Products
+                      alias: p
+                      isRoot: true
+                  type: any
+                - name: 100
+                  classtype: Constant2
+                  children: []
+                  type: number
+              type: any
+          type: any
+        - name: Categories
+          classtype: Join
+          children:
+            - name: '=='
+              classtype: Operator
+              children:
+                - name: id
+                  classtype: Field
+                  children: []
+                  type: integer
+                  entity: Categories
+                  alias: c
+                - name: categoryId
+                  classtype: Field
+                  children: []
+                  type: integer
+                  entity: Products
+                  alias: p
+              type: any
+          type: any
+          entity: Products
+          alias: c
+      type: any
+      columns:
+        - name: category
+          type: string
+        - name: largestPrice
+          type: any
+      parameters: []
+      entity: Products
+      constraints: []
+    executions:
+      - stage: SqlServer
+    result:
+      - category: Beverages
+        largestPrice: 263.5
+      - category: Meat/Poultry
+        largestPrice: 123.79
   - name: query 10
-    sentences: []
-    errors: 1
+    sentences:
+      - stage: SqlServer
+        sentence:
+          entity: Orders.details
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100)))
+            * 100)) AS subTotal FROM [Order Details] o  ORDER BY subTotal asc 
+          children: []
+    errors: 0
     expression: >-
-      details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>p.subTotal)
-    error: >-
-      SintaxisError: complete expression:
-      details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>p.subTotal)
-      error: SchemaError: entity details not found
-errors: 10
+      Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>p.subTotal)
+    normalizeExpression: >-
+      Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>asc(p.subTotal))
+    model:
+      - name: subTotal
+        type: number
+    parameters: []
+    constraints:
+      entity: Orders.details
+      constraints: []
+    metadata:
+      name: select
+      classtype: Sentence
+      children:
+        - name: Orders.details
+          classtype: From
+          children: []
+          type: any
+          alias: o
+        - name: map
+          classtype: Map
+          children:
+            - name: obj
+              classtype: Obj
+              children:
+                - name: subTotal
+                  classtype: KeyValue
+                  children:
+                    - name: sum
+                      classtype: FunctionRef
+                      children:
+                        - name: '*'
+                          classtype: Operator
+                          children:
+                            - name: '*'
+                              classtype: Operator
+                              children:
+                                - name: '*'
+                                  classtype: Operator
+                                  children:
+                                    - name: unitPrice
+                                      classtype: Field
+                                      children: []
+                                      type: decimal
+                                      entity: Orders.details
+                                      alias: o
+                                      isRoot: true
+                                    - name: quantity
+                                      classtype: Field
+                                      children: []
+                                      type: decimal
+                                      entity: Orders.details
+                                      alias: o
+                                      isRoot: true
+                                  type: any
+                                - name: '-'
+                                  classtype: Operator
+                                  children:
+                                    - name: 1
+                                      classtype: Constant2
+                                      children: []
+                                      type: number
+                                    - name: /
+                                      classtype: Operator
+                                      children:
+                                        - name: discount
+                                          classtype: Field
+                                          children: []
+                                          type: decimal
+                                          entity: Orders.details
+                                          alias: o
+                                          isRoot: true
+                                        - name: 100
+                                          classtype: Constant2
+                                          children: []
+                                          type: number
+                                      type: any
+                                  type: any
+                              type: any
+                            - name: 100
+                              classtype: Constant2
+                              children: []
+                              type: number
+                          type: any
+                      type: any
+                  type: any
+              type: object
+          type: any
+        - name: sort
+          classtype: Sort
+          children:
+            - name: asc
+              classtype: FunctionRef
+              children:
+                - name: subTotal
+                  classtype: Field
+                  children: []
+                  type: number
+                  entity: Orders.details
+                  alias: o
+                  isRoot: true
+              type: any
+          type: any
+      type: any
+      columns:
+        - name: subTotal
+          type: number
+      parameters: []
+      entity: Orders.details
+      constraints: []
+    executions:
+      - stage: SqlServer
+    result:
+      - subTotal: 135445859
+errors: 0
