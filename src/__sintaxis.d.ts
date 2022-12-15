@@ -227,7 +227,7 @@ declare function time(value:any):Date
 /**  */
 declare function date(value:any):Date
 /**  */
-declare function datetime(value:any):Date
+declare function dateTime(value:any):Date
 /**  */
 declare function year(value:Date):number
 /**  */
@@ -266,7 +266,7 @@ declare function toString(value:any):string
 /**  */
 declare function toDate(value:any):Date
 /**  */
-declare function toDatetime(value:any):string
+declare function toDateTime(value:any):string
 /**  */
 declare function toTime(value:any):string
 /**  */
