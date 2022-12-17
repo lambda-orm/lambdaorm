@@ -118,7 +118,7 @@ export class StageImport extends StageActionDML {
 			if (keys.length === 0) {
 				state.inconsistency.push(`for entity ${entity.name} had not unique key`)
 			}
-			pendingRows.push({ keys: keys, externalId: externalId })
+			pendingRows.push({ keys, externalId })
 			row[relation.from] = null
 		}
 	}

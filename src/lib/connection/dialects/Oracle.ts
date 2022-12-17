@@ -117,7 +117,7 @@ export class OracleConnection extends Connection {
 		const options = {
 			autoCommit: !this.inTransaction,
 			batchErrors: true,
-			bindDefs: bindDefs
+			bindDefs
 		}
 		const binds: any[] = this.arrayToRows(mapping, dialect, query, array)
 		sql = autoIncrementInfo ? `${query.sentence} ${autoIncrementInfo.returning}` : query.sentence
@@ -231,7 +231,7 @@ export class OracleConnection extends Connection {
 				sql = helper.str.replace(sql, `:${param.name}`, '')
 			}
 		}
-		return { sql: sql, values: values }
+		return { sql, values }
 	}
 
 	private getAutoIncrementInfo (mapping: MappingConfig, query: Query): OracleAutoIncrementInfo|undefined {
@@ -251,7 +251,7 @@ export class OracleConnection extends Connection {
 			bindDef = { dir: 3003, type: oracleType }
 		}
 		const returning = `RETURNING ${fieldId.mapping} INTO :${key} `
-		return { key: key, bindDef: bindDef, returning: returning }
+		return { key, bindDef, returning }
 	}
 
 	private oracleType (type: string): number {

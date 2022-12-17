@@ -718,7 +718,7 @@ class SchemaExtender {
 			for (const related of entities) {
 				for (const relation of related.relations) {
 					if (relation.entity === entity.name && !relation.weak) {
-						const dependent = { entity: related.name, relation: relation }
+						const dependent = { entity: related.name, relation }
 						entity.dependents.push(dependent)
 					}
 				}
@@ -843,7 +843,7 @@ class SchemaExtender {
 	}
 
 	private existsInMapping (schema: Schema, mapping: string, entity: string): boolean {
-		const context: ContextInfo = { entity: entity, action: ObservableAction.ddl, read: false, write: true, dml: false, ddl: true }
+		const context: ContextInfo = { entity, action: ObservableAction.ddl, read: false, write: true, dml: false, ddl: true }
 		const dataSourcesNames = schema.sources.filter(p => p.mapping === mapping).map(p => p.name)
 		for (const stage of schema.stages) {
 			const ruleDataSources = stage.sources.filter(p => dataSourcesNames.includes(p.name))

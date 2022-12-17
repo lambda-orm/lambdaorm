@@ -13,9 +13,9 @@ module.exports = function (grunt) {
 			db_down: { cmd: './db.sh down', options: { cwd: './src/dev/db' } },
 			clean_data: { cmd: './clean_data.sh ' + sources.join(','), options: { cwd: './src/dev/task' } },
 			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
-			lint: { cmd: 'npx eslint src ' },
-			test: { cmd: 'npx jest --config jest-unit-config.json ' },
-			integration_test: { cmd: 'npx jest --config jest-integration-config.json ' },
+			lint: { cmd: 'npx eslint src' },
+			test: { cmd: 'npx jest --config jest-unit-config.json' },
+			integration_test: { cmd: 'npx jest --config jest-integration-config.json' },
 			tsc: { cmd: 'npx tsc ' },
 			release: { cmd: './release.sh' },
 			to_develop: { cmd: './to_develop.sh' },
@@ -30,15 +30,18 @@ module.exports = function (grunt) {
 			sintaxis: { expand: true, cwd: './src', src: './__sintaxis.d.ts', dest: 'build/lib/' },
 			readme: { expand: true, src: './README.md', dest: 'dist/' },
 			license: { expand: true, src: './LICENSE', dest: 'dist/' },
-			images: { expand: true, cwd: 'images/', src: '**', dest: 'dist/images/' }
+			images: { expand: true, cwd: 'images/', src: '**', dest: 'dist/images/' },
+			jest: { expand: true, src: './jest-unit-config.json', dest: 'dist/' }
 		}
 	})
 
 	grunt.registerTask('create-package', 'create package.json for dist', function () {
 		const data = require('./package.json')
 		delete data.devDependencies
-		delete data.scripts
 		delete data.private
+		data.scripts = {
+			test: data.scripts.test
+		}
 		data.main = 'index.js'
 		data.types = 'index.d.ts'
 		fs.writeFileSync('dist/package.json', JSON.stringify(data, null, 2), 'utf8')
@@ -78,20 +81,16 @@ module.exports = function (grunt) {
 		const dataForTestPath = './src/dev/dataForTest'
 		task.apply(dataForTestPath, sources, this.async())
 	})
-
 	grunt.registerTask('clean-test', ['exec:clean_test'])
 	grunt.registerTask('clean-data', ['exec:clean_data'])
 	grunt.registerTask('db-down', ['exec:db_down', 'clean-data'])
 	grunt.registerTask('db-up', ['db-down', 'exec:db_up', 'populate-source', 'populate-databases'])
 	grunt.registerTask('build-test', ['db-up', 'clean-test', 'generate-data-for-test', 'generate-test', 'db-down'])
-	grunt.registerTask('lint', ['exec:lint'])
-	grunt.registerTask('build', ['lint', 'clean:build', 'build-config', 'exec:tsc', 'copy:sintaxis'])
-	grunt.registerTask('test', ['exec:test'])
+	grunt.registerTask('build', ['exec:lint', 'clean:build', 'build-config', 'exec:tsc', 'copy:sintaxis'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])
-	grunt.registerTask('dist', ['build', 'test', 'clean:dist', 'copy:lib', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('dist', ['build', 'exec:test', 'clean:dist', 'copy:lib', 'copy:jest', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
 	grunt.registerTask('release', ['dist', 'exec:release'])
 	grunt.registerTask('to_develop', ['build', 'exec:to_develop'])
-
 	grunt.registerTask('default', [])
 }

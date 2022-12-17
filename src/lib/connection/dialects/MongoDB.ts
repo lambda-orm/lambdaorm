@@ -21,7 +21,7 @@ export class MongoDBConnectionPool extends ConnectionPool {
 	public async acquire (): Promise<Connection> {
 		const client = await MongoDBConnectionPool.lib.MongoClient.connect(this.config.connection.url)
 		const db = client.db(this.config.connection.database)
-		const cnx = { client: client, db: db }
+		const cnx = { client, db }
 		return new MongodbConnection(cnx, this)
 	}
 

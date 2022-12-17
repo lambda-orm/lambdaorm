@@ -53,7 +53,7 @@ export class Executor {
 					const result = await queryExecutor.execute(query, {})
 					results.push(result)
 				} catch (error: any) {
-					results.push({ error: error })
+					results.push({ error })
 				} finally {
 					await queryExecutor.release()
 				}
@@ -62,7 +62,7 @@ export class Executor {
 			await this.transaction(options, async function (tr: Transaction) {
 				for (const query of queries) {
 					const result = await tr.executeQuery(query)
-					results.push({ result: result })
+					results.push({ result })
 				}
 			})
 		}

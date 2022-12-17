@@ -7,12 +7,11 @@ data:
   b:
     name: Beverages21
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 12
   c:
     entity:
       name: Beverages22
       description: Soft drinks, coffees, teas, beers, and ales
-    id: 11
+    id: 10
   order:
     customerId: VINET
     employeeId: 5
@@ -181,138 +180,11 @@ test:
         id: 10
   - name: insert 2
     data: b
-    sentences:
-      - stage: MySQL
-        sentence:
-          entity: Categories
-          dialect: MySQL
-          source: MySQL
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          children: []
-      - stage: MariaDB
-        sentence:
-          entity: Categories
-          dialect: MariaDB
-          source: MariaDB
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
-          children: []
-      - stage: PostgreSQL
-        sentence:
-          entity: Categories
-          dialect: PostgreSQL
-          source: PostgreSQL
-          sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
-          children: []
-      - stage: SqlServer
-        sentence:
-          entity: Categories
-          dialect: SqlServer
-          source: SqlServer
-          sentence: >-
-            INSERT INTO Categories(CategoryName,Description) OUTPUT
-            INSERTED.CategoryID VALUES(@name,@description)
-          children: []
-      - stage: Oracle
-        sentence:
-          entity: Categories
-          dialect: Oracle
-          source: Oracle
-          sentence: >-
-            INSERT INTO Categories(CategoryID,CategoryName,Description)
-            VALUES(SQ_CATEGORIES.nextval,:name,:description)
-          children: []
-      - stage: MongoDB
-        sentence:
-          entity: Categories
-          dialect: MongoDB
-          source: MongoDB
-          sentence: '{ "CategoryName":{{name}},"Description":{{description}} }'
-          children: []
-    errors: 0
-    expression: Categories.insert(=>{name:name,description:description})
-    normalizeExpression: Categories.insert(=>{name:name,description:description})
-    model:
-      - name: name
-        type: string
-      - name: description
-        type: string
-    parameters:
-      - name: name
-        type: string
-      - name: description
-        type: string
-    constraints:
-      entity: Categories
-      constraints:
-        - message: Cannot be null property name in entity Categories
-          condition: isNotNull(name)
-    metadata:
-      name: insert
-      classtype: Sentence
-      children:
-        - name: Categories
-          classtype: From
-          children: []
-          type: any
-          alias: c
-        - name: Categories
-          classtype: Insert
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 1
-                  type: any
-                  property: name
-                - name: description
-                  classtype: KeyValue
-                  children:
-                    - name: description
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 2
-                  type: any
-                  property: description
-              type: object
-          type: any
-          clause: insert
-      type: any
-      columns:
-        - name: name
-          type: string
-        - name: description
-          type: string
-      parameters:
-        - name: name
-          type: string
-        - name: description
-          type: string
-      entity: Categories
-      constraints:
-        - message: Cannot be null property name in entity Categories
-          condition: isNotNull(name)
-    executions:
-      - stage: MySQL
-      - stage: MariaDB
-      - stage: PostgreSQL
-      - stage: SqlServer
-      - stage: Oracle
-      - stage: MongoDB
-    result:
-      data:
-        name: Beverages21
-        description: Soft drinks, coffees, teas, beers, and ales
-        id: 12
+    sentences: []
+    errors: 1
+    error: >-
+      Error: expression: Categories.insert(() => ({ name, description })) error:
+      Error: attribute name without value
   - name: insert 3
     data: c
     sentences:
@@ -447,7 +319,7 @@ test:
         entity:
           name: Beverages22
           description: Soft drinks, coffees, teas, beers, and ales
-        id: 11
+        id: 10
   - name: insert 4
     data: order
     sentences:
@@ -2225,4 +2097,4 @@ test:
             discount: 10
             orderId: 835
         id: 836
-errors: 1
+errors: 2

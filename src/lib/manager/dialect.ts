@@ -55,7 +55,7 @@ export class Dialect {
 		for (const type in dialect.functions) {
 			const list = dialect.functions[type]
 			for (const name in list) {
-				this._functions[name] = { type: type, template: list[name] }
+				this._functions[name] = { type, template: list[name] }
 			}
 		}
 	}
