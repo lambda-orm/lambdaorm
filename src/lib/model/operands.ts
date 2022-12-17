@@ -122,10 +122,6 @@ export enum SentenceAction {
 	ddl = 'ddl'
 }
 
-export interface SentenceArgs{
-	name: string, children: Operand[], entity: string, alias: string, columns: Property[], parameters: Parameter[], constraints: Constraint[], values: Behavior[], defaults: Behavior[]
-}
-
 export class Sentence extends Operand {
 	public columns: Property[]
 	public parameters: Parameter[]
@@ -137,17 +133,17 @@ export class Sentence extends Operand {
 	public values: Behavior[]
 	public defaults: Behavior[]
 
-	constructor (args:SentenceArgs) {
-		super(args.name, args.children)
-		this.action = SentenceAction[args.name]
+	constructor (name: string, children: Operand[], entity: string, alias: string, columns: Property[]) {
+		super(name, children)
+		this.action = SentenceAction[name]
 		this.crudAction = SentenceCrudAction.undefined
-		this.entity = args.entity
-		this.alias = args.alias
-		this.columns = args.columns
-		this.parameters = args.parameters
-		this.constraints = args.constraints
-		this.values = args.values
-		this.defaults = args.defaults
+		this.entity = entity
+		this.alias = alias
+		this.columns = columns
+		this.parameters = []
+		this.constraints = []
+		this.values = []
+		this.defaults = []
 		this.initialize()
 	}
 

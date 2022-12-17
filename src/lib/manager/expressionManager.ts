@@ -1,5 +1,5 @@
 import { ObservableAction, Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, source, SentenceInfo } from '../model'
-import { SchemaManager, ExpressionNormalizer, Routing, OperandManager, Languages, ViewConfig, SentenceCompleter } from '.'
+import { SchemaManager, ExpressionNormalizer, Routing, SentenceManager, Languages, ViewConfig, SentenceCompleter } from '.'
 import { helper } from './'
 import { Expressions, Cache } from 'js-expressions'
 
@@ -10,7 +10,7 @@ export class ExpressionManager {
 	private expressionNormalizer: ExpressionNormalizer
 	private routing: Routing
 	private expressions: Expressions
-	private operandManager: OperandManager
+	private sentenceManager: SentenceManager
 	private sentenceCompleter: SentenceCompleter
 
 	constructor (cache: Cache, schema: SchemaManager, languages: Languages, expressions: Expressions, routing: Routing) {
@@ -20,7 +20,7 @@ export class ExpressionManager {
 		this.expressions = expressions
 		this.expressionNormalizer = new ExpressionNormalizer(schema)
 		this.routing = routing
-		this.operandManager = new OperandManager(schema.model, this.expressions.config, this.expressions)
+		this.sentenceManager = new SentenceManager(schema.model, this.expressions.config, this.expressions)
 		this.sentenceCompleter = new SentenceCompleter(expressions)
 	}
 
@@ -53,11 +53,11 @@ export class ExpressionManager {
 			const node = this.expressions.parser.parse(minifyExpression)
 			const completeNode = this.expressionNormalizer.normalize(node)
 			this.expressions.parser.setParent(completeNode)
-			const operand = this.operandManager.build(completeNode)
-			this.cache.set(key, this.operandManager.serialize(operand))
+			const operand = this.sentenceManager.build(completeNode)
+			this.cache.set(key, this.sentenceManager.serialize(operand))
 			return operand
 		} else {
-			return this.operandManager.deserialize(value) as Sentence
+			return this.sentenceManager.deserialize(value) as Sentence
 		}
 	}
 
@@ -151,7 +151,7 @@ export class ExpressionManager {
 	 */
 	public model (expression: string): MetadataModel[] {
 		const sentence = this.toSentence(expression)
-		return this.operandManager.model(sentence)
+		return this.sentenceManager.model(sentence)
 	}
 
 	/**
@@ -161,7 +161,7 @@ export class ExpressionManager {
 	 */
 	public constraints (expression: string): MetadataConstraint {
 		const sentence = this.toSentence(expression)
-		return this.operandManager.constraints(sentence)
+		return this.sentenceManager.constraints(sentence)
 	}
 
 	/**
@@ -171,7 +171,7 @@ export class ExpressionManager {
 	 */
 	public parameters (expression: string): MetadataParameter[] {
 		const sentence = this.toSentence(expression)
-		return this.operandManager.parameters(sentence)
+		return this.sentenceManager.parameters(sentence)
 	}
 
 	public sentence (expression: string, options: OrmOptions): MetadataSentence {
@@ -196,6 +196,6 @@ export class ExpressionManager {
 	 */
 	public metadata (expression: string): Metadata {
 		const sentence = this.toSentence(expression)
-		return JSON.parse(this.operandManager.serialize(sentence)) as Metadata
+		return JSON.parse(this.sentenceManager.serialize(sentence)) as Metadata
 	}
 }

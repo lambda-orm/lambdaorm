@@ -141,7 +141,7 @@ test:
     normalizeExpression: Products.map(p=>{total:sum(p.price)})
     model:
       - name: total
-        type: number
+        type: any
     parameters: []
     constraints:
       entity: Products
@@ -181,7 +181,7 @@ test:
       type: any
       columns:
         - name: total
-          type: number
+          type: any
       parameters: []
       entity: Products
       constraints: []
@@ -203,7 +203,7 @@ test:
     normalizeExpression: Products.map(p=>{average:round(avg(p.price),4)})
     model:
       - name: average
-        type: number
+        type: any
     parameters: []
     constraints:
       entity: Products
@@ -251,7 +251,7 @@ test:
       type: any
       columns:
         - name: average
-          type: number
+          type: any
       parameters: []
       entity: Products
       constraints: []
@@ -273,7 +273,7 @@ test:
     normalizeExpression: Products.map(p=>{count:count(1)})
     model:
       - name: count
-        type: number
+        type: any
     parameters: []
     constraints:
       entity: Products
@@ -310,7 +310,7 @@ test:
       type: any
       columns:
         - name: count
-          type: number
+          type: any
       parameters: []
       entity: Products
       constraints: []
@@ -574,7 +574,7 @@ test:
       - name: source
         type: decimal
       - name: result
-        type: number
+        type: any
     parameters:
       - name: id
         type: integer
@@ -662,7 +662,7 @@ test:
         - name: source
           type: decimal
         - name: result
-          type: number
+          type: any
       parameters:
         - name: id
           type: integer
@@ -833,7 +833,7 @@ test:
       Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>asc(p.subTotal))
     model:
       - name: subTotal
-        type: number
+        type: any
     parameters: []
     constraints:
       entity: Orders.details
@@ -925,7 +925,7 @@ test:
                 - name: subTotal
                   classtype: Field
                   children: []
-                  type: number
+                  type: any
                   entity: Orders.details
                   alias: o
                   isRoot: true
@@ -934,7 +934,7 @@ test:
       type: any
       columns:
         - name: subTotal
-          type: number
+          type: any
       parameters: []
       entity: Orders.details
       constraints: []
