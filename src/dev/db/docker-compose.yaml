@@ -101,7 +101,7 @@ services:
       #  al usar el volume ./volume/oradata da error de permisos y no crea la instancia dentro del container
       #  por este motivo se crea el volume oradata:
       # info: https://github.com/oracle/docker-images/issues/439
-      - oradata:/opt/oracle/oradata # persistent oracle database data
+      - oradata:/opt/oracle/oradata # persistent oracle database data      
       - ./oracle:/home/oracle/setup/custom_scripts
     ports:
       - 1521:1521
