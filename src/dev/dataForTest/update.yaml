@@ -236,6 +236,65 @@ test:
             = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
             ?,ShipCountry = ? WHERE o.OrderID = ? 
           children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          source: MariaDB
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            UPDATE o SET CustomerID = @customerId,EmployeeID =
+            @employeeId,OrderDate = @orderDate,RequiredDate =
+            @requiredDate,ShippedDate = @shippedDate,ShipVia =
+            @shipViaId,Freight = @freight,ShipName = @name,ShipAddress =
+            @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode =
+            @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID =
+            @id 
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+            :employeeId,OrderDate = :orderDate,RequiredDate =
+            :requiredDate,ShippedDate = :shippedDate,ShipVia =
+            :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+            :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+            :postalCode,ShipCountry = :country WHERE o.OrderID = :id 
+          children: []
+      - stage: MongoDB
+        sentence:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {"set":"{ \"$set\" :{
+            \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}}
+            }}","filter":"{ \"_id\":{{id}} }"}
+          children: []
     errors: 0
     expression: Orders.update()
     normalizeExpression: >-
@@ -536,6 +595,11 @@ test:
           condition: isNotNull(employeeId)
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         id: 7
@@ -576,6 +640,68 @@ test:
             ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
             = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
             ?,ShipCountry = ? WHERE o.OrderID = ? 
+          children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          source: MariaDB
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            UPDATE o SET CustomerID = @entity_customerId,EmployeeID =
+            @entity_employeeId,OrderDate = @entity_orderDate,RequiredDate =
+            @entity_requiredDate,ShippedDate = @entity_shippedDate,ShipVia =
+            @entity_shipViaId,Freight = @entity_freight,ShipName =
+            @entity_name,ShipAddress = @entity_address,ShipCity =
+            @entity_city,ShipRegion = @entity_region,ShipPostalCode =
+            @entity_postalCode,ShipCountry = @entity_country FROM Orders o WHERE
+            o.OrderID = @entity_id 
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            UPDATE Orders o SET CustomerID = :entity_customerId,EmployeeID =
+            :entity_employeeId,OrderDate = :entity_orderDate,RequiredDate =
+            :entity_requiredDate,ShippedDate = :entity_shippedDate,ShipVia =
+            :entity_shipViaId,Freight = :entity_freight,ShipName =
+            :entity_name,ShipAddress = :entity_address,ShipCity =
+            :entity_city,ShipRegion = :entity_region,ShipPostalCode =
+            :entity_postalCode,ShipCountry = :entity_country WHERE o.OrderID =
+            :entity_id 
+          children: []
+      - stage: MongoDB
+        sentence:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {"set":"{ \"$set\" :{
+            \"CustomerID\":{{entity_customerId}},\"EmployeeID\":{{entity_employeeId}},\"OrderDate\":{{entity_orderDate}},\"RequiredDate\":{{entity_requiredDate}},\"ShippedDate\":{{entity_shippedDate}},\"ShipVia\":{{entity_shipViaId}},\"Freight\":{{entity_freight}},\"ShipName\":{{entity_name}},\"ShipAddress\":{{entity_address}},\"ShipCity\":{{entity_city}},\"ShipRegion\":{{entity_region}},\"ShipPostalCode\":{{entity_postalCode}},\"ShipCountry\":{{entity_country}}
+            }}","filter":"{ \"_id\":{{entity_id}} }"}
           children: []
     errors: 0
     expression: Orders.update(entity)
@@ -869,6 +995,11 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -918,6 +1049,47 @@ test:
           dialect: MySQL
           source: MySQL
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          source: MariaDB
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          children: []
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            UPDATE o SET ShipName = @entity_name FROM Orders o WHERE o.OrderID =
+            @entity_id 
+          children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
+            :entity_id 
+          children: []
+      - stage: MongoDB
+        sentence:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {"set":"{ \"$set\" :{ \"ShipName\":{{entity_name}} }}","filter":"{
+            \"_id\":{{entity_id}} }"}
           children: []
     errors: 0
     expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
@@ -994,6 +1166,11 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -1044,6 +1221,90 @@ test:
                 UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
                 ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
                 AND o1.ProductID = ?) 
+              children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          source: MariaDB
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          children:
+            - entity: Orders.details
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
+                AND o1.ProductID = ?) 
+              children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          children:
+            - entity: Orders.details
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
+                = $6 AND o1.ProductID = $7) 
+              children: []
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            UPDATE o SET ShipName = @entity_name FROM Orders o WHERE o.OrderID =
+            @entity_id 
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                UPDATE o1 SET OrderID = @orderId,ProductID =
+                @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount
+                = @discount FROM [Order Details] o1 WHERE (o1.OrderID = @orderId
+                AND o1.ProductID = @productId) 
+              children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
+            :entity_id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
+                :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount
+                = :discount WHERE (o1.OrderID = :orderId AND o1.ProductID =
+                :productId) 
+              children: []
+      - stage: MongoDB
+        sentence:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {"set":"{ \"$set\" :{ \"ShipName\":{{entity_name}} }}","filter":"{
+            \"_id\":{{entity_id}} }"}
+          children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                {"set":"{ \"$set\" :{
+                \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}}
+                }}","filter":"{ \"$and\" :[{ \"OrderID\":{{orderId}} },{
+                \"ProductID\":{{productId}} }] }"}
               children: []
     errors: 0
     expression: >-
@@ -1320,6 +1581,11 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -1370,6 +1636,88 @@ test:
                 UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
                 = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
                 o1.ProductID = ?) 
+              children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          source: MariaDB
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          children:
+            - entity: Orders.details
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
+                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
+                o1.ProductID = ?) 
+              children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          children:
+            - entity: Orders.details
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity
+                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = $1 AND
+                o1.ProductID = $2) 
+              children: []
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            UPDATE o SET ShipName = @entity_name FROM Orders o WHERE o.OrderID =
+            @entity_id 
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                UPDATE o1 SET UnitPrice = o1.UnitPrice,Quantity =
+                o1.Quantity,Discount = o1.Discount FROM [Order Details] o1 WHERE
+                (o1.OrderID = @orderId AND o1.ProductID = @productId) 
+              children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
+            :entity_id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,Quantity
+                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID =
+                :orderId AND o1.ProductID = :productId) 
+              children: []
+      - stage: MongoDB
+        sentence:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {"set":"{ \"$set\" :{ \"ShipName\":{{entity_name}} }}","filter":"{
+            \"_id\":{{entity_id}} }"}
+          children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                {"set":"{ \"$set\" :{
+                \"UnitPrice\":\"UnitPrice\",\"Quantity\":\"Quantity\",\"Discount\":\"Discount\"
+                }}","filter":"{ \"$and\" :[{ \"OrderID\":{{orderId}} },{
+                \"ProductID\":{{productId}} }] }"}
               children: []
     errors: 0
     expression: >-
@@ -1596,6 +1944,11 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -1645,6 +1998,86 @@ test:
               sentence: >-
                 UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
                 = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
+              children: []
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          source: MariaDB
+          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          children:
+            - entity: Orders.details
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
+                = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
+              children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
+          children:
+            - entity: Orders.details
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID
+                = o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) 
+              children: []
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            UPDATE o SET ShipName = @entity_name FROM Orders o WHERE o.OrderID =
+            @entity_id 
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                UPDATE o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID
+                FROM [Order Details] o1 WHERE (o1.OrderID = @orderId AND
+                o1.ProductID = @productId) 
+              children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            UPDATE Orders o SET ShipName = :entity_name WHERE o.OrderID =
+            :entity_id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID
+                = o1.ProductID WHERE (o1.OrderID = :orderId AND o1.ProductID =
+                :productId) 
+              children: []
+      - stage: MongoDB
+        sentence:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {"set":"{ \"$set\" :{ \"ShipName\":{{entity_name}} }}","filter":"{
+            \"_id\":{{entity_id}} }"}
+          children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                {"set":"{ \"$set\" :{
+                \"UnitPrice\":\"UnitPrice\",\"ProductID\":\"ProductID\"
+                }}","filter":"{ \"$and\" :[{ \"OrderID\":{{orderId}} },{
+                \"ProductID\":{{productId}} }] }"}
               children: []
     errors: 0
     expression: >-
@@ -1855,6 +2288,11 @@ test:
       constraints: []
     executions:
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         entity:
@@ -1910,7 +2348,109 @@ test:
                 ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
                 AND o1.ProductID = ?) 
               children: []
-    errors: 0
+      - stage: MariaDB
+        sentence:
+          entity: Orders
+          dialect: MariaDB
+          source: MariaDB
+          sentence: >-
+            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
+            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
+            ?,ShipCountry = ? WHERE o.OrderID = ? 
+          children:
+            - entity: Orders.details
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
+                AND o1.ProductID = ?) 
+              children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Orders
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
+          children:
+            - entity: Orders.details
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
+                = $6 AND o1.ProductID = $7) 
+              children: []
+      - stage: SqlServer
+        sentence:
+          entity: Orders
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            UPDATE o SET CustomerID = @customerId,EmployeeID =
+            @employeeId,OrderDate = @orderDate,RequiredDate =
+            @requiredDate,ShippedDate = @shippedDate,ShipVia =
+            @shipViaId,Freight = @freight,ShipName = @name,ShipAddress =
+            @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode =
+            @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID =
+            @id 
+          children:
+            - entity: Orders.details
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                UPDATE o1 SET OrderID = @orderId,ProductID =
+                @productId,UnitPrice = @unitPrice,Quantity = @quantity,Discount
+                = @discount FROM [Order Details] o1 WHERE (o1.OrderID = @orderId
+                AND o1.ProductID = @productId) 
+              children: []
+      - stage: Oracle
+        sentence:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+            :employeeId,OrderDate = :orderDate,RequiredDate =
+            :requiredDate,ShippedDate = :shippedDate,ShipVia =
+            :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+            :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+            :postalCode,ShipCountry = :country WHERE o.OrderID = :id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
+                :productId,UnitPrice = :unitPrice,Quantity = :quantity,Discount
+                = :discount WHERE (o1.OrderID = :orderId AND o1.ProductID =
+                :productId) 
+              children: []
+      - stage: MongoDB
+        sentence:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {"set":"{ \"$set\" :{
+            \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}}
+            }}","filter":"{ \"_id\":{{id}} }"}
+          children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                {"set":"{ \"$set\" :{
+                \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}}
+                }}","filter":"{ \"$and\" :[{ \"OrderID\":{{orderId}} },{
+                \"ProductID\":{{productId}} }] }"}
+              children: []
+    errors: 1
     expression: Orders.update().include(p=>p.details)
     normalizeExpression: >-
       Orders.filter(p=>(p.id==id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
@@ -2407,7 +2947,15 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     executions:
+      - stage: MongoDB
+        error: >-
+          MongoServerError: Unknown modifier: "Order Details". Expected a valid
+          update modifier or pipeline-style update specified as an array
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         id: 7
@@ -2465,7 +3013,152 @@ test:
                     ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
                     = ? AND o1.ProductID = ?) 
                   children: []
-    errors: 0
+      - stage: MariaDB
+        sentence:
+          entity: Customers
+          dialect: MariaDB
+          source: MariaDB
+          sentence: >-
+            UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
+            ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
+            ?,Country = ? WHERE c.CustomerID = ? 
+          children:
+            - entity: Orders
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
+                ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
+                ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
+                ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? 
+              children:
+                - entity: Orders.details
+                  dialect: MariaDB
+                  source: MariaDB
+                  sentence: >-
+                    UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
+                    ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
+                    = ? AND o1.ProductID = ?) 
+                  children: []
+      - stage: PostgreSQL
+        sentence:
+          entity: Customers
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName
+            = $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode
+            = $8,Country = $9 WHERE c.CustomerID = $10 
+          children:
+            - entity: Orders
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+                $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+                $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+                $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID =
+                $14 
+              children:
+                - entity: Orders.details
+                  dialect: PostgreSQL
+                  source: PostgreSQL
+                  sentence: >-
+                    UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                    $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE
+                    (o1.OrderID = $6 AND o1.ProductID = $7) 
+                  children: []
+      - stage: SqlServer
+        sentence:
+          entity: Customers
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            UPDATE c SET CustomerID = @id,CompanyName = @name,ContactName =
+            @contact,ContactTitle = @phone,Address = @address,City =
+            @city,Region = @region,PostalCode = @postalCode,Country = @country
+            FROM Customers c WHERE c.CustomerID = @id 
+          children:
+            - entity: Orders
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                UPDATE o SET CustomerID = @customerId,EmployeeID =
+                @employeeId,OrderDate = @orderDate,RequiredDate =
+                @requiredDate,ShippedDate = @shippedDate,ShipVia =
+                @shipViaId,Freight = @freight,ShipName = @name,ShipAddress =
+                @address,ShipCity = @city,ShipRegion = @region,ShipPostalCode =
+                @postalCode,ShipCountry = @country FROM Orders o WHERE o.OrderID
+                = @id 
+              children:
+                - entity: Orders.details
+                  dialect: SqlServer
+                  source: SqlServer
+                  sentence: >-
+                    UPDATE o1 SET OrderID = @orderId,ProductID =
+                    @productId,UnitPrice = @unitPrice,Quantity =
+                    @quantity,Discount = @discount FROM [Order Details] o1 WHERE
+                    (o1.OrderID = @orderId AND o1.ProductID = @productId) 
+                  children: []
+      - stage: Oracle
+        sentence:
+          entity: Customers
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            UPDATE Customers c SET CustomerID = :id,CompanyName =
+            :name,ContactName = :contact,ContactTitle = :phone,Address =
+            :address,City = :city,Region = :region,PostalCode =
+            :postalCode,Country = :country WHERE c.CustomerID = :id 
+          children:
+            - entity: Orders
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                UPDATE Orders o SET CustomerID = :customerId,EmployeeID =
+                :employeeId,OrderDate = :orderDate,RequiredDate =
+                :requiredDate,ShippedDate = :shippedDate,ShipVia =
+                :shipViaId,Freight = :freight,ShipName = :name,ShipAddress =
+                :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
+                :postalCode,ShipCountry = :country WHERE o.OrderID = :id 
+              children:
+                - entity: Orders.details
+                  dialect: Oracle
+                  source: Oracle
+                  sentence: >-
+                    UPDATE "Order Details" o1 SET OrderID = :orderId,ProductID =
+                    :productId,UnitPrice = :unitPrice,Quantity =
+                    :quantity,Discount = :discount WHERE (o1.OrderID = :orderId
+                    AND o1.ProductID = :productId) 
+                  children: []
+      - stage: MongoDB
+        sentence:
+          entity: Customers
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {"set":"{ \"$set\" :{
+            \"\"_id\"\":{{id}},\"CompanyName\":{{name}},\"ContactName\":{{contact}},\"ContactTitle\":{{phone}},\"Address\":{{address}},\"City\":{{city}},\"Region\":{{region}},\"PostalCode\":{{postalCode}},\"Country\":{{country}}
+            }}","filter":"{ \"_id\":{{id}} }"}
+          children:
+            - entity: Orders
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                {"set":"{ \"$set\" :{
+                \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}}
+                }}","filter":"{ \"_id\":{{id}} }"}
+              children:
+                - entity: Orders.details
+                  dialect: MongoDB
+                  source: MongoDB
+                  sentence: >-
+                    {"set":"{ \"$set\" :{
+                    \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}}
+                    }}","filter":"{ \"$and\" :[{ \"OrderID\":{{orderId}} },{
+                    \"ProductID\":{{productId}} }] }"}
+                  children: []
+    errors: 1
     expression: Customers.update().include(p=>p.orders.include(p=>p.details))
     normalizeExpression: >-
       Customers.filter(p=>(p.id==id)).update({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.orders.include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id==id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}))
@@ -3212,7 +3905,13 @@ test:
         - message: Cannot be null property id in entity Customers
           condition: isNotNull(id)
     executions:
+      - stage: MongoDB
+        error: 'SyntaxError: Unexpected token _ in JSON at position 14'
       - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
     result:
       data:
         id: ALFKI
@@ -3375,4 +4074,4 @@ test:
                 unitPrice: '21.5000'
                 quantity: '20.0000'
                 discount: '0.0000'
-errors: 1
+errors: 3
