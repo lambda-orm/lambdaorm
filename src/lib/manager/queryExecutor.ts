@@ -119,15 +119,15 @@ class QueryEvalConstraints {
 	}
 }
 
-interface IQueryExecutor {
+interface IQueryInternalExecutor {
 	_execute (query: Query, data: Data): Promise<any>
 }
 
 class QuerySelectExecutor {
 	public options: OrmOptions
 	private solveReadValues: QuerySolveReadValues
-	private executor: IQueryExecutor
-	constructor (executor: IQueryExecutor, expressions: Expressions, options: OrmOptions) {
+	private executor: IQueryInternalExecutor
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: OrmOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveReadValues = new QuerySolveReadValues(expressions)
@@ -305,8 +305,8 @@ class QueryInsertExecutor {
 	private solveDefaults:QuerySolveDefaults
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
-	private executor: IQueryExecutor
-	constructor (executor: IQueryExecutor, expressions: Expressions, options: OrmOptions) {
+	private executor: IQueryInternalExecutor
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: OrmOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -377,8 +377,8 @@ class QueryBulkInsertExecutor {
 	private solveDefaults:QuerySolveDefaults
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
-	private executor: IQueryExecutor
-	constructor (executor: IQueryExecutor, expressions: Expressions, options: OrmOptions) {
+	private executor: IQueryInternalExecutor
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: OrmOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -545,8 +545,8 @@ class QueryUpdateExecutor {
 	public options: OrmOptions
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
-	private executor: IQueryExecutor
-	constructor (executor: IQueryExecutor, expressions: Expressions, options: OrmOptions) {
+	private executor: IQueryInternalExecutor
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: OrmOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -590,8 +590,8 @@ class QueryUpdateExecutor {
 
 class QueryDeleteExecutor {
 	public options: OrmOptions
-	private executor: IQueryExecutor
-	constructor (executor: IQueryExecutor, options: OrmOptions) {
+	private executor: IQueryInternalExecutor
+	constructor (executor: IQueryInternalExecutor, options: OrmOptions) {
 		this.options = options
 		this.executor = executor
 	}
@@ -623,7 +623,7 @@ class QueryDeleteExecutor {
 	}
 }
 
-export class QueryExecutor implements IQueryExecutor {
+export class QueryExecutor implements IQueryInternalExecutor {
 	public options: OrmOptions
 	private languages: Languages
 	private connectionManager: ConnectionManager
