@@ -5,112 +5,142 @@ import { MappingConfig } from './schema'
 import { SchemaManager, helper, Languages, Dialect } from '.'
 import { Expressions } from 'js-expressions'
 
-export class QueryExecutor {
-	public options: OrmOptions
-	private languages: Languages
-	private connectionManager: ConnectionManager
-	private connections: any
-	private transactional: boolean
-	private schemaManager: SchemaManager
+class QuerySolveDefaults {
 	private expressions: Expressions
-
-	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, options: OrmOptions, transactional = false) {
-		this.connectionManager = connectionManager
-		this.languages = languages
-		this.options = options
-		this.schemaManager = schemaManager
-		this.transactional = transactional
+	constructor (expressions: Expressions) {
 		this.expressions = expressions
-		this.connections = {}
 	}
 
-	private async getConnection (source: string): Promise<Connection> {
-		let connection = this.connections[source]
-		if (connection === undefined) {
-			connection = await this.connectionManager.acquire(source)
-			if (this.transactional) {
-				await connection.beginTransaction()
+	/**
+	 * solve default properties
+	 * @param query
+	 * @param data
+	 */
+	public solve(query: Query, data: any[]): void
+	public solve(query: Query, data: any): void
+	public solve (query: Query, data: any | any[]): void {
+		if (Array.isArray(data)) {
+			for (const defaultBehavior of query.defaults) {
+				for (const item of data) {
+					this.solveDefault(defaultBehavior, item)
+				}
 			}
-			this.connections[source] = connection
-		}
-		return connection
-	}
-
-	public async commit (): Promise<void> {
-		for (const p in this.connections) {
-			const connection = this.connections[p]
-			await connection.commit()
-		}
-	}
-
-	public async rollback (): Promise<void> {
-		for (const p in this.connections) {
-			const connection = this.connections[p]
-			await connection.rollback()
-		}
-	}
-
-	public async release (): Promise<void> {
-		for (const p in this.connections) {
-			const connection = this.connections[p]
-			await this.connectionManager.release(connection)
-		}
-		this.connections = {}
-	}
-
-	public async execute (query: Query, data: any): Promise<any> {
-		const _data = new Data(data)
-		if ([SentenceAction.insert, SentenceAction.update, SentenceAction.bulkInsert].includes(query.action)) {
-			await this._execute(query, _data)
-			return _data
 		} else {
-			return this._execute(query, _data)
+			for (const defaultBehavior of query.defaults) {
+				this.solveDefault(defaultBehavior, data)
+			}
 		}
 	}
 
-	private async _execute (query: Query, data: Data): Promise<any> {
-		let result: any
-		const source = this.schemaManager.source.get(query.source)
-		const mapping = this.schemaManager.mapping.getInstance(source.mapping)
-		const connection = await this.getConnection(source.name)
-		const dialect = this.languages.getDialect(query.dialect)
-		switch (query.action) {
-		case SentenceAction.select: result = await this.select(query, data, mapping, dialect, connection); break
-		case SentenceAction.insert: result = await this.insert(query, data, mapping, dialect, connection); break
-		case SentenceAction.bulkInsert: result = await this.bulkInsert(query, data, mapping, dialect, connection); break
-		case SentenceAction.update: result = await this.update(query, data, mapping, dialect, connection); break
-		case SentenceAction.delete: result = await this.delete(query, data, mapping, dialect, connection); break
-		case SentenceAction.truncateEntity: result = await connection.truncateEntity(mapping, query); break
-		case SentenceAction.createEntity: result = await connection.createEntity(mapping, query); break
-		case SentenceAction.createSequence: result = await connection.createSequence(mapping, query); break
-		case SentenceAction.createFk: result = await connection.createFk(mapping, query); break
-		case SentenceAction.createIndex: result = await connection.createIndex(mapping, query); break
-		case SentenceAction.alterProperty: result = await connection.alterProperty(mapping, query); break
-		case SentenceAction.addProperty: result = await connection.addProperty(mapping, query); break
-		case SentenceAction.addPk: result = await connection.addPk(mapping, query); break
-		case SentenceAction.addUk: result = await connection.addUk(mapping, query); break
-		case SentenceAction.addFk: result = await connection.addFk(mapping, query); break
-		case SentenceAction.dropSequence: result = await connection.dropSequence(mapping, query); break
-		case SentenceAction.dropEntity: result = await connection.dropEntity(mapping, query); break
-		case SentenceAction.dropProperty: result = await connection.dropProperty(mapping, query); break
-		case SentenceAction.dropPk: result = await connection.dropPk(mapping, query); break
-		case SentenceAction.dropUk: result = await connection.dropUk(mapping, query); break
-		case SentenceAction.dropFk: result = await connection.dropFk(mapping, query); break
-		case SentenceAction.dropIndex: result = await connection.dropIndex(mapping, query); break
-		default:
-			throw new ExecutionError(query.source, query.entity, JSON.stringify(query.sentence), `query action ${query.action} undefined`)
+	private solveDefault (defaultBehavior:Behavior, data: any): void {
+		const value = data[defaultBehavior.property]
+		if (value === undefined) {
+			data[defaultBehavior.property] = this.expressions.eval(defaultBehavior.expression, data)
 		}
-		return result
+	}
+}
+
+class QuerySolveWriteValues {
+	private expressions: Expressions
+	constructor (expressions: Expressions) {
+		this.expressions = expressions
 	}
 
-	private async select (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
+	public solve(query: Query, data: any[]): void
+	public solve(query: Query, data: any): void
+	public solve (query: Query, data: any | any[]): void {
+		if (Array.isArray(data)) {
+			for (const valueBehavior of query.values) {
+				for (const item of data) {
+					item[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, item)
+				}
+			}
+		} else {
+			for (const valueBehavior of query.values) {
+				data[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, data)
+			}
+		}
+	}
+}
+
+class QuerySolveReadValues {
+	private expressions: Expressions
+	constructor (expressions: Expressions) {
+		this.expressions = expressions
+	}
+
+	public solve (query: Query, data: any[]): void {
+		for (const valueBehavior of query.values) {
+			if (valueBehavior.alias === valueBehavior.property) {
+				// Example Users.map(p=> [p.email]) or Users.map(p=> {email:p.email})
+				for (const item of data) {
+					item[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, item)
+				}
+			} else if (valueBehavior.alias) {
+				// Example Users.map(p=> {mail:p.email})
+				// since the expression contains the name of the property and not the alias
+				// the property must be added with the alias value.
+				for (const item of data) {
+					const context = helper.obj.clone(item)
+					context[valueBehavior.property] = item[valueBehavior.alias]
+					item[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
+				}
+			}
+		}
+	}
+}
+
+class QueryEvalConstraints {
+	private expressions: Expressions
+	constructor (expressions: Expressions) {
+		this.expressions = expressions
+	}
+
+	public eval(query: Query, data: any[]): void
+	public eval(query: Query, data: any): void
+	public eval (query: Query, data: any | any[]): void {
+		if (Array.isArray(data)) {
+			for (const constraint of query.constraints) {
+				for (const item of data) {
+					this.constraint(query, constraint, item)
+				}
+			}
+		} else {
+			for (const constraint of query.constraints) {
+				this.constraint(query, constraint, data)
+			}
+		}
+	}
+
+	private constraint (query: Query, constraint:Constraint, data: any): void {
+		if (!this.expressions.eval(constraint.condition, data)) {
+			throw new ValidationError(query.source, query.entity, constraint.condition, JSON.stringify(query.sentence), constraint.message, data)
+		}
+	}
+}
+
+interface IQueryExecutor {
+	_execute (query: Query, data: Data): Promise<any>
+}
+
+class QuerySelectExecutor {
+	public options: OrmOptions
+	private solveReadValues: QuerySolveReadValues
+	private executor: IQueryExecutor
+	constructor (executor: IQueryExecutor, expressions: Expressions, options: OrmOptions) {
+		this.options = options
+		this.executor = executor
+		this.solveReadValues = new QuerySolveReadValues(expressions)
+	}
+
+	public async select (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
 		const mainResult = await connection.select(mapping, dialect, query, data)
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
 		if (mainResult.length > 0) {
 			// get rows for include relations
 			if (entity.hadReadValues) {
-				this.solveReadValues(query, mainResult)
+				this.solveReadValues.solve(query, mainResult)
 			}
 			await this.selectIncludes(query, data, mainResult, dialect, connection)
 			// clear temporal fields used for include relations
@@ -214,7 +244,7 @@ export class QueryExecutor {
 		const data = _data.clone()
 		data.set('LambdaOrmParentId', ids)
 		const keyId = '__' + include.relation.from
-		const includeResult = await this._execute(include.query, data)
+		const includeResult = await this.executor._execute(include.query, data)
 		if (include.relation.type === RelationType.manyToOne) {
 			if (includeResult.length > chunkSize) {
 				const promises: any[] = []
@@ -268,8 +298,24 @@ export class QueryExecutor {
 			}
 		}
 	}
+}
 
-	private async insert (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
+class QueryInsertExecutor {
+	public options: OrmOptions
+	private solveDefaults:QuerySolveDefaults
+	private solveWriteValues: QuerySolveWriteValues
+	private constraints: QueryEvalConstraints
+	private executor: IQueryExecutor
+	constructor (executor: IQueryExecutor, expressions: Expressions, options: OrmOptions) {
+		this.options = options
+		this.executor = executor
+		this.solveWriteValues = new QuerySolveWriteValues(expressions)
+		this.solveDefaults = new QuerySolveDefaults(expressions)
+		this.solveWriteValues = new QuerySolveWriteValues(expressions)
+		this.constraints = new QueryEvalConstraints(expressions)
+	}
+
+	public async insert (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any> {
 		// before insert the relationships of the type oneToOne and oneToMany
 		const autoIncrement = mapping.getAutoIncrement(query.entity)
 		const entity = mapping.getEntity(query.entity) as EntityMapping
@@ -277,14 +323,14 @@ export class QueryExecutor {
 		await this.insertIncludeBefore(query, data, dialect)
 		// solve default properties
 		if (entity.hadDefaults) {
-			this.solveDefaults(query, data.data)
+			this.solveDefaults.solve(query, data.data)
 		}
 		// solve default properties
 		if (entity.hadWriteValues) {
-			this.solveWriteValues(query, data.data)
+			this.solveWriteValues.solve(query, data.data)
 		}
 		// evaluate constraints
-		this.constraints(query, data.data)
+		this.constraints.eval(query, data.data)
 		// insert main entity
 		const insertId = await connection.insert(mapping, dialect, query, data)
 		if (autoIncrement) {
@@ -301,7 +347,7 @@ export class QueryExecutor {
 				const relation = data.get(include.relation.name)
 				if (relation && (include.relation.type === 'oneToOne' || include.relation.type === 'oneToMany')) {
 					const relationData = new Data(relation, data)
-					const relationId = await this._execute(include.query, relationData)
+					const relationId = await this.executor._execute(include.query, relationData)
 					data.set(include.relation.from, relationId)
 				}
 			}
@@ -318,14 +364,30 @@ export class QueryExecutor {
 					for (const child of relation) {
 						child[childPropertyName] = parentId
 						const childData = new Data(child, data)
-						await this._execute(include.query, childData)
+						await this.executor._execute(include.query, childData)
 					}
 				}
 			}
 		}
 	}
+}
 
-	private async bulkInsert (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any[]> {
+class QueryBulkInsertExecutor {
+	public options: OrmOptions
+	private solveDefaults:QuerySolveDefaults
+	private solveWriteValues: QuerySolveWriteValues
+	private constraints: QueryEvalConstraints
+	private executor: IQueryExecutor
+	constructor (executor: IQueryExecutor, expressions: Expressions, options: OrmOptions) {
+		this.options = options
+		this.executor = executor
+		this.solveWriteValues = new QuerySolveWriteValues(expressions)
+		this.solveDefaults = new QuerySolveDefaults(expressions)
+		this.solveWriteValues = new QuerySolveWriteValues(expressions)
+		this.constraints = new QueryEvalConstraints(expressions)
+	}
+
+	public async bulkInsert (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any[]> {
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
 		// before insert the relationships of the type oneToMany and oneToOne with relation required
@@ -356,7 +418,6 @@ export class QueryExecutor {
 		for (const include of query.includes) {
 			if (!include.relation.composite || !dialect.solveComposite) {
 				const relationProperty = entity.properties.find(q => q.name === include.relation.from)
-
 				if (include.relation.type === RelationType.oneToMany) {
 					await this.bulkInsertIncludeBeforeOneToMany(include, data)
 				} else if (include.relation.type === RelationType.oneToOne && relationProperty && relationProperty.required) {
@@ -377,7 +438,7 @@ export class QueryExecutor {
 			}
 		}
 		const childData = new Data(allChildren, data)
-		const allChildrenId = await this._execute(include.query, childData)
+		const allChildrenId = await this.executor._execute(include.query, childData)
 		for (let i = 0; i < items.length; i++) {
 			const item = items[i]
 			if (item[include.relation.name]) {
@@ -398,7 +459,7 @@ export class QueryExecutor {
 		}
 		if (allChildren.length > 0) {
 			const childData = new Data(allChildren, data)
-			const allChildrenId = await this._execute(include.query, childData)
+			const allChildrenId = await this.executor._execute(include.query, childData)
 			for (let i = 0; i < items.length; i++) {
 				const item = items[i]
 				if (item[include.relation.name]) {
@@ -435,7 +496,7 @@ export class QueryExecutor {
 			}
 		}
 		const childData = new Data(allChildren, data)
-		await this._execute(include.query, childData)
+		await this.executor._execute(include.query, childData)
 	}
 
 	private async bulkInsertIncludeAfterOneToOne (query: Query, include: Include, data: Data): Promise<void> {
@@ -455,7 +516,7 @@ export class QueryExecutor {
 		}
 		if (allChildren.length > 0) {
 			const childData = new Data(allChildren, data)
-			const allChildrenId = await this._execute(include.query, childData)
+			const allChildrenId = await this.executor._execute(include.query, childData)
 			for (let i = 0; i < items.length; i++) {
 				const item = items[i]
 				if (item[include.relation.name]) {
@@ -468,25 +529,39 @@ export class QueryExecutor {
 	private async _chunkInsert (query: Query, entity: EntityMapping, chunk: any[], mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<any[]> {
 		// solve default properties
 		if (entity.hadDefaults) {
-			this.solveDefaults(query, chunk)
+			this.solveDefaults.solve(query, chunk)
 		}
 		// solve write properties
 		if (entity.hadWriteValues) {
-			this.solveWriteValues(query, chunk)
+			this.solveWriteValues.solve(query, chunk)
 		}
 		// evaluate constraints
-		this.constraints(query, chunk)
+		this.constraints.eval(query, chunk)
 		return connection.bulkInsert(mapping, dialect, query, chunk)
 	}
+}
 
-	private async update (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
+class QueryUpdateExecutor {
+	public options: OrmOptions
+	private solveWriteValues: QuerySolveWriteValues
+	private constraints: QueryEvalConstraints
+	private executor: IQueryExecutor
+	constructor (executor: IQueryExecutor, expressions: Expressions, options: OrmOptions) {
+		this.options = options
+		this.executor = executor
+		this.solveWriteValues = new QuerySolveWriteValues(expressions)
+		this.solveWriteValues = new QuerySolveWriteValues(expressions)
+		this.constraints = new QueryEvalConstraints(expressions)
+	}
+
+	public async update (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
 		const entity = mapping.getEntity(query.entity)
 		// solve default properties
 		if (entity && entity.hadWriteValues) {
-			this.solveWriteValues(query, data.data)
+			this.solveWriteValues.solve(query, data.data)
 		}
 		// evaluate constraints
-		this.constraints(query, data.data)
+		this.constraints.eval(query, data.data)
 		// update
 		const changeCount = await connection.update(mapping, dialect, query, data)
 		for (const include of query.includes) {
@@ -503,16 +578,25 @@ export class QueryExecutor {
 			if (include.relation.type === RelationType.manyToOne) {
 				for (const child of children) {
 					const childData = new Data(child, data)
-					await this._execute(include.query, childData)
+					await this.executor._execute(include.query, childData)
 				}
 			} else {
 				const childData = new Data(children, data)
-				await this._execute(include.query, childData)
+				await this.executor._execute(include.query, childData)
 			}
 		}
 	}
+}
 
-	private async delete (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
+class QueryDeleteExecutor {
+	public options: OrmOptions
+	private executor: IQueryExecutor
+	constructor (executor: IQueryExecutor, options: OrmOptions) {
+		this.options = options
+		this.executor = executor
+	}
+
+	public async delete (query: Query, data: Data, mapping: MappingConfig, dialect: Dialect, connection: Connection): Promise<number> {
 		// before remove relations entities
 		for (const include of query.includes) {
 			if (!include.relation.composite || !dialect.solveComposite) {
@@ -529,98 +613,119 @@ export class QueryExecutor {
 			if (include.relation.type === 'manyToOne') {
 				for (const child of relation) {
 					const childData = new Data(child, data)
-					await this._execute(include.query, childData)
+					await this.executor._execute(include.query, childData)
 				}
 			} else {
 				const childData = new Data(relation, data)
-				await this._execute(include.query, childData)
+				await this.executor._execute(include.query, childData)
 			}
 		}
 	}
+}
 
-	/**
-	 * solve default properties
-	 * @param query
-	 * @param data
-	 */
-	private solveDefaults(query: Query, data: any[]): void
-	private solveDefaults(query: Query, data: any): void
-	private solveDefaults (query: Query, data: any | any[]): void {
-		if (Array.isArray(data)) {
-			for (const defaultBehavior of query.defaults) {
-				for (const item of data) {
-					this.solveDefault(defaultBehavior, item)
-				}
+export class QueryExecutor implements IQueryExecutor {
+	public options: OrmOptions
+	private languages: Languages
+	private connectionManager: ConnectionManager
+	private connections: any
+	private transactional: boolean
+	private schemaManager: SchemaManager
+	private selectExecutor: QuerySelectExecutor
+	private insertExecutor: QueryInsertExecutor
+	private bulkInsertExecutor: QueryBulkInsertExecutor
+	private updateExecutor: QueryUpdateExecutor
+	private deleteExecutor: QueryDeleteExecutor
+
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, options: OrmOptions, transactional = false) {
+		this.connectionManager = connectionManager
+		this.languages = languages
+		this.options = options
+		this.schemaManager = schemaManager
+		this.transactional = transactional
+		this.connections = {}
+		this.selectExecutor = new QuerySelectExecutor(this, expressions, options)
+		this.insertExecutor = new QueryInsertExecutor(this, expressions, options)
+		this.bulkInsertExecutor = new QueryBulkInsertExecutor(this, expressions, options)
+		this.updateExecutor = new QueryUpdateExecutor(this, expressions, options)
+		this.deleteExecutor = new QueryDeleteExecutor(this, options)
+	}
+
+	private async getConnection (source: string): Promise<Connection> {
+		let connection = this.connections[source]
+		if (connection === undefined) {
+			connection = await this.connectionManager.acquire(source)
+			if (this.transactional) {
+				await connection.beginTransaction()
 			}
+			this.connections[source] = connection
+		}
+		return connection
+	}
+
+	public async commit (): Promise<void> {
+		for (const p in this.connections) {
+			const connection = this.connections[p]
+			await connection.commit()
+		}
+	}
+
+	public async rollback (): Promise<void> {
+		for (const p in this.connections) {
+			const connection = this.connections[p]
+			await connection.rollback()
+		}
+	}
+
+	public async release (): Promise<void> {
+		for (const p in this.connections) {
+			const connection = this.connections[p]
+			await this.connectionManager.release(connection)
+		}
+		this.connections = {}
+	}
+
+	public async execute (query: Query, data: any): Promise<any> {
+		const _data = new Data(data)
+		if ([SentenceAction.insert, SentenceAction.update, SentenceAction.bulkInsert].includes(query.action)) {
+			await this._execute(query, _data)
+			return _data
 		} else {
-			for (const defaultBehavior of query.defaults) {
-				this.solveDefault(defaultBehavior, data)
-			}
+			return this._execute(query, _data)
 		}
 	}
 
-	private solveDefault (defaultBehavior:Behavior, data: any): void {
-		const value = data[defaultBehavior.property]
-		if (value === undefined) {
-			data[defaultBehavior.property] = this.expressions.eval(defaultBehavior.expression, data)
+	public async _execute (query: Query, data: Data): Promise<any> {
+		let result: any
+		const source = this.schemaManager.source.get(query.source)
+		const mapping = this.schemaManager.mapping.getInstance(source.mapping)
+		const connection = await this.getConnection(source.name)
+		const dialect = this.languages.getDialect(query.dialect)
+		switch (query.action) {
+		case SentenceAction.select: result = await this.selectExecutor.select(query, data, mapping, dialect, connection); break
+		case SentenceAction.insert: result = await this.insertExecutor.insert(query, data, mapping, dialect, connection); break
+		case SentenceAction.bulkInsert: result = await this.bulkInsertExecutor.bulkInsert(query, data, mapping, dialect, connection); break
+		case SentenceAction.update: result = await this.updateExecutor.update(query, data, mapping, dialect, connection); break
+		case SentenceAction.delete: result = await this.deleteExecutor.delete(query, data, mapping, dialect, connection); break
+		case SentenceAction.truncateEntity: result = await connection.truncateEntity(mapping, query); break
+		case SentenceAction.createEntity: result = await connection.createEntity(mapping, query); break
+		case SentenceAction.createSequence: result = await connection.createSequence(mapping, query); break
+		case SentenceAction.createFk: result = await connection.createFk(mapping, query); break
+		case SentenceAction.createIndex: result = await connection.createIndex(mapping, query); break
+		case SentenceAction.alterProperty: result = await connection.alterProperty(mapping, query); break
+		case SentenceAction.addProperty: result = await connection.addProperty(mapping, query); break
+		case SentenceAction.addPk: result = await connection.addPk(mapping, query); break
+		case SentenceAction.addUk: result = await connection.addUk(mapping, query); break
+		case SentenceAction.addFk: result = await connection.addFk(mapping, query); break
+		case SentenceAction.dropSequence: result = await connection.dropSequence(mapping, query); break
+		case SentenceAction.dropEntity: result = await connection.dropEntity(mapping, query); break
+		case SentenceAction.dropProperty: result = await connection.dropProperty(mapping, query); break
+		case SentenceAction.dropPk: result = await connection.dropPk(mapping, query); break
+		case SentenceAction.dropUk: result = await connection.dropUk(mapping, query); break
+		case SentenceAction.dropFk: result = await connection.dropFk(mapping, query); break
+		case SentenceAction.dropIndex: result = await connection.dropIndex(mapping, query); break
+		default:
+			throw new ExecutionError(query.source, query.entity, JSON.stringify(query.sentence), `query action ${query.action} undefined`)
 		}
-	}
-
-	private solveWriteValues(query: Query, data: any[]): void
-	private solveWriteValues(query: Query, data: any): void
-	private solveWriteValues (query: Query, data: any | any[]): void {
-		if (Array.isArray(data)) {
-			for (const valueBehavior of query.values) {
-				for (const item of data) {
-					item[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, item)
-				}
-			}
-		} else {
-			for (const valueBehavior of query.values) {
-				data[valueBehavior.property] = this.expressions.eval(valueBehavior.expression, data)
-			}
-		}
-	}
-
-	private constraints(query: Query, data: any[]): void
-	private constraints(query: Query, data: any): void
-	private constraints (query: Query, data: any | any[]): void {
-		if (Array.isArray(data)) {
-			for (const constraint of query.constraints) {
-				for (const item of data) {
-					this.constraint(query, constraint, item)
-				}
-			}
-		} else {
-			for (const constraint of query.constraints) {
-				this.constraint(query, constraint, data)
-			}
-		}
-	}
-
-	private constraint (query: Query, constraint:Constraint, data: any): void {
-		if (!this.expressions.eval(constraint.condition, data)) {
-			throw new ValidationError(query.source, query.entity, constraint.condition, JSON.stringify(query.sentence), constraint.message, data)
-		}
-	}
-
-	private solveReadValues (query: Query, data: any[]): void {
-		for (const valueBehavior of query.values) {
-			if (valueBehavior.alias === valueBehavior.property) {
-				// Example Users.map(p=> [p.email]) or Users.map(p=> {email:p.email})
-				for (const item of data) {
-					item[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, item)
-				}
-			} else if (valueBehavior.alias) {
-				// Example Users.map(p=> {mail:p.email})
-				// since the expression contains the name of the property and not the alias
-				// the property must be added with the alias value.
-				for (const item of data) {
-					const context = helper.obj.clone(item)
-					context[valueBehavior.property] = item[valueBehavior.alias]
-					item[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
-				}
-			}
-		}
+		return result
 	}
 }
