@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Schema, MetadataSentence, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from './index'
-import { Transaction, StageFacade, SchemaManager } from '../manager'
+import { Transaction, SchemaManager } from '../manager'
+import { StageFacade } from '../stage'
 import { Cache, Expressions } from 'js-expressions'
 
 export interface OrmOptions {

@@ -1,4 +1,4 @@
-import { StageActionDML } from './stageActionDML'
+import { StageActionDML } from './actionDML'
 import { Query, SchemaData, Entity } from '../contract'
 
 export class StageExport extends StageActionDML {

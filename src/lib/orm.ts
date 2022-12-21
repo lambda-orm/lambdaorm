@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { ActionObserver, Dialect, IOrm, OrmOptions, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Query } from './contract'
-import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages, helper } from './manager'
+import { ExpressionManager, Transaction, Executor, SchemaManager, Routing, Languages, helper } from './manager'
+import { StageFacade } from './stage'
 import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './connection'
 import { SqlLanguage } from './language/SQL'
 import { NoSqlLanguage } from './language/NoSQL'

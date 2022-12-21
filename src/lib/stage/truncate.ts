@@ -1,5 +1,5 @@
 import { Query, ExecuteResult } from '../contract'
-import { StageActionDDL } from './stageActionDDL'
+import { StageActionDDL } from './actionDDL'
 import { DDLBuilder } from '../manager'
 
 export class StageTruncate extends StageActionDDL {

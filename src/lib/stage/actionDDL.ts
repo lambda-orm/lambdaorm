@@ -1,6 +1,6 @@
 import { Query, OrmOptions } from '../contract'
 import { SchemaManager, Routing, Executor, Languages } from '../manager'
-import { StageModel } from './stageState'
+import { StageModel } from './state'
 
 export abstract class StageActionDDL {
 	protected state: StageModel

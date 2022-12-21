@@ -1,6 +1,6 @@
 import { Query, Entity, OrmOptions } from '../contract'
 import { ExpressionManager, Executor, ModelConfig } from '../manager'
-import { StageMapping } from './stageState'
+import { StageMapping } from './state'
 
 export abstract class StageActionDML {
 	protected state: StageMapping

@@ -1,8 +1,8 @@
 import { Query, ExecuteResult, OrmOptions } from '../contract'
-import { StageActionDDL } from './stageActionDDL'
+import { StageActionDDL } from './actionDDL'
 import { DDLBuilder } from '../manager/ddlBuilder'
 import { SchemaManager, Routing, Executor, Languages } from '../manager'
-import { StageModel, StageMapping } from './stageState'
+import { StageModel, StageMapping } from './state'
 
 export class StageClean extends StageActionDDL {
 	private mapping: StageMapping

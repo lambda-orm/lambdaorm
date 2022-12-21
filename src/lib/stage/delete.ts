@@ -1,5 +1,5 @@
 import { Query, Entity, SchemaError } from '../contract'
-import { StageActionDML } from './stageActionDML'
+import { StageActionDML } from './actionDML'
 
 export class StageDelete extends StageActionDML {
 	public async execute (): Promise<void> {

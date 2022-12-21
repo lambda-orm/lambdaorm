@@ -1,5 +1,5 @@
 
-import { StageActionDML } from './stageActionDML'
+import { StageActionDML } from './actionDML'
 import { Query, SchemaData, SchemaMapping, Entity, SchemaError, Relation } from '../contract'
 import { Transaction } from 'lib/manager'
 
