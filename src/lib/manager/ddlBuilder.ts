@@ -1,5 +1,5 @@
 import { SchemaManager, ModelConfig, MappingConfig, Routing, Languages, Dialect } from '.'
-import { ObservableAction, Mapping, RuleDataSource, Query, Index, source, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError } from '../model'
+import { ObservableAction, Mapping, RuleDataSource, Query, Index, source, Relation, EntityMapping, PropertyMapping, SentenceInfo, SchemaError } from '../contract'
 import { helper } from '../manager'
 import { Delta, ChangedValue } from 'h3lp'
 

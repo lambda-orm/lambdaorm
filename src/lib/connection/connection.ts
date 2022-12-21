@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { Parameter, Query, Data, MethodNotImplemented } from '../model'
+import { Parameter, Query, Data, MethodNotImplemented } from '../contract'
 import { ConnectionConfig } from './connectionConfig'
 import { MappingConfig, Dialect, helper } from '../manager'
 

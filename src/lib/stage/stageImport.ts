@@ -1,6 +1,6 @@
 
 import { StageActionDML } from './stageActionDML'
-import { Query, SchemaData, SchemaMapping, Entity, SchemaError, Relation } from '../model'
+import { Query, SchemaData, SchemaMapping, Entity, SchemaError, Relation } from '../contract'
 import { Transaction } from 'lib/manager'
 
 export class StageImport extends StageActionDML {

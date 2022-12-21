@@ -1,4 +1,4 @@
-import { Query, ExecuteResult, OrmOptions } from '../model'
+import { Query, ExecuteResult, OrmOptions } from '../contract'
 import { StageActionDDL } from './stageActionDDL'
 import { DDLBuilder } from '../manager/ddlBuilder'
 import { SchemaManager, Routing, Executor, Languages } from '../manager'

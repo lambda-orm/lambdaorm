@@ -1,5 +1,5 @@
 
-import { SentenceAction, Data, OrmOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, Constraint, Behavior } from '../model'
+import { SentenceAction, Data, OrmOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, Constraint, Behavior } from '../contract'
 import { Connection, ConnectionManager } from '../connection'
 import { MappingConfig } from './schema'
 import { SchemaManager, helper, Languages, Dialect } from '.'

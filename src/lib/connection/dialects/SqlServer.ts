@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data } from '../../model'
+import { Parameter, Query, Data } from '../../contract'
 import { MappingConfig, Dialect, helper } from '../../manager'
 
 export class SqlServerConnectionPool extends ConnectionPool {

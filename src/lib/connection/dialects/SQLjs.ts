@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Query, Data } from '../../model'
+import { Query, Data } from '../../contract'
 import { MappingConfig, Dialect, helper } from '../../manager'
 
 export class SQLjsConnectionPool extends ConnectionPool {

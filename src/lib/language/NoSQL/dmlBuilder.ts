@@ -1,7 +1,7 @@
 /* eslint-disable no-tabs */
 
 import { Operand, KeyValue, Operator, FunctionRef, Obj } from 'js-expressions'
-import { SentenceCrudAction, SentenceAction, Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SchemaError, EntityMapping, RelationType } from '../../model'
+import { SentenceCrudAction, SentenceAction, Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SchemaError, EntityMapping, RelationType } from '../../contract'
 import { DmlBuilder } from '../dmlBuilder'
 import { helper } from '../../manager'
 

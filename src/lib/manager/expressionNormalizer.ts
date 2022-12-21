@@ -1,6 +1,6 @@
 
 import { helper } from './'
-import { Entity, SchemaError, SintaxisError } from '../model'
+import { Entity, SchemaError, SintaxisError } from '../contract'
 import { SchemaManager } from '.'
 import { Node } from 'js-expressions'
 

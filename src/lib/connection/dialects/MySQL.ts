@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Query, Data } from '../../model'
+import { Query, Data } from '../../contract'
 import { MappingConfig, Dialect } from '../../manager'
 
 const DECIMAL = 0

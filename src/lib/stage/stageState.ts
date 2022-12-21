@@ -1,4 +1,4 @@
-import { SchemaModel, SchemaMapping, Query, Dialect } from '../model'
+import { SchemaModel, SchemaMapping, Query, Dialect } from '../contract'
 import { SchemaManager, helper } from '../manager'
 const path = require('path')
 

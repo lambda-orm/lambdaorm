@@ -8,7 +8,7 @@ import { StageTruncate } from '../stage/stageTruncate'
 import { StageImport } from '../stage/stageImport'
 import { StageDelete } from '../stage/stageDelete'
 import { helper } from './'
-import { SchemaError, Stage, View, OrmOptions } from './../model'
+import { SchemaError, Stage, View, OrmOptions } from '../contract'
 
 export class StageFacade {
 	private stageModel: StageModel

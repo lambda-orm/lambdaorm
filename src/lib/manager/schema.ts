@@ -1,4 +1,4 @@
-import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent, ObservableAction } from '../model'
+import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent, ObservableAction } from '../contract'
 import path from 'path'
 import { helper } from './'
 import { Expressions } from 'js-expressions'

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Connection, ConnectionPool } from '..'
-import { SchemaError, Query, Data, ExecutionError, PropertyMapping } from '../../model'
+import { SchemaError, Query, Data, ExecutionError, PropertyMapping } from '../../contract'
 import { MappingConfig, Dialect, helper } from '../../manager'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted

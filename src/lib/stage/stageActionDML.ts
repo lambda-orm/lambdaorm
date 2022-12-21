@@ -1,4 +1,4 @@
-import { Query, Entity, OrmOptions } from '../model'
+import { Query, Entity, OrmOptions } from '../contract'
 import { ExpressionManager, Executor, ModelConfig } from '../manager'
 import { StageMapping } from './stageState'
 

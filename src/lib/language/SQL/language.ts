@@ -1,5 +1,5 @@
 import { LanguageDDLBuilder, MappingConfig } from '../../manager'
-import { source, Sentence, Query } from '../../model'
+import { source, Sentence, Query } from '../../contract'
 import { Language } from '../../manager/language'
 import { SqlDMLBuilder } from './dmlBuilder'
 import { SqlDDLBuilder } from './ddlBuilder'

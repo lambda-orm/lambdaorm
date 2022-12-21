@@ -1,4 +1,4 @@
-import { ObservableAction, Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, source, SentenceInfo } from '../model'
+import { ObservableAction, Query, OrmOptions, SintaxisError, Include, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Sentence, source, SentenceInfo } from '../contract'
 import { SchemaManager, ExpressionNormalizer, Routing, SentenceManager, Languages, ViewConfig, SentenceCompleter } from '.'
 import { helper } from './'
 import { Expressions, Cache } from 'js-expressions'

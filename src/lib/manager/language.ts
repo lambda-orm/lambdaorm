@@ -1,7 +1,7 @@
 import { LanguageDDLBuilder, MappingConfig } from '.'
 import { Dialect } from './dialect'
 import { Expressions } from 'js-expressions'
-import { NotImplemented, source, Query, Sentence } from '../model'
+import { NotImplemented, source, Query, Sentence } from '../contract'
 
 export abstract class Language {
 	public dialects: Dialect[]

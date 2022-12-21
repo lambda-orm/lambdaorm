@@ -1,5 +1,5 @@
 
-import { NotImplemented } from '../model'
+import { NotImplemented } from '../contract'
 import { Language } from './language'
 import { Dialect } from './dialect'
 

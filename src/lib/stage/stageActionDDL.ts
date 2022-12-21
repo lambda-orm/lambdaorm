@@ -1,4 +1,4 @@
-import { Query, OrmOptions } from '../model'
+import { Query, OrmOptions } from '../contract'
 import { SchemaManager, Routing, Executor, Languages } from '../manager'
 import { StageModel } from './stageState'
 

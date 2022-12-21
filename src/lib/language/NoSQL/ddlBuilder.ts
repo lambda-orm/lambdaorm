@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { SentenceAction, Property, Relation, Index, Query, EntityMapping, PropertyMapping } from '../../model'
+import { SentenceAction, Property, Relation, Index, Query, EntityMapping, PropertyMapping } from '../../contract'
 import { LanguageDDLBuilder } from '../../manager'
 
 export class NoSqlDDLBuilder extends LanguageDDLBuilder {

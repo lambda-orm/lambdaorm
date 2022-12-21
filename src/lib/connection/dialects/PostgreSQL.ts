@@ -1,6 +1,6 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Query, Data, Parameter } from '../../model'
+import { Query, Data, Parameter } from '../../contract'
 import { MappingConfig, Dialect, helper } from '../../manager'
 
 // https://node-postgres.com/features/connecting

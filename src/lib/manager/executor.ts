@@ -1,5 +1,5 @@
 
-import { Query, ExecuteResult, OrmOptions } from '../model'
+import { Query, ExecuteResult, OrmOptions } from '../contract'
 import { ConnectionManager } from '../connection'
 import { ExpressionManager, QueryExecutor, Transaction, Languages } from '.'
 import { SchemaManager } from './schema'

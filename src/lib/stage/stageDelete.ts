@@ -1,4 +1,4 @@
-import { Query, Entity, SchemaError } from '../model'
+import { Query, Entity, SchemaError } from '../contract'
 import { StageActionDML } from './stageActionDML'
 
 export class StageDelete extends StageActionDML {

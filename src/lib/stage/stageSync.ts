@@ -1,4 +1,4 @@
-import { Query, ExecuteResult } from '../model'
+import { Query, ExecuteResult } from '../contract'
 import { DDLBuilder } from '../manager/ddlBuilder'
 import { StageActionDDL } from './stageActionDDL'
 

@@ -1,9 +1,9 @@
 
-import { SentenceAction, Property, Parameter, Data, Behavior, Constraint, SintaxisError, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Relation, Entity } from '../model'
+import { SentenceAction, Property, Parameter, Data, Behavior, Constraint, SintaxisError, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Relation, Entity } from '../contract'
 import { ModelConfig } from '.'
 import { Operand, Variable, Constant, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import * as exp from 'js-expressions'
-import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../model/operands'
+import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../contract/operands'
 
 class SentenceHelper {
 	private modelConfig: ModelConfig

@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../model'
+import { Parameter, Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../contract'
 import { MappingConfig, Dialect, helper } from '../../manager'
 
 export class MongoDBConnectionPool extends ConnectionPool {

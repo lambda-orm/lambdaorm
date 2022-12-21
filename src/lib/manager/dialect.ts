@@ -1,4 +1,4 @@
-import { SintaxisError, DialectFormat } from '../model'
+import { SintaxisError, DialectFormat } from '../contract'
 
 export class Dialect {
 	public name: string

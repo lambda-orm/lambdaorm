@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Query } from '../model'
+import { Query } from '../contract'
 import { QueryExecutor, ExpressionManager } from '.'
 
 export class Transaction {

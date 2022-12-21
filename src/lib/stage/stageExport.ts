@@ -1,5 +1,5 @@
 import { StageActionDML } from './stageActionDML'
-import { Query, SchemaData, Entity } from '../model'
+import { Query, SchemaData, Entity } from '../contract'
 
 export class StageExport extends StageActionDML {
 	public async execute (): Promise<SchemaData> {

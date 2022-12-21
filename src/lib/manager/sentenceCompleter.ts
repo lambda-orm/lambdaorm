@@ -1,5 +1,5 @@
 import { MappingConfig, ViewConfig } from '.'
-import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, Constant2, PropertyMapping, PropertyView, SentenceAction } from '../model'
+import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, Constant2, PropertyMapping, PropertyView, SentenceAction } from '../contract'
 import { Expressions, Variable, Operand, Operator, KeyValue } from 'js-expressions'
 
 export class SentenceCompleter {

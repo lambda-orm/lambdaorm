@@ -1,5 +1,5 @@
 
-import { ObservableAction, SentenceInfo, RuleDataSource, ContextInfo, SchemaError } from '../model'
+import { ObservableAction, SentenceInfo, RuleDataSource, ContextInfo, SchemaError } from '../contract'
 import { SchemaManager } from './index'
 import { Expressions } from 'js-expressions'
 

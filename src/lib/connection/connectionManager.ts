@@ -1,7 +1,7 @@
 
 import { Connection } from './connection'
 import { ConnectionPool } from './connectionPool'
-import { ConnectionError } from './../model'
+import { ConnectionError } from '../contract'
 import { ConnectionConfig } from './connectionConfig'
 
 export class ConnectionManager {
