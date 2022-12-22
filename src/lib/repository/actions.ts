@@ -1,9 +1,9 @@
 import { IOrm, QueryInfo, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../index'
 
 export class ExpressionActions {
-	private orm
-	private name
-	private stage
+	private orm:IOrm
+	private name:string
+	private stage?:string
 	constructor (name: string, orm:IOrm, stage?:string) {
 		this.name = name
 		this.stage = stage
@@ -11,7 +11,7 @@ export class ExpressionActions {
 	}
 
 	public async execute (expression: string, data:any): Promise<any> {
-		return this.orm.execute(`${this.name}${expression}`, data, this.stage)
+		return this.orm.execute(`${this.name}${expression}`, data, { stage: this.stage })
 	}
 
 	public normalize (expression: string): string {
@@ -34,7 +34,7 @@ export class ExpressionActions {
 		return this.orm.metadata(`${this.name}${expression}`)
 	}
 
-	public async sentence (expression: string): Promise<QueryInfo> {
-		return this.orm.getInfo(`${this.name}${expression}`, this.stage)
+	public async getInfo (expression: string): Promise<QueryInfo> {
+		return this.orm.getInfo(`${this.name}${expression}`, { stage: this.stage })
 	}
 }
