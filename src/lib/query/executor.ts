@@ -1,8 +1,8 @@
 
 import { SentenceAction, Data, QueryOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, Constraint, Behavior } from '../contract'
 import { Connection, ConnectionManager } from '../connection'
-import { MappingConfig } from './schema'
-import { SchemaManager, helper, Languages, Dialect } from '.'
+import { MappingConfig, SchemaManager, helper } from '../manager'
+import { Languages, Dialect } from '../language'
 import { Expressions } from 'js-expressions'
 
 class QuerySolveDefaults {

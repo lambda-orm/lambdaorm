@@ -2,7 +2,8 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Parameter, Query, Data } from '../../contract'
-import { MappingConfig, Dialect, helper } from '../../manager'
+import { MappingConfig, helper } from '../../manager'
+import { Dialect } from '../../language'
 
 export class SqlServerConnectionPool extends ConnectionPool {
 	public static lib: any

@@ -1,5 +1,6 @@
 import { Query, QueryOptions, SintaxisError, Include, QueryInfo, Sentence } from '../contract'
-import { SchemaManager, Languages, ViewConfig, helper } from '.'
+import { SchemaManager, ViewConfig, helper } from '../manager'
+import { Languages } from '../language'
 import { SentenceManager } from '../sentence'
 import { MemoryCache, ICache } from 'h3lp'
 import { Expressions } from 'js-expressions'

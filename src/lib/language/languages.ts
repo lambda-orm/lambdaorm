@@ -1,7 +1,7 @@
 
 import { NotImplemented } from '../contract'
-import { Language } from './language'
-import { Dialect } from './dialect'
+import { Language } from '../language/language'
+import { Dialect } from '../language/dialect'
 
 export class Languages {
 	public dialects: any

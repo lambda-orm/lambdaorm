@@ -1,5 +1,5 @@
 import { Query, ExecuteResult } from '../contract'
-import { DDLBuilder } from '../manager/ddlBuilder'
+import { DDLBuilder } from '../query/ddlBuilder'
 import { StageActionDDL } from './actionDDL'
 
 export class StageSync extends StageActionDDL {

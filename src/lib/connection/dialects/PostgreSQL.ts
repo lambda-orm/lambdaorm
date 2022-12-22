@@ -1,7 +1,8 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data, Parameter } from '../../contract'
-import { MappingConfig, Dialect, helper } from '../../manager'
+import { MappingConfig, helper } from '../../manager'
+import { Dialect } from '../../language'
 
 // https://node-postgres.com/features/connecting
 

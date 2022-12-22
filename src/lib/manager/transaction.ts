@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Query } from '../contract'
-import { QueryExecutor, QueryManager } from '.'
+import { QueryManager, QueryExecutor } from '../query'
 
 export class Transaction {
 	private queryManager:QueryManager

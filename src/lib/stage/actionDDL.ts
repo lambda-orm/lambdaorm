@@ -1,5 +1,6 @@
 import { Query, QueryOptions } from '../contract'
-import { SchemaManager, Routing, Executor, Languages } from '../manager'
+import { SchemaManager, Routing, Executor } from '../manager'
+import { Languages } from '../language'
 import { StageModel } from './state'
 
 export abstract class StageActionDDL {

@@ -1,7 +1,8 @@
 
 import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block, Expressions } from 'js-expressions'
 import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source } from '../contract'
-import { MappingConfig, Dialect, helper } from '../manager'
+import { MappingConfig, helper } from '../manager'
+import { Dialect } from '../language'
 
 export abstract class DmlBuilder {
 	protected source: source

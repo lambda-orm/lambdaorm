@@ -2,7 +2,8 @@
 
 import { Connection, ConnectionPool } from '..'
 import { SchemaError, Query, Data, ExecutionError, PropertyMapping } from '../../contract'
-import { MappingConfig, Dialect, helper } from '../../manager'
+import { MappingConfig, helper } from '../../manager'
+import { Dialect } from '../../language'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples

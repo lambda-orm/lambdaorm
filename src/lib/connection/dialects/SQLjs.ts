@@ -3,7 +3,8 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data } from '../../contract'
-import { MappingConfig, Dialect, helper } from '../../manager'
+import { MappingConfig, helper } from '../../manager'
+import { Dialect } from '../../language'
 
 export class SQLjsConnectionPool extends ConnectionPool {
 	private static lib: any

@@ -3,7 +3,8 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Parameter, Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../contract'
-import { MappingConfig, Dialect, helper } from '../../manager'
+import { MappingConfig, helper } from '../../manager'
+import { Dialect } from '../../language'
 
 export class MongoDBConnectionPool extends ConnectionPool {
 	private static lib: any

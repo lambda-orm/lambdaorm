@@ -1,6 +1,6 @@
 import { Query, ExecuteResult } from '../contract'
 import { StageActionDDL } from './actionDDL'
-import { DDLBuilder } from '../manager'
+import { DDLBuilder } from '../query'
 
 export class StageTruncate extends StageActionDDL {
 	public async queries (): Promise<Query[]> {

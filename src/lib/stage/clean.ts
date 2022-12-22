@@ -1,7 +1,8 @@
 import { Query, ExecuteResult, QueryOptions } from '../contract'
 import { StageActionDDL } from './actionDDL'
-import { DDLBuilder } from '../manager/ddlBuilder'
-import { SchemaManager, Routing, Executor, Languages } from '../manager'
+import { DDLBuilder } from '../query/ddlBuilder'
+import { SchemaManager, Routing, Executor } from '../manager'
+import { Languages } from '../language'
 import { StageModel, StageMapping } from './state'
 
 export class StageClean extends StageActionDDL {

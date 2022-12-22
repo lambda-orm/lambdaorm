@@ -3,7 +3,8 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data } from '../../contract'
-import { MappingConfig, Dialect } from '../../manager'
+import { MappingConfig } from '../../manager'
+import { Dialect } from '../../language'
 
 const DECIMAL = 0
 const TINY = 1

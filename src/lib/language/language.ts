@@ -1,4 +1,5 @@
-import { LanguageDDLBuilder, MappingConfig } from '.'
+import { MappingConfig } from '../manager'
+import { LanguageDDLBuilder } from '../query'
 import { Dialect } from './dialect'
 import { Expressions } from 'js-expressions'
 import { NotImplemented, source, Query, Sentence } from '../contract'

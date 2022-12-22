@@ -1,8 +1,9 @@
 
 import { Query, ExecuteResult, QueryOptions } from '../contract'
 import { ConnectionManager } from '../connection'
-import { QueryManager, QueryExecutor, Transaction, Languages } from '.'
-import { SchemaManager } from './schema'
+import { Transaction, SchemaManager } from '.'
+import { Languages } from '../language'
+import { QueryManager, QueryExecutor } from '../query'
 import { Expressions } from 'js-expressions'
 
 export class Executor {

@@ -1,5 +1,6 @@
 import { Query, Entity, QueryOptions } from '../contract'
-import { QueryManager, Executor, ModelConfig } from '../manager'
+import { Executor, ModelConfig } from '../manager'
+import { QueryManager } from '../query'
 import { StageMapping } from './state'
 
 export abstract class StageActionDML {

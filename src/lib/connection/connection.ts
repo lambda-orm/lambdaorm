@@ -2,7 +2,8 @@
 
 import { Parameter, Query, Data, MethodNotImplemented } from '../contract'
 import { ConnectionConfig } from './connectionConfig'
-import { MappingConfig, Dialect, helper } from '../manager'
+import { MappingConfig, helper } from '../manager'
+import { Dialect } from '../language'
 
 export abstract class Connection {
 	public cnx: any
