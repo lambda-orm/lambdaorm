@@ -22,7 +22,7 @@ export class StageClean extends StageActionDDL {
 
 	public async execute (): Promise<ExecuteResult[]> {
 		const queries = await this.queries()
-		const result = await this.executor.executeList(this.options, queries)
+		const result = await this.executor.executeList(queries, this.options)
 		await this.state.remove(this.options.stage as string)
 		await this.mapping.remove(this.options.stage as string)
 		await this.state.ddl(this.options.stage as string, 'clean', queries)

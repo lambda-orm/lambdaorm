@@ -1,7 +1,7 @@
 
 import { Query, ExecuteResult, QueryOptions } from '../contract'
 import { ConnectionManager } from '../connection'
-import { Transaction, SchemaManager } from '.'
+import { SchemaManager, Transaction } from '.'
 import { Languages } from '../language'
 import { QueryManager, QueryExecutor } from '../query'
 import { Expressions } from 'js-expressions'
@@ -44,7 +44,7 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (options: QueryOptions, queries: Query[]): Promise<ExecuteResult[]> {
+	public async executeList (queries: Query[], options: QueryOptions): Promise<ExecuteResult[]> {
 		const results: ExecuteResult[] = []
 
 		if (options.tryAllCan) {

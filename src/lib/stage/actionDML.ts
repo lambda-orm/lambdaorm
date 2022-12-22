@@ -1,5 +1,5 @@
 import { Query, Entity, QueryOptions } from '../contract'
-import { Executor, ModelConfig } from '../manager'
+import { ModelConfig, Executor } from '../manager'
 import { QueryManager } from '../query'
 import { StageMapping } from './state'
 

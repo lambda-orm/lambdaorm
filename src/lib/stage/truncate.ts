@@ -13,7 +13,7 @@ export class StageTruncate extends StageActionDDL {
 
 	public async execute (): Promise<ExecuteResult[]> {
 		const queries = await this.queries()
-		const result = await this.executor.executeList(this.options, queries)
+		const result = await this.executor.executeList(queries, this.options)
 		await this.state.ddl(this.options.stage as string, 'truncate', queries)
 		return result
 	}

@@ -1,6 +1,6 @@
-import { SchemaManager, Executor, Routing, helper } from '../manager'
-import { Languages } from '../language'
+import { SchemaManager, Routing, helper, Executor } from '../manager'
 import { QueryManager } from '../query'
+import { Languages } from '../language'
 import { StageMapping, StageModel } from './state'
 import { StageSync } from './sync'
 import { StageClean } from './clean'

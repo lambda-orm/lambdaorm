@@ -4,7 +4,7 @@ import { StageActionDML } from './actionDML'
 export class StageDelete extends StageActionDML {
 	public async execute (): Promise<void> {
 		const queries = this.build()
-		await this.executor.executeList(this.options, queries)
+		await this.executor.executeList(queries, this.options)
 	}
 
 	protected sort (entities: Entity[]): Entity[] {
