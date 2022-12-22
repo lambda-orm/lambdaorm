@@ -82,7 +82,7 @@ import { CategoryRepository, Category, ProductRepository } from '../model'
 // await orm.init()
 
 // const query = () => Products.filter(p => p.price > 10).map(p => ({ name: p.name, category: p.category.name })).sort(p => p.category).page(1, 10)
-// const sentence = await orm.expression(query).sentence('MySQL', 'northwind')
+// const sentence = await orm.expression(query).getInfo('MySQL', 'northwind')
 // console.log(sentence)
 // } catch (error) {
 // console.error(error)

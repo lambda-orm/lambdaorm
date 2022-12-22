@@ -1,5 +1,5 @@
 
-import { SentenceAction, Data, OrmOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, Constraint, Behavior } from '../contract'
+import { SentenceAction, Data, QueryOptions, ExecutionError, Query, Include, RelationType, ValidationError, EntityMapping, Constraint, Behavior } from '../contract'
 import { Connection, ConnectionManager } from '../connection'
 import { MappingConfig } from './schema'
 import { SchemaManager, helper, Languages, Dialect } from '.'
@@ -124,10 +124,10 @@ interface IQueryInternalExecutor {
 }
 
 class QuerySelectExecutor {
-	public options: OrmOptions
+	public options: QueryOptions
 	private solveReadValues: QuerySolveReadValues
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: OrmOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveReadValues = new QuerySolveReadValues(expressions)
@@ -301,12 +301,12 @@ class QuerySelectExecutor {
 }
 
 class QueryInsertExecutor {
-	public options: OrmOptions
+	public options: QueryOptions
 	private solveDefaults:QuerySolveDefaults
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: OrmOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -373,12 +373,12 @@ class QueryInsertExecutor {
 }
 
 class QueryBulkInsertExecutor {
-	public options: OrmOptions
+	public options: QueryOptions
 	private solveDefaults:QuerySolveDefaults
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: OrmOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -542,11 +542,11 @@ class QueryBulkInsertExecutor {
 }
 
 class QueryUpdateExecutor {
-	public options: OrmOptions
+	public options: QueryOptions
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: OrmOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -589,9 +589,9 @@ class QueryUpdateExecutor {
 }
 
 class QueryDeleteExecutor {
-	public options: OrmOptions
+	public options: QueryOptions
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, options: OrmOptions) {
+	constructor (executor: IQueryInternalExecutor, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 	}
@@ -624,7 +624,7 @@ class QueryDeleteExecutor {
 }
 
 export class QueryExecutor implements IQueryInternalExecutor {
-	public options: OrmOptions
+	public options: QueryOptions
 	private languages: Languages
 	private connectionManager: ConnectionManager
 	private connections: any
@@ -636,7 +636,7 @@ export class QueryExecutor implements IQueryInternalExecutor {
 	private updateExecutor: QueryUpdateExecutor
 	private deleteExecutor: QueryDeleteExecutor
 
-	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, options: OrmOptions, transactional = false) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, options: QueryOptions, transactional = false) {
 		this.connectionManager = connectionManager
 		this.languages = languages
 		this.options = options

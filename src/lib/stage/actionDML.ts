@@ -1,18 +1,18 @@
-import { Query, Entity, OrmOptions } from '../contract'
-import { ExpressionManager, Executor, ModelConfig } from '../manager'
+import { Query, Entity, QueryOptions } from '../contract'
+import { QueryManager, Executor, ModelConfig } from '../manager'
 import { StageMapping } from './state'
 
 export abstract class StageActionDML {
 	protected state: StageMapping
 	protected model: ModelConfig
-	protected expressionManager: ExpressionManager
+	protected queryManager: QueryManager
 	protected executor: Executor
-	protected options: OrmOptions
+	protected options: QueryOptions
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (state: StageMapping, model: ModelConfig, expressionManager: ExpressionManager, executor: Executor, options: OrmOptions) {
+	constructor (state: StageMapping, model: ModelConfig, queryManager: QueryManager, executor: Executor, options: QueryOptions) {
 		this.state = state
 		this.model = model
-		this.expressionManager = expressionManager
+		this.queryManager = queryManager
 		this.executor = executor
 		this.options = options
 	}

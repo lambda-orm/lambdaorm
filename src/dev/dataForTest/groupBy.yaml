@@ -6,7 +6,7 @@ test:
   - name: groupBy 1
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -68,7 +68,7 @@ test:
   - name: groupBy 2
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -130,7 +130,7 @@ test:
   - name: groupBy 3
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -192,7 +192,7 @@ test:
   - name: groupBy 4
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -262,7 +262,7 @@ test:
   - name: groupBy 5
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -321,7 +321,7 @@ test:
   - name: groupBy 6
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -426,7 +426,7 @@ test:
   - name: groupBy 7
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -555,7 +555,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -677,7 +677,7 @@ test:
   - name: groupBy 9
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -818,7 +818,7 @@ test:
   - name: query 10
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Orders.details
           dialect: MySQL
           source: MySQL

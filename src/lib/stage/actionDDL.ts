@@ -1,4 +1,4 @@
-import { Query, OrmOptions } from '../contract'
+import { Query, QueryOptions } from '../contract'
 import { SchemaManager, Routing, Executor, Languages } from '../manager'
 import { StageModel } from './state'
 
@@ -8,8 +8,8 @@ export abstract class StageActionDDL {
 	protected routing: Routing
 	protected languages: Languages
 	protected executor: Executor
-	protected options: OrmOptions
-	constructor (state:StageModel, schema: SchemaManager, routing: Routing, languages: Languages, executor: Executor, options:OrmOptions) {
+	protected options: QueryOptions
+	constructor (state:StageModel, schema: SchemaManager, routing: Routing, languages: Languages, executor: Executor, options:QueryOptions) {
 		this.state = state
 		this.schema = schema
 		this.routing = routing

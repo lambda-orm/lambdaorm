@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Query } from '../contract'
-import { QueryExecutor, ExpressionManager } from '.'
+import { QueryExecutor, QueryManager } from '.'
 
 export class Transaction {
-	private expressionManager:ExpressionManager
+	private queryManager:QueryManager
 	private queryExecutor: QueryExecutor
-	constructor (expressionManager: ExpressionManager, queryExecutor: QueryExecutor) {
-		this.expressionManager = expressionManager
+	constructor (queryManager: QueryManager, queryExecutor: QueryExecutor) {
+		this.queryManager = queryManager
 		this.queryExecutor = queryExecutor
 	}
 
@@ -14,9 +14,9 @@ export class Transaction {
 	public async execute(expression: string, data?: any):Promise<any>;
 	public async execute (expression: string|Function, data: any = {}): Promise<any> {
 		if (typeof expression !== 'string') {
-			expression = this.expressionManager.toExpression(expression)
+			expression = this.queryManager.toExpression(expression)
 		}
-		const query = this.expressionManager.toQuery(expression, this.queryExecutor.options)
+		const query = this.queryManager.create(expression, this.queryExecutor.options)
 		return this.queryExecutor.execute(query, data)
 	}
 

@@ -1,7 +1,6 @@
 
-import { helper } from './'
+import { helper, SchemaManager } from '../manager'
 import { Entity, SchemaError, SintaxisError } from '../contract'
-import { SchemaManager } from '.'
 import { Node } from 'js-expressions'
 
 /**

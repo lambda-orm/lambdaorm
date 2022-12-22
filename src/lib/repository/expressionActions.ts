@@ -1,4 +1,4 @@
-import { IOrm, MetadataSentence, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../index'
+import { IOrm, QueryInfo, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../index'
 
 export class ExpressionActions {
 	private orm
@@ -34,7 +34,7 @@ export class ExpressionActions {
 		return this.orm.metadata(`${this.name}${expression}`)
 	}
 
-	public async sentence (expression: string): Promise<MetadataSentence> {
-		return this.orm.sentence(`${this.name}${expression}`, this.stage)
+	public async sentence (expression: string): Promise<QueryInfo> {
+		return this.orm.getInfo(`${this.name}${expression}`, this.stage)
 	}
 }

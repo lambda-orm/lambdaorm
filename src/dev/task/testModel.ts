@@ -11,7 +11,7 @@ export interface ExecutionResult {
 }
 export interface SentenceTest {
 	stage: string
-	sentence?: any
+	info?: any
 	error?: string
 }
 export interface ExpressionTest {

@@ -1,4 +1,4 @@
-import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent, ObservableAction } from '../contract'
+import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, QueryOptions, Dependent, ObservableAction } from '../contract'
 import path from 'path'
 import { helper } from './'
 import { Expressions } from 'js-expressions'
@@ -1034,7 +1034,7 @@ export class SchemaManager {
 		return this.schema
 	}
 
-	public solveOptions (options?: OrmOptions):OrmOptions {
+	public solveOptions (options?: QueryOptions):QueryOptions {
 		if (!options) {
 			options = {}
 		}

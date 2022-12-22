@@ -11,7 +11,7 @@ export async function apply (callback: any) {
 		const context = {reportsToId:2,lastName:"Davolio",firstName:"Nancy"}
 		
 		console.log(JSON.stringify(orm.parameters(query), null, 2))
-		console.log(JSON.stringify(orm.sentence(query,{stage: stage}), null, 2))
+		console.log(JSON.stringify(orm.getInfo(query,{stage: stage}), null, 2))
 		const result = await orm.execute(query, context, {stage: stage})
 		console.log(JSON.stringify(result, null, 2))
 	} catch (error:any) {

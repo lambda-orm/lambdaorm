@@ -19,14 +19,6 @@ export interface MetadataConstraint {
 	children?: MetadataConstraint[]
 }
 
-export interface MetadataSentence {
-	entity: string
-	dialect: string
-	source: string
-	sentence: string
-	children?: MetadataSentence[]
-}
-
 export interface Metadata {
 	classtype: string,
 	name: string,

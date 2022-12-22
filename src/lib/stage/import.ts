@@ -201,6 +201,6 @@ export class StageImport extends StageActionDML {
 
 	protected createQuery (entity:Entity):Query {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(entity)}`
-		return this.expressionManager.toQuery(expression, this.options)
+		return this.queryManager.create(expression, this.options)
 	}
 }

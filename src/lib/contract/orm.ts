@@ -1,15 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Schema, MetadataSentence, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from './index'
+import { Schema, QueryInfo, MetadataParameter, MetadataModel, MetadataConstraint, Metadata, QueryOptions } from './index'
 import { Transaction, SchemaManager } from '../manager'
 import { StageFacade } from '../stage'
-import { Cache, Expressions } from 'js-expressions'
+import { Expressions } from 'js-expressions'
 
-export interface OrmOptions {
-	view?: string
-	stage?: string
-	chunkSize?:number
-	tryAllCan?:boolean
-}
 export interface IOrm
 {
 	get workspace(): string
@@ -18,7 +12,7 @@ export interface IOrm
 	get schema(): SchemaManager
 	get expressions(): Expressions
 
-	setCache (value: Cache):void
+	// setCache (value: Cache):void
 	init(configPath?: string, connect?: boolean): Promise<Schema>
 	end (): Promise<void>
 	/**
@@ -61,8 +55,8 @@ export interface IOrm
 	 * @param expression
 	 * @param stage
 	 */
-	sentence(expression: Function, options?: OrmOptions): MetadataSentence
-	sentence(expression: string, options?: OrmOptions): MetadataSentence
+	getInfo(expression: Function, options?: QueryOptions): QueryInfo
+	getInfo(expression: string, options?: QueryOptions): QueryInfo
 
 	/**
 		* Execute expression
@@ -71,13 +65,13 @@ export interface IOrm
 	  * @param view View name
 		* @returns Result of execution
 		*/
-	execute(expression: Function, data?: any, options?: OrmOptions):Promise<any>
-	execute(expression: string, data?: any, options?: OrmOptions): Promise<any>
+	execute(expression: Function, data?: any, options?: QueryOptions):Promise<any>
+	execute(expression: string, data?: any, options?: QueryOptions): Promise<any>
 	/**
 	 * transaction
 	 * @param stage
 	 * @param view
 	 * @param callback
 	 */
-	transaction(options: OrmOptions|undefined, callback:{(tr:Transaction): Promise<void>}):Promise<void>
+	transaction(options: QueryOptions|undefined, callback:{(tr:Transaction): Promise<void>}):Promise<void>
 }

@@ -19,8 +19,8 @@ export async function apply (callback: any) {
 														.sort(p=> p.name)
 														.page(1,3)`
 
-		const sentence = await orm.sentence(query)
-		console.log(sentence)
+		const info = orm.getInfo(query)
+		console.log(info)
 
 		const result = await orm.execute(query, { region: 'Asia' })
 		console.log(JSON.stringify(result, null, 2))

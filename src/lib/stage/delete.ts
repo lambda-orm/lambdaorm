@@ -45,7 +45,7 @@ export class StageDelete extends StageActionDML {
 					throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
 				}
 				if (!fromProperty.required) {
-					const query = this.expressionManager.toQuery(`${entity.name}.updateAll({${relation.from}:null})`, this.options)
+					const query = this.queryManager.create(`${entity.name}.updateAll({${relation.from}:null})`, this.options)
 					queries.push(query)
 				}
 			}
@@ -54,6 +54,6 @@ export class StageDelete extends StageActionDML {
 	}
 
 	protected createQuery (entity:Entity):Query {
-		return this.expressionManager.toQuery(`${entity.name}.deleteAll()`, this.options)
+		return this.queryManager.create(`${entity.name}.deleteAll()`, this.options)
 	}
 }

@@ -1,7 +1,7 @@
 
-import { Query, ExecuteResult, OrmOptions } from '../contract'
+import { Query, ExecuteResult, QueryOptions } from '../contract'
 import { ConnectionManager } from '../connection'
-import { ExpressionManager, QueryExecutor, Transaction, Languages } from '.'
+import { QueryManager, QueryExecutor, Transaction, Languages } from '.'
 import { SchemaManager } from './schema'
 import { Expressions } from 'js-expressions'
 
@@ -9,18 +9,18 @@ export class Executor {
 	private languages: Languages
 	private connectionManager: ConnectionManager
 	private schemaManager: SchemaManager
-	private expressionManager: ExpressionManager
+	private queryManager: QueryManager
 	private expressions: Expressions
 
-	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressionManager: ExpressionManager, expressions: Expressions) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, queryManager: QueryManager, expressions: Expressions) {
 		this.connectionManager = connectionManager
 		this.languages = languages
 		this.schemaManager = schemaManager
-		this.expressionManager = expressionManager
+		this.queryManager = queryManager
 		this.expressions = expressions
 	}
 
-	public async execute (query: Query, data: any, options: OrmOptions): Promise<any> {
+	public async execute (query: Query, data: any, options: QueryOptions): Promise<any> {
 		let error: any
 		let result: any
 		if (query.includes && query.includes.length > 0) {
@@ -43,7 +43,7 @@ export class Executor {
 		return result
 	}
 
-	public async executeList (options: OrmOptions, queries: Query[]): Promise<ExecuteResult[]> {
+	public async executeList (options: QueryOptions, queries: Query[]): Promise<ExecuteResult[]> {
 		const results: ExecuteResult[] = []
 
 		if (options.tryAllCan) {
@@ -74,11 +74,11 @@ export class Executor {
  * @param source Database name
  * @param callback Code to be executed in transaction
  */
-	public async transaction (options: OrmOptions, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+	public async transaction (options: QueryOptions, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, options, true)
 		let error: any
 		try {
-			const transaction = new Transaction(this.expressionManager, queryExecutor)
+			const transaction = new Transaction(this.queryManager, queryExecutor)
 			await callback(transaction)
 			await queryExecutor.commit()
 		} catch (_error) {

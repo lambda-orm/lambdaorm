@@ -1,4 +1,4 @@
-import { Query, ExecuteResult, OrmOptions } from '../contract'
+import { Query, ExecuteResult, QueryOptions } from '../contract'
 import { StageActionDDL } from './actionDDL'
 import { DDLBuilder } from '../manager/ddlBuilder'
 import { SchemaManager, Routing, Executor, Languages } from '../manager'
@@ -6,7 +6,7 @@ import { StageModel, StageMapping } from './state'
 
 export class StageClean extends StageActionDDL {
 	private mapping: StageMapping
-	constructor (state:StageModel, mapping:StageMapping, schema: SchemaManager, routing: Routing, languages: Languages, executor: Executor, options:OrmOptions) {
+	constructor (state:StageModel, mapping:StageMapping, schema: SchemaManager, routing: Routing, languages: Languages, executor: Executor, options:QueryOptions) {
 		super(state, schema, routing, languages, executor, options)
 		this.mapping = mapping
 	}

@@ -1,9 +1,11 @@
 
-import { SentenceAction, Property, Parameter, Data, Behavior, Constraint, SintaxisError, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Relation, Entity } from '../contract'
-import { ModelConfig } from '.'
+import { SentenceAction, Property, Parameter, Data, Behavior, Constraint, SintaxisError, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Relation, Entity, source, SentenceInfo, ObservableAction } from '../contract'
+import { ModelConfig, SchemaManager, Routing, ViewConfig, helper } from '../manager'
 import { Operand, Variable, Constant, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, ExpressionConfig, Node, Expressions } from 'js-expressions'
 import * as exp from 'js-expressions'
+import { MemoryCache, ICache } from 'h3lp'
 import { Constant2, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../contract/operands'
+import { ExpressionNormalizer, SentenceCompleter } from '.'
 
 class SentenceHelper {
 	private modelConfig: ModelConfig
@@ -710,25 +712,43 @@ class SentenceReduce {
 	}
 }
 class SentenceBuilder {
-	private modelConfig: ModelConfig
+	private schema: SchemaManager
 	private solveTypes: SentenceSolveTypes
 	private solveParameters: SentenceSolveParameters
 	private solveBehaviors: SentenceSolveBehaviors
 	private solveConstraints : SentenceSolveConstraints
 	private reducer: SentenceReduce
+	private normalizer: ExpressionNormalizer
+	private expressions: Expressions
 
-	constructor (modelConfig: ModelConfig, expressionConfig: ExpressionConfig, expressions: Expressions) {
-		this.modelConfig = modelConfig
-		const helper = new SentenceHelper(modelConfig)
-		this.solveTypes = new SentenceSolveTypes(modelConfig, expressionConfig)
-		this.solveBehaviors = new SentenceSolveBehaviors(modelConfig, helper)
+	constructor (schema: SchemaManager, expressions: Expressions) {
+		this.schema = schema
+		this.expressions = expressions
+		const helper = new SentenceHelper(this.schema.model)
+		this.solveTypes = new SentenceSolveTypes(this.schema.model, expressions.config)
+		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, helper)
 		this.solveParameters = new SentenceSolveParameters()
-		this.solveConstraints = new SentenceSolveConstraints(modelConfig, helper, expressions)
-		this.reducer = new SentenceReduce(expressionConfig)
+		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, helper, expressions)
+		this.reducer = new SentenceReduce(expressions.config)
+		this.normalizer = new ExpressionNormalizer(schema)
 	}
 
-	public build (node: Node): Sentence {
-		const sentence = this.nodeToOperand(node, new ExpressionContext(new EntityContext())) as Sentence
+	public normalize (expression: string): string {
+		try {
+			const node = this.expressions.parser.parse(expression)
+			const normalizeNode = this.normalizer.normalize(node)
+			this.expressions.parser.setParent(normalizeNode)
+			return this.expressions.parser.toExpression(normalizeNode)
+		} catch (error: any) {
+			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
+		}
+	}
+
+	public build (expression: string): Sentence {
+		const node = this.expressions.parser.parse(expression)
+		const completeNode = this.normalizer.normalize(node)
+		this.expressions.parser.setParent(completeNode)
+		const sentence = this.nodeToOperand(completeNode, new ExpressionContext(new EntityContext())) as Sentence
 		const reduced = this.reducer.reduce(sentence)
 		return reduced
 	}
@@ -801,11 +821,11 @@ class SentenceBuilder {
 		if (_field) {
 			return new Field(expressionContext.current.entityName, _field.name, _field.type, expressionContext.current.alias, true)
 		} else {
-			if (this.modelConfig.existsProperty(expressionContext.current.entityName, parts[1])) {
-				const property = this.modelConfig.getProperty(expressionContext.current.entityName, parts[1])
+			if (this.schema.model.existsProperty(expressionContext.current.entityName, parts[1])) {
+				const property = this.schema.model.getProperty(expressionContext.current.entityName, parts[1])
 				return new Field(expressionContext.current.entityName, property.name, property.type, expressionContext.current.alias, true)
 			} else {
-				const relationInfo = this.modelConfig.getRelation(expressionContext.current.entityName, parts[1])
+				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, parts[1])
 				if (relationInfo) {
 					const relation = this.addJoins(parts, parts.length, expressionContext)
 					const relationAlias = expressionContext.current.joins[relation]
@@ -821,7 +841,7 @@ class SentenceBuilder {
 	private createRelationField (parts: string[], expressionContext: ExpressionContext): Operand {
 		const propertyName = parts[parts.length - 1]
 		const relation = this.addJoins(parts, parts.length - 1, expressionContext)
-		const info = this.modelConfig.getRelation(expressionContext.current.entityName, relation)
+		const info = this.schema.model.getRelation(expressionContext.current.entityName, relation)
 		const relationAlias = expressionContext.current.joins[relation]
 		const property = info.entity.properties.find(p => p.name === propertyName)
 		if (property) {
@@ -997,7 +1017,7 @@ class SentenceBuilder {
 
 	private createSentenceAddJoins (expressionContext: ExpressionContext, children: Operand[]):void {
 		for (const key in expressionContext.current.joins) {
-			const info = this.modelConfig.getRelation(expressionContext.current.entityName, key)
+			const info = this.schema.model.getRelation(expressionContext.current.entityName, key)
 			const relatedEntity = info.previousEntity.name
 			const relatedAlias = info.previousRelation !== '' ? expressionContext.current.joins[info.previousRelation] : expressionContext.current.alias
 			const relatedProperty = info.previousEntity.properties.find(p => p.name === info.relation.from) as Property
@@ -1077,7 +1097,7 @@ class SentenceBuilder {
 				// p.details
 				const parts = current.name.split('.')
 				const relationName = parts[1]
-				const relationInfo = this.modelConfig.getRelation(expressionContext.current.entityName, relationName)
+				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, relationName)
 				current.name = relationInfo.entity.name
 				const child = this.createSentence(node, expressionContext)
 				return new SentenceInclude(relationInfo.relation.name, [child], relationInfo.relation)
@@ -1098,7 +1118,7 @@ class SentenceBuilder {
 				// p.details
 				const parts = current.name.split('.')
 				const relationName = parts[1]
-				const relationInfo = this.modelConfig.getRelation(expressionContext.current.entityName, relationName)
+				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, relationName)
 				current.name = relationInfo.entity.name
 				const child = this.createSentence(node, expressionContext)
 				return new SentenceInclude(relationName, [child], relationInfo.relation)
@@ -1207,7 +1227,7 @@ class SentenceBuilder {
 				const obj = operand.children[0]
 				for (const p in obj.children) {
 					const keyVal = obj.children[p] as KeyValue
-					const property = this.modelConfig.getProperty(expressionContext.current.entityName, keyVal.name)
+					const property = this.schema.model.getProperty(expressionContext.current.entityName, keyVal.name)
 					const field = { name: keyVal.name, type: property.type }
 					keyVal.property = property.name // new Field(expressionContext.current.entity,property.name,property.type,property.mapping)
 					fields.push(field)
@@ -1220,17 +1240,100 @@ class SentenceBuilder {
 export class SentenceManager {
 	private serializer: SentenceSerializer
 	private builder: SentenceBuilder
+	private schema: SchemaManager
+	private routing: Routing
+	private completer: SentenceCompleter
+	private cache: ICache<number, string>
 
-	constructor (modelConfig: ModelConfig, expressionConfig: ExpressionConfig, expressions: Expressions) {
+	constructor (schema: SchemaManager, expressions: Expressions, routing: Routing) {
+		this.schema = schema
+		this.routing = routing
 		this.serializer = new SentenceSerializer()
-		this.builder = new SentenceBuilder(modelConfig, expressionConfig, expressions)
+		this.builder = new SentenceBuilder(schema, expressions)
+		this.completer = new SentenceCompleter(expressions)
+		this.cache = new MemoryCache<number, string>()
 	}
 
-	public build (node: Node): Sentence {
-		return this.builder.build(node)
+	public normalize (expression: string): string {
+		return this.builder.normalize(expression)
 	}
 
-	public model (sentence: Sentence): MetadataModel[] {
+	public create (expression: string, view: ViewConfig, stage:string): Sentence {
+		const sentence = this.build(expression)
+		this.complete(sentence, view, stage as string)
+		return sentence
+	}
+
+	public getDataSource (sentence: Sentence, stage: string): source {
+		const sentenceInfo: SentenceInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
+		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
+		return this.schema.source.get(dataSourceName)
+	}
+
+	/**
+	 * Get model of expression
+	 * @param expression expression
+	 * @returns Model of expression
+	 */
+	public model (expression: string): MetadataModel[] {
+		const sentence = this.build(expression)
+		return this.modelFromSentence(sentence)
+	}
+
+	/**
+	 * Get constraints of expression
+	 * @param expression expression
+	 * @returns constraints
+	 */
+	public constraints (expression: string): MetadataConstraint {
+		const sentence = this.build(expression)
+		return this.constraintsFromSentence(sentence)
+	}
+
+	/**
+	 * Get parameters of expression
+	 * @param expression  expression
+	 * @returns Parameters of expression
+	 */
+	public parameters (expression: string): MetadataParameter[] {
+		const sentence = this.build(expression)
+		return this.parametersFromSentence(sentence)
+	}
+
+	/**
+	 * Get metadata of expression
+	 * @param expression expression
+	 * @returns metadata of expression
+	 */
+	public metadata (expression: string): Metadata {
+		const sentence = this.build(expression)
+		return JSON.parse(this.serialize(sentence)) as Metadata
+	}
+
+	private build (expression: string): Sentence {
+		const key = helper.utils.hashCode(expression)
+		const value = this.cache.get(key)
+		if (!value) {
+			const operand = this.builder.build(expression)
+			this.cache.set(key, this.serialize(operand))
+			return operand
+		} else {
+			return this.deserialize(value) as Sentence
+		}
+	}
+
+	private complete (sentence: Sentence, view: ViewConfig, stage: string) {
+		const sentenceIncludes = sentence.getIncludes()
+		for (const p in sentenceIncludes) {
+			const sentenceInclude = sentenceIncludes[p]
+			this.complete(sentenceInclude.children[0] as Sentence, view, stage)
+		}
+		const source = this.getDataSource(sentence, stage)
+		const mapping = this.schema.mapping.getInstance(source.mapping)
+		this.completer.complete(mapping, view, sentence)
+	}
+
+	private modelFromSentence (sentence: Sentence): MetadataModel[] {
 		const result: MetadataModel[] = []
 		for (const column of sentence.columns) {
 			if (!column.name.startsWith('__')) {
@@ -1242,13 +1345,13 @@ export class SentenceManager {
 			const include = includes[p]
 			const childType = include.relation.entity + (include.relation.type === 'manyToOne' ? '[]' : '')
 			const child: MetadataModel = { name: include.relation.name, type: childType, children: [] }
-			child.children = this.model(include.children[0] as Sentence)
+			child.children = this.modelFromSentence(include.children[0] as Sentence)
 			result.push(child)
 		}
 		return result
 	}
 
-	public parameters (sentence: Sentence): MetadataParameter[] {
+	private parametersFromSentence (sentence: Sentence): MetadataParameter[] {
 		const parameters: MetadataParameter[] = []
 		for (const parameter of sentence.parameters) {
 			parameters.push({ name: parameter.name, type: parameter.type })
@@ -1261,7 +1364,7 @@ export class SentenceManager {
 				type: include.relation.entity,
 				children: []
 			}
-			const children = this.parameters(include.children[0] as Sentence)
+			const children = this.parametersFromSentence(include.children[0] as Sentence)
 			for (const q in children) {
 				const child = children[q]
 				relationParameter.children?.push(child)
@@ -1271,12 +1374,12 @@ export class SentenceManager {
 		return parameters
 	}
 
-	public constraints (sentence: Sentence): MetadataConstraint {
+	private constraintsFromSentence (sentence: Sentence): MetadataConstraint {
 		const result: MetadataConstraint = { entity: sentence.entity, constraints: sentence.constraints }
 		const includes = sentence.getIncludes()
 		for (const p in includes) {
 			const include = includes[p]
-			const child = this.constraints(include.children[0] as Sentence)
+			const child = this.constraintsFromSentence(include.children[0] as Sentence)
 			if (!result.children) {
 				result.children = []
 			}
@@ -1285,15 +1388,11 @@ export class SentenceManager {
 		return result
 	}
 
-	public clone (sentence: Sentence): Operand {
-		return this.serializer.deserialize(this.serializer.serialize(sentence))
-	}
-
-	public serialize (sentence: Sentence): string {
+	private serialize (sentence: Sentence): string {
 		return this.serializer.serialize(sentence)
 	}
 
-	public deserialize (value: string): Sentence {
+	private deserialize (value: string): Sentence {
 		return this.serializer.deserialize(value)
 	}
 }

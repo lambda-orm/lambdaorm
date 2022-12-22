@@ -7,7 +7,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Orders
           dialect: MySQL
           source: MySQL
@@ -555,7 +555,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Orders
           dialect: MySQL
           source: MySQL
@@ -1049,7 +1049,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Orders
           dialect: MySQL
           source: MySQL
@@ -1791,7 +1791,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Orders
           dialect: MySQL
           source: MySQL
@@ -2824,7 +2824,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Orders
           dialect: MySQL
           source: MySQL
@@ -4019,7 +4019,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Orders
           dialect: MySQL
           source: MySQL
@@ -4725,7 +4725,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Orders
           dialect: MySQL
           source: MySQL
@@ -5721,7 +5721,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Orders
           dialect: MySQL
           source: MySQL

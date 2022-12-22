@@ -10,7 +10,7 @@ test:
   - name: query 1
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -994,7 +994,7 @@ test:
   - name: query 2
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -1230,7 +1230,7 @@ test:
   - name: query 3
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -1467,7 +1467,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -1716,7 +1716,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -1965,7 +1965,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -2139,7 +2139,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -2422,7 +2422,7 @@ test:
   - name: query 8
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -2875,7 +2875,7 @@ test:
   - name: query 9
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -3088,7 +3088,7 @@ test:
     data: b
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Orders.details
           dialect: MySQL
           source: MySQL
@@ -6626,7 +6626,7 @@ test:
   - name: query 11
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -6862,7 +6862,7 @@ test:
   - name: query 12
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -7098,7 +7098,7 @@ test:
   - name: query 13
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -7334,7 +7334,7 @@ test:
   - name: query 14
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -7495,7 +7495,7 @@ test:
   - name: query 15
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -7602,7 +7602,7 @@ test:
   - name: query 16
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -8591,7 +8591,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL
@@ -8702,7 +8702,7 @@ test:
     data: a
     sentences:
       - stage: MySQL
-        sentence:
+        info:
           entity: Products
           dialect: MySQL
           source: MySQL

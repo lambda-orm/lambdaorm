@@ -55,3 +55,18 @@ export interface ExecuteResult {
 	result?: any
 	error?: Error
 }
+
+export interface QueryOptions {
+	view?: string
+	stage?: string
+	chunkSize?:number
+	tryAllCan?:boolean
+}
+
+export interface QueryInfo {
+	entity: string
+	dialect: string
+	source: string
+	sentence: string
+	children?: QueryInfo[]
+}

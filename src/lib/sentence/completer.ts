@@ -1,4 +1,4 @@
-import { MappingConfig, ViewConfig } from '.'
+import { MappingConfig, ViewConfig } from '../manager'
 import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, Constant2, PropertyMapping, PropertyView, SentenceAction } from '../contract'
 import { Expressions, Variable, Operand, Operator, KeyValue } from 'js-expressions'
 

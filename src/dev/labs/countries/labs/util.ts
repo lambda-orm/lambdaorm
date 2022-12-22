@@ -3,14 +3,14 @@ import { orm, helper } from '../../../../lib'
 export async function show (list:string[], data:any) {
 	const tests:string[] = []
 	const examples:string[] = []
-	const sentences:string[] = []
+	let infos:string[] = []
 	for(let i=0;i<list.length;i++){
 		const expression = list[i]
-		let sentence = ''
+		let info = ''
 		try {
 			await orm.init('./src/dev/labs/countries/country.yaml')
-			const _sentence = orm.sentence(expression)
-			sentence =helper.sentenceToArray(_sentence).join('\n')
+			const _info = orm.getInfo(expression)
+			info =helper.sentenceToArray(_info).join('\n')
 			const result = await orm.execute(expression, data)
 			let expect:any
 			if (result === null) {
@@ -37,17 +37,17 @@ export async function show (list:string[], data:any) {
 				expect = result
 			}
 			tests.push(`{ name: 'query ${i+1}', lambda: () => ${expression} },`)
-			sentences.push(`\`\`\`js\n${expression}\n\`\`\`\n\n\`\`\`sql\n${sentence}\n\`\`\`\n`)
+			infos.push(`\`\`\`js\n${expression}\n\`\`\`\n\n\`\`\`sql\n${info}\n\`\`\`\n`)
 			if (expression.includes('\n')) {				
 				examples.push(`|\`${expression}\`|${expect}|`)
 			} else {				
 				examples.push(`|${expression}|${expect}|`)				
 			}
 		} catch (error) {
-			console.log(`exp: ${expression} sentence: ${sentence} error: ${error}`)
+			console.log(`exp: ${expression} sentence: ${info} error: ${error}`)
 		}
 	}
 	console.log(examples.join('\n'))
-	console.log(sentences.join('\n'))
+	console.log(infos.join('\n'))
 	console.log(tests.join('\n'))
 }

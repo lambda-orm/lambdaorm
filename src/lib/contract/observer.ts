@@ -1,5 +1,5 @@
 
-import { Query, OrmOptions } from './index'
+import { Query, QueryOptions } from './index'
 
 export enum ObservableAction {
 	select = 'select',
@@ -14,7 +14,7 @@ export interface ActionObserverArgs{
 	expression:string
 	query: Query
 	data: any
-	options: OrmOptions
+	options: QueryOptions
 	result?:any
 	error?:any
 }

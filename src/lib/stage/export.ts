@@ -24,6 +24,6 @@ export class StageExport extends StageActionDML {
 			first = false
 		}
 		expression = expression + '})' + this.createInclude(entity)
-		return this.expressionManager.toQuery(expression, this.options)
+		return this.queryManager.create(expression, this.options)
 	}
 }

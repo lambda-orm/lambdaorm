@@ -1,11 +1,11 @@
 
 import { H3lp } from 'h3lp'
-import { MetadataSentence } from '../index'
+import { QueryInfo } from '../index'
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
 
 export class Helper extends H3lp {
-	public sentenceToArray (sentence:MetadataSentence):string[] {
+	public sentenceToArray (sentence:QueryInfo):string[] {
 		const sentences:string[] = []
 		sentences.push(sentence.sentence)
 		if (sentence.children) {
