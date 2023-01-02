@@ -1,16 +1,16 @@
 
 import { DmlBuilder } from '../dmlBuilder'
-import { Constant } from 'js-expressions'
+import { Operand, Type } from '3xpr'
 const SqlString = require('sqlstring')
 
 export class SqlDMLBuilder extends DmlBuilder {
-	protected override buildConstant (operand: Constant): string {
-		switch (operand.type) {
-		case 'string':
+	protected override buildConstant (operand: Operand): string {
+		switch (operand.returnType) {
+		case Type.string:
 			return SqlString.escape(operand.name)
-		case 'boolean':
+		case Type.boolean:
 			return this.dialect.other(operand.name)
-		case 'number':
+		case Type.number:
 			return operand.name
 		default:
 			return SqlString.escape(operand.name)

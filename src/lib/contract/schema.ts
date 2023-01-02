@@ -1,9 +1,10 @@
+import { Type } from '3xpr'
+
 export enum RelationType {
 	oneToMany = 'oneToMany',
 	manyToOne = 'manyToOne',
 	oneToOne = 'oneToOne'
 }
-
 export interface EnumValue {
 	name: string
 	value: any
@@ -18,7 +19,7 @@ export interface Constraint {
 }
 export interface Property {
 	name: string
-	type: string
+	type: Type
 	length?: number
 	required?: boolean
 	primaryKey?: boolean
@@ -117,7 +118,6 @@ export interface View {
 	name: string
 	entities: EntityView[]
 }
-
 export interface source {
 	name: string
 	dialect: string
@@ -149,13 +149,11 @@ export interface Schema {
 export interface SchemaModel {
 	mappings: Mapping[]
 }
-
 export interface SchemaMapping {
 	mapping: any
 	pending: any[]
 	inconsistency: any[]
 }
-
 export interface SchemaDataEntity
 {
 	entity:string
@@ -165,7 +163,6 @@ export interface SchemaData
 {
 	entities:SchemaDataEntity[]
 }
-
 export interface Behavior {
 	alias?: string
 	property: string

@@ -2,7 +2,8 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../contract'
+import { Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../contract'
+import { Parameter, Type } from '3xpr'
 import { MappingConfig, helper } from '../../manager'
 import { Dialect } from '../../language'
 
@@ -256,7 +257,7 @@ export class MongodbConnection extends Connection {
 			let strObj: string | undefined
 			if (query.parameters && query.parameters.length > 0) {
 				for (const param of query.parameters) {
-					const value = this.getValue(mapping, dialect, item[param.name], param.type)
+					const value = this.getValue(mapping, dialect, item[param.name], Type.to(param.type ? param.type : 'any'))
 					strObj = helper.str.replace(strObj || template, `{{${param.name}}}`, value)
 				}
 			} else {
@@ -273,7 +274,7 @@ export class MongodbConnection extends Connection {
 		const row: any = {}
 		if (params.length && params.length > 0) {
 			for (const param of params) {
-				const value = this.getValue(mapping, dialect, param.value, param.type)
+				const value = this.getValue(mapping, dialect, param.value, Type.to(param.type ? param.type : 'any'))
 				result = helper.str.replace(result || template, `{{${param.name}}}`, value)
 			}
 		} else {
@@ -282,13 +283,12 @@ export class MongodbConnection extends Connection {
 		return result ? JSON.parse(result) : undefined
 	}
 
-	private getValue (mapping: MappingConfig, dialect: Dialect, source: any, type: string) {
+	private getValue (mapping: MappingConfig, dialect: Dialect, source: any, type: Type) {
 		let value: any
 		if (source === undefined || source === null) {
 			return 'null'
 		}
-		switch (type) {
-		case 'array':
+		if (Type.isList(type)) {
 			if (source.length === 0) {
 				return ''
 			}
@@ -297,26 +297,29 @@ export class MongodbConnection extends Connection {
 			} else {
 				return source.join(',')
 			}
-		case 'boolean':
-			return source ? 'true' : 'false'
-		case 'string':
-			value = typeof source === 'string' ? source : source.toString()
-			value = helper.str.replace(value, '\n', '\\n')
-			value = helper.str.replace(value, '"', '\\"')
-			return `"${value}"`
-		case 'datetime':
-			return `"${this.writeDateTime(source, mapping, dialect)}"`
-		case 'date':
-			return `"${this.writeDate(source, mapping, dialect)}"`
-		case 'time':
-			return `"${this.writeTime(source, mapping, dialect)}"`
-		default:
-			if (typeof source === 'string') {
-				value = helper.str.replace(source, '\n', '\\n')
+		} else {
+			switch (type) {
+			case Type.boolean:
+				return source ? 'true' : 'false'
+			case Type.string:
+				value = typeof source === 'string' ? source : source.toString()
+				value = helper.str.replace(value, '\n', '\\n')
 				value = helper.str.replace(value, '"', '\\"')
 				return `"${value}"`
-			} else {
-				return source
+			case Type.dateTime:
+				return `"${this.writeDateTime(source, mapping, dialect)}"`
+			case Type.date:
+				return `"${this.writeDate(source, mapping, dialect)}"`
+			case Type.time:
+				return `"${this.writeTime(source, mapping, dialect)}"`
+			default:
+				if (typeof source === 'string') {
+					value = helper.str.replace(source, '\n', '\\n')
+					value = helper.str.replace(value, '"', '\\"')
+					return `"${value}"`
+				} else {
+					return source
+				}
 			}
 		}
 	}

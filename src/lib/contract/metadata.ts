@@ -1,5 +1,5 @@
 import { Behavior, Constraint, Property, Relation } from './schema'
-import { Parameter } from './parameter'
+import { Parameter } from '3xpr'
 
 export interface MetadataParameter {
 	name: string

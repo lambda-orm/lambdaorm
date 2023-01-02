@@ -1,7 +1,7 @@
 import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, QueryOptions, Dependent, ObservableAction } from '../contract'
 import path from 'path'
 import { helper } from './'
-import { Expressions } from 'js-expressions'
+import { IExpressions, Type } from '3xpr'
 
 const yaml = require('js-yaml')
 
@@ -474,8 +474,8 @@ export class StageConfig {
 	}
 }
 class SchemaExtender {
-	private expressions: Expressions
-	constructor (expressions: Expressions) {
+	private expressions: IExpressions
+	constructor (expressions: IExpressions) {
 		this.expressions = expressions
 	}
 
@@ -659,8 +659,8 @@ class SchemaExtender {
 				} else if (property.required === undefined) {
 					property.required = (entity.required.includes(property.name) || entity.primaryKey.includes(property.name) || entity.uniqueKey.includes(property.name))
 				}
-				if (property.type === undefined) property.type = 'string'
-				if (property.type === 'string' && property.length === undefined) property.length = 80
+				if (property.type === undefined) property.type = Type.string
+				if (property.type === Type.string && property.length === undefined) property.length = 80
 				if (property.length !== undefined && isNaN(property.length)) {
 					throw new SchemaError(`Invalid length in ${entity.name}.${property.name}`)
 				}
@@ -866,9 +866,9 @@ export class SchemaManager {
 	public schema: Schema
 	public workspace: string
 	private extender: SchemaExtender
-	private expressions: Expressions
+	private expressions: IExpressions
 
-	constructor (workspace: string, expressions: Expressions) {
+	constructor (workspace: string, expressions: IExpressions) {
 		this.expressions = expressions
 		this.workspace = workspace
 		this.source = new DataSourceConfig()

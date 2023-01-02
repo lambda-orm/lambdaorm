@@ -4,16 +4,16 @@ import { ConnectionManager } from '../connection'
 import { SchemaManager, Transaction } from '.'
 import { Languages } from '../language'
 import { QueryManager, QueryExecutor } from '../query'
-import { Expressions } from 'js-expressions'
+import { IExpressions } from '3xpr'
 
 export class Executor {
 	private languages: Languages
 	private connectionManager: ConnectionManager
 	private schemaManager: SchemaManager
 	private queryManager: QueryManager
-	private expressions: Expressions
+	private expressions: IExpressions
 
-	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, queryManager: QueryManager, expressions: Expressions) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, queryManager: QueryManager, expressions: IExpressions) {
 		this.connectionManager = connectionManager
 		this.languages = languages
 		this.schemaManager = schemaManager

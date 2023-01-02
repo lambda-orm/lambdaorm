@@ -1,13 +1,13 @@
 
 import { ObservableAction, SentenceInfo, RuleDataSource, ContextInfo, SchemaError } from '../contract'
 import { SchemaManager } from './index'
-import { Expressions } from 'js-expressions'
+import { IExpressions } from '3xpr'
 
 export class Routing {
 	private schema: SchemaManager
-	private expressions: Expressions
+	private expressions: IExpressions
 
-	constructor (schema: SchemaManager, expressions: Expressions) {
+	constructor (schema: SchemaManager, expressions: IExpressions) {
 		this.schema = schema
 		this.expressions = expressions
 	}

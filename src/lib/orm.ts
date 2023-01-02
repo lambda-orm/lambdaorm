@@ -9,9 +9,8 @@ import { StageFacade } from './stage'
 import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './connection'
 import { SqlLanguage } from './language/SQL'
 import { NoSqlLanguage } from './language/NoSQL'
-import { expressions, Expressions } from 'js-expressions'
-import modelConfig from './expression/model.json'
-import { OrmExtensionLib } from './expression/extension'
+import { expressions, IExpressions } from '3xpr'
+import { SentenceLibrary } from './sentence/library'
 /**
  * Facade through which you can access all the functionalities of the library.
  */
@@ -28,7 +27,7 @@ export class Orm implements IOrm {
 	// eslint-disable-next-line no-use-before-define
 	private static _instance: Orm
 	private schemaManager: SchemaManager
-	private _expressions: Expressions
+	private _expressions: IExpressions
 	private observers:any = {}
 
 	/**
@@ -43,8 +42,7 @@ export class Orm implements IOrm {
 
 	constructor (workspace: string = process.cwd()) {
 		this._expressions = expressions
-		this._expressions.config.load(modelConfig)
-		this._expressions.config.addLibrary(new OrmExtensionLib())
+		new SentenceLibrary(expressions.model).load()
 
 		this.schemaManager = new SchemaManager(workspace, this._expressions)
 		// this._cache = new MemoryCache()
@@ -87,15 +85,13 @@ export class Orm implements IOrm {
 		}
 		// add enums
 		if (schema.enums) {
-			const enums: any = {}
 			for (const _enum of schema.enums) {
-				const values:any = {}
+				const values:[string, any][] = []
 				for (const enumValue of _enum.values) {
-					values[enumValue.name] = enumValue.value
+					values.push([enumValue.name, enumValue.value])
 				}
-				enums[_enum.name] = values
+				expressions.addEnum(_enum.name, values)
 			}
-			expressions.config.load({ enums })
 		}
 		return schema
 	}
@@ -140,7 +136,7 @@ export class Orm implements IOrm {
 	/**
 	 * Get reference to SchemaConfig
 	 */
-	public get expressions (): Expressions {
+	public get expressions (): IExpressions {
 		return this._expressions
 	}
 

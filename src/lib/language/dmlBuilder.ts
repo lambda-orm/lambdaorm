@@ -1,16 +1,16 @@
-
-import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block, Expressions } from 'js-expressions'
+import { Operand, OperandType, Type, IExpressions } from '3xpr'
 import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source } from '../contract'
 import { MappingConfig, helper } from '../manager'
 import { Dialect } from '../language'
+const SqlString = require('sqlstring')
 
 export abstract class DmlBuilder {
 	protected source: source
 	protected mapping: MappingConfig
 	protected dialect: Dialect
-	protected expressions: Expressions
+	protected expressions: IExpressions
 
-	constructor (source: source, mapping: MappingConfig, dialect: Dialect, expressions: Expressions) {
+	constructor (source: source, mapping: MappingConfig, dialect: Dialect, expressions: IExpressions) {
 		this.source = source
 		this.mapping = mapping
 		this.expressions = expressions
@@ -203,7 +203,7 @@ export abstract class DmlBuilder {
 		if (operand.children[0] instanceof Object) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
-				const keyVal = obj.children[p] as KeyValue
+				const keyVal = obj.children[p]
 				let name: string
 				if (keyVal.property !== undefined) {
 					const property = entity.properties.find(q => q.name === keyVal.property)
@@ -255,32 +255,32 @@ export abstract class DmlBuilder {
 	protected buildOperand (operand: Operand): string {
 		if (operand instanceof Sentence) {
 			return this.buildSentence(operand)
-		} else if (operand instanceof ArrowFunction) {
+		} else if (operand.type === OperandType.Arrow) {
 			return this.buildArrowFunction(operand)
-		} else if (operand instanceof FunctionRef) {
+		} else if (operand.type === OperandType.CallFunc) {
 			return this.buildFunctionRef(operand)
-		} else if (operand instanceof Operator) {
+		} else if (operand.type === OperandType.Operator) {
 			return this.buildOperator(operand)
-		} else if (operand instanceof Block) {
+		} else if (operand.type === OperandType.Block) {
 			return this.buildBlock(operand)
-		} else if (operand instanceof Obj) {
+		} else if (operand.type === OperandType.Obj) {
 			return this.buildObject(operand)
-		} else if (operand instanceof List) {
+		} else if (operand.type === OperandType.List) {
 			return this.buildList(operand)
-		} else if (operand instanceof KeyValue) {
+		} else if (operand.type === OperandType.KeyVal) {
 			return this.buildKeyValue(operand)
 		} else if (operand instanceof Field) {
 			return this.buildField(operand)
-		} else if (operand instanceof Variable) {
+		} else if (operand.type === OperandType.Var) {
 			return this.buildVariable(operand)
-		} else if (operand instanceof Constant) {
+		} else if (operand.type === OperandType.Const) {
 			return this.buildConstant(operand)
 		} else {
 			throw new SintaxisError(`Operand ${operand.type} ${operand.name} not supported`)
 		}
 	}
 
-	protected buildArrowFunction (operand: ArrowFunction): string {
+	protected buildArrowFunction (operand: Operand): string {
 		let template = this.dialect.dml(operand.name)
 		for (let i = 0; i < operand.children.length; i++) {
 			const text = this.buildOperand(operand.children[i])
@@ -289,7 +289,7 @@ export abstract class DmlBuilder {
 		return template.trim()
 	}
 
-	protected buildFunctionRef (operand: FunctionRef): string {
+	protected buildFunctionRef (operand: Operand): string {
 		const funcData = this.dialect.function(operand.name)
 		if (!funcData) throw new SintaxisError('Function ' + operand.name + ' not found')
 		let text = ''
@@ -309,7 +309,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildOperator (operand: Operator): string {
+	protected buildOperator (operand: Operand): string {
 		let text = this.dialect.operator(operand.name, operand.children.length)
 		for (let i = 0; i < operand.children.length; i++) {
 			text = text.replace('{' + i + '}', this.buildOperand(operand.children[i]))
@@ -317,7 +317,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildBlock (operand: Block): string {
+	protected buildBlock (operand: Operand): string {
 		let text = ''
 		for (const child of operand.children) {
 			text += (this.buildOperand(child) + '')
@@ -325,7 +325,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildObject (operand: Obj): string {
+	protected buildObject (operand: Operand): string {
 		let text = ''
 		const template = this.dialect.function('as').template
 		for (let i = 0; i < operand.children.length; i++) {
@@ -339,7 +339,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildList (operand: List): string {
+	protected buildList (operand: Operand): string {
 		let text = ''
 		for (let i = 0; i < operand.children.length; i++) {
 			text += (i > 0 ? ', ' : '') + this.buildOperand(operand.children[i])
@@ -347,7 +347,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildKeyValue (operand: KeyValue): string {
+	protected buildKeyValue (operand: Operand): string {
 		return this.buildOperand(operand.children[0])
 	}
 
@@ -368,7 +368,7 @@ export abstract class DmlBuilder {
 		}
 	}
 
-	protected buildVariable (operand: Variable): string {
+	protected buildVariable (operand: Operand): string {
 		const number = operand.number ? operand.number : 0
 		let text = this.dialect.other('variable')
 		text = text.replace('{name}', helper.transformParameter(operand.name))
@@ -376,7 +376,23 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildConstant (operand: Constant): string {
+	protected buildConstant (operand: Operand): string {
+		if (operand.returnType === undefined) {
+			return SqlString.escape(operand.name)
+		}
+		switch (operand.returnType) {
+		case Type.string:
+			return SqlString.escape(operand.name)
+		case Type.boolean:
+			return operand.name.toString() === 'true'
+		case Type.integer:
+			return parseInt(operand.name).toString()
+		case Type.number:
+		case Type.decimal:
+			return parseFloat(operand.name).toString()
+		default:
+			return SqlString.escape(operand.name)
+		}
 		return operand.name
 	}
 }

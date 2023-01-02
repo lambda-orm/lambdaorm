@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { orm, helper } from '../../lib'
+import { OperatorMetadata } from '3xpr'
 
 async function writeFunctions (category:string, list: any): Promise<void> {
 	const lines: string[] = []
@@ -72,35 +73,19 @@ async function writeOperators (category:string, list: any): Promise<void> {
 }
 
 export async function apply (callback: any) {
-	const funcCategories:any = {}
-	for (const p in orm.expressions.config.functions) {
-		const item = orm.expressions.config.functions[p]
-		const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
-		if (funcCategories[category] === undefined) {
-			funcCategories[category] = { list: [] }
-		}
-		funcCategories[category].list.push(item)
+	const functions:OperatorMetadata[] = []
+	for (const duple of orm.expressions.model.functions) {
+		const metadata = duple[1]
+		functions.push(metadata)
 	}
+	await writeFunctions('functions', functions)
 
-	for (const p in funcCategories) {
-		const category = funcCategories[p]
-		await writeFunctions(p, category.list)
+	const operators:OperatorMetadata[] = []
+	for (const duple of orm.expressions.model.operators) {
+		const metadata = duple[1]
+		operators.push(metadata)
 	}
-
-	const operCategories:any = {}
-	for (const p in orm.expressions.config.operators) {
-		const item = orm.expressions.config.operators[p]
-		const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
-		if (operCategories[category] === undefined) {
-			operCategories[category] = { list: [] }
-		}
-		operCategories[category].list.push(item)
-	}
-
-	for (const p in operCategories) {
-		const category = operCategories[p]
-		await writeOperators(p, category.list)
-	}
+	await writeOperators('operators', operators)
 	callback()
 }
 apply(function () { console.log('end') })

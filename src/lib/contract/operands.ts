@@ -1,16 +1,22 @@
 
-import { Property, Parameter, Relation, Behavior, Constraint, MethodNotImplemented } from '.'
-import { Operand, Constant, ArrowFunction, ChildFunction, Variable } from 'js-expressions'
+import { Property, Relation, Behavior, Constraint } from '.'
+import { Parameter, Operand, OperandType, Position, Type } from '3xpr'
 const SqlString = require('sqlstring')
 
-export class Constant2 extends Constant {
+export class Constant extends Operand {
 	public eval (): any {
-		switch (this.type) {
-		case 'string':
+		if (this.returnType === undefined) {
 			return SqlString.escape(this.name)
-		case 'boolean':
+		}
+		switch (this.returnType) {
+		case Type.string:
+			return SqlString.escape(this.name)
+		case Type.boolean:
 			return this.name === 'true'
-		case 'number':
+		case Type.integer:
+			return parseInt(this.name)
+		case Type.number:
+		case Type.decimal:
 			return parseFloat(this.name)
 		default:
 			return SqlString.escape(this.name)
@@ -22,72 +28,44 @@ export class Field extends Operand {
 	public alias?: string
 	public isRoot?: boolean
 	public prefix?: string
-	constructor (entity: string, name: string, type: string, alias?: string, isRoot?: boolean) {
-		super(name, [], type)
+	constructor (pos:Position, entity: string, name: string, returnType?:Type, alias?: string, isRoot?: boolean) {
+		super(pos, name, OperandType.Var, [], returnType)
 		this.entity = entity
 		this.alias = alias
 		this.isRoot = isRoot
 	}
 
 	public clone () {
-		return new Field(this.entity, this.name, this.type, this.alias, this.isRoot)
-	}
-
-	public eval (): any {
-		throw new MethodNotImplemented('Field', 'eval')
+		return new Field(this.pos, this.entity, this.name, this.returnType, this.alias, this.isRoot)
 	}
 }
-export class From extends Operand {
-	public alias: string
-	constructor (name: string, alias: string) {
-		super(name, [], 'any')
-		this.alias = alias
-	}
 
-	public eval (): any {
-		throw new MethodNotImplemented('From', 'eval')
-	}
-}
-export class Join extends Operand {
+export class Map extends Operand { }
+export class Filter extends Operand { }
+export class GroupBy extends Operand { }
+export class Having extends Operand { }
+export class Sort extends Operand { }
+export class Page extends Operand { }
+
+export class Clause extends Operand {
 	public alias: string
 	public entity:string
-	constructor (name: string, children:Operand[], entity:string, alias: string) {
-		super(name, children, 'any')
+	constructor (pos:Position, name: string, children:Operand[], entity:string, alias: string) {
+		super(pos, name, OperandType.Arrow, children, Type.any)
 		this.alias = alias
 		this.entity = entity
 	}
-
-	public eval (): any {
-		throw new MethodNotImplemented('Join', 'eval')
+}
+export class From extends Clause {
+	constructor (pos:Position, entity:string, alias: string) {
+		super(pos, 'from', [], entity, alias)
 	}
 }
-export class Map extends ArrowFunction { }
-export class Filter extends ArrowFunction { }
-export class GroupBy extends ArrowFunction { }
-export class Having extends ArrowFunction { }
-export class Sort extends ArrowFunction { }
-export class Page extends ChildFunction { }
-export class Insert extends ArrowFunction {
-	public clause: string
-	constructor (name: string, children: Operand[], clause: string) {
-		super(name, children)
-		this.clause = clause
-	}
-}
-export class Update extends ArrowFunction {
-	public alias: string
-	constructor (name: string, children: Operand[], alias: string) {
-		super(name, children)
-		this.alias = alias
-	}
-}
-export class Delete extends ArrowFunction {
-	public alias: string
-	constructor (name: string, children: Operand[], alias: string) {
-		super(name, children)
-		this.alias = alias
-	}
-}
+export class Join extends Clause {}
+export class Insert extends Clause { }
+export class BulkInsert extends Clause { }
+export class Update extends Clause { }
+export class Delete extends Clause { }
 
 export enum SentenceCrudAction {
 	undefined = 'undefined',
@@ -133,8 +111,8 @@ export class Sentence extends Operand {
 	public values: Behavior[]
 	public defaults: Behavior[]
 
-	constructor (name: string, children: Operand[], entity: string, alias: string, columns: Property[]) {
-		super(name, children)
+	constructor (pos:Position, name: string, children: Operand[], entity: string, alias: string, columns: Property[]) {
+		super(pos, name, OperandType.Arrow, children, Type.any)
 		this.action = SentenceAction[name]
 		this.crudAction = SentenceCrudAction.undefined
 		this.entity = entity
@@ -157,22 +135,26 @@ export class Sentence extends Operand {
 	}
 
 	private initialize () {
-		const map = this.children.find(p => p.name === 'map')
-		const filter = this.children.find(p => p.name === 'filter')
-		const groupBy = this.children.find(p => p.name === 'groupBy')
-		const having = this.children.find(p => p.name === 'having')
-		const sort = this.children.find(p => p.name === 'sort')
+		const map = this.children.find(p => p instanceof Map)
+		const filter = this.children.find(p => p instanceof Filter)
+		const groupBy = this.children.find(p => p instanceof GroupBy)
+		const having = this.children.find(p => p instanceof Having)
+		const sort = this.children.find(p => p instanceof Sort)
 		const insert = this.children.find(p => p instanceof Insert) as Insert | undefined
+		const bulkInsert = this.children.find(p => p instanceof BulkInsert) as BulkInsert | undefined
 		const update = this.children.find(p => p instanceof Update) as Update | undefined
 		const _delete = this.children.find(p => p instanceof Delete) as Delete | undefined
 
-		const variables: Variable[] = []
+		const variables: Operand[] = []
 		if (map) {
 			this.crudAction = SentenceCrudAction.select
 			this.loadVariables(map, variables)
 		} else if (insert) {
 			this.crudAction = SentenceCrudAction.insert
 			this.loadVariables(insert, variables)
+		} else if (bulkInsert) {
+			this.crudAction = SentenceCrudAction.insert
+			this.loadVariables(bulkInsert, variables)
 		} else if (update) {
 			this.crudAction = SentenceCrudAction.update
 			this.loadVariables(update, variables)
@@ -189,29 +171,19 @@ export class Sentence extends Operand {
 		}
 	}
 
-	private loadVariables (operand: Operand, variables: Variable[]) {
-		if (operand instanceof Variable) {
+	private loadVariables (operand: Operand, variables: Operand[]) {
+		if (operand.type === OperandType.Var) {
 			variables.push(operand)
 		}
 		for (const child of operand.children) {
 			this.loadVariables(child, variables)
 		}
 	}
-
-	public eval (): any {
-		throw new MethodNotImplemented('Sentence', 'eval')
-	}
 }
 export class SentenceInclude extends Operand {
 	public relation: Relation
-	// public variable: string
-	constructor (name: string, children: Operand[], relation: Relation) {
-		super(name, children)
+	constructor (pos:Position, name: string, children: Operand[], relation: Relation) {
+		super(pos, name, OperandType.Arrow, children, Type.any)
 		this.relation = relation
-		// this.variable = variable
-	}
-
-	public eval (): any {
-		throw new MethodNotImplemented('SentenceInclude', 'eval')
 	}
 }

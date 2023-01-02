@@ -1,4 +1,4 @@
-import { Parameter } from '../../lib'
+import { Parameter } from '3xpr'
 
 export interface ExecutionTest {
 	stage: string

@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data } from '../../contract'
+import { Query, Data } from '../../contract'
 import { MappingConfig, helper } from '../../manager'
 import { Dialect } from '../../language'
+import { Parameter } from '3xpr'
 
 export class SqlServerConnectionPool extends ConnectionPool {
 	public static lib: any

@@ -4,14 +4,14 @@ import { QueryBuilder } from './index'
 import { Languages } from '../language'
 import { SentenceManager } from '../sentence'
 import { MemoryCache, ICache } from 'h3lp'
-import { Expressions } from 'js-expressions'
+import { IExpressions } from '3xpr'
 
 export class QueryManager {
 	private cache: ICache<number, string>
 	private builder: QueryBuilder
-	private expressions: Expressions
+	private expressions: IExpressions
 
-	constructor (sentenceManager: SentenceManager, schema: SchemaManager, languages: Languages, expressions: Expressions) {
+	constructor (sentenceManager: SentenceManager, schema: SchemaManager, languages: Languages, expressions: IExpressions) {
 		this.cache = new MemoryCache<number, string>()
 		this.builder = new QueryBuilder(sentenceManager, schema, languages)
 		this.expressions = expressions

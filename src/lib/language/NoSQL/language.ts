@@ -5,10 +5,10 @@ import { Language } from '../language'
 import { NoSqlDMLBuilder } from './dmlBuilder'
 import { NoSqlDDLBuilder } from './ddlBuilder'
 import config from './config.json'
-import { Expressions } from 'js-expressions'
+import { IExpressions } from '3xpr'
 
 export class NoSqlLanguage extends Language {
-	constructor (expressions: Expressions) {
+	constructor (expressions: IExpressions) {
 		super('NoSQL', config.dialects, expressions)
 		this.solveComposite = true
 	}

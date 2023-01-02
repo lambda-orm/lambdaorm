@@ -1,4 +1,5 @@
-import { SentenceAction, Property, Parameter, Relation, Behavior, Constraint } from './index'
+import { SentenceAction, Property, Relation, Behavior, Constraint } from './index'
+import { Parameter } from '3xpr'
 
 export interface QueryArgs{
 	action: SentenceAction,

@@ -1,11 +1,11 @@
 import { MappingConfig, ViewConfig } from '../manager'
-import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, Constant2, PropertyMapping, PropertyView, SentenceAction } from '../contract'
-import { Expressions, Variable, Operand, Operator, KeyValue } from 'js-expressions'
+import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, PropertyMapping, PropertyView, SentenceAction } from '../contract'
+import { IExpressions, Operand, OperandType } from '3xpr'
 
 export class SentenceCompleter {
-	protected expressions: Expressions
+	protected expressions: IExpressions
 
-	constructor (expressions:Expressions) {
+	constructor (expressions:IExpressions) {
 		this.expressions = expressions
 	}
 
@@ -34,15 +34,15 @@ export class SentenceCompleter {
 		let newFilter: Operand | undefined
 		// add filter for filter in entity
 		if (entity.filter) {
-			const expression = this.expressions.parse(entity.filter)
-			newFilter = this.replaceField(entity, sentence.alias, expression)
+			const filterOperand = this.expressions.build(entity.filter)
+			newFilter = this.replaceField(entity, sentence.alias, filterOperand)
 		}
 		// add filter for keys in properties
 		if (entity.hadKeys) {
 			const expressionKeys = this.filterByKeys(sentence, entity)
 			if (expressionKeys) {
 				if (newFilter) {
-					newFilter = new Operator('&&', [newFilter, expressionKeys])
+					newFilter = new Operand(sentence.pos, '&&', OperandType.Operator, [newFilter, expressionKeys])
 				} else {
 					newFilter = expressionKeys
 				}
@@ -52,9 +52,9 @@ export class SentenceCompleter {
 		if (newFilter) {
 			const filter = sentence.children.find(p => p.name === 'filter') as Filter|undefined
 			if (filter) {
-				filter.children[0] = new Operator('&&', [filter.children[0], newFilter])
+				filter.children[0] = new Operand(sentence.pos, '&&', OperandType.Operator, [filter.children[0], newFilter])
 			} else {
-				sentence.children.push(new Filter('filter', [newFilter]))
+				sentence.children.push(new Filter(sentence.pos, 'filter', OperandType.Arrow, [newFilter]))
 			}
 		}
 	}
@@ -82,9 +82,9 @@ export class SentenceCompleter {
 	private solveKey (property:PropertyMapping, operand:Operand):Operand {
 		for (const i in operand.children) {
 			const child = operand.children[i]
-			if (child instanceof KeyValue) {
+			if (child.type === OperandType.KeyVal) {
 				if (child.name === property.name) {
-					child.children[0] = new Constant2(property.key as string)
+					child.children[0] = new Operand(child.pos, property.key, OperandType.Const)
 				}
 			} else if (child.children && child.children.length > 0) {
 				operand.children[i] = this.solveKey(property, child)
@@ -109,7 +109,7 @@ export class SentenceCompleter {
 			}
 		}
 		if (expression) {
-			const operand = this.expressions.parse(expression)
+			const operand = this.expressions.build(expression)
 			return this.replaceField(entity, sentence.alias, operand)
 		} else {
 			return undefined
@@ -127,21 +127,21 @@ export class SentenceCompleter {
 			let newFilter: Operand | undefined
 			// add filter for filter in entity
 			if (entity.filter) {
-				const expression = this.expressions.parse(entity.filter)
-				newFilter = this.replaceField(entity, parts[1], expression)
+				const operand = this.expressions.build(entity.filter)
+				newFilter = this.replaceField(entity, parts[1], operand)
 			}
 			// add filter for keys in properties
 			const expressionKeys = this.filterByKeys(sentence, entity)
 			if (expressionKeys) {
 				if (newFilter) {
-					newFilter = new Operator('&&', [newFilter, expressionKeys])
+					newFilter = new Operand(sentence.pos, '&&', OperandType.Operator, [newFilter, expressionKeys])
 				} else {
 					newFilter = expressionKeys
 				}
 			}
 			// if exists newFilter  add to current filter
 			if (newFilter) {
-				join.children[0] = new Operator('&&', [join.children[0], newFilter])
+				join.children[0] = new Operand(sentence.pos, '&&', OperandType.Operator, [join.children[0], newFilter])
 			}
 		}
 	}
@@ -170,16 +170,16 @@ export class SentenceCompleter {
 		const alias = child.alias as string
 		let sourceOperand = child as Operand
 		if (property.readMappingExp) {
-			const expression = this.expressions.parse(property.readMappingExp)
-			sourceOperand = this.replaceField(entity, alias, expression, child.name, sourceOperand)
+			const operand = this.expressions.build(property.readMappingExp)
+			sourceOperand = this.replaceField(entity, alias, operand, child.name, sourceOperand)
 		}
 		if (property.readExp) {
-			const expression = this.expressions.parse(property.readExp)
-			sourceOperand = this.replaceField(entity, alias, expression, child.name, sourceOperand)
+			const operand = this.expressions.build(property.readExp)
+			sourceOperand = this.replaceField(entity, alias, operand, child.name, sourceOperand)
 		}
 		if (viewProperty && viewProperty.readExp) {
-			const expression = this.expressions.parse(viewProperty.readExp)
-			sourceOperand = this.replaceField(entity, alias, expression, child.name, sourceOperand)
+			const operand = this.expressions.build(viewProperty.readExp)
+			sourceOperand = this.replaceField(entity, alias, operand, child.name, sourceOperand)
 		}
 		return sourceOperand
 	}
@@ -187,13 +187,13 @@ export class SentenceCompleter {
 	private replaceField (entity:EntityMapping, alias:string, operand:Operand, sourceName?:string, source?:Operand):Operand {
 		for (const i in operand.children) {
 			const child = operand.children[i]
-			if (child instanceof Variable) {
+			if (child.type === OperandType.Var) {
 				const property = entity.properties.find(p => p.name === child.name)
 				if (property) {
 					if (sourceName && source && property.name === sourceName) {
 						operand.children[i] = source
 					} else {
-						operand.children[i] = new Field(entity.name, child.name, property.type, alias)
+						operand.children[i] = new Field(operand.pos, entity.name, child.name, property.type, alias)
 					}
 				}
 			} else if (child.children && child.children.length > 0) {

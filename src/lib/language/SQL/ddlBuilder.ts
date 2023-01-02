@@ -2,6 +2,7 @@
 import { SentenceAction, PropertyMapping, Property, Relation, Index, Query, EntityMapping, SchemaError } from '../../contract'
 import { helper } from '../../manager'
 import { LanguageDDLBuilder } from '../../query'
+import { Type } from '3xpr'
 
 export class SqlDDLBuilder extends LanguageDDLBuilder {
 	public truncateEntity (entity: EntityMapping): Query | undefined {
@@ -30,7 +31,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 	}
 
 	private createColumn (entity: EntityMapping, property: PropertyMapping): string {
-		let type = this.dialect.type(property.type)
+		let type = this.dialect.type(Type.toString(property.type))
 		if (type === undefined) {
 			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
 		}
@@ -108,7 +109,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 
 	private property (entity: EntityMapping, property: Property):string {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name)
-		let type = this.dialect.type(property.type)
+		let type = this.dialect.type(Type.toString(property.type))
 		if (type === undefined) {
 			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
 		}

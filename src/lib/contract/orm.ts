@@ -2,7 +2,7 @@
 import { Schema, QueryInfo, MetadataParameter, MetadataModel, MetadataConstraint, Metadata, QueryOptions } from './index'
 import { SchemaManager, Transaction } from '../manager'
 import { StageFacade } from '../stage'
-import { Expressions } from 'js-expressions'
+import { IExpressions } from '3xpr'
 
 export interface IOrm
 {
@@ -10,7 +10,7 @@ export interface IOrm
 	dialect (source:string): string
 	get stage(): StageFacade
 	get schema(): SchemaManager
-	get expressions(): Expressions
+	get expressions(): IExpressions
 
 	// setCache (value: Cache):void
 	init(configPath?: string, connect?: boolean): Promise<Schema>

@@ -1,6 +1,6 @@
 export * from './data'
 export * from './orm'
-export * from './parameter'
+// export * from './parameter'
 export * from './schema'
 export * from './query'
 export * from './sentenceInfo'

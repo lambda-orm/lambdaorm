@@ -1,16 +1,16 @@
 import { MappingConfig } from '../manager'
 import { LanguageDDLBuilder } from '../query'
 import { Dialect } from './dialect'
-import { Expressions } from 'js-expressions'
+import { IExpressions } from '3xpr'
 import { NotImplemented, source, Query, Sentence } from '../contract'
 
 export abstract class Language {
 	public dialects: Dialect[]
 	public name: string
 	public solveComposite?: boolean
-	protected expressions: Expressions
+	protected expressions: IExpressions
 
-	constructor (name: string, dialects: any, expressions: Expressions) {
+	constructor (name: string, dialects: any, expressions: IExpressions) {
 		this.name = name
 		this.expressions = expressions
 

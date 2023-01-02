@@ -5,10 +5,10 @@ import { Language } from '../language'
 import { SqlDMLBuilder } from './dmlBuilder'
 import { SqlDDLBuilder } from './ddlBuilder'
 import config from './config.json'
-import { Expressions } from 'js-expressions'
+import { IExpressions } from '3xpr'
 
 export class SqlLanguage extends Language {
-	constructor (expressions: Expressions) {
+	constructor (expressions: IExpressions) {
 		super('SQL', config.dialects, expressions)
 		this.solveComposite = false
 	}

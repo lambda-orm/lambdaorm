@@ -1,7 +1,7 @@
 
 import { helper, SchemaManager } from '../manager'
 import { Entity, SchemaError, SintaxisError } from '../contract'
-import { Node } from 'js-expressions'
+import { Node } from '3xpr'
 
 /**
  *  Expression completer

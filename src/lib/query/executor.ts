@@ -3,11 +3,11 @@ import { SentenceAction, Data, QueryOptions, ExecutionError, Query, Include, Rel
 import { Connection, ConnectionManager } from '../connection'
 import { MappingConfig, SchemaManager, helper } from '../manager'
 import { Languages, Dialect } from '../language'
-import { Expressions } from 'js-expressions'
+import { IExpressions } from '3xpr'
 
 class QuerySolveDefaults {
-	private expressions: Expressions
-	constructor (expressions: Expressions) {
+	private expressions: IExpressions
+	constructor (expressions: IExpressions) {
 		this.expressions = expressions
 	}
 
@@ -41,8 +41,8 @@ class QuerySolveDefaults {
 }
 
 class QuerySolveWriteValues {
-	private expressions: Expressions
-	constructor (expressions: Expressions) {
+	private expressions: IExpressions
+	constructor (expressions: IExpressions) {
 		this.expressions = expressions
 	}
 
@@ -64,8 +64,8 @@ class QuerySolveWriteValues {
 }
 
 class QuerySolveReadValues {
-	private expressions: Expressions
-	constructor (expressions: Expressions) {
+	private expressions: IExpressions
+	constructor (expressions: IExpressions) {
 		this.expressions = expressions
 	}
 
@@ -91,8 +91,8 @@ class QuerySolveReadValues {
 }
 
 class QueryEvalConstraints {
-	private expressions: Expressions
-	constructor (expressions: Expressions) {
+	private expressions: IExpressions
+	constructor (expressions: IExpressions) {
 		this.expressions = expressions
 	}
 
@@ -127,7 +127,7 @@ class QuerySelectExecutor {
 	public options: QueryOptions
 	private solveReadValues: QuerySolveReadValues
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: IExpressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveReadValues = new QuerySolveReadValues(expressions)
@@ -306,7 +306,7 @@ class QueryInsertExecutor {
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: IExpressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -378,7 +378,7 @@ class QueryBulkInsertExecutor {
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: IExpressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -546,7 +546,7 @@ class QueryUpdateExecutor {
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: IExpressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -636,7 +636,7 @@ export class QueryExecutor implements IQueryInternalExecutor {
 	private updateExecutor: QueryUpdateExecutor
 	private deleteExecutor: QueryDeleteExecutor
 
-	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: Expressions, options: QueryOptions, transactional = false) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, expressions: IExpressions, options: QueryOptions, transactional = false) {
 		this.connectionManager = connectionManager
 		this.languages = languages
 		this.options = options
