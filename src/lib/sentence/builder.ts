@@ -3,7 +3,7 @@ import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity }
 import { ModelConfig, SchemaManager } from '../manager'
 import { Operand, Parameter, OperandType, Type, IExpressions, Position, helper, IParameterManager, ITypeManager } from '3xpr'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../contract/operands'
-import { ExpressionNormalizer, SentenceTypeManager, SentenceParameterManager } from '.'
+import { SentenceNormalizer, SentenceTypeManager, SentenceParameterManager } from '.'
 
 class SentenceHelper {
 	private modelConfig: ModelConfig
@@ -229,7 +229,7 @@ export class SentenceBuilder {
 	private parameterManager: IParameterManager
 	private solveBehaviors: SentenceSolveBehaviors
 	private solveConstraints : SentenceSolveConstraints
-	private normalizer: ExpressionNormalizer
+	private normalizer: SentenceNormalizer
 	private expressions: IExpressions
 
 	constructor (schema: SchemaManager, expressions: IExpressions) {
@@ -240,7 +240,7 @@ export class SentenceBuilder {
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, helper)
 		this.parameterManager = new SentenceParameterManager()
 		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, helper, expressions)
-		this.normalizer = new ExpressionNormalizer(schema)
+		this.normalizer = new SentenceNormalizer(expressions.model, schema)
 	}
 
 	public normalize (expression: string): string {
