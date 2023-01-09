@@ -62,7 +62,7 @@ export class Orm implements IOrm {
 		this.routing = new Routing(this.schemaManager, this._expressions)
 		this.sentenceManager = new SentenceManager(this.schemaManager, this.expressions, this.routing)
 		this.queryManager = new QueryManager(this.sentenceManager, this.schemaManager, this.languages, this._expressions)
-		this.executor = new Executor(this.connectionManager, this.languages, this.schemaManager, this.queryManager, this._expressions)
+		this.executor = new Executor(this.connectionManager, this.languages, this.schemaManager, this.sentenceManager, this.queryManager, this._expressions)
 		this.stageFacade = new StageFacade(this.schemaManager, this.routing, this.queryManager, this.languages, this.executor)
 	}
 
@@ -273,7 +273,7 @@ export class Orm implements IOrm {
 	 */
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public toExpression (func: Function): string {
-		return this.queryManager.toExpression(func)
+		return this.sentenceManager.toExpression(func)
 	}
 
 	// Listeners and subscribers

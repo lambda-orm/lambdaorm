@@ -1,4 +1,4 @@
-import { Query, QueryOptions, SintaxisError, QueryInfo } from '../contract'
+import { Query, QueryOptions, QueryInfo } from '../contract'
 import { SchemaManager, helper } from '../manager'
 import { QueryBuilder } from './index'
 import { Languages } from '../language'
@@ -44,32 +44,32 @@ export class QueryManager {
 		return mainSentence
 	}
 
-	/**
-	 * Convert a lambda expression to a query expression
-	 * @param lambda lambda expression
-	 * @returns Expression manager
-	 */
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	public toExpression (func: Function): string {
-		if (!func) {
-			throw new SintaxisError('empty lambda function}')
-		}
-		const expression = helper.clearLambda(func)
-		const node = this.expressions.parser.parse(expression)
-		let aux = node
-		while (aux.type !== 'var') {
-			if (aux.children.length > 0) {
-				aux = aux.children[0]
-			}
-		}
-		if (aux.name.includes('.')) {
-			// Example: __model_1.Products.map(p=>p) =>  Products.map(p=>p)
-			// Example: __model_1.Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
-			const names:string[] = aux.name.split('.')
-			if (names[0].startsWith('__')) {
-				aux.name = names.slice(1).join('.')
-			}
-		}
-		return this.expressions.parser.toExpression(node)
-	}
+	// /**
+	//  * Convert a lambda expression to a query expression
+	//  * @param lambda lambda expression
+	//  * @returns Expression manager
+	//  */
+	// // eslint-disable-next-line @typescript-eslint/ban-types
+	// public toExpression (func: Function): string {
+	// if (!func) {
+	// throw new SintaxisError('empty lambda function}')
+	// }
+	// const expression = helper.clearLambda(func)
+	// const node = this.expressions.parser.parse(expression)
+	// let aux = node
+	// while (aux.type !== 'var') {
+	// if (aux.children.length > 0) {
+	// aux = aux.children[0]
+	// }
+	// }
+	// if (aux.name.includes('.')) {
+	// // Example: __model_1.Products.map(p=>p) =>  Products.map(p=>p)
+	// // Example: __model_1.Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
+	// const names:string[] = aux.name.split('.')
+	// if (names[0].startsWith('__')) {
+	// aux.name = names.slice(1).join('.')
+	// }
+	// }
+	// return this.expressions.parser.toExpression(node)
+	// }
 }

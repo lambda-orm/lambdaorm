@@ -1,5 +1,5 @@
 import { Operand, OperandType, Type, IExpressions } from '3xpr'
-import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source } from '../contract'
+import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source, BulkInsert } from '../contract'
 import { MappingConfig, helper } from '../manager'
 import { Dialect } from '../language'
 const SqlString = require('sqlstring')
@@ -156,8 +156,8 @@ export abstract class DmlBuilder {
 		return template.trim()
 	}
 
-	protected buildInsert (operand: Insert, entity: EntityMapping): string {
-		let template = this.dialect.dml(operand.clause)
+	protected buildInsert (operand: Insert|BulkInsert, entity: EntityMapping): string {
+		let template = this.dialect.dml(operand instanceof BulkInsert ? 'bulkInsert' : 'insert')
 		const templateColumn = this.dialect.other('column')
 		const fields: string[] = []
 		const values: any[] = []
@@ -169,21 +169,27 @@ export abstract class DmlBuilder {
 			fields.push(templateColumn.replace('{name}', this.dialect.delimiter(autoIncrement.mapping)))
 			values.push(templateSequenceNextVal.replace('{name}', entity.sequence))
 		}
-		if (operand.children[0] instanceof Object) {
+		if (operand.children[0].type === OperandType.Obj) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
-				const keyVal = obj.children[p] as KeyValue
-
+				const keyVal = obj.children[p]
+				const property = entity.properties.find(q => q.name === keyVal.name)
 				let name: string
-				if (keyVal.property !== undefined) {
-					const property = entity.properties.find(q => q.name === keyVal.property)
-					if (property === undefined) {
-						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-					}
+				if (property) {
 					name = property.mapping
 				} else {
 					name = keyVal.name
 				}
+				// let name: string
+				// if (keyVal.property !== undefined) {
+				// const property = entity.properties.find(q => q.name === keyVal.property)
+				// if (property === undefined) {
+				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
+				// }
+				// name = property.mapping
+				// } else {
+				// name = keyVal.name
+				// }
 				fields.push(templateColumn.replace('{name}', this.dialect.delimiter(name)))
 				values.push(this.buildOperand(keyVal.children[0]))
 			}
@@ -205,15 +211,22 @@ export abstract class DmlBuilder {
 			for (const p in obj.children) {
 				const keyVal = obj.children[p]
 				let name: string
-				if (keyVal.property !== undefined) {
-					const property = entity.properties.find(q => q.name === keyVal.property)
-					if (property === undefined) {
-						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-					}
+				const property = entity.properties.find(q => q.name === keyVal.name)
+				if (property) {
 					name = property.mapping
 				} else {
 					name = keyVal.name
 				}
+				// let name: string
+				// if (keyVal.property !== undefined) {
+				// const property = entity.properties.find(q => q.name === keyVal.property)
+				// if (property === undefined) {
+				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
+				// }
+				// name = property.mapping
+				// } else {
+				// name = keyVal.name
+				// }
 				const column = templateColumn.replace('{name}', this.dialect.delimiter(name))
 				const value = this.buildOperand(keyVal.children[0])
 				let assign = templateAssign.replace('{0}', column)
@@ -371,7 +384,7 @@ export abstract class DmlBuilder {
 	protected buildVariable (operand: Operand): string {
 		const number = operand.number ? operand.number : 0
 		let text = this.dialect.other('variable')
-		text = text.replace('{name}', helper.transformParameter(operand.name))
+		text = text.replace('{name}', helper.sentence.transformParameter(operand.name))
 		text = text.replace('{number}', number.toString())
 		return text
 	}
@@ -384,7 +397,7 @@ export abstract class DmlBuilder {
 		case Type.string:
 			return SqlString.escape(operand.name)
 		case Type.boolean:
-			return operand.name.toString() === 'true'
+			return (operand.name.toString().toLowerCase() === 'true').toString()
 		case Type.integer:
 			return parseInt(operand.name).toString()
 		case Type.number:

@@ -10,7 +10,7 @@ export async function show (list:string[], data:any) {
 		try {
 			await orm.init('./src/dev/labs/countries/country.yaml')
 			const _info = orm.getInfo(expression)
-			info =helper.sentenceToArray(_info).join('\n')
+			info =helper.sentence.toArray(_info).join('\n')
 			const result = await orm.execute(expression, data)
 			let expect:any
 			if (result === null) {

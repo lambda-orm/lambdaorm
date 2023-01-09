@@ -1,7 +1,7 @@
 
 import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata, source, SentenceInfo, ObservableAction } from '../contract'
 import { SchemaManager, Routing, ViewConfig, helper } from '../manager'
-import { IExpressions, Type } from '3xpr'
+import { IExpressions, Type, OperandType } from '3xpr'
 import { MemoryCache, ICache } from 'h3lp'
 import { Sentence } from '../contract/operands'
 import { SentenceCompleter, SentenceBuilder } from '.'
@@ -170,11 +170,13 @@ export class SentenceManager {
 	private routing: Routing
 	private completer: SentenceCompleter
 	private cache: ICache<string, Sentence>
+	private expressions: IExpressions
 
 	constructor (schema: SchemaManager, expressions: IExpressions, routing: Routing) {
 		this.schema = schema
 		this.routing = routing
 		// this.serializer = new SentenceSerializer()
+		this.expressions = expressions
 		this.builder = new SentenceBuilder(schema, expressions)
 		this.completer = new SentenceCompleter(expressions)
 		this.cache = new MemoryCache<string, Sentence>()
@@ -333,6 +335,35 @@ export class SentenceManager {
 			result.children.push(child)
 		}
 		return result
+	}
+
+	/**
+	 * Convert a lambda expression to a query expression
+	 * @param lambda lambda expression
+	 * @returns Expression manager
+	 */
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	public toExpression (func: Function): string {
+		if (!func) {
+			throw new Error('empty lambda function}')
+		}
+		const expression = helper.sentence.clearLambda(func)
+		const operand = this.expressions.build(expression)
+		let aux = operand
+		while (aux.type !== OperandType.Var) {
+			if (aux.children.length > 0) {
+				aux = aux.children[0]
+			}
+		}
+		if (aux.name.includes('.')) {
+			// Example: __model_1.Products.map(p=>p) =>  Products.map(p=>p)
+			// Example: __model_1.Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
+			const names:string[] = aux.name.split('.')
+			if (names[0].startsWith('__')) {
+				aux.name = names.slice(1).join('.')
+			}
+		}
+		return helper.operand.toExpression(operand)
 	}
 
 	// private serialize (sentence: Sentence): string {

@@ -220,7 +220,7 @@ export class OracleConnection extends Connection {
 					const list:string[] = []
 					for (const _item of param.value) {
 						let item = _item
-						item = helper.escape(item)
+						item = helper.sentence.escape(item)
 						item = helper.str.replace(item, '\\\'', '\\\'\'')
 						list.push(item)
 					}

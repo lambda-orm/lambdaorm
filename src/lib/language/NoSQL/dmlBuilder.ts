@@ -1,6 +1,6 @@
 /* eslint-disable no-tabs */
 
-import { Operand } from '3xpr'
+import { Operand, OperandType } from '3xpr'
 import { SentenceCrudAction, SentenceAction, Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SchemaError, EntityMapping, RelationType } from '../../contract'
 import { DmlBuilder } from '../dmlBuilder'
 import { helper } from '../../manager'
@@ -142,9 +142,9 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		this.setPrefixToField(map, '$')
 
 		let projectColumns = ''
-		const columns:KeyValue[] = []
-		const groupColumns:KeyValue[] = []
-		if (map.children[0] instanceof Obj) {
+		const columns:Operand[] = []
+		const groupColumns:Operand[] = []
+		if (map.children[0].type === OperandType.Obj) {
 			const obj =	map.children[0]
 			for (const p in obj.children) {
 				const keyValue = obj.children[p]
@@ -163,8 +163,8 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				}
 			}
 		}
-		let columnsText = this.buildOperand(new Obj('obj', columns))
-		const groupColumnsText = this.buildOperand(new Obj('obj', groupColumns))
+		let columnsText = this.buildOperand(new Operand(map.pos, 'obj', OperandType.Obj, columns))
+		const groupColumnsText = this.buildOperand(new Operand(map.pos, 'obj', OperandType.Obj, groupColumns))
 		const composite = this.getComposite(sentence)
 		if (composite) {
 			columnsText = `${columnsText} ,${composite}`
@@ -185,20 +185,13 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (composite) {
 			mapText = `${mapText} ,${composite}`
 		}
-		if (map.children[0] instanceof FunctionRef && map.children[0].name === 'distinct') {
+		if (map.children[0].type === OperandType.CallFunc && map.children[0].name === 'distinct') {
 			// https://www.MongoDB.com/docs/manual/reference/operator/aggregation/group/
 			return mapText
 		} else {
 			const template = this.hadGroupFunction(map) ? this.dialect.dml('mapGroup') : this.dialect.dml('rootMap')
 			const result = template.replace('{0}', mapText)
-			// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
-			return helper.str.replace(result, '"$this.', '"$$this.')
-			// Example:
-			// {
-			// 	$project: {
-			// 		_id: 0,
-			// 		id: '$CustomerID',
-			// 		details: {
+			return result
 			// 			$map: {
 			// 				input: '$"Order Details"',
 			// 				in: {
@@ -377,20 +370,27 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		const assigns: string[] = []
 		const template = this.dialect.dml('insert')
 		const templateAssign = this.dialect.operator('=', 2)
-		if (operand.children[0] instanceof Object) {
+		if (operand.children[0].type === OperandType.Obj) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
-				const keyVal = obj.children[p] as KeyValue
+				const keyVal = obj.children[p]
 				let name: string
-				if (keyVal.property !== undefined) {
-					const property = entity.properties.find(q => q.name === keyVal.property)
-					if (property === undefined) {
-						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-					}
+				const property = entity.properties.find(q => q.name === keyVal.name)
+				if (property) {
 					name = property.mapping
 				} else {
 					name = keyVal.name
 				}
+				// let name: string
+				// if (keyVal.property !== undefined) {
+				// const property = entity.properties.find(q => q.name === keyVal.property)
+				// if (property === undefined) {
+				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
+				// }
+				// name = property.mapping
+				// } else {
+				// name = keyVal.name
+				// }
 				const value = this.buildOperand(keyVal.children[0])
 				let assign = templateAssign.replace('{0}', name)
 				assign = assign.replace('{1}', value)
@@ -405,20 +405,27 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		const templateAssign = this.dialect.operator('=', 2)
 		const assigns: string[] = []
 
-		if (operand.children[0] instanceof Object) {
+		if (operand.children[0].type === OperandType.Obj) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
-				const keyVal = obj.children[p] as KeyValue
+				const keyVal = obj.children[p]
 				let name: string
-				if (keyVal.property !== undefined) {
-					const property = entity.properties.find(q => q.name === keyVal.property)
-					if (property === undefined) {
-						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-					}
+				const property = entity.properties.find(q => q.name === keyVal.name)
+				if (property) {
 					name = property.mapping
 				} else {
 					name = keyVal.name
 				}
+				// let name: string
+				// if (keyVal.property !== undefined) {
+				// const property = entity.properties.find(q => q.name === keyVal.property)
+				// if (property === undefined) {
+				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
+				// }
+				// name = property.mapping
+				// } else {
+				// name = keyVal.name
+				// }
 				const field = this.dialect.delimiter(name)
 				const value = this.buildOperand(keyVal.children[0])
 				let assign = templateAssign.replace('{0}', field)
@@ -450,7 +457,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 	}
 
-	protected override buildObject (operand: Obj): string {
+	protected override buildObject (operand: Operand): string {
 		let text = ''
 		const template = this.dialect.function('as').template
 		for (let i = 0; i < operand.children.length; i++) {
@@ -470,7 +477,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		if (operand.children) {
 			for (const p in operand.children) {
 				const child = operand.children[p]
-				if (child instanceof Operator && (child.name === '=' || child.name === '==' || child.name === '===' || child.name === '!=' || child.name === '!==')) {
+				if (child.type === OperandType.Operator && (child.name === '=' || child.name === '==' || child.name === '===' || child.name === '!=' || child.name === '!==')) {
 					// solo debe agregar $ si el field esta del lado del value   {key:value}
 					// pero en este caso { "$match" : { "$_id":{{id}} } }  no debería agregarlo al key = _id"
 					const valueOperand = child.children[1]
@@ -483,7 +490,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 	}
 
 	protected hadGroupFunction (operand: Operand):boolean {
-		if (operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].includes(operand.name)) {
+		if (operand.type === OperandType.CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].includes(operand.name)) {
 			return true
 		}
 		if (operand.children) {

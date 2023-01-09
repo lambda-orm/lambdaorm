@@ -2,6 +2,7 @@
 import { Query, ExecuteResult, QueryOptions } from '../contract'
 import { ConnectionManager } from '../connection'
 import { SchemaManager, Transaction } from '.'
+import { SentenceManager } from '../sentence'
 import { Languages } from '../language'
 import { QueryManager, QueryExecutor } from '../query'
 import { IExpressions } from '3xpr'
@@ -12,11 +13,13 @@ export class Executor {
 	private schemaManager: SchemaManager
 	private queryManager: QueryManager
 	private expressions: IExpressions
+	private sentenceManager:SentenceManager
 
-	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, queryManager: QueryManager, expressions: IExpressions) {
+	constructor (connectionManager: ConnectionManager, languages: Languages, schemaManager: SchemaManager, sentenceManager:SentenceManager, queryManager: QueryManager, expressions: IExpressions) {
 		this.connectionManager = connectionManager
 		this.languages = languages
 		this.schemaManager = schemaManager
+		this.sentenceManager = sentenceManager
 		this.queryManager = queryManager
 		this.expressions = expressions
 	}
@@ -79,7 +82,7 @@ export class Executor {
 		const queryExecutor = new QueryExecutor(this.connectionManager, this.languages, this.schemaManager, this.expressions, options, true)
 		let error: any
 		try {
-			const transaction = new Transaction(this.queryManager, queryExecutor)
+			const transaction = new Transaction(this.sentenceManager, this.queryManager, queryExecutor)
 			await callback(transaction)
 			await queryExecutor.commit()
 		} catch (_error) {
