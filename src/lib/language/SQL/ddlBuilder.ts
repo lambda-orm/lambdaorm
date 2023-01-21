@@ -31,7 +31,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 	}
 
 	private createColumn (entity: EntityMapping, property: PropertyMapping): string {
-		let type = this.dialect.type(Type.toString(property.type))
+		let type = this.dialect.type(property.type)
 		if (type === undefined) {
 			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
 		}
@@ -109,7 +109,7 @@ export class SqlDDLBuilder extends LanguageDDLBuilder {
 
 	private property (entity: EntityMapping, property: Property):string {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name)
-		let type = this.dialect.type(Type.toString(property.type))
+		let type = this.dialect.type(property.type)
 		if (type === undefined) {
 			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
 		}

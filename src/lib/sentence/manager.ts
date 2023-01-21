@@ -1,9 +1,8 @@
 
-import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata, source, SentenceInfo, ObservableAction } from '../contract'
+import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata, source, Sentence, SentenceInfo, ObservableAction } from '../contract'
 import { SchemaManager, Routing, ViewConfig, helper } from '../manager'
 import { IExpressions, Type, OperandType } from '3xpr'
 import { MemoryCache, ICache } from 'h3lp'
-import { Sentence } from '../contract/operands'
 import { SentenceCompleter, SentenceBuilder } from '.'
 
 // class SentenceSerializer {
@@ -144,7 +143,7 @@ import { SentenceCompleter, SentenceBuilder } from '.'
 // return new exp.Catch(value.name, children, value.type)
 // case 'Throw':
 // return new exp.Throw(value.name, children, value.type)
-// case 'Case':
+// case 'Case':string
 // return new exp.Case(value.name, children, value.type)
 // case 'Default':
 // return new exp.Default(value.name, children, value.type)
@@ -186,25 +185,6 @@ export class SentenceManager {
 		return this.builder.normalize(expression)
 	}
 
-	public create (expression: string, view: ViewConfig, stage:string): Sentence {
-		const expressionKey = helper.utils.hashCode(expression)
-		const key = `${expressionKey}-${stage}-${view.name}`
-		const value = this.cache.get(key)
-		if (value) {
-			return value
-		}
-		const sentence = this.builder.build(expression)
-		this.complete(sentence, view, stage as string)
-		this.cache.set(key, sentence)
-		return sentence
-	}
-
-	public getDataSource (sentence: Sentence, stage: string): source {
-		const sentenceInfo: SentenceInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
-		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
-		return this.schema.source.get(dataSourceName)
-	}
-
 	/**
 	 * Get model of expression
 	 * @param expression expression
@@ -243,6 +223,25 @@ export class SentenceManager {
 	public metadata (expression: string): Metadata {
 		const sentence = this.builder.build(expression)
 		return this.metadataFromSentence(sentence)
+	}
+
+	public create (expression: string, view: ViewConfig, stage:string): Sentence {
+		const expressionKey = helper.utils.hashCode(expression)
+		const key = `${expressionKey}-${stage}-${view.name}`
+		const value = this.cache.get(key)
+		if (value) {
+			return value
+		}
+		const sentence = this.builder.build(expression)
+		this.complete(sentence, view, stage as string)
+		this.cache.set(key, sentence)
+		return sentence
+	}
+
+	public getDataSource (sentence: Sentence, stage: string): source {
+		const sentenceInfo: SentenceInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
+		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
+		return this.schema.source.get(dataSourceName)
 	}
 
 	private metadataFromSentence (sentence: Sentence): Metadata {
@@ -286,7 +285,7 @@ export class SentenceManager {
 		const result: MetadataModel[] = []
 		for (const column of sentence.columns) {
 			if (!column.name.startsWith('__')) {
-				result.push({ name: column.name, type: Type.toString(column.type) })
+				result.push({ name: column.name, type: column.type })
 			}
 		}
 		const includes = sentence.getIncludes()

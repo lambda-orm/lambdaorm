@@ -1,19 +1,35 @@
+/* eslint-disable no-case-declarations */
 
-import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity } from '../contract'
+import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity, SentenceCrudAction } from '../contract'
 import { ModelConfig, SchemaManager } from '../manager'
-import { Operand, Parameter, OperandType, Type, IExpressions, Position, helper, IParameterManager, ITypeManager } from '3xpr'
+import { Operand, Parameter, OperandType, Type, IExpressions, Position, helper, ITypeManager, Kind } from '3xpr'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../contract/operands'
-import { SentenceNormalizer, SentenceTypeManager, SentenceParameterManager } from '.'
+import { SentenceNormalizer, SentenceTypeManager } from '.'
 
 class SentenceHelper {
-	private modelConfig: ModelConfig
+	private model: ModelConfig
 
-	constructor (modelConfig: ModelConfig) {
-		this.modelConfig = modelConfig
+	constructor (model: ModelConfig) {
+		this.model = model
+	}
+
+	public getClauses (operand: Operand): any {
+		const sentence: any = {}
+		let current = operand
+		while (current) {
+			const name = current.type === OperandType.Var ? 'from' : current.name
+			sentence[name] = current
+			if (current.children.length > 0) {
+				current = current.children[0]
+			} else {
+				break
+			}
+		}
+		return sentence
 	}
 
 	public getPropertiesFromParameters (entityName: string, parameters: Parameter[]): Property[] {
-		const entity = this.modelConfig.getEntity(entityName)
+		const entity = this.model.getEntity(entityName)
 		const properties: Property[] = []
 		if (entity && entity.properties && parameters) {
 			for (const parameter of parameters) {
@@ -25,7 +41,121 @@ class SentenceHelper {
 		}
 		return properties
 	}
+
+	public groupByFields (operand: Operand): Field[] {
+		const data = { fields: [], groupBy: false }
+		this._groupByFields(operand, data)
+		return data.groupBy ? data.fields : []
+	}
+
+	private _groupByFields (operand: Operand, data: any): void {
+		if (operand instanceof Field) {
+			data.fields.push(operand)
+		} else if (operand.type === OperandType.CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+			data.groupBy = true
+		} else if (!(operand instanceof Sentence)) {
+			for (const k in operand.children) {
+				const p = operand.children[k]
+				this._groupByFields(p, data)
+			}
+		}
+	}
+
+	public fieldsInSelect (operand: Operand): Property[] {
+		const fields: Property[] = []
+		if (operand.children.length === 1) {
+			let child: Operand
+			if (operand.children[0].type === OperandType.CallFunc && operand.children[0].name === 'distinct') {
+				child = operand.children[0].children[0]
+			} else {
+				child = operand.children[0]
+			}
+			if (child.type === OperandType.Obj) {
+				const obj = child
+				for (const keyVal of obj.children) {
+					if (keyVal.returnType !== undefined && keyVal.returnType.kind !== Kind.any) {
+						fields.push({ name: keyVal.name, type: keyVal.returnType.kind })
+					} else if (keyVal.children[0] instanceof Field) {
+						const _field = keyVal.children[0]
+						fields.push({ name: keyVal.name, type: Type.toString(_field.returnType) })
+						fields.push({ name: keyVal.name, type: 'any' })
+					} else {
+						fields.push({ name: keyVal.name, type: 'any' })
+					}
+				}
+			}
+		}
+		return fields
+	}
+
+	public fieldsInModify (operand: Operand, entityName: string): Property[] {
+		const fields: Property[] = []
+		if (operand.children.length === 1) {
+			if (operand.children[0].type === OperandType.Obj) {
+				const obj = operand.children[0]
+				for (const p in obj.children) {
+					const keyVal = obj.children[p]
+					const property = this.model.getProperty(entityName, keyVal.name)
+					const field = { name: keyVal.name, type: property.type }
+					// keyVal.property = property.name // new Field(entity,property.name,property.type,property.mapping)
+					fields.push(field)
+				}
+			}
+		}
+		return fields
+	}
+
+	public getColumns (sentence: Sentence): Property[] {
+		switch (sentence.crudAction) {
+		case SentenceCrudAction.select:
+			const map = sentence.children.find(p => p.name === 'map') as Map
+			return this.fieldsInSelect(map)
+		case SentenceCrudAction.insert:
+			const insert = sentence.children.find(p => p instanceof Insert) as Insert
+			return this.fieldsInModify(insert, sentence.entity)
+		case SentenceCrudAction.update:
+			const update = sentence.children.find(p => p instanceof Update) as Update
+			return this.fieldsInModify(update, sentence.entity)
+		case SentenceCrudAction.delete:
+			const _delete = sentence.children.find(p => p instanceof Delete) as Delete
+			return this.fieldsInModify(_delete, sentence.entity)
+		default:
+			throw new SintaxisError(`sentence crud action ${sentence.crudAction} not found`)
+		}
+	}
+
+	public getParameters (sentence: Sentence): Parameter[] {
+		const map = sentence.children.find(p => p instanceof Map) as Map | undefined
+		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
+		const groupBy = sentence.children.find(p => p instanceof GroupBy) as GroupBy | undefined
+		const having = sentence.children.find(p => p instanceof Having) as Having | undefined
+		const sort = sentence.children.find(p => p instanceof Sort) as Sort | undefined
+		const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
+		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
+		const _delete = sentence.children.find(p => p instanceof Delete) as Delete | undefined
+
+		const parameters: Parameter[] = []
+		if (map) this.loadParameters(map, parameters)
+		if (insert) this.loadParameters(insert, parameters)
+		if (update) this.loadParameters(update, parameters)
+		if (_delete) this.loadParameters(_delete, parameters)
+		if (filter) this.loadParameters(filter, parameters)
+		if (groupBy) this.loadParameters(groupBy, parameters)
+		if (having) this.loadParameters(having, parameters)
+		if (sort) this.loadParameters(sort, parameters)
+		return parameters
+	}
+
+	private loadParameters (operand: Operand, parameters: Parameter[]) {
+		if (operand.type === OperandType.Var) {
+			parameters.push({ name: operand.name, type: Type.toString(operand.returnType) })
+		}
+		for (const child of operand.children) {
+			this.loadParameters(child, parameters)
+		}
+	}
 }
+
 class EntityContext {
 	// eslint-disable-next-line no-use-before-define
 	public parent?: EntityContext
@@ -226,20 +356,19 @@ class SentenceSolveBehaviors {
 export class SentenceBuilder {
 	private schema: SchemaManager
 	private typeManager: ITypeManager
-	private parameterManager: IParameterManager
 	private solveBehaviors: SentenceSolveBehaviors
 	private solveConstraints : SentenceSolveConstraints
 	private normalizer: SentenceNormalizer
 	private expressions: IExpressions
+	private helper:SentenceHelper
 
 	constructor (schema: SchemaManager, expressions: IExpressions) {
 		this.schema = schema
 		this.expressions = expressions
-		const helper = new SentenceHelper(this.schema.model)
+		this.helper = new SentenceHelper(this.schema.model)
 		this.typeManager = new SentenceTypeManager(this.schema.model, expressions.model)
-		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, helper)
-		this.parameterManager = new SentenceParameterManager()
-		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, helper, expressions)
+		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, this.helper)
+		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, this.helper, expressions)
 		this.normalizer = new SentenceNormalizer(expressions.model, schema)
 	}
 
@@ -247,8 +376,8 @@ export class SentenceBuilder {
 		try {
 			const operand = this.expressions.build(expression)
 			const normalized = this.normalizer.normalize(operand)
-			const sentence = this.nodeToOperand(normalized, new ExpressionContext(new EntityContext()))
-			return helper.operand.toExpression(sentence)
+			// const sentence = this.solve(normalized, new ExpressionContext(new EntityContext()))
+			return helper.operand.toExpression(normalized)
 		} catch (error: any) {
 			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
 		}
@@ -257,11 +386,11 @@ export class SentenceBuilder {
 	public build (expression: string): Sentence {
 		const operand = this.expressions.build(expression)
 		const normalized = this.normalizer.normalize(operand)
-		const sentence = this.nodeToOperand(normalized, new ExpressionContext(new EntityContext())) as Sentence
+		const sentence = this.solve(normalized, new ExpressionContext(new EntityContext())) as Sentence
 		return sentence
 	}
 
-	private nodeToOperand (operand: Operand, expressionContext: ExpressionContext): Operand {
+	private solve (operand: Operand, expressionContext: ExpressionContext): Operand {
 		if (operand.type === OperandType.Arrow || operand.type === OperandType.ChildFunc) {
 			return this.createSentence(operand, expressionContext)
 		} else if (operand.type === OperandType.Var) {
@@ -289,11 +418,11 @@ export class SentenceBuilder {
 	private createSimpleField (pos: Position, parts: string[], expressionContext: ExpressionContext): Operand {
 		const _field = expressionContext.current.fields.find(p => p.name === parts[1])
 		if (_field) {
-			return new Field(pos, expressionContext.current.entityName, _field.name, _field.type, expressionContext.current.alias, true)
+			return new Field(pos, expressionContext.current.entityName, _field.name, Type.to(_field.type), expressionContext.current.alias, true)
 		} else {
 			if (this.schema.model.existsProperty(expressionContext.current.entityName, parts[1])) {
 				const property = this.schema.model.getProperty(expressionContext.current.entityName, parts[1])
-				return new Field(pos, expressionContext.current.entityName, property.name, property.type, expressionContext.current.alias, true)
+				return new Field(pos, expressionContext.current.entityName, property.name, Type.to(property.type), expressionContext.current.alias, true)
 			} else {
 				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, parts[1])
 				if (relationInfo) {
@@ -315,7 +444,7 @@ export class SentenceBuilder {
 		const relationAlias = expressionContext.current.joins[relation]
 		const property = info.entity.properties.find(p => p.name === propertyName)
 		if (property) {
-			return new Field(pos, info.entity.name, property.name, property.type, relationAlias, false)
+			return new Field(pos, info.entity.name, property.name, Type.to(property.type), relationAlias, false)
 		} else {
 			const childRelation = info.entity.relations.find(p => p.name === propertyName)
 			if (childRelation) {
@@ -331,7 +460,7 @@ export class SentenceBuilder {
 
 	private createSentence (operand: Operand, expressionContext: ExpressionContext): Sentence {
 		expressionContext.current = new EntityContext(expressionContext.current)
-		const clauses: any = this.getSentence(operand)
+		const clauses: any = this.helper.getClauses(operand)
 		expressionContext.current.entityName = clauses.from.name
 		// expressionContext.current.metadata = this.modelConfig.getEntity(expressionContext.current.entityName)
 		expressionContext.current.alias = this.createAlias(expressionContext, expressionContext.current.entityName)
@@ -368,7 +497,9 @@ export class SentenceBuilder {
 			throw new SintaxisError('Sentence incomplete')
 		}
 		this.typeManager.type(sentence)
-		sentence.parameters = this.parameterManager.parameters(sentence)
+		// Solve columns
+		sentence.columns = this.helper.getColumns(sentence)
+		sentence.parameters = this.helper.getParameters(sentence)
 		this.solveBehaviors.solve(sentence)
 		this.solveConstraints.solve(sentence)
 		return sentence
@@ -376,8 +507,8 @@ export class SentenceBuilder {
 
 	private createSentenceSelect (pos: Position, clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
 		const selectOperand = this.createMapClause(clauses.map, expressionContext)
-		expressionContext.current.fields = this.fieldsInSelect(selectOperand)
-		expressionContext.current.groupByFields = this.groupByFields(selectOperand)
+		expressionContext.current.fields = this.helper.fieldsInSelect(selectOperand)
+		expressionContext.current.groupByFields = this.helper.groupByFields(selectOperand)
 		children.push(selectOperand)
 
 		if (expressionContext.current.groupByFields.length > 0) {
@@ -402,7 +533,7 @@ export class SentenceBuilder {
 			if (!clauses.sort) {
 				throw new SintaxisError('Sort clause is required when using Page clause')
 			}
-			const pageChildren = clauses.page.children.filter((p: Operand) => p.type !== OperandType.Arrow).map((q: Operand) => this.nodeToOperand(q, expressionContext)) as Operand[]
+			const pageChildren = clauses.page.children.filter((p: Operand) => p.type !== OperandType.Arrow).map((q: Operand) => this.solve(q, expressionContext)) as Operand[]
 			children.push(new Page(pos, clauses.page.name, OperandType.Arrow, pageChildren))
 		}
 
@@ -416,8 +547,7 @@ export class SentenceBuilder {
 			SentenceAction.select,
 			children,
 			expressionContext.current.entityName,
-			expressionContext.current.alias,
-			expressionContext.current.fields
+			expressionContext.current.alias
 		)
 	}
 
@@ -434,7 +564,7 @@ export class SentenceBuilder {
 		} else {
 			throw new SintaxisError('clause modify undefined')
 		}
-		expressionContext.current.fields = this.fieldsInModify(operand, expressionContext)
+		expressionContext.current.fields = this.helper.fieldsInModify(operand, expressionContext.current.entityName)
 		children.push(operand)
 
 		if (clauses.include) {
@@ -445,8 +575,8 @@ export class SentenceBuilder {
 			name,
 			children,
 			expressionContext.current.entityName,
-			expressionContext.current.alias,
-			expressionContext.current.fields)
+			expressionContext.current.alias
+		)
 	}
 
 	private createSentenceDelete (pos:Position, clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
@@ -461,8 +591,7 @@ export class SentenceBuilder {
 			SentenceAction.update,
 			children,
 			expressionContext.current.entityName,
-			expressionContext.current.alias,
-			expressionContext.current.fields
+			expressionContext.current.alias
 		)
 	}
 
@@ -494,8 +623,8 @@ export class SentenceBuilder {
 			const relationProperty = info.entity.properties.find(p => p.name === info.relation.to) as Property
 			// TODO: Here use the key to add the corresponding filter
 			// if an entity has one or more properties with a key, a filter must be added by the key
-			const relatedField = new Field(pos, relatedEntity, info.relation.from, relatedProperty.type, relatedAlias)
-			const relationField = new Field(pos, relationEntity, info.relation.to, relationProperty.type, relationAlias)
+			const relatedField = new Field(pos, relatedEntity, info.relation.from, Type.to(relatedProperty.type), relatedAlias)
+			const relationField = new Field(pos, relationEntity, info.relation.to, Type.to(relationProperty.type), relationAlias)
 			const equal = new Operand(pos, '==', OperandType.Operator, [relationField, relatedField], Type.boolean)
 			const operand = new Join(pos, relationEntity, [equal], relatedEntity, relationAlias)
 			children.push(operand)
@@ -504,7 +633,7 @@ export class SentenceBuilder {
 
 	private createClause (clause: Operand, expressionContext: ExpressionContext): Operand {
 		expressionContext.current.arrowVar = clause.children[1].name
-		const child = this.nodeToOperand(clause.children[2], expressionContext)
+		const child = this.solve(clause.children[2], expressionContext)
 		switch (clause.name) {
 		case 'filter': return new Filter(clause.pos, clause.name, clause.type, [child])
 		case 'having': return new Having(clause.pos, clause.name, clause.type, [child])
@@ -516,7 +645,7 @@ export class SentenceBuilder {
 	private createMapClause (clause: Operand, expressionContext: ExpressionContext): Operand {
 		if (clause.children.length === 3) {
 			expressionContext.current.arrowVar = clause.children[1].name
-			const child = this.nodeToOperand(clause.children[2], expressionContext)
+			const child = this.solve(clause.children[2], expressionContext)
 			return new Map(clause.pos, clause.name, clause.type, [child])
 		}
 		throw new SintaxisError('Sentence Map incorrect!!!')
@@ -526,13 +655,13 @@ export class SentenceBuilder {
 		if (clause.children.length === 2) {
 			// Example: Categories.insert({ name: name, description: description })
 			if (clause.children[1].type === OperandType.Obj) {
-				const child = this.nodeToOperand(clause.children[1], expressionContext)
+				const child = this.solve(clause.children[1], expressionContext)
 				return new Insert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 			} else { throw new SintaxisError('Args incorrect in Sentence Insert') }
 		} else if (clause.children.length === 3) {
 			// Example: Categories.insert(() => ({ name: name, description: description }))
 			if (clause.children[2].type === OperandType.Obj) {
-				const child = this.nodeToOperand(clause.children[2], expressionContext)
+				const child = this.solve(clause.children[2], expressionContext)
 				return new Insert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 			} else { throw new SintaxisError('Args incorrect in Sentence Insert') }
 		}
@@ -543,7 +672,7 @@ export class SentenceBuilder {
 		if (clause.children.length === 2) {
 			if (clause.children[1].type === OperandType.Obj) {
 				// Example: Orders.update({name:'test'})
-				const child = this.nodeToOperand(clause.children[1], expressionContext)
+				const child = this.solve(clause.children[1], expressionContext)
 				return new Update(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 			} else {
 				throw new SintaxisError('Args incorrect in Sentence Update')
@@ -551,7 +680,7 @@ export class SentenceBuilder {
 		} else if (clause.children.length === 3) {
 			// Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
 			expressionContext.current.arrowVar = clause.children[1].name
-			const child = this.nodeToOperand(clause.children[2], expressionContext)
+			const child = this.solve(clause.children[2], expressionContext)
 			return new Update(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 		}
 		throw new SintaxisError('Sentence Update incorrect!!!')
@@ -580,6 +709,7 @@ export class SentenceBuilder {
 
 	private createInclude (operand: Operand, expressionContext: ExpressionContext): SentenceInclude {
 		let current = operand
+
 		while (current) {
 			if (current.type === OperandType.Var) {
 				// p.details
@@ -597,21 +727,6 @@ export class SentenceBuilder {
 		throw new SintaxisError('Error to create SentenceInclude')
 	}
 
-	private getSentence (operand: Operand): any {
-		const sentence: any = {}
-		let current = operand
-		while (current) {
-			const name = current.type === OperandType.Var ? 'from' : current.name
-			sentence[name] = current
-			if (current.children.length > 0) {
-				current = current.children[0]
-			} else {
-				break
-			}
-		}
-		return sentence
-	}
-
 	private addJoins (parts: string[], to: number, expressionContext: ExpressionContext): string {
 		let relation = ''
 		for (let i = 1; i < to; i++) {
@@ -621,25 +736,6 @@ export class SentenceBuilder {
 			}
 		}
 		return relation
-	}
-
-	private groupByFields (operand: Operand): Field[] {
-		const data = { fields: [], groupBy: false }
-		this._groupByFields(operand, data)
-		return data.groupBy ? data.fields : []
-	}
-
-	private _groupByFields (operand: Operand, data: any): void {
-		if (operand instanceof Field) {
-			data.fields.push(operand)
-		} else if (operand.type === OperandType.CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
-			data.groupBy = true
-		} else if (!(operand instanceof Sentence)) {
-			for (const k in operand.children) {
-				const p = operand.children[k]
-				this._groupByFields(p, data)
-			}
-		}
 	}
 
 	private createAlias (expressionContext: ExpressionContext, name: string, relation?: string): string {
@@ -652,54 +748,5 @@ export class SentenceBuilder {
 		}
 		expressionContext.aliases[alias] = relation || name
 		return alias
-	}
-
-	private fieldsInSelect (operand: Operand): Property[] {
-		const fields: Property[] = []
-		if (operand.children.length === 1) {
-			let child: Operand
-			if (operand.children[0].type === OperandType.CallFunc && operand.children[0].name === 'distinct') {
-				child = operand.children[0].children[0]
-			} else {
-				child = operand.children[0]
-			}
-			if (child.type === OperandType.Obj) {
-				const obj = child
-				for (const keyVal of obj.children) {
-					if (keyVal.children[0] instanceof Field) {
-						const _field = keyVal.children[0]
-						const field = { name: keyVal.name, type: _field.returnType as Type }
-						fields.push(field)
-					} else {
-						const field = { name: keyVal.name, type: Type.any }
-						fields.push(field)
-					}
-				}
-			}
-		}
-		return fields
-	}
-
-	/**
-	* change name of property by mapping and return fields for clause update or insert
-	* @param operand clause update or update
-	* @param expressionContext current ExpressionContext
-	* @returns fields to execute query
-	*/
-	private fieldsInModify (operand: Operand, expressionContext: ExpressionContext): Property[] {
-		const fields: Property[] = []
-		if (operand.children.length === 1) {
-			if (operand.children[0] instanceof Object) {
-				const obj = operand.children[0]
-				for (const p in obj.children) {
-					const keyVal = obj.children[p]
-					const property = this.schema.model.getProperty(expressionContext.current.entityName, keyVal.name)
-					const field = { name: keyVal.name, type: property.type }
-					// keyVal.property = property.name // new Field(expressionContext.current.entity,property.name,property.type,property.mapping)
-					fields.push(field)
-				}
-			}
-		}
-		return fields
 	}
 }

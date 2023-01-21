@@ -1,6 +1,6 @@
 import { MappingConfig, ViewConfig } from '../manager'
 import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, PropertyMapping, PropertyView, SentenceAction } from '../contract'
-import { IExpressions, Operand, OperandType } from '3xpr'
+import { IExpressions, Operand, OperandType, Type } from '3xpr'
 
 export class SentenceCompleter {
 	protected expressions: IExpressions
@@ -193,7 +193,7 @@ export class SentenceCompleter {
 					if (sourceName && source && property.name === sourceName) {
 						operand.children[i] = source
 					} else {
-						operand.children[i] = new Field(operand.pos, entity.name, child.name, property.type, alias)
+						operand.children[i] = new Field(operand.pos, entity.name, child.name, Type.to(property.type), alias)
 					}
 				}
 			} else if (child.children && child.children.length > 0) {

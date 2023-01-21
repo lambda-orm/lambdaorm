@@ -1,4 +1,3 @@
-import { Type } from '3xpr'
 
 export enum RelationType {
 	oneToMany = 'oneToMany',
@@ -19,7 +18,7 @@ export interface Constraint {
 }
 export interface Property {
 	name: string
-	type: Type
+	type: string
 	length?: number
 	required?: boolean
 	primaryKey?: boolean

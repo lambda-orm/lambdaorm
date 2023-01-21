@@ -1,6 +1,6 @@
 import { ModelConfig } from '../manager'
-import { Operand, OperandType, Type, IModelManager, TypeManager } from '3xpr'
-import { Insert, Update } from '../contract/operands'
+import { Operand, OperandType, Kind, Type, IModelManager, TypeManager } from '3xpr'
+import { SintaxisError, SentenceCrudAction, Sentence, Map, From, Join, Filter, GroupBy, Having, Sort, Page, Field } from '../contract'
 
 export class SentenceTypeManager extends TypeManager {
 	private config: ModelConfig
@@ -9,24 +9,116 @@ export class SentenceTypeManager extends TypeManager {
 		this.config = config
 	}
 
-	protected override solveArrow (arrow: Operand): void {
-		if (arrow instanceof Update || arrow instanceof Insert) {
-			this.solveTypeInsertUpdateFromModel(arrow)
+	public override type (operand: Operand) {
+		if (operand instanceof Sentence) {
+			const sentence = operand as Sentence
+			this.solveTypeSentence(sentence)
+			for (const child of sentence.children) {
+				if (!(child instanceof From)) {
+					this.solveTemplate(child.children[0])
+					this.setUndefinedAsAny(child.children[0])
+				}
+			}
 		} else {
-			super.solveArrow(arrow)
+			this.solveType(operand)
+			this.solveTemplate(operand)
+			this.setUndefinedAsAny(operand)
+		}
+		return operand.returnType || Type.any
+	}
+
+	// protected override solveArrow (arrow: Operand): void {
+	// if (arrow instanceof Sentence) {
+	// const sentence = arrow as Sentence
+	// this.solveTypeSentence(sentence)
+	// } else {
+	// super.solveArrow(arrow)
+	// }
+	// }
+
+	private solveTypeSentence (sentence: Sentence): void {
+		switch (sentence.crudAction) {
+		case SentenceCrudAction.select:
+			this.solveTypeSelect(sentence)
+			break
+		case SentenceCrudAction.insert:
+		case SentenceCrudAction.update:
+		case SentenceCrudAction.delete:
+			this.solveTypeModify(sentence)
+			break
+		default:
+			throw new SintaxisError(`sentence crud action ${sentence.crudAction} not found`)
 		}
 	}
 
-	private solveTypeInsertUpdateFromModel (operand: Operand):void {
+	private solveTypeSelect (sentence: Sentence):void {
+		const map = sentence.children.find(p => p.name === 'map') as Map
+		const joins = sentence.children.filter(p => p instanceof Join) as Join[]
+		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
+		const groupBy = sentence.children.find(p => p.name === 'groupBy') as GroupBy | undefined
+		const having = sentence.children.find(p => p.name === 'having') as Having | undefined
+		const sort = sentence.children.find(p => p.name === 'sort') as Sort | undefined
+		const page = sentence.children.find(p => p.name === 'page') as Page | undefined
+
+		this.solveFields(map.children[0], sentence.entity)
+		this.solveType(map.children[0])
+		if (joins) {
+			for (const join of joins) {
+				this.solveFields(join.children[0], sentence.entity, map.children[0].children)
+				this.solveType(join.children[0])
+			}
+		}
+		if (filter) {
+			this.solveFields(filter.children[0], sentence.entity, map.children[0].children)
+			this.solveType(filter.children[0])
+		}
+		if (groupBy) {
+			this.solveFields(groupBy.children[0], sentence.entity, map.children[0].children)
+			this.solveType(groupBy.children[0])
+		}
+		if (having) {
+			this.solveFields(having.children[0], sentence.entity, map.children[0].children)
+			this.solveType(having.children[0])
+		}
+		if (sort) {
+			this.solveFields(sort.children[0], sentence.entity, map.children[0].children)
+			this.solveType(sort.children[0])
+		}
+		if (page) {
+			this.solveType(page)
+		}
+	}
+
+	private solveFields (operand: Operand, entityName:string, keyVals: Operand[] = []):void {
+		if (operand instanceof Field && (operand.returnType === undefined || operand.returnType.kind === Kind.any)) {
+			const keyVal = keyVals.find(p => p.name === operand.name)
+			if (keyVal) {
+				// Example: Users.map(=> { name: firstname + ", " + lastname }).sort(p=> p.name)
+				operand.returnType = keyVal.returnType
+			} else {
+				// Example: Users.map(=> { name: firstname + ", " + lastname }).sort(p=> p.lastname)
+				// Users.map(=> { name: firstname + ", " + lastname }).sort(p=> p.username)
+				const property = this.config.getProperty(entityName, operand.name)
+				if (property) {
+					operand.returnType = Type.to(property.type)
+				}
+			}
+		} else {
+			for (const child of operand.children) {
+				this.solveFields(child, entityName, keyVals)
+			}
+		}
+	}
+
+	private solveTypeModify (operand: Operand):void {
 		if (operand.children.length === 1) {
 			if (operand.children[0].type === OperandType.Obj) {
 				const obj = operand.children[0]
-				for (const p in obj.children) {
-					const keyVal = obj.children[p]
+				for (const keyVal of obj.children) {
 					const entityName = operand.name
 					const property = this.config.getProperty(entityName, keyVal.name)
 					if (keyVal.children[0].returnType === Type.any) {
-						keyVal.children[0].returnType = property.type
+						keyVal.children[0].returnType = Type.to(property.type)
 					}
 				}
 			}

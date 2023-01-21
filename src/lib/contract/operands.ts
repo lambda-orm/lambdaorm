@@ -111,13 +111,13 @@ export class Sentence extends Operand {
 	public values: Behavior[]
 	public defaults: Behavior[]
 
-	constructor (pos:Position, name: string, children: Operand[], entity: string, alias: string, columns: Property[]) {
+	constructor (pos:Position, name: string, children: Operand[], entity: string, alias: string) {
 		super(pos, name, OperandType.Arrow, children, Type.any)
 		this.action = SentenceAction[name]
 		this.crudAction = SentenceCrudAction.undefined
 		this.entity = entity
 		this.alias = alias
-		this.columns = columns
+		this.columns = []
 		this.parameters = []
 		this.constraints = []
 		this.values = []

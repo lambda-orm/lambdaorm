@@ -4,7 +4,7 @@ import { Connection, ConnectionPool } from '..'
 import { SchemaError, Query, Data, ExecutionError, PropertyMapping } from '../../contract'
 import { MappingConfig, helper } from '../../manager'
 import { Dialect } from '../../language'
-import { Type } from '3xpr'
+import { Type, Kind } from '3xpr'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples
@@ -76,7 +76,7 @@ export class OracleConnection extends Connection {
 			for (const j in result.metaData) {
 				const col = result.metaData[j]
 				const colInfo = query.columns.find(p => p.name === col.name)
-				if (colInfo && colInfo.type === Type.boolean) {
+				if (colInfo && colInfo.type === Kind.boolean) {
 					item[col.name] = row[j] === 'Y'
 				} else {
 					item[col.name] = row[j]
@@ -111,7 +111,7 @@ export class OracleConnection extends Connection {
 		const bindDefs: any = {}
 		for (const param of query.parameters) {
 			const property = mapping.getProperty(query.entity, param.name)
-			bindDefs[param.name] = this.getOracleType(Type.to(param.type ? param.type : 'any'), property)
+			bindDefs[param.name] = this.getOracleType(param.type ? Kind[param.type] : Kind.any, property)
 		}
 		if (autoIncrementInfo) {
 			bindDefs[autoIncrementInfo.key] = autoIncrementInfo.bindDef
@@ -193,7 +193,7 @@ export class OracleConnection extends Connection {
 			const row: any = {}
 			for (const parameter of query.parameters) {
 				const value = item[parameter.name]
-				row[parameter.name] = this.getItemValue(parameter.type ? parameter.type : 'any', value)
+				row[parameter.name] = this.getItemValue(parameter.type ? Kind[parameter.type] : Kind.any, value)
 			}
 			rows.push(row)
 		}
@@ -245,8 +245,8 @@ export class OracleConnection extends Connection {
 		const key = 'lbdOrm_' + fieldId.name
 		// oracledb.BIND_OUT 3003
 		let bindDef:any
-		const oracleType = this.oracleType(fieldId.type)
-		if (fieldId.type === Type.string) {
+		const oracleType = this.oracleType(Kind[fieldId.type])
+		if (fieldId.type === Kind.string) {
 			const property = mapping.getProperty(query.entity, fieldId.name)
 			bindDef = { dir: 3003, type: oracleType, maxSize: property.length }
 		} else {
@@ -256,22 +256,22 @@ export class OracleConnection extends Connection {
 		return { key, bindDef, returning }
 	}
 
-	private oracleType (type: Type): number {
+	private oracleType (type: Kind): number {
 		switch (type) {
-		case Type.boolean:
+		case Kind.boolean:
 			return 2003
 			// oracledb.DB_TYPE_CHAR 2003
-		case Type.string:
+		case Kind.string:
 			// eslint-disable-next-line no-case-declarations
 			return 2001
 			// oracledb.STRING 2001
-		case Type.integer:
-		case Type.decimal:
+		case Kind.integer:
+		case Kind.decimal:
 			return 2010
 			// oracledb.NUMBER 2010
-		case Type.dateTime:
-		case Type.date:
-		case Type.time:
+		case Kind.dateTime:
+		case Kind.date:
+		case Kind.time:
 			return 2014
 			// oracledb.DATE 2014
 		default:
@@ -279,33 +279,33 @@ export class OracleConnection extends Connection {
 		}
 	}
 
-	private getOracleType (type:Type, property:PropertyMapping):any {
+	private getOracleType (type:Kind, property:PropertyMapping):any {
 		const oracleType = this.oracleType(type)
 		switch (type) {
-		case Type.boolean:
+		case Kind.boolean:
 			return { type: oracleType, maxSize: 1 }
-		case Type.string:
+		case Kind.string:
 			return { type: oracleType, maxSize: property.length }
-		case Type.number:
-		case Type.integer:
-		case Type.decimal:
+		case Kind.number:
+		case Kind.integer:
+		case Kind.decimal:
 			return { type: oracleType }
-		case Type.dateTime:
-		case Type.date:
-		case Type.time:
+		case Kind.dateTime:
+		case Kind.date:
+		case Kind.time:
 			return { type: oracleType }
 		}
 	}
 
-	private getItemValue (type:string, value:any):any {
+	private getItemValue (type:Kind, value:any):any {
 		switch (type) {
-		case 'boolean':
+		case Kind.boolean:
 			return value ? 'Y' : 'N'
-		case 'string':
+		case Kind.string:
 			return typeof value === 'string' || value === null ? value : value.toString()
-		case 'dateTime':
-		case 'date':
-		case 'time':
+		case Kind.dateTime:
+		case Kind.date:
+		case Kind.time:
 			return value ? new Date(value) : null
 		default:
 			return value

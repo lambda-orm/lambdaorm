@@ -1,7 +1,7 @@
 
 import { helper, SchemaManager } from '../manager'
 import { Entity, SchemaError, SintaxisError } from '../contract'
-import { Operand, OperandType, Position, IModelManager, IOperandNormalizer } from '3xpr'
+import { Operand, OperandType, Position, IModelManager, IOperandNormalizer, Type } from '3xpr'
 
 /**
  *  Expression completer
@@ -282,8 +282,9 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		const obj = new Operand(pos, 'obj', OperandType.Obj, [])
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
-			const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [])
-			const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [field])
+			const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [], Type.to(property.type))
+			const type = Type.to(property.type)
+			const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [field], type)
 			obj.children.push(keyVal)
 		}
 		return obj
@@ -294,8 +295,8 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
 			if ((!property.autoIncrement || !excludeAutoIncrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
-				const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [])
-				const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [field])
+				const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [], Type.to(property.type))
+				const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [field], Type.to(property.type))
 				obj.children.push(keyVal)
 			}
 		}
@@ -332,10 +333,10 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			if (field === undefined) {
 				throw new SchemaError(`Entity ${entity.name} not found property ${name} defined in primary key`)
 			}
-			const fieldOperand = new Operand(pos, parent ? parent + '.' + field.name : field.name, OperandType.Var)
-			const variableOperand = new Operand(pos, parentVariable ? parentVariable + '.' + name : name, OperandType.Var)
-			const equal = new Operand(pos, '==', OperandType.Operator, [fieldOperand, variableOperand])
-			condition = condition ? new Operand(pos, '&&', OperandType.Operator, [condition, equal]) : equal
+			const fieldOperand = new Operand(pos, parent ? parent + '.' + field.name : field.name, OperandType.Var, [], Type.to(field.type))
+			const variableOperand = new Operand(pos, parentVariable ? parentVariable + '.' + name : name, OperandType.Var, [], Type.to(field.type))
+			const equal = new Operand(pos, '==', OperandType.Operator, [fieldOperand, variableOperand], Type.boolean)
+			condition = condition ? new Operand(pos, '&&', OperandType.Operator, [condition, equal], Type.boolean) : equal
 		}
 		return condition
 	}
