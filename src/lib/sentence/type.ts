@@ -85,7 +85,8 @@ export class SentenceTypeManager extends TypeManager {
 			this.solveType(sort.children[0])
 		}
 		if (page) {
-			this.solveType(page)
+			this.solveType(page.children[0])
+			this.solveType(page.children[1])
 		}
 	}
 

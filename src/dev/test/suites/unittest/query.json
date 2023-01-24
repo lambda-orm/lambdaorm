@@ -13,6 +13,34 @@
         {
           "test": "Products.sort(p => p.name)",
           "result": "Products.map(p=>{id:id,name:name,supplierId:supplierId,categoryId:categoryId,quantity:quantity,price:price,inStock:inStock,onOrder:onOrder,reorderLevel:reorderLevel,discontinued:discontinued}).sort(p=>p.name)"
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": "Products.map(p=>{id:id,name:name,supplierId:supplierId,categoryId:categoryId,quantity:quantity,price:price,inStock:inStock,onOrder:onOrder,reorderLevel:reorderLevel,discontinued:discontinued}).sort(p=>p.id).page(1,1)"
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": "Products.map(p=>{id:id,name:name,supplierId:supplierId,categoryId:categoryId,quantity:quantity,price:price,inStock:inStock,onOrder:onOrder,reorderLevel:reorderLevel,discontinued:discontinued}).sort(p=>p.id).map(p=>{id:id,name:name,supplierId:supplierId,categoryId:categoryId,quantity:quantity,price:price,inStock:inStock,onOrder:onOrder,reorderLevel:reorderLevel,discontinued:discontinued}).page(1,1)"
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": "Products.map(p=>{id:id,name:name,supplierId:supplierId,categoryId:categoryId,quantity:quantity,price:price,inStock:inStock,onOrder:onOrder,reorderLevel:reorderLevel,discontinued:discontinued}).filter(p=>(p.id==id)).map(p=>{id:id,name:name,supplierId:supplierId,categoryId:categoryId,quantity:quantity,price:price,inStock:inStock,onOrder:onOrder,reorderLevel:reorderLevel,discontinued:discontinued}).sort(p=>p.id)"
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": "Products.map(p=>{id:id,name:name,supplierId:supplierId,categoryId:categoryId,quantity:quantity,price:price,inStock:inStock,onOrder:onOrder,reorderLevel:reorderLevel,discontinued:discontinued}).filter(p=>(p.id==id)).map(p=>{id:id,name:name,supplierId:supplierId,categoryId:categoryId,quantity:quantity,price:price,inStock:inStock,onOrder:onOrder,reorderLevel:reorderLevel,discontinued:discontinued}).sort(p=>p.id)"
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": "Products.map(p=>{category:p.category.name}).sort(p=>p.category)"
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": "Products.map(p=>{name:p.name,category:p.category.name}).sort(p=>[p.category,p.name])"
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": "Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)"
         }
       ]
     },
@@ -63,6 +91,229 @@
               "type": "boolean"
             }
           ]
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": [
+            {
+              "name": "category",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": [
+            {
+              "name": "name",
+              "type": "any"
+            },
+            {
+              "name": "category",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": [
+            {
+              "name": "category",
+              "type": "any"
+            },
+            {
+              "name": "name",
+              "type": "any"
+            },
+            {
+              "name": "quantity",
+              "type": "any"
+            },
+            {
+              "name": "inStock",
+              "type": "any"
+            }
+          ]
         }
       ]
     },
@@ -72,6 +323,91 @@
         {
           "test": "Products.sort(p => p.name)",
           "result": []
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": []
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": []
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": [
+            {
+              "name": "p.id",
+              "type": "any"
+            },
+            {
+              "name": "id",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": [
+            {
+              "name": "p.id",
+              "type": "any"
+            },
+            {
+              "name": "id",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": [
+            {
+              "name": "p.category.name",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": [
+            {
+              "name": "p.name",
+              "type": "any"
+            },
+            {
+              "name": "p.category.name",
+              "type": "any"
+            },
+            {
+              "name": "p.category",
+              "type": "any"
+            },
+            {
+              "name": "p.name",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": [
+            {
+              "name": "p.category.name",
+              "type": "any"
+            },
+            {
+              "name": "p.name",
+              "type": "any"
+            },
+            {
+              "name": "p.quantity",
+              "type": "any"
+            },
+            {
+              "name": "p.inStock",
+              "type": "any"
+            }
+          ]
         }
       ]
     },
@@ -80,6 +416,55 @@
       "tests": [
         {
           "test": "Products.sort(p => p.name)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
           "result": {
             "entity": "Products",
             "constraints": []
@@ -147,6 +532,377 @@
             "clause": "select",
             "alias": "p"
           }
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": {
+            "classtype": "Sentence",
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": {
+            "classtype": "Sentence",
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": {
+            "classtype": "Sentence",
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "p.id",
+                "type": "any"
+              },
+              {
+                "name": "id",
+                "type": "any"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": {
+            "classtype": "Sentence",
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "p.id",
+                "type": "any"
+              },
+              {
+                "name": "id",
+                "type": "any"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": {
+            "classtype": "Sentence",
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "any"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "p.category.name",
+                "type": "any"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": {
+            "classtype": "Sentence",
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "name",
+                "type": "any"
+              },
+              {
+                "name": "category",
+                "type": "any"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "p.name",
+                "type": "any"
+              },
+              {
+                "name": "p.category.name",
+                "type": "any"
+              },
+              {
+                "name": "p.category",
+                "type": "any"
+              },
+              {
+                "name": "p.name",
+                "type": "any"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": {
+            "classtype": "Sentence",
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "any"
+              },
+              {
+                "name": "name",
+                "type": "any"
+              },
+              {
+                "name": "quantity",
+                "type": "any"
+              },
+              {
+                "name": "inStock",
+                "type": "any"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "p.category.name",
+                "type": "any"
+              },
+              {
+                "name": "p.name",
+                "type": "any"
+              },
+              {
+                "name": "p.quantity",
+                "type": "any"
+              },
+              {
+                "name": "p.inStock",
+                "type": "any"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
         }
       ]
     },
@@ -160,6 +916,76 @@
             "dialect": "MySQL",
             "source": "MySQL",
             "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductName ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  WHERE ? = ? ORDER BY p.ProductID ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  WHERE ? = ? ORDER BY p.ProductID ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT ? AS category FROM Products p  ORDER BY category ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT ? AS name, ? AS category FROM Products p  ORDER BY ?, ? ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT ? AS category, ? AS name, ? AS quantity, ? AS inStock FROM Products p  ORDER BY p.ProductName ",
             "children": []
           }
         }

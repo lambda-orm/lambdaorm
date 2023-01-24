@@ -8,17 +8,16 @@ export class QueryBuildTest implements IBuildTest {
 
 	private tests():string[] {
 		return [
-			'Products.sort(p => p.name)'
-			// 'Products.map(p => p).sort(p => p.id).page(1, 1)',
-			// 'Products.sort(p => p.id).page(1, 1)',
-			// 'Products.filter(p => p.id === id).map(p => p).sort(p => p.id)',
-			// 'Products.filter(p => p.id === id).sort(p => p.id) ',
-			// 'Products.map(p => ({ category: p.category.name })).sort(p => p.category)',
-			// 'Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])',
-			// 'Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)',
+			'Products.sort(p => p.name)',
+			'Products.map(p => p).sort(p => p.id).page(1, 1)',
+			'Products.sort(p => p.id).page(1, 1)',
+			'Products.filter(p => p.id === id).map(p => p).sort(p => p.id)',
+			'Products.filter(p => p.id === id).sort(p => p.id) ',
+			'Products.map(p => ({ category: p.category.name })).sort(p => p.category)',
+			'Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])',
+			'Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)',
 			// 'Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])',
 			// 'Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity]) ',
-			// 'Products.sort(p => p.id).page(1, 1)',
 			// 'Products.first(p => p)',
 			// 'Products.last(p => p)',
 			// 'Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))',
