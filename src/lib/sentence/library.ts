@@ -17,5 +17,7 @@ export class SentenceLibrary {
 			const bytes = CryptoJS.AES.decrypt(value, key)
 			return bytes.toString(CryptoJS.enc.Utf8)
 		})
+		this.model.addFunction('desc(value:any):void', ():string => { throw new Error('NotImplemented') })
+		this.model.addFunction('asc(value:any):void', ():string => { throw new Error('NotImplemented') })
 	}
 }

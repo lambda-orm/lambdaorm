@@ -1,6 +1,6 @@
 
 import { helper, SchemaManager } from '../manager'
-import { Entity, SchemaError, SintaxisError } from '../contract'
+import { Entity, Field, SchemaError, SintaxisError } from '../contract'
 import { Operand, OperandType, Position, IModelManager, IOperandNormalizer, Type } from '3xpr'
 
 /**
@@ -280,9 +280,9 @@ export class SentenceNormalizer implements IOperandNormalizer {
 
 	private createReadNodeFields (pos:Position, entity: Entity, parent?: string): Operand {
 		const obj = new Operand(pos, 'obj', OperandType.Obj, [])
-		for (const i in entity.properties) {
-			const property = entity.properties[i]
-			const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [], Type.to(property.type))
+		for (const property of entity.properties) {
+			// const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [], Type.to(property.type))
+			const field = new Field(pos, entity.name, property.name, Type.to(property.type), parent, true)
 			const type = Type.to(property.type)
 			const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [field], type)
 			obj.children.push(keyVal)
@@ -292,10 +292,10 @@ export class SentenceNormalizer implements IOperandNormalizer {
 
 	private createWriteNodeFields (pos:Position, entity: Entity, parent?: string, excludePrimaryKey = false, excludeAutoIncrement = false): Operand {
 		const obj = new Operand(pos, 'obj', OperandType.Obj, [])
-		for (const i in entity.properties) {
-			const property = entity.properties[i]
+		for (const property of entity.properties) {
 			if ((!property.autoIncrement || !excludeAutoIncrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
-				const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [], Type.to(property.type))
+				// const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [], Type.to(property.type))
+				const field = new Field(pos, entity.name, property.name, Type.to(property.type), parent, true)
 				const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [field], Type.to(property.type))
 				obj.children.push(keyVal)
 			}

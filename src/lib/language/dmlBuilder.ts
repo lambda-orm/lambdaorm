@@ -147,9 +147,9 @@ export abstract class DmlBuilder {
 
 	protected buildFrom (from: From): string {
 		let template = this.dialect.dml('from')
-		const entityMapping = this.mapping.entityMapping(from.name)
+		const entityMapping = this.mapping.entityMapping(from.entity)
 		if (entityMapping === undefined) {
-			throw new SchemaError(`not found mapping for ${from.name}`)
+			throw new SchemaError(`not found mapping for ${from.entity}`)
 		}
 		template = template.replace('{name}', this.dialect.delimiter(entityMapping))
 		template = helper.str.replace(template, '{alias}', from.alias)
