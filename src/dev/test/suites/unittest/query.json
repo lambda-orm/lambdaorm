@@ -966,6 +966,10 @@
           "test": "Products.sort(p => p.name)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 14
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1024,6 +1028,10 @@
           "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 42
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1082,6 +1090,10 @@
           "test": "Products.sort(p => p.id).page(1, 1)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 30
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1140,6 +1152,10 @@
           "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 51
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1203,6 +1219,10 @@
           "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 39
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1266,6 +1286,10 @@
           "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 56
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1292,6 +1316,10 @@
           "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 70
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1326,6 +1354,10 @@
           "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 112
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1376,6 +1408,10 @@
           "test": "Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 150
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1426,6 +1462,10 @@
           "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity }))",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 105
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1489,6 +1529,10 @@
           "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity]) ",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 227
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1552,6 +1596,10 @@
           "test": "Products.first(p => p)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 15
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1610,6 +1658,10 @@
           "test": "Products.last(p => p)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 14
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1668,6 +1720,10 @@
           "test": "Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 15
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1718,6 +1774,10 @@
           "test": "Products.filter(p => p.discontinued !== false).last(p => p.id)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 52
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1744,6 +1804,10 @@
           "test": "Products.distinct(p => p).sort(p => p.id)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 31
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1802,6 +1866,10 @@
           "test": "Products.distinct(p => ({ category: p.category.name })).sort(p => p.category)",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 61
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1828,6 +1896,10 @@
           "test": "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])",
           "result": {
             "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 83
+            },
             "name": "select",
             "children": [],
             "type": "any",
@@ -1919,7 +1991,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category FROM Products p  ORDER BY category asc ",
+            "sentence": "SELECT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ",
             "children": []
           }
         },
@@ -1929,7 +2001,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, c.CategoryName AS category FROM Products p  ORDER BY category asc, p.ProductName asc ",
+            "sentence": "SELECT p.ProductName AS name, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc, p.ProductName asc ",
             "children": []
           }
         },
@@ -1939,7 +2011,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p  ORDER BY p.ProductName asc ",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductName asc ",
             "children": []
           }
         },
@@ -1949,7 +2021,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p  WHERE p.Discontinued <> false ORDER BY category asc, p.ProductName desc ",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> false ORDER BY category asc, p.ProductName desc ",
             "children": []
           }
         },
@@ -1959,7 +2031,7 @@
             "entity": "Orders.details",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS product, o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order Details` o  WHERE (o1.ShippedDate BETWEEN ? AND ? AND o.UnitPrice > ?) ",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS product, o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND o.UnitPrice > ?) ",
             "children": []
           }
         },
@@ -1969,7 +2041,7 @@
             "entity": "Orders.details",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS product, o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order Details` o  WHERE (o1.ShippedDate BETWEEN ? AND ? AND o.UnitPrice > ?) ORDER BY category asc, product asc, o.UnitPrice asc, o.Quantity asc ",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS product, o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND o.UnitPrice > ?) ORDER BY category asc, product asc, o.UnitPrice asc, o.Quantity asc ",
             "children": []
           }
         },
@@ -1999,7 +2071,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p  ORDER BY category asc  LIMIT 0,1 ",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc  LIMIT 0,1 ",
             "children": []
           }
         },
@@ -2029,7 +2101,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT DISTINCT c.CategoryName AS category FROM Products p  ORDER BY category asc ",
+            "sentence": "SELECT DISTINCT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ",
             "children": []
           }
         },
@@ -2039,7 +2111,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p  ORDER BY p.QuantityPerUnit asc, category asc ",
+            "sentence": "SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc ",
             "children": []
           }
         }
