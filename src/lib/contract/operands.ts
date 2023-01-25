@@ -40,13 +40,6 @@ export class Field extends Operand {
 	}
 }
 
-export class Map extends Operand { }
-export class Filter extends Operand { }
-export class GroupBy extends Operand { }
-export class Having extends Operand { }
-export class Sort extends Operand { }
-export class Page extends Operand { }
-
 export class Clause extends Operand {
 	public alias: string
 	public entity:string
@@ -56,11 +49,14 @@ export class Clause extends Operand {
 		this.entity = entity
 	}
 }
-export class From extends Clause {
-	constructor (pos:Position, entity:string, alias: string) {
-		super(pos, 'from', [], entity, alias)
-	}
-}
+
+export class Map extends Clause { }
+export class Filter extends Clause { }
+export class GroupBy extends Clause { }
+export class Having extends Clause { }
+export class Sort extends Clause { }
+export class Page extends Clause { }
+export class From extends Clause {}
 export class Join extends Clause {}
 export class Insert extends Clause { }
 export class BulkInsert extends Clause { }

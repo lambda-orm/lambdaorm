@@ -1,5 +1,5 @@
 import { Behavior, Constraint, Property, Relation } from './schema'
-import { Parameter } from '3xpr'
+import { Parameter, Position } from '3xpr'
 
 export interface MetadataParameter {
 	name: string
@@ -21,9 +21,11 @@ export interface MetadataConstraint {
 
 export interface Metadata {
 	classtype: string,
+	pos:Position,
 	name: string,
 	children?: Metadata[],
-	type?: string,
+	type: string,
+	returnType?: string,
 	entity?: string,
 	columns?: Property[],
 	property?: string

@@ -3,6 +3,7 @@
 import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity, SentenceCrudAction } from '../contract'
 import { ModelConfig, SchemaManager } from '../manager'
 import { Operand, Parameter, OperandType, Type, IExpressions, Position, helper, ITypeManager, Kind } from '3xpr'
+import { MemoryCache, ICache } from 'h3lp'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../contract/operands'
 import { SentenceNormalizer, SentenceTypeManager } from '.'
 
@@ -361,6 +362,7 @@ export class SentenceBuilder {
 	private normalizer: SentenceNormalizer
 	private expressions: IExpressions
 	private helper:SentenceHelper
+	private cache: ICache<string, Sentence>
 
 	constructor (schema: SchemaManager, expressions: IExpressions) {
 		this.schema = schema
@@ -370,6 +372,7 @@ export class SentenceBuilder {
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, this.helper, expressions)
 		this.normalizer = new SentenceNormalizer(expressions.model, schema)
+		this.cache = new MemoryCache<string, Sentence>()
 	}
 
 	public normalize (expression: string): string {
@@ -419,10 +422,23 @@ export class SentenceBuilder {
 		return `${clauses.from.name}.${list.join('.')}`
 	}
 
+	// public build (expression: string): Sentence {
+	// const operand = this.expressions.build(expression)
+	// const normalized = this.normalizer.normalize(operand)
+	// const sentence = this.createSentence(normalized, new ExpressionContext(new EntityContext())) as Sentence
+	// return sentence
+	// }
+
 	public build (expression: string): Sentence {
+		const key = helper.utils.hashCode(expression)
+		const value = this.cache.get(key.toString())
+		if (value) {
+			return value
+		}
 		const operand = this.expressions.build(expression)
 		const normalized = this.normalizer.normalize(operand)
 		const sentence = this.createSentence(normalized, new ExpressionContext(new EntityContext())) as Sentence
+		this.cache.set(key.toString(), sentence)
 		return sentence
 	}
 
@@ -508,7 +524,7 @@ export class SentenceBuilder {
 			children.push(child)
 		}
 		if (clauses.from) {
-			child = new From(operand.pos, expressionContext.current.entityName, expressionContext.current.alias)
+			child = new From(operand.pos, 'from', [], expressionContext.current.entityName, expressionContext.current.alias)
 			children.push(child)
 		}
 
@@ -542,6 +558,8 @@ export class SentenceBuilder {
 		expressionContext.current.fields = this.helper.fieldsInSelect(selectOperand)
 		expressionContext.current.groupByFields = this.helper.groupByFields(selectOperand)
 		children.push(selectOperand)
+		const entityName = expressionContext.current.entityName
+		const alias = expressionContext.current.alias
 
 		if (expressionContext.current.groupByFields.length > 0) {
 			const fields:Field[] = []
@@ -549,10 +567,10 @@ export class SentenceBuilder {
 				fields.push(groupByField.clone())
 			}
 			if (fields.length === 1) {
-				children.push(new GroupBy(pos, 'groupBy', OperandType.Arrow, fields))
+				children.push(new GroupBy(pos, 'groupBy', fields, entityName, alias))
 			} else {
 				const array: Operand = new Operand(pos, 'array', OperandType.List, fields)
-				children.push(new GroupBy(pos, 'groupBy', OperandType.Arrow, [array]))
+				children.push(new GroupBy(pos, 'groupBy', [array], entityName, alias))
 			}
 		}
 		if (clauses.having) {
@@ -566,7 +584,7 @@ export class SentenceBuilder {
 				throw new SintaxisError('Sort clause is required when using Page clause')
 			}
 			const pageChildren = clauses.page.children.filter((p: Operand) => p.type !== OperandType.Arrow).map((q: Operand) => this.solveFields(q, expressionContext)) as Operand[]
-			children.push(new Page(pos, clauses.page.name, OperandType.Arrow, pageChildren))
+			children.push(new Page(pos, clauses.page.name, pageChildren, entityName, alias))
 		}
 
 		if (clauses.include) {
@@ -667,9 +685,9 @@ export class SentenceBuilder {
 		expressionContext.current.arrowVar = clause.children[1].name
 		const child = this.solveFields(clause.children[2], expressionContext)
 		switch (clause.name) {
-		case 'filter': return new Filter(clause.pos, clause.name, clause.type, [child])
-		case 'having': return new Having(clause.pos, clause.name, clause.type, [child])
-		case 'sort': return new Sort(clause.pos, clause.name, clause.type, [child])
+		case 'filter': return new Filter(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
+		case 'having': return new Having(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
+		case 'sort': return new Sort(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 		default: throw new SintaxisError('clause : ' + clause.name + ' not supported')
 		}
 	}
@@ -678,7 +696,7 @@ export class SentenceBuilder {
 		if (clause.children.length === 3) {
 			expressionContext.current.arrowVar = clause.children[1].name
 			const child = this.solveFields(clause.children[2], expressionContext)
-			return new Map(clause.pos, clause.name, clause.type, [child])
+			return new Map(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 		}
 		throw new SintaxisError('Sentence Map incorrect!!!')
 	}

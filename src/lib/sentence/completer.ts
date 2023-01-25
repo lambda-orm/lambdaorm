@@ -54,7 +54,7 @@ export class SentenceCompleter {
 			if (filter) {
 				filter.children[0] = new Operand(sentence.pos, '&&', OperandType.Operator, [filter.children[0], newFilter])
 			} else {
-				sentence.children.push(new Filter(sentence.pos, 'filter', OperandType.Arrow, [newFilter]))
+				sentence.children.push(new Filter(sentence.pos, 'filter', [newFilter], sentence.entity, sentence.alias))
 			}
 		}
 	}
