@@ -1869,7 +1869,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductName asc asc asc asc asc asc ",
+            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductName asc ",
             "children": []
           }
         },
@@ -1879,7 +1879,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductID asc asc asc asc asc asc  LIMIT 0,1 ",
+            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductID asc  LIMIT 0,1 ",
             "children": []
           }
         },
@@ -1889,7 +1889,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductID asc asc asc asc asc asc  LIMIT 0,1 ",
+            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductID asc  LIMIT 0,1 ",
             "children": []
           }
         },
@@ -1899,7 +1899,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  WHERE p.ProductID = ? ORDER BY p.ProductID asc asc asc asc asc asc ",
+            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  WHERE p.ProductID = ? ORDER BY p.ProductID asc ",
             "children": []
           }
         },
@@ -1909,7 +1909,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  WHERE p.ProductID = ? ORDER BY p.ProductID asc asc asc asc asc asc ",
+            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  WHERE p.ProductID = ? ORDER BY p.ProductID asc ",
             "children": []
           }
         },
@@ -1919,7 +1919,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category FROM Products p  ORDER BY category asc asc asc asc asc asc ",
+            "sentence": "SELECT c.CategoryName AS category FROM Products p  ORDER BY category asc ",
             "children": []
           }
         },
@@ -1939,7 +1939,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p  ORDER BY p.ProductName asc asc asc asc asc asc ",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p  ORDER BY p.ProductName asc ",
             "children": []
           }
         },
@@ -1979,7 +1979,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductID asc asc asc asc asc asc  LIMIT 0,1 ",
+            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductID asc  LIMIT 0,1 ",
             "children": []
           }
         },
@@ -1989,7 +1989,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductID desc asc asc asc asc asc  LIMIT 0,1 ",
+            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductID desc  LIMIT 0,1 ",
             "children": []
           }
         },
@@ -1999,7 +1999,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p  ORDER BY category asc asc asc asc asc asc  LIMIT 0,1 ",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p  ORDER BY category asc  LIMIT 0,1 ",
             "children": []
           }
         },
@@ -2009,7 +2009,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <> false ORDER BY p.ProductID desc asc asc asc asc asc  LIMIT 0,1 ",
+            "sentence": "SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <> false ORDER BY p.ProductID desc  LIMIT 0,1 ",
             "children": []
           }
         },
@@ -2019,7 +2019,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT DISTINCT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductID asc asc asc asc asc asc ",
+            "sentence": "SELECT DISTINCT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued FROM Products p  ORDER BY p.ProductID asc ",
             "children": []
           }
         },
@@ -2029,7 +2029,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT DISTINCT c.CategoryName AS category FROM Products p  ORDER BY category asc asc asc asc asc asc ",
+            "sentence": "SELECT DISTINCT c.CategoryName AS category FROM Products p  ORDER BY category asc ",
             "children": []
           }
         },

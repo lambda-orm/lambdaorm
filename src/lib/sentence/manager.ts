@@ -191,7 +191,7 @@ export class SentenceManager {
 	 * @returns Model of expression
 	 */
 	public model (expression: string): MetadataModel[] {
-		const sentence = this.builder.build(expression)
+		const sentence = this.getSentence(expression)
 		return this.modelFromSentence(sentence)
 	}
 
@@ -201,7 +201,7 @@ export class SentenceManager {
 	 * @returns constraints
 	 */
 	public constraints (expression: string): MetadataConstraint {
-		const sentence = this.builder.build(expression)
+		const sentence = this.getSentence(expression)
 		return this.constraintsFromSentence(sentence)
 	}
 
@@ -211,7 +211,7 @@ export class SentenceManager {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): MetadataParameter[] {
-		const sentence = this.builder.build(expression)
+		const sentence = this.getSentence(expression)
 		return this.parametersFromSentence(sentence)
 	}
 
@@ -221,7 +221,7 @@ export class SentenceManager {
 	 * @returns metadata of expression
 	 */
 	public metadata (expression: string): Metadata {
-		const sentence = this.builder.build(expression)
+		const sentence = this.getSentence(expression)
 		return this.metadataFromSentence(sentence)
 	}
 
@@ -232,8 +232,9 @@ export class SentenceManager {
 		if (value) {
 			return value
 		}
-		const sentence = this.builder.build(expression)
-		this.complete(sentence, view, stage as string)
+		const sentence = this.getSentence(expression)
+		// TODO: se debería clonar sentence antes de modificarla ( al invocar complete )
+		this.complete(sentence, view, stage)
 		this.cache.set(key, sentence)
 		return sentence
 	}
@@ -242,6 +243,20 @@ export class SentenceManager {
 		const sentenceInfo: SentenceInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
 		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
 		return this.schema.source.get(dataSourceName)
+	}
+
+	public getSentence (expression: string): Sentence {
+		const sentence = this.builder.build(expression)
+		return sentence
+		// TODO: se debe clonar para poder usar el cache.
+		// const key = helper.utils.hashCode(expression)
+		// const value = this.cache.get(key.toString())
+		// if (value) {
+		// return value
+		// }
+		// const sentence = this.builder.build(expression)
+		// this.cache.set(key.toString(), sentence)
+		// return sentence
 	}
 
 	private metadataFromSentence (sentence: Sentence): Metadata {

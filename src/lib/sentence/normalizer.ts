@@ -176,7 +176,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 					body.children[i] = new Operand(body.pos, 'asc', OperandType.CallFunc, [body.children[i]])
 				}
 			}
-		} else if (body.type === OperandType.CallFunc || !(['asc', 'desc'].includes(body.name))) {
+		} else if (body.type !== OperandType.CallFunc || !(['asc', 'desc'].includes(body.name))) {
 			// Example: .sort(p => p.name)
 			clauses.sort.children[2] = new Operand(clauses.sort.pos, 'asc', OperandType.CallFunc, [body])
 		}
