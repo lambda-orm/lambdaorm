@@ -377,42 +377,74 @@ export class SentenceBuilder {
 			const operand = this.expressions.build(expression)
 			const normalized = this.normalizer.normalize(operand)
 			// const sentence = this.solve(normalized, new ExpressionContext(new EntityContext()))
-			return helper.operand.toExpression(normalized)
+			return this.toExpression(normalized)
 		} catch (error: any) {
 			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
 		}
 	}
 
+	private toExpression (operand: Operand): string {
+		const clauses: any = this.helper.getClauses(operand)
+		const list:string[] = []
+		if (clauses.map) {
+			const body = helper.operand.toExpression(clauses.map.children[2])
+			list.push(`map(${clauses.map.children[1].name}=>${body})`)
+		} else if (clauses.insert) {
+			const body = helper.operand.toExpression(clauses.insert.children[2])
+			list.push(`insert(${clauses.insert.children[1].name}=>${body})`)
+		} else if (clauses.bulkInsert) {
+			const body = helper.operand.toExpression(clauses.bulkInsert.children[2])
+			list.push(`bulkInsert(${clauses.bulkInsert.children[1].name}=>${body})`)
+		} else if (clauses.update) {
+			const body = helper.operand.toExpression(clauses.update.children[2])
+			list.push(`update(${clauses.update.children[1].name}=>${body})`)
+		} else if (clauses.delete) {
+			const body = helper.operand.toExpression(clauses.delete.children[2])
+			list.push(`delete(${clauses.delete.children[1].name}=>${body})`)
+		}
+		if (clauses.filter) {
+			const body = helper.operand.toExpression(clauses.filter.children[2])
+			list.push(`filter(${clauses.filter.children[1].name}=>${body})`)
+		}
+		if (clauses.sort) {
+			const body = helper.operand.toExpression(clauses.sort.children[2])
+			list.push(`sort(${clauses.sort.children[1].name}=>${body})`)
+		}
+		if (clauses.page) {
+			const offset = helper.operand.toExpression(clauses.page.children[1])
+			const limit = helper.operand.toExpression(clauses.page.children[2])
+			list.push(`page(${offset},${limit})`)
+		}
+		// TODO: solve includes
+		return `${clauses.from.name}.${list.join('.')}`
+	}
+
 	public build (expression: string): Sentence {
 		const operand = this.expressions.build(expression)
 		const normalized = this.normalizer.normalize(operand)
-		const sentence = this.solve(normalized, new ExpressionContext(new EntityContext())) as Sentence
+		const sentence = this.createSentence(normalized, new ExpressionContext(new EntityContext())) as Sentence
 		return sentence
 	}
 
-	private solve (operand: Operand, expressionContext: ExpressionContext): Operand {
-		if (operand.type === OperandType.Arrow || operand.type === OperandType.ChildFunc) {
-			return this.createSentence(operand, expressionContext)
-		} else if (operand.type === OperandType.Var) {
-			return this.solveVariable(operand, expressionContext)
-		}
-		return operand
-	}
-
-	private solveVariable (operand: Operand, expressionContext: ExpressionContext): Operand {
-		const parts = operand.name.split('.')
-		if (parts[0] === expressionContext.current.arrowVar) {
-			if (parts.length === 1) {
-				// TODO: here the array of fields should be returned
-				return new Field(operand.pos, expressionContext.current.entityName, '*', Type.any, expressionContext.current.alias, true)
-			} else if (parts.length === 2) {
-				return this.createSimpleField(operand.pos, parts, expressionContext)
-			} else {
-				return this.createRelationField(operand.pos, parts, expressionContext)
+	private solveFields (operand: Operand, expressionContext: ExpressionContext): Operand {
+		if (operand.type === OperandType.Var && !(operand instanceof Field)) {
+			const parts = operand.name.split('.')
+			if (parts[0] === expressionContext.current.arrowVar) {
+				if (parts.length === 1) {
+					// TODO: here the array of fields should be returned
+					return new Field(operand.pos, expressionContext.current.entityName, '*', Type.any, expressionContext.current.alias, true)
+				} else if (parts.length === 2) {
+					return this.createSimpleField(operand.pos, parts, expressionContext)
+				} else {
+					return this.createRelationField(operand.pos, parts, expressionContext)
+				}
 			}
 		} else {
-			return operand
+			for (let i = 0; i < operand.children.length; i++) {
+				operand.children[i] = this.solveFields(operand.children[i], expressionContext)
+			}
 		}
+		return operand
 	}
 
 	private createSimpleField (pos: Position, parts: string[], expressionContext: ExpressionContext): Operand {
@@ -533,7 +565,7 @@ export class SentenceBuilder {
 			if (!clauses.sort) {
 				throw new SintaxisError('Sort clause is required when using Page clause')
 			}
-			const pageChildren = clauses.page.children.filter((p: Operand) => p.type !== OperandType.Arrow).map((q: Operand) => this.solve(q, expressionContext)) as Operand[]
+			const pageChildren = clauses.page.children.filter((p: Operand) => p.type !== OperandType.Arrow).map((q: Operand) => this.solveFields(q, expressionContext)) as Operand[]
 			children.push(new Page(pos, clauses.page.name, OperandType.Arrow, pageChildren))
 		}
 
@@ -633,7 +665,7 @@ export class SentenceBuilder {
 
 	private createClause (clause: Operand, expressionContext: ExpressionContext): Operand {
 		expressionContext.current.arrowVar = clause.children[1].name
-		const child = this.solve(clause.children[2], expressionContext)
+		const child = this.solveFields(clause.children[2], expressionContext)
 		switch (clause.name) {
 		case 'filter': return new Filter(clause.pos, clause.name, clause.type, [child])
 		case 'having': return new Having(clause.pos, clause.name, clause.type, [child])
@@ -645,7 +677,7 @@ export class SentenceBuilder {
 	private createMapClause (clause: Operand, expressionContext: ExpressionContext): Operand {
 		if (clause.children.length === 3) {
 			expressionContext.current.arrowVar = clause.children[1].name
-			const child = this.solve(clause.children[2], expressionContext)
+			const child = this.solveFields(clause.children[2], expressionContext)
 			return new Map(clause.pos, clause.name, clause.type, [child])
 		}
 		throw new SintaxisError('Sentence Map incorrect!!!')
@@ -655,13 +687,13 @@ export class SentenceBuilder {
 		if (clause.children.length === 2) {
 			// Example: Categories.insert({ name: name, description: description })
 			if (clause.children[1].type === OperandType.Obj) {
-				const child = this.solve(clause.children[1], expressionContext)
+				const child = this.solveFields(clause.children[1], expressionContext)
 				return new Insert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 			} else { throw new SintaxisError('Args incorrect in Sentence Insert') }
 		} else if (clause.children.length === 3) {
 			// Example: Categories.insert(() => ({ name: name, description: description }))
 			if (clause.children[2].type === OperandType.Obj) {
-				const child = this.solve(clause.children[2], expressionContext)
+				const child = this.solveFields(clause.children[2], expressionContext)
 				return new Insert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 			} else { throw new SintaxisError('Args incorrect in Sentence Insert') }
 		}
@@ -672,7 +704,7 @@ export class SentenceBuilder {
 		if (clause.children.length === 2) {
 			if (clause.children[1].type === OperandType.Obj) {
 				// Example: Orders.update({name:'test'})
-				const child = this.solve(clause.children[1], expressionContext)
+				const child = this.solveFields(clause.children[1], expressionContext)
 				return new Update(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 			} else {
 				throw new SintaxisError('Args incorrect in Sentence Update')
@@ -680,7 +712,7 @@ export class SentenceBuilder {
 		} else if (clause.children.length === 3) {
 			// Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
 			expressionContext.current.arrowVar = clause.children[1].name
-			const child = this.solve(clause.children[2], expressionContext)
+			const child = this.solveFields(clause.children[2], expressionContext)
 			return new Update(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 		}
 		throw new SintaxisError('Sentence Update incorrect!!!')

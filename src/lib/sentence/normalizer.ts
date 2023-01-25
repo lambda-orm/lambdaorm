@@ -16,10 +16,10 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			const arrowVariable = new Operand(operand.pos, 'p', OperandType.Var)
 			const allFields = new Operand(operand.pos, 'p', OperandType.Var)
 			const map = new Operand(operand.pos, 'map', OperandType.Arrow, [operand, arrowVariable, allFields])
-			this.normalizeOperand(map)
+			this.completeSentence(map)
 			return map
 		} else {
-			this.normalizeOperand(operand)
+			this.completeSentence(operand)
 			return operand
 		}
 	}
@@ -30,7 +30,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			if (alias) {
 				operand.name = alias[1]
 			}
-			this.completeSentence(operand)
+			// this.completeSentence(operand)
 		} else if (operand.type === OperandType.Operator) {
 			const alias = this.model.operatorAlias.find(p => p[0] === operand.name)
 			if (alias) {
@@ -169,13 +169,15 @@ export class SentenceNormalizer implements IOperandNormalizer {
 	private completeSortNode (clauses: any): void {
 		// sets ascending order in the case that it has not already been specified
 		const body = clauses.sort.children[2]
-		if (body.type === 'array') {
+		if (body.type === OperandType.List) {
 			for (let i = 0; i < body.children.length; i++) {
-				if (body.children[i].type === 'var') {
+				if (body.children[i].type !== OperandType.CallFunc || !(['asc', 'desc'].includes(body.children[i].name))) {
+					// Example: .sort(p => [p.category, p.name])
 					body.children[i] = new Operand(body.pos, 'asc', OperandType.CallFunc, [body.children[i]])
 				}
 			}
-		} else if (body.type === 'var') {
+		} else if (body.type === OperandType.CallFunc || !(['asc', 'desc'].includes(body.name))) {
+			// Example: .sort(p => p.name)
 			clauses.sort.children[2] = new Operand(clauses.sort.pos, 'asc', OperandType.CallFunc, [body])
 		}
 	}
@@ -187,7 +189,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		const clauseInclude = clauses.include
 		const arrowVar = clauseInclude.children[1].name
 		const body = clauseInclude.children[2]
-		if (body.type === 'array') {
+		if (body.type === OperandType.List) {
 			for (let i = 0; i < body.children.length; i++) {
 				body.children[i] = compeleInclude.bind(this)(entity, arrowVar, body.children[i])
 				if (clauses.map) {
@@ -220,10 +222,10 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			} else if (fields.type === OperandType.Var) {
 				// Example: Entity.map(p=> p.name) to  Entity.map(p=> {name:p.name})
 				const keyVal = this.fieldToKeyVal(arrowVar, fields)
-				operand.children[2] = new Operand(operand.pos, 'obj', OperandType.Obj, [keyVal])
+				operand.children[2] = new Operand(operand.pos, OperandType.Obj, OperandType.Obj, [keyVal])
 			} else if (fields.type === OperandType.List) {
 				// Example: Entity.map(p=> [p.id, p.name]) to  Entity.map(p=> {id:p.id,name:p.name})
-				const obj = new Operand(operand.pos, 'obj', OperandType.Obj, [])
+				const obj = new Operand(operand.pos, OperandType.Obj, OperandType.Obj, [])
 				for (const child of fields.children) {
 					const keyVal = this.fieldToKeyVal(arrowVar, child)
 					obj.children.push(keyVal)
@@ -279,10 +281,11 @@ export class SentenceNormalizer implements IOperandNormalizer {
 	}
 
 	private createReadNodeFields (pos:Position, entity: Entity, parent?: string): Operand {
-		const obj = new Operand(pos, 'obj', OperandType.Obj, [])
+		const obj = new Operand(pos, OperandType.Obj, OperandType.Obj, [])
 		for (const property of entity.properties) {
 			// const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [], Type.to(property.type))
-			const field = new Field(pos, entity.name, property.name, Type.to(property.type), parent, true)
+			const name = parent ? parent + '.' + property.name : property.name
+			const field = new Field(pos, entity.name, name, Type.to(property.type), parent, true)
 			const type = Type.to(property.type)
 			const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [field], type)
 			obj.children.push(keyVal)
@@ -291,11 +294,12 @@ export class SentenceNormalizer implements IOperandNormalizer {
 	}
 
 	private createWriteNodeFields (pos:Position, entity: Entity, parent?: string, excludePrimaryKey = false, excludeAutoIncrement = false): Operand {
-		const obj = new Operand(pos, 'obj', OperandType.Obj, [])
+		const obj = new Operand(pos, OperandType.Obj, OperandType.Obj, [])
 		for (const property of entity.properties) {
 			if ((!property.autoIncrement || !excludeAutoIncrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
 				// const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [], Type.to(property.type))
-				const field = new Field(pos, entity.name, property.name, Type.to(property.type), parent, true)
+				const name = parent ? parent + '.' + property.name : property.name
+				const field = new Field(pos, entity.name, name, Type.to(property.type), parent, true)
 				const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [field], Type.to(property.type))
 				obj.children.push(keyVal)
 			}
@@ -314,7 +318,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			operand.children[0] = new Operand(operand.pos, 'filter', OperandType.Arrow, [operand.children[0], arrowVar, condition])
 		} else if (operand.children.length === 2 && (operand.children[1].type === OperandType.Var || operand.children[1].type === OperandType.Obj)) {
 			// Example operand.children[1].type === OperandType.Var: Entity.update(entity) ,Entity.delete(entity)
-			// Example operand.children[1].type === 'obj': Entity.update({unitPrice:unitPrice,productId:productId})
+			// Example operand.children[1].type === OperandType.Obj: Entity.update({unitPrice:unitPrice,productId:productId})
 			// const condition = this.createFilter(entity, 'p', operand.children[1].name)
 			const parentVariable = operand.children[1].type === OperandType.Var ? operand.children[1].name : undefined
 			const condition = this.createFilter(operand.pos, entity, 'p', parentVariable)
