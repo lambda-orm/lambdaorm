@@ -76,12 +76,11 @@ class SentenceHelper {
 				for (const keyVal of obj.children) {
 					if (keyVal.returnType !== undefined && keyVal.returnType.kind !== Kind.any) {
 						fields.push({ name: keyVal.name, type: keyVal.returnType.kind })
-					} else if (keyVal.children[0] instanceof Field) {
-						const _field = keyVal.children[0]
-						fields.push({ name: keyVal.name, type: Type.toString(_field.returnType) })
-						fields.push({ name: keyVal.name, type: 'any' })
+					// } else if (keyVal.children[0] instanceof Field) {
+					// const _field = keyVal.children[0]
+					// fields.push({ name: keyVal.name, type: Type.toString(_field.returnType) })
 					} else {
-						fields.push({ name: keyVal.name, type: 'any' })
+						fields.push({ name: keyVal.name, type: Type.toString(keyVal.children[0].returnType) })
 					}
 				}
 			}
@@ -408,6 +407,14 @@ export class SentenceBuilder {
 		if (clauses.filter) {
 			const body = helper.operand.toExpression(clauses.filter.children[2])
 			list.push(`filter(${clauses.filter.children[1].name}=>${body})`)
+		}
+		if (clauses.groupBy) {
+			const body = helper.operand.toExpression(clauses.groupBy.children[2])
+			list.push(`groupBy(${clauses.groupBy.children[1].name}=>${body})`)
+		}
+		if (clauses.having) {
+			const body = helper.operand.toExpression(clauses.having.children[2])
+			list.push(`having(${clauses.having.children[1].name}=>${body})`)
 		}
 		if (clauses.sort) {
 			const body = helper.operand.toExpression(clauses.sort.children[2])

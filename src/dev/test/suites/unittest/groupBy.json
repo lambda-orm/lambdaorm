@@ -1,0 +1,824 @@
+{
+  "name": "groupBy",
+  "context": {
+    "id": 1
+  },
+  "cases": [
+    {
+      "name": "normalize",
+      "tests": [
+        {
+          "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
+          "result": "Products.map(p=>{maxPrice:max(p.price)})"
+        },
+        {
+          "test": "Products.map(p => ({ minPrice: min(p.price) }))",
+          "result": "Products.map(p=>{minPrice:min(p.price)})"
+        },
+        {
+          "test": "Products.map(p => ({ total: sum(p.price) }))",
+          "result": "Products.map(p=>{total:sum(p.price)})"
+        },
+        {
+          "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
+          "result": "Products.map(p=>{average:round(avg(p.price),4)})"
+        },
+        {
+          "test": "Products.map(p => ({ count: count(1) }))",
+          "result": "Products.map(p=>{count:count(1)})"
+        },
+        {
+          "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
+          "result": "Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})"
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": "Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})"
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))",
+          "result": "Products.map(p=>{name:p.name,source:p.price,result:abs(p.price)}).filter(p=>(p.id==id))"
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": "Products.map(p=>{category:p.category.name,largestPrice:max(p.price)}).having(p=>(max(p.price)>100))"
+        },
+        {
+          "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
+          "result": "Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>asc(p.subTotal))"
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": "Products.map(p=>{category:p.category.name,largestPrice:max(p.price)}).having(p=>(max(p.price)>100)).sort(p=>desc(p.largestPrice))"
+        },
+        {
+          "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": "Products.map(p=>{category:p.category.name,largestPrice:max(p.price)}).filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).sort(p=>desc(p.largestPrice))"
+        }
+      ]
+    },
+    {
+      "name": "model",
+      "tests": [
+        {
+          "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
+          "result": [
+            {
+              "name": "maxPrice",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ minPrice: min(p.price) }))",
+          "result": [
+            {
+              "name": "minPrice",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ total: sum(p.price) }))",
+          "result": [
+            {
+              "name": "total",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
+          "result": [
+            {
+              "name": "average",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ count: count(1) }))",
+          "result": [
+            {
+              "name": "count",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "name": "category",
+              "type": "integer"
+            },
+            {
+              "name": "largestPrice",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            },
+            {
+              "name": "largestPrice",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))",
+          "result": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "source",
+              "type": "decimal"
+            },
+            {
+              "name": "result",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            },
+            {
+              "name": "largestPrice",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
+          "result": [
+            {
+              "name": "subTotal",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            },
+            {
+              "name": "largestPrice",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            },
+            {
+              "name": "largestPrice",
+              "type": "any"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "parameters",
+      "tests": [
+        {
+          "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
+          "result": []
+        },
+        {
+          "test": "Products.map(p => ({ minPrice: min(p.price) }))",
+          "result": []
+        },
+        {
+          "test": "Products.map(p => ({ total: sum(p.price) }))",
+          "result": []
+        },
+        {
+          "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
+          "result": []
+        },
+        {
+          "test": "Products.map(p => ({ count: count(1) }))",
+          "result": []
+        },
+        {
+          "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
+          "result": []
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": []
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": []
+        },
+        {
+          "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
+          "result": []
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": []
+        },
+        {
+          "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": []
+        }
+      ]
+    },
+    {
+      "name": "constraints",
+      "tests": [
+        {
+          "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ minPrice: min(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ total: sum(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ count: count(1) }))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
+          "result": {
+            "entity": "Orders.details",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "metadata",
+      "tests": [
+        {
+          "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 13
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "maxPrice",
+                "type": "any"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ minPrice: min(p.price) }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 13
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "minPrice",
+                "type": "any"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ total: sum(p.price) }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 13
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "total",
+                "type": "number"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 13
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "average",
+                "type": "number"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ count: count(1) }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 13
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "count",
+                "type": "integer"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 13
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "integer"
+              },
+              {
+                "name": "largestPrice",
+                "type": "any"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 13
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "name": "largestPrice",
+                "type": "any"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 38
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "source",
+                "type": "decimal"
+              },
+              {
+                "name": "result",
+                "type": "number"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 45
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "name": "largestPrice",
+                "type": "any"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 109
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders.details",
+            "columns": [
+              {
+                "name": "subTotal",
+                "type": "number"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 116
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "name": "largestPrice",
+                "type": "any"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 140
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "name": "largestPrice",
+                "type": "any"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        }
+      ]
+    },
+    {
+      "name": "getInfo",
+      "tests": [
+        {
+          "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p  ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ minPrice: min(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT MIN(p.UnitPrice) AS minPrice FROM Products p  ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ total: sum(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT SUM(p.UnitPrice) AS total FROM Products p  ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT ROUND(AVG(p.UnitPrice),4) AS average FROM Products p  ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ count: count(1) }))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT COUNT(1) AS count FROM Products p  ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p  GROUP BY p.CategoryID ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductName AS name, p.UnitPrice AS source, ABS(p.UnitPrice) AS result FROM Products p  WHERE p.ProductID = ? ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
+          "result": {
+            "entity": "Orders.details",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100))) * 100)) AS subTotal FROM `Order Details` o  ORDER BY subTotal asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY largestPrice desc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY largestPrice desc ",
+            "children": []
+          }
+        }
+      ]
+    }
+  ]
+}

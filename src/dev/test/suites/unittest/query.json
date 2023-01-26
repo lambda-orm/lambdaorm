@@ -318,10 +318,6 @@
             {
               "name": "category",
               "type": "string"
-            },
-            {
-              "name": "category",
-              "type": "any"
             }
           ]
         },
@@ -333,16 +329,8 @@
               "type": "string"
             },
             {
-              "name": "name",
-              "type": "any"
-            },
-            {
               "name": "category",
               "type": "string"
-            },
-            {
-              "name": "category",
-              "type": "any"
             }
           ]
         },
@@ -354,32 +342,16 @@
               "type": "string"
             },
             {
-              "name": "category",
-              "type": "any"
-            },
-            {
               "name": "name",
               "type": "string"
             },
             {
-              "name": "name",
-              "type": "any"
-            },
-            {
               "name": "quantity",
               "type": "string"
-            },
-            {
-              "name": "quantity",
-              "type": "any"
             },
             {
               "name": "inStock",
               "type": "decimal"
-            },
-            {
-              "name": "inStock",
-              "type": "any"
             }
           ]
         },
@@ -391,32 +363,16 @@
               "type": "string"
             },
             {
-              "name": "category",
-              "type": "any"
-            },
-            {
               "name": "name",
               "type": "string"
             },
             {
-              "name": "name",
-              "type": "any"
-            },
-            {
               "name": "quantity",
               "type": "string"
-            },
-            {
-              "name": "quantity",
-              "type": "any"
             },
             {
               "name": "inStock",
               "type": "decimal"
-            },
-            {
-              "name": "inStock",
-              "type": "any"
             }
           ]
         },
@@ -428,32 +384,16 @@
               "type": "string"
             },
             {
-              "name": "category",
-              "type": "any"
-            },
-            {
               "name": "product",
               "type": "string"
             },
             {
-              "name": "product",
-              "type": "any"
-            },
-            {
               "name": "unitPrice",
               "type": "decimal"
             },
             {
-              "name": "unitPrice",
-              "type": "any"
-            },
-            {
               "name": "quantity",
               "type": "decimal"
-            },
-            {
-              "name": "quantity",
-              "type": "any"
             }
           ]
         },
@@ -465,32 +405,16 @@
               "type": "string"
             },
             {
-              "name": "category",
-              "type": "any"
-            },
-            {
               "name": "product",
               "type": "string"
             },
             {
-              "name": "product",
-              "type": "any"
-            },
-            {
               "name": "unitPrice",
               "type": "decimal"
             },
             {
-              "name": "unitPrice",
-              "type": "any"
-            },
-            {
               "name": "quantity",
               "type": "decimal"
-            },
-            {
-              "name": "quantity",
-              "type": "any"
             }
           ]
         },
@@ -592,32 +516,16 @@
               "type": "string"
             },
             {
-              "name": "category",
-              "type": "any"
-            },
-            {
               "name": "name",
               "type": "string"
             },
             {
-              "name": "name",
-              "type": "any"
-            },
-            {
               "name": "quantity",
               "type": "string"
-            },
-            {
-              "name": "quantity",
-              "type": "any"
             },
             {
               "name": "inStock",
               "type": "decimal"
-            },
-            {
-              "name": "inStock",
-              "type": "any"
             }
           ]
         },
@@ -627,10 +535,6 @@
             {
               "name": "id",
               "type": "integer"
-            },
-            {
-              "name": "id",
-              "type": "any"
             }
           ]
         },
@@ -685,10 +589,6 @@
             {
               "name": "category",
               "type": "string"
-            },
-            {
-              "name": "category",
-              "type": "any"
             }
           ]
         },
@@ -700,16 +600,8 @@
               "type": "string"
             },
             {
-              "name": "quantity",
-              "type": "any"
-            },
-            {
               "name": "category",
               "type": "string"
-            },
-            {
-              "name": "category",
-              "type": "any"
             }
           ]
         }
@@ -1298,10 +1190,6 @@
               {
                 "name": "category",
                 "type": "string"
-              },
-              {
-                "name": "category",
-                "type": "any"
               }
             ],
             "parameters": [],
@@ -1330,16 +1218,8 @@
                 "type": "string"
               },
               {
-                "name": "name",
-                "type": "any"
-              },
-              {
                 "name": "category",
                 "type": "string"
-              },
-              {
-                "name": "category",
-                "type": "any"
               }
             ],
             "parameters": [],
@@ -1368,32 +1248,16 @@
                 "type": "string"
               },
               {
-                "name": "category",
-                "type": "any"
-              },
-              {
                 "name": "name",
                 "type": "string"
               },
               {
-                "name": "name",
-                "type": "any"
-              },
-              {
                 "name": "quantity",
                 "type": "string"
-              },
-              {
-                "name": "quantity",
-                "type": "any"
               },
               {
                 "name": "inStock",
                 "type": "decimal"
-              },
-              {
-                "name": "inStock",
-                "type": "any"
               }
             ],
             "parameters": [],
@@ -1422,32 +1286,16 @@
                 "type": "string"
               },
               {
-                "name": "category",
-                "type": "any"
-              },
-              {
                 "name": "name",
                 "type": "string"
               },
               {
-                "name": "name",
-                "type": "any"
-              },
-              {
                 "name": "quantity",
                 "type": "string"
-              },
-              {
-                "name": "quantity",
-                "type": "any"
               },
               {
                 "name": "inStock",
                 "type": "decimal"
-              },
-              {
-                "name": "inStock",
-                "type": "any"
               }
             ],
             "parameters": [],
@@ -1476,32 +1324,16 @@
                 "type": "string"
               },
               {
-                "name": "category",
-                "type": "any"
-              },
-              {
                 "name": "product",
                 "type": "string"
               },
               {
-                "name": "product",
-                "type": "any"
-              },
-              {
                 "name": "unitPrice",
                 "type": "decimal"
               },
               {
-                "name": "unitPrice",
-                "type": "any"
-              },
-              {
                 "name": "quantity",
                 "type": "decimal"
-              },
-              {
-                "name": "quantity",
-                "type": "any"
               }
             ],
             "parameters": [
@@ -1543,32 +1375,16 @@
                 "type": "string"
               },
               {
-                "name": "category",
-                "type": "any"
-              },
-              {
                 "name": "product",
                 "type": "string"
               },
               {
-                "name": "product",
-                "type": "any"
-              },
-              {
                 "name": "unitPrice",
                 "type": "decimal"
               },
               {
-                "name": "unitPrice",
-                "type": "any"
-              },
-              {
                 "name": "quantity",
                 "type": "decimal"
-              },
-              {
-                "name": "quantity",
-                "type": "any"
               }
             ],
             "parameters": [
@@ -1734,32 +1550,16 @@
                 "type": "string"
               },
               {
-                "name": "category",
-                "type": "any"
-              },
-              {
                 "name": "name",
                 "type": "string"
               },
               {
-                "name": "name",
-                "type": "any"
-              },
-              {
                 "name": "quantity",
                 "type": "string"
-              },
-              {
-                "name": "quantity",
-                "type": "any"
               },
               {
                 "name": "inStock",
                 "type": "decimal"
-              },
-              {
-                "name": "inStock",
-                "type": "any"
               }
             ],
             "parameters": [],
@@ -1786,10 +1586,6 @@
               {
                 "name": "id",
                 "type": "integer"
-              },
-              {
-                "name": "id",
-                "type": "any"
               }
             ],
             "parameters": [],
@@ -1878,10 +1674,6 @@
               {
                 "name": "category",
                 "type": "string"
-              },
-              {
-                "name": "category",
-                "type": "any"
               }
             ],
             "parameters": [],
@@ -1910,16 +1702,8 @@
                 "type": "string"
               },
               {
-                "name": "quantity",
-                "type": "any"
-              },
-              {
                 "name": "category",
                 "type": "string"
-              },
-              {
-                "name": "category",
-                "type": "any"
               }
             ],
             "parameters": [],

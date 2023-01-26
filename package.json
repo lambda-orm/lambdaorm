@@ -33,7 +33,7 @@
 		"doc": "grunt doc"
 	},
 	"dependencies": {
-		"3xpr": "1.6.7",
+		"3xpr": "1.6.8",
 		"crypto-js": "^4.1.1",
 		"h3lp": "1.0.7",
 		"js-yaml": "^4.1.0",

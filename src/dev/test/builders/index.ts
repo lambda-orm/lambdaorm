@@ -1,1 +1,7 @@
 export * from './query'
+export * from './numeric'
+export * from './groupBy'
+export * from './include'
+export * from './insert'
+export * from './update'
+export * from './delete'
