@@ -1,0 +1,924 @@
+{
+  "name": "insert",
+  "context": {
+    "id": 1
+  },
+  "cases": [
+    {
+      "name": "normalize",
+      "tests": [
+        {
+          "test": "Categories.insert()",
+          "result": "Categories.map(p=>{id:p.id,name:p.name,description:p.description})"
+        },
+        {
+          "test": "Categories.insert(entity)",
+          "result": "Categories.map(p=>{id:p.id,name:p.name,description:p.description})"
+        },
+        {
+          "test": "Orders.insert()",
+          "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country})"
+        },
+        {
+          "test": "Orders.insert().include(p => p.details)",
+          "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))"
+        },
+        {
+          "test": "Orders.insert().include(p => [p.details, p.customer])",
+          "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))"
+        }
+      ]
+    },
+    {
+      "name": "model",
+      "tests": [
+        {
+          "test": "Categories.insert()",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Categories.insert(entity)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Orders.insert()",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Orders.insert().include(p => p.details)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
+              "name": "details",
+              "type": "Orders.details[]",
+              "children": [
+                {
+                  "name": "orderId",
+                  "type": "integer"
+                },
+                {
+                  "name": "productId",
+                  "type": "integer"
+                },
+                {
+                  "name": "unitPrice",
+                  "type": "decimal"
+                },
+                {
+                  "name": "quantity",
+                  "type": "decimal"
+                },
+                {
+                  "name": "discount",
+                  "type": "decimal"
+                },
+                {
+                  "name": "LambdaOrmParentId",
+                  "type": "integer"
+                },
+                {
+                  "name": "LambdaOrmParentId",
+                  "type": "integer"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.insert().include(p => [p.details, p.customer])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
+              "name": "details",
+              "type": "Orders.details[]",
+              "children": [
+                {
+                  "name": "orderId",
+                  "type": "integer"
+                },
+                {
+                  "name": "productId",
+                  "type": "integer"
+                },
+                {
+                  "name": "unitPrice",
+                  "type": "decimal"
+                },
+                {
+                  "name": "quantity",
+                  "type": "decimal"
+                },
+                {
+                  "name": "discount",
+                  "type": "decimal"
+                },
+                {
+                  "name": "LambdaOrmParentId",
+                  "type": "integer"
+                },
+                {
+                  "name": "LambdaOrmParentId",
+                  "type": "integer"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "parameters",
+      "tests": [
+        {
+          "test": "Categories.insert()",
+          "result": []
+        },
+        {
+          "test": "Categories.insert(entity)",
+          "result": []
+        },
+        {
+          "test": "Orders.insert()",
+          "result": []
+        },
+        {
+          "test": "Orders.insert().include(p => p.details)",
+          "result": [
+            {
+              "name": "details",
+              "type": "Orders.details",
+              "children": [
+                {
+                  "name": "LambdaOrmParentId",
+                  "type": "any"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.insert().include(p => [p.details, p.customer])",
+          "result": [
+            {
+              "name": "details",
+              "type": "Orders.details",
+              "children": [
+                {
+                  "name": "LambdaOrmParentId",
+                  "type": "any"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "constraints",
+      "tests": [
+        {
+          "test": "Categories.insert()",
+          "result": {
+            "entity": "Categories",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Categories.insert(entity)",
+          "result": {
+            "entity": "Categories",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.insert()",
+          "result": {
+            "entity": "Orders",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.insert().include(p => p.details)",
+          "result": {
+            "entity": "Orders",
+            "constraints": [],
+            "children": [
+              {
+                "entity": "Orders.details",
+                "constraints": []
+              }
+            ]
+          }
+        },
+        {
+          "test": "Orders.insert().include(p => [p.details, p.customer])",
+          "result": {
+            "entity": "Orders",
+            "constraints": [],
+            "children": [
+              {
+                "entity": "Orders.details",
+                "constraints": []
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "metadata",
+      "tests": [
+        {
+          "test": "Categories.insert()",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 18
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Categories",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Categories.insert(entity)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 18
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Categories",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Orders.insert()",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 14
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.insert().include(p => p.details)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 24
+            },
+            "name": "select",
+            "children": [
+              {
+                "classtype": "Sentence",
+                "pos": {
+                  "ln": 0,
+                  "col": 29
+                },
+                "name": "select",
+                "children": [],
+                "type": "any",
+                "entity": "Orders.details",
+                "columns": [
+                  {
+                    "name": "orderId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "productId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "unitPrice",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "quantity",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "discount",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "LambdaOrmParentId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "LambdaOrmParentId",
+                    "type": "integer"
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "LambdaOrmParentId",
+                    "type": "any"
+                  }
+                ],
+                "constraints": [],
+                "values": [],
+                "defaults": [],
+                "clause": "select",
+                "alias": "o1"
+              }
+            ],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              },
+              {
+                "name": "__id",
+                "type": "integer"
+              },
+              {
+                "name": "__id",
+                "type": "integer"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.insert().include(p => [p.details, p.customer])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 24
+            },
+            "name": "select",
+            "children": [
+              {
+                "classtype": "Sentence",
+                "pos": {
+                  "ln": 0,
+                  "col": 29
+                },
+                "name": "select",
+                "children": [],
+                "type": "any",
+                "entity": "Orders.details",
+                "columns": [
+                  {
+                    "name": "orderId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "productId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "unitPrice",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "quantity",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "discount",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "LambdaOrmParentId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "LambdaOrmParentId",
+                    "type": "integer"
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "LambdaOrmParentId",
+                    "type": "any"
+                  }
+                ],
+                "constraints": [],
+                "values": [],
+                "defaults": [],
+                "clause": "select",
+                "alias": "o1"
+              }
+            ],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              },
+              {
+                "name": "__id",
+                "type": "integer"
+              },
+              {
+                "name": "__customerId",
+                "type": "string"
+              },
+              {
+                "name": "__id",
+                "type": "integer"
+              },
+              {
+                "name": "__customerId",
+                "type": "string"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        }
+      ]
+    },
+    {
+      "name": "getInfo",
+      "tests": [
+        {
+          "test": "Categories.insert()",
+          "result": {
+            "entity": "Categories",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.description` AS description FROM Categories c  ",
+            "children": []
+          }
+        },
+        {
+          "test": "Categories.insert(entity)",
+          "result": {
+            "entity": "Categories",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.description` AS description FROM Categories c  ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.insert()",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country FROM Orders o  ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.insert().include(p => p.details)",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.OrderID AS `__id` FROM Orders o  ",
+            "children": [
+              {
+                "entity": "Orders.details",
+                "dialect": "MySQL",
+                "source": "MySQL",
+                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.OrderID AS LambdaOrmParentId, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "children": []
+              }
+            ]
+          }
+        },
+        {
+          "test": "Orders.insert().include(p => [p.details, p.customer])",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  ",
+            "children": [
+              {
+                "entity": "Orders.details",
+                "dialect": "MySQL",
+                "source": "MySQL",
+                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.OrderID AS LambdaOrmParentId, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "children": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

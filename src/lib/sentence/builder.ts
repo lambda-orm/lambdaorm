@@ -408,6 +408,21 @@ export class SentenceBuilder {
 			const body = helper.operand.toExpression(clauses.filter.children[2])
 			list.push(`filter(${clauses.filter.children[1].name}=>${body})`)
 		}
+		if (clauses.include) {
+			const body = clauses.include.children[2]
+			if (body.type === 'array') {
+				const includes:string[] = []
+				for (const child of body.children) {
+					const include = this.toExpression(child)
+					includes.push(include)
+				}
+				list.push(`include(${clauses.include.children[1].name}=>[${includes.join(',')}])`)
+			} else {
+				const include = this.toExpression(body)
+				list.push(`include(${clauses.include.children[1].name}=>${include})`)
+			}
+		}
+
 		if (clauses.groupBy) {
 			const body = helper.operand.toExpression(clauses.groupBy.children[2])
 			list.push(`groupBy(${clauses.groupBy.children[1].name}=>${body})`)
@@ -652,7 +667,8 @@ export class SentenceBuilder {
 		)
 	}
 
-	private createSentenceAddIncludes (expressionContext: ExpressionContext, clauses: any, createInclude:any, children: Operand[]):void {
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	private createSentenceAddIncludes (expressionContext: ExpressionContext, clauses: any, createInclude:Function, children: Operand[]):void {
 		if (!createInclude) {
 			throw new SintaxisError('Include not implemented!!!')
 		}

@@ -1,6 +1,6 @@
 import { ModelConfig } from '../manager'
 import { Operand, OperandType, Kind, Type, IModelManager, TypeManager } from '3xpr'
-import { SintaxisError, SentenceCrudAction, Sentence, Map, From, Join, Filter, GroupBy, Having, Sort, Page, Field } from '../contract'
+import { SintaxisError, SentenceCrudAction, Sentence, Map, From, Join, Filter, GroupBy, Having, Sort, Page, Field, SentenceInclude } from '../contract'
 
 export class SentenceTypeManager extends TypeManager {
 	private config: ModelConfig
@@ -14,7 +14,7 @@ export class SentenceTypeManager extends TypeManager {
 			const sentence = operand as Sentence
 			this.solveTypeSentence(sentence)
 			for (const child of sentence.children) {
-				if (!(child instanceof From)) {
+				if (!(child instanceof From) && !(child instanceof SentenceInclude)) {
 					this.solveTemplate(child.children[0])
 					this.setUndefinedAsAny(child.children[0])
 				}

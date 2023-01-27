@@ -1,0 +1,32 @@
+{
+  "name": "update",
+  "context": {
+    "id": 1
+  },
+  "cases": [
+    {
+      "name": "normalize",
+      "tests": []
+    },
+    {
+      "name": "model",
+      "tests": []
+    },
+    {
+      "name": "parameters",
+      "tests": []
+    },
+    {
+      "name": "constraints",
+      "tests": []
+    },
+    {
+      "name": "metadata",
+      "tests": []
+    },
+    {
+      "name": "getInfo",
+      "tests": []
+    }
+  ]
+}

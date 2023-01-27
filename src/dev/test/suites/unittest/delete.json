@@ -1,0 +1,248 @@
+{
+  "name": "delete",
+  "context": {
+    "id": 1
+  },
+  "cases": [
+    {
+      "name": "normalize",
+      "tests": [
+        {
+          "test": "Orders.details.delete().filter(p => p.orderId === id)",
+          "result": "Orders.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount}).filter(p=>(p.orderId==id))"
+        },
+        {
+          "test": "Orders.delete().include(p => p.details)",
+          "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id})"
+        },
+        {
+          "test": "Orders.delete().filter(p => p.id === id).include(p => p.details)",
+          "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).filter(p=>(p.id==id))"
+        },
+        {
+          "test": "Orders.delete().include(p => p.details)",
+          "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__id:p.id})"
+        },
+        {
+          "test": "Orders.details.delete(entity)",
+          "result": "Orders.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount})"
+        },
+        {
+          "test": "Orders.delete(entity).include(p => p.details)",
+          "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id})"
+        }
+      ]
+    },
+    {
+      "name": "model",
+      "tests": [
+        {
+          "test": "Orders.details.delete().filter(p => p.orderId === id)",
+          "result": [
+            {
+              "name": "orderId",
+              "type": "integer"
+            },
+            {
+              "name": "productId",
+              "type": "integer"
+            },
+            {
+              "name": "unitPrice",
+              "type": "decimal"
+            },
+            {
+              "name": "quantity",
+              "type": "decimal"
+            },
+            {
+              "name": "discount",
+              "type": "decimal"
+            }
+          ]
+        },
+        {
+          "test": "Orders.details.delete(entity)",
+          "result": [
+            {
+              "name": "orderId",
+              "type": "integer"
+            },
+            {
+              "name": "productId",
+              "type": "integer"
+            },
+            {
+              "name": "unitPrice",
+              "type": "decimal"
+            },
+            {
+              "name": "quantity",
+              "type": "decimal"
+            },
+            {
+              "name": "discount",
+              "type": "decimal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "parameters",
+      "tests": [
+        {
+          "test": "Orders.details.delete().filter(p => p.orderId === id)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Orders.details.delete(entity)",
+          "result": []
+        }
+      ]
+    },
+    {
+      "name": "constraints",
+      "tests": [
+        {
+          "test": "Orders.details.delete().filter(p => p.orderId === id)",
+          "result": {
+            "entity": "Orders.details",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.details.delete(entity)",
+          "result": {
+            "entity": "Orders.details",
+            "constraints": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "metadata",
+      "tests": [
+        {
+          "test": "Orders.details.delete().filter(p => p.orderId === id)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 31
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders.details",
+            "columns": [
+              {
+                "name": "orderId",
+                "type": "integer"
+              },
+              {
+                "name": "productId",
+                "type": "integer"
+              },
+              {
+                "name": "unitPrice",
+                "type": "decimal"
+              },
+              {
+                "name": "quantity",
+                "type": "decimal"
+              },
+              {
+                "name": "discount",
+                "type": "decimal"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.details.delete(entity)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 22
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders.details",
+            "columns": [
+              {
+                "name": "orderId",
+                "type": "integer"
+              },
+              {
+                "name": "productId",
+                "type": "integer"
+              },
+              {
+                "name": "unitPrice",
+                "type": "decimal"
+              },
+              {
+                "name": "quantity",
+                "type": "decimal"
+              },
+              {
+                "name": "discount",
+                "type": "decimal"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        }
+      ]
+    },
+    {
+      "name": "getInfo",
+      "tests": [
+        {
+          "test": "Orders.details.delete().filter(p => p.orderId === id)",
+          "result": {
+            "entity": "Orders.details",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount FROM `Order Details` o  WHERE o.OrderID = ? ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.details.delete(entity)",
+          "result": {
+            "entity": "Orders.details",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount FROM `Order Details` o  ",
+            "children": []
+          }
+        }
+      ]
+    }
+  ]
+}
