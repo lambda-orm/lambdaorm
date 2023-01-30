@@ -6,14 +6,16 @@ export class InsertBuildTest implements IBuildTest {
 	public constructor(private readonly orm:IOrm, private readonly options:QueryOptions){}
 	private tests():string[] {
 		return [
+			'Categories.insert({name:name,description:description})',
 			'Categories.insert()',
-			'Categories.insert(() => ({ name, description }))',
+			'Categories.insert([name, description])',
 			'Categories.insert(entity)',
 			'Orders.insert()',
 			'Orders.insert().include(p => p.details)',
 			'Orders.insert().include(p => [p.details, p.customer])',
 			'Categories.bulkInsert()',
-			'Orders.bulkInsert().include(p => p.details)'	
+			'Orders.bulkInsert().include(p => p.details)',
+			'Orders.bulkInsert().include(p => [p.details, p.customer])'
 		]
 	}
 	public build(): TestSuiteRequest {

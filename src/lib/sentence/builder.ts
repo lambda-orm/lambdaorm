@@ -88,7 +88,7 @@ class SentenceHelper {
 		return fields
 	}
 
-	public fieldsInModify (operand: Operand, entityName: string): Property[] {
+	public fieldsInModify (operand: Operand, entityName: string, addAutoIncrement = false): Property[] {
 		const fields: Property[] = []
 		if (operand.children.length === 1) {
 			if (operand.children[0].type === OperandType.Obj) {
@@ -102,6 +102,12 @@ class SentenceHelper {
 				}
 			}
 		}
+		if (addAutoIncrement) {
+			const autoIncrement = this.model.getAutoIncrement(entityName)
+			if (autoIncrement) {
+				fields.unshift(autoIncrement)
+			}
+		}
 		return fields
 	}
 
@@ -112,7 +118,7 @@ class SentenceHelper {
 			return this.fieldsInSelect(map)
 		case SentenceCrudAction.insert:
 			const insert = sentence.children.find(p => p instanceof Insert) as Insert
-			return this.fieldsInModify(insert, sentence.entity)
+			return this.fieldsInModify(insert, sentence.entity, true)
 		case SentenceCrudAction.update:
 			const update = sentence.children.find(p => p instanceof Update) as Update
 			return this.fieldsInModify(update, sentence.entity)
@@ -392,11 +398,11 @@ export class SentenceBuilder {
 			const body = helper.operand.toExpression(clauses.map.children[2])
 			list.push(`map(${clauses.map.children[1].name}=>${body})`)
 		} else if (clauses.insert) {
-			const body = helper.operand.toExpression(clauses.insert.children[2])
-			list.push(`insert(${clauses.insert.children[1].name}=>${body})`)
+			const body = helper.operand.toExpression(clauses.insert.children[1])
+			list.push(`insert(${body})`)
 		} else if (clauses.bulkInsert) {
-			const body = helper.operand.toExpression(clauses.bulkInsert.children[2])
-			list.push(`bulkInsert(${clauses.bulkInsert.children[1].name}=>${body})`)
+			const body = helper.operand.toExpression(clauses.bulkInsert.children[1])
+			list.push(`bulkInsert(${body})`)
 		} else if (clauses.update) {
 			const body = helper.operand.toExpression(clauses.update.children[2])
 			list.push(`update(${clauses.update.children[1].name}=>${body})`)

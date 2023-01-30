@@ -8,24 +8,44 @@
       "name": "normalize",
       "tests": [
         {
+          "test": "Categories.insert({name:name,description:description})",
+          "result": "Categories.insert({name:name,description:description})"
+        },
+        {
           "test": "Categories.insert()",
-          "result": "Categories.map(p=>{id:p.id,name:p.name,description:p.description})"
+          "result": "Categories.insert({name:name,description:description})"
+        },
+        {
+          "test": "Categories.insert([name, description])",
+          "result": "Categories.insert({name:name,description:description})"
         },
         {
           "test": "Categories.insert(entity)",
-          "result": "Categories.map(p=>{id:p.id,name:p.name,description:p.description})"
+          "result": "Categories.insert({name:entity.name,description:entity.description})"
         },
         {
           "test": "Orders.insert()",
-          "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country})"
+          "result": "Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})"
         },
         {
           "test": "Orders.insert().include(p => p.details)",
-          "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))"
+          "result": "Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))"
         },
         {
           "test": "Orders.insert().include(p => [p.details, p.customer])",
-          "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))"
+          "result": "Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))"
+        },
+        {
+          "test": "Categories.bulkInsert()",
+          "result": "Categories.bulkInsert({name:name,description:description})"
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => p.details)",
+          "result": "Orders.bulkInsert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.bulkInsert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))"
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => [p.details, p.customer])",
+          "result": "Orders.bulkInsert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.bulkInsert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))"
         }
       ]
     },
@@ -33,7 +53,41 @@
       "name": "model",
       "tests": [
         {
+          "test": "Categories.insert({name:name,description:description})",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            }
+          ]
+        },
+        {
           "test": "Categories.insert()",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Categories.insert([name, description])",
           "result": [
             {
               "name": "id",
@@ -82,7 +136,8 @@
               "type": "integer"
             },
             {
-              "name": "orderDate"
+              "name": "orderDate",
+              "type": "datetime"
             },
             {
               "name": "requiredDate",
@@ -142,7 +197,8 @@
               "type": "integer"
             },
             {
-              "name": "orderDate"
+              "name": "orderDate",
+              "type": "datetime"
             },
             {
               "name": "requiredDate",
@@ -207,14 +263,6 @@
                 {
                   "name": "discount",
                   "type": "decimal"
-                },
-                {
-                  "name": "LambdaOrmParentId",
-                  "type": "integer"
-                },
-                {
-                  "name": "LambdaOrmParentId",
-                  "type": "integer"
                 }
               ]
             }
@@ -236,7 +284,8 @@
               "type": "integer"
             },
             {
-              "name": "orderDate"
+              "name": "orderDate",
+              "type": "datetime"
             },
             {
               "name": "requiredDate",
@@ -301,14 +350,197 @@
                 {
                   "name": "discount",
                   "type": "decimal"
-                },
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Categories.bulkInsert()",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => p.details)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "datetime"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
+              "name": "details",
+              "type": "Orders.details[]",
+              "children": [
                 {
-                  "name": "LambdaOrmParentId",
+                  "name": "orderId",
                   "type": "integer"
                 },
                 {
-                  "name": "LambdaOrmParentId",
+                  "name": "productId",
                   "type": "integer"
+                },
+                {
+                  "name": "unitPrice",
+                  "type": "decimal"
+                },
+                {
+                  "name": "quantity",
+                  "type": "decimal"
+                },
+                {
+                  "name": "discount",
+                  "type": "decimal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => [p.details, p.customer])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "datetime"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
+              "name": "details",
+              "type": "Orders.details[]",
+              "children": [
+                {
+                  "name": "orderId",
+                  "type": "integer"
+                },
+                {
+                  "name": "productId",
+                  "type": "integer"
+                },
+                {
+                  "name": "unitPrice",
+                  "type": "decimal"
+                },
+                {
+                  "name": "quantity",
+                  "type": "decimal"
+                },
+                {
+                  "name": "discount",
+                  "type": "decimal"
                 }
               ]
             }
@@ -320,27 +552,192 @@
       "name": "parameters",
       "tests": [
         {
+          "test": "Categories.insert({name:name,description:description})",
+          "result": [
+            {
+              "name": "name",
+              "type": "any"
+            },
+            {
+              "name": "description",
+              "type": "any"
+            }
+          ]
+        },
+        {
           "test": "Categories.insert()",
-          "result": []
+          "result": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Categories.insert([name, description])",
+          "result": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            }
+          ]
         },
         {
           "test": "Categories.insert(entity)",
-          "result": []
+          "result": [
+            {
+              "name": "entity.name",
+              "type": "string"
+            },
+            {
+              "name": "entity.description",
+              "type": "string"
+            }
+          ]
         },
         {
           "test": "Orders.insert()",
-          "result": []
+          "result": [
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "any"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            }
+          ]
         },
         {
           "test": "Orders.insert().include(p => p.details)",
           "result": [
             {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "any"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
               "name": "details",
               "type": "Orders.details",
               "children": [
                 {
-                  "name": "LambdaOrmParentId",
-                  "type": "any"
+                  "name": "orderId",
+                  "type": "integer"
+                },
+                {
+                  "name": "productId",
+                  "type": "integer"
+                },
+                {
+                  "name": "unitPrice",
+                  "type": "decimal"
+                },
+                {
+                  "name": "quantity",
+                  "type": "decimal"
+                },
+                {
+                  "name": "discount",
+                  "type": "decimal"
                 }
               ]
             }
@@ -350,12 +747,259 @@
           "test": "Orders.insert().include(p => [p.details, p.customer])",
           "result": [
             {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "any"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
               "name": "details",
               "type": "Orders.details",
               "children": [
                 {
-                  "name": "LambdaOrmParentId",
-                  "type": "any"
+                  "name": "orderId",
+                  "type": "integer"
+                },
+                {
+                  "name": "productId",
+                  "type": "integer"
+                },
+                {
+                  "name": "unitPrice",
+                  "type": "decimal"
+                },
+                {
+                  "name": "quantity",
+                  "type": "decimal"
+                },
+                {
+                  "name": "discount",
+                  "type": "decimal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Categories.bulkInsert()",
+          "result": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => p.details)",
+          "result": [
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "any"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
+              "name": "details",
+              "type": "Orders.details",
+              "children": [
+                {
+                  "name": "orderId",
+                  "type": "integer"
+                },
+                {
+                  "name": "productId",
+                  "type": "integer"
+                },
+                {
+                  "name": "unitPrice",
+                  "type": "decimal"
+                },
+                {
+                  "name": "quantity",
+                  "type": "decimal"
+                },
+                {
+                  "name": "discount",
+                  "type": "decimal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => [p.details, p.customer])",
+          "result": [
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "any"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
+              "name": "details",
+              "type": "Orders.details",
+              "children": [
+                {
+                  "name": "orderId",
+                  "type": "integer"
+                },
+                {
+                  "name": "productId",
+                  "type": "integer"
+                },
+                {
+                  "name": "unitPrice",
+                  "type": "decimal"
+                },
+                {
+                  "name": "quantity",
+                  "type": "decimal"
+                },
+                {
+                  "name": "discount",
+                  "type": "decimal"
                 }
               ]
             }
@@ -367,10 +1011,39 @@
       "name": "constraints",
       "tests": [
         {
+          "test": "Categories.insert({name:name,description:description})",
+          "result": {
+            "entity": "Categories",
+            "constraints": [
+              {
+                "message": "Cannot be null property name in entity Categories",
+                "condition": "isNotNull(name)"
+              }
+            ]
+          }
+        },
+        {
           "test": "Categories.insert()",
           "result": {
             "entity": "Categories",
-            "constraints": []
+            "constraints": [
+              {
+                "message": "Cannot be null property name in entity Categories",
+                "condition": "isNotNull(name)"
+              }
+            ]
+          }
+        },
+        {
+          "test": "Categories.insert([name, description])",
+          "result": {
+            "entity": "Categories",
+            "constraints": [
+              {
+                "message": "Cannot be null property name in entity Categories",
+                "condition": "isNotNull(name)"
+              }
+            ]
           }
         },
         {
@@ -384,18 +1057,45 @@
           "test": "Orders.insert()",
           "result": {
             "entity": "Orders",
-            "constraints": []
+            "constraints": [
+              {
+                "message": "Cannot be null property customerId in entity Orders",
+                "condition": "isNotNull(customerId)"
+              },
+              {
+                "message": "Cannot be null property employeeId in entity Orders",
+                "condition": "isNotNull(employeeId)"
+              }
+            ]
           }
         },
         {
           "test": "Orders.insert().include(p => p.details)",
           "result": {
             "entity": "Orders",
-            "constraints": [],
+            "constraints": [
+              {
+                "message": "Cannot be null property customerId in entity Orders",
+                "condition": "isNotNull(customerId)"
+              },
+              {
+                "message": "Cannot be null property employeeId in entity Orders",
+                "condition": "isNotNull(employeeId)"
+              }
+            ],
             "children": [
               {
                 "entity": "Orders.details",
-                "constraints": []
+                "constraints": [
+                  {
+                    "message": "Cannot be null property orderId in entity Orders.details",
+                    "condition": "isNotNull(orderId)"
+                  },
+                  {
+                    "message": "Cannot be null property productId in entity Orders.details",
+                    "condition": "isNotNull(productId)"
+                  }
+                ]
               }
             ]
           }
@@ -404,11 +1104,103 @@
           "test": "Orders.insert().include(p => [p.details, p.customer])",
           "result": {
             "entity": "Orders",
-            "constraints": [],
+            "constraints": [
+              {
+                "message": "Cannot be null property customerId in entity Orders",
+                "condition": "isNotNull(customerId)"
+              },
+              {
+                "message": "Cannot be null property employeeId in entity Orders",
+                "condition": "isNotNull(employeeId)"
+              }
+            ],
             "children": [
               {
                 "entity": "Orders.details",
-                "constraints": []
+                "constraints": [
+                  {
+                    "message": "Cannot be null property orderId in entity Orders.details",
+                    "condition": "isNotNull(orderId)"
+                  },
+                  {
+                    "message": "Cannot be null property productId in entity Orders.details",
+                    "condition": "isNotNull(productId)"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "test": "Categories.bulkInsert()",
+          "result": {
+            "entity": "Categories",
+            "constraints": [
+              {
+                "message": "Cannot be null property name in entity Categories",
+                "condition": "isNotNull(name)"
+              }
+            ]
+          }
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => p.details)",
+          "result": {
+            "entity": "Orders",
+            "constraints": [
+              {
+                "message": "Cannot be null property customerId in entity Orders",
+                "condition": "isNotNull(customerId)"
+              },
+              {
+                "message": "Cannot be null property employeeId in entity Orders",
+                "condition": "isNotNull(employeeId)"
+              }
+            ],
+            "children": [
+              {
+                "entity": "Orders.details",
+                "constraints": [
+                  {
+                    "message": "Cannot be null property orderId in entity Orders.details",
+                    "condition": "isNotNull(orderId)"
+                  },
+                  {
+                    "message": "Cannot be null property productId in entity Orders.details",
+                    "condition": "isNotNull(productId)"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => [p.details, p.customer])",
+          "result": {
+            "entity": "Orders",
+            "constraints": [
+              {
+                "message": "Cannot be null property customerId in entity Orders",
+                "condition": "isNotNull(customerId)"
+              },
+              {
+                "message": "Cannot be null property employeeId in entity Orders",
+                "condition": "isNotNull(employeeId)"
+              }
+            ],
+            "children": [
+              {
+                "entity": "Orders.details",
+                "constraints": [
+                  {
+                    "message": "Cannot be null property orderId in entity Orders.details",
+                    "condition": "isNotNull(orderId)"
+                  },
+                  {
+                    "message": "Cannot be null property productId in entity Orders.details",
+                    "condition": "isNotNull(productId)"
+                  }
+                ]
               }
             ]
           }
@@ -419,21 +1211,23 @@
       "name": "metadata",
       "tests": [
         {
-          "test": "Categories.insert()",
+          "test": "Categories.insert({name:name,description:description})",
           "result": {
             "classtype": "Sentence",
             "pos": {
               "ln": 0,
               "col": 18
             },
-            "name": "select",
+            "name": "insert",
             "children": [],
             "type": "any",
             "entity": "Categories",
             "columns": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "integer",
+                "required": false,
+                "autoIncrement": true
               },
               {
                 "name": "name",
@@ -444,11 +1238,125 @@
                 "type": "string"
               }
             ],
-            "parameters": [],
-            "constraints": [],
+            "parameters": [
+              {
+                "name": "name",
+                "type": "any"
+              },
+              {
+                "name": "description",
+                "type": "any"
+              }
+            ],
+            "constraints": [
+              {
+                "message": "Cannot be null property name in entity Categories",
+                "condition": "isNotNull(name)"
+              }
+            ],
             "values": [],
             "defaults": [],
-            "clause": "select",
+            "clause": "insert",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Categories.insert()",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 18
+            },
+            "name": "insert",
+            "children": [],
+            "type": "any",
+            "entity": "Categories",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer",
+                "required": false,
+                "autoIncrement": true
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "constraints": [
+              {
+                "message": "Cannot be null property name in entity Categories",
+                "condition": "isNotNull(name)"
+              }
+            ],
+            "values": [],
+            "defaults": [],
+            "clause": "insert",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Categories.insert([name, description])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 18
+            },
+            "name": "insert",
+            "children": [],
+            "type": "any",
+            "entity": "Categories",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer",
+                "required": false,
+                "autoIncrement": true
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "constraints": [
+              {
+                "message": "Cannot be null property name in entity Categories",
+                "condition": "isNotNull(name)"
+              }
+            ],
+            "values": [],
+            "defaults": [],
+            "clause": "insert",
             "alias": "c"
           }
         },
@@ -460,14 +1368,16 @@
               "ln": 0,
               "col": 18
             },
-            "name": "select",
+            "name": "insert",
             "children": [],
             "type": "any",
             "entity": "Categories",
             "columns": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "integer",
+                "required": false,
+                "autoIncrement": true
               },
               {
                 "name": "name",
@@ -478,11 +1388,20 @@
                 "type": "string"
               }
             ],
-            "parameters": [],
+            "parameters": [
+              {
+                "name": "entity.name",
+                "type": "string"
+              },
+              {
+                "name": "entity.description",
+                "type": "string"
+              }
+            ],
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "select",
+            "clause": "insert",
             "alias": "c"
           }
         },
@@ -494,14 +1413,16 @@
               "ln": 0,
               "col": 14
             },
-            "name": "select",
+            "name": "insert",
             "children": [],
             "type": "any",
             "entity": "Orders",
             "columns": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "integer",
+                "required": false,
+                "autoIncrement": true
               },
               {
                 "name": "customerId",
@@ -512,7 +1433,8 @@
                 "type": "integer"
               },
               {
-                "name": "orderDate"
+                "name": "orderDate",
+                "type": "datetime"
               },
               {
                 "name": "requiredDate",
@@ -555,11 +1477,73 @@
                 "type": "string"
               }
             ],
-            "parameters": [],
-            "constraints": [],
+            "parameters": [
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate",
+                "type": "any"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ],
+            "constraints": [
+              {
+                "message": "Cannot be null property customerId in entity Orders",
+                "condition": "isNotNull(customerId)"
+              },
+              {
+                "message": "Cannot be null property employeeId in entity Orders",
+                "condition": "isNotNull(employeeId)"
+              }
+            ],
             "values": [],
             "defaults": [],
-            "clause": "select",
+            "clause": "insert",
             "alias": "o"
           }
         },
@@ -571,7 +1555,7 @@
               "ln": 0,
               "col": 24
             },
-            "name": "select",
+            "name": "insert",
             "children": [
               {
                 "classtype": "Sentence",
@@ -579,7 +1563,7 @@
                   "ln": 0,
                   "col": 29
                 },
-                "name": "select",
+                "name": "insert",
                 "children": [],
                 "type": "any",
                 "entity": "Orders.details",
@@ -603,26 +1587,43 @@
                   {
                     "name": "discount",
                     "type": "decimal"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
-                    "type": "integer"
                   }
                 ],
                 "parameters": [
                   {
-                    "name": "LambdaOrmParentId",
-                    "type": "any"
+                    "name": "orderId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "productId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "unitPrice",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "quantity",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "discount",
+                    "type": "decimal"
                   }
                 ],
-                "constraints": [],
+                "constraints": [
+                  {
+                    "message": "Cannot be null property orderId in entity Orders.details",
+                    "condition": "isNotNull(orderId)"
+                  },
+                  {
+                    "message": "Cannot be null property productId in entity Orders.details",
+                    "condition": "isNotNull(productId)"
+                  }
+                ],
                 "values": [],
                 "defaults": [],
-                "clause": "select",
+                "clause": "insert",
                 "alias": "o1"
               }
             ],
@@ -631,7 +1632,9 @@
             "columns": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "integer",
+                "required": false,
+                "autoIncrement": true
               },
               {
                 "name": "customerId",
@@ -642,7 +1645,8 @@
                 "type": "integer"
               },
               {
-                "name": "orderDate"
+                "name": "orderDate",
+                "type": "datetime"
               },
               {
                 "name": "requiredDate",
@@ -683,21 +1687,75 @@
               {
                 "name": "country",
                 "type": "string"
-              },
-              {
-                "name": "__id",
-                "type": "integer"
-              },
-              {
-                "name": "__id",
-                "type": "integer"
               }
             ],
-            "parameters": [],
-            "constraints": [],
+            "parameters": [
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate",
+                "type": "any"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ],
+            "constraints": [
+              {
+                "message": "Cannot be null property customerId in entity Orders",
+                "condition": "isNotNull(customerId)"
+              },
+              {
+                "message": "Cannot be null property employeeId in entity Orders",
+                "condition": "isNotNull(employeeId)"
+              }
+            ],
             "values": [],
             "defaults": [],
-            "clause": "select",
+            "clause": "insert",
             "alias": "o"
           }
         },
@@ -709,7 +1767,7 @@
               "ln": 0,
               "col": 24
             },
-            "name": "select",
+            "name": "insert",
             "children": [
               {
                 "classtype": "Sentence",
@@ -717,7 +1775,7 @@
                   "ln": 0,
                   "col": 29
                 },
-                "name": "select",
+                "name": "insert",
                 "children": [],
                 "type": "any",
                 "entity": "Orders.details",
@@ -741,26 +1799,43 @@
                   {
                     "name": "discount",
                     "type": "decimal"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
-                    "type": "integer"
                   }
                 ],
                 "parameters": [
                   {
-                    "name": "LambdaOrmParentId",
-                    "type": "any"
+                    "name": "orderId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "productId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "unitPrice",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "quantity",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "discount",
+                    "type": "decimal"
                   }
                 ],
-                "constraints": [],
+                "constraints": [
+                  {
+                    "message": "Cannot be null property orderId in entity Orders.details",
+                    "condition": "isNotNull(orderId)"
+                  },
+                  {
+                    "message": "Cannot be null property productId in entity Orders.details",
+                    "condition": "isNotNull(productId)"
+                  }
+                ],
                 "values": [],
                 "defaults": [],
-                "clause": "select",
+                "clause": "insert",
                 "alias": "o1"
               }
             ],
@@ -769,7 +1844,9 @@
             "columns": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "integer",
+                "required": false,
+                "autoIncrement": true
               },
               {
                 "name": "customerId",
@@ -780,7 +1857,8 @@
                 "type": "integer"
               },
               {
-                "name": "orderDate"
+                "name": "orderDate",
+                "type": "datetime"
               },
               {
                 "name": "requiredDate",
@@ -821,29 +1899,549 @@
               {
                 "name": "country",
                 "type": "string"
-              },
+              }
+            ],
+            "parameters": [
               {
-                "name": "__id",
-                "type": "integer"
-              },
-              {
-                "name": "__customerId",
+                "name": "customerId",
                 "type": "string"
               },
               {
-                "name": "__id",
+                "name": "employeeId",
                 "type": "integer"
               },
               {
-                "name": "__customerId",
+                "name": "orderDate",
+                "type": "any"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
                 "type": "string"
               }
             ],
-            "parameters": [],
-            "constraints": [],
+            "constraints": [
+              {
+                "message": "Cannot be null property customerId in entity Orders",
+                "condition": "isNotNull(customerId)"
+              },
+              {
+                "message": "Cannot be null property employeeId in entity Orders",
+                "condition": "isNotNull(employeeId)"
+              }
+            ],
             "values": [],
             "defaults": [],
-            "clause": "select",
+            "clause": "insert",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Categories.bulkInsert()",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 22
+            },
+            "name": "bulkInsert",
+            "children": [],
+            "type": "any",
+            "entity": "Categories",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer",
+                "required": false,
+                "autoIncrement": true
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "constraints": [
+              {
+                "message": "Cannot be null property name in entity Categories",
+                "condition": "isNotNull(name)"
+              }
+            ],
+            "values": [],
+            "defaults": [],
+            "clause": "bulkInsert",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => p.details)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 28
+            },
+            "name": "bulkInsert",
+            "children": [
+              {
+                "classtype": "Sentence",
+                "pos": {
+                  "ln": 0,
+                  "col": 33
+                },
+                "name": "bulkInsert",
+                "children": [],
+                "type": "any",
+                "entity": "Orders.details",
+                "columns": [
+                  {
+                    "name": "orderId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "productId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "unitPrice",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "quantity",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "discount",
+                    "type": "decimal"
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "orderId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "productId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "unitPrice",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "quantity",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "discount",
+                    "type": "decimal"
+                  }
+                ],
+                "constraints": [
+                  {
+                    "message": "Cannot be null property orderId in entity Orders.details",
+                    "condition": "isNotNull(orderId)"
+                  },
+                  {
+                    "message": "Cannot be null property productId in entity Orders.details",
+                    "condition": "isNotNull(productId)"
+                  }
+                ],
+                "values": [],
+                "defaults": [],
+                "clause": "bulkInsert",
+                "alias": "o1"
+              }
+            ],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer",
+                "required": false,
+                "autoIncrement": true
+              },
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate",
+                "type": "datetime"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate",
+                "type": "any"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ],
+            "constraints": [
+              {
+                "message": "Cannot be null property customerId in entity Orders",
+                "condition": "isNotNull(customerId)"
+              },
+              {
+                "message": "Cannot be null property employeeId in entity Orders",
+                "condition": "isNotNull(employeeId)"
+              }
+            ],
+            "values": [],
+            "defaults": [],
+            "clause": "bulkInsert",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => [p.details, p.customer])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 28
+            },
+            "name": "bulkInsert",
+            "children": [
+              {
+                "classtype": "Sentence",
+                "pos": {
+                  "ln": 0,
+                  "col": 33
+                },
+                "name": "bulkInsert",
+                "children": [],
+                "type": "any",
+                "entity": "Orders.details",
+                "columns": [
+                  {
+                    "name": "orderId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "productId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "unitPrice",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "quantity",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "discount",
+                    "type": "decimal"
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "orderId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "productId",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "unitPrice",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "quantity",
+                    "type": "decimal"
+                  },
+                  {
+                    "name": "discount",
+                    "type": "decimal"
+                  }
+                ],
+                "constraints": [
+                  {
+                    "message": "Cannot be null property orderId in entity Orders.details",
+                    "condition": "isNotNull(orderId)"
+                  },
+                  {
+                    "message": "Cannot be null property productId in entity Orders.details",
+                    "condition": "isNotNull(productId)"
+                  }
+                ],
+                "values": [],
+                "defaults": [],
+                "clause": "bulkInsert",
+                "alias": "o1"
+              }
+            ],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer",
+                "required": false,
+                "autoIncrement": true
+              },
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate",
+                "type": "datetime"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate",
+                "type": "any"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              }
+            ],
+            "constraints": [
+              {
+                "message": "Cannot be null property customerId in entity Orders",
+                "condition": "isNotNull(customerId)"
+              },
+              {
+                "message": "Cannot be null property employeeId in entity Orders",
+                "condition": "isNotNull(employeeId)"
+              }
+            ],
+            "values": [],
+            "defaults": [],
+            "clause": "bulkInsert",
             "alias": "o"
           }
         }
@@ -853,12 +2451,32 @@
       "name": "getInfo",
       "tests": [
         {
+          "test": "Categories.insert({name:name,description:description})",
+          "result": {
+            "entity": "Categories",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
+            "children": []
+          }
+        },
+        {
           "test": "Categories.insert()",
           "result": {
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.description` AS description FROM Categories c  ",
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
+            "children": []
+          }
+        },
+        {
+          "test": "Categories.insert([name, description])",
+          "result": {
+            "entity": "Categories",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
             "children": []
           }
         },
@@ -868,7 +2486,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.description` AS description FROM Categories c  ",
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
             "children": []
           }
         },
@@ -878,7 +2496,7 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country FROM Orders o  ",
+            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
             "children": []
           }
         },
@@ -888,13 +2506,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.OrderID AS `__id` FROM Orders o  ",
+            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.OrderID AS LambdaOrmParentId, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)",
                 "children": []
               }
             ]
@@ -906,13 +2524,59 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  ",
+            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.OrderID AS LambdaOrmParentId, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)",
+                "children": []
+              }
+            ]
+          }
+        },
+        {
+          "test": "Categories.bulkInsert()",
+          "result": {
+            "entity": "Categories",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => p.details)",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "children": [
+              {
+                "entity": "Orders.details",
+                "dialect": "MySQL",
+                "source": "MySQL",
+                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)",
+                "children": []
+              }
+            ]
+          }
+        },
+        {
+          "test": "Orders.bulkInsert().include(p => [p.details, p.customer])",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "children": [
+              {
+                "entity": "Orders.details",
+                "dialect": "MySQL",
+                "source": "MySQL",
+                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)",
                 "children": []
               }
             ]
