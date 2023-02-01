@@ -19,6 +19,7 @@ export class SentenceLibrary {
 		})
 		this.model.addFunction('update(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
 		this.model.addFunction('updateAll(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
+		this.model.addFunction('deleteAll(list: any[]):any', ():void => { throw new Error('NotImplemented') })
 		this.model.addFunction('having(list: T[], predicate: boolean):T[]', ():void => { throw new Error('NotImplemented') })
 		this.model.addFunction('include(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
 		this.model.addFunction('desc(value:any):void', ():void => { throw new Error('NotImplemented') })
