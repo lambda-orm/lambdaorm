@@ -383,8 +383,8 @@ export class SentenceBuilder {
 	public normalize (expression: string): string {
 		try {
 			const operand = this.expressions.build(expression)
-			const normalized = this.normalizer.normalize(operand)
-			// const sentence = this.solve(normalized, new ExpressionContext(new EntityContext()))
+			const cloned = this.expressions.clone(operand)
+			const normalized = this.normalizer.normalize(cloned)
 			return this.toExpression(normalized)
 		} catch (error: any) {
 			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
@@ -538,7 +538,7 @@ export class SentenceBuilder {
 		expressionContext.current = new EntityContext(expressionContext.current)
 		const clauses: any = this.helper.getClauses(operand)
 		expressionContext.current.entityName = clauses.from.name
-		// expressionContext.current.metadata = this.modelConfig.getEntity(expressionContext.current.entityName)
+		// expressionContext.curreOrders.bulkInsert().include(p => [p.details, p.customer])nt.metadata = this.modelConfig.getEntity(expressionContext.current.entityName)
 		expressionContext.current.alias = this.createAlias(expressionContext, expressionContext.current.entityName)
 
 		const children: Operand[] = []
@@ -731,33 +731,17 @@ export class SentenceBuilder {
 	}
 
 	private createInsertClause (clause: Operand, expressionContext: ExpressionContext): Operand {
-		if (clause.children.length === 2) {
+		if (clause.children.length === 2 && clause.children[1].type === OperandType.Obj) {
 			// Example: Categories.insert({ name: name, description: description })
-			if (clause.children[1].type === OperandType.Obj) {
-				const child = this.solveFields(clause.children[1], expressionContext)
-				return new Insert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
-			} else { throw new SintaxisError('Args incorrect in Sentence Insert') }
-		} else if (clause.children.length === 3) {
-			// Example: Categories.insert(() => ({ name: name, description: description }))
-			if (clause.children[2].type === OperandType.Obj) {
-				const child = this.solveFields(clause.children[2], expressionContext)
-				return new Insert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
-			} else { throw new SintaxisError('Args incorrect in Sentence Insert') }
+			const child = this.solveFields(clause.children[1], expressionContext)
+			return new Insert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 		}
 		throw new SintaxisError('Sentence Insert incorrect!!!')
 	}
 
 	private createUpdateClause (clause: Operand, expressionContext: ExpressionContext): Operand {
-		if (clause.children.length === 2) {
-			if (clause.children[1].type === OperandType.Obj) {
-				// Example: Orders.update({name:'test'})
-				const child = this.solveFields(clause.children[1], expressionContext)
-				return new Update(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
-			} else {
-				throw new SintaxisError('Args incorrect in Sentence Update')
-			}
-		} else if (clause.children.length === 3) {
-			// Example: Orders.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
+		if (clause.children.length === 3 && clause.children[2].type === OperandType.Obj) {
+			// Example: Categories.update(p=>{name:entity.name,description:entity.description})
 			expressionContext.current.arrowVar = clause.children[1].name
 			const child = this.solveFields(clause.children[2], expressionContext)
 			return new Update(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)

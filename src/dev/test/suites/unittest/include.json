@@ -145,10 +145,6 @@
                 {
                   "name": "LambdaOrmParentId",
                   "type": "string"
-                },
-                {
-                  "name": "LambdaOrmParentId",
-                  "type": "string"
                 }
               ]
             }
@@ -239,10 +235,6 @@
                 {
                   "name": "LambdaOrmParentId",
                   "type": "integer"
-                },
-                {
-                  "name": "LambdaOrmParentId",
-                  "type": "integer"
                 }
               ]
             }
@@ -329,10 +321,6 @@
                 {
                   "name": "discount",
                   "type": "decimal"
-                },
-                {
-                  "name": "LambdaOrmParentId",
-                  "type": "integer"
                 },
                 {
                   "name": "LambdaOrmParentId",
@@ -429,10 +417,6 @@
                   "type": "integer"
                 },
                 {
-                  "name": "LambdaOrmParentId",
-                  "type": "integer"
-                },
-                {
                   "name": "product",
                   "type": "Products",
                   "children": [
@@ -475,10 +459,6 @@
                     {
                       "name": "discontinued",
                       "type": "boolean"
-                    },
-                    {
-                      "name": "LambdaOrmParentId",
-                      "type": "integer"
                     },
                     {
                       "name": "LambdaOrmParentId",
@@ -577,10 +557,6 @@
                   "type": "integer"
                 },
                 {
-                  "name": "LambdaOrmParentId",
-                  "type": "integer"
-                },
-                {
                   "name": "product",
                   "type": "Products",
                   "children": [
@@ -629,10 +605,6 @@
                       "type": "integer"
                     },
                     {
-                      "name": "LambdaOrmParentId",
-                      "type": "integer"
-                    },
-                    {
                       "name": "category",
                       "type": "Categories",
                       "children": [
@@ -647,10 +619,6 @@
                         {
                           "name": "description",
                           "type": "string"
-                        },
-                        {
-                          "name": "LambdaOrmParentId",
-                          "type": "integer"
                         },
                         {
                           "name": "LambdaOrmParentId",
@@ -741,10 +709,6 @@
                 {
                   "name": "LambdaOrmParentId",
                   "type": "integer"
-                },
-                {
-                  "name": "LambdaOrmParentId",
-                  "type": "integer"
                 }
               ]
             }
@@ -829,10 +793,6 @@
                   "type": "integer"
                 },
                 {
-                  "name": "LambdaOrmParentId",
-                  "type": "integer"
-                },
-                {
                   "name": "product",
                   "type": "Products",
                   "children": [
@@ -875,10 +835,6 @@
                     {
                       "name": "discontinued",
                       "type": "boolean"
-                    },
-                    {
-                      "name": "LambdaOrmParentId",
-                      "type": "integer"
                     },
                     {
                       "name": "LambdaOrmParentId",
@@ -954,10 +910,6 @@
               "children": [
                 {
                   "name": "name",
-                  "type": "string"
-                },
-                {
-                  "name": "LambdaOrmParentId",
                   "type": "string"
                 },
                 {
@@ -1363,10 +1315,6 @@
                   {
                     "name": "LambdaOrmParentId",
                     "type": "string"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
-                    "type": "string"
                   }
                 ],
                 "parameters": [
@@ -1443,10 +1391,6 @@
               {
                 "name": "__customerId",
                 "type": "string"
-              },
-              {
-                "name": "__customerId",
-                "type": "string"
               }
             ],
             "parameters": [
@@ -1502,10 +1446,6 @@
                   {
                     "name": "discount",
                     "type": "decimal"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
-                    "type": "integer"
                   },
                   {
                     "name": "LambdaOrmParentId",
@@ -1582,10 +1522,6 @@
               {
                 "name": "country",
                 "type": "string"
-              },
-              {
-                "name": "__id",
-                "type": "integer"
               },
               {
                 "name": "__id",
@@ -1649,10 +1585,6 @@
                   {
                     "name": "LambdaOrmParentId",
                     "type": "integer"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
-                    "type": "integer"
                   }
                 ],
                 "parameters": [
@@ -1724,14 +1656,6 @@
               },
               {
                 "name": "country",
-                "type": "string"
-              },
-              {
-                "name": "__id",
-                "type": "integer"
-              },
-              {
-                "name": "__customerId",
                 "type": "string"
               },
               {
@@ -1828,10 +1752,6 @@
                       {
                         "name": "LambdaOrmParentId",
                         "type": "integer"
-                      },
-                      {
-                        "name": "LambdaOrmParentId",
-                        "type": "integer"
                       }
                     ],
                     "parameters": [
@@ -1869,14 +1789,6 @@
                   {
                     "name": "discount",
                     "type": "decimal"
-                  },
-                  {
-                    "name": "__productId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
-                    "type": "integer"
                   },
                   {
                     "name": "__productId",
@@ -1956,14 +1868,6 @@
               },
               {
                 "name": "country",
-                "type": "string"
-              },
-              {
-                "name": "__id",
-                "type": "integer"
-              },
-              {
-                "name": "__customerId",
                 "type": "string"
               },
               {
@@ -2040,10 +1944,6 @@
                           {
                             "name": "LambdaOrmParentId",
                             "type": "integer"
-                          },
-                          {
-                            "name": "LambdaOrmParentId",
-                            "type": "integer"
                           }
                         ],
                         "parameters": [
@@ -2109,14 +2009,6 @@
                       {
                         "name": "LambdaOrmParentId",
                         "type": "integer"
-                      },
-                      {
-                        "name": "__categoryId",
-                        "type": "integer"
-                      },
-                      {
-                        "name": "LambdaOrmParentId",
-                        "type": "integer"
                       }
                     ],
                     "parameters": [
@@ -2154,14 +2046,6 @@
                   {
                     "name": "discount",
                     "type": "decimal"
-                  },
-                  {
-                    "name": "__productId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
-                    "type": "integer"
                   },
                   {
                     "name": "__productId",
@@ -2241,14 +2125,6 @@
               },
               {
                 "name": "country",
-                "type": "string"
-              },
-              {
-                "name": "__id",
-                "type": "integer"
-              },
-              {
-                "name": "__customerId",
                 "type": "string"
               },
               {
@@ -2309,10 +2185,6 @@
                   {
                     "name": "LambdaOrmParentId",
                     "type": "integer"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
-                    "type": "integer"
                   }
                 ],
                 "parameters": [
@@ -2384,14 +2256,6 @@
               },
               {
                 "name": "country",
-                "type": "string"
-              },
-              {
-                "name": "__id",
-                "type": "integer"
-              },
-              {
-                "name": "__customerId",
                 "type": "string"
               },
               {
@@ -2488,10 +2352,6 @@
                       {
                         "name": "LambdaOrmParentId",
                         "type": "integer"
-                      },
-                      {
-                        "name": "LambdaOrmParentId",
-                        "type": "integer"
                       }
                     ],
                     "parameters": [
@@ -2520,14 +2380,6 @@
                   },
                   {
                     "name": "productId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "__productId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
                     "type": "integer"
                   },
                   {
@@ -2617,14 +2469,6 @@
               {
                 "name": "__customerId",
                 "type": "string"
-              },
-              {
-                "name": "__id",
-                "type": "integer"
-              },
-              {
-                "name": "__customerId",
-                "type": "string"
               }
             ],
             "parameters": [
@@ -2663,10 +2507,6 @@
                 "columns": [
                   {
                     "name": "name",
-                    "type": "string"
-                  },
-                  {
-                    "name": "LambdaOrmParentId",
                     "type": "string"
                   },
                   {
@@ -2752,14 +2592,6 @@
               {
                 "name": "__id",
                 "type": "integer"
-              },
-              {
-                "name": "__customerId",
-                "type": "string"
-              },
-              {
-                "name": "__id",
-                "type": "integer"
               }
             ],
             "parameters": [
@@ -2786,13 +2618,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.CustomerID AS `__customerId`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Customers",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.contact` AS contact, `p.phone` AS phone, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, c.CustomerID AS LambdaOrmParentId, c.CustomerID AS LambdaOrmParentId FROM Customers c  WHERE  c.CustomerID IN (?) ",
+                "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.contact` AS contact, `p.phone` AS phone, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, c.CustomerID AS LambdaOrmParentId FROM Customers c  WHERE  c.CustomerID IN (?) ",
                 "children": []
               }
             ]
@@ -2804,13 +2636,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.OrderID AS LambdaOrmParentId, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
                 "children": []
               }
             ]
@@ -2822,13 +2654,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.OrderID AS LambdaOrmParentId, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
                 "children": []
               }
             ]
@@ -2840,19 +2672,19 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
                 "children": [
                   {
                     "entity": "Products",
                     "dialect": "MySQL",
                     "source": "MySQL",
-                    "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued, p.ProductID AS LambdaOrmParentId, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
+                    "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
                     "children": []
                   }
                 ]
@@ -2866,25 +2698,25 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
                 "children": [
                   {
                     "entity": "Products",
                     "dialect": "MySQL",
                     "source": "MySQL",
-                    "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued, p.CategoryID AS `__categoryId`, p.ProductID AS LambdaOrmParentId, p.CategoryID AS `__categoryId`, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
+                    "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued, p.CategoryID AS `__categoryId`, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
                     "children": [
                       {
                         "entity": "Categories",
                         "dialect": "MySQL",
                         "source": "MySQL",
-                        "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.description` AS description, c.CategoryID AS LambdaOrmParentId, c.CategoryID AS LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID IN (?) ",
+                        "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.description` AS description, c.CategoryID AS LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID IN (?) ",
                         "children": []
                       }
                     ]
@@ -2900,13 +2732,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice, o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice, o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
                 "children": []
               }
             ]
@@ -2918,19 +2750,19 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId`, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice, o1.ProductID AS productId, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice, o1.ProductID AS productId, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
                 "children": [
                   {
                     "entity": "Products",
                     "dialect": "MySQL",
                     "source": "MySQL",
-                    "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued, p.ProductID AS LambdaOrmParentId, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
+                    "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
                     "children": []
                   }
                 ]
@@ -2944,13 +2776,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.CustomerID AS `__customerId`, o.OrderID AS `__id`, o.CustomerID AS `__customerId`, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.CustomerID AS `__customerId`, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Customers",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId, c.CustomerID AS LambdaOrmParentId FROM Customers c  WHERE  c.CustomerID IN (?) ",
+                "sentence": "SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId FROM Customers c  WHERE  c.CustomerID IN (?) ",
                 "children": []
               }
             ]

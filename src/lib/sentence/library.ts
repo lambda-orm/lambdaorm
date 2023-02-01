@@ -17,6 +17,8 @@ export class SentenceLibrary {
 			const bytes = CryptoJS.AES.decrypt(value, key)
 			return bytes.toString(CryptoJS.enc.Utf8)
 		})
+		this.model.addFunction('update(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
+		this.model.addFunction('updateAll(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
 		this.model.addFunction('having(list: T[], predicate: boolean):T[]', ():void => { throw new Error('NotImplemented') })
 		this.model.addFunction('include(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
 		this.model.addFunction('desc(value:any):void', ():void => { throw new Error('NotImplemented') })

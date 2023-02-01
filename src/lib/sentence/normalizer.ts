@@ -16,10 +16,10 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			const arrowVariable = new Operand(operand.pos, 'p', OperandType.Var)
 			const allFields = new Operand(operand.pos, 'p', OperandType.Var)
 			const map = new Operand(operand.pos, 'map', OperandType.Arrow, [operand, arrowVariable, allFields])
-			this.completeSentence(map)
+			this.normalizeSentence(map)
 			return map
 		} else {
-			this.completeSentence(operand)
+			this.normalizeSentence(operand)
 			return operand
 		}
 	}
@@ -58,43 +58,42 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		return clauses
 	}
 
-	private completeSentence (mainOperand: Operand, entityName?: string): void {
+	private normalizeSentence (mainOperand: Operand, entityName?: string): void {
 		let compeleInclude: any
 		const clauses: any = this.getClauses(mainOperand)
 		const entity = this.schema.model.getForcedEntity(entityName || clauses.from.name)
 		if (clauses.insert) {
 			compeleInclude = this.completeInsertInclude
-			this.completeInsert(entity, clauses.insert)
+			this.normalizeInsert(entity, clauses.insert)
 		} else if (clauses.bulkInsert) {
 			compeleInclude = this.completeBulkInsertInclude
-			this.completeInsert(entity, clauses.bulkInsert)
+			this.normalizeInsert(entity, clauses.bulkInsert)
 		} else if (clauses.update) {
 			compeleInclude = this.completeUpdateInclude
-			this.completeFilterNode(entity, clauses, clauses.update)
-			this.completeUpdate(entity, clauses.update)
+			this.completeFilter(entity, clauses, clauses.update)
+			this.normalizeUpdate(entity, clauses.update)
 		} else if (clauses.updateAll) {
 			compeleInclude = this.completeUpdateInclude
+			this.normalizeUpdate(entity, clauses.updateAll)
 			clauses.updateAll.name = 'update'
-			// validate that it has an object defined
-			// Example: Entity.update({name:'test'})
 		} else if (clauses.delete) {
 			compeleInclude = this.completeDeleteInclude
-			this.completeFilterNode(entity, clauses, clauses.delete)
+			this.completeFilter(entity, clauses, clauses.delete)
 		} else if (clauses.deleteAll) {
 			compeleInclude = this.completeDeleteInclude
 			clauses.deleteAll.name = 'delete'
 		} else if (clauses.map) {
 			compeleInclude = this.completeMapInclude
-			this.completeMapNode(entity, clauses.map)
+			this.normalizeMap(entity, clauses.map)
 		} else if (clauses.distinct) {
 			compeleInclude = this.completeMapInclude
-			this.completeDistinctNode(clauses, entity)
+			this.normalizeDistinct(clauses, entity)
 		} else if (clauses.first) {
 			compeleInclude = this.completeMapInclude
-			this.completeFirstNode(clauses, mainOperand, entity)
+			this.normalizeFirst(clauses, mainOperand, entity)
 		} else if (clauses.last) {
 			compeleInclude = this.completeMapInclude
-			this.completeLastNode(clauses, mainOperand, entity)
+			this.normalizeLast(clauses, mainOperand, entity)
 		} else {
 			// Solve expresión without map example: Products.filter(p=> id==1)
 			compeleInclude = this.completeMapInclude
@@ -102,40 +101,40 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			const varAll = new Operand(mainOperand.pos, 'p', OperandType.Var)
 			mainOperand.children[0] = new Operand(mainOperand.pos, 'map', OperandType.Arrow, [mainOperand.children[0], varArrow, varAll])
 			clauses.map = mainOperand.children[0]
-			this.completeMapNode(entity, clauses.map)
+			this.normalizeMap(entity, clauses.map)
 		}
 
 		if (clauses.sort) {
-			this.completeSortNode(clauses)
+			this.normalizeSort(clauses)
 		}
 		if (clauses.page && !clauses.sort) {
 			this.addSortNode(clauses, mainOperand, 'asc')
 		}
 		if (clauses.include) {
-			this.completeIncludeNode(clauses, compeleInclude, entity)
+			this.normalizeInclude(clauses, compeleInclude, entity)
 		}
 	}
 
-	private completeFilterNode (entity: Entity, clauses: any, clause:any): void {
+	private completeFilter (entity: Entity, clauses: any, clause:any): void {
 		if (!clauses.filter) {
 			this.createClauseFilter(entity, clause)
 		}
 	}
 
-	private completeDistinctNode (clauses: any, entity: Entity): void {
+	private normalizeDistinct (clauses: any, entity: Entity): void {
 		// Replace distinct for map and add function distinct to child of map
 		clauses.map = clauses.distinct
 		clauses.map.name = 'map'
-		this.completeMapNode(entity, clauses.map)
+		this.normalizeMap(entity, clauses.map)
 		clauses.map.children[2] = new Operand(clauses.map.pos, 'distinct', OperandType.CallFunc, [clauses.map.children[2]])
 	}
 
-	private completeFirstNode (clauses: any, mainOperand: Operand, entity: Entity): void {
+	private normalizeFirst (clauses: any, mainOperand: Operand, entity: Entity): void {
 		// Add orderby and limit , replace first for map
 		// example: SELECT * FROM Orders ORDER BY OrderId LIMIT 0,1
 		clauses.map = clauses.first
 		clauses.map.name = 'map'
-		this.completeMapNode(entity, clauses.map)
+		this.normalizeMap(entity, clauses.map)
 		if (!clauses.sort) {
 			this.addSortNode(clauses, mainOperand, 'asc')
 		}
@@ -146,12 +145,12 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		}
 	}
 
-	private completeLastNode (clauses: any, mainOperand: Operand, entity: Entity): void {
+	private normalizeLast (clauses: any, mainOperand: Operand, entity: Entity): void {
 		// Add orderby desc and limit, replace last for map
 		// example: SELECT * FROM Orders ORDER BY OrderId DESC LIMIT 0,1
 		clauses.map = clauses.last
 		clauses.map.name = 'map'
-		this.completeMapNode(entity, clauses.map)
+		this.normalizeMap(entity, clauses.map)
 		if (!clauses.sort) {
 			this.addSortNode(clauses, mainOperand, 'desc')
 		}
@@ -171,7 +170,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		mainOperand.children[0] = new Operand(mainOperand.pos, 'sort', OperandType.Arrow, [mainOperand.children[0], varArrow, funcAsc])
 	}
 
-	private completeSortNode (clauses: any): void {
+	private normalizeSort (clauses: any): void {
 		// sets ascending order in the case that it has not already been specified
 		const body = clauses.sort.children[2]
 		if (body.type === OperandType.List) {
@@ -187,7 +186,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		}
 	}
 
-	private completeIncludeNode (clauses: any, compeleInclude:any, entity: Entity): void {
+	private normalizeInclude (clauses: any, compeleInclude:any, entity: Entity): void {
 		if (!compeleInclude) {
 			throw new SchemaError('Include not implemented!!!')
 		}
@@ -217,7 +216,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		map.children[2].children.push(keyVal)
 	}
 
-	private completeMapNode (entity: Entity, operand: Operand): void {
+	private normalizeMap (entity: Entity, operand: Operand): void {
 		if (operand.children && operand.children.length === 3) {
 			const arrowVar = operand.children[1].name
 			const fields = operand.children[2]
@@ -258,33 +257,76 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		return new Operand(field.pos, key, OperandType.KeyVal, [field])
 	}
 
-	private completeInsert (entity: Entity, operand: Operand): void {
+	private normalizeInsert (entity: Entity, operand: Operand): void {
 		if (operand.children.length === 1) {
-			// example: Categories.insert()
+			// example: Categories.insert() to: Categories.insert({name:name,description:description})
 			const fields = this.createWriteVars(operand.pos, entity, undefined, false, true)
 			operand.children.push(fields)
 		} else if (operand.children.length === 2 && operand.children[1].type === OperandType.Var) {
-			// example: Categories.insert(entity)
+			// example: Categories.insert(entity) to: Categories.insert({name:entity.name,description:entity.description})
 			operand.children[1] = this.createWriteVars(operand.pos, entity, operand.children[1].name, false, true)
 		} else if (operand.children.length === 2 && operand.children[1].type === OperandType.List) {
-			// example: Categories.insert([name,description])
+			// example: Categories.insert([name,description]) to: Categories.insert({name:name,description:description})
 			operand.children[1] = this.writeVarsFromList(entity, operand.children[1])
+		} else if (operand.children.length === 3 && operand.children[2].type === OperandType.Obj) {
+			// example: 'Categories.insert(p=>{name:p.name,description:p.description}) to: Categories.insert({name:name,description:description})
+			const variable = operand.children[1].name
+			for (const child of operand.children[2].children) {
+				child.name = child.name.replace(`${variable}.`, '')
+			}
+			operand.children[1] = operand.children[2]
+			// remove index 2
+			operand.children.pop()
+		} else if (operand.children.length === 3 && operand.children[2].type === OperandType.List) {
+			// example: 'Categories.insert(p=>[p.name,p.description]) to: Categories.insert({name:name,description:description})
+			const variable = operand.children[1].name
+			for (const child of operand.children[2].children) {
+				child.name = child.name.replace(`${variable}.`, '')
+			}
+			operand.children[1] = this.writeVarsFromList(entity, operand.children[2])
+			// remove index 2
+			operand.children.pop()
 		}
 	}
 
-	private completeUpdate (entity: Entity, operand: Operand): void {
+	private normalizeUpdate (entity: Entity, operand: Operand): void {
 		if (operand.children.length === 1) {
-			// Example: Entity.update()
+			// Example: Categories.update() to: Categories.update(p=>{name:name,description:description})
 			// In the case that the mapping is not defined, it assumes that the data will be the entity to update
+			const variable = new Operand(operand.pos, 'p', OperandType.Var, [], Type.any)
 			const fields = this.createWriteVars(operand.pos, entity, undefined, false, true)
+			operand.children.push(variable)
 			operand.children.push(fields)
 		} else if (operand.children.length === 2 && operand.children[1].type === OperandType.Var) {
-			// Example: Entity.update(entity)
+			// Example: Categories.update(entity) to: Categories.update(p=>{name:entity.name,description:entity.description})
 			// In the case that a mapping was not defined but a variable is passed, it is assumed that this variable will be the entity to update
-			operand.children[1] = this.createWriteVars(operand.pos, entity, operand.children[1].name, true)
-		} else if (operand.children.length === 3 && operand.type === OperandType.Arrow && operand.children[1].name === operand.children[2].name) {
-			// Example: Entity.update({ name: entity.name }).include(p => p.details.update(p => p))
-			operand.children[2] = this.createWriteVars(operand.pos, entity, operand.children[1].name, true)
+			const variable = new Operand(operand.pos, 'p', OperandType.Var, [], Type.any)
+			const fields = this.createWriteVars(operand.pos, entity, operand.children[1].name, true)
+			operand.children[1] = variable
+			operand.children.push(fields)
+		} else if (operand.children.length === 2 && operand.children[1].type === OperandType.List) {
+			// Example: Categories.update([name, description]) to: Categories.update(p=>{name:name,description:description})
+			const variable = new Operand(operand.pos, 'p', OperandType.Var, [], Type.any)
+			const fields = this.writeVarsFromList(entity, operand.children[1])
+			operand.children[1] = variable
+			operand.children.push(fields)
+		} else if (operand.children.length === 2 && operand.children[1].type === OperandType.Obj) {
+			// Example: Categories.update({ name: entity.name }) to: Categories.update(p=>{name:entity.name})
+			const variable = new Operand(operand.pos, 'p', OperandType.Var, [], Type.any)
+			const fields = operand.children[1]
+			operand.children[1] = variable
+			operand.children.push(fields)
+		} else if (operand.children.length === 3 && operand.children[2].type === OperandType.Var) {
+			if (operand.children[2].name === operand.children[1].name) {
+				// Example: Categories.update(p => p) to: Categories.update(p=>{name:name,description:description})
+				operand.children[2] = this.createWriteVars(operand.pos, entity, undefined, true)
+			} else {
+				// Example: Categories.update(p => entity) to: Categories.update(p=>{name:entity.name,description:entity.description})
+				operand.children[2] = this.createWriteVars(operand.pos, entity, operand.children[2].name, true)
+			}
+		} else if (operand.children.length === 3 && operand.children[2].type === OperandType.List) {
+			// Example: Categories.update(p=>[name, description]) to: Categories.update(p=>{name:name,description:description})
+			operand.children[2] = this.writeVarsFromList(entity, operand.children[2])
 		}
 	}
 
@@ -387,7 +429,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 				if (current.children.length > 0) { current = current.children[0] } else { break }
 			}
 			map = operand// new Node(clause,'childFunc',[operand])
-			this.completeSentence(map, relation.entity)
+			this.normalizeSentence(map, relation.entity)
 		} else if (operand.type === OperandType.Var) {
 			// resuelve el caso que solo esta la variable que representa la relación , ejemplo: .include(p=> p.details)
 			// entones agregar map(p=>p) a la variable convirtiéndolo en .include(p=> p.details.map(p=>p))
@@ -397,7 +439,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			const relationName = parts[1]
 			relation = entity.relations.find(p => p.name === relationName)
 			map = new Operand(operand.pos, clause, OperandType.Arrow, [operand, varArrowNode, varAll])
-			this.completeSentence(map, relation.entity)
+			this.normalizeSentence(map, relation.entity)
 		} else {
 			throw new SintaxisError('Error to add include operand ' + operand.type + ':' + operand.name)
 		}
@@ -467,7 +509,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			const relation = this.getIncludeRelation(entity, operand)
 			const clauses: any = this.getClauses(operand)
 			const clauseOperand = clauses[clause] ? clauses[clause] : new Operand(operand.pos, clause, OperandType.CallFunc, [operand])
-			this.completeSentence(clauseOperand, relation.entity)
+			this.normalizeSentence(clauseOperand, relation.entity)
 			return clauseOperand
 		} else if (operand.type === OperandType.Var) {
 			// resuelve el caso que solo esta la variable que representa la relación , ejemplo: .include(p=> p.details)
@@ -477,7 +519,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 				throw new SchemaError(`Relation ${operand.name} not found in ${entity.name}`)
 			}
 			const clauseOperand = new Operand(operand.pos, clause, OperandType.CallFunc, [operand])
-			this.completeSentence(clauseOperand, relation.entity)
+			this.normalizeSentence(clauseOperand, relation.entity)
 			return clauseOperand
 		} else if (operand.type === OperandType.CallFunc || operand.type === OperandType.ChildFunc) {
 			// Example .include(p=>p.details.insert({orderId:orderId,productId:productId,...}))
@@ -486,7 +528,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			if (!relation) {
 				throw new SchemaError(`Relation ${operand.name} not found in ${entity.name}`)
 			}
-			this.completeSentence(operand, relation.entity)
+			this.normalizeSentence(operand, relation.entity)
 			return operand
 		} else {
 			throw new SchemaError('Error to add include operand ' + operand.type + ':' + operand.name)

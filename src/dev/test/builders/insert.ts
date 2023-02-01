@@ -13,6 +13,9 @@ export class InsertBuildTest implements IBuildTest {
 			'Orders.insert()',
 			'Orders.insert().include(p => p.details)',
 			'Orders.insert().include(p => [p.details, p.customer])',
+			'Categories.insert(() => ({ name: name, description: description }))',
+			'Categories.insert(p=>{name:p.name,description:p.description})',
+			'Categories.insert(p=> [p.name,p.description])',
 			'Categories.bulkInsert()',
 			'Orders.bulkInsert().include(p => p.details)',
 			'Orders.bulkInsert().include(p => [p.details, p.customer])'

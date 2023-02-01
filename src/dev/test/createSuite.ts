@@ -15,7 +15,7 @@ import { h3lp } from 'h3lp'
 		.add(new GroupByBuildTest(orm, options))
 		.add(new IncludeBuildTest(orm, options))
 		.add(new InsertBuildTest(orm, options))	
-		// .add(new UpdateBuildTest(orm, options))	
+		.add(new UpdateBuildTest(orm, options))	
 		// .add(new DeleteBuildTest(orm, options))
 		.build('./src/dev/test/suites/unittest')
 
