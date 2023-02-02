@@ -1017,7 +1017,7 @@ export async function apply (stages: string[], callback: any) {
 
 		// //operators comparative , mathematics
 		// //string functions
-		// //datetime functions
+		// //dateTime functions
 		// //null functions
 		// OLDS
 		// await modify(orm)

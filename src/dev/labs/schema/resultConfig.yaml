@@ -93,9 +93,9 @@ model:
           type: string
           length: 80
         - name: birthDate
-          type: datetime
+          type: dateTime
         - name: hireDate
-          type: datetime
+          type: dateTime
         - name: phone
           type: string
           length: 80
@@ -249,11 +249,11 @@ model:
           required: true
           type: integer
         - name: orderDate
-          type: datetime
+          type: dateTime
         - name: requiredDate
-          type: datetime
+          type: dateTime
         - name: shippedDate
-          type: datetime
+          type: dateTime
         - name: shipViaId
           type: integer
         - name: freight
@@ -427,10 +427,10 @@ mappings:
             length: 80
           - name: birthDate
             mapping: BirthDate
-            type: datetime
+            type: dateTime
           - name: hireDate
             mapping: HireDate
-            type: datetime
+            type: dateTime
           - name: phone
             mapping: HomePhone
             type: string
@@ -618,13 +618,13 @@ mappings:
             type: integer
           - name: orderDate
             mapping: OrderDate
-            type: datetime
+            type: dateTime
           - name: requiredDate
             mapping: RequiredDate
-            type: datetime
+            type: dateTime
           - name: shippedDate
             mapping: ShippedDate
-            type: datetime
+            type: dateTime
           - name: shipViaId
             mapping: ShipVia
             type: integer
@@ -820,10 +820,10 @@ mappings:
             length: 80
           - name: birthDate
             mapping: BirthDate
-            type: datetime
+            type: dateTime
           - name: hireDate
             mapping: HireDate
-            type: datetime
+            type: dateTime
           - name: phone
             mapping: HomePhone
             type: string
@@ -1011,13 +1011,13 @@ mappings:
             type: integer
           - name: orderDate
             mapping: OrderDate
-            type: datetime
+            type: dateTime
           - name: requiredDate
             mapping: RequiredDate
-            type: datetime
+            type: dateTime
           - name: shippedDate
             mapping: ShippedDate
-            type: datetime
+            type: dateTime
           - name: shipViaId
             mapping: ShipVia
             type: integer

@@ -18,7 +18,7 @@
 - [composite](model.FormatMapping.md#composite)
 - [constraints](model.FormatMapping.md#constraints)
 - [date](model.FormatMapping.md#date)
-- [datetime](model.FormatMapping.md#datetime)
+- [dateTime](model.FormatMapping.md#dateTime)
 - [dependents](model.FormatMapping.md#dependents)
 - [extends](model.FormatMapping.md#extends)
 - [hadDefaults](model.FormatMapping.md#haddefaults)
@@ -91,9 +91,9 @@ ___
 
 ___
 
-### datetime
+### dateTime
 
-• `Optional` **datetime**: `string`
+• `Optional` **dateTime**: `string`
 
 #### Defined in
 

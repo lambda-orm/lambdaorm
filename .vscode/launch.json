@@ -154,13 +154,13 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
 		},
 		{
-			"name": "lab-datetime",
+			"name": "lab-dateTime",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-datetime.ts",
+			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-dateTime.ts",
 			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
 		},
 		{

@@ -8,7 +8,7 @@ export enum Dialect {
 	MongoDB = 'MongoDB',
 }
 export interface DialectFormat {
-	datetime: string
+	dateTime: string
 	date: string
 	time: string
 }

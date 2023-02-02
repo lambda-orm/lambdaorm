@@ -199,7 +199,7 @@ entities:
         type: integer
         required: true
       - name: registredDate
-        type: datetime
+        type: dateTime
         required: true
         default: now()
     relations:
@@ -248,9 +248,9 @@ entities:
       - name: genderId
         type: integer
       - name: birthDate
-        type: datetime
+        type: dateTime
       - name: deathDate
-        type: datetime
+        type: dateTime
       - name: nationalityRefId
         type: integer
       - name: currentNameId
@@ -301,7 +301,7 @@ entities:
         type: integer
         required: true
       - name: legalPeriodFrom
-        type: datetime
+        type: dateTime
       - name: currentNameId
         type: integer
       - name: industyTypeId
@@ -357,7 +357,7 @@ entities:
         length: 100
         required: true
       - name: validFrom
-        type: datetime
+        type: dateTime
   - name: PrPartyRoleStatuses
     primaryKey: ["id"]
     uniqueKey: ["code"]
@@ -434,7 +434,7 @@ entities:
         type: integer
         required: true
       - name: validFrom
-        type: datetime
+        type: dateTime
       - name: partyRoleSpecId
         type: integer
         required: true
@@ -625,7 +625,7 @@ entities:
         # TODO: Pendig solver
         # required: true
       - name: registrationDate
-        type: datetime
+        type: dateTime
         required: true
       # TODO: Pendig solver
       - name: creditorId
@@ -666,7 +666,7 @@ entities:
         type: integer
         required: true
       - name: registerDate
-        type: datetime
+        type: dateTime
         required: true
       - name: userRefId
         type: integer
@@ -824,9 +824,9 @@ entities:
         length: 50
         required: true
       - name: lastModificationDate
-        type: datetime
+        type: dateTime
       - name: registrationDate
-        type: datetime
+        type: dateTime
       - name: identificationValue
         length: 80
       - name: identificationType
@@ -855,7 +855,7 @@ entities:
         type: integer
         required: true
       - name: registrationDate
-        type: datetime
+        type: dateTime
         required: true
       - name: userRefId
         type: integer
@@ -956,13 +956,13 @@ entities:
       - name: serialNumber
         length: 50
       - name: registrationDate
-        type: datetime
+        type: dateTime
       - name: activationDate
-        type: datetime
-        readMappingExp: datetime(activationDate)
+        type: dateTime
+        readMappingExp: dateTime(activationDate)
       - name: deactivationDate
-        type: datetime
-        readMappingExp: datetime(deactivationDate)
+        type: dateTime
+        readMappingExp: dateTime(deactivationDate)
       - name: contractNumber
         length: 50
       - name: serviceExternalCode
@@ -1007,13 +1007,13 @@ entities:
       - name: accountLedgerRefId
         type: integer
       - name: lastModificationDate
-        type: datetime
+        type: dateTime
       - name: referenceNumber
         length: 50
       - name: accountStatusId
         type: integer
       - name: registrationDate
-        type: datetime
+        type: dateTime
       # TODO: Pendig solver
       - name: currencyRefId
         type: integer
@@ -1046,7 +1046,7 @@ entities:
         type: integer
         required: true
       - name: registrationDate
-        type: datetime
+        type: dateTime
         required: true
         default: now()
       - name: userRefId
@@ -1202,7 +1202,7 @@ mappings:
             mapping: STATUS_ID
           - name: registredDate
             mapping: REGISTER_DATE
-            readMappingExp: datetime(registredDate)
+            readMappingExp: dateTime(registredDate)
       - name: PmIdentifications
         mapping: TBL_PM_IDENTIFICATION
         properties:
@@ -1227,10 +1227,10 @@ mappings:
             mapping: GENDER_ID
           - name: birthDate
             mapping: BIRTH_DATE
-            readMappingExp: datetime(birthDate)
+            readMappingExp: dateTime(birthDate)
           - name: deathDate
             mapping: DEATH_DATE
-            readMappingExp: datetime(deathDate)
+            readMappingExp: dateTime(deathDate)
           - name: nationalityRefId
             mapping: NATIONALITY_REF_ID
           - name: currentNameId
@@ -1259,7 +1259,7 @@ mappings:
             mapping: PARTY_ID
           - name: legalPeriodFrom
             mapping: LEGAL_PERIOD_FROM
-            readMappingExp: datetime(legalPeriodFrom)
+            readMappingExp: dateTime(legalPeriodFrom)
           - name: currentNameId
             mapping: CURRENT_NAME_ID
           - name: industyTypeId
@@ -1287,7 +1287,7 @@ mappings:
             mapping: NAME
           - name: validFrom
             mapping: VALID_FROM
-            readMappingExp: datetime(validFrom)
+            readMappingExp: dateTime(validFrom)
       - name: PrPartyRoleStatuses
         mapping: TBL_PR_PARTY_ROLE_STATUS
         properties:
@@ -1432,7 +1432,7 @@ mappings:
             mapping: ACCOUNT_STATUS
           - name: registerDate
             mapping: REGISTER_DATE
-            readMappingExp: datetime(registerDate)
+            readMappingExp: dateTime(registerDate)
           - name: userRefId
             mapping: USER_REF_ID
           - name: isActive
@@ -1522,7 +1522,7 @@ mappings:
             mapping: REFERENCE_NUMBER
           - name: lastModificationDate
             mapping: LAST_MODIFICATION_DATE
-            readMappingExp: datetime(lastModificationDate)
+            readMappingExp: dateTime(lastModificationDate)
           - name: registrationDate
             mapping: REGISTRATION_DATE
           - name: identificationValue
@@ -1544,7 +1544,7 @@ mappings:
             mapping: DEBTOR_STATUS
           - name: registrationDate
             mapping: REGISTRATION_DATE
-            readMappingExp: datetime(registrationDate)
+            readMappingExp: dateTime(registrationDate)
           - name: userRefId
             mapping: USER_REF_ID
           - name: reason
@@ -1608,7 +1608,7 @@ mappings:
             mapping: ACCOUNT_LEDGER_REF_ID
           - name: lastModificationDate
             mapping: LAST_MODIFICATION_DATE
-            readMappingExp: datetime(lastModificationDate)
+            readMappingExp: dateTime(lastModificationDate)
           - name: referenceNumber
             mapping: REFERENCE_NUMBER
           - name: accountStatusId
@@ -1674,7 +1674,7 @@ mappings:
             mapping: ACCOUNT_STATUS
           - name: registrationDate
             mapping: REGISTRATION_DATE
-            readMappingExp: datetime(registrationDate)
+            readMappingExp: dateTime(registrationDate)
           - name: userRefId
             mapping: USER_REF_ID
           - name: isActive

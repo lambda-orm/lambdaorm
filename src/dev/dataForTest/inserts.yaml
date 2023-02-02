@@ -247,7 +247,7 @@ test:
       - name: employeeId
         type: integer
       - name: orderDate
-        type: datetime
+        type: dateTime
       - name: requiredDate
         type: date
       - name: shippedDate
@@ -274,7 +274,7 @@ test:
       - name: employeeId
         type: integer
       - name: orderDate
-        type: datetime
+        type: dateTime
       - name: requiredDate
         type: date
       - name: shippedDate
@@ -343,7 +343,7 @@ test:
                     - name: orderDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: dateTime
                       number: 3
                   type: any
                   property: orderDate
@@ -457,7 +457,7 @@ test:
         - name: employeeId
           type: integer
         - name: orderDate
-          type: datetime
+          type: dateTime
         - name: requiredDate
           type: date
         - name: shippedDate
@@ -484,7 +484,7 @@ test:
         - name: employeeId
           type: integer
         - name: orderDate
-          type: datetime
+          type: dateTime
         - name: requiredDate
           type: date
         - name: shippedDate
@@ -576,7 +576,7 @@ test:
       - name: employeeId
         type: integer
       - name: orderDate
-        type: datetime
+        type: dateTime
       - name: requiredDate
         type: date
       - name: shippedDate
@@ -616,7 +616,7 @@ test:
       - name: employeeId
         type: integer
       - name: orderDate
-        type: datetime
+        type: dateTime
       - name: requiredDate
         type: date
       - name: shippedDate
@@ -705,7 +705,7 @@ test:
                     - name: orderDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: dateTime
                       number: 3
                   type: any
                   property: orderDate
@@ -928,7 +928,7 @@ test:
         - name: employeeId
           type: integer
         - name: orderDate
-          type: datetime
+          type: dateTime
         - name: requiredDate
           type: date
         - name: shippedDate
@@ -955,7 +955,7 @@ test:
         - name: employeeId
           type: integer
         - name: orderDate
-          type: datetime
+          type: dateTime
         - name: requiredDate
           type: date
         - name: shippedDate
@@ -1055,7 +1055,7 @@ test:
       - name: employeeId
         type: integer
       - name: orderDate
-        type: datetime
+        type: dateTime
       - name: requiredDate
         type: date
       - name: shippedDate
@@ -1116,7 +1116,7 @@ test:
       - name: employeeId
         type: integer
       - name: orderDate
-        type: datetime
+        type: dateTime
       - name: requiredDate
         type: date
       - name: shippedDate
@@ -1232,7 +1232,7 @@ test:
                     - name: orderDate
                       classtype: Variable
                       children: []
-                      type: datetime
+                      type: dateTime
                       number: 3
                   type: any
                   property: orderDate
@@ -1619,7 +1619,7 @@ test:
         - name: employeeId
           type: integer
         - name: orderDate
-          type: datetime
+          type: dateTime
         - name: requiredDate
           type: date
         - name: shippedDate
@@ -1646,7 +1646,7 @@ test:
         - name: employeeId
           type: integer
         - name: orderDate
-          type: datetime
+          type: dateTime
         - name: requiredDate
           type: date
         - name: shippedDate

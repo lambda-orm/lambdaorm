@@ -33,7 +33,7 @@ entities:
   properties:
   	- name: string		
       mapping: string
-      type: string | integer | decimal | boolean | datetime | date | time
+      type: string | integer | decimal | boolean | dateTime | date | time
       length: number 
       required: boolean
       autoIncrement: boolean
@@ -456,7 +456,7 @@ Example:
         length: 32
         required: true
       - name: time
-        type: datetime
+        type: dateTime
     relations:
       - name: device
         from: deviceId
@@ -568,10 +568,10 @@ entities:
         length: 32
         required: true
       - name: startDate
-        type: datetime
+        type: dateTime
         required: true
       - name: endDate
-        type: datetime
+        type: dateTime
         required: true
     constraints:
       - message: endDate cannot be less than startDate

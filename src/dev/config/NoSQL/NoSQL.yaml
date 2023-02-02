@@ -4,11 +4,11 @@ types:
 # integer: INTEGER
 # decimal: DECIMAL(10,4)
 # string: VARCHAR({0})
-# datetime: DATETIME
+# dateTime: DATETIME
 # date: DATE
 # time: TIME
 format:
-  datetime: 'ISO'
+  dateTime: 'ISO'
   date: 'yyyy-LL-dd'
   time: 'HH:mm:ss' 
 ddl:
@@ -136,13 +136,13 @@ functions:
     trim: '{ "$trim" :{input:{0}, chars:" " } }'
     upper: '{ "$toUpper" :{0} }'
     length: '{ "$strLenCP" :{0} }'
-  datetime:
+  dateTime:
     curtime: '"$$CLUSTER_TIME"'
     today: '{ "$currentDate" :{ "$type":"date"} }'
     timestamp: '{ "$currentDate" :{ "$type":"timestamp"} }'
     now: '"$$NOW"'
     date: '{ "$toDate" :{0} }'
-    # datetime: 'CAST({0} AS TIMESTAMP)'
+    # dateTime: 'CAST({0} AS TIMESTAMP)'
     # time: 'CAST({0} AS TIME)'
     year: '{ "$year" :{0} }'
     month: '{ "$month" :{0} }'

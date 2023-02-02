@@ -266,7 +266,7 @@ export class SqlServerConnection extends Connection {
 			case 'integer': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Int, param.value); break
 			case 'decimal': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Decimal, param.value); break
 			case 'boolean': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Bit, param.value); break
-			case 'datetime': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.DateTime, param.value); break
+			case 'dateTime': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.DateTime, param.value); break
 			case 'date': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Date, param.value); break
 			case 'time': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Time, param.value); break
 			case 'any':
@@ -305,7 +305,7 @@ export class SqlServerConnection extends Connection {
 				// value = helper.escape(value)
 				// value = helper.str.replace(value, '\\\'', '\\\'\'')
 				break
-			case 'datetime':
+			case 'dateTime':
 				value = helper.sentence.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case 'date':

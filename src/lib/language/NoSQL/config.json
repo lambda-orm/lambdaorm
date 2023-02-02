@@ -2,7 +2,7 @@
   "NoSQL": {
     "types": null,
     "format": {
-      "datetime": "ISO",
+      "dateTime": "ISO",
       "date": "yyyy-LL-dd",
       "time": "HH:mm:ss"
     },
@@ -110,7 +110,7 @@
         "upper": "{ \"$toUpper\" :{0} }",
         "length": "{ \"$strLenCP\" :{0} }"
       },
-      "datetime": {
+      "dateTime": {
         "curtime": "\"$$CLUSTER_TIME\"",
         "today": "{ \"$currentDate\" :{ \"$type\":\"date\"} }",
         "timestamp": "{ \"$currentDate\" :{ \"$type\":\"timestamp\"} }",
@@ -165,7 +165,7 @@
     "MongoDB": {
       "types": null,
       "format": {
-        "datetime": "ISO",
+        "dateTime": "ISO",
         "date": "yyyy-LL-dd",
         "time": "HH:mm:ss"
       },
@@ -273,7 +273,7 @@
           "upper": "{ \"$toUpper\" :{0} }",
           "length": "{ \"$strLenCP\" :{0} }"
         },
-        "datetime": {
+        "dateTime": {
           "curtime": "\"$$CLUSTER_TIME\"",
           "today": "{ \"$currentDate\" :{ \"$type\":\"date\"} }",
           "timestamp": "{ \"$currentDate\" :{ \"$type\":\"timestamp\"} }",

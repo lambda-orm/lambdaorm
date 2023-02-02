@@ -71,7 +71,7 @@ The operators used are the same as those of javascript.
 |:------------|:--------------------------------------------------------------------|--------------------------------------------------------------------------------------:|
 |Numeric			|abs, ceil, cos, exp, ln, log, remainder, round, sign, sin, tan, trunc...				|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Numeric)			|
 |String				|chr, lower, lpad, ltrim, replace, rpad, rtrim, substr, trim, upper, concat...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/String)				|
-|Datetime			|curtime, today, now, time, date, datetime, year, month, day, weekday, hours...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Datetime)			|
+|Datetime			|curtime, today, now, time, date, dateTime, year, month, day, weekday, hours...	|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Datetime)			|
 |Convert			|toString, toJson, toNumber																											|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/String)				|
 |Nullable			|nvl, nvl2, isNull, isNotNull																										|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Nullable)			|
 |General			|as, distinct																																		|[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/General)			|

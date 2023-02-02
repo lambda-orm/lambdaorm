@@ -206,7 +206,7 @@ export class OracleConnection extends Connection {
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		for (const param of params) {
 			if (param.type !== 'array' && !(param.type === 'any' && Array.isArray(param.value))) {
-				if (param.type === 'datetime' || param.type === 'date' || param.type === 'time') {
+				if (param.type === 'dateTime' || param.type === 'date' || param.type === 'time') {
 					values[param.name] = new Date(param.value)
 				} else {
 					values[param.name] = param.value

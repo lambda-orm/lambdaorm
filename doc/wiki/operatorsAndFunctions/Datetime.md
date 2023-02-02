@@ -2,11 +2,11 @@
 |-----------------|-----------------------------------------------|
 |curTime					|Get the current time														|
 |today						|Get the current date														|
-|now							|Get the current datetime												|
+|now							|Get the current dateTime												|
 |dateToString			|Convert date to string with ISO 8601 format		|
 |time							|Convert string to time													|
 |date							|Convert string to date													|
-|datetime					|Convert string to datetime											|
+|dateTime					|Convert string to dateTime											|
 |year							|Get year from date															|
 |month						|Get month from date														|
 |day							|Get day of month from date											|
@@ -42,8 +42,8 @@
 |Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:curTime()})																										|[{"result":"11:54:22"}]									|
 |Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:time("2021-09-06T14:39:11.444Z")})															|[{"result":"00:20:21"}]									|
 |Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:date("2021-09-06T14:39:11.444Z")})															|[{"result":"2021-09-05T22:00:00.000Z"}]	|
-|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:datetime("2021-09-06T14:39:11.444Z")})													|[{"result":"2021-09-06T12:39:11.000Z"}]	|
-|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dateToString(datetime("2021-09-06T14:39:11.444Z"))})						|[{"result":"2021-09-06T14:39:11Z"}]			|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dateTime("2021-09-06T14:39:11.444Z")})													|[{"result":"2021-09-06T12:39:11.000Z"}]	|
+|Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dateToString(dateTime("2021-09-06T14:39:11.444Z"))})						|[{"result":"2021-09-06T14:39:11Z"}]			|
 |Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:year("2021-09-06T14:39:11.444Z")})															|[{"result":2021}]												|
 |Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:month("2021-09-06T14:39:11.444Z")})														|[{"result":9}]														|
 |Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:day("2021-09-06T14:39:11.444Z")})															|[{"result":6}]														|
@@ -113,7 +113,7 @@ SELECT CONVERT('2021-09-06T14:39:11.444Z', DATE) AS result FROM Countries c  WHE
 ```
 
 ```js
-Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:datetime("2021-09-06T14:39:11.444Z")})
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dateTime("2021-09-06T14:39:11.444Z")})
 ```
 
 ```sql
@@ -121,7 +121,7 @@ SELECT CONVERT('2021-09-06T14:39:11.444Z', DATETIME) AS result FROM Countries c 
 ```
 
 ```js
-Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dateToString(datetime("2021-09-06T14:39:11.444Z"))})
+Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dateToString(dateTime("2021-09-06T14:39:11.444Z"))})
 ```
 
 ```sql
@@ -344,7 +344,7 @@ SELECT DATE_FORMAT(FROM_UNIXTIME(2000/1000), '%Y-%m-%dT%TZ') AS result FROM Coun
 
 ### now
 
-- description: Get the current datetime
+- description: Get the current dateTime
 - deterministic: true
 - return: Date
 
@@ -372,9 +372,9 @@ SELECT DATE_FORMAT(FROM_UNIXTIME(2000/1000), '%Y-%m-%dT%TZ') AS result FROM Coun
 - params:
 	- value: string
 
-### datetime
+### dateTime
 
-- description: Convert string to datetime
+- description: Convert string to dateTime
 - deterministic: true
 - return: Date
 - params:

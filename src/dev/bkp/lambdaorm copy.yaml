@@ -18,7 +18,7 @@ schemas:
         properties:
           - name: name of property
             mapping: name field on source
-            type: [string|boolean|integer|decimal|datetime|date|time]
+            type: [string|boolean|integer|decimal|dateTime|date|time]
             required: [true|false]
             autoIncrement: [true|false]
         indexes:

@@ -91,7 +91,7 @@ export interface EntityMapping extends Entity {
 	hadReadMappingExp?: boolean
 }
 export interface FormatMapping extends Entity {
-	datetime?: string
+	dateTime?: string
 	date?: string
 	time?: string
 }

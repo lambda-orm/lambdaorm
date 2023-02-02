@@ -62,9 +62,9 @@ entities:
       - name: title
       - name: titleOfCourtesy
       - name: birthDate
-        type: datetime
+        type: dateTime
       - name: hireDate
-        type: datetime
+        type: dateTime
       - name: phone
       - name: reportsToId
         type: integer
@@ -162,7 +162,7 @@ entities:
         required: true
         type: integer
       - name: orderDate
-        type: datetime
+        type: dateTime
       - name: requiredDate
         type: date
       - name: shippedDate

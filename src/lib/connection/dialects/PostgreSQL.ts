@@ -130,7 +130,7 @@ export class PostgreSQLConnection extends Connection {
 					value = `'${value}'`
 				}
 				break
-			case 'datetime':
+			case 'dateTime':
 				value = helper.sentence.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case 'date':

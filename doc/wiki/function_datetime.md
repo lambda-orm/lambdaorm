@@ -2,11 +2,11 @@
 |------------|----------------------------------------------|
 |curTime|Get the current time|
 |today|Get the current date|
-|now|Get the current datetime|
+|now|Get the current dateTime|
 |dateToString|Convert date to string with ISO 8601 format|
 |time|Convert string to time|
 |date|Convert string to date|
-|datetime|Convert string to datetime|
+|dateTime|Convert string to dateTime|
 |year|Get year from date|
 |month|Get month from date|
 |day|Get day of month from date|
@@ -51,7 +51,7 @@
 
 ### now
 
-- description: Get the current datetime
+- description: Get the current dateTime
 - deterministic: true
 - return: Date
 - params:
@@ -80,9 +80,9 @@
 - params:
 	- value: string
 
-### datetime
+### dateTime
 
-- description: Convert string to datetime
+- description: Convert string to dateTime
 - deterministic: true
 - return: Date
 - params:

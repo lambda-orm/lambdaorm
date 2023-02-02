@@ -36,7 +36,7 @@ export abstract class Connection {
 				let value = item[parameter.name]
 				if (value) {
 					switch (parameter.type) {
-					case 'datetime':
+					case 'dateTime':
 						value = this.writeDateTime(value, mapping, dialect)
 						break
 					case 'date':
@@ -71,7 +71,7 @@ export abstract class Connection {
 			let value = data.get(parameter.name)
 			if (value) {
 				switch (parameter.type) {
-				case 'datetime':
+				case 'dateTime':
 					value = this.writeDateTime(value, mapping, dialect)
 					break
 				case 'date':
@@ -90,7 +90,7 @@ export abstract class Connection {
 	}
 
 	protected writeDateTime (value: any, mapping: MappingConfig, dialect: Dialect): any {
-		const format = mapping.format?.datetime || dialect.format.datetime
+		const format = mapping.format?.dateTime || dialect.format.dateTime
 		return format ? helper.sentence.dateFormat(value, format) : value
 	}
 

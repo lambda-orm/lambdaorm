@@ -26,7 +26,7 @@ functions:
   #   regExpReplace: 'REGEXP_REPLACE({0},{1})'
   #   regExpSubstr: 'REGEXP_SUBSTR({0},{1})'
   #   replace: 'REPLACE({0},{1},{2})'
-  datetime:
+  dateTime:
     # https://www.w3schools.com/jsref/jsref_obj_date.asp
     # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
     curTime: "CURTIME()"
@@ -35,7 +35,7 @@ functions:
     # time: 'TIME({0})'
     # date: 'DATE({0})'
     date: "CONVERT({0}, DATE)"
-    datetime: "CONVERT({0}, DATETIME)"
+    dateTime: "CONVERT({0}, DATETIME)"
     time: "CONVERT({0}, TIME)"
     year: "EXTRACT(YEAR FROM {0})"
     month: "EXTRACT(MONTH FROM {0})"

@@ -9,7 +9,7 @@
 ### Properties
 
 - [date](model.DialectFormat.md#date)
-- [datetime](model.DialectFormat.md#datetime)
+- [dateTime](model.DialectFormat.md#dateTime)
 - [time](model.DialectFormat.md#time)
 
 ## Properties
@@ -24,9 +24,9 @@
 
 ___
 
-### datetime
+### dateTime
 
-• **datetime**: `string`
+• **dateTime**: `string`
 
 #### Defined in
 

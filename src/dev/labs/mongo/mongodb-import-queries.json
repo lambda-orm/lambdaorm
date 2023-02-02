@@ -155,11 +155,11 @@
       },
       {
         "name": "birthDate",
-        "type": "datetime"
+        "type": "dateTime"
       },
       {
         "name": "hireDate",
-        "type": "datetime"
+        "type": "dateTime"
       },
       {
         "name": "phone",
@@ -209,11 +209,11 @@
       },
       {
         "name": "birthDate",
-        "type": "datetime"
+        "type": "dateTime"
       },
       {
         "name": "hireDate",
-        "type": "datetime"
+        "type": "dateTime"
       },
       {
         "name": "phone",
@@ -499,15 +499,15 @@
       },
       {
         "name": "orderDate",
-        "type": "datetime"
+        "type": "dateTime"
       },
       {
         "name": "requiredDate",
-        "type": "datetime"
+        "type": "dateTime"
       },
       {
         "name": "shippedDate",
-        "type": "datetime"
+        "type": "dateTime"
       },
       {
         "name": "shipViaId",
@@ -553,15 +553,15 @@
       },
       {
         "name": "orderDate",
-        "type": "datetime"
+        "type": "dateTime"
       },
       {
         "name": "requiredDate",
-        "type": "datetime"
+        "type": "dateTime"
       },
       {
         "name": "shippedDate",
-        "type": "datetime"
+        "type": "dateTime"
       },
       {
         "name": "shipViaId",
