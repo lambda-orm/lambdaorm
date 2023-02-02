@@ -14,7 +14,7 @@ export class SentenceTypeManager extends TypeManager {
 			const sentence = operand as Sentence
 			this.solveTypeSentence(sentence)
 			for (const child of sentence.children) {
-				if (!(child instanceof From) && !(child instanceof SentenceInclude)) {
+				if (child.children.length > 0 && !(child instanceof From) && !(child instanceof SentenceInclude)) {
 					this.solveTemplate(child.children[0])
 					this.setUndefinedAsAny(child.children[0])
 				}

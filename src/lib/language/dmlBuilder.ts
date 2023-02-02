@@ -364,20 +364,20 @@ export abstract class DmlBuilder {
 		return this.buildOperand(operand.children[0])
 	}
 
-	protected buildField (operand: Field): string {
-		if (this.mapping.existsProperty(operand.entity, operand.name)) {
-			const property = this.mapping.getProperty(operand.entity, operand.name)
-			if (operand.alias === undefined) {
+	protected buildField (field: Field): string {
+		if (this.mapping.existsProperty(field.entity, field.fieldName())) {
+			const property = this.mapping.getProperty(field.entity, field.fieldName())
+			if (field.alias === undefined) {
 				return this.dialect.other('column').replace('{name}', this.dialect.delimiter(property.mapping, true))
 			} else {
 				let text = this.dialect.other('field')
-				text = text.replace('{entityAlias}', operand.alias)
+				text = text.replace('{entityAlias}', field.alias)
 				text = text.replace('{name}', this.dialect.delimiter(property.mapping))
 				return text
 			}
 		} else {
 			const forceDelimiter = ['PostgreSQL', 'Oracle'].includes(this.dialect.name)
-			return this.dialect.other('column').replace('{name}', this.dialect.delimiter(operand.name, forceDelimiter))
+			return this.dialect.other('column').replace('{name}', this.dialect.delimiter(field.name, forceDelimiter))
 		}
 	}
 

@@ -6,6 +6,14 @@ export class DeleteBuildTest implements IBuildTest {
 	public constructor(private readonly orm:IOrm, private readonly options:QueryOptions){}
 	private tests():string[] {
 		return [
+			'Categories.delete()',
+			'Categories.delete(entity)',
+			'Categories.delete(p => entity)',
+			'Categories.delete(p => p)',
+			'Categories.delete().filter(p => p.id === id)',
+			'Categories.delete().filter(p => p.id === entity.id)',
+			'Categories.deleteAll()',
+			'Categories.deleteAll().filter(p=> substring(p.name,1,3) === "cat")',
 			'Orders.details.delete().filter(p => p.orderId === id)',
 			'Orders.delete().include(p => p.details)',
 			'Orders.delete().filter(p => p.id === id).include(p => p.details)',

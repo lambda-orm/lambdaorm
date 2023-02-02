@@ -55,7 +55,8 @@
           "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
           "result": "Products.map(p=>{category:p.category.name,largestPrice:max(p.price)}).filter(p=>(p.price>5)).having(p=>(max(p.price)>50)).sort(p=>desc(p.largestPrice))"
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "model",
@@ -196,7 +197,8 @@
             }
           ]
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "parameters",
@@ -254,7 +256,8 @@
           "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
           "result": []
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "constraints",
@@ -343,7 +346,8 @@
             "constraints": []
           }
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "metadata",
@@ -693,7 +697,8 @@
             "alias": "p"
           }
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "getInfo",
@@ -818,7 +823,9 @@
             "children": []
           }
         }
-      ]
+      ],
+      "errors": 0
     }
-  ]
+  ],
+  "errors": 0
 }

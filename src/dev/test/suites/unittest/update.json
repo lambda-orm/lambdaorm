@@ -17,7 +17,7 @@
         },
         {
           "test": "Categories.update(p => entity)",
-          "result": "Categories.update(p=>{name:entity.name,description:entity.description}).filter(p=>(p.id==id))"
+          "result": "Categories.update(p=>{name:entity.name,description:entity.description}).filter(p=>(p.id==entity.id))"
         },
         {
           "test": "Categories.update(p => p)",
@@ -37,7 +37,7 @@
         },
         {
           "test": "Categories.update(() => [name] )",
-          "result": "Categories.update(=>{name:name}).filter(p=>(p.id==id))"
+          "result": "Categories.update(=>{name:name})"
         },
         {
           "test": "Categories.update({ name: entity.name })",
@@ -49,7 +49,7 @@
         },
         {
           "test": "Categories.update(p=>[name, description])",
-          "result": "Categories.update(p=>{name:name,description:description}).filter(p=>(p.id==id))"
+          "result": "Categories.update(p=>{name:name,description:description})"
         },
         {
           "test": "Categories.update(p=>{name:name,description:description})",
@@ -107,7 +107,8 @@
           "test": "Customers.update().include(p => p.orders.include(p => p.details))",
           "result": "Customers.update(p=>{id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId)))))"
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "model",
@@ -649,7 +650,8 @@
             }
           ]
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "parameters",
@@ -700,7 +702,7 @@
               "type": "string"
             },
             {
-              "name": "id",
+              "name": "entity.id",
               "type": "integer"
             }
           ]
@@ -759,10 +761,6 @@
             {
               "name": "name",
               "type": "string"
-            },
-            {
-              "name": "id",
-              "type": "integer"
             }
           ]
         },
@@ -802,10 +800,6 @@
             {
               "name": "description",
               "type": "string"
-            },
-            {
-              "name": "id",
-              "type": "integer"
             }
           ]
         },
@@ -1297,7 +1291,8 @@
             }
           ]
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "constraints",
@@ -1678,7 +1673,8 @@
             ]
           }
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "metadata",
@@ -1806,7 +1802,7 @@
                 "type": "string"
               },
               {
-                "name": "id",
+                "name": "entity.id",
                 "type": "integer"
               }
             ],
@@ -1984,10 +1980,6 @@
               {
                 "name": "name",
                 "type": "string"
-              },
-              {
-                "name": "id",
-                "type": "integer"
               }
             ],
             "constraints": [
@@ -2111,10 +2103,6 @@
               {
                 "name": "description",
                 "type": "string"
-              },
-              {
-                "name": "id",
-                "type": "integer"
               }
             ],
             "constraints": [
@@ -3413,7 +3401,8 @@
             "alias": "c"
           }
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "getInfo",
@@ -3494,7 +3483,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ? WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories  SET CategoryName = ? ",
             "children": []
           }
         },
@@ -3524,7 +3513,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories  SET CategoryName = ?,Description = ? ",
             "children": []
           }
         },
@@ -3732,7 +3721,9 @@
             ]
           }
         }
-      ]
+      ],
+      "errors": 0
     }
-  ]
+  ],
+  "errors": 0
 }

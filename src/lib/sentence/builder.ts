@@ -97,7 +97,6 @@ class SentenceHelper {
 					const keyVal = obj.children[p]
 					const property = this.model.getProperty(entityName, keyVal.name)
 					const field = { name: keyVal.name, type: property.type }
-					// keyVal.property = property.name // new Field(entity,property.name,property.type,property.mapping)
 					fields.push(field)
 				}
 			}
@@ -407,8 +406,7 @@ export class SentenceBuilder {
 			const body = helper.operand.toExpression(clauses.update.children[2])
 			list.push(`update(${clauses.update.children[1].name}=>${body})`)
 		} else if (clauses.delete) {
-			const body = helper.operand.toExpression(clauses.delete.children[2])
-			list.push(`delete(${clauses.delete.children[1].name}=>${body})`)
+			list.push('delete()')
 		}
 		if (clauses.filter) {
 			const body = helper.operand.toExpression(clauses.filter.children[2])
@@ -482,6 +480,12 @@ export class SentenceBuilder {
 				} else {
 					return this.createRelationField(operand.pos, parts, expressionContext)
 				}
+			}
+		} else if (operand instanceof Field) {
+			const parts = operand.name.split('.')
+			if (parts.length > 1 && parts[0] === expressionContext.current.arrowVar && expressionContext.current.arrowVar !== expressionContext.current.alias) {
+				operand.alias = expressionContext.current.alias
+				operand.name = `${expressionContext.current.alias}.${parts.slice(1).join('.')}`
 			}
 		} else {
 			for (let i = 0; i < operand.children.length; i++) {

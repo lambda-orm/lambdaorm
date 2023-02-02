@@ -50,6 +50,9 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			if (name === 'push') {
 				name = 'insert'
 				current.name = 'insert'
+			} else if (name === 'remove') {
+				name = 'delete'
+				current.name = 'delete'
 			}
 			clauses[name] = current
 			if (current.children.length > 0) { current = current.children[0] } else { break }
@@ -79,8 +82,10 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		} else if (clauses.delete) {
 			compeleInclude = this.completeDeleteInclude
 			this.completeFilter(entity, clauses, clauses.delete)
+			this.normalizeDelete(clauses.delete)
 		} else if (clauses.deleteAll) {
 			compeleInclude = this.completeDeleteInclude
+			this.normalizeDelete(clauses.deleteAll)
 			clauses.deleteAll.name = 'delete'
 		} else if (clauses.map) {
 			compeleInclude = this.completeMapInclude
@@ -330,6 +335,17 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		}
 	}
 
+	private normalizeDelete (operand: Operand): void {
+		if (operand.children.length === 2) {
+			// example: Categories.delete(entity) to: Categories.delete().filter(p=>(p.id==entity.id))
+			operand.children.pop()
+		} else if (operand.children.length === 3) {
+			// example: Categories.delete(p => entity) to: Categories.delete().filter(p=>(p.id==entity.id))
+			operand.children.pop()
+			operand.children.pop()
+		}
+	}
+
 	private createReadFields (pos:Position, entity: Entity, parent?: string): Operand {
 		const obj = new Operand(pos, OperandType.Obj, OperandType.Obj, [])
 		for (const property of entity.properties) {
@@ -372,7 +388,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 	}
 
 	private createClauseFilter (entity: Entity, operand: Operand): void {
-		if (operand.children.length === 1 || operand.children.length === 3) {
+		if (operand.children.length === 1 || (operand.children.length === 3 && operand.children[2].type === OperandType.Obj)) {
 			// Example operand.children.length === 1: Entity.delete()
 			// Example operand.children.length === 3:
 			// Entity.update({name:entity.name}).include(p=> p.details.update(p=> ({unitPrice:p.unitPrice,productId:p.productId })))
@@ -385,6 +401,13 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			// Example operand.children[1].type === OperandType.Obj: Entity.update({unitPrice:unitPrice,productId:productId})
 			// const condition = this.createFilter(entity, 'p', operand.children[1].name)
 			const parentVariable = operand.children[1].type === OperandType.Var ? operand.children[1].name : undefined
+			const condition = this.createFilter(operand.pos, entity, 'p', parentVariable)
+			const arrowVar = new Operand(operand.pos, 'p', OperandType.Var, [])
+			operand.children[0] = new Operand(operand.pos, 'filter', OperandType.Arrow, [operand.children[0], arrowVar, condition])
+		} else if (operand.children.length === 3 && operand.children[2].type === OperandType.Var) {
+			// Example: Categories.delete(p => entity)
+			// Example: Categories.delete(p => p )
+			const parentVariable = operand.children[1].name !== operand.children[2].name ? operand.children[2].name : undefined
 			const condition = this.createFilter(operand.pos, entity, 'p', parentVariable)
 			const arrowVar = new Operand(operand.pos, 'p', OperandType.Var, [])
 			operand.children[0] = new Operand(operand.pos, 'filter', OperandType.Arrow, [operand.children[0], arrowVar, condition])

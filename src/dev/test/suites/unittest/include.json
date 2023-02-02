@@ -39,7 +39,8 @@
           "test": "Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])",
           "result": "Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{name:p.name,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))"
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "model",
@@ -920,7 +921,8 @@
             }
           ]
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "parameters",
@@ -1117,7 +1119,8 @@
             }
           ]
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "constraints",
@@ -1250,7 +1253,8 @@
             ]
           }
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "metadata",
@@ -2607,7 +2611,8 @@
             "alias": "o"
           }
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "getInfo",
@@ -2618,13 +2623,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Customers",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.contact` AS contact, `p.phone` AS phone, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, c.CustomerID AS LambdaOrmParentId FROM Customers c  WHERE  c.CustomerID IN (?) ",
+                "sentence": "SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName AS contact, c.ContactTitle AS phone, c.Address AS address, c.City AS city, c.Region AS region, c.PostalCode AS postalCode, c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM Customers c  WHERE  c.CustomerID IN (?) ",
                 "children": []
               }
             ]
@@ -2636,13 +2641,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
                 "children": []
               }
             ]
@@ -2654,13 +2659,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
                 "children": []
               }
             ]
@@ -2672,19 +2677,19 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
                 "children": [
                   {
                     "entity": "Products",
                     "dialect": "MySQL",
                     "source": "MySQL",
-                    "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
+                    "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
                     "children": []
                   }
                 ]
@@ -2698,25 +2703,25 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "SELECT `p.orderId` AS orderId, `p.productId` AS productId, `p.unitPrice` AS unitPrice, `p.quantity` AS quantity, `p.discount` AS discount, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
+                "sentence": "SELECT o1.OrderID AS orderId, o1.ProductID AS productId, o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount AS discount, o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId FROM `Order Details` o1  WHERE  o1.OrderID IN (?) ",
                 "children": [
                   {
                     "entity": "Products",
                     "dialect": "MySQL",
                     "source": "MySQL",
-                    "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued, p.CategoryID AS `__categoryId`, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
+                    "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued, p.CategoryID AS `__categoryId`, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
                     "children": [
                       {
                         "entity": "Categories",
                         "dialect": "MySQL",
                         "source": "MySQL",
-                        "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.description` AS description, c.CategoryID AS LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID IN (?) ",
+                        "sentence": "SELECT c.CategoryID AS id, c.CategoryName AS name, c.Description AS description, c.CategoryID AS LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID IN (?) ",
                         "children": []
                       }
                     ]
@@ -2732,7 +2737,7 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
@@ -2750,7 +2755,7 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, o.OrderID AS `__id`, o.CustomerID AS `__customerId` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
@@ -2762,7 +2767,7 @@
                     "entity": "Products",
                     "dialect": "MySQL",
                     "source": "MySQL",
-                    "sentence": "SELECT `p.id` AS id, `p.name` AS name, `p.supplierId` AS supplierId, `p.categoryId` AS categoryId, `p.quantity` AS quantity, `p.price` AS price, `p.inStock` AS inStock, `p.onOrder` AS onOrder, `p.reorderLevel` AS reorderLevel, `p.discontinued` AS discontinued, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
+                    "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) ",
                     "children": []
                   }
                 ]
@@ -2776,7 +2781,7 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT `p.id` AS id, `p.customerId` AS customerId, `p.employeeId` AS employeeId, `p.orderDate` AS orderDate, `p.requiredDate` AS requiredDate, `p.shippedDate` AS shippedDate, `p.shipViaId` AS shipViaId, `p.freight` AS freight, `p.name` AS name, `p.address` AS address, `p.city` AS city, `p.region` AS region, `p.postalCode` AS postalCode, `p.country` AS country, o.CustomerID AS `__customerId`, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? ",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, o.CustomerID AS `__customerId`, o.OrderID AS `__id` FROM Orders o  WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Customers",
@@ -2788,7 +2793,9 @@
             ]
           }
         }
-      ]
+      ],
+      "errors": 0
     }
-  ]
+  ],
+  "errors": 0
 }

@@ -59,7 +59,8 @@
           "test": "Orders.bulkInsert().include(p => [p.details, p.customer])",
           "result": "Orders.bulkInsert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.bulkInsert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))"
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "model",
@@ -609,7 +610,8 @@
             }
           ]
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "parameters",
@@ -1107,7 +1109,8 @@
             }
           ]
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "constraints",
@@ -1338,7 +1341,8 @@
             ]
           }
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "metadata",
@@ -2723,7 +2727,8 @@
             "alias": "o"
           }
         }
-      ]
+      ],
+      "errors": 0
     },
     {
       "name": "getInfo",
@@ -2890,7 +2895,9 @@
             ]
           }
         }
-      ]
+      ],
+      "errors": 0
     }
-  ]
+  ],
+  "errors": 0
 }

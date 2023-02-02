@@ -35,6 +35,13 @@ export class Field extends Operand {
 		this.isRoot = isRoot
 	}
 
+	public fieldName () {
+		if (this.alias === undefined || !this.name.startsWith(this.alias + '.')) {
+			return this.name
+		}
+		return this.name.replace(this.alias + '.', '')
+	}
+
 	public clone () {
 		return new Field(this.pos, this.entity, this.name, this.returnType, this.alias, this.isRoot)
 	}
