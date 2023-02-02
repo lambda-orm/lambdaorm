@@ -2855,7 +2855,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES ?",
             "children": []
           }
         },
@@ -2865,13 +2865,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES ?",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)",
+                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?",
                 "children": []
               }
             ]
@@ -2883,13 +2883,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES ?",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)",
+                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?",
                 "children": []
               }
             ]

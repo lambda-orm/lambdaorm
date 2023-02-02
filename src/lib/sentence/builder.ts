@@ -4,7 +4,7 @@ import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity, 
 import { ModelConfig, SchemaManager } from '../manager'
 import { Operand, Parameter, OperandType, Type, IExpressions, Position, helper, ITypeManager, Kind } from '3xpr'
 import { MemoryCache, ICache } from 'h3lp'
-import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, SentenceInclude } from '../contract/operands'
+import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../contract/operands'
 import { SentenceNormalizer, SentenceTypeManager } from '.'
 
 class SentenceHelper {
@@ -115,9 +115,11 @@ class SentenceHelper {
 		case SentenceCrudAction.select:
 			const map = sentence.children.find(p => p.name === 'map') as Map
 			return this.fieldsInSelect(map)
-		case SentenceCrudAction.insert:
-			const insert = sentence.children.find(p => p instanceof Insert) as Insert
-			return this.fieldsInModify(insert, sentence.entity, true)
+		case SentenceCrudAction.insert:			
+				const insert = sentence.action === 'bulkInsert' 
+				? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert 
+				: sentence.children.find(p => p instanceof Insert) as Insert
+				return this.fieldsInModify(insert, sentence.entity, true)			
 		case SentenceCrudAction.update:
 			const update = sentence.children.find(p => p instanceof Update) as Update
 			return this.fieldsInModify(update, sentence.entity)
@@ -136,12 +138,14 @@ class SentenceHelper {
 		const having = sentence.children.find(p => p instanceof Having) as Having | undefined
 		const sort = sentence.children.find(p => p instanceof Sort) as Sort | undefined
 		const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
+		const bulkInsert = sentence.children.find(p => p instanceof BulkInsert) as BulkInsert | undefined
 		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
 		const _delete = sentence.children.find(p => p instanceof Delete) as Delete | undefined
 
 		const parameters: Parameter[] = []
 		if (map) this.loadParameters(map, parameters)
 		if (insert) this.loadParameters(insert, parameters)
+		if (bulkInsert) this.loadParameters(bulkInsert, parameters)
 		if (update) this.loadParameters(update, parameters)
 		if (_delete) this.loadParameters(_delete, parameters)
 		if (filter) this.loadParameters(filter, parameters)
@@ -738,7 +742,11 @@ export class SentenceBuilder {
 		if (clause.children.length === 2 && clause.children[1].type === OperandType.Obj) {
 			// Example: Categories.insert({ name: name, description: description })
 			const child = this.solveFields(clause.children[1], expressionContext)
-			return new Insert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
+			if(clause.name === 'bulkInsert'){
+				return new BulkInsert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
+			} else {
+				return new Insert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
+			}
 		}
 		throw new SintaxisError('Sentence Insert incorrect!!!')
 	}

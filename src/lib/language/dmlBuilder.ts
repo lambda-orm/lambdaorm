@@ -88,7 +88,9 @@ export abstract class DmlBuilder {
 	}
 
 	protected buildInsertSentence (sentence: Sentence): string {
-		const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
+		const insert = sentence.action === 'bulkInsert'
+		 ? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert | undefined
+		 : sentence.children.find(p => p instanceof Insert) as Insert | undefined
 		const entity = this.mapping.getEntity(sentence.entity)
 		if (entity === undefined) {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)

@@ -33,9 +33,9 @@
 		"doc": "grunt doc"
 	},
 	"dependencies": {
-		"3xpr": "1.6.9",
+		"3xpr": "1.6.10",
 		"crypto-js": "^4.1.1",
-		"h3lp": "1.1.4",
+		"h3lp": "1.2.3",
 		"js-yaml": "^4.1.0",
 		"luxon": "^3.2.1",
 		"sqlstring": "^2.3.3"
