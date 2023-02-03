@@ -7,11 +7,17 @@ data:
   b:
     name: Beverages21
     description: Soft drinks, coffees, teas, beers, and ales
+    id: 10
   c:
     entity:
       name: Beverages22
       description: Soft drinks, coffees, teas, beers, and ales
-    id: 10
+    id: 11
+  d:
+    entity:
+      name: Beverages23
+      description: Soft drinks, coffees, teas, beers, and ales
+    id: 12
   order:
     customerId: VINET
     employeeId: 5
@@ -113,11 +119,71 @@ test:
         id: 9
   - name: insert 2
     data: b
-    sentences: []
-    errors: 1
-    error: >-
-      Error: expression: Categories.insert(() => ({ name, description })) error:
-      Error: attribute name without value
+    sentences:
+      - stage: MySQL
+        info:
+          entity: Categories
+          dialect: MySQL
+          source: MySQL
+          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          children: []
+    errors: 0
+    expression: Categories.push(=>[name,description])
+    normalizeExpression: Categories.insert({name:name,description:description})
+    model:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: description
+        type: string
+    parameters:
+      - name: name
+        type: string
+      - name: description
+        type: string
+    constraints:
+      entity: Categories
+      constraints:
+        - message: Cannot be null property name in entity Categories
+          condition: isNotNull(name)
+    metadata:
+      classtype: Sentence
+      pos:
+        ln: 0
+        col: 16
+      name: insert
+      children: []
+      type: any
+      entity: Categories
+      columns:
+        - name: id
+          type: integer
+          required: false
+          autoIncrement: true
+        - name: name
+          type: string
+        - name: description
+          type: string
+      parameters:
+        - name: name
+          type: string
+        - name: description
+          type: string
+      constraints:
+        - message: Cannot be null property name in entity Categories
+          condition: isNotNull(name)
+      values: []
+      defaults: []
+      clause: insert
+      alias: c
+    executions:
+      - stage: MySQL
+    result:
+      data:
+        name: Beverages21
+        description: Soft drinks, coffees, teas, beers, and ales
+        id: 10
   - name: insert 3
     data: c
     sentences:
@@ -181,8 +247,72 @@ test:
         entity:
           name: Beverages22
           description: Soft drinks, coffees, teas, beers, and ales
-        id: 10
+        id: 11
   - name: insert 4
+    data: d
+    sentences:
+      - stage: MySQL
+        info:
+          entity: Categories
+          dialect: MySQL
+          source: MySQL
+          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          children: []
+    errors: 0
+    expression: Categories.push(entity)
+    normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
+    model:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: description
+        type: string
+    parameters:
+      - name: entity.name
+        type: string
+      - name: entity.description
+        type: string
+    constraints:
+      entity: Categories
+      constraints: []
+    metadata:
+      classtype: Sentence
+      pos:
+        ln: 0
+        col: 16
+      name: insert
+      children: []
+      type: any
+      entity: Categories
+      columns:
+        - name: id
+          type: integer
+          required: false
+          autoIncrement: true
+        - name: name
+          type: string
+        - name: description
+          type: string
+      parameters:
+        - name: entity.name
+          type: string
+        - name: entity.description
+          type: string
+      constraints: []
+      values: []
+      defaults: []
+      clause: insert
+      alias: c
+    executions:
+      - stage: MySQL
+    result:
+      data:
+        entity:
+          name: Beverages23
+          description: Soft drinks, coffees, teas, beers, and ales
+        id: 12
+  - name: insert 5
     data: order
     sentences:
       - stage: MySQL
@@ -372,7 +502,7 @@ test:
             discount: 10
             orderId: 833
         id: 833
-  - name: insert 5
+  - name: insert 6
     data: order
     sentences:
       - stage: MySQL
@@ -642,7 +772,7 @@ test:
             discount: 10
             orderId: 833
         id: 833
-  - name: insert 6
+  - name: insert 7
     data: order
     sentences:
       - stage: MySQL
@@ -912,4 +1042,4 @@ test:
             discount: 10
             orderId: 833
         id: 833
-errors: 1
+errors: 0

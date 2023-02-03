@@ -80,6 +80,17 @@ export abstract class Connection {
 				case 'time':
 					value = this.writeTime(value, mapping, dialect)
 					break
+				case 'any':
+					if(helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)){
+						value = this.writeDateTime(value, mapping, dialect)
+						break
+					} else if(helper.val.isDate(value) || helper.val.isDateFormat(value)){
+						value = this.writeDate(value, mapping, dialect)
+						break
+					} else if(helper.val.isTime(value) || helper.val.isTimeFormat(value)){
+						value = this.writeTime(value, mapping, dialect)
+						break
+					} 	
 				}
 			} else {
 				value = null

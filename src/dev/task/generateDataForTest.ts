@@ -218,6 +218,7 @@ async function writeInsertsTest (stages: string[]): Promise<number> {
 			a: { name: 'Beverages20', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			b: { name: 'Beverages21', description: 'Soft drinks, coffees, teas, beers, and ales' },
 			c: { entity: { name: 'Beverages22', description: 'Soft drinks, coffees, teas, beers, and ales' } },
+			d: { entity: { name: 'Beverages23', description: 'Soft drinks, coffees, teas, beers, and ales' } },
 			order: {
 				customerId: 'VINET',
 				employeeId: 5,
@@ -257,12 +258,12 @@ async function writeInsertsTest (stages: string[]): Promise<number> {
 		test:
 			[
 				{ name: 'insert 1', data: 'a', lambda: () => Categories.insert() },
-				{ name: 'insert 2', data: 'b', lambda: (name: string, description: string) => Categories.insert(() => ({ name, description })) },
-				// { name: 'insert 3', data: 'c', lambda: (entity: Category) => Categories.insert(entity) },
+				{ name: 'insert 2', data: 'b', lambda: (name: string, description: string) => Categories.insert(() => [name, description]) },
 				{ name: 'insert 3', data: 'c', lambda: (entity: any) => Categories.insert(entity) },
-				{ name: 'insert 4', data: 'order', lambda: () => Orders.insert() },
-				{ name: 'insert 5', data: 'order', lambda: () => Orders.insert().include(p => p.details) },
-				{ name: 'insert 6', data: 'order', lambda: () => Orders.insert().include(p => [p.details, p.customer]) }
+				{ name: 'insert 4', data: 'd', lambda: (entity: any) => Categories.insert(entity) },
+				{ name: 'insert 5', data: 'order', lambda: () => Orders.insert() },
+				{ name: 'insert 6', data: 'order', lambda: () => Orders.insert().include(p => p.details) },
+				{ name: 'insert 7', data: 'order', lambda: () => Orders.insert().include(p => [p.details, p.customer]) }
 			]
 	})
 }
@@ -554,12 +555,8 @@ async function writeUpdateTest (stages: string[]): Promise<number> {
 		test:
 			[
 				{ name: 'update 1', data: 'a', lambda: () => Orders.update() },
-				// { name: 'update 2', data: 'b', lambda: (entity: Order) => Orders.update(entity) },
 				{ name: 'update 2', data: 'b', lambda: (entity: any) => Orders.update(entity) },
-				{ name: 'update 3', data: 'c', lambda: (postalCode: string) => Orders.updateAll(() => ({ postalCode })) },
-				// { name: 'update 4', data: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).filter(p => p.id === entity.id) },
-				// { name: 'update 5', data: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
-				// { name: 'update 6', data: 'b', lambda: (entity: QryOrder) => Orders.update({ name: entity.name }).include(p => p.details.update(p => ({ unitPrice: p.unitPrice, productId: p.productId }))).filter(p => p.id === entity.id) },
+				{ name: 'update 3', data: 'c', lambda: (postalCode: string) => Orders.updateAll(() => [postalCode]) },
 				{ name: 'update 4', data: 'b', lambda: (entity: any) => Orders.update(p => ({ name: entity.name })).filter(p => p.id === entity.id) },
 				{ name: 'update 5', data: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details).filter(p => p.id === entity.id) },
 				{ name: 'update 6', data: 'b', lambda: (entity: any) => Orders.update(() => ({ name: entity.name })).include(p => p.details.update(p => p)).filter(p => p.id === entity.id) },
@@ -1034,5 +1031,5 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['MySQL'], function () { console.log('end') })
+apply(['PostgreSQL'], function () { console.log('end') })
 // apply(['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })
