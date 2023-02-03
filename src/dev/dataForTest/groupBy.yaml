@@ -23,44 +23,23 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: maxPrice
-                  classtype: KeyValue
-                  children:
-                    - name: max
-                      classtype: FunctionRef
-                      children:
-                        - name: price
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                  type: any
-              type: object
-          type: any
+      pos:
+        ln: 0
+        col: 13
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: maxPrice
           type: any
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -85,44 +64,23 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: minPrice
-                  classtype: KeyValue
-                  children:
-                    - name: min
-                      classtype: FunctionRef
-                      children:
-                        - name: price
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                  type: any
-              type: object
-          type: any
+      pos:
+        ln: 0
+        col: 13
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: minPrice
           type: any
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -141,50 +99,29 @@ test:
     normalizeExpression: Products.map(p=>{total:sum(p.price)})
     model:
       - name: total
-        type: any
+        type: number
     parameters: []
     constraints:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: total
-                  classtype: KeyValue
-                  children:
-                    - name: sum
-                      classtype: FunctionRef
-                      children:
-                        - name: price
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                  type: any
-              type: object
-          type: any
+      pos:
+        ln: 0
+        col: 13
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: total
-          type: any
+          type: number
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -203,58 +140,29 @@ test:
     normalizeExpression: Products.map(p=>{average:round(avg(p.price),4)})
     model:
       - name: average
-        type: any
+        type: number
     parameters: []
     constraints:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: average
-                  classtype: KeyValue
-                  children:
-                    - name: round
-                      classtype: FunctionRef
-                      children:
-                        - name: avg
-                          classtype: FunctionRef
-                          children:
-                            - name: price
-                              classtype: Field
-                              children: []
-                              type: decimal
-                              entity: Products
-                              alias: p
-                              isRoot: true
-                          type: any
-                        - name: 4
-                          classtype: Constant2
-                          children: []
-                          type: number
-                      type: any
-                  type: any
-              type: object
-          type: any
+      pos:
+        ln: 0
+        col: 13
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: average
-          type: any
+          type: number
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -273,47 +181,29 @@ test:
     normalizeExpression: Products.map(p=>{count:count(1)})
     model:
       - name: count
-        type: any
+        type: integer
     parameters: []
     constraints:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: count
-                  classtype: KeyValue
-                  children:
-                    - name: count
-                      classtype: FunctionRef
-                      children:
-                        - name: 1
-                          classtype: Constant2
-                          children: []
-                          type: number
-                      type: any
-                  type: any
-              type: object
-          type: any
+      pos:
+        ln: 0
+        col: 13
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: count
-          type: any
+          type: integer
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -342,68 +232,25 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: category
-                  classtype: KeyValue
-                  children:
-                    - name: categoryId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: largestPrice
-                  classtype: KeyValue
-                  children:
-                    - name: max
-                      classtype: FunctionRef
-                      children:
-                        - name: price
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                  type: any
-              type: object
-          type: any
-        - name: groupBy
-          classtype: GroupBy
-          children:
-            - name: categoryId
-              classtype: Field
-              children: []
-              type: integer
-              entity: Products
-              alias: p
-              isRoot: true
-          type: any
+      pos:
+        ln: 0
+        col: 13
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: category
           type: integer
         - name: largestPrice
           type: any
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -448,90 +295,25 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: category
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Categories
-                      alias: c
-                      isRoot: false
-                  type: any
-                - name: largestPrice
-                  classtype: KeyValue
-                  children:
-                    - name: max
-                      classtype: FunctionRef
-                      children:
-                        - name: price
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                  type: any
-              type: object
-          type: any
-        - name: groupBy
-          classtype: GroupBy
-          children:
-            - name: name
-              classtype: Field
-              children: []
-              type: string
-              entity: Categories
-              alias: c
-              isRoot: false
-          type: any
-        - name: Categories
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Categories
-                  alias: c
-                - name: categoryId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-              type: any
-          type: any
-          entity: Products
-          alias: c
+      pos:
+        ln: 0
+        col: 13
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: category
           type: string
         - name: largestPrice
           type: any
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -565,16 +347,16 @@ test:
           children: []
     errors: 0
     expression: >-
-      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
+      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
     normalizeExpression: >-
-      Products.filter(p=>(p.id===id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
+      Products.map(p=>{name:p.name,source:p.price,result:abs(p.price)}).filter(p=>(p.id==id))
     model:
       - name: name
         type: string
       - name: source
         type: decimal
       - name: result
-        type: any
+        type: number
     parameters:
       - name: id
         type: integer
@@ -582,92 +364,29 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '==='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-                - name: id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 1
-              type: any
-          type: any
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: source
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: result
-                  classtype: KeyValue
-                  children:
-                    - name: abs
-                      classtype: FunctionRef
-                      children:
-                        - name: price
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                  type: any
-              type: object
-          type: any
+      pos:
+        ln: 0
+        col: 35
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: name
           type: string
         - name: source
           type: decimal
         - name: result
-          type: any
+          type: number
       parameters:
         - name: id
           type: integer
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -690,7 +409,7 @@ test:
     expression: >-
       Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
     normalizeExpression: >-
-      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
+      Products.map(p=>{category:p.category.name,largestPrice:max(p.price)}).having(p=>(max(p.price)>100))
     model:
       - name: category
         type: string
@@ -701,113 +420,25 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: category
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Categories
-                      alias: c
-                      isRoot: false
-                  type: any
-                - name: largestPrice
-                  classtype: KeyValue
-                  children:
-                    - name: max
-                      classtype: FunctionRef
-                      children:
-                        - name: price
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                  type: any
-              type: object
-          type: any
-        - name: groupBy
-          classtype: GroupBy
-          children:
-            - name: name
-              classtype: Field
-              children: []
-              type: string
-              entity: Categories
-              alias: c
-              isRoot: false
-          type: any
-        - name: having
-          classtype: Having
-          children:
-            - name: '>'
-              classtype: Operator
-              children:
-                - name: max
-                  classtype: FunctionRef
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: 100
-                  classtype: Constant2
-                  children: []
-                  type: number
-              type: any
-          type: any
-        - name: Categories
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Categories
-                  alias: c
-                - name: categoryId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-              type: any
-          type: any
-          entity: Products
-          alias: c
+      pos:
+        ln: 0
+        col: 43
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: category
           type: string
         - name: largestPrice
           type: any
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -833,111 +464,29 @@ test:
       Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>asc(p.subTotal))
     model:
       - name: subTotal
-        type: any
+        type: number
     parameters: []
     constraints:
       entity: Orders.details
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Orders.details
-          classtype: From
-          children: []
-          type: any
-          alias: o
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: subTotal
-                  classtype: KeyValue
-                  children:
-                    - name: sum
-                      classtype: FunctionRef
-                      children:
-                        - name: '*'
-                          classtype: Operator
-                          children:
-                            - name: '*'
-                              classtype: Operator
-                              children:
-                                - name: '*'
-                                  classtype: Operator
-                                  children:
-                                    - name: unitPrice
-                                      classtype: Field
-                                      children: []
-                                      type: decimal
-                                      entity: Orders.details
-                                      alias: o
-                                      isRoot: true
-                                    - name: quantity
-                                      classtype: Field
-                                      children: []
-                                      type: decimal
-                                      entity: Orders.details
-                                      alias: o
-                                      isRoot: true
-                                  type: any
-                                - name: '-'
-                                  classtype: Operator
-                                  children:
-                                    - name: 1
-                                      classtype: Constant2
-                                      children: []
-                                      type: number
-                                    - name: /
-                                      classtype: Operator
-                                      children:
-                                        - name: discount
-                                          classtype: Field
-                                          children: []
-                                          type: decimal
-                                          entity: Orders.details
-                                          alias: o
-                                          isRoot: true
-                                        - name: 100
-                                          classtype: Constant2
-                                          children: []
-                                          type: number
-                                      type: any
-                                  type: any
-                              type: any
-                            - name: 100
-                              classtype: Constant2
-                              children: []
-                              type: number
-                          type: any
-                      type: any
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: subTotal
-                  classtype: Field
-                  children: []
-                  type: any
-                  entity: Orders.details
-                  alias: o
-                  isRoot: true
-              type: any
-          type: any
+      pos:
+        ln: 0
+        col: 98
+      name: select
+      children: []
       type: any
+      entity: Orders.details
       columns:
         - name: subTotal
-          type: any
+          type: number
       parameters: []
-      entity: Orders.details
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: o
     executions:
       - stage: MySQL
     result:

@@ -236,10 +236,10 @@ test:
             = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
             ?,ShipCountry = ? WHERE o.OrderID = ? 
           children: []
-    errors: 0
+    errors: 1
     expression: Orders.update()
     normalizeExpression: >-
-      Orders.filter(p=>(p.id==id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
+      Orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id))
     model:
       - name: customerId
         type: string
@@ -304,174 +304,14 @@ test:
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
     metadata:
-      name: update
       classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders
-                  alias: o
-                  isRoot: true
-                - name: id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 14
-              type: any
-          type: any
-        - name: Orders
-          classtype: From
-          children: []
-          type: any
-          alias: o
-        - name: Orders
-          classtype: Update
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: customerId
-                  classtype: KeyValue
-                  children:
-                    - name: customerId
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 1
-                  type: any
-                  property: customerId
-                - name: employeeId
-                  classtype: KeyValue
-                  children:
-                    - name: employeeId
-                      classtype: Variable
-                      children: []
-                      type: integer
-                      number: 2
-                  type: any
-                  property: employeeId
-                - name: orderDate
-                  classtype: KeyValue
-                  children:
-                    - name: orderDate
-                      classtype: Variable
-                      children: []
-                      type: dateTime
-                      number: 3
-                  type: any
-                  property: orderDate
-                - name: requiredDate
-                  classtype: KeyValue
-                  children:
-                    - name: requiredDate
-                      classtype: Variable
-                      children: []
-                      type: date
-                      number: 4
-                  type: any
-                  property: requiredDate
-                - name: shippedDate
-                  classtype: KeyValue
-                  children:
-                    - name: shippedDate
-                      classtype: Variable
-                      children: []
-                      type: date
-                      number: 5
-                  type: any
-                  property: shippedDate
-                - name: shipViaId
-                  classtype: KeyValue
-                  children:
-                    - name: shipViaId
-                      classtype: Variable
-                      children: []
-                      type: integer
-                      number: 6
-                  type: any
-                  property: shipViaId
-                - name: freight
-                  classtype: KeyValue
-                  children:
-                    - name: freight
-                      classtype: Variable
-                      children: []
-                      type: decimal
-                      number: 7
-                  type: any
-                  property: freight
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 8
-                  type: any
-                  property: name
-                - name: address
-                  classtype: KeyValue
-                  children:
-                    - name: address
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 9
-                  type: any
-                  property: address
-                - name: city
-                  classtype: KeyValue
-                  children:
-                    - name: city
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 10
-                  type: any
-                  property: city
-                - name: region
-                  classtype: KeyValue
-                  children:
-                    - name: region
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 11
-                  type: any
-                  property: region
-                - name: postalCode
-                  classtype: KeyValue
-                  children:
-                    - name: postalCode
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 12
-                  type: any
-                  property: postalCode
-                - name: country
-                  classtype: KeyValue
-                  children:
-                    - name: country
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 13
-                  type: any
-                  property: country
-              type: object
-          type: any
-          alias: o
+      pos:
+        ln: 0
+        col: 14
+      name: update
+      children: []
       type: any
+      entity: Orders
       columns:
         - name: customerId
           type: string
@@ -528,41 +368,20 @@ test:
           type: string
         - name: id
           type: integer
-      entity: Orders
       constraints:
         - message: Cannot be null property customerId in entity Orders
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
+      values: []
+      defaults: []
+      clause: update
+      alias: o
     executions:
       - stage: MySQL
-    result:
-      data:
-        id: 7
-        customerId: ANATR
-        employeeId: 7
-        orderDate: '1996-09-17T22:00:00.000Z'
-        requiredDate: '1996-10-15T22:00:00.000Z'
-        shippedDate: '1996-09-23T22:00:00.000Z'
-        shipViaId: 3
-        freight: '1.6100'
-        name: Ana Trujillo Emparedados y helados
-        address: Avda. de la Constitución 2222
-        city: Mexico D.F.
-        region: null
-        postalCode: '5021'
-        country: Mexico
-        details:
-          - orderId: 7
-            productId: 69
-            unitPrice: '28.8000'
-            quantity: '1.0000'
-            discount: '0.0000'
-          - orderId: 7
-            productId: 70
-            unitPrice: '12.0000'
-            quantity: '5.0000'
-            discount: '0.0000'
+        error: >-
+          Error: Incorrect datetime value: '1996-09-17T22:00:00.000Z' for column
+          'OrderDate' at row 1
   - name: update 2
     data: b
     sentences:
@@ -580,7 +399,7 @@ test:
     errors: 0
     expression: Orders.update(entity)
     normalizeExpression: >-
-      Orders.filter(p=>(p.id==entity.id)).update({customerId:entity.customerId,employeeId:entity.employeeId,orderDate:entity.orderDate,requiredDate:entity.requiredDate,shippedDate:entity.shippedDate,shipViaId:entity.shipViaId,freight:entity.freight,name:entity.name,address:entity.address,city:entity.city,region:entity.region,postalCode:entity.postalCode,country:entity.country})
+      Orders.update(p=>{customerId:entity.customerId,employeeId:entity.employeeId,orderDate:entity.orderDate,requiredDate:entity.requiredDate,shippedDate:entity.shippedDate,shipViaId:entity.shipViaId,freight:entity.freight,name:entity.name,address:entity.address,city:entity.city,region:entity.region,postalCode:entity.postalCode,country:entity.country}).filter(p=>(p.id==entity.id))
     model:
       - name: customerId
         type: string
@@ -641,174 +460,14 @@ test:
       entity: Orders
       constraints: []
     metadata:
-      name: update
       classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders
-                  alias: o
-                  isRoot: true
-                - name: entity.id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 14
-              type: any
-          type: any
-        - name: Orders
-          classtype: From
-          children: []
-          type: any
-          alias: o
-        - name: Orders
-          classtype: Update
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: customerId
-                  classtype: KeyValue
-                  children:
-                    - name: entity.customerId
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 1
-                  type: any
-                  property: customerId
-                - name: employeeId
-                  classtype: KeyValue
-                  children:
-                    - name: entity.employeeId
-                      classtype: Variable
-                      children: []
-                      type: integer
-                      number: 2
-                  type: any
-                  property: employeeId
-                - name: orderDate
-                  classtype: KeyValue
-                  children:
-                    - name: entity.orderDate
-                      classtype: Variable
-                      children: []
-                      type: dateTime
-                      number: 3
-                  type: any
-                  property: orderDate
-                - name: requiredDate
-                  classtype: KeyValue
-                  children:
-                    - name: entity.requiredDate
-                      classtype: Variable
-                      children: []
-                      type: date
-                      number: 4
-                  type: any
-                  property: requiredDate
-                - name: shippedDate
-                  classtype: KeyValue
-                  children:
-                    - name: entity.shippedDate
-                      classtype: Variable
-                      children: []
-                      type: date
-                      number: 5
-                  type: any
-                  property: shippedDate
-                - name: shipViaId
-                  classtype: KeyValue
-                  children:
-                    - name: entity.shipViaId
-                      classtype: Variable
-                      children: []
-                      type: integer
-                      number: 6
-                  type: any
-                  property: shipViaId
-                - name: freight
-                  classtype: KeyValue
-                  children:
-                    - name: entity.freight
-                      classtype: Variable
-                      children: []
-                      type: decimal
-                      number: 7
-                  type: any
-                  property: freight
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: entity.name
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 8
-                  type: any
-                  property: name
-                - name: address
-                  classtype: KeyValue
-                  children:
-                    - name: entity.address
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 9
-                  type: any
-                  property: address
-                - name: city
-                  classtype: KeyValue
-                  children:
-                    - name: entity.city
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 10
-                  type: any
-                  property: city
-                - name: region
-                  classtype: KeyValue
-                  children:
-                    - name: entity.region
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 11
-                  type: any
-                  property: region
-                - name: postalCode
-                  classtype: KeyValue
-                  children:
-                    - name: entity.postalCode
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 12
-                  type: any
-                  property: postalCode
-                - name: country
-                  classtype: KeyValue
-                  children:
-                    - name: entity.country
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 13
-                  type: any
-                  property: country
-              type: object
-          type: any
-          alias: o
+      pos:
+        ln: 0
+        col: 14
+      name: update
+      children: []
       type: any
+      entity: Orders
       columns:
         - name: customerId
           type: string
@@ -865,8 +524,11 @@ test:
           type: string
         - name: entity.id
           type: integer
-      entity: Orders
       constraints: []
+      values: []
+      defaults: []
+      clause: update
+      alias: o
     executions:
       - stage: MySQL
     result:
@@ -920,78 +582,41 @@ test:
           sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
           children: []
     errors: 0
-    expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
-    normalizeExpression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id===entity.id))
+    expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id==entity.id))
+    normalizeExpression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id==entity.id))
     model:
       - name: name
         type: string
     parameters:
       - name: entity.name
-        type: string
+        type: any
       - name: entity.id
         type: integer
     constraints:
       entity: Orders
       constraints: []
     metadata:
-      name: update
       classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '==='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders
-                  alias: o
-                  isRoot: true
-                - name: entity.id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 2
-              type: any
-          type: any
-        - name: Orders
-          classtype: From
-          children: []
-          type: any
-          alias: o
-        - name: Orders
-          classtype: Update
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: entity.name
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 1
-                  type: any
-                  property: name
-              type: object
-          type: any
-          alias: o
+      pos:
+        ln: 0
+        col: 44
+      name: update
+      children: []
       type: any
+      entity: Orders
       columns:
         - name: name
           type: string
       parameters:
         - name: entity.name
-          type: string
+          type: any
         - name: entity.id
           type: integer
-      entity: Orders
       constraints: []
+      values: []
+      defaults: []
+      clause: update
+      alias: o
     executions:
       - stage: MySQL
     result:
@@ -1047,9 +672,9 @@ test:
               children: []
     errors: 0
     expression: >-
-      Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id===entity.id))
+      Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id==entity.id))
     normalizeExpression: >-
-      Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id===entity.id))
+      Orders.update(=>{name:entity.name}).filter(p=>(p.id==entity.id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     model:
       - name: name
         type: string
@@ -1068,7 +693,7 @@ test:
             type: decimal
     parameters:
       - name: entity.name
-        type: string
+        type: any
       - name: entity.id
         type: integer
       - name: details
@@ -1103,221 +728,74 @@ test:
             - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
     metadata:
-      name: update
       classtype: Sentence
+      pos:
+        ln: 0
+        col: 65
+      name: update
       children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '==='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders
-                  alias: o
-                  isRoot: true
-                - name: entity.id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 2
-              type: any
-          type: any
-        - name: Orders
-          classtype: From
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 47
+          name: update
           children: []
           type: any
-          alias: o
-        - name: Orders
-          classtype: Update
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: entity.name
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 1
-                  type: any
-                  property: name
-              type: object
-          type: any
-          alias: o
-        - name: details
-          classtype: SentenceInclude
-          children:
-            - name: update
-              classtype: Sentence
-              children:
-                - name: filter
-                  classtype: Filter
-                  children:
-                    - name: '&&'
-                      classtype: Operator
-                      children:
-                        - name: '=='
-                          classtype: Operator
-                          children:
-                            - name: orderId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                            - name: orderId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 6
-                          type: any
-                        - name: '=='
-                          classtype: Operator
-                          children:
-                            - name: productId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                            - name: productId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 7
-                          type: any
-                      type: any
-                  type: any
-                - name: Orders.details
-                  classtype: From
-                  children: []
-                  type: any
-                  alias: o1
-                - name: Orders.details
-                  classtype: Update
-                  children:
-                    - name: obj
-                      classtype: Obj
-                      children:
-                        - name: orderId
-                          classtype: KeyValue
-                          children:
-                            - name: orderId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 1
-                          type: any
-                          property: orderId
-                        - name: productId
-                          classtype: KeyValue
-                          children:
-                            - name: productId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 2
-                          type: any
-                          property: productId
-                        - name: unitPrice
-                          classtype: KeyValue
-                          children:
-                            - name: unitPrice
-                              classtype: Variable
-                              children: []
-                              type: decimal
-                              number: 3
-                          type: any
-                          property: unitPrice
-                        - name: quantity
-                          classtype: KeyValue
-                          children:
-                            - name: quantity
-                              classtype: Variable
-                              children: []
-                              type: decimal
-                              number: 4
-                          type: any
-                          property: quantity
-                        - name: discount
-                          classtype: KeyValue
-                          children:
-                            - name: discount
-                              classtype: Variable
-                              children: []
-                              type: decimal
-                              number: 5
-                          type: any
-                          property: discount
-                      type: object
-                  type: any
-                  alias: o1
-              type: any
-              columns:
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-                - name: unitPrice
-                  type: decimal
-                - name: quantity
-                  type: decimal
-                - name: discount
-                  type: decimal
-              parameters:
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-                - name: unitPrice
-                  type: decimal
-                - name: quantity
-                  type: decimal
-                - name: discount
-                  type: decimal
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-              entity: Orders.details
-              constraints:
-                - message: Cannot be null property orderId in entity Orders.details
-                  condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity Orders.details
-                  condition: isNotNull(productId)
-                - message: Cannot be null property orderId in entity Orders.details
-                  condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity Orders.details
-                  condition: isNotNull(productId)
-          type: any
-          relation:
-            name: details
-            type: manyToOne
-            composite: true
-            from: id
-            entity: Orders.details
-            weak: true
-            to: orderId
-            target: order
+          entity: Orders.details
+          columns:
+            - name: orderId
+              type: integer
+            - name: productId
+              type: integer
+            - name: unitPrice
+              type: decimal
+            - name: quantity
+              type: decimal
+            - name: discount
+              type: decimal
+          parameters:
+            - name: orderId
+              type: integer
+            - name: productId
+              type: integer
+            - name: unitPrice
+              type: decimal
+            - name: quantity
+              type: decimal
+            - name: discount
+              type: decimal
+            - name: orderId
+              type: integer
+            - name: productId
+              type: integer
+          constraints:
+            - message: Cannot be null property orderId in entity Orders.details
+              condition: isNotNull(orderId)
+            - message: Cannot be null property productId in entity Orders.details
+              condition: isNotNull(productId)
+            - message: Cannot be null property orderId in entity Orders.details
+              condition: isNotNull(orderId)
+            - message: Cannot be null property productId in entity Orders.details
+              condition: isNotNull(productId)
+          values: []
+          defaults: []
+          clause: update
+          alias: o1
       type: any
+      entity: Orders
       columns:
         - name: name
           type: string
       parameters:
         - name: entity.name
-          type: string
+          type: any
         - name: entity.id
           type: integer
-      entity: Orders
       constraints: []
+      values: []
+      defaults: []
+      clause: update
+      alias: o
     executions:
       - stage: MySQL
     result:
@@ -1367,15 +845,14 @@ test:
               dialect: MySQL
               source: MySQL
               sentence: >-
-                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,Quantity
-                = o1.Quantity,Discount = o1.Discount WHERE (o1.OrderID = ? AND
-                o1.ProductID = ?) 
+                UPDATE `Order Details` o1 SET UnitPrice = ?,Quantity =
+                ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
               children: []
     errors: 0
     expression: >-
-      Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id===entity.id))
+      Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id==entity.id))
     normalizeExpression: >-
-      Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update(p=>{unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount})).filter(p=>(p.id===entity.id))
+      Orders.update(=>{name:entity.name}).filter(p=>(p.id==entity.id)).include(p=>p.details.update(p=>{unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     model:
       - name: name
         type: string
@@ -1390,12 +867,18 @@ test:
             type: decimal
     parameters:
       - name: entity.name
-        type: string
+        type: any
       - name: entity.id
         type: integer
       - name: details
         type: Orders.details
         children:
+          - name: unitPrice
+            type: decimal
+          - name: quantity
+            type: decimal
+          - name: discount
+            type: decimal
           - name: orderId
             type: integer
           - name: productId
@@ -1411,189 +894,62 @@ test:
             - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
     metadata:
-      name: update
       classtype: Sentence
+      pos:
+        ln: 0
+        col: 78
+      name: update
       children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '==='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders
-                  alias: o
-                  isRoot: true
-                - name: entity.id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 2
-              type: any
-          type: any
-        - name: Orders
-          classtype: From
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 64
+          name: update
           children: []
           type: any
-          alias: o
-        - name: Orders
-          classtype: Update
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: entity.name
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 1
-                  type: any
-                  property: name
-              type: object
-          type: any
-          alias: o
-        - name: details
-          classtype: SentenceInclude
-          children:
-            - name: update
-              classtype: Sentence
-              children:
-                - name: filter
-                  classtype: Filter
-                  children:
-                    - name: '&&'
-                      classtype: Operator
-                      children:
-                        - name: '=='
-                          classtype: Operator
-                          children:
-                            - name: orderId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                            - name: orderId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 1
-                          type: any
-                        - name: '=='
-                          classtype: Operator
-                          children:
-                            - name: productId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                            - name: productId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 2
-                          type: any
-                      type: any
-                  type: any
-                - name: Orders.details
-                  classtype: From
-                  children: []
-                  type: any
-                  alias: o1
-                - name: Orders.details
-                  classtype: Update
-                  children:
-                    - name: obj
-                      classtype: Obj
-                      children:
-                        - name: unitPrice
-                          classtype: KeyValue
-                          children:
-                            - name: unitPrice
-                              classtype: Field
-                              children: []
-                              type: decimal
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                          type: any
-                          property: unitPrice
-                        - name: quantity
-                          classtype: KeyValue
-                          children:
-                            - name: quantity
-                              classtype: Field
-                              children: []
-                              type: decimal
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                          type: any
-                          property: quantity
-                        - name: discount
-                          classtype: KeyValue
-                          children:
-                            - name: discount
-                              classtype: Field
-                              children: []
-                              type: decimal
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                          type: any
-                          property: discount
-                      type: object
-                  type: any
-                  alias: o1
-              type: any
-              columns:
-                - name: unitPrice
-                  type: decimal
-                - name: quantity
-                  type: decimal
-                - name: discount
-                  type: decimal
-              parameters:
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-              entity: Orders.details
-              constraints:
-                - message: Cannot be null property orderId in entity Orders.details
-                  condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity Orders.details
-                  condition: isNotNull(productId)
-          type: any
-          relation:
-            name: details
-            type: manyToOne
-            composite: true
-            from: id
-            entity: Orders.details
-            weak: true
-            to: orderId
-            target: order
+          entity: Orders.details
+          columns:
+            - name: unitPrice
+              type: decimal
+            - name: quantity
+              type: decimal
+            - name: discount
+              type: decimal
+          parameters:
+            - name: unitPrice
+              type: decimal
+            - name: quantity
+              type: decimal
+            - name: discount
+              type: decimal
+            - name: orderId
+              type: integer
+            - name: productId
+              type: integer
+          constraints:
+            - message: Cannot be null property orderId in entity Orders.details
+              condition: isNotNull(orderId)
+            - message: Cannot be null property productId in entity Orders.details
+              condition: isNotNull(productId)
+          values: []
+          defaults: []
+          clause: update
+          alias: o1
       type: any
+      entity: Orders
       columns:
         - name: name
           type: string
       parameters:
         - name: entity.name
-          type: string
+          type: any
         - name: entity.id
           type: integer
-      entity: Orders
       constraints: []
+      values: []
+      defaults: []
+      clause: update
+      alias: o
     executions:
       - stage: MySQL
     result:
@@ -1648,9 +1004,9 @@ test:
               children: []
     errors: 0
     expression: >-
-      Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
+      Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id==entity.id))
     normalizeExpression: >-
-      Orders.update(=>{name:entity.name}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id===entity.id))
+      Orders.update(=>{name:entity.name}).filter(p=>(p.id==entity.id)).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     model:
       - name: name
         type: string
@@ -1663,7 +1019,7 @@ test:
             type: integer
     parameters:
       - name: entity.name
-        type: string
+        type: any
       - name: entity.id
         type: integer
       - name: details
@@ -1684,175 +1040,54 @@ test:
             - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
     metadata:
-      name: update
       classtype: Sentence
+      pos:
+        ln: 0
+        col: 122
+      name: update
       children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '==='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders
-                  alias: o
-                  isRoot: true
-                - name: entity.id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 2
-              type: any
-          type: any
-        - name: Orders
-          classtype: From
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 64
+          name: update
           children: []
           type: any
-          alias: o
-        - name: Orders
-          classtype: Update
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: entity.name
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 1
-                  type: any
-                  property: name
-              type: object
-          type: any
-          alias: o
-        - name: details
-          classtype: SentenceInclude
-          children:
-            - name: update
-              classtype: Sentence
-              children:
-                - name: filter
-                  classtype: Filter
-                  children:
-                    - name: '&&'
-                      classtype: Operator
-                      children:
-                        - name: '=='
-                          classtype: Operator
-                          children:
-                            - name: orderId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                            - name: orderId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 1
-                          type: any
-                        - name: '=='
-                          classtype: Operator
-                          children:
-                            - name: productId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                            - name: productId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 2
-                          type: any
-                      type: any
-                  type: any
-                - name: Orders.details
-                  classtype: From
-                  children: []
-                  type: any
-                  alias: o1
-                - name: Orders.details
-                  classtype: Update
-                  children:
-                    - name: obj
-                      classtype: Obj
-                      children:
-                        - name: unitPrice
-                          classtype: KeyValue
-                          children:
-                            - name: unitPrice
-                              classtype: Field
-                              children: []
-                              type: decimal
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                          type: any
-                          property: unitPrice
-                        - name: productId
-                          classtype: KeyValue
-                          children:
-                            - name: productId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                          type: any
-                          property: productId
-                      type: object
-                  type: any
-                  alias: o1
-              type: any
-              columns:
-                - name: unitPrice
-                  type: decimal
-                - name: productId
-                  type: integer
-              parameters:
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-              entity: Orders.details
-              constraints:
-                - message: Cannot be null property orderId in entity Orders.details
-                  condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity Orders.details
-                  condition: isNotNull(productId)
-          type: any
-          relation:
-            name: details
-            type: manyToOne
-            composite: true
-            from: id
-            entity: Orders.details
-            weak: true
-            to: orderId
-            target: order
+          entity: Orders.details
+          columns:
+            - name: unitPrice
+              type: decimal
+            - name: productId
+              type: integer
+          parameters:
+            - name: orderId
+              type: integer
+            - name: productId
+              type: integer
+          constraints:
+            - message: Cannot be null property orderId in entity Orders.details
+              condition: isNotNull(orderId)
+            - message: Cannot be null property productId in entity Orders.details
+              condition: isNotNull(productId)
+          values: []
+          defaults: []
+          clause: update
+          alias: o1
       type: any
+      entity: Orders
       columns:
         - name: name
           type: string
       parameters:
         - name: entity.name
-          type: string
+          type: any
         - name: entity.id
           type: integer
-      entity: Orders
       constraints: []
+      values: []
+      defaults: []
+      clause: update
+      alias: o
     executions:
       - stage: MySQL
     result:
@@ -1913,7 +1148,7 @@ test:
     errors: 0
     expression: Orders.update().include(p=>p.details)
     normalizeExpression: >-
-      Orders.filter(p=>(p.id==id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
+      Orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     model:
       - name: customerId
         type: string
@@ -2019,331 +1254,61 @@ test:
             - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
     metadata:
-      name: update
       classtype: Sentence
+      pos:
+        ln: 0
+        col: 24
+      name: update
       children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders
-                  alias: o
-                  isRoot: true
-                - name: id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 14
-              type: any
-          type: any
-        - name: Orders
-          classtype: From
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 27
+          name: update
           children: []
           type: any
-          alias: o
-        - name: Orders
-          classtype: Update
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: customerId
-                  classtype: KeyValue
-                  children:
-                    - name: customerId
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 1
-                  type: any
-                  property: customerId
-                - name: employeeId
-                  classtype: KeyValue
-                  children:
-                    - name: employeeId
-                      classtype: Variable
-                      children: []
-                      type: integer
-                      number: 2
-                  type: any
-                  property: employeeId
-                - name: orderDate
-                  classtype: KeyValue
-                  children:
-                    - name: orderDate
-                      classtype: Variable
-                      children: []
-                      type: dateTime
-                      number: 3
-                  type: any
-                  property: orderDate
-                - name: requiredDate
-                  classtype: KeyValue
-                  children:
-                    - name: requiredDate
-                      classtype: Variable
-                      children: []
-                      type: date
-                      number: 4
-                  type: any
-                  property: requiredDate
-                - name: shippedDate
-                  classtype: KeyValue
-                  children:
-                    - name: shippedDate
-                      classtype: Variable
-                      children: []
-                      type: date
-                      number: 5
-                  type: any
-                  property: shippedDate
-                - name: shipViaId
-                  classtype: KeyValue
-                  children:
-                    - name: shipViaId
-                      classtype: Variable
-                      children: []
-                      type: integer
-                      number: 6
-                  type: any
-                  property: shipViaId
-                - name: freight
-                  classtype: KeyValue
-                  children:
-                    - name: freight
-                      classtype: Variable
-                      children: []
-                      type: decimal
-                      number: 7
-                  type: any
-                  property: freight
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 8
-                  type: any
-                  property: name
-                - name: address
-                  classtype: KeyValue
-                  children:
-                    - name: address
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 9
-                  type: any
-                  property: address
-                - name: city
-                  classtype: KeyValue
-                  children:
-                    - name: city
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 10
-                  type: any
-                  property: city
-                - name: region
-                  classtype: KeyValue
-                  children:
-                    - name: region
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 11
-                  type: any
-                  property: region
-                - name: postalCode
-                  classtype: KeyValue
-                  children:
-                    - name: postalCode
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 12
-                  type: any
-                  property: postalCode
-                - name: country
-                  classtype: KeyValue
-                  children:
-                    - name: country
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 13
-                  type: any
-                  property: country
-              type: object
-          type: any
-          alias: o
-        - name: details
-          classtype: SentenceInclude
-          children:
-            - name: update
-              classtype: Sentence
-              children:
-                - name: filter
-                  classtype: Filter
-                  children:
-                    - name: '&&'
-                      classtype: Operator
-                      children:
-                        - name: '=='
-                          classtype: Operator
-                          children:
-                            - name: orderId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                            - name: orderId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 6
-                          type: any
-                        - name: '=='
-                          classtype: Operator
-                          children:
-                            - name: productId
-                              classtype: Field
-                              children: []
-                              type: integer
-                              entity: Orders.details
-                              alias: o1
-                              isRoot: true
-                            - name: productId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 7
-                          type: any
-                      type: any
-                  type: any
-                - name: Orders.details
-                  classtype: From
-                  children: []
-                  type: any
-                  alias: o1
-                - name: Orders.details
-                  classtype: Update
-                  children:
-                    - name: obj
-                      classtype: Obj
-                      children:
-                        - name: orderId
-                          classtype: KeyValue
-                          children:
-                            - name: orderId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 1
-                          type: any
-                          property: orderId
-                        - name: productId
-                          classtype: KeyValue
-                          children:
-                            - name: productId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 2
-                          type: any
-                          property: productId
-                        - name: unitPrice
-                          classtype: KeyValue
-                          children:
-                            - name: unitPrice
-                              classtype: Variable
-                              children: []
-                              type: decimal
-                              number: 3
-                          type: any
-                          property: unitPrice
-                        - name: quantity
-                          classtype: KeyValue
-                          children:
-                            - name: quantity
-                              classtype: Variable
-                              children: []
-                              type: decimal
-                              number: 4
-                          type: any
-                          property: quantity
-                        - name: discount
-                          classtype: KeyValue
-                          children:
-                            - name: discount
-                              classtype: Variable
-                              children: []
-                              type: decimal
-                              number: 5
-                          type: any
-                          property: discount
-                      type: object
-                  type: any
-                  alias: o1
-              type: any
-              columns:
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-                - name: unitPrice
-                  type: decimal
-                - name: quantity
-                  type: decimal
-                - name: discount
-                  type: decimal
-              parameters:
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-                - name: unitPrice
-                  type: decimal
-                - name: quantity
-                  type: decimal
-                - name: discount
-                  type: decimal
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-              entity: Orders.details
-              constraints:
-                - message: Cannot be null property orderId in entity Orders.details
-                  condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity Orders.details
-                  condition: isNotNull(productId)
-                - message: Cannot be null property orderId in entity Orders.details
-                  condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity Orders.details
-                  condition: isNotNull(productId)
-          type: any
-          relation:
-            name: details
-            type: manyToOne
-            composite: true
-            from: id
-            entity: Orders.details
-            weak: true
-            to: orderId
-            target: order
+          entity: Orders.details
+          columns:
+            - name: orderId
+              type: integer
+            - name: productId
+              type: integer
+            - name: unitPrice
+              type: decimal
+            - name: quantity
+              type: decimal
+            - name: discount
+              type: decimal
+          parameters:
+            - name: orderId
+              type: integer
+            - name: productId
+              type: integer
+            - name: unitPrice
+              type: decimal
+            - name: quantity
+              type: decimal
+            - name: discount
+              type: decimal
+            - name: orderId
+              type: integer
+            - name: productId
+              type: integer
+          constraints:
+            - message: Cannot be null property orderId in entity Orders.details
+              condition: isNotNull(orderId)
+            - message: Cannot be null property productId in entity Orders.details
+              condition: isNotNull(productId)
+            - message: Cannot be null property orderId in entity Orders.details
+              condition: isNotNull(orderId)
+            - message: Cannot be null property productId in entity Orders.details
+              condition: isNotNull(productId)
+          values: []
+          defaults: []
+          clause: update
+          alias: o1
       type: any
+      entity: Orders
       columns:
         - name: customerId
           type: string
@@ -2400,12 +1365,15 @@ test:
           type: string
         - name: id
           type: integer
-      entity: Orders
       constraints:
         - message: Cannot be null property customerId in entity Orders
           condition: isNotNull(customerId)
         - message: Cannot be null property employeeId in entity Orders
           condition: isNotNull(employeeId)
+      values: []
+      defaults: []
+      clause: update
+      alias: o
     executions:
       - stage: MySQL
     result:
@@ -2468,7 +1436,7 @@ test:
     errors: 0
     expression: Customers.update().include(p=>p.orders.include(p=>p.details))
     normalizeExpression: >-
-      Customers.filter(p=>(p.id==id)).update({id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.orders.include(p=>p.details.filter(p=>((p.orderId==orderId)&&(p.productId==productId))).update({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount})).filter(p=>(p.id==id)).update({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}))
+      Customers.update(p=>{id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId)))))
     model:
       - name: id
         type: string
@@ -2627,542 +1595,134 @@ test:
                 - message: Cannot be null property productId in entity Orders.details
                   condition: isNotNull(productId)
     metadata:
-      name: update
       classtype: Sentence
+      pos:
+        ln: 0
+        col: 27
+      name: update
       children:
-        - name: filter
-          classtype: Filter
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 47
+          name: update
           children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: string
-                  entity: Customers
-                  alias: c
-                  isRoot: true
-                - name: id
-                  classtype: Variable
-                  children: []
-                  type: string
-                  number: 10
+            - classtype: Sentence
+              pos:
+                ln: 0
+                col: 50
+              name: update
+              children: []
               type: any
-          type: any
-        - name: Customers
-          classtype: From
-          children: []
-          type: any
-          alias: c
-        - name: Customers
-          classtype: Update
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 1
-                  type: any
-                  property: id
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 2
-                  type: any
-                  property: name
-                - name: contact
-                  classtype: KeyValue
-                  children:
-                    - name: contact
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 3
-                  type: any
-                  property: contact
-                - name: phone
-                  classtype: KeyValue
-                  children:
-                    - name: phone
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 4
-                  type: any
-                  property: phone
-                - name: address
-                  classtype: KeyValue
-                  children:
-                    - name: address
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 5
-                  type: any
-                  property: address
-                - name: city
-                  classtype: KeyValue
-                  children:
-                    - name: city
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 6
-                  type: any
-                  property: city
-                - name: region
-                  classtype: KeyValue
-                  children:
-                    - name: region
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 7
-                  type: any
-                  property: region
-                - name: postalCode
-                  classtype: KeyValue
-                  children:
-                    - name: postalCode
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 8
-                  type: any
-                  property: postalCode
-                - name: country
-                  classtype: KeyValue
-                  children:
-                    - name: country
-                      classtype: Variable
-                      children: []
-                      type: string
-                      number: 9
-                  type: any
-                  property: country
-              type: object
-          type: any
-          alias: c
-        - name: orders
-          classtype: SentenceInclude
-          children:
-            - name: update
-              classtype: Sentence
-              children:
-                - name: filter
-                  classtype: Filter
-                  children:
-                    - name: '=='
-                      classtype: Operator
-                      children:
-                        - name: id
-                          classtype: Field
-                          children: []
-                          type: integer
-                          entity: Orders
-                          alias: o
-                          isRoot: true
-                        - name: id
-                          classtype: Variable
-                          children: []
-                          type: integer
-                          number: 14
-                      type: any
-                  type: any
-                - name: Orders
-                  classtype: From
-                  children: []
-                  type: any
-                  alias: o
-                - name: Orders
-                  classtype: Update
-                  children:
-                    - name: obj
-                      classtype: Obj
-                      children:
-                        - name: customerId
-                          classtype: KeyValue
-                          children:
-                            - name: customerId
-                              classtype: Variable
-                              children: []
-                              type: string
-                              number: 1
-                          type: any
-                          property: customerId
-                        - name: employeeId
-                          classtype: KeyValue
-                          children:
-                            - name: employeeId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 2
-                          type: any
-                          property: employeeId
-                        - name: orderDate
-                          classtype: KeyValue
-                          children:
-                            - name: orderDate
-                              classtype: Variable
-                              children: []
-                              type: dateTime
-                              number: 3
-                          type: any
-                          property: orderDate
-                        - name: requiredDate
-                          classtype: KeyValue
-                          children:
-                            - name: requiredDate
-                              classtype: Variable
-                              children: []
-                              type: date
-                              number: 4
-                          type: any
-                          property: requiredDate
-                        - name: shippedDate
-                          classtype: KeyValue
-                          children:
-                            - name: shippedDate
-                              classtype: Variable
-                              children: []
-                              type: date
-                              number: 5
-                          type: any
-                          property: shippedDate
-                        - name: shipViaId
-                          classtype: KeyValue
-                          children:
-                            - name: shipViaId
-                              classtype: Variable
-                              children: []
-                              type: integer
-                              number: 6
-                          type: any
-                          property: shipViaId
-                        - name: freight
-                          classtype: KeyValue
-                          children:
-                            - name: freight
-                              classtype: Variable
-                              children: []
-                              type: decimal
-                              number: 7
-                          type: any
-                          property: freight
-                        - name: name
-                          classtype: KeyValue
-                          children:
-                            - name: name
-                              classtype: Variable
-                              children: []
-                              type: string
-                              number: 8
-                          type: any
-                          property: name
-                        - name: address
-                          classtype: KeyValue
-                          children:
-                            - name: address
-                              classtype: Variable
-                              children: []
-                              type: string
-                              number: 9
-                          type: any
-                          property: address
-                        - name: city
-                          classtype: KeyValue
-                          children:
-                            - name: city
-                              classtype: Variable
-                              children: []
-                              type: string
-                              number: 10
-                          type: any
-                          property: city
-                        - name: region
-                          classtype: KeyValue
-                          children:
-                            - name: region
-                              classtype: Variable
-                              children: []
-                              type: string
-                              number: 11
-                          type: any
-                          property: region
-                        - name: postalCode
-                          classtype: KeyValue
-                          children:
-                            - name: postalCode
-                              classtype: Variable
-                              children: []
-                              type: string
-                              number: 12
-                          type: any
-                          property: postalCode
-                        - name: country
-                          classtype: KeyValue
-                          children:
-                            - name: country
-                              classtype: Variable
-                              children: []
-                              type: string
-                              number: 13
-                          type: any
-                          property: country
-                      type: object
-                  type: any
-                  alias: o
-                - name: details
-                  classtype: SentenceInclude
-                  children:
-                    - name: update
-                      classtype: Sentence
-                      children:
-                        - name: filter
-                          classtype: Filter
-                          children:
-                            - name: '&&'
-                              classtype: Operator
-                              children:
-                                - name: '=='
-                                  classtype: Operator
-                                  children:
-                                    - name: orderId
-                                      classtype: Field
-                                      children: []
-                                      type: integer
-                                      entity: Orders.details
-                                      alias: o1
-                                      isRoot: true
-                                    - name: orderId
-                                      classtype: Variable
-                                      children: []
-                                      type: integer
-                                      number: 6
-                                  type: any
-                                - name: '=='
-                                  classtype: Operator
-                                  children:
-                                    - name: productId
-                                      classtype: Field
-                                      children: []
-                                      type: integer
-                                      entity: Orders.details
-                                      alias: o1
-                                      isRoot: true
-                                    - name: productId
-                                      classtype: Variable
-                                      children: []
-                                      type: integer
-                                      number: 7
-                                  type: any
-                              type: any
-                          type: any
-                        - name: Orders.details
-                          classtype: From
-                          children: []
-                          type: any
-                          alias: o1
-                        - name: Orders.details
-                          classtype: Update
-                          children:
-                            - name: obj
-                              classtype: Obj
-                              children:
-                                - name: orderId
-                                  classtype: KeyValue
-                                  children:
-                                    - name: orderId
-                                      classtype: Variable
-                                      children: []
-                                      type: integer
-                                      number: 1
-                                  type: any
-                                  property: orderId
-                                - name: productId
-                                  classtype: KeyValue
-                                  children:
-                                    - name: productId
-                                      classtype: Variable
-                                      children: []
-                                      type: integer
-                                      number: 2
-                                  type: any
-                                  property: productId
-                                - name: unitPrice
-                                  classtype: KeyValue
-                                  children:
-                                    - name: unitPrice
-                                      classtype: Variable
-                                      children: []
-                                      type: decimal
-                                      number: 3
-                                  type: any
-                                  property: unitPrice
-                                - name: quantity
-                                  classtype: KeyValue
-                                  children:
-                                    - name: quantity
-                                      classtype: Variable
-                                      children: []
-                                      type: decimal
-                                      number: 4
-                                  type: any
-                                  property: quantity
-                                - name: discount
-                                  classtype: KeyValue
-                                  children:
-                                    - name: discount
-                                      classtype: Variable
-                                      children: []
-                                      type: decimal
-                                      number: 5
-                                  type: any
-                                  property: discount
-                              type: object
-                          type: any
-                          alias: o1
-                      type: any
-                      columns:
-                        - name: orderId
-                          type: integer
-                        - name: productId
-                          type: integer
-                        - name: unitPrice
-                          type: decimal
-                        - name: quantity
-                          type: decimal
-                        - name: discount
-                          type: decimal
-                      parameters:
-                        - name: orderId
-                          type: integer
-                        - name: productId
-                          type: integer
-                        - name: unitPrice
-                          type: decimal
-                        - name: quantity
-                          type: decimal
-                        - name: discount
-                          type: decimal
-                        - name: orderId
-                          type: integer
-                        - name: productId
-                          type: integer
-                      entity: Orders.details
-                      constraints:
-                        - message: >-
-                            Cannot be null property orderId in entity
-                            Orders.details
-                          condition: isNotNull(orderId)
-                        - message: >-
-                            Cannot be null property productId in entity
-                            Orders.details
-                          condition: isNotNull(productId)
-                        - message: >-
-                            Cannot be null property orderId in entity
-                            Orders.details
-                          condition: isNotNull(orderId)
-                        - message: >-
-                            Cannot be null property productId in entity
-                            Orders.details
-                          condition: isNotNull(productId)
-                  type: any
-                  relation:
-                    name: details
-                    type: manyToOne
-                    composite: true
-                    from: id
-                    entity: Orders.details
-                    weak: true
-                    to: orderId
-                    target: order
-              type: any
+              entity: Orders.details
               columns:
-                - name: customerId
-                  type: string
-                - name: employeeId
+                - name: orderId
                   type: integer
-                - name: orderDate
-                  type: dateTime
-                - name: requiredDate
-                  type: date
-                - name: shippedDate
-                  type: date
-                - name: shipViaId
+                - name: productId
                   type: integer
-                - name: freight
+                - name: unitPrice
                   type: decimal
-                - name: name
-                  type: string
-                - name: address
-                  type: string
-                - name: city
-                  type: string
-                - name: region
-                  type: string
-                - name: postalCode
-                  type: string
-                - name: country
-                  type: string
+                - name: quantity
+                  type: decimal
+                - name: discount
+                  type: decimal
               parameters:
-                - name: customerId
-                  type: string
-                - name: employeeId
+                - name: orderId
                   type: integer
-                - name: orderDate
-                  type: dateTime
-                - name: requiredDate
-                  type: date
-                - name: shippedDate
-                  type: date
-                - name: shipViaId
+                - name: productId
                   type: integer
-                - name: freight
+                - name: unitPrice
                   type: decimal
-                - name: name
-                  type: string
-                - name: address
-                  type: string
-                - name: city
-                  type: string
-                - name: region
-                  type: string
-                - name: postalCode
-                  type: string
-                - name: country
-                  type: string
-                - name: id
+                - name: quantity
+                  type: decimal
+                - name: discount
+                  type: decimal
+                - name: orderId
                   type: integer
-              entity: Orders
+                - name: productId
+                  type: integer
               constraints:
-                - message: Cannot be null property customerId in entity Orders
-                  condition: isNotNull(customerId)
-                - message: Cannot be null property employeeId in entity Orders
-                  condition: isNotNull(employeeId)
+                - message: Cannot be null property orderId in entity Orders.details
+                  condition: isNotNull(orderId)
+                - message: Cannot be null property productId in entity Orders.details
+                  condition: isNotNull(productId)
+                - message: Cannot be null property orderId in entity Orders.details
+                  condition: isNotNull(orderId)
+                - message: Cannot be null property productId in entity Orders.details
+                  condition: isNotNull(productId)
+              values: []
+              defaults: []
+              clause: update
+              alias: o1
           type: any
-          relation:
-            name: orders
-            type: manyToOne
-            composite: false
-            from: id
-            entity: Orders
-            weak: true
-            to: customerId
-            target: customer
+          entity: Orders
+          columns:
+            - name: customerId
+              type: string
+            - name: employeeId
+              type: integer
+            - name: orderDate
+              type: dateTime
+            - name: requiredDate
+              type: date
+            - name: shippedDate
+              type: date
+            - name: shipViaId
+              type: integer
+            - name: freight
+              type: decimal
+            - name: name
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+          parameters:
+            - name: customerId
+              type: string
+            - name: employeeId
+              type: integer
+            - name: orderDate
+              type: dateTime
+            - name: requiredDate
+              type: date
+            - name: shippedDate
+              type: date
+            - name: shipViaId
+              type: integer
+            - name: freight
+              type: decimal
+            - name: name
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+            - name: id
+              type: integer
+          constraints:
+            - message: Cannot be null property customerId in entity Orders
+              condition: isNotNull(customerId)
+            - message: Cannot be null property employeeId in entity Orders
+              condition: isNotNull(employeeId)
+          values: []
+          defaults: []
+          clause: update
+          alias: o
       type: any
+      entity: Customers
       columns:
         - name: id
           type: string
@@ -3203,7 +1763,6 @@ test:
           type: string
         - name: id
           type: string
-      entity: Customers
       constraints:
         - message: Cannot be null property id in entity Customers
           condition: isNotNull(id)
@@ -3211,6 +1770,10 @@ test:
           condition: isNotNull(name)
         - message: Cannot be null property id in entity Customers
           condition: isNotNull(id)
+      values: []
+      defaults: []
+      clause: update
+      alias: c
     executions:
       - stage: MySQL
     result:
@@ -3375,4 +1938,4 @@ test:
                 unitPrice: '21.5000'
                 quantity: '20.0000'
                 discount: '0.0000'
-errors: 1
+errors: 2

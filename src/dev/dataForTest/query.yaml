@@ -52,148 +52,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: supplierId
-                  classtype: KeyValue
-                  children:
-                    - name: supplierId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: categoryId
-                  classtype: KeyValue
-                  children:
-                    - name: categoryId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: price
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: onOrder
-                  classtype: KeyValue
-                  children:
-                    - name: onOrder
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: reorderLevel
-                  classtype: KeyValue
-                  children:
-                    - name: reorderLevel
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: discontinued
-                  classtype: KeyValue
-                  children:
-                    - name: discontinued
-                      classtype: Field
-                      children: []
-                      type: boolean
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: name
-                  classtype: Field
-                  children: []
-                  type: string
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
+      pos:
+        ln: 0
+        col: 14
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: id
           type: integer
@@ -216,8 +82,11 @@ test:
         - name: discontinued
           type: boolean
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -1036,160 +905,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: supplierId
-                  classtype: KeyValue
-                  children:
-                    - name: supplierId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: categoryId
-                  classtype: KeyValue
-                  children:
-                    - name: categoryId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: price
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: onOrder
-                  classtype: KeyValue
-                  children:
-                    - name: onOrder
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: reorderLevel
-                  classtype: KeyValue
-                  children:
-                    - name: reorderLevel
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: discontinued
-                  classtype: KeyValue
-                  children:
-                    - name: discontinued
-                      classtype: Field
-                      children: []
-                      type: boolean
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
-        - name: page
-          classtype: Page
-          children:
-            - name: 1
-              classtype: Constant2
-              children: []
-              type: number
-            - name: 1
-              classtype: Constant2
-              children: []
-              type: number
-          type: any
+      pos:
+        ln: 0
+        col: 38
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: id
           type: integer
@@ -1212,8 +935,11 @@ test:
         - name: discontinued
           type: boolean
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -1245,7 +971,7 @@ test:
     errors: 0
     expression: Products.sort(p=>p.id).page(1,1)
     normalizeExpression: >-
-      Products.sort(p=>asc(p.id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)
     model:
       - name: id
         type: integer
@@ -1272,160 +998,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: supplierId
-                  classtype: KeyValue
-                  children:
-                    - name: supplierId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: categoryId
-                  classtype: KeyValue
-                  children:
-                    - name: categoryId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: price
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: onOrder
-                  classtype: KeyValue
-                  children:
-                    - name: onOrder
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: reorderLevel
-                  classtype: KeyValue
-                  children:
-                    - name: reorderLevel
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: discontinued
-                  classtype: KeyValue
-                  children:
-                    - name: discontinued
-                      classtype: Field
-                      children: []
-                      type: boolean
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
-        - name: page
-          classtype: Page
-          children:
-            - name: 1
-              classtype: Constant2
-              children: []
-              type: number
-            - name: 1
-              classtype: Constant2
-              children: []
-              type: number
-          type: any
+      pos:
+        ln: 0
+        col: 28
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: id
           type: integer
@@ -1448,8 +1028,11 @@ test:
         - name: discontinued
           type: boolean
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -1480,9 +1063,9 @@ test:
             ? ORDER BY p.ProductID asc 
           children: []
     errors: 0
-    expression: Products.filter(p=>(p.id===id)).map(p=>p).sort(p=>p.id)
+    expression: Products.filter(p=>(p.id==id)).map(p=>p).sort(p=>p.id)
     normalizeExpression: >-
-      Products.filter(p=>(p.id===id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id))
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).filter(p=>(p.id==id)).sort(p=>asc(p.id))
     model:
       - name: id
         type: integer
@@ -1511,168 +1094,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '==='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-                - name: id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 1
-              type: any
-          type: any
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: supplierId
-                  classtype: KeyValue
-                  children:
-                    - name: supplierId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: categoryId
-                  classtype: KeyValue
-                  children:
-                    - name: categoryId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: price
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: onOrder
-                  classtype: KeyValue
-                  children:
-                    - name: onOrder
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: reorderLevel
-                  classtype: KeyValue
-                  children:
-                    - name: reorderLevel
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: discontinued
-                  classtype: KeyValue
-                  children:
-                    - name: discontinued
-                      classtype: Field
-                      children: []
-                      type: boolean
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
+      pos:
+        ln: 0
+        col: 46
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: id
           type: integer
@@ -1697,8 +1126,11 @@ test:
       parameters:
         - name: id
           type: integer
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -1729,9 +1161,9 @@ test:
             ? ORDER BY p.ProductID asc 
           children: []
     errors: 0
-    expression: Products.filter(p=>(p.id===id)).sort(p=>p.id)
+    expression: Products.filter(p=>(p.id==id)).sort(p=>p.id)
     normalizeExpression: >-
-      Products.filter(p=>(p.id===id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id))
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).filter(p=>(p.id==id)).sort(p=>asc(p.id))
     model:
       - name: id
         type: integer
@@ -1760,168 +1192,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '==='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-                - name: id
-                  classtype: Variable
-                  children: []
-                  type: integer
-                  number: 1
-              type: any
-          type: any
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: supplierId
-                  classtype: KeyValue
-                  children:
-                    - name: supplierId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: categoryId
-                  classtype: KeyValue
-                  children:
-                    - name: categoryId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: price
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: onOrder
-                  classtype: KeyValue
-                  children:
-                    - name: onOrder
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: reorderLevel
-                  classtype: KeyValue
-                  children:
-                    - name: reorderLevel
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: discontinued
-                  classtype: KeyValue
-                  children:
-                    - name: discontinued
-                      classtype: Field
-                      children: []
-                      type: boolean
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
+      pos:
+        ln: 0
+        col: 36
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: id
           type: integer
@@ -1946,8 +1224,11 @@ test:
       parameters:
         - name: id
           type: integer
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -1984,77 +1265,23 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: category
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Categories
-                      alias: c
-                      isRoot: false
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: category
-                  classtype: Field
-                  children: []
-                  type: string
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
-        - name: Categories
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Categories
-                  alias: c
-                - name: categoryId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-              type: any
-          type: any
-          entity: Products
-          alias: c
+      pos:
+        ln: 0
+        col: 49
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: category
           type: string
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -2163,105 +1390,25 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: category
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Categories
-                      alias: c
-                      isRoot: false
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: array
-              classtype: List
-              children:
-                - name: asc
-                  classtype: FunctionRef
-                  children:
-                    - name: category
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: asc
-                  classtype: FunctionRef
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: array
-          type: any
-        - name: Categories
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Categories
-                  alias: c
-                - name: categoryId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-              type: any
-          type: any
-          entity: Products
-          alias: c
+      pos:
+        ln: 0
+        col: 61
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: name
           type: string
         - name: category
           type: string
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -2451,104 +1598,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: category
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Categories
-                      alias: c
-                      isRoot: false
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: name
-                  classtype: Field
-                  children: []
-                  type: string
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
-        - name: Categories
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Categories
-                  alias: c
-                - name: categoryId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-              type: any
-          type: any
-          entity: Products
-          alias: c
+      pos:
+        ln: 0
+        col: 99
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: category
           type: string
@@ -2559,8 +1616,11 @@ test:
         - name: inStock
           type: decimal
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -2883,14 +1943,14 @@ test:
             SELECT c.CategoryName AS category, p.ProductName AS name,
             p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-            WHERE p.Discontinued <> FALSE ORDER BY category asc, p.ProductName
+            WHERE p.Discontinued <> false ORDER BY category asc, p.ProductName
             desc 
           children: []
     errors: 0
     expression: >-
-      Products.filter(p=>(p.discontinued!==false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])
+      Products.filter(p=>(p.discontinued!=false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])
     normalizeExpression: >-
-      Products.filter(p=>(p.discontinued!==false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[asc(p.category),desc(p.name)])
+      Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).filter(p=>(p.discontinued!=false)).sort(p=>[asc(p.category),desc(p.name)])
     model:
       - name: category
         type: string
@@ -2905,138 +1965,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '!=='
-              classtype: Operator
-              children:
-                - name: discontinued
-                  classtype: Field
-                  children: []
-                  type: boolean
-                  entity: Products
-                  alias: p
-                  isRoot: true
-                - name: false
-                  classtype: Constant2
-                  children: []
-                  type: boolean
-              type: any
-          type: any
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: category
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Categories
-                      alias: c
-                      isRoot: false
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: array
-              classtype: List
-              children:
-                - name: asc
-                  classtype: FunctionRef
-                  children:
-                    - name: category
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: desc
-                  classtype: FunctionRef
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: array
-          type: any
-        - name: Categories
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Categories
-                  alias: c
-                - name: categoryId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-              type: any
-          type: any
-          entity: Products
-          alias: c
+      pos:
+        ln: 0
+        col: 134
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: category
           type: string
@@ -3047,8 +1983,11 @@ test:
         - name: inStock
           type: decimal
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -3105,7 +2044,7 @@ test:
     expression: >-
       Orders.details.filter(p=>(between(p.order.shippedDate,fromDate,toDate)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product,p.unitPrice,p.quantity])
     normalizeExpression: >-
-      Orders.details.filter(p=>(between(p.order.shippedDate,fromDate,toDate)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[asc(p.category),asc(p.product),asc(p.unitPrice),asc(p.quantity)])
+      Orders.details.map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).filter(p=>(between(p.order.shippedDate,fromDate,toDate)&&(p.unitPrice>minValue))).sort(p=>[asc(p.category),asc(p.product),asc(p.unitPrice),asc(p.quantity)])
     model:
       - name: category
         type: string
@@ -3126,230 +2065,14 @@ test:
       entity: Orders.details
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '&&'
-              classtype: Operator
-              children:
-                - name: between
-                  classtype: FunctionRef
-                  children:
-                    - name: shippedDate
-                      classtype: Field
-                      children: []
-                      type: date
-                      entity: Orders
-                      alias: o1
-                      isRoot: false
-                    - name: fromDate
-                      classtype: Variable
-                      children: []
-                      type: date
-                      number: 1
-                    - name: toDate
-                      classtype: Variable
-                      children: []
-                      type: date
-                      number: 2
-                  type: any
-                - name: '>'
-                  classtype: Operator
-                  children:
-                    - name: unitPrice
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Orders.details
-                      alias: o
-                      isRoot: true
-                    - name: minValue
-                      classtype: Variable
-                      children: []
-                      type: decimal
-                      number: 3
-                  type: any
-              type: any
-          type: any
-        - name: Orders.details
-          classtype: From
-          children: []
-          type: any
-          alias: o
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: category
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Categories
-                      alias: c
-                      isRoot: false
-                  type: any
-                - name: product
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: false
-                  type: any
-                - name: unitPrice
-                  classtype: KeyValue
-                  children:
-                    - name: unitPrice
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Orders.details
-                      alias: o
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Orders.details
-                      alias: o
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: array
-              classtype: List
-              children:
-                - name: asc
-                  classtype: FunctionRef
-                  children:
-                    - name: category
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Orders.details
-                      alias: o
-                      isRoot: true
-                  type: any
-                - name: asc
-                  classtype: FunctionRef
-                  children:
-                    - name: product
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Orders.details
-                      alias: o
-                      isRoot: true
-                  type: any
-                - name: asc
-                  classtype: FunctionRef
-                  children:
-                    - name: unitPrice
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Orders.details
-                      alias: o
-                      isRoot: true
-                  type: any
-                - name: asc
-                  classtype: FunctionRef
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Orders.details
-                      alias: o
-                      isRoot: true
-                  type: any
-              type: array
-          type: any
-        - name: Orders
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders
-                  alias: o1
-                - name: orderId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders.details
-                  alias: o
-              type: any
-          type: any
-          entity: Orders.details
-          alias: o1
-        - name: Products
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                - name: productId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Orders.details
-                  alias: o
-              type: any
-          type: any
-          entity: Orders.details
-          alias: p
-        - name: Categories
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Categories
-                  alias: c
-                - name: categoryId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-              type: any
-          type: any
-          entity: Products
-          alias: c
+      pos:
+        ln: 0
+        col: 210
+      name: select
+      children: []
       type: any
+      entity: Orders.details
       columns:
         - name: category
           type: string
@@ -3366,8 +2089,11 @@ test:
           type: date
         - name: minValue
           type: decimal
-      entity: Orders.details
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: o
     executions:
       - stage: MySQL
     result:
@@ -6641,7 +5367,7 @@ test:
     errors: 0
     expression: Products.sort(p=>p.id).page(1,1)
     normalizeExpression: >-
-      Products.sort(p=>asc(p.id)).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).page(1,1)
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(id)).page(1,1)
     model:
       - name: id
         type: integer
@@ -6668,160 +5394,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: supplierId
-                  classtype: KeyValue
-                  children:
-                    - name: supplierId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: categoryId
-                  classtype: KeyValue
-                  children:
-                    - name: categoryId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: price
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: onOrder
-                  classtype: KeyValue
-                  children:
-                    - name: onOrder
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: reorderLevel
-                  classtype: KeyValue
-                  children:
-                    - name: reorderLevel
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: discontinued
-                  classtype: KeyValue
-                  children:
-                    - name: discontinued
-                      classtype: Field
-                      children: []
-                      type: boolean
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
-        - name: page
-          classtype: Page
-          children:
-            - name: 1
-              classtype: Constant2
-              children: []
-              type: number
-            - name: 1
-              classtype: Constant2
-              children: []
-              type: number
-          type: any
+      pos:
+        ln: 0
+        col: 28
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: id
           type: integer
@@ -6844,8 +5424,11 @@ test:
         - name: discontinued
           type: boolean
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -6877,7 +5460,7 @@ test:
     errors: 0
     expression: Products.first(p=>p)
     normalizeExpression: >-
-      Products.sort(p=>asc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)
     model:
       - name: id
         type: integer
@@ -6904,160 +5487,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: supplierId
-                  classtype: KeyValue
-                  children:
-                    - name: supplierId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: categoryId
-                  classtype: KeyValue
-                  children:
-                    - name: categoryId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: price
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: onOrder
-                  classtype: KeyValue
-                  children:
-                    - name: onOrder
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: reorderLevel
-                  classtype: KeyValue
-                  children:
-                    - name: reorderLevel
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: discontinued
-                  classtype: KeyValue
-                  children:
-                    - name: discontinued
-                      classtype: Field
-                      children: []
-                      type: boolean
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
-        - name: page
-          classtype: Page
-          children:
-            - name: '1'
-              classtype: Constant2
-              children: []
-              type: string
-            - name: '1'
-              classtype: Constant2
-              children: []
-              type: string
-          type: any
+      pos:
+        ln: 0
+        col: 15
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: id
           type: integer
@@ -7080,8 +5517,11 @@ test:
         - name: discontinued
           type: boolean
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -7113,7 +5553,7 @@ test:
     errors: 0
     expression: Products.last(p=>p)
     normalizeExpression: >-
-      Products.sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>desc(p.id)).page(1,1)
     model:
       - name: id
         type: integer
@@ -7140,160 +5580,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: supplierId
-                  classtype: KeyValue
-                  children:
-                    - name: supplierId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: categoryId
-                  classtype: KeyValue
-                  children:
-                    - name: categoryId
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: price
-                  classtype: KeyValue
-                  children:
-                    - name: price
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: onOrder
-                  classtype: KeyValue
-                  children:
-                    - name: onOrder
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: reorderLevel
-                  classtype: KeyValue
-                  children:
-                    - name: reorderLevel
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: discontinued
-                  classtype: KeyValue
-                  children:
-                    - name: discontinued
-                      classtype: Field
-                      children: []
-                      type: boolean
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: desc
-              classtype: FunctionRef
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
-        - name: page
-          classtype: Page
-          children:
-            - name: '1'
-              classtype: Constant2
-              children: []
-              type: string
-            - name: '1'
-              classtype: Constant2
-              children: []
-              type: string
-          type: any
+      pos:
+        ln: 0
+        col: 14
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: id
           type: integer
@@ -7316,8 +5610,11 @@ test:
         - name: discontinued
           type: boolean
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -7348,7 +5645,7 @@ test:
     expression: >-
       Products.first(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})
     normalizeExpression: >-
-      Products.sort(p=>asc(p.category)).page(1,1).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})
+      Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>asc(p.category)).page(1,1)
     model:
       - name: category
         type: string
@@ -7363,116 +5660,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: category
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Categories
-                      alias: c
-                      isRoot: false
-                  type: any
-                - name: name
-                  classtype: KeyValue
-                  children:
-                    - name: name
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: quantity
-                  classtype: KeyValue
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: inStock
-                  classtype: KeyValue
-                  children:
-                    - name: inStock
-                      classtype: Field
-                      children: []
-                      type: decimal
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: category
-                  classtype: Field
-                  children: []
-                  type: string
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
-        - name: page
-          classtype: Page
-          children:
-            - name: '1'
-              classtype: Constant2
-              children: []
-              type: string
-            - name: '1'
-              classtype: Constant2
-              children: []
-              type: string
-          type: any
-        - name: Categories
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Categories
-                  alias: c
-                - name: categoryId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-              type: any
-          type: any
-          entity: Products
-          alias: c
+      pos:
+        ln: 0
+        col: 15
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: category
           type: string
@@ -7483,8 +5678,11 @@ test:
         - name: inStock
           type: decimal
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -7501,12 +5699,12 @@ test:
           source: MySQL
           sentence: >-
             SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <>
-            FALSE ORDER BY p.ProductID desc  LIMIT 0,1 
+            false ORDER BY p.ProductID desc  LIMIT 0,1 
           children: []
     errors: 0
-    expression: Products.filter(p=>(p.discontinued!==false)).last(p=>p.id)
+    expression: Products.filter(p=>(p.discontinued!=false)).last(p=>p.id)
     normalizeExpression: >-
-      Products.filter(p=>(p.discontinued!==false)).sort(p=>desc(p.id)).page(1,1).map(p=>{id:p.id})
+      Products.map(p=>{id:p.id}).filter(p=>(p.discontinued!=false)).sort(p=>desc(p.id)).page(1,1)
     model:
       - name: id
         type: integer
@@ -7515,86 +5713,23 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: filter
-          classtype: Filter
-          children:
-            - name: '!=='
-              classtype: Operator
-              children:
-                - name: discontinued
-                  classtype: Field
-                  children: []
-                  type: boolean
-                  entity: Products
-                  alias: p
-                  isRoot: true
-                - name: false
-                  classtype: Constant2
-                  children: []
-                  type: boolean
-              type: any
-          type: any
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: obj
-              classtype: Obj
-              children:
-                - name: id
-                  classtype: KeyValue
-                  children:
-                    - name: id
-                      classtype: Field
-                      children: []
-                      type: integer
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: object
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: desc
-              classtype: FunctionRef
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
-        - name: page
-          classtype: Page
-          children:
-            - name: '1'
-              classtype: Constant2
-              children: []
-              type: string
-            - name: '1'
-              classtype: Constant2
-              children: []
-              type: string
-          type: any
+      pos:
+        ln: 0
+        col: 49
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: id
           type: integer
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -7644,152 +5779,14 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: distinct
-              classtype: FunctionRef
-              children:
-                - name: obj
-                  classtype: Obj
-                  children:
-                    - name: id
-                      classtype: KeyValue
-                      children:
-                        - name: id
-                          classtype: Field
-                          children: []
-                          type: integer
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                    - name: name
-                      classtype: KeyValue
-                      children:
-                        - name: name
-                          classtype: Field
-                          children: []
-                          type: string
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                    - name: supplierId
-                      classtype: KeyValue
-                      children:
-                        - name: supplierId
-                          classtype: Field
-                          children: []
-                          type: integer
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                    - name: categoryId
-                      classtype: KeyValue
-                      children:
-                        - name: categoryId
-                          classtype: Field
-                          children: []
-                          type: integer
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                    - name: quantity
-                      classtype: KeyValue
-                      children:
-                        - name: quantity
-                          classtype: Field
-                          children: []
-                          type: string
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                    - name: price
-                      classtype: KeyValue
-                      children:
-                        - name: price
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                    - name: inStock
-                      classtype: KeyValue
-                      children:
-                        - name: inStock
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                    - name: onOrder
-                      classtype: KeyValue
-                      children:
-                        - name: onOrder
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                    - name: reorderLevel
-                      classtype: KeyValue
-                      children:
-                        - name: reorderLevel
-                          classtype: Field
-                          children: []
-                          type: decimal
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                    - name: discontinued
-                      classtype: KeyValue
-                      children:
-                        - name: discontinued
-                          classtype: Field
-                          children: []
-                          type: boolean
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                  type: object
-              type: any
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
+      pos:
+        ln: 0
+        col: 29
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: id
           type: integer
@@ -7812,8 +5809,11 @@ test:
         - name: discontinued
           type: boolean
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -8612,81 +6612,23 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: distinct
-              classtype: FunctionRef
-              children:
-                - name: obj
-                  classtype: Obj
-                  children:
-                    - name: category
-                      classtype: KeyValue
-                      children:
-                        - name: name
-                          classtype: Field
-                          children: []
-                          type: string
-                          entity: Categories
-                          alias: c
-                          isRoot: false
-                      type: any
-                  type: object
-              type: any
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: asc
-              classtype: FunctionRef
-              children:
-                - name: category
-                  classtype: Field
-                  children: []
-                  type: string
-                  entity: Products
-                  alias: p
-                  isRoot: true
-              type: any
-          type: any
-        - name: Categories
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Categories
-                  alias: c
-                - name: categoryId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-              type: any
-          type: any
-          entity: Products
-          alias: c
+      pos:
+        ln: 0
+        col: 54
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: category
           type: string
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:
@@ -8726,109 +6668,25 @@ test:
       entity: Products
       constraints: []
     metadata:
-      name: select
       classtype: Sentence
-      children:
-        - name: Products
-          classtype: From
-          children: []
-          type: any
-          alias: p
-        - name: map
-          classtype: Map
-          children:
-            - name: distinct
-              classtype: FunctionRef
-              children:
-                - name: obj
-                  classtype: Obj
-                  children:
-                    - name: quantity
-                      classtype: KeyValue
-                      children:
-                        - name: quantity
-                          classtype: Field
-                          children: []
-                          type: string
-                          entity: Products
-                          alias: p
-                          isRoot: true
-                      type: any
-                    - name: category
-                      classtype: KeyValue
-                      children:
-                        - name: name
-                          classtype: Field
-                          children: []
-                          type: string
-                          entity: Categories
-                          alias: c
-                          isRoot: false
-                      type: any
-                  type: object
-              type: any
-          type: any
-        - name: sort
-          classtype: Sort
-          children:
-            - name: array
-              classtype: List
-              children:
-                - name: asc
-                  classtype: FunctionRef
-                  children:
-                    - name: quantity
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-                - name: asc
-                  classtype: FunctionRef
-                  children:
-                    - name: category
-                      classtype: Field
-                      children: []
-                      type: string
-                      entity: Products
-                      alias: p
-                      isRoot: true
-                  type: any
-              type: array
-          type: any
-        - name: Categories
-          classtype: Join
-          children:
-            - name: '=='
-              classtype: Operator
-              children:
-                - name: id
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Categories
-                  alias: c
-                - name: categoryId
-                  classtype: Field
-                  children: []
-                  type: integer
-                  entity: Products
-                  alias: p
-              type: any
-          type: any
-          entity: Products
-          alias: c
+      pos:
+        ln: 0
+        col: 74
+      name: select
+      children: []
       type: any
+      entity: Products
       columns:
         - name: quantity
           type: string
         - name: category
           type: string
       parameters: []
-      entity: Products
       constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
     executions:
       - stage: MySQL
     result:

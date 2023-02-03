@@ -4,10 +4,10 @@ export async function apply (callback: any) {
 	try {
 		await orm.init('./lambdaORM.yaml')		
 		const options = {stage:'MySQL'}	
-		const query = 'Employees.bulkInsert()'
+		const query = 'Employees.update({reportsToId:reportsToId}).filter(p=> p.lastName==lastName && p.firstName==firstName)'
 		const context = { id: 1 , minValue: 10, fromDate: '1997-01-01', toDate: '1997-12-31' }			
-		console.log(JSON.stringify(orm.parameters(query)))
-		// console.log(orm.getInfo(query,options))
+		// console.log(JSON.stringify(orm.parameters(query)))
+		console.log(orm.getInfo(query,options))
 		// console.log( await orm.execute(query,context,options))
 
 	} catch (error:any) {

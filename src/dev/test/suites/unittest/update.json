@@ -3413,7 +3413,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
             "children": []
           }
         },
@@ -3423,7 +3423,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
             "children": []
           }
         },
@@ -3433,7 +3433,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
             "children": []
           }
         },
@@ -3443,7 +3443,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
             "children": []
           }
         },
@@ -3453,7 +3453,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ? WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ? WHERE c.CategoryID = ? ",
             "children": []
           }
         },
@@ -3463,7 +3463,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = UPPER(c.CategoryName) WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = UPPER(c.CategoryName) WHERE c.CategoryID = ? ",
             "children": []
           }
         },
@@ -3473,7 +3473,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ('_' + c.CategoryName) WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ('_' + c.CategoryName) WHERE c.CategoryID = ? ",
             "children": []
           }
         },
@@ -3483,7 +3483,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ? ",
             "children": []
           }
         },
@@ -3493,7 +3493,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ? WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ? WHERE c.CategoryID = ? ",
             "children": []
           }
         },
@@ -3503,7 +3503,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ?,Description = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ?,Description = ? ",
             "children": []
           }
         },
@@ -3513,7 +3513,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ?,Description = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ?,Description = ? ",
             "children": []
           }
         },
@@ -3523,7 +3523,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ?,Description = ? WHERE c.CategoryID = ? ",
             "children": []
           }
         },
@@ -3533,7 +3533,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = UPPER(c.CategoryName),Description = ? WHERE c.CategoryID = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = UPPER(c.CategoryName),Description = ? WHERE c.CategoryID = ? ",
             "children": []
           }
         },
@@ -3543,7 +3543,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = UPPER(c.CategoryName) ",
+            "sentence": "UPDATE Categories c SET CategoryName = UPPER(c.CategoryName) ",
             "children": []
           }
         },
@@ -3553,7 +3553,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = CONCAT('_',c.CategoryName) ",
+            "sentence": "UPDATE Categories c SET CategoryName = CONCAT('_',c.CategoryName) ",
             "children": []
           }
         },
@@ -3563,7 +3563,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Categories  SET CategoryName = ? ",
+            "sentence": "UPDATE Categories c SET CategoryName = ? ",
             "children": []
           }
         },
@@ -3573,7 +3573,7 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Orders  SET ShipName = ? WHERE o.OrderID = ? ",
+            "sentence": "UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ",
             "children": []
           }
         },
@@ -3583,13 +3583,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Orders  SET ShipName = ? WHERE o.OrderID = ? ",
+            "sentence": "UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "UPDATE `Order Details`  SET UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
+                "sentence": "UPDATE `Order Details` o1 SET UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
                 "children": []
               }
             ]
@@ -3601,13 +3601,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Orders  SET ShipName = ? WHERE o.OrderID = ? ",
+            "sentence": "UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "UPDATE `Order Details`  SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
+                "sentence": "UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
                 "children": []
               }
             ]
@@ -3619,7 +3619,7 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Orders  SET ShipName = ? WHERE o.OrderID = ? ",
+            "sentence": "UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ",
             "children": []
           }
         },
@@ -3629,13 +3629,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Orders  SET ShipName = ? WHERE o.OrderID = ? ",
+            "sentence": "UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "UPDATE `Order Details`  SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
+                "sentence": "UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
                 "children": []
               }
             ]
@@ -3647,13 +3647,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Orders  SET ShipName = ? WHERE o.OrderID = ? ",
+            "sentence": "UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "UPDATE `Order Details`  SET UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
+                "sentence": "UPDATE `Order Details` o1 SET UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
                 "children": []
               }
             ]
@@ -3665,13 +3665,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Orders  SET ShipName = ? WHERE o.OrderID = ? ",
+            "sentence": "UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "UPDATE `Order Details`  SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
+                "sentence": "UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
                 "children": []
               }
             ]
@@ -3683,13 +3683,13 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Orders  SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ",
+            "sentence": "UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ",
             "children": [
               {
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "UPDATE `Order Details`  SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
+                "sentence": "UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
                 "children": []
               }
             ]
@@ -3701,19 +3701,19 @@
             "entity": "Customers",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "UPDATE Customers  SET CustomerID = ?,CompanyName = ?,ContactName = ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode = ?,Country = ? WHERE c.CustomerID = ? ",
+            "sentence": "UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName = ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode = ?,Country = ? WHERE c.CustomerID = ? ",
             "children": [
               {
                 "entity": "Orders",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "UPDATE Orders  SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ",
+                "sentence": "UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate = ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? ",
                 "children": [
                   {
                     "entity": "Orders.details",
                     "dialect": "MySQL",
                     "source": "MySQL",
-                    "sentence": "UPDATE `Order Details`  SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
+                    "sentence": "UPDATE `Order Details` o1 SET OrderID = ?,ProductID = ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) ",
                     "children": []
                   }
                 ]
