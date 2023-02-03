@@ -1,12 +1,11 @@
 
-import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata, source, Sentence, SentenceInfo, ObservableAction } from '../contract'
+import { MetadataParameter,SintaxisError, MetadataConstraint, MetadataModel, Metadata, source, Sentence, SentenceInfo, ObservableAction } from '../contract'
 import { SchemaManager, Routing, ViewConfig, helper } from '../manager'
 import { IExpressions, Type, OperandType } from '3xpr'
 import { MemoryCache, ICache } from 'h3lp'
-import { SentenceCompleter, SentenceBuilder, SentenceSerializer } from '.'
+import { SentenceCompleter, SentenceBuilder, SentenceSerializer, SentenceNormalizer, SentenceHelper } from '.'
 
 export class SentenceManager {
-	// private serializer: SentenceSerializer
 	private builder: SentenceBuilder
 	private schema: SchemaManager
 	private routing: Routing
@@ -14,20 +13,63 @@ export class SentenceManager {
 	private cache: ICache<string, Sentence>
 	private expressions: IExpressions
 	private serializer:SentenceSerializer
+	private normalizer: SentenceNormalizer
+	private helper:SentenceHelper
 
 	constructor (schema: SchemaManager, expressions: IExpressions, routing: Routing) {
 		this.schema = schema
 		this.routing = routing
 		this.expressions = expressions
-		this.builder = new SentenceBuilder(schema, expressions)
+		this.helper = new SentenceHelper(this.schema.model)
+		this.builder = new SentenceBuilder(schema, expressions, this.helper)
 		this.completer = new SentenceCompleter(expressions)
 		this.cache = new MemoryCache<string, Sentence>()
 		this.serializer = new SentenceSerializer()
+		this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)
+		
+	}
+
+		/**
+	 * Convert a lambda expression to a query expression
+	 * @param lambda lambda expression
+	 * @returns Expression manager
+	 */
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	public toExpression (func: Function): string {
+		if (!func) {
+			throw new Error('empty lambda function}')
+		}
+		const expression = helper.expression.clearLambda(func)
+		const operand = this.expressions.build(expression)		
+		let aux = operand
+		while (aux.type !== OperandType.Var) {
+			if (aux.children.length > 0) {
+				aux = aux.children[0]
+			}
+		}
+		if (aux.name.includes('.')) {
+			// Example: __model_1.Products.map(p=>p) =>  Products.map(p=>p)
+			// Example: __model_1.Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
+			const names:string[] = aux.name.split('.')
+			if (names[0].startsWith('__')) {
+				aux.name = names.slice(1).join('.')
+			}
+		}
+		const normalized = this.normalizer.normalize(operand)
+		const result = this.helper.toExpression(normalized)
+		return result
 	}
 
 	public normalize (expression: string): string {
-		return this.builder.normalize(expression)
-	}
+		try {
+			const operand = this.expressions.build(expression)
+			const normalized = this.normalizer.normalize(operand)
+			const result = this.helper.toExpression(normalized)
+			return result
+		} catch (error: any) {
+			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
+		}
+	}	
 
 	/**
 	 * Get model of expression
@@ -76,12 +118,10 @@ export class SentenceManager {
 		if (value) {
 			return value
 		}
-		const sentence = this.builder.build(expression)
-		// It should be cloned, since completing the sentence is modified
-		const cloned = this.serializer.clone(sentence)
-		this.complete(cloned, view, stage)
-		this.cache.set(key, cloned)
-		return cloned
+		const sentence = this.builder.build(expression)		
+		const completed = this.complete(sentence, view, stage)
+		this.cache.set(key, completed)
+		return completed
 	}
 
 	public getDataSource (sentence: Sentence, stage: string): source {
@@ -117,15 +157,18 @@ export class SentenceManager {
 		}
 	}
 
-	private complete (sentence: Sentence, view: ViewConfig, stage: string) {
-		const sentenceIncludes = sentence.getIncludes()
+	private complete (sentence: Sentence, view: ViewConfig, stage: string): Sentence {
+		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter
+		const cloned = this.serializer.clone(sentence)
+		const sentenceIncludes = cloned.getIncludes()
 		for (const p in sentenceIncludes) {
 			const sentenceInclude = sentenceIncludes[p]
 			this.complete(sentenceInclude.children[0] as Sentence, view, stage)
 		}
-		const source = this.getDataSource(sentence, stage)
+		const source = this.getDataSource(cloned, stage)
 		const mapping = this.schema.mapping.getInstance(source.mapping)
-		this.completer.complete(mapping, view, sentence)
+		this.completer.complete(mapping, view, cloned)
+		return cloned
 	}
 
 	private modelFromSentence (sentence: Sentence): MetadataModel[] {
@@ -183,34 +226,7 @@ export class SentenceManager {
 		return result
 	}
 
-	/**
-	 * Convert a lambda expression to a query expression
-	 * @param lambda lambda expression
-	 * @returns Expression manager
-	 */
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	public toExpression (func: Function): string {
-		if (!func) {
-			throw new Error('empty lambda function}')
-		}
-		const expression = helper.sentence.clearLambda(func)
-		const operand = this.expressions.build(expression)
-		let aux = operand
-		while (aux.type !== OperandType.Var) {
-			if (aux.children.length > 0) {
-				aux = aux.children[0]
-			}
-		}
-		if (aux.name.includes('.')) {
-			// Example: __model_1.Products.map(p=>p) =>  Products.map(p=>p)
-			// Example: __model_1.Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
-			const names:string[] = aux.name.split('.')
-			if (names[0].startsWith('__')) {
-				aux.name = names.slice(1).join('.')
-			}
-		}
-		return helper.operand.toExpression(operand)
-	}
+
 
 	// private serialize (sentence: Sentence): string {
 	// return this.serializer.serialize(sentence)

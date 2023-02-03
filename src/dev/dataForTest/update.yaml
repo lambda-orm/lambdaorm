@@ -237,7 +237,8 @@ test:
             ?,ShipCountry = ? WHERE o.OrderID = ? 
           children: []
     errors: 0
-    expression: Orders.update()
+    expression: >-
+      Orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id))
     normalizeExpression: >-
       Orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id))
     model:
@@ -269,31 +270,31 @@ test:
         type: string
     parameters:
       - name: customerId
-        type: string
+        type: any
       - name: employeeId
-        type: integer
+        type: any
       - name: orderDate
-        type: dateTime
+        type: any
       - name: requiredDate
-        type: date
+        type: any
       - name: shippedDate
-        type: date
+        type: any
       - name: shipViaId
-        type: integer
+        type: any
       - name: freight
-        type: decimal
+        type: any
       - name: name
-        type: string
+        type: any
       - name: address
-        type: string
+        type: any
       - name: city
-        type: string
+        type: any
       - name: region
-        type: string
+        type: any
       - name: postalCode
-        type: string
+        type: any
       - name: country
-        type: string
+        type: any
       - name: id
         type: integer
     constraints:
@@ -307,7 +308,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 14
+        col: 265
       name: update
       children: []
       type: any
@@ -341,31 +342,31 @@ test:
           type: string
       parameters:
         - name: customerId
-          type: string
+          type: any
         - name: employeeId
-          type: integer
+          type: any
         - name: orderDate
-          type: dateTime
+          type: any
         - name: requiredDate
-          type: date
+          type: any
         - name: shippedDate
-          type: date
+          type: any
         - name: shipViaId
-          type: integer
+          type: any
         - name: freight
-          type: decimal
+          type: any
         - name: name
-          type: string
+          type: any
         - name: address
-          type: string
+          type: any
         - name: city
-          type: string
+          type: any
         - name: region
-          type: string
+          type: any
         - name: postalCode
-          type: string
+          type: any
         - name: country
-          type: string
+          type: any
         - name: id
           type: integer
       constraints:
@@ -421,7 +422,8 @@ test:
             ?,ShipCountry = ? WHERE o.OrderID = ? 
           children: []
     errors: 0
-    expression: Orders.update(entity)
+    expression: >-
+      Orders.update(p=>{customerId:entity.customerId,employeeId:entity.employeeId,orderDate:entity.orderDate,requiredDate:entity.requiredDate,shippedDate:entity.shippedDate,shipViaId:entity.shipViaId,freight:entity.freight,name:entity.name,address:entity.address,city:entity.city,region:entity.region,postalCode:entity.postalCode,country:entity.country}).filter(p=>(p.id==entity.id))
     normalizeExpression: >-
       Orders.update(p=>{customerId:entity.customerId,employeeId:entity.employeeId,orderDate:entity.orderDate,requiredDate:entity.requiredDate,shippedDate:entity.shippedDate,shipViaId:entity.shipViaId,freight:entity.freight,name:entity.name,address:entity.address,city:entity.city,region:entity.region,postalCode:entity.postalCode,country:entity.country}).filter(p=>(p.id==entity.id))
     model:
@@ -453,31 +455,31 @@ test:
         type: string
     parameters:
       - name: entity.customerId
-        type: string
+        type: any
       - name: entity.employeeId
-        type: integer
+        type: any
       - name: entity.orderDate
-        type: dateTime
+        type: any
       - name: entity.requiredDate
-        type: date
+        type: any
       - name: entity.shippedDate
-        type: date
+        type: any
       - name: entity.shipViaId
-        type: integer
+        type: any
       - name: entity.freight
-        type: decimal
+        type: any
       - name: entity.name
-        type: string
+        type: any
       - name: entity.address
-        type: string
+        type: any
       - name: entity.city
-        type: string
+        type: any
       - name: entity.region
-        type: string
+        type: any
       - name: entity.postalCode
-        type: string
+        type: any
       - name: entity.country
-        type: string
+        type: any
       - name: entity.id
         type: integer
     constraints:
@@ -487,7 +489,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 14
+        col: 356
       name: update
       children: []
       type: any
@@ -521,31 +523,31 @@ test:
           type: string
       parameters:
         - name: entity.customerId
-          type: string
+          type: any
         - name: entity.employeeId
-          type: integer
+          type: any
         - name: entity.orderDate
-          type: dateTime
+          type: any
         - name: entity.requiredDate
-          type: date
+          type: any
         - name: entity.shippedDate
-          type: date
+          type: any
         - name: entity.shipViaId
-          type: integer
+          type: any
         - name: entity.freight
-          type: decimal
+          type: any
         - name: entity.name
-          type: string
+          type: any
         - name: entity.address
-          type: string
+          type: any
         - name: entity.city
-          type: string
+          type: any
         - name: entity.region
-          type: string
+          type: any
         - name: entity.postalCode
-          type: string
+          type: any
         - name: entity.country
-          type: string
+          type: any
         - name: entity.id
           type: integer
       constraints: []
@@ -596,17 +598,19 @@ test:
           entity: Orders
           dialect: MySQL
           source: MySQL
-          sentence: 'UPDATE Orders o SET ShipPostalCode = ? '
+          sentence: 'UPDATE Orders o SET ShipPostalCode = ? WHERE o.OrderID = ? '
           children: []
     errors: 0
-    expression: Orders.updateAll(=>[postalCode])
-    normalizeExpression: Orders.update(=>{postalCode:postalCode})
+    expression: Orders.update(=>{postalCode:postalCode})
+    normalizeExpression: Orders.update(=>{postalCode:postalCode}).filter(p=>(p.id==id))
     model:
       - name: postalCode
         type: string
     parameters:
       - name: postalCode
-        type: string
+        type: any
+      - name: id
+        type: integer
     constraints:
       entity: Orders
       constraints: []
@@ -614,7 +618,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 17
+        col: 14
       name: update
       children: []
       type: any
@@ -624,7 +628,9 @@ test:
           type: string
       parameters:
         - name: postalCode
-          type: string
+          type: any
+        - name: id
+          type: integer
       constraints: []
       values: []
       defaults: []
@@ -736,7 +742,7 @@ test:
               children: []
     errors: 0
     expression: >-
-      Orders.update(=>{name:entity.name}).include(p=>p.details).filter(p=>(p.id==entity.id))
+      Orders.update(=>{name:entity.name}).filter(p=>(p.id==entity.id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     normalizeExpression: >-
       Orders.update(=>{name:entity.name}).filter(p=>(p.id==entity.id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     model:
@@ -764,19 +770,15 @@ test:
         type: Orders.details
         children:
           - name: orderId
-            type: integer
+            type: any
           - name: productId
-            type: integer
+            type: any
           - name: unitPrice
-            type: decimal
+            type: any
           - name: quantity
-            type: decimal
+            type: any
           - name: discount
-            type: decimal
-          - name: orderId
-            type: integer
-          - name: productId
-            type: integer
+            type: any
     constraints:
       entity: Orders
       constraints: []
@@ -787,21 +789,17 @@ test:
               condition: isNotNull(orderId)
             - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
-            - message: Cannot be null property orderId in entity Orders.details
-              condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity Orders.details
-              condition: isNotNull(productId)
     metadata:
       classtype: Sentence
       pos:
         ln: 0
-        col: 65
+        col: 73
       name: update
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 47
+            col: 93
           name: update
           children: []
           type: any
@@ -819,24 +817,16 @@ test:
               type: decimal
           parameters:
             - name: orderId
-              type: integer
+              type: any
             - name: productId
-              type: integer
+              type: any
             - name: unitPrice
-              type: decimal
+              type: any
             - name: quantity
-              type: decimal
+              type: any
             - name: discount
-              type: decimal
-            - name: orderId
-              type: integer
-            - name: productId
-              type: integer
+              type: any
           constraints:
-            - message: Cannot be null property orderId in entity Orders.details
-              condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity Orders.details
-              condition: isNotNull(productId)
             - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
             - message: Cannot be null property productId in entity Orders.details
@@ -914,7 +904,7 @@ test:
               children: []
     errors: 0
     expression: >-
-      Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>p)).filter(p=>(p.id==entity.id))
+      Orders.update(=>{name:entity.name}).filter(p=>(p.id==entity.id)).include(p=>p.details.update(p=>{unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     normalizeExpression: >-
       Orders.update(=>{name:entity.name}).filter(p=>(p.id==entity.id)).include(p=>p.details.update(p=>{unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     model:
@@ -938,11 +928,11 @@ test:
         type: Orders.details
         children:
           - name: unitPrice
-            type: decimal
+            type: any
           - name: quantity
-            type: decimal
+            type: any
           - name: discount
-            type: decimal
+            type: any
           - name: orderId
             type: integer
           - name: productId
@@ -961,13 +951,13 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 78
+        col: 73
       name: update
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 64
+            col: 93
           name: update
           children: []
           type: any
@@ -981,11 +971,11 @@ test:
               type: decimal
           parameters:
             - name: unitPrice
-              type: decimal
+              type: any
             - name: quantity
-              type: decimal
+              type: any
             - name: discount
-              type: decimal
+              type: any
             - name: orderId
               type: integer
             - name: productId
@@ -1068,7 +1058,7 @@ test:
               children: []
     errors: 0
     expression: >-
-      Orders.update(=>{name:entity.name}).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId})).filter(p=>(p.id==entity.id))
+      Orders.update(=>{name:entity.name}).filter(p=>(p.id==entity.id)).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     normalizeExpression: >-
       Orders.update(=>{name:entity.name}).filter(p=>(p.id==entity.id)).include(p=>p.details.update(p=>{unitPrice:p.unitPrice,productId:p.productId}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     model:
@@ -1107,13 +1097,13 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 122
+        col: 73
       name: update
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 64
+            col: 93
           name: update
           children: []
           type: any
@@ -1209,8 +1199,9 @@ test:
                 ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
                 AND o1.ProductID = ?) 
               children: []
-    errors: 0
-    expression: Orders.update().include(p=>p.details)
+    errors: 1
+    expression: >-
+      Orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     normalizeExpression: >-
       Orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     model:
@@ -1255,50 +1246,46 @@ test:
             type: decimal
     parameters:
       - name: customerId
-        type: string
+        type: any
       - name: employeeId
-        type: integer
+        type: any
       - name: orderDate
-        type: dateTime
+        type: any
       - name: requiredDate
-        type: date
+        type: any
       - name: shippedDate
-        type: date
+        type: any
       - name: shipViaId
-        type: integer
+        type: any
       - name: freight
-        type: decimal
+        type: any
       - name: name
-        type: string
+        type: any
       - name: address
-        type: string
+        type: any
       - name: city
-        type: string
+        type: any
       - name: region
-        type: string
+        type: any
       - name: postalCode
-        type: string
+        type: any
       - name: country
-        type: string
+        type: any
       - name: id
         type: integer
       - name: details
         type: Orders.details
         children:
           - name: orderId
-            type: integer
+            type: any
           - name: productId
-            type: integer
+            type: any
           - name: unitPrice
-            type: decimal
+            type: any
           - name: quantity
-            type: decimal
+            type: any
           - name: discount
-            type: decimal
-          - name: orderId
-            type: integer
-          - name: productId
-            type: integer
+            type: any
     constraints:
       entity: Orders
       constraints:
@@ -1313,21 +1300,17 @@ test:
               condition: isNotNull(orderId)
             - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
-            - message: Cannot be null property orderId in entity Orders.details
-              condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity Orders.details
-              condition: isNotNull(productId)
     metadata:
       classtype: Sentence
       pos:
         ln: 0
-        col: 24
+        col: 288
       name: update
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 27
+            col: 308
           name: update
           children: []
           type: any
@@ -1345,24 +1328,16 @@ test:
               type: decimal
           parameters:
             - name: orderId
-              type: integer
+              type: any
             - name: productId
-              type: integer
+              type: any
             - name: unitPrice
-              type: decimal
+              type: any
             - name: quantity
-              type: decimal
+              type: any
             - name: discount
-              type: decimal
-            - name: orderId
-              type: integer
-            - name: productId
-              type: integer
+              type: any
           constraints:
-            - message: Cannot be null property orderId in entity Orders.details
-              condition: isNotNull(orderId)
-            - message: Cannot be null property productId in entity Orders.details
-              condition: isNotNull(productId)
             - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
             - message: Cannot be null property productId in entity Orders.details
@@ -1402,31 +1377,31 @@ test:
           type: string
       parameters:
         - name: customerId
-          type: string
+          type: any
         - name: employeeId
-          type: integer
+          type: any
         - name: orderDate
-          type: dateTime
+          type: any
         - name: requiredDate
-          type: date
+          type: any
         - name: shippedDate
-          type: date
+          type: any
         - name: shipViaId
-          type: integer
+          type: any
         - name: freight
-          type: decimal
+          type: any
         - name: name
-          type: string
+          type: any
         - name: address
-          type: string
+          type: any
         - name: city
-          type: string
+          type: any
         - name: region
-          type: string
+          type: any
         - name: postalCode
-          type: string
+          type: any
         - name: country
-          type: string
+          type: any
         - name: id
           type: integer
       constraints:
@@ -1440,33 +1415,7 @@ test:
       alias: o
     executions:
       - stage: MySQL
-    result:
-      data:
-        id: 7
-        customerId: ANATR
-        employeeId: 7
-        orderDate: '1996-09-17T22:00:00.000Z'
-        requiredDate: '1996-10-15T22:00:00.000Z'
-        shippedDate: '1996-09-23T22:00:00.000Z'
-        shipViaId: 3
-        freight: '1.6100'
-        name: Ana Trujillo Emparedados y helados
-        address: Avda. de la Constitución 2222
-        city: Mexico D.F.
-        region: null
-        postalCode: '5021'
-        country: Mexico
-        details:
-          - orderId: 7
-            productId: 69
-            unitPrice: '28.8000'
-            quantity: '1.0000'
-            discount: '0.0000'
-          - orderId: 7
-            productId: 70
-            unitPrice: '12.0000'
-            quantity: '5.0000'
-            discount: '0.0000'
+        error: 'Error: Incorrect arguments to mysqld_stmt_execute'
   - name: update 9
     data: d
     sentences:
@@ -1488,19 +1437,12 @@ test:
                 ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
                 ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
                 ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? 
-              children:
-                - entity: Orders.details
-                  dialect: MySQL
-                  source: MySQL
-                  sentence: >-
-                    UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                    ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID
-                    = ? AND o1.ProductID = ?) 
-                  children: []
-    errors: 0
-    expression: Customers.update().include(p=>p.orders.include(p=>p.details))
-    normalizeExpression: >-
+              children: []
+    errors: 1
+    expression: >-
       Customers.update(p=>{id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId)))))
+    normalizeExpression: >-
+      Customers.update(p=>{id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)))
     model:
       - name: id
         type: string
@@ -1549,88 +1491,56 @@ test:
             type: string
           - name: country
             type: string
-          - name: details
-            type: Orders.details[]
-            children:
-              - name: orderId
-                type: integer
-              - name: productId
-                type: integer
-              - name: unitPrice
-                type: decimal
-              - name: quantity
-                type: decimal
-              - name: discount
-                type: decimal
     parameters:
       - name: id
-        type: string
+        type: any
       - name: name
-        type: string
+        type: any
       - name: contact
-        type: string
+        type: any
       - name: phone
-        type: string
+        type: any
       - name: address
-        type: string
+        type: any
       - name: city
-        type: string
+        type: any
       - name: region
-        type: string
+        type: any
       - name: postalCode
-        type: string
+        type: any
       - name: country
-        type: string
-      - name: id
-        type: string
+        type: any
       - name: orders
         type: Orders
         children:
           - name: customerId
-            type: string
+            type: any
           - name: employeeId
-            type: integer
+            type: any
           - name: orderDate
-            type: dateTime
+            type: any
           - name: requiredDate
-            type: date
+            type: any
           - name: shippedDate
-            type: date
+            type: any
           - name: shipViaId
-            type: integer
+            type: any
           - name: freight
-            type: decimal
+            type: any
           - name: name
-            type: string
+            type: any
           - name: address
-            type: string
+            type: any
           - name: city
-            type: string
+            type: any
           - name: region
-            type: string
+            type: any
           - name: postalCode
-            type: string
+            type: any
           - name: country
-            type: string
+            type: any
           - name: id
             type: integer
-          - name: details
-            type: Orders.details
-            children:
-              - name: orderId
-                type: integer
-              - name: productId
-                type: integer
-              - name: unitPrice
-                type: decimal
-              - name: quantity
-                type: decimal
-              - name: discount
-                type: decimal
-              - name: orderId
-                type: integer
-              - name: productId
-                type: integer
     constraints:
       entity: Customers
       constraints:
@@ -1638,8 +1548,6 @@ test:
           condition: isNotNull(id)
         - message: Cannot be null property name in entity Customers
           condition: isNotNull(name)
-        - message: Cannot be null property id in entity Customers
-          condition: isNotNull(id)
       children:
         - entity: Orders
           constraints:
@@ -1647,77 +1555,19 @@ test:
               condition: isNotNull(customerId)
             - message: Cannot be null property employeeId in entity Orders
               condition: isNotNull(employeeId)
-          children:
-            - entity: Orders.details
-              constraints:
-                - message: Cannot be null property orderId in entity Orders.details
-                  condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity Orders.details
-                  condition: isNotNull(productId)
-                - message: Cannot be null property orderId in entity Orders.details
-                  condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity Orders.details
-                  condition: isNotNull(productId)
     metadata:
       classtype: Sentence
       pos:
         ln: 0
-        col: 27
+        col: 175
       name: update
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 47
+            col: 194
           name: update
-          children:
-            - classtype: Sentence
-              pos:
-                ln: 0
-                col: 50
-              name: update
-              children: []
-              type: any
-              entity: Orders.details
-              columns:
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-                - name: unitPrice
-                  type: decimal
-                - name: quantity
-                  type: decimal
-                - name: discount
-                  type: decimal
-              parameters:
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-                - name: unitPrice
-                  type: decimal
-                - name: quantity
-                  type: decimal
-                - name: discount
-                  type: decimal
-                - name: orderId
-                  type: integer
-                - name: productId
-                  type: integer
-              constraints:
-                - message: Cannot be null property orderId in entity Orders.details
-                  condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity Orders.details
-                  condition: isNotNull(productId)
-                - message: Cannot be null property orderId in entity Orders.details
-                  condition: isNotNull(orderId)
-                - message: Cannot be null property productId in entity Orders.details
-                  condition: isNotNull(productId)
-              values: []
-              defaults: []
-              clause: update
-              alias: o1
+          children: []
           type: any
           entity: Orders
           columns:
@@ -1749,31 +1599,31 @@ test:
               type: string
           parameters:
             - name: customerId
-              type: string
+              type: any
             - name: employeeId
-              type: integer
+              type: any
             - name: orderDate
-              type: dateTime
+              type: any
             - name: requiredDate
-              type: date
+              type: any
             - name: shippedDate
-              type: date
+              type: any
             - name: shipViaId
-              type: integer
+              type: any
             - name: freight
-              type: decimal
+              type: any
             - name: name
-              type: string
+              type: any
             - name: address
-              type: string
+              type: any
             - name: city
-              type: string
+              type: any
             - name: region
-              type: string
+              type: any
             - name: postalCode
-              type: string
+              type: any
             - name: country
-              type: string
+              type: any
             - name: id
               type: integer
           constraints:
@@ -1808,198 +1658,33 @@ test:
           type: string
       parameters:
         - name: id
-          type: string
+          type: any
         - name: name
-          type: string
+          type: any
         - name: contact
-          type: string
+          type: any
         - name: phone
-          type: string
+          type: any
         - name: address
-          type: string
+          type: any
         - name: city
-          type: string
+          type: any
         - name: region
-          type: string
+          type: any
         - name: postalCode
-          type: string
+          type: any
         - name: country
-          type: string
-        - name: id
-          type: string
+          type: any
       constraints:
         - message: Cannot be null property id in entity Customers
           condition: isNotNull(id)
         - message: Cannot be null property name in entity Customers
           condition: isNotNull(name)
-        - message: Cannot be null property id in entity Customers
-          condition: isNotNull(id)
       values: []
       defaults: []
       clause: update
       alias: c
     executions:
       - stage: MySQL
-    result:
-      data:
-        id: ALFKI
-        name: Alfreds Futterkiste
-        contact: Maria Anders
-        phone: Sales Representative
-        address: Obere Str. 57
-        city: Berlin
-        region: null
-        postalCode: '12209'
-        country: Germany
-        orders:
-          - id: 1
-            customerId: ALFKI
-            employeeId: 6
-            orderDate: '1997-08-24T22:00:00.000Z'
-            requiredDate: '1997-09-21T22:00:00.000Z'
-            shippedDate: '1997-09-01T22:00:00.000Z'
-            shipViaId: 1
-            freight: '29.4600'
-            name: Alfreds Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 1
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '15.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 39
-                unitPrice: '18.0000'
-                quantity: '21.0000'
-                discount: '0.0000'
-              - orderId: 1
-                productId: 46
-                unitPrice: '12.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-          - id: 2
-            customerId: ALFKI
-            employeeId: 4
-            orderDate: '1997-10-02T22:00:00.000Z'
-            requiredDate: '1997-10-30T23:00:00.000Z'
-            shippedDate: '1997-10-12T22:00:00.000Z'
-            shipViaId: 2
-            freight: '61.0200'
-            name: Alfred-s Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 2
-                productId: 63
-                unitPrice: '43.9000'
-                quantity: '20.0000'
-                discount: '0.0000'
-          - id: 3
-            customerId: ALFKI
-            employeeId: 4
-            orderDate: '1997-10-12T22:00:00.000Z'
-            requiredDate: '1997-11-23T23:00:00.000Z'
-            shippedDate: '1997-10-20T22:00:00.000Z'
-            shipViaId: 1
-            freight: '23.9400'
-            name: Alfred-s Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 3
-                productId: 3
-                unitPrice: '10.0000'
-                quantity: '6.0000'
-                discount: '0.0000'
-              - orderId: 3
-                productId: 76
-                unitPrice: '18.0000'
-                quantity: '15.0000'
-                discount: '0.0000'
-          - id: 4
-            customerId: ALFKI
-            employeeId: 1
-            orderDate: '1998-01-14T23:00:00.000Z'
-            requiredDate: '1998-02-11T23:00:00.000Z'
-            shippedDate: '1998-01-20T23:00:00.000Z'
-            shipViaId: 3
-            freight: '69.5300'
-            name: Alfred-s Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 4
-                productId: 59
-                unitPrice: '55.0000'
-                quantity: '15.0000'
-                discount: '0.0000'
-              - orderId: 4
-                productId: 77
-                unitPrice: '13.0000'
-                quantity: '2.0000'
-                discount: '0.0000'
-          - id: 5
-            customerId: ALFKI
-            employeeId: 1
-            orderDate: '1998-03-15T23:00:00.000Z'
-            requiredDate: '1998-04-26T22:00:00.000Z'
-            shippedDate: '1998-03-23T23:00:00.000Z'
-            shipViaId: 1
-            freight: '40.4200'
-            name: Alfred-s Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 5
-                productId: 6
-                unitPrice: '25.0000'
-                quantity: '16.0000'
-                discount: '0.0000'
-              - orderId: 5
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '2.0000'
-                discount: '0.0000'
-          - id: 6
-            customerId: ALFKI
-            employeeId: 3
-            orderDate: '1998-04-08T22:00:00.000Z'
-            requiredDate: '1998-05-06T22:00:00.000Z'
-            shippedDate: '1998-04-12T22:00:00.000Z'
-            shipViaId: 1
-            freight: '1.2100'
-            name: Alfred-s Futterkiste
-            address: Obere Str. 57
-            city: Berlin
-            region: null
-            postalCode: '12209'
-            country: Germany
-            details:
-              - orderId: 6
-                productId: 58
-                unitPrice: '13.2500'
-                quantity: '40.0000'
-                discount: '0.0000'
-              - orderId: 6
-                productId: 71
-                unitPrice: '21.5000'
-                quantity: '20.0000'
-                discount: '0.0000'
-errors: 0
+        error: 'Error: Incorrect arguments to mysqld_stmt_execute'
+errors: 2

@@ -131,13 +131,13 @@ export class PostgreSQLConnection extends Connection {
 				}
 				break
 			case 'dateTime':
-				value = helper.sentence.escape(this.writeDateTime(value, mapping, dialect))
+				value = helper.query.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case 'date':
-				value = helper.sentence.escape(this.writeDate(value, mapping, dialect))
+				value = helper.query.escape(this.writeDate(value, mapping, dialect))
 				break
 			case 'time':
-				value = helper.sentence.escape(this.writeTime(value, mapping, dialect))
+				value = helper.query.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}

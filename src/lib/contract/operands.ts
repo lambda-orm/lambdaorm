@@ -139,49 +139,49 @@ export class Sentence extends Operand {
 
 	private initialize () {
 		const map = this.children.find(p => p instanceof Map)
-		const filter = this.children.find(p => p instanceof Filter)
-		const groupBy = this.children.find(p => p instanceof GroupBy)
-		const having = this.children.find(p => p instanceof Having)
-		const sort = this.children.find(p => p instanceof Sort)
+		// const filter = this.children.find(p => p instanceof Filter)
+		// const groupBy = this.children.find(p => p instanceof GroupBy)
+		// const having = this.children.find(p => p instanceof Having)
+		// const sort = this.children.find(p => p instanceof Sort)
 		const insert = this.children.find(p => p instanceof Insert) as Insert | undefined
 		const bulkInsert = this.children.find(p => p instanceof BulkInsert) as BulkInsert | undefined
 		const update = this.children.find(p => p instanceof Update) as Update | undefined
 		const _delete = this.children.find(p => p instanceof Delete) as Delete | undefined
 
-		const variables: Operand[] = []
+		// const variables: Operand[] = []
 		if (map) {
 			this.crudAction = SentenceCrudAction.select
-			this.loadVariables(map, variables)
+			// this.loadVariables(map, variables)
 		} else if (insert) {
 			this.crudAction = SentenceCrudAction.insert
-			this.loadVariables(insert, variables)
+			// this.loadVariables(insert, variables)
 		} else if (bulkInsert) {
 			this.crudAction = SentenceCrudAction.insert
-			this.loadVariables(bulkInsert, variables)
+			// this.loadVariables(bulkInsert, variables)
 		} else if (update) {
 			this.crudAction = SentenceCrudAction.update
-			this.loadVariables(update, variables)
+			// this.loadVariables(update, variables)
 		} else if (_delete) {
 			this.crudAction = SentenceCrudAction.delete
-			this.loadVariables(_delete, variables)
+			// this.loadVariables(_delete, variables)
 		}
-		if (filter) this.loadVariables(filter, variables)
-		if (groupBy) this.loadVariables(groupBy, variables)
-		if (having) this.loadVariables(having, variables)
-		if (sort) this.loadVariables(sort, variables)
-		for (let i = 0; i < variables.length; i++) {
-			variables[i].number = i + 1
-		}
+		// if (filter) this.loadVariables(filter, variables)
+		// if (groupBy) this.loadVariables(groupBy, variables)
+		// if (having) this.loadVariables(having, variables)
+		// if (sort) this.loadVariables(sort, variables)
+		// for (let i = 0; i < variables.length; i++) {
+		// 	variables[i].number = i + 1
+		// }
 	}
 
-	private loadVariables (operand: Operand, variables: Operand[]) {
-		if (operand.type === OperandType.Var) {
-			variables.push(operand)
-		}
-		for (const child of operand.children) {
-			this.loadVariables(child, variables)
-		}
-	}
+	// private loadVariables (operand: Operand, variables: Operand[]) {
+	// if (operand.type === OperandType.Var) {
+	// variables.push(operand)
+	// }
+	// for (const child of operand.children) {
+	// this.loadVariables(child, variables)
+	// }
+	// }
 }
 export class SentenceInclude extends Operand {
 	public relation: Relation

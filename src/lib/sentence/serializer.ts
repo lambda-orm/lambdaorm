@@ -4,7 +4,9 @@ import { Operand, OperandType, Type } from '3xpr'
 
 export class SentenceSerializer {
 	public clone (sentence: Sentence): Sentence {
-		return this.deserialize(this.serialize(sentence))
+		const serialized = this.serialize(sentence)
+		const deserialized = this.deserialize(serialized)
+		return deserialized
 	}
 
 	public serialize (sentence: Sentence): string {
@@ -31,15 +33,16 @@ export class SentenceSerializer {
 		} else if (operand instanceof Field) {
 			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.toString(operand.returnType), entity: operand.entity, alias: operand.alias, isRoot: operand.isRoot }
 		} else {
-			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.toString(operand.returnType) }
+			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, number: operand.number, type: operand.type, returnType: Type.toString(operand.returnType) }
 		}
 	}
 
 	private _deserialize (value: Metadata): Operand {
 		const children:Operand[] = []
 		if (value.children) {
-			for (const k in value.children) {
-				children.push(this._deserialize(value.children[k]))
+			for (const child of value.children) {
+				const deserialized = this._deserialize(child)
+				children.push(deserialized)
 			}
 		}
 		switch (value.classtype) {
@@ -80,7 +83,9 @@ export class SentenceSerializer {
 		case 'Field':
 			return new Field(value.pos, value.entity as string, value.name, Type.to(value.returnType as string), value.alias, value.isRoot)
 		default:
-			return new Operand(value.pos, value.name, OperandType[value.type], children, Type.to(value.returnType as string))
+			let operand = new Operand(value.pos, value.name, OperandType[value.type], children, Type.to(value.returnType as string))
+			operand.number = value.number
+			return operand
 		}
 	}
 }

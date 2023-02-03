@@ -1,61 +1,238 @@
-
-import { StringHelper } from 'h3lp'
-import { QueryInfo } from '../index'
-const { DateTime } = require('luxon')
-const SqlString = require('sqlstring')
+import { Property, SintaxisError, SentenceCrudAction } from '../contract'
+import { ModelConfig } from '../manager'
+import { Operand, Parameter, OperandType, Type, helper, Kind } from '3xpr'
+import { Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete } from '../contract/operands'
 
 export class SentenceHelper {
-	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly str:StringHelper) {}
+	private model: ModelConfig
 
-	public toArray (sentence:QueryInfo):string[] {
-		const sentences:string[] = []
-		sentences.push(sentence.sentence)
-		if (sentence.children) {
-			sentence.children.forEach(p => this.toArray(p).forEach(p => sentences.push(p)))
-		}
-		return sentences
+	constructor (model: ModelConfig) {
+		this.model = model
 	}
 
-	public dateFormat (value:any, format:string):string {
-		const iso = new Date(value).toISOString()
-		if (format === 'ISO') {
-			return DateTime.fromISO(iso).toISO()
-		} else {
-			return DateTime.fromISO(iso).toFormat(format)
-		}
-	}
-
-	public escape (value:string):string {
-		return SqlString.escape(value)
-	}
-
-	public transformParameter (name:string) {
-		return this.str.replace(name, '.', '_')
-		// con la siguiente opción falla cuando se hace value=Helper.str.replace(value,"\\'","\\''")
-		// return string.replace(new RegExp(search, 'g'), replace)
-	}
-
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	public clearLambda (func:Function):string {
-		let str = func.toString().trim()
-		let index = str.indexOf('=>') + 2
-		str = str.substring(index, str.length).trim()
-		index = str.indexOf('(')
-		if (index > -1) {
-			// Example: xxx.Products.map()
-			const form = str.substring(0, index).trim()
-			const parts = form.split('.')
-			if (parts.length > 2) {
-				return this.str.replace(str, parts[0] + '.', '')
-			}
-		} else {
-			// Example: xxx.Products
-			const parts = str.split('.')
-			if (parts.length > 1) {
-				return this.str.replace(str, parts[0] + '.', '')
+	public getClauses (operand: Operand): any {
+		const sentence: any = {}
+		let current = operand
+		while (current) {
+			const name = current.type === OperandType.Var ? 'from' : current.name
+			sentence[name] = current
+			if (current.children.length > 0) {
+				current = current.children[0]
+			} else {
+				break
 			}
 		}
-		return str
+		return sentence
+	}
+
+	public toExpression (operand: Operand): string {
+		const clauses: any = this.getClauses(operand)
+		const list:string[] = []
+		if (clauses.map) {
+			const body = helper.operand.toExpression(clauses.map.children[2])
+			list.push(`map(${clauses.map.children[1].name}=>${body})`)
+		} else if (clauses.insert) {
+			const body = helper.operand.toExpression(clauses.insert.children[1])
+			list.push(`insert(${body})`)
+		} else if (clauses.bulkInsert) {
+			const body = helper.operand.toExpression(clauses.bulkInsert.children[1])
+			list.push(`bulkInsert(${body})`)
+		} else if (clauses.update) {
+			const body = helper.operand.toExpression(clauses.update.children[2])
+			list.push(`update(${clauses.update.children[1].name}=>${body})`)
+		} else if (clauses.delete) {
+			list.push('delete()')
+		}
+		if (clauses.filter) {
+			const body = helper.operand.toExpression(clauses.filter.children[2])
+			list.push(`filter(${clauses.filter.children[1].name}=>${body})`)
+		}
+		if (clauses.include) {
+			const body = clauses.include.children[2]
+			if (body.type === 'array') {
+				const includes:string[] = []
+				for (const child of body.children) {
+					const include = this.toExpression(child)
+					includes.push(include)
+				}
+				list.push(`include(${clauses.include.children[1].name}=>[${includes.join(',')}])`)
+			} else {
+				const include = this.toExpression(body)
+				list.push(`include(${clauses.include.children[1].name}=>${include})`)
+			}
+		}
+
+		if (clauses.groupBy) {
+			const body = helper.operand.toExpression(clauses.groupBy.children[2])
+			list.push(`groupBy(${clauses.groupBy.children[1].name}=>${body})`)
+		}
+		if (clauses.having) {
+			const body = helper.operand.toExpression(clauses.having.children[2])
+			list.push(`having(${clauses.having.children[1].name}=>${body})`)
+		}
+		if (clauses.sort) {
+			const body = helper.operand.toExpression(clauses.sort.children[2])
+			list.push(`sort(${clauses.sort.children[1].name}=>${body})`)
+		}
+		if (clauses.page) {
+			const offset = helper.operand.toExpression(clauses.page.children[1])
+			const limit = helper.operand.toExpression(clauses.page.children[2])
+			list.push(`page(${offset},${limit})`)
+		}
+		// TODO: solve includes
+		return `${clauses.from.name}.${list.join('.')}`
+	}
+
+	public getPropertiesFromParameters (entityName: string, parameters: Parameter[]): Property[] {
+		const entity = this.model.getEntity(entityName)
+		const properties: Property[] = []
+		if (entity && entity.properties && parameters) {
+			for (const parameter of parameters) {
+				const property = entity.properties.find(p => p.name === parameter.name)
+				if (property) {
+					properties.push(property)
+				}
+			}
+		}
+		return properties
+	}
+
+	public groupByFields (operand: Operand): Field[] {
+		const data = { fields: [], groupBy: false }
+		this._groupByFields(operand, data)
+		return data.groupBy ? data.fields : []
+	}
+
+	private _groupByFields (operand: Operand, data: any): void {
+		if (operand instanceof Field) {
+			data.fields.push(operand)
+		} else if (operand.type === OperandType.CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+			data.groupBy = true
+		} else if (!(operand instanceof Sentence)) {
+			for (const k in operand.children) {
+				const p = operand.children[k]
+				this._groupByFields(p, data)
+			}
+		}
+	}
+
+	public fieldsInSelect (operand: Operand): Property[] {
+		const fields: Property[] = []
+		if (operand.children.length === 1) {
+			let child: Operand
+			if (operand.children[0].type === OperandType.CallFunc && operand.children[0].name === 'distinct') {
+				child = operand.children[0].children[0]
+			} else {
+				child = operand.children[0]
+			}
+			if (child.type === OperandType.Obj) {
+				const obj = child
+				for (const keyVal of obj.children) {
+					if (keyVal.returnType !== undefined && keyVal.returnType.kind !== Kind.any) {
+						fields.push({ name: keyVal.name, type: keyVal.returnType.kind })
+					// } else if (keyVal.children[0] instanceof Field) {
+					// const _field = keyVal.children[0]
+					// fields.push({ name: keyVal.name, type: Type.toString(_field.returnType) })
+					} else {
+						fields.push({ name: keyVal.name, type: Type.toString(keyVal.children[0].returnType) })
+					}
+				}
+			}
+		}
+		return fields
+	}
+
+	public fieldsInModify (operand: Operand, entityName: string, addAutoIncrement = false): Property[] {
+		const fields: Property[] = []
+		if (operand.children.length === 1) {
+			if (operand.children[0].type === OperandType.Obj) {
+				const obj = operand.children[0]
+				for (const p in obj.children) {
+					const keyVal = obj.children[p]
+					const property = this.model.getProperty(entityName, keyVal.name)
+					const field = { name: keyVal.name, type: property.type }
+					fields.push(field)
+				}
+			}
+		}
+		if (addAutoIncrement) {
+			const autoIncrement = this.model.getAutoIncrement(entityName)
+			if (autoIncrement) {
+				fields.unshift(autoIncrement)
+			}
+		}
+		return fields
+	}
+
+	public getColumns (sentence: Sentence): Property[] {
+		switch (sentence.crudAction) {
+		case SentenceCrudAction.select:
+			const map = sentence.children.find(p => p.name === 'map') as Map
+			return this.fieldsInSelect(map)
+		case SentenceCrudAction.insert:			
+				const insert = sentence.action === 'bulkInsert' 
+				? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert 
+				: sentence.children.find(p => p instanceof Insert) as Insert
+				return this.fieldsInModify(insert, sentence.entity, true)			
+		case SentenceCrudAction.update:
+			const update = sentence.children.find(p => p instanceof Update) as Update
+			return this.fieldsInModify(update, sentence.entity)
+		case SentenceCrudAction.delete:
+			const _delete = sentence.children.find(p => p instanceof Delete) as Delete
+			return this.fieldsInModify(_delete, sentence.entity)
+		default:
+			throw new SintaxisError(`sentence crud action ${sentence.crudAction} not found`)
+		}
+	}
+
+	public getParameters (sentence: Sentence): Parameter[] {
+		const map = sentence.children.find(p => p instanceof Map) as Map | undefined
+		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
+		const groupBy = sentence.children.find(p => p instanceof GroupBy) as GroupBy | undefined
+		const having = sentence.children.find(p => p instanceof Having) as Having | undefined
+		const sort = sentence.children.find(p => p instanceof Sort) as Sort | undefined
+		const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
+		const bulkInsert = sentence.children.find(p => p instanceof BulkInsert) as BulkInsert | undefined
+		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
+		const _delete = sentence.children.find(p => p instanceof Delete) as Delete | undefined
+
+		const parameters: Parameter[] = []
+		if (map) this.loadParameters(map, parameters)
+		if (insert) this.loadParameters(insert, parameters)
+		if (bulkInsert) this.loadParameters(bulkInsert, parameters)
+		if (update) this.loadParameters(update, parameters)
+		if (_delete) this.loadParameters(_delete, parameters)
+		if (filter) this.loadParameters(filter, parameters)
+		if (groupBy) this.loadParameters(groupBy, parameters)
+		if (having) this.loadParameters(having, parameters)
+		if (sort) this.loadParameters(sort, parameters)
+		return parameters
+	}
+
+	private loadParameters (operand: Operand, parameters: Parameter[]) {
+		if (operand.type === OperandType.Var && !(operand instanceof Field) && parameters.find(p=> p.name === operand.name ) === undefined) {
+			parameters.push({ name: operand.name, type: Type.toString(operand.returnType) })
+		}
+		for (const child of operand.children) {
+			this.loadParameters(child, parameters)
+		}
+	}
+
+	public enumerateVariables (sentence: Sentence):void {		
+		for (let i=0;i< sentence.parameters.length;i++) {
+			const parameter = sentence.parameters[i]
+			for (const child of sentence.children) {
+				this.enumerateVariable(child,parameter.name, i+1)
+			}
+		}
+	}
+
+	private enumerateVariable (operand: Operand, name:string, number:number):void {
+		if (operand.type === OperandType.Var && !(operand instanceof Field) && operand.name === name) {
+			operand.number= number
+		}
+		for (const child of operand.children) {
+			this.enumerateVariable(child, name,number)
+		}
 	}
 }

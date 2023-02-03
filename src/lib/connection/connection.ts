@@ -95,24 +95,24 @@ export abstract class Connection {
 			} else {
 				value = null
 			}
-			parameters.push({ name: helper.sentence.transformParameter(parameter.name), type: parameter.type, value })
+			parameters.push({ name: helper.query.transformParameter(parameter.name), type: parameter.type, value })
 		}
 		return parameters
 	}
 
 	protected writeDateTime (value: any, mapping: MappingConfig, dialect: Dialect): any {
 		const format = mapping.format?.dateTime || dialect.format.dateTime
-		return format ? helper.sentence.dateFormat(value, format) : value
+		return format ? helper.query.dateFormat(value, format) : value
 	}
 
 	public writeDate (value: any, mapping: MappingConfig, dialect: Dialect): any {
 		const format = mapping.format?.date || dialect.format.date
-		return format ? helper.sentence.dateFormat(value, format) : value
+		return format ? helper.query.dateFormat(value, format) : value
 	}
 
 	public writeTime (value: any, mapping: MappingConfig, dialect: Dialect): any {
 		const format = mapping.format?.time || dialect.format.time
-		return format ? helper.sentence.dateFormat(value, format) : value
+		return format ? helper.query.dateFormat(value, format) : value
 	}
 
 	public abstract select(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any>

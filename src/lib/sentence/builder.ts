@@ -1,169 +1,11 @@
 /* eslint-disable no-case-declarations */
 
-import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity, SentenceCrudAction } from '../contract'
+import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity } from '../contract'
 import { ModelConfig, SchemaManager } from '../manager'
-import { Operand, Parameter, OperandType, Type, IExpressions, Position, helper, ITypeManager, Kind } from '3xpr'
+import { Operand, Parameter, OperandType, Type, IExpressions, Position, helper, ITypeManager } from '3xpr'
 import { MemoryCache, ICache } from 'h3lp'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../contract/operands'
-import { SentenceNormalizer, SentenceTypeManager } from '.'
-
-class SentenceHelper {
-	private model: ModelConfig
-
-	constructor (model: ModelConfig) {
-		this.model = model
-	}
-
-	public getClauses (operand: Operand): any {
-		const sentence: any = {}
-		let current = operand
-		while (current) {
-			const name = current.type === OperandType.Var ? 'from' : current.name
-			sentence[name] = current
-			if (current.children.length > 0) {
-				current = current.children[0]
-			} else {
-				break
-			}
-		}
-		return sentence
-	}
-
-	public getPropertiesFromParameters (entityName: string, parameters: Parameter[]): Property[] {
-		const entity = this.model.getEntity(entityName)
-		const properties: Property[] = []
-		if (entity && entity.properties && parameters) {
-			for (const parameter of parameters) {
-				const property = entity.properties.find(p => p.name === parameter.name)
-				if (property) {
-					properties.push(property)
-				}
-			}
-		}
-		return properties
-	}
-
-	public groupByFields (operand: Operand): Field[] {
-		const data = { fields: [], groupBy: false }
-		this._groupByFields(operand, data)
-		return data.groupBy ? data.fields : []
-	}
-
-	private _groupByFields (operand: Operand, data: any): void {
-		if (operand instanceof Field) {
-			data.fields.push(operand)
-		} else if (operand.type === OperandType.CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
-			data.groupBy = true
-		} else if (!(operand instanceof Sentence)) {
-			for (const k in operand.children) {
-				const p = operand.children[k]
-				this._groupByFields(p, data)
-			}
-		}
-	}
-
-	public fieldsInSelect (operand: Operand): Property[] {
-		const fields: Property[] = []
-		if (operand.children.length === 1) {
-			let child: Operand
-			if (operand.children[0].type === OperandType.CallFunc && operand.children[0].name === 'distinct') {
-				child = operand.children[0].children[0]
-			} else {
-				child = operand.children[0]
-			}
-			if (child.type === OperandType.Obj) {
-				const obj = child
-				for (const keyVal of obj.children) {
-					if (keyVal.returnType !== undefined && keyVal.returnType.kind !== Kind.any) {
-						fields.push({ name: keyVal.name, type: keyVal.returnType.kind })
-					// } else if (keyVal.children[0] instanceof Field) {
-					// const _field = keyVal.children[0]
-					// fields.push({ name: keyVal.name, type: Type.toString(_field.returnType) })
-					} else {
-						fields.push({ name: keyVal.name, type: Type.toString(keyVal.children[0].returnType) })
-					}
-				}
-			}
-		}
-		return fields
-	}
-
-	public fieldsInModify (operand: Operand, entityName: string, addAutoIncrement = false): Property[] {
-		const fields: Property[] = []
-		if (operand.children.length === 1) {
-			if (operand.children[0].type === OperandType.Obj) {
-				const obj = operand.children[0]
-				for (const p in obj.children) {
-					const keyVal = obj.children[p]
-					const property = this.model.getProperty(entityName, keyVal.name)
-					const field = { name: keyVal.name, type: property.type }
-					fields.push(field)
-				}
-			}
-		}
-		if (addAutoIncrement) {
-			const autoIncrement = this.model.getAutoIncrement(entityName)
-			if (autoIncrement) {
-				fields.unshift(autoIncrement)
-			}
-		}
-		return fields
-	}
-
-	public getColumns (sentence: Sentence): Property[] {
-		switch (sentence.crudAction) {
-		case SentenceCrudAction.select:
-			const map = sentence.children.find(p => p.name === 'map') as Map
-			return this.fieldsInSelect(map)
-		case SentenceCrudAction.insert:			
-				const insert = sentence.action === 'bulkInsert' 
-				? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert 
-				: sentence.children.find(p => p instanceof Insert) as Insert
-				return this.fieldsInModify(insert, sentence.entity, true)			
-		case SentenceCrudAction.update:
-			const update = sentence.children.find(p => p instanceof Update) as Update
-			return this.fieldsInModify(update, sentence.entity)
-		case SentenceCrudAction.delete:
-			const _delete = sentence.children.find(p => p instanceof Delete) as Delete
-			return this.fieldsInModify(_delete, sentence.entity)
-		default:
-			throw new SintaxisError(`sentence crud action ${sentence.crudAction} not found`)
-		}
-	}
-
-	public getParameters (sentence: Sentence): Parameter[] {
-		const map = sentence.children.find(p => p instanceof Map) as Map | undefined
-		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
-		const groupBy = sentence.children.find(p => p instanceof GroupBy) as GroupBy | undefined
-		const having = sentence.children.find(p => p instanceof Having) as Having | undefined
-		const sort = sentence.children.find(p => p instanceof Sort) as Sort | undefined
-		const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
-		const bulkInsert = sentence.children.find(p => p instanceof BulkInsert) as BulkInsert | undefined
-		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
-		const _delete = sentence.children.find(p => p instanceof Delete) as Delete | undefined
-
-		const parameters: Parameter[] = []
-		if (map) this.loadParameters(map, parameters)
-		if (insert) this.loadParameters(insert, parameters)
-		if (bulkInsert) this.loadParameters(bulkInsert, parameters)
-		if (update) this.loadParameters(update, parameters)
-		if (_delete) this.loadParameters(_delete, parameters)
-		if (filter) this.loadParameters(filter, parameters)
-		if (groupBy) this.loadParameters(groupBy, parameters)
-		if (having) this.loadParameters(having, parameters)
-		if (sort) this.loadParameters(sort, parameters)
-		return parameters
-	}
-
-	private loadParameters (operand: Operand, parameters: Parameter[]) {
-		if (operand.type === OperandType.Var && !(operand instanceof Field)) {
-			parameters.push({ name: operand.name, type: Type.toString(operand.returnType) })
-		}
-		for (const child of operand.children) {
-			this.loadParameters(child, parameters)
-		}
-	}
-}
+import { SentenceNormalizer, SentenceTypeManager, SentenceHelper } from '.'
 
 class EntityContext {
 	// eslint-disable-next-line no-use-before-define
@@ -372,92 +214,16 @@ export class SentenceBuilder {
 	private helper:SentenceHelper
 	private cache: ICache<string, Sentence>
 
-	constructor (schema: SchemaManager, expressions: IExpressions) {
+	constructor (schema: SchemaManager, expressions: IExpressions, sentenceHelper:SentenceHelper) {
 		this.schema = schema
 		this.expressions = expressions
-		this.helper = new SentenceHelper(this.schema.model)
+		this.helper = sentenceHelper
 		this.typeManager = new SentenceTypeManager(this.schema.model, expressions.model)
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, this.helper, expressions)
-		this.normalizer = new SentenceNormalizer(expressions.model, schema)
+		this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)
 		this.cache = new MemoryCache<string, Sentence>()
 	}
-
-	public normalize (expression: string): string {
-		try {
-			const operand = this.expressions.build(expression)
-			const cloned = this.expressions.clone(operand)
-			const normalized = this.normalizer.normalize(cloned)
-			return this.toExpression(normalized)
-		} catch (error: any) {
-			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
-		}
-	}
-
-	private toExpression (operand: Operand): string {
-		const clauses: any = this.helper.getClauses(operand)
-		const list:string[] = []
-		if (clauses.map) {
-			const body = helper.operand.toExpression(clauses.map.children[2])
-			list.push(`map(${clauses.map.children[1].name}=>${body})`)
-		} else if (clauses.insert) {
-			const body = helper.operand.toExpression(clauses.insert.children[1])
-			list.push(`insert(${body})`)
-		} else if (clauses.bulkInsert) {
-			const body = helper.operand.toExpression(clauses.bulkInsert.children[1])
-			list.push(`bulkInsert(${body})`)
-		} else if (clauses.update) {
-			const body = helper.operand.toExpression(clauses.update.children[2])
-			list.push(`update(${clauses.update.children[1].name}=>${body})`)
-		} else if (clauses.delete) {
-			list.push('delete()')
-		}
-		if (clauses.filter) {
-			const body = helper.operand.toExpression(clauses.filter.children[2])
-			list.push(`filter(${clauses.filter.children[1].name}=>${body})`)
-		}
-		if (clauses.include) {
-			const body = clauses.include.children[2]
-			if (body.type === 'array') {
-				const includes:string[] = []
-				for (const child of body.children) {
-					const include = this.toExpression(child)
-					includes.push(include)
-				}
-				list.push(`include(${clauses.include.children[1].name}=>[${includes.join(',')}])`)
-			} else {
-				const include = this.toExpression(body)
-				list.push(`include(${clauses.include.children[1].name}=>${include})`)
-			}
-		}
-
-		if (clauses.groupBy) {
-			const body = helper.operand.toExpression(clauses.groupBy.children[2])
-			list.push(`groupBy(${clauses.groupBy.children[1].name}=>${body})`)
-		}
-		if (clauses.having) {
-			const body = helper.operand.toExpression(clauses.having.children[2])
-			list.push(`having(${clauses.having.children[1].name}=>${body})`)
-		}
-		if (clauses.sort) {
-			const body = helper.operand.toExpression(clauses.sort.children[2])
-			list.push(`sort(${clauses.sort.children[1].name}=>${body})`)
-		}
-		if (clauses.page) {
-			const offset = helper.operand.toExpression(clauses.page.children[1])
-			const limit = helper.operand.toExpression(clauses.page.children[2])
-			list.push(`page(${offset},${limit})`)
-		}
-		// TODO: solve includes
-		return `${clauses.from.name}.${list.join('.')}`
-	}
-
-	// public build (expression: string): Sentence {
-	// const operand = this.expressions.build(expression)
-	// const normalized = this.normalizer.normalize(operand)
-	// const sentence = this.createSentence(normalized, new ExpressionContext(new EntityContext())) as Sentence
-	// return sentence
-	// }
 
 	public build (expression: string): Sentence {
 		const key = helper.utils.hashCode(expression)
@@ -584,6 +350,7 @@ export class SentenceBuilder {
 		// Solve columns
 		sentence.columns = this.helper.getColumns(sentence)
 		sentence.parameters = this.helper.getParameters(sentence)
+		this.helper.enumerateVariables(sentence)
 		this.solveBehaviors.solve(sentence)
 		this.solveConstraints.solve(sentence)
 		return sentence

@@ -238,7 +238,7 @@ export class SqlServerConnection extends Connection {
 						const values: string[] = []
 						for (const item of value) {
 							let _item = item
-							_item = helper.sentence.escape(_item)
+							_item = helper.query.escape(_item)
 							_item = helper.str.replace(_item, '\\\'', '\\\'\'')
 							values.push(_item)
 						}
@@ -306,13 +306,13 @@ export class SqlServerConnection extends Connection {
 				// value = helper.str.replace(value, '\\\'', '\\\'\'')
 				break
 			case 'dateTime':
-				value = helper.sentence.escape(this.writeDateTime(value, mapping, dialect))
+				value = helper.query.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case 'date':
-				value = helper.sentence.escape(this.writeDate(value, mapping, dialect))
+				value = helper.query.escape(this.writeDate(value, mapping, dialect))
 				break
 			case 'time':
-				value = helper.sentence.escape(this.writeTime(value, mapping, dialect))
+				value = helper.query.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}

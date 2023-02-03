@@ -1,30 +1,32 @@
 
 import { helper, SchemaManager } from '../manager'
 import { Entity, Field, SchemaError, SintaxisError } from '../contract'
-import { Operand, OperandType, Position, IModelManager, IOperandNormalizer, Type } from '3xpr'
+import { IExpressions, Operand, OperandType, Position, IModelManager, IOperandNormalizer, Type } from '3xpr'
 
 /**
  *  Expression completer
  */
 export class SentenceNormalizer implements IOperandNormalizer {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (protected readonly model: IModelManager, protected readonly schema: SchemaManager) {}
+	public constructor (private readonly model: IModelManager, private readonly schema: SchemaManager, private readonly expressions: IExpressions) {}
 
 	public normalize (operand: Operand): Operand {
-		if (operand.type === OperandType.Var && operand.children.length === 0) {
+		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter
+		const cloned = this.expressions.clone(operand)
+		if (cloned.type === OperandType.Var && cloned.children.length === 0) {
 			// Example: Products => Products.map(p=>p)
-			const arrowVariable = new Operand(operand.pos, 'p', OperandType.Var)
-			const allFields = new Operand(operand.pos, 'p', OperandType.Var)
-			const map = new Operand(operand.pos, 'map', OperandType.Arrow, [operand, arrowVariable, allFields])
+			const arrowVariable = new Operand(cloned.pos, 'p', OperandType.Var)
+			const allFields = new Operand(cloned.pos, 'p', OperandType.Var)
+			const map = new Operand(cloned.pos, 'map', OperandType.Arrow, [cloned, arrowVariable, allFields])
 			this.normalizeSentence(map)
 			return map
 		} else {
-			this.normalizeSentence(operand)
-			return operand
+			this.normalizeSentence(cloned)
+			return cloned
 		}
 	}
 
-	protected normalizeOperand (operand: Operand): void {
+	private normalizeOperand (operand: Operand): void {
 		if (operand.type === OperandType.Arrow || operand.type === OperandType.ChildFunc || operand.type === OperandType.CallFunc) {
 			const alias = this.model.functionAlias.find(p => p[0] === operand.name)
 			if (alias) {

@@ -976,14 +976,6 @@
                 {
                   "name": "discount",
                   "type": "decimal"
-                },
-                {
-                  "name": "orderId",
-                  "type": "integer"
-                },
-                {
-                  "name": "productId",
-                  "type": "integer"
                 }
               ]
             }
@@ -1137,14 +1129,6 @@
                 {
                   "name": "discount",
                   "type": "decimal"
-                },
-                {
-                  "name": "orderId",
-                  "type": "integer"
-                },
-                {
-                  "name": "productId",
-                  "type": "integer"
                 }
               ]
             }
@@ -1187,10 +1171,6 @@
             },
             {
               "name": "country",
-              "type": "string"
-            },
-            {
-              "name": "id",
               "type": "string"
             },
             {
@@ -1276,14 +1256,6 @@
                     {
                       "name": "discount",
                       "type": "decimal"
-                    },
-                    {
-                      "name": "orderId",
-                      "type": "integer"
-                    },
-                    {
-                      "name": "productId",
-                      "type": "integer"
                     }
                   ]
                 }
@@ -1518,14 +1490,6 @@
                   {
                     "message": "Cannot be null property productId in entity Orders.details",
                     "condition": "isNotNull(productId)"
-                  },
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
                   }
                 ]
               }
@@ -1601,14 +1565,6 @@
                   {
                     "message": "Cannot be null property productId in entity Orders.details",
                     "condition": "isNotNull(productId)"
-                  },
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
                   }
                 ]
               }
@@ -1627,10 +1583,6 @@
               {
                 "message": "Cannot be null property name in entity Customers",
                 "condition": "isNotNull(name)"
-              },
-              {
-                "message": "Cannot be null property id in entity Customers",
-                "condition": "isNotNull(id)"
               }
             ],
             "children": [
@@ -1650,14 +1602,6 @@
                   {
                     "entity": "Orders.details",
                     "constraints": [
-                      {
-                        "message": "Cannot be null property orderId in entity Orders.details",
-                        "condition": "isNotNull(orderId)"
-                      },
-                      {
-                        "message": "Cannot be null property productId in entity Orders.details",
-                        "condition": "isNotNull(productId)"
-                      },
                       {
                         "message": "Cannot be null property orderId in entity Orders.details",
                         "condition": "isNotNull(orderId)"
@@ -2602,25 +2546,9 @@
                   {
                     "name": "discount",
                     "type": "decimal"
-                  },
-                  {
-                    "name": "orderId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "productId",
-                    "type": "integer"
                   }
                 ],
                 "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
-                  },
                   {
                     "message": "Cannot be null property orderId in entity Orders.details",
                     "condition": "isNotNull(orderId)"
@@ -2901,25 +2829,9 @@
                   {
                     "name": "discount",
                     "type": "decimal"
-                  },
-                  {
-                    "name": "orderId",
-                    "type": "integer"
-                  },
-                  {
-                    "name": "productId",
-                    "type": "integer"
                   }
                 ],
                 "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
-                  },
                   {
                     "message": "Cannot be null property orderId in entity Orders.details",
                     "condition": "isNotNull(orderId)"
@@ -3135,25 +3047,9 @@
                       {
                         "name": "discount",
                         "type": "decimal"
-                      },
-                      {
-                        "name": "orderId",
-                        "type": "integer"
-                      },
-                      {
-                        "name": "productId",
-                        "type": "integer"
                       }
                     ],
                     "constraints": [
-                      {
-                        "message": "Cannot be null property orderId in entity Orders.details",
-                        "condition": "isNotNull(orderId)"
-                      },
-                      {
-                        "message": "Cannot be null property productId in entity Orders.details",
-                        "condition": "isNotNull(productId)"
-                      },
                       {
                         "message": "Cannot be null property orderId in entity Orders.details",
                         "condition": "isNotNull(orderId)"
@@ -3375,10 +3271,6 @@
               {
                 "name": "country",
                 "type": "string"
-              },
-              {
-                "name": "id",
-                "type": "string"
               }
             ],
             "constraints": [
@@ -3389,10 +3281,6 @@
               {
                 "message": "Cannot be null property name in entity Customers",
                 "condition": "isNotNull(name)"
-              },
-              {
-                "message": "Cannot be null property id in entity Customers",
-                "condition": "isNotNull(id)"
               }
             ],
             "values": [],

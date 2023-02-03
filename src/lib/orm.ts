@@ -155,10 +155,8 @@ export class Orm implements IOrm {
 	public normalize(expression:Function): string
 	public normalize(expression:string): string
 	public normalize (expression: string|Function): string {
-		if (typeof expression !== 'string') {
-			expression = this.toExpression(expression)
-		}
-		return this.sentenceManager.normalize(expression)
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		return this.sentenceManager.normalize(_expression)
 	}
 
 	/**
@@ -169,10 +167,8 @@ export class Orm implements IOrm {
 	public model(expression:Function): MetadataModel[]
 	public model(expression:string): MetadataModel[]
 	public model (expression: string|Function): MetadataModel[] {
-		if (typeof expression !== 'string') {
-			expression = this.toExpression(expression)
-		}
-		return this.sentenceManager.model(expression)
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		return this.sentenceManager.model(_expression)
 	}
 
 	/**
@@ -183,10 +179,8 @@ export class Orm implements IOrm {
 	public parameters(expression:Function): MetadataParameter[];
 	public parameters(expression:string): MetadataParameter[];
 	public parameters (expression: string|Function): MetadataParameter[] {
-		if (typeof expression !== 'string') {
-			expression = this.toExpression(expression)
-		}
-		return this.sentenceManager.parameters(expression)
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		return this.sentenceManager.parameters(_expression)
 	}
 
 	/**
@@ -197,10 +191,8 @@ export class Orm implements IOrm {
 	public constraints(expression:Function): MetadataConstraint;
 	public constraints(expression:string): MetadataConstraint;
 	public constraints (expression: string|Function): MetadataConstraint {
-		if (typeof expression !== 'string') {
-			expression = this.toExpression(expression)
-		}
-		return this.sentenceManager.constraints(expression)
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		return this.sentenceManager.constraints(_expression)
 	}
 
 	/**
@@ -211,10 +203,8 @@ export class Orm implements IOrm {
 	public metadata(expression: Function): Metadata
 	public metadata (expression:string):Metadata
 	public metadata (expression: string|Function): Metadata {
-		if (typeof expression !== 'string') {
-			expression = this.toExpression(expression)
-		}
-		return this.sentenceManager.metadata(expression)
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		return this.sentenceManager.metadata(_expression)
 	}
 
 	/**
@@ -224,12 +214,10 @@ export class Orm implements IOrm {
 	 */
 	public getInfo(expression: Function, options?: QueryOptions): QueryInfo;
 	public getInfo(expression: string, options?: QueryOptions): QueryInfo;
-	public getInfo (expression: string|Function, options: QueryOptions|undefined): QueryInfo {
-		if (typeof expression !== 'string') {
-			expression = this.toExpression(expression)
-		}
+	public getInfo (expression: string|Function, options: QueryOptions|undefined): QueryInfo {		
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
 		const _options = this.schemaManager.solveOptions(options)
-		return this.queryManager.getInfo(expression, _options)
+		return this.queryManager.getInfo(_expression, _options)
 	}
 
 	/**
