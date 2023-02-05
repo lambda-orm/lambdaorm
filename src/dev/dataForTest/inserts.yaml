@@ -37,14 +37,18 @@ data:
         unitPrice: 14
         quantity: 12
         discount: 10
+        orderId: 833
       - productId: 42
         unitPrice: 9.8
         quantity: 10
         discount: 10
+        orderId: 833
       - productId: 72
         unitPrice: 34.8
         quantity: 5
         discount: 10
+        orderId: 833
+    id: 833
 test:
   - name: insert 1
     data: a
@@ -70,9 +74,9 @@ test:
         type: string
     parameters:
       - name: name
-        type: any
+        type: string
       - name: description
-        type: any
+        type: string
     constraints:
       entity: Categories
       constraints:
@@ -98,9 +102,9 @@ test:
           type: string
       parameters:
         - name: name
-          type: any
+          type: string
         - name: description
-          type: any
+          type: string
       constraints:
         - message: Cannot be null property name in entity Categories
           condition: isNotNull(name)
@@ -139,9 +143,9 @@ test:
         type: string
     parameters:
       - name: name
-        type: any
+        type: string
       - name: description
-        type: any
+        type: string
     constraints:
       entity: Categories
       constraints:
@@ -167,9 +171,9 @@ test:
           type: string
       parameters:
         - name: name
-          type: any
+          type: string
         - name: description
-          type: any
+          type: string
       constraints:
         - message: Cannot be null property name in entity Categories
           condition: isNotNull(name)
@@ -208,9 +212,9 @@ test:
         type: string
     parameters:
       - name: entity.name
-        type: any
+        type: string
       - name: entity.description
-        type: any
+        type: string
     constraints:
       entity: Categories
       constraints: []
@@ -234,9 +238,9 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: any
+          type: string
         - name: entity.description
-          type: any
+          type: string
       constraints: []
       values: []
       defaults: []
@@ -274,9 +278,9 @@ test:
         type: string
     parameters:
       - name: entity.name
-        type: any
+        type: string
       - name: entity.description
-        type: any
+        type: string
     constraints:
       entity: Categories
       constraints: []
@@ -300,9 +304,9 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: any
+          type: string
         - name: entity.description
-          type: any
+          type: string
       constraints: []
       values: []
       defaults: []
@@ -329,7 +333,7 @@ test:
             Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
             VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
           children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
     normalizeExpression: >-
@@ -365,31 +369,31 @@ test:
         type: string
     parameters:
       - name: customerId
-        type: any
+        type: string
       - name: employeeId
-        type: any
+        type: integer
       - name: orderDate
-        type: any
+        type: dateTime
       - name: requiredDate
-        type: any
+        type: date
       - name: shippedDate
-        type: any
+        type: date
       - name: shipViaId
-        type: any
+        type: integer
       - name: freight
-        type: any
+        type: decimal
       - name: name
-        type: any
+        type: string
       - name: address
-        type: any
+        type: string
       - name: city
-        type: any
+        type: string
       - name: region
-        type: any
+        type: string
       - name: postalCode
-        type: any
+        type: string
       - name: country
-        type: any
+        type: string
     constraints:
       entity: Orders
       constraints:
@@ -439,31 +443,31 @@ test:
           type: string
       parameters:
         - name: customerId
-          type: any
+          type: string
         - name: employeeId
-          type: any
+          type: integer
         - name: orderDate
-          type: any
+          type: dateTime
         - name: requiredDate
-          type: any
+          type: date
         - name: shippedDate
-          type: any
+          type: date
         - name: shipViaId
-          type: any
+          type: integer
         - name: freight
-          type: any
+          type: decimal
         - name: name
-          type: any
+          type: string
         - name: address
-          type: any
+          type: string
         - name: city
-          type: any
+          type: string
         - name: region
-          type: any
+          type: string
         - name: postalCode
-          type: any
+          type: string
         - name: country
-          type: any
+          type: string
       constraints:
         - message: Cannot be null property customerId in entity Orders
           condition: isNotNull(customerId)
@@ -475,7 +479,38 @@ test:
       alias: o
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01861: literal does not match format string'
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 833
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 833
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 833
+        id: 833
   - name: insert 6
     data: order
     sentences:
@@ -497,7 +532,7 @@ test:
                 Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     normalizeExpression: >-
@@ -546,44 +581,44 @@ test:
             type: decimal
     parameters:
       - name: customerId
-        type: any
+        type: string
       - name: employeeId
-        type: any
+        type: integer
       - name: orderDate
-        type: any
+        type: dateTime
       - name: requiredDate
-        type: any
+        type: date
       - name: shippedDate
-        type: any
+        type: date
       - name: shipViaId
-        type: any
+        type: integer
       - name: freight
-        type: any
+        type: decimal
       - name: name
-        type: any
+        type: string
       - name: address
-        type: any
+        type: string
       - name: city
-        type: any
+        type: string
       - name: region
-        type: any
+        type: string
       - name: postalCode
-        type: any
+        type: string
       - name: country
-        type: any
+        type: string
       - name: details
         type: Orders.details
         children:
           - name: orderId
-            type: any
+            type: integer
           - name: productId
-            type: any
+            type: integer
           - name: unitPrice
-            type: any
+            type: decimal
           - name: quantity
-            type: any
+            type: decimal
           - name: discount
-            type: any
+            type: decimal
     constraints:
       entity: Orders
       constraints:
@@ -626,15 +661,15 @@ test:
               type: decimal
           parameters:
             - name: orderId
-              type: any
+              type: integer
             - name: productId
-              type: any
+              type: integer
             - name: unitPrice
-              type: any
+              type: decimal
             - name: quantity
-              type: any
+              type: decimal
             - name: discount
-              type: any
+              type: decimal
           constraints:
             - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
@@ -679,31 +714,31 @@ test:
           type: string
       parameters:
         - name: customerId
-          type: any
+          type: string
         - name: employeeId
-          type: any
+          type: integer
         - name: orderDate
-          type: any
+          type: dateTime
         - name: requiredDate
-          type: any
+          type: date
         - name: shippedDate
-          type: any
+          type: date
         - name: shipViaId
-          type: any
+          type: integer
         - name: freight
-          type: any
+          type: decimal
         - name: name
-          type: any
+          type: string
         - name: address
-          type: any
+          type: string
         - name: city
-          type: any
+          type: string
         - name: region
-          type: any
+          type: string
         - name: postalCode
-          type: any
+          type: string
         - name: country
-          type: any
+          type: string
       constraints:
         - message: Cannot be null property customerId in entity Orders
           condition: isNotNull(customerId)
@@ -715,7 +750,38 @@ test:
       alias: o
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01861: literal does not match format string'
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 833
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 833
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 833
+        id: 833
   - name: insert 7
     data: order
     sentences:
@@ -737,7 +803,7 @@ test:
                 Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     normalizeExpression: >-
@@ -786,44 +852,44 @@ test:
             type: decimal
     parameters:
       - name: customerId
-        type: any
+        type: string
       - name: employeeId
-        type: any
+        type: integer
       - name: orderDate
-        type: any
+        type: dateTime
       - name: requiredDate
-        type: any
+        type: date
       - name: shippedDate
-        type: any
+        type: date
       - name: shipViaId
-        type: any
+        type: integer
       - name: freight
-        type: any
+        type: decimal
       - name: name
-        type: any
+        type: string
       - name: address
-        type: any
+        type: string
       - name: city
-        type: any
+        type: string
       - name: region
-        type: any
+        type: string
       - name: postalCode
-        type: any
+        type: string
       - name: country
-        type: any
+        type: string
       - name: details
         type: Orders.details
         children:
           - name: orderId
-            type: any
+            type: integer
           - name: productId
-            type: any
+            type: integer
           - name: unitPrice
-            type: any
+            type: decimal
           - name: quantity
-            type: any
+            type: decimal
           - name: discount
-            type: any
+            type: decimal
     constraints:
       entity: Orders
       constraints:
@@ -866,15 +932,15 @@ test:
               type: decimal
           parameters:
             - name: orderId
-              type: any
+              type: integer
             - name: productId
-              type: any
+              type: integer
             - name: unitPrice
-              type: any
+              type: decimal
             - name: quantity
-              type: any
+              type: decimal
             - name: discount
-              type: any
+              type: decimal
           constraints:
             - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
@@ -919,31 +985,31 @@ test:
           type: string
       parameters:
         - name: customerId
-          type: any
+          type: string
         - name: employeeId
-          type: any
+          type: integer
         - name: orderDate
-          type: any
+          type: dateTime
         - name: requiredDate
-          type: any
+          type: date
         - name: shippedDate
-          type: any
+          type: date
         - name: shipViaId
-          type: any
+          type: integer
         - name: freight
-          type: any
+          type: decimal
         - name: name
-          type: any
+          type: string
         - name: address
-          type: any
+          type: string
         - name: city
-          type: any
+          type: string
         - name: region
-          type: any
+          type: string
         - name: postalCode
-          type: any
+          type: string
         - name: country
-          type: any
+          type: string
       constraints:
         - message: Cannot be null property customerId in entity Orders
           condition: isNotNull(customerId)
@@ -955,5 +1021,36 @@ test:
       alias: o
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01861: literal does not match format string'
-errors: 3
+    result:
+      data:
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-03T22:00:00.000Z'
+        requiredDate: '1996-07-31T22:00:00.000Z'
+        shippedDate: '1996-07-15T22:00:00.000Z'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        details:
+          - productId: 11
+            unitPrice: 14
+            quantity: 12
+            discount: 10
+            orderId: 833
+          - productId: 42
+            unitPrice: 9.8
+            quantity: 10
+            discount: 10
+            orderId: 833
+          - productId: 72
+            unitPrice: 34.8
+            quantity: 5
+            discount: 10
+            orderId: 833
+        id: 833
+errors: 0

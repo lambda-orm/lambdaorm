@@ -1,6 +1,7 @@
 import { ModelConfig } from '../manager'
 import { Operand, OperandType, Kind, Type, IModelManager, TypeManager } from '3xpr'
-import { SintaxisError, SentenceCrudAction, Sentence, Map, From, Join, Filter, GroupBy, Having, Sort, Page, Field, SentenceInclude } from '../contract'
+import { SintaxisError, SentenceCrudAction, Sentence, SentenceInclude, Field ,
+	Map, From, Join, Filter, GroupBy, Having, Sort, Page, Insert , BulkInsert, Update, Delete  } from '../contract'
 
 export class SentenceTypeManager extends TypeManager {
 	private config: ModelConfig
@@ -12,7 +13,7 @@ export class SentenceTypeManager extends TypeManager {
 	public override type (operand: Operand) {
 		if (operand instanceof Sentence) {
 			const sentence = operand as Sentence
-			this.solveTypeSentence(sentence)
+			this.solveSentence(sentence)
 			for (const child of sentence.children) {
 				if (child.children.length > 0 && !(child instanceof From) && !(child instanceof SentenceInclude)) {
 					this.solveTemplate(child.children[0])
@@ -36,29 +37,29 @@ export class SentenceTypeManager extends TypeManager {
 	// }
 	// }
 
-	private solveTypeSentence (sentence: Sentence): void {
+	private solveSentence (sentence: Sentence): void {
 		switch (sentence.crudAction) {
 		case SentenceCrudAction.select:
-			this.solveTypeSelect(sentence)
+			this.solveSelect(sentence)
 			break
 		case SentenceCrudAction.insert:
 		case SentenceCrudAction.update:
 		case SentenceCrudAction.delete:
-			this.solveTypeModify(sentence)
+			this.solveModify(sentence)
 			break
 		default:
 			throw new SintaxisError(`sentence crud action ${sentence.crudAction} not found`)
 		}
 	}
 
-	private solveTypeSelect (sentence: Sentence):void {
-		const map = sentence.children.find(p => p.name === 'map') as Map
+	private solveSelect (sentence: Sentence):void {
+		const map = sentence.children.find(p => p instanceof Map) as Map
 		const joins = sentence.children.filter(p => p instanceof Join) as Join[]
-		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
-		const groupBy = sentence.children.find(p => p.name === 'groupBy') as GroupBy | undefined
-		const having = sentence.children.find(p => p.name === 'having') as Having | undefined
-		const sort = sentence.children.find(p => p.name === 'sort') as Sort | undefined
-		const page = sentence.children.find(p => p.name === 'page') as Page | undefined
+		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
+		const groupBy = sentence.children.find(p => p instanceof GroupBy) as GroupBy | undefined
+		const having = sentence.children.find(p => p instanceof Having) as Having | undefined
+		const sort = sentence.children.find(p => p instanceof Sort) as Sort | undefined
+		const page = sentence.children.find(p => p instanceof Page) as Page | undefined
 
 		this.solveFields(map.children[0], sentence.entity)
 		this.solveType(map.children[0])
@@ -90,6 +91,31 @@ export class SentenceTypeManager extends TypeManager {
 		}
 	}
 
+	private solveModify (sentence: Sentence):void {
+		const insert = sentence.children.find(p => p instanceof Insert) as Insert| undefined
+		const bulkInsert = sentence.children.find(p => p instanceof BulkInsert) as BulkInsert| undefined
+		const update = sentence.children.find(p => p instanceof Update) as Update| undefined
+		// const _delete = sentence.children.find(p => p instanceof Delete) as Delete| undefined
+		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
+
+		if (insert) {
+			this.solveFieldsModify(insert.children[0], sentence.entity)
+			this.solveType(insert.children[0])
+		}
+		if (bulkInsert) {
+			this.solveFieldsModify(bulkInsert.children[0], sentence.entity)
+			this.solveType(bulkInsert.children[0])
+		}
+		if (update) {
+			this.solveFieldsModify(update.children[0], sentence.entity)
+			this.solveType(update.children[0])
+		}
+		if (filter) {
+			this.solveFields(filter.children[0], sentence.entity)
+			this.solveType(filter.children[0])
+		}
+	}
+
 	private solveFields (operand: Operand, entityName:string, keyVals: Operand[] = []):void {
 		if (operand instanceof Field && (operand.returnType === undefined || operand.returnType.kind === Kind.any)) {
 			const keyVal = keyVals.find(p => p.name === operand.name)
@@ -111,19 +137,18 @@ export class SentenceTypeManager extends TypeManager {
 		}
 	}
 
-	private solveTypeModify (operand: Operand):void {
-		if (operand.children.length === 1) {
-			if (operand.children[0].type === OperandType.Obj) {
-				const obj = operand.children[0]
-				for (const keyVal of obj.children) {
-					const entityName = operand.name
-					const property = this.config.getProperty(entityName, keyVal.name)
-					if (keyVal.children[0].returnType === Type.any) {
-						keyVal.children[0].returnType = Type.to(property.type)
-					}
+	private solveFieldsModify (operand: Operand,entityName:string):void {		
+		if (operand.type === OperandType.Obj) {			
+			for (const keyVal of operand.children) {
+				const property = this.config.getProperty(entityName, keyVal.name)
+				if (keyVal.returnType === undefined || keyVal.returnType === Type.any) {
+					keyVal.returnType = Type.to(property.type)
+				}
+				if (keyVal.children[0].returnType === undefined || keyVal.children[0].returnType === Type.any) {
+					keyVal.children[0].returnType = Type.to(property.type)
 				}
 			}
-		}
+		}		
 	}
 }
 

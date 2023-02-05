@@ -238,7 +238,7 @@ test:
             :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
             :postalCode,ShipCountry = :country WHERE o.OrderID = :id 
           children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id))
     normalizeExpression: >-
@@ -272,31 +272,31 @@ test:
         type: string
     parameters:
       - name: customerId
-        type: any
+        type: string
       - name: employeeId
-        type: any
+        type: integer
       - name: orderDate
-        type: any
+        type: dateTime
       - name: requiredDate
-        type: any
+        type: date
       - name: shippedDate
-        type: any
+        type: date
       - name: shipViaId
-        type: any
+        type: integer
       - name: freight
-        type: any
+        type: decimal
       - name: name
-        type: any
+        type: string
       - name: address
-        type: any
+        type: string
       - name: city
-        type: any
+        type: string
       - name: region
-        type: any
+        type: string
       - name: postalCode
-        type: any
+        type: string
       - name: country
-        type: any
+        type: string
       - name: id
         type: integer
     constraints:
@@ -344,31 +344,31 @@ test:
           type: string
       parameters:
         - name: customerId
-          type: any
+          type: string
         - name: employeeId
-          type: any
+          type: integer
         - name: orderDate
-          type: any
+          type: dateTime
         - name: requiredDate
-          type: any
+          type: date
         - name: shippedDate
-          type: any
+          type: date
         - name: shipViaId
-          type: any
+          type: integer
         - name: freight
-          type: any
+          type: decimal
         - name: name
-          type: any
+          type: string
         - name: address
-          type: any
+          type: string
         - name: city
-          type: any
+          type: string
         - name: region
-          type: any
+          type: string
         - name: postalCode
-          type: any
+          type: string
         - name: country
-          type: any
+          type: string
         - name: id
           type: integer
       constraints:
@@ -382,7 +382,33 @@ test:
       alias: o
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01861: literal does not match format string'
+    result:
+      data:
+        id: 7
+        customerId: ANATR
+        employeeId: 7
+        orderDate: '1996-09-17T22:00:00.000Z'
+        requiredDate: '1996-10-15T22:00:00.000Z'
+        shippedDate: '1996-09-23T22:00:00.000Z'
+        shipViaId: 3
+        freight: '1.6100'
+        name: Ana Trujillo Emparedados y helados
+        address: Avda. de la Constitución 2222
+        city: Mexico D.F.
+        region: null
+        postalCode: '5021'
+        country: Mexico
+        details:
+          - orderId: 7
+            productId: 69
+            unitPrice: '28.8000'
+            quantity: '1.0000'
+            discount: '0.0000'
+          - orderId: 7
+            productId: 70
+            unitPrice: '12.0000'
+            quantity: '5.0000'
+            discount: '0.0000'
   - name: update 2
     data: b
     sentences:
@@ -401,7 +427,7 @@ test:
             :entity_postalCode,ShipCountry = :entity_country WHERE o.OrderID =
             :entity_id 
           children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.update(p=>{customerId:entity.customerId,employeeId:entity.employeeId,orderDate:entity.orderDate,requiredDate:entity.requiredDate,shippedDate:entity.shippedDate,shipViaId:entity.shipViaId,freight:entity.freight,name:entity.name,address:entity.address,city:entity.city,region:entity.region,postalCode:entity.postalCode,country:entity.country}).filter(p=>(p.id==entity.id))
     normalizeExpression: >-
@@ -435,31 +461,31 @@ test:
         type: string
     parameters:
       - name: entity.customerId
-        type: any
+        type: string
       - name: entity.employeeId
-        type: any
+        type: integer
       - name: entity.orderDate
-        type: any
+        type: dateTime
       - name: entity.requiredDate
-        type: any
+        type: date
       - name: entity.shippedDate
-        type: any
+        type: date
       - name: entity.shipViaId
-        type: any
+        type: integer
       - name: entity.freight
-        type: any
+        type: decimal
       - name: entity.name
-        type: any
+        type: string
       - name: entity.address
-        type: any
+        type: string
       - name: entity.city
-        type: any
+        type: string
       - name: entity.region
-        type: any
+        type: string
       - name: entity.postalCode
-        type: any
+        type: string
       - name: entity.country
-        type: any
+        type: string
       - name: entity.id
         type: integer
     constraints:
@@ -503,31 +529,31 @@ test:
           type: string
       parameters:
         - name: entity.customerId
-          type: any
+          type: string
         - name: entity.employeeId
-          type: any
+          type: integer
         - name: entity.orderDate
-          type: any
+          type: dateTime
         - name: entity.requiredDate
-          type: any
+          type: date
         - name: entity.shippedDate
-          type: any
+          type: date
         - name: entity.shipViaId
-          type: any
+          type: integer
         - name: entity.freight
-          type: any
+          type: decimal
         - name: entity.name
-          type: any
+          type: string
         - name: entity.address
-          type: any
+          type: string
         - name: entity.city
-          type: any
+          type: string
         - name: entity.region
-          type: any
+          type: string
         - name: entity.postalCode
-          type: any
+          type: string
         - name: entity.country
-          type: any
+          type: string
         - name: entity.id
           type: integer
       constraints: []
@@ -537,7 +563,39 @@ test:
       alias: o
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01861: literal does not match format string'
+    result:
+      data:
+        entity:
+          id: 8
+          customerId: ANATR
+          employeeId: 3
+          orderDate: '1997-08-07T22:00:00.000Z'
+          requiredDate: '1997-09-04T22:00:00.000Z'
+          shippedDate: '1997-08-13T22:00:00.000Z'
+          shipViaId: 1
+          freight: '43.9000'
+          name: Ana Trujillo Emparedados y helados
+          address: Avda. de la Constitución 2222
+          city: Mexico D.F.
+          region: null
+          postalCode: '5021'
+          country: Mexico
+          details:
+            - orderId: 8
+              productId: 14
+              unitPrice: '23.2500'
+              quantity: '3.0000'
+              discount: '0.0000'
+            - orderId: 8
+              productId: 42
+              unitPrice: '14.0000'
+              quantity: 'errors: 15.0000'
+              discount: '0.0000'
+            - orderId: 8
+              productId: 60
+              unitPrice: '34.0000'
+              quantity: '10.0000'
+              discount: '0.0000'
   - name: update 3
     data: c
     sentences:
@@ -558,7 +616,7 @@ test:
         type: string
     parameters:
       - name: postalCode
-        type: any
+        type: string
       - name: id
         type: integer
     constraints:
@@ -578,7 +636,7 @@ test:
           type: string
       parameters:
         - name: postalCode
-          type: any
+          type: string
         - name: id
           type: integer
       constraints: []
@@ -611,7 +669,7 @@ test:
         type: string
     parameters:
       - name: entity.name
-        type: any
+        type: string
       - name: entity.id
         type: integer
     constraints:
@@ -631,7 +689,7 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: any
+          type: string
         - name: entity.id
           type: integer
       constraints: []
@@ -718,22 +776,22 @@ test:
             type: decimal
     parameters:
       - name: entity.name
-        type: any
+        type: string
       - name: entity.id
         type: integer
       - name: details
         type: Orders.details
         children:
           - name: orderId
-            type: any
+            type: integer
           - name: productId
-            type: any
+            type: integer
           - name: unitPrice
-            type: any
+            type: decimal
           - name: quantity
-            type: any
+            type: decimal
           - name: discount
-            type: any
+            type: decimal
     constraints:
       entity: Orders
       constraints: []
@@ -776,15 +834,15 @@ test:
               type: decimal
           parameters:
             - name: orderId
-              type: any
+              type: integer
             - name: productId
-              type: any
+              type: integer
             - name: unitPrice
-              type: any
+              type: decimal
             - name: quantity
-              type: any
+              type: decimal
             - name: discount
-              type: any
+              type: decimal
             - name: orderId
               type: integer
             - name: productId
@@ -809,7 +867,7 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: any
+          type: string
         - name: entity.id
           type: integer
       constraints: []
@@ -891,18 +949,18 @@ test:
             type: decimal
     parameters:
       - name: entity.name
-        type: any
+        type: string
       - name: entity.id
         type: integer
       - name: details
         type: Orders.details
         children:
           - name: unitPrice
-            type: any
+            type: decimal
           - name: quantity
-            type: any
+            type: decimal
           - name: discount
-            type: any
+            type: decimal
           - name: orderId
             type: integer
           - name: productId
@@ -941,11 +999,11 @@ test:
               type: decimal
           parameters:
             - name: unitPrice
-              type: any
+              type: decimal
             - name: quantity
-              type: any
+              type: decimal
             - name: discount
-              type: any
+              type: decimal
             - name: orderId
               type: integer
             - name: productId
@@ -966,7 +1024,7 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: any
+          type: string
         - name: entity.id
           type: integer
       constraints: []
@@ -1046,7 +1104,7 @@ test:
             type: integer
     parameters:
       - name: entity.name
-        type: any
+        type: string
       - name: entity.id
         type: integer
       - name: details
@@ -1107,7 +1165,7 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: any
+          type: string
         - name: entity.id
           type: integer
       constraints: []
@@ -1175,7 +1233,7 @@ test:
                 = :discount WHERE (o1.OrderID = :orderId AND o1.ProductID =
                 :productId) 
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId))))
     normalizeExpression: >-
@@ -1222,46 +1280,46 @@ test:
             type: decimal
     parameters:
       - name: customerId
-        type: any
+        type: string
       - name: employeeId
-        type: any
+        type: integer
       - name: orderDate
-        type: any
+        type: dateTime
       - name: requiredDate
-        type: any
+        type: date
       - name: shippedDate
-        type: any
+        type: date
       - name: shipViaId
-        type: any
+        type: integer
       - name: freight
-        type: any
+        type: decimal
       - name: name
-        type: any
+        type: string
       - name: address
-        type: any
+        type: string
       - name: city
-        type: any
+        type: string
       - name: region
-        type: any
+        type: string
       - name: postalCode
-        type: any
+        type: string
       - name: country
-        type: any
+        type: string
       - name: id
         type: integer
       - name: details
         type: Orders.details
         children:
           - name: orderId
-            type: any
+            type: integer
           - name: productId
-            type: any
+            type: integer
           - name: unitPrice
-            type: any
+            type: decimal
           - name: quantity
-            type: any
+            type: decimal
           - name: discount
-            type: any
+            type: decimal
     constraints:
       entity: Orders
       constraints:
@@ -1308,15 +1366,15 @@ test:
               type: decimal
           parameters:
             - name: orderId
-              type: any
+              type: integer
             - name: productId
-              type: any
+              type: integer
             - name: unitPrice
-              type: any
+              type: decimal
             - name: quantity
-              type: any
+              type: decimal
             - name: discount
-              type: any
+              type: decimal
             - name: orderId
               type: integer
             - name: productId
@@ -1365,31 +1423,31 @@ test:
           type: string
       parameters:
         - name: customerId
-          type: any
+          type: string
         - name: employeeId
-          type: any
+          type: integer
         - name: orderDate
-          type: any
+          type: dateTime
         - name: requiredDate
-          type: any
+          type: date
         - name: shippedDate
-          type: any
+          type: date
         - name: shipViaId
-          type: any
+          type: integer
         - name: freight
-          type: any
+          type: decimal
         - name: name
-          type: any
+          type: string
         - name: address
-          type: any
+          type: string
         - name: city
-          type: any
+          type: string
         - name: region
-          type: any
+          type: string
         - name: postalCode
-          type: any
+          type: string
         - name: country
-          type: any
+          type: string
         - name: id
           type: integer
       constraints:
@@ -1403,7 +1461,33 @@ test:
       alias: o
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01861: literal does not match format string'
+    result:
+      data:
+        id: 7
+        customerId: ANATR
+        employeeId: 7
+        orderDate: '1996-09-17T22:00:00.000Z'
+        requiredDate: '1996-10-15T22:00:00.000Z'
+        shippedDate: '1996-09-23T22:00:00.000Z'
+        shipViaId: 3
+        freight: '1.6100'
+        name: Ana Trujillo Emparedados y helados
+        address: Avda. de la Constitución 2222
+        city: Mexico D.F.
+        region: null
+        postalCode: '5021'
+        country: Mexico
+        details:
+          - orderId: 7
+            productId: 69
+            unitPrice: '28.8000'
+            quantity: '1.0000'
+            discount: '0.0000'
+          - orderId: 7
+            productId: 70
+            unitPrice: '12.0000'
+            quantity: '5.0000'
+            discount: '0.0000'
   - name: update 9
     data: d
     sentences:
@@ -1429,7 +1513,7 @@ test:
                 :address,ShipCity = :city,ShipRegion = :region,ShipPostalCode =
                 :postalCode,ShipCountry = :country WHERE o.OrderID = :id 
               children: []
-    errors: 1
+    errors: 0
     expression: >-
       Customers.update(p=>{id:id,name:name,contact:contact,phone:phone,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.orders.update(p=>{customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).filter(p=>(p.id==id)).include(p=>p.details.update(p=>{orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}).filter(p=>((p.orderId==orderId)&&(p.productId==productId)))))
     normalizeExpression: >-
@@ -1484,52 +1568,52 @@ test:
             type: string
     parameters:
       - name: id
-        type: any
+        type: string
       - name: name
-        type: any
+        type: string
       - name: contact
-        type: any
+        type: string
       - name: phone
-        type: any
+        type: string
       - name: address
-        type: any
+        type: string
       - name: city
-        type: any
+        type: string
       - name: region
-        type: any
+        type: string
       - name: postalCode
-        type: any
+        type: string
       - name: country
-        type: any
+        type: string
       - name: orders
         type: Orders
         children:
           - name: customerId
-            type: any
+            type: string
           - name: employeeId
-            type: any
+            type: integer
           - name: orderDate
-            type: any
+            type: dateTime
           - name: requiredDate
-            type: any
+            type: date
           - name: shippedDate
-            type: any
+            type: date
           - name: shipViaId
-            type: any
+            type: integer
           - name: freight
-            type: any
+            type: decimal
           - name: name
-            type: any
+            type: string
           - name: address
-            type: any
+            type: string
           - name: city
-            type: any
+            type: string
           - name: region
-            type: any
+            type: string
           - name: postalCode
-            type: any
+            type: string
           - name: country
-            type: any
+            type: string
           - name: id
             type: integer
     constraints:
@@ -1592,31 +1676,31 @@ test:
               type: string
           parameters:
             - name: customerId
-              type: any
+              type: string
             - name: employeeId
-              type: any
+              type: integer
             - name: orderDate
-              type: any
+              type: dateTime
             - name: requiredDate
-              type: any
+              type: date
             - name: shippedDate
-              type: any
+              type: date
             - name: shipViaId
-              type: any
+              type: integer
             - name: freight
-              type: any
+              type: decimal
             - name: name
-              type: any
+              type: string
             - name: address
-              type: any
+              type: string
             - name: city
-              type: any
+              type: string
             - name: region
-              type: any
+              type: string
             - name: postalCode
-              type: any
+              type: string
             - name: country
-              type: any
+              type: string
             - name: id
               type: integer
           constraints:
@@ -1651,23 +1735,23 @@ test:
           type: string
       parameters:
         - name: id
-          type: any
+          type: string
         - name: name
-          type: any
+          type: string
         - name: contact
-          type: any
+          type: string
         - name: phone
-          type: any
+          type: string
         - name: address
-          type: any
+          type: string
         - name: city
-          type: any
+          type: string
         - name: region
-          type: any
+          type: string
         - name: postalCode
-          type: any
+          type: string
         - name: country
-          type: any
+          type: string
         - name: id
           type: string
       constraints:
@@ -1683,5 +1767,166 @@ test:
       alias: c
     executions:
       - stage: Oracle
-        error: 'Error: ORA-01861: literal does not match format string'
-errors: 4
+    result:
+      data:
+        id: ALFKI
+        name: Alfreds Futterkiste
+        contact: Maria Anders
+        phone: Sales Representative
+        address: Obere Str. 57
+        city: Berlin
+        region: null
+        postalCode: '12209'
+        country: Germany
+        orders:
+          - id: 1
+            customerId: ALFKI
+            employeeId: 6
+            orderDate: '1997-08-24T22:00:00.000Z'
+            requiredDate: '1997-09-21T22:00:00.000Z'
+            shippedDate: '1997-09-01T22:00:00.000Z'
+            shipViaId: 1
+            freight: '29.4600'
+            name: Alfreds Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 1
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '15.0000'
+                discount: '0.0000'
+              - orderId: 1
+                productId: 39
+                unitPrice: '18.0000'
+                quantity: '21.0000'
+                discount: '0.0000'
+              - orderId: 1
+                productId: 46
+                unitPrice: '12.0000'
+                quantity: '2.0000'
+                discount: '0.0000'
+          - id: 2
+            customerId: ALFKI
+            employeeId: 4
+            orderDate: '1997-10-02T22:00:00.000Z'
+            requiredDate: '1997-10-30T23:00:00.000Z'
+            shippedDate: '1997-10-12T22:00:00.000Z'
+            shipViaId: 2
+            freight: '61.0200'
+            name: Alfred-s Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 2
+                productId: 63
+                unitPrice: '43.9000'
+                quantity: '20.0000'
+                discount: '0.0000'
+          - id: 3
+            customerId: ALFKI
+            employeeId: 4
+            orderDate: '1997-10-12T22:00:00.000Z'
+            requiredDate: '1997-11-23T23:00:00.000Z'
+            shippedDate: '1997-10-20T22:00:00.000Z'
+            shipViaId: 1
+            freight: '23.9400'
+            name: Alfred-s Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 3
+                productId: 3
+                unitPrice: '10.0000'
+                quantity: '6.0000'
+                discount: '0.0000'
+              - orderId: 3
+                productId: 76
+                unitPrice: '18.0000'
+                quantity: '15.0000'
+                discount: '0.0000'
+          - id: 4
+            customerId: ALFKI
+            employeeId: 1
+            orderDate: '1998-01-14T23:00:00.000Z'
+            requiredDate: '1998-02-11T23:00:00.000Z'
+            shippedDate: '1998-01-20T23:00:00.000Z'
+            shipViaId: 3
+            freight: '69.5300'
+            name: Alfred-s Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 4
+                productId: 59
+                unitPrice: '55.0000'
+                quantity: '15.0000'
+                discount: '0.0000'
+              - orderId: 4
+                productId: 77
+                unitPrice: '13.0000'
+                quantity: '2.0000'
+                discount: '0.0000'
+          - id: 5
+            customerId: ALFKI
+            employeeId: 1
+            orderDate: '1998-03-15T23:00:00.000Z'
+            requiredDate: '1998-04-26T22:00:00.000Z'
+            shippedDate: '1998-03-23T23:00:00.000Z'
+            shipViaId: 1
+            freight: '40.4200'
+            name: Alfred-s Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 5
+                productId: 6
+                unitPrice: '25.0000'
+                quantity: '16.0000'
+                discount: '0.0000'
+              - orderId: 5
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '2.0000'
+                discount: '0.0000'
+          - id: 6
+            customerId: ALFKI
+            employeeId: 3
+            orderDate: '1998-04-08T22:00:00.000Z'
+            requiredDate: '1998-05-06T22:00:00.000Z'
+            shippedDate: '1998-04-12T22:00:00.000Z'
+            shipViaId: 1
+            freight: '1.2100'
+            name: Alfred-s Futterkiste
+            address: Obere Str. 57
+            city: Berlin
+            region: null
+            postalCode: '12209'
+            country: Germany
+            details:
+              - orderId: 6
+                productId: 58
+                unitPrice: '13.2500'
+                quantity: '40.0000'
+                discount: '0.0000'
+              - orderId: 6
+                productId: 71
+                unitPrice: '21.5000'
+                quantity: '20.0000'
+                discount: '0.0000'
+errors: 0
