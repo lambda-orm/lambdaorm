@@ -1810,7 +1810,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> false ORDER BY category asc, p.ProductName desc ",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> FALSE ORDER BY category asc, p.ProductName desc ",
             "children": []
           }
         },
@@ -1870,7 +1870,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <> false ORDER BY p.ProductID desc  LIMIT 0,1 ",
+            "sentence": "SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <> FALSE ORDER BY p.ProductID desc  LIMIT 0,1 ",
             "children": []
           }
         },

@@ -5,11 +5,11 @@ data:
 test:
   - name: groupBy 1
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Products
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
           children: []
     errors: 0
@@ -41,16 +41,16 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - maxPrice: 263.5
   - name: groupBy 2
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Products
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
           children: []
     errors: 0
@@ -82,16 +82,16 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - minPrice: 2.5
   - name: groupBy 3
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Products
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
           children: []
     errors: 0
@@ -123,19 +123,17 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - total: 2222.71
   - name: groupBy 4
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Products
-          dialect: PostgreSQL
-          source: PostgreSQL
-          sentence: >-
-            SELECT ROUND(CAST(AVG(p.UnitPrice) AS DECIMAL),4) AS "average" FROM
-            Products p  
+          dialect: Oracle
+          source: Oracle
+          sentence: 'SELECT ROUND(AVG(p.UnitPrice),4) AS "average" FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{average:round(avg(p.price),4)})
@@ -166,16 +164,16 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
-      - average: 28.8664
+      - average: 28.866400000000002
   - name: groupBy 5
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Products
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
           children: []
     errors: 0
@@ -207,16 +205,16 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - count: 77
   - name: groupBy 6
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Products
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS
             "largestPrice" FROM Products p  GROUP BY p.CategoryID 
@@ -254,31 +252,31 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
-      - category: 3
-        largestPrice: 81
-      - category: 5
-        largestPrice: 38
-      - category: 4
-        largestPrice: 55
       - category: 6
         largestPrice: 123.79
-      - category: 2
-        largestPrice: 43.9
-      - category: 7
-        largestPrice: 53
       - category: 1
         largestPrice: 263.5
+      - category: 7
+        largestPrice: 53
+      - category: 2
+        largestPrice: 43.9
       - category: 8
         largestPrice: 62.5
+      - category: 4
+        largestPrice: 55
+      - category: 5
+        largestPrice: 38
+      - category: 3
+        largestPrice: 81
   - name: groupBy 7
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Products
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
             "largestPrice" FROM Products p INNER JOIN Categories c ON
@@ -317,36 +315,36 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
-      - category: Grains/Cereals
-        largestPrice: 38
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Dairy Products
-        largestPrice: 55
-      - category: Seafood
-        largestPrice: 62.5
+      - category: Confections
+        largestPrice: 81
       - category: Produce
         largestPrice: 53
+      - category: Seafood
+        largestPrice: 62.5
+      - category: Beverages
+        largestPrice: 263.5
+      - category: Grains/Cereals
+        largestPrice: 38
       - category: Condiments
         largestPrice: 43.9
       - category: Meat/Poultry
         largestPrice: 123.79
-      - category: Confections
-        largestPrice: 81
+      - category: Dairy Products
+        largestPrice: 55
   - name: groupBy 8
     data: a
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Products
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT p.ProductName AS "name", p.UnitPrice AS "source",
             ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID =
-            $1 
+            :id 
           children: []
     errors: 0
     expression: >-
@@ -391,18 +389,18 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - name: Chai
         source: 18
         result: 18
   - name: groupBy 9
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Products
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
             "largestPrice" FROM Products p INNER JOIN Categories c ON
@@ -444,7 +442,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - category: Beverages
         largestPrice: 263.5
@@ -452,11 +450,11 @@ test:
         largestPrice: 123.79
   - name: query 10
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders.details
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100)))
             * 100)) AS "subTotal" FROM "Order Details" o  ORDER BY "subTotal"
@@ -493,7 +491,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - subTotal: 135445859
 errors: 0

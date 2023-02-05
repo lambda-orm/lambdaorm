@@ -37,30 +37,26 @@ data:
         unitPrice: 14
         quantity: 12
         discount: 10
-        orderId: 833
       - productId: 42
         unitPrice: 9.8
         quantity: 10
         discount: 10
-        orderId: 833
       - productId: 72
         unitPrice: 34.8
         quantity: 5
         discount: 10
-        orderId: 833
-    id: 833
 test:
   - name: insert 1
     data: a
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Categories
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:name,:description)
           children: []
     errors: 0
     expression: Categories.insert({name:name,description:description})
@@ -113,7 +109,7 @@ test:
       clause: insert
       alias: c
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       data:
         name: Beverages20
@@ -122,14 +118,14 @@ test:
   - name: insert 2
     data: b
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Categories
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:name,:description)
           children: []
     errors: 0
     expression: Categories.insert({name:name,description:description})
@@ -182,7 +178,7 @@ test:
       clause: insert
       alias: c
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       data:
         name: Beverages21
@@ -191,14 +187,14 @@ test:
   - name: insert 3
     data: c
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Categories
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:entity_name,:entity_description)
           children: []
     errors: 0
     expression: Categories.insert({name:entity.name,description:entity.description})
@@ -247,7 +243,7 @@ test:
       clause: insert
       alias: c
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       data:
         entity:
@@ -257,14 +253,14 @@ test:
   - name: insert 4
     data: d
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Categories
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
-            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
-            RETURNING CategoryID AS id
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:entity_name,:entity_description)
           children: []
     errors: 0
     expression: Categories.insert({name:entity.name,description:entity.description})
@@ -313,7 +309,7 @@ test:
       clause: insert
       alias: c
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       data:
         entity:
@@ -323,18 +319,17 @@ test:
   - name: insert 5
     data: order
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-            AS id
+            Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
           children: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
     normalizeExpression: >-
@@ -479,62 +474,30 @@ test:
       clause: insert
       alias: o
     executions:
-      - stage: PostgreSQL
-    result:
-      data:
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        details:
-          - productId: 11
-            unitPrice: 14
-            quantity: 12
-            discount: 10
-            orderId: 833
-          - productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 10
-            orderId: 833
-          - productId: 72
-            unitPrice: 34.8
-            quantity: 5
-            discount: 10
-            orderId: 833
-        id: 833
+      - stage: Oracle
+        error: 'Error: ORA-01861: literal does not match format string'
   - name: insert 6
     data: order
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-            AS id
+            Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
           children:
             - entity: Orders.details
-              dialect: PostgreSQL
-              source: PostgreSQL
+              dialect: Oracle
+              source: Oracle
               sentence: >-
                 INSERT INTO "Order
                 Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
+                VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
               children: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     normalizeExpression: >-
@@ -751,62 +714,30 @@ test:
       clause: insert
       alias: o
     executions:
-      - stage: PostgreSQL
-    result:
-      data:
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        details:
-          - productId: 11
-            unitPrice: 14
-            quantity: 12
-            discount: 10
-            orderId: 833
-          - productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 10
-            orderId: 833
-          - productId: 72
-            unitPrice: 34.8
-            quantity: 5
-            discount: 10
-            orderId: 833
-        id: 833
+      - stage: Oracle
+        error: 'Error: ORA-01861: literal does not match format string'
   - name: insert 7
     data: order
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             INSERT INTO
-            Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
-            AS id
+            Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
           children:
             - entity: Orders.details
-              dialect: PostgreSQL
-              source: PostgreSQL
+              dialect: Oracle
+              source: Oracle
               sentence: >-
                 INSERT INTO "Order
                 Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
+                VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
               children: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     normalizeExpression: >-
@@ -1023,37 +954,6 @@ test:
       clause: insert
       alias: o
     executions:
-      - stage: PostgreSQL
-    result:
-      data:
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        details:
-          - productId: 11
-            unitPrice: 14
-            quantity: 12
-            discount: 10
-            orderId: 833
-          - productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 10
-            orderId: 833
-          - productId: 72
-            unitPrice: 34.8
-            quantity: 5
-            discount: 10
-            orderId: 833
-        id: 833
-errors: 0
+      - stage: Oracle
+        error: 'Error: ORA-01861: literal does not match format string'
+errors: 3

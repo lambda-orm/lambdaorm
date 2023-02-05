@@ -6,11 +6,11 @@ test:
   - name: include 1
     data: a
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -19,11 +19,11 @@ test:
             o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
             "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
             "country", o.CustomerID AS "__customerId", o.CustomerID AS
-            "__customerId" FROM Orders o  WHERE o.OrderID = $1 
+            "__customerId" FROM Orders o  WHERE o.OrderID = :id 
           children:
             - entity: Customers
-              dialect: PostgreSQL
-              source: PostgreSQL
+              dialect: Oracle
+              source: Oracle
               sentence: >-
                 SELECT c.CustomerID AS "id", c.CompanyName AS "name",
                 c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
@@ -31,7 +31,7 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId", c.CustomerID AS
                 "LambdaOrmParentId" FROM Customers c  WHERE  c.CustomerID IN
-                ($1) 
+                (:LambdaOrmParentId) 
               children: []
     errors: 0
     expression: >-
@@ -196,7 +196,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - id: 1
         customerId: VINET
@@ -225,11 +225,11 @@ test:
   - name: include 2
     data: a
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -238,17 +238,17 @@ test:
             o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
             "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
             "country", o.OrderID AS "__id", o.OrderID AS "__id" FROM Orders o 
-            WHERE o.OrderID = $1 
+            WHERE o.OrderID = :id 
           children:
             - entity: Orders.details
-              dialect: PostgreSQL
-              source: PostgreSQL
+              dialect: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
                 o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId",
                 o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
-                WHERE  o1.OrderID IN ($1) 
+                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
               children: []
     errors: 0
     expression: >-
@@ -397,7 +397,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - id: 1
         customerId: VINET
@@ -426,17 +426,17 @@ test:
             discount: 0
           - orderId: 1
             productId: 72
-            unitPrice: 34.8
+            unitPrice: 34.800000000000004
             quantity: 5
             discount: 0
   - name: include 3
     data: a
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -445,17 +445,17 @@ test:
             o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
             "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
             "country", o.OrderID AS "__id", o.CustomerID AS "__customerId",
-            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = $1 
+            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
           children:
             - entity: Orders.details
-              dialect: PostgreSQL
-              source: PostgreSQL
+              dialect: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
                 o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId",
                 o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
-                WHERE  o1.OrderID IN ($1) 
+                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
               children: []
     errors: 0
     expression: >-
@@ -606,7 +606,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - id: 1
         customerId: VINET
@@ -636,17 +636,17 @@ test:
             discount: 0
           - orderId: 1
             productId: 72
-            unitPrice: 34.8
+            unitPrice: 34.800000000000004
             quantity: 5
             discount: 0
   - name: include 4
     data: a
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -655,22 +655,22 @@ test:
             o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
             "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
             "country", o.OrderID AS "__id", o.CustomerID AS "__customerId",
-            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = $1 
+            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
           children:
             - entity: Orders.details
-              dialect: PostgreSQL
-              source: PostgreSQL
+              dialect: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
                 o1.Discount AS "discount", o1.ProductID AS "__productId",
                 o1.OrderID AS "LambdaOrmParentId", o1.ProductID AS
                 "__productId", o1.OrderID AS "LambdaOrmParentId" FROM "Order
-                Details" o1  WHERE  o1.OrderID IN ($1) 
+                Details" o1  WHERE  o1.OrderID IN (:LambdaOrmParentId) 
               children:
                 - entity: Products
-                  dialect: PostgreSQL
-                  source: PostgreSQL
+                  dialect: Oracle
+                  source: Oracle
                   sentence: >-
                     SELECT p.ProductID AS "id", p.ProductName AS "name",
                     p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -679,7 +679,7 @@ test:
                     p.ReorderLevel AS "reorderLevel", p.Discontinued AS
                     "discontinued", p.ProductID AS "LambdaOrmParentId",
                     p.ProductID AS "LambdaOrmParentId" FROM Products p  WHERE 
-                    p.ProductID IN ($1) 
+                    p.ProductID IN (:LambdaOrmParentId) 
                   children: []
     errors: 0
     expression: >-
@@ -910,7 +910,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - id: 1
         customerId: VINET
@@ -943,7 +943,7 @@ test:
               inStock: 22
               onOrder: 30
               reorderLevel: 30
-              discontinued: false
+              discontinued: 'N'
           - orderId: 1
             productId: 42
             unitPrice: 9.8
@@ -959,10 +959,10 @@ test:
               inStock: 26
               onOrder: 0
               reorderLevel: 0
-              discontinued: true
+              discontinued: 'Y'
           - orderId: 1
             productId: 72
-            unitPrice: 34.8
+            unitPrice: 34.800000000000004
             quantity: 5
             discount: 0
             product:
@@ -971,19 +971,19 @@ test:
               supplierId: 14
               categoryId: 4
               quantity: 24 - 200 g pkgs.
-              price: 34.8
+              price: 34.800000000000004
               inStock: 14
               onOrder: 0
               reorderLevel: 0
-              discontinued: false
+              discontinued: 'N'
   - name: include 5
     data: a
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -992,22 +992,22 @@ test:
             o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
             "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
             "country", o.OrderID AS "__id", o.CustomerID AS "__customerId",
-            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = $1 
+            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
           children:
             - entity: Orders.details
-              dialect: PostgreSQL
-              source: PostgreSQL
+              dialect: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
                 o1.Discount AS "discount", o1.ProductID AS "__productId",
                 o1.OrderID AS "LambdaOrmParentId", o1.ProductID AS
                 "__productId", o1.OrderID AS "LambdaOrmParentId" FROM "Order
-                Details" o1  WHERE  o1.OrderID IN ($1) 
+                Details" o1  WHERE  o1.OrderID IN (:LambdaOrmParentId) 
               children:
                 - entity: Products
-                  dialect: PostgreSQL
-                  source: PostgreSQL
+                  dialect: Oracle
+                  source: Oracle
                   sentence: >-
                     SELECT p.ProductID AS "id", p.ProductName AS "name",
                     p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -1017,16 +1017,17 @@ test:
                     "discontinued", p.CategoryID AS "__categoryId", p.ProductID
                     AS "LambdaOrmParentId", p.CategoryID AS "__categoryId",
                     p.ProductID AS "LambdaOrmParentId" FROM Products p  WHERE 
-                    p.ProductID IN ($1) 
+                    p.ProductID IN (:LambdaOrmParentId) 
                   children:
                     - entity: Categories
-                      dialect: PostgreSQL
-                      source: PostgreSQL
+                      dialect: Oracle
+                      source: Oracle
                       sentence: >-
                         SELECT c.CategoryID AS "id", c.CategoryName AS "name",
                         c.Description AS "description", c.CategoryID AS
                         "LambdaOrmParentId", c.CategoryID AS "LambdaOrmParentId"
-                        FROM Categories c  WHERE  c.CategoryID IN ($1) 
+                        FROM Categories c  WHERE  c.CategoryID IN
+                        (:LambdaOrmParentId) 
                       children: []
     errors: 0
     expression: >-
@@ -1309,7 +1310,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - id: 1
         customerId: VINET
@@ -1342,7 +1343,7 @@ test:
               inStock: 22
               onOrder: 30
               reorderLevel: 30
-              discontinued: false
+              discontinued: 'N'
               category:
                 id: 4
                 name: Dairy Products
@@ -1362,14 +1363,14 @@ test:
               inStock: 26
               onOrder: 0
               reorderLevel: 0
-              discontinued: true
+              discontinued: 'Y'
               category:
                 id: 5
                 name: Grains/Cereals
                 description: Breads, crackers, pasta, and cereal
           - orderId: 1
             productId: 72
-            unitPrice: 34.8
+            unitPrice: 34.800000000000004
             quantity: 5
             discount: 0
             product:
@@ -1378,11 +1379,11 @@ test:
               supplierId: 14
               categoryId: 4
               quantity: 24 - 200 g pkgs.
-              price: 34.8
+              price: 34.800000000000004
               inStock: 14
               onOrder: 0
               reorderLevel: 0
-              discontinued: false
+              discontinued: 'N'
               category:
                 id: 4
                 name: Dairy Products
@@ -1390,11 +1391,11 @@ test:
   - name: include 6
     data: a
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1403,16 +1404,16 @@ test:
             o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
             "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
             "country", o.OrderID AS "__id", o.CustomerID AS "__customerId",
-            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = $1 
+            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
           children:
             - entity: Orders.details
-              dialect: PostgreSQL
-              source: PostgreSQL
+              dialect: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
                 o1.ProductID AS "productId", o1.OrderID AS "LambdaOrmParentId",
                 o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
-                WHERE  o1.OrderID IN ($1) 
+                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
               children: []
     errors: 0
     expression: >-
@@ -1555,7 +1556,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - id: 1
         customerId: VINET
@@ -1580,16 +1581,16 @@ test:
             unitPrice: 9.8
             productId: 42
           - quantity: 5
-            unitPrice: 34.8
+            unitPrice: 34.800000000000004
             productId: 72
   - name: include 7
     data: a
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1598,21 +1599,21 @@ test:
             o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
             "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
             "country", o.OrderID AS "__id", o.CustomerID AS "__customerId",
-            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = $1 
+            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
           children:
             - entity: Orders.details
-              dialect: PostgreSQL
-              source: PostgreSQL
+              dialect: Oracle
+              source: Oracle
               sentence: >-
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
                 o1.ProductID AS "productId", o1.ProductID AS "__productId",
                 o1.OrderID AS "LambdaOrmParentId", o1.ProductID AS
                 "__productId", o1.OrderID AS "LambdaOrmParentId" FROM "Order
-                Details" o1  WHERE  o1.OrderID IN ($1) 
+                Details" o1  WHERE  o1.OrderID IN (:LambdaOrmParentId) 
               children:
                 - entity: Products
-                  dialect: PostgreSQL
-                  source: PostgreSQL
+                  dialect: Oracle
+                  source: Oracle
                   sentence: >-
                     SELECT p.ProductID AS "id", p.ProductName AS "name",
                     p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
@@ -1621,7 +1622,7 @@ test:
                     p.ReorderLevel AS "reorderLevel", p.Discontinued AS
                     "discontinued", p.ProductID AS "LambdaOrmParentId",
                     p.ProductID AS "LambdaOrmParentId" FROM Products p  WHERE 
-                    p.ProductID IN ($1) 
+                    p.ProductID IN (:LambdaOrmParentId) 
                   children: []
     errors: 0
     expression: >-
@@ -1844,7 +1845,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - id: 1
         customerId: VINET
@@ -1875,7 +1876,7 @@ test:
               inStock: 22
               onOrder: 30
               reorderLevel: 30
-              discontinued: false
+              discontinued: 'N'
           - quantity: 10
             unitPrice: 9.8
             productId: 42
@@ -1889,9 +1890,9 @@ test:
               inStock: 26
               onOrder: 0
               reorderLevel: 0
-              discontinued: true
+              discontinued: 'Y'
           - quantity: 5
-            unitPrice: 34.8
+            unitPrice: 34.800000000000004
             productId: 72
             product:
               id: 72
@@ -1899,19 +1900,19 @@ test:
               supplierId: 14
               categoryId: 4
               quantity: 24 - 200 g pkgs.
-              price: 34.8
+              price: 34.800000000000004
               inStock: 14
               onOrder: 0
               reorderLevel: 0
-              discontinued: false
+              discontinued: 'N'
   - name: include 8
     data: a
     sentences:
-      - stage: PostgreSQL
+      - stage: Oracle
         info:
           entity: Orders
-          dialect: PostgreSQL
-          source: PostgreSQL
+          dialect: Oracle
+          source: Oracle
           sentence: >-
             SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
             AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
@@ -1920,15 +1921,15 @@ test:
             o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
             "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
             "country", o.CustomerID AS "__customerId", o.OrderID AS "__id",
-            o.CustomerID AS "__customerId" FROM Orders o  WHERE o.OrderID = $1 
+            o.CustomerID AS "__customerId" FROM Orders o  WHERE o.OrderID = :id 
           children:
             - entity: Customers
-              dialect: PostgreSQL
-              source: PostgreSQL
+              dialect: Oracle
+              source: Oracle
               sentence: >-
                 SELECT c.CompanyName AS "name", c.CustomerID AS
                 "LambdaOrmParentId", c.CustomerID AS "LambdaOrmParentId" FROM
-                Customers c  WHERE  c.CustomerID IN ($1) 
+                Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
               children: []
     errors: 0
     expression: >-
@@ -2063,7 +2064,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: PostgreSQL
+      - stage: Oracle
     result:
       - id: 1
         customerId: VINET

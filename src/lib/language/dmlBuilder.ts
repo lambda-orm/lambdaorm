@@ -1,4 +1,4 @@
-import { Operand, OperandType, Type, IExpressions } from '3xpr'
+import { Operand, OperandType, Type, Kind, IExpressions } from '3xpr'
 import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source, BulkInsert } from '../contract'
 import { MappingConfig, helper } from '../manager'
 import { Dialect } from '../language'
@@ -395,19 +395,18 @@ export abstract class DmlBuilder {
 		if (operand.returnType === undefined) {
 			return SqlString.escape(operand.name)
 		}
-		switch (operand.returnType) {
-		case Type.string:
+		switch (operand.returnType.kind) {
+		case Kind.string:
 			return SqlString.escape(operand.name)
-		case Type.boolean:
-			return (operand.name.toString().toLowerCase() === 'true').toString()
-		case Type.integer:
+		case Kind.boolean:
+			return this.dialect.other(operand.name.toString())
+		case Kind.integer:
 			return parseInt(operand.name).toString()
-		case Type.number:
-		case Type.decimal:
+		case Kind.number:
+		case Kind.decimal:
 			return parseFloat(operand.name).toString()
 		default:
 			return SqlString.escape(operand.name)
 		}
-		return operand.name
 	}
 }

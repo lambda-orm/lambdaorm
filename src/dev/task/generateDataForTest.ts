@@ -332,7 +332,7 @@ async function writeUpdateTest (stages: string[]): Promise<number> {
 							orderId: 8,
 							productId: 42,
 							unitPrice: '14.0000',
-							quantity: '5.0000',
+							quantity: 'errors: 15.0000',
 							discount: '0.0000'
 						},
 						{
@@ -1031,5 +1031,5 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['PostgreSQL'], function () { console.log('end') })
-// apply(['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })
+apply(['Oracle'], function () { console.log('end') })
+// apply(['MySQL', 'MariaDB', 'PostgreSQL','Oracle','SqlServer', 'MongoDB'], function () { console.log('end') })

@@ -1,7 +1,7 @@
 
 import { helper, SchemaManager } from '../manager'
 import { Entity, Field, SchemaError, SintaxisError } from '../contract'
-import { IExpressions, Operand, OperandType, Position, IModelManager, IOperandNormalizer, Type } from '3xpr'
+import { IExpressions, Operand, OperandType, Position, IModelManager, IOperandNormalizer, Type, Kind } from '3xpr'
 
 /**
  *  Expression completer
@@ -13,6 +13,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 	public normalize (operand: Operand): Operand {
 		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter
 		const cloned = this.expressions.clone(operand)
+		this.normalizeOperand(cloned)
 		if (cloned.type === OperandType.Var && cloned.children.length === 0) {
 			// Example: Products => Products.map(p=>p)
 			const arrowVariable = new Operand(cloned.pos, 'p', OperandType.Var)
@@ -32,13 +33,14 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			if (alias) {
 				operand.name = alias[1]
 			}
-			// this.completeSentence(operand)
 		} else if (operand.type === OperandType.Operator) {
 			const alias = this.model.operatorAlias.find(p => p[0] === operand.name)
 			if (alias) {
 				operand.name = alias[1]
 			}
-		}
+		} else if (operand.type === OperandType.Const && operand.returnType !== undefined && operand.returnType.kind === Kind.boolean) {
+			operand.name = (operand.name.toString().toLowerCase() === 'true')
+		}		
 		for (const child of operand.children) {
 			this.normalizeOperand(child)
 		}
