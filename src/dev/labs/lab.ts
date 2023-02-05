@@ -4,7 +4,7 @@ import { Categories, Customers, Products, Orders } from '../model/__model'
 export async function apply (callback: any) {
 	try {
 		await orm.init('./lambdaORM.yaml')		
-		const options = {stage:'MySQL'}	
+		const options = {stage:'PostgreSQL'}	
 		// const query = 'Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])'
 		const query = () => Orders.update().include(p => p.details) 
 		const context = {

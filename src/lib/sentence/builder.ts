@@ -343,7 +343,6 @@ export class SentenceBuilder {
 		// Solve columns
 		sentence.columns = this.helper.getColumns(sentence)
 		sentence.parameters = this.helper.getParameters(sentence)
-		this.helper.enumerateVariables(sentence)
 		this.solveBehaviors.solve(sentence)
 		this.solveConstraints.solve(sentence)
 		return sentence

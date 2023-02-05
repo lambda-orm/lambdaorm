@@ -210,7 +210,9 @@ export class SentenceManager {
 	private parametersFromSentence (sentence: Sentence): MetadataParameter[] {
 		const parameters: MetadataParameter[] = []
 		for (const parameter of sentence.parameters) {
-			parameters.push({ name: parameter.name, type: parameter.type ? parameter.type : 'any' })
+			if(parameters.find(p=> p.name === parameter.name) === undefined) {
+				parameters.push({ name: parameter.name, type: parameter.type ? parameter.type : 'any' })
+			}
 		}
 		const includes = sentence.getIncludes()
 		for (const p in includes) {

@@ -53,15 +53,17 @@ test:
   - name: insert 1
     data: a
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Categories
-          dialect: MySQL
-          source: MySQL
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+            RETURNING CategoryID AS id
           children: []
     errors: 0
-    expression: Categories.push()
+    expression: Categories.insert({name:name,description:description})
     normalizeExpression: Categories.insert({name:name,description:description})
     model:
       - name: id
@@ -72,9 +74,9 @@ test:
         type: string
     parameters:
       - name: name
-        type: string
+        type: any
       - name: description
-        type: string
+        type: any
     constraints:
       entity: Categories
       constraints:
@@ -84,7 +86,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 16
+        col: 18
       name: insert
       children: []
       type: any
@@ -100,9 +102,9 @@ test:
           type: string
       parameters:
         - name: name
-          type: string
+          type: any
         - name: description
-          type: string
+          type: any
       constraints:
         - message: Cannot be null property name in entity Categories
           condition: isNotNull(name)
@@ -111,7 +113,7 @@ test:
       clause: insert
       alias: c
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         name: Beverages20
@@ -120,15 +122,17 @@ test:
   - name: insert 2
     data: b
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Categories
-          dialect: MySQL
-          source: MySQL
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+            RETURNING CategoryID AS id
           children: []
     errors: 0
-    expression: Categories.push(=>[name,description])
+    expression: Categories.insert({name:name,description:description})
     normalizeExpression: Categories.insert({name:name,description:description})
     model:
       - name: id
@@ -139,9 +143,9 @@ test:
         type: string
     parameters:
       - name: name
-        type: string
+        type: any
       - name: description
-        type: string
+        type: any
     constraints:
       entity: Categories
       constraints:
@@ -151,7 +155,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 16
+        col: 18
       name: insert
       children: []
       type: any
@@ -167,9 +171,9 @@ test:
           type: string
       parameters:
         - name: name
-          type: string
+          type: any
         - name: description
-          type: string
+          type: any
       constraints:
         - message: Cannot be null property name in entity Categories
           condition: isNotNull(name)
@@ -178,7 +182,7 @@ test:
       clause: insert
       alias: c
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         name: Beverages21
@@ -187,15 +191,17 @@ test:
   - name: insert 3
     data: c
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Categories
-          dialect: MySQL
-          source: MySQL
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+            RETURNING CategoryID AS id
           children: []
     errors: 0
-    expression: Categories.push(entity)
+    expression: Categories.insert({name:entity.name,description:entity.description})
     normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
     model:
       - name: id
@@ -206,9 +212,9 @@ test:
         type: string
     parameters:
       - name: entity.name
-        type: string
+        type: any
       - name: entity.description
-        type: string
+        type: any
     constraints:
       entity: Categories
       constraints: []
@@ -216,7 +222,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 16
+        col: 18
       name: insert
       children: []
       type: any
@@ -232,16 +238,16 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: string
+          type: any
         - name: entity.description
-          type: string
+          type: any
       constraints: []
       values: []
       defaults: []
       clause: insert
       alias: c
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         entity:
@@ -251,15 +257,17 @@ test:
   - name: insert 4
     data: d
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Categories
-          dialect: MySQL
-          source: MySQL
-          sentence: INSERT INTO Categories(CategoryName,Description) VALUES(?,?)
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            INSERT INTO Categories(CategoryName,Description) VALUES($1,$2)
+            RETURNING CategoryID AS id
           children: []
     errors: 0
-    expression: Categories.push(entity)
+    expression: Categories.insert({name:entity.name,description:entity.description})
     normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
     model:
       - name: id
@@ -270,9 +278,9 @@ test:
         type: string
     parameters:
       - name: entity.name
-        type: string
+        type: any
       - name: entity.description
-        type: string
+        type: any
     constraints:
       entity: Categories
       constraints: []
@@ -280,7 +288,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 16
+        col: 18
       name: insert
       children: []
       type: any
@@ -296,16 +304,16 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: string
+          type: any
         - name: entity.description
-          type: string
+          type: any
       constraints: []
       values: []
       defaults: []
       clause: insert
       alias: c
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         entity:
@@ -315,18 +323,20 @@ test:
   - name: insert 5
     data: order
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
+            AS id
           children: []
     errors: 0
-    expression: Orders.push()
+    expression: >-
+      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
     normalizeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country})
     model:
@@ -360,31 +370,31 @@ test:
         type: string
     parameters:
       - name: customerId
-        type: string
+        type: any
       - name: employeeId
-        type: integer
+        type: any
       - name: orderDate
-        type: dateTime
+        type: any
       - name: requiredDate
-        type: date
+        type: any
       - name: shippedDate
-        type: date
+        type: any
       - name: shipViaId
-        type: integer
+        type: any
       - name: freight
-        type: decimal
+        type: any
       - name: name
-        type: string
+        type: any
       - name: address
-        type: string
+        type: any
       - name: city
-        type: string
+        type: any
       - name: region
-        type: string
+        type: any
       - name: postalCode
-        type: string
+        type: any
       - name: country
-        type: string
+        type: any
     constraints:
       entity: Orders
       constraints:
@@ -396,7 +406,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 12
+        col: 14
       name: insert
       children: []
       type: any
@@ -434,31 +444,31 @@ test:
           type: string
       parameters:
         - name: customerId
-          type: string
+          type: any
         - name: employeeId
-          type: integer
+          type: any
         - name: orderDate
-          type: dateTime
+          type: any
         - name: requiredDate
-          type: date
+          type: any
         - name: shippedDate
-          type: date
+          type: any
         - name: shipViaId
-          type: integer
+          type: any
         - name: freight
-          type: decimal
+          type: any
         - name: name
-          type: string
+          type: any
         - name: address
-          type: string
+          type: any
         - name: city
-          type: string
+          type: any
         - name: region
-          type: string
+          type: any
         - name: postalCode
-          type: string
+          type: any
         - name: country
-          type: string
+          type: any
       constraints:
         - message: Cannot be null property customerId in entity Orders
           condition: isNotNull(customerId)
@@ -469,7 +479,7 @@ test:
       clause: insert
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         customerId: VINET
@@ -505,26 +515,28 @@ test:
   - name: insert 6
     data: order
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
+            AS id
           children:
             - entity: Orders.details
-              dialect: MySQL
-              source: MySQL
+              dialect: PostgreSQL
+              source: PostgreSQL
               sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
+                INSERT INTO "Order
+                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+                VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
               children: []
     errors: 0
-    expression: Orders.push().include(p=>p.details)
+    expression: >-
+      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     normalizeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     model:
@@ -571,44 +583,44 @@ test:
             type: decimal
     parameters:
       - name: customerId
-        type: string
+        type: any
       - name: employeeId
-        type: integer
+        type: any
       - name: orderDate
-        type: dateTime
+        type: any
       - name: requiredDate
-        type: date
+        type: any
       - name: shippedDate
-        type: date
+        type: any
       - name: shipViaId
-        type: integer
+        type: any
       - name: freight
-        type: decimal
+        type: any
       - name: name
-        type: string
+        type: any
       - name: address
-        type: string
+        type: any
       - name: city
-        type: string
+        type: any
       - name: region
-        type: string
+        type: any
       - name: postalCode
-        type: string
+        type: any
       - name: country
-        type: string
+        type: any
       - name: details
         type: Orders.details
         children:
           - name: orderId
-            type: integer
+            type: any
           - name: productId
-            type: integer
+            type: any
           - name: unitPrice
-            type: decimal
+            type: any
           - name: quantity
-            type: decimal
+            type: any
           - name: discount
-            type: decimal
+            type: any
     constraints:
       entity: Orders
       constraints:
@@ -627,13 +639,13 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 22
+        col: 263
       name: insert
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 25
+            col: 283
           name: insert
           children: []
           type: any
@@ -651,15 +663,15 @@ test:
               type: decimal
           parameters:
             - name: orderId
-              type: integer
+              type: any
             - name: productId
-              type: integer
+              type: any
             - name: unitPrice
-              type: decimal
+              type: any
             - name: quantity
-              type: decimal
+              type: any
             - name: discount
-              type: decimal
+              type: any
           constraints:
             - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
@@ -704,31 +716,31 @@ test:
           type: string
       parameters:
         - name: customerId
-          type: string
+          type: any
         - name: employeeId
-          type: integer
+          type: any
         - name: orderDate
-          type: dateTime
+          type: any
         - name: requiredDate
-          type: date
+          type: any
         - name: shippedDate
-          type: date
+          type: any
         - name: shipViaId
-          type: integer
+          type: any
         - name: freight
-          type: decimal
+          type: any
         - name: name
-          type: string
+          type: any
         - name: address
-          type: string
+          type: any
         - name: city
-          type: string
+          type: any
         - name: region
-          type: string
+          type: any
         - name: postalCode
-          type: string
+          type: any
         - name: country
-          type: string
+          type: any
       constraints:
         - message: Cannot be null property customerId in entity Orders
           condition: isNotNull(customerId)
@@ -739,7 +751,7 @@ test:
       clause: insert
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         customerId: VINET
@@ -775,26 +787,28 @@ test:
   - name: insert 7
     data: order
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             INSERT INTO
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+            VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID
+            AS id
           children:
             - entity: Orders.details
-              dialect: MySQL
-              source: MySQL
+              dialect: PostgreSQL
+              source: PostgreSQL
               sentence: >-
-                INSERT INTO `Order
-                Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
-                VALUES(?,?,?,?,?)
+                INSERT INTO "Order
+                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+                VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
               children: []
     errors: 0
-    expression: Orders.push().include(p=>[p.details,p.customer])
+    expression: >-
+      Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     normalizeExpression: >-
       Orders.insert({customerId:customerId,employeeId:employeeId,orderDate:orderDate,requiredDate:requiredDate,shippedDate:shippedDate,shipViaId:shipViaId,freight:freight,name:name,address:address,city:city,region:region,postalCode:postalCode,country:country}).include(p=>p.details.insert({orderId:orderId,productId:productId,unitPrice:unitPrice,quantity:quantity,discount:discount}))
     model:
@@ -841,44 +855,44 @@ test:
             type: decimal
     parameters:
       - name: customerId
-        type: string
+        type: any
       - name: employeeId
-        type: integer
+        type: any
       - name: orderDate
-        type: dateTime
+        type: any
       - name: requiredDate
-        type: date
+        type: any
       - name: shippedDate
-        type: date
+        type: any
       - name: shipViaId
-        type: integer
+        type: any
       - name: freight
-        type: decimal
+        type: any
       - name: name
-        type: string
+        type: any
       - name: address
-        type: string
+        type: any
       - name: city
-        type: string
+        type: any
       - name: region
-        type: string
+        type: any
       - name: postalCode
-        type: string
+        type: any
       - name: country
-        type: string
+        type: any
       - name: details
         type: Orders.details
         children:
           - name: orderId
-            type: integer
+            type: any
           - name: productId
-            type: integer
+            type: any
           - name: unitPrice
-            type: decimal
+            type: any
           - name: quantity
-            type: decimal
+            type: any
           - name: discount
-            type: decimal
+            type: any
     constraints:
       entity: Orders
       constraints:
@@ -897,13 +911,13 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 22
+        col: 263
       name: insert
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 25
+            col: 283
           name: insert
           children: []
           type: any
@@ -921,15 +935,15 @@ test:
               type: decimal
           parameters:
             - name: orderId
-              type: integer
+              type: any
             - name: productId
-              type: integer
+              type: any
             - name: unitPrice
-              type: decimal
+              type: any
             - name: quantity
-              type: decimal
+              type: any
             - name: discount
-              type: decimal
+              type: any
           constraints:
             - message: Cannot be null property orderId in entity Orders.details
               condition: isNotNull(orderId)
@@ -974,31 +988,31 @@ test:
           type: string
       parameters:
         - name: customerId
-          type: string
+          type: any
         - name: employeeId
-          type: integer
+          type: any
         - name: orderDate
-          type: dateTime
+          type: any
         - name: requiredDate
-          type: date
+          type: any
         - name: shippedDate
-          type: date
+          type: any
         - name: shipViaId
-          type: integer
+          type: any
         - name: freight
-          type: decimal
+          type: any
         - name: name
-          type: string
+          type: any
         - name: address
-          type: string
+          type: any
         - name: city
-          type: string
+          type: any
         - name: region
-          type: string
+          type: any
         - name: postalCode
-          type: string
+          type: any
         - name: country
-          type: string
+          type: any
       constraints:
         - message: Cannot be null property customerId in entity Orders
           condition: isNotNull(customerId)
@@ -1009,7 +1023,7 @@ test:
       clause: insert
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         customerId: VINET

@@ -148,7 +148,7 @@
           "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
           "result": [
             {
-              "subTotal": 135445859
+              "subTotal": 135525059
             }
           ]
         },
@@ -341,7 +341,7 @@
           "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
           "result": [
             {
-              "subTotal": 135445859
+              "subTotal": 135525059
             }
           ]
         },
@@ -534,7 +534,7 @@
           "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
           "result": [
             {
-              "subTotal": 135445859
+              "subTotal": 135525059
             }
           ]
         },
@@ -727,7 +727,7 @@
           "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
           "result": [
             {
-              "subTotal": 135445859
+              "subTotal": 135525059
             }
           ]
         },
@@ -920,7 +920,7 @@
           "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
           "result": [
             {
-              "subTotal": 135445859
+              "subTotal": 135525059
             }
           ]
         },
@@ -1113,7 +1113,7 @@
           "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
           "result": [
             {
-              "subTotal": 135445859
+              "subTotal": 135525059
             }
           ]
         },

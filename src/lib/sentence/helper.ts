@@ -196,44 +196,33 @@ export class SentenceHelper {
 		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
 		const _delete = sentence.children.find(p => p instanceof Delete) as Delete | undefined
 
+		const variables: Operand[] = []
+		if (map) this.loadVariables(map, variables)
+		if (insert) this.loadVariables(insert, variables)
+		if (bulkInsert) this.loadVariables(bulkInsert, variables)
+		if (update) this.loadVariables(update, variables)
+		if (_delete) this.loadVariables(_delete, variables)
+		if (filter) this.loadVariables(filter, variables)
+		if (groupBy) this.loadVariables(groupBy, variables)
+		if (having) this.loadVariables(having, variables)
+		if (sort) this.loadVariables(sort, variables)
+
 		const parameters: Parameter[] = []
-		if (map) this.loadParameters(map, parameters)
-		if (insert) this.loadParameters(insert, parameters)
-		if (bulkInsert) this.loadParameters(bulkInsert, parameters)
-		if (update) this.loadParameters(update, parameters)
-		if (_delete) this.loadParameters(_delete, parameters)
-		if (filter) this.loadParameters(filter, parameters)
-		if (groupBy) this.loadParameters(groupBy, parameters)
-		if (having) this.loadParameters(having, parameters)
-		if (sort) this.loadParameters(sort, parameters)
+		for (let i = 0; i < variables.length; i++) {
+			const variable = variables[i]
+			variable.number = i + 1
+			parameters.push({ name: variable.name, type: Type.toString(variable.returnType) })			
+		}
 		return parameters
 	}
 
-	private loadParameters (operand: Operand, parameters: Parameter[]) {
-		// if (operand.type === OperandType.Var && !(operand instanceof Field) && parameters.find(p=> p.name === operand.name ) === undefined) {
+	private loadVariables (operand: Operand, variables: Operand[]) {
 		if (operand.type === OperandType.Var && !(operand instanceof Field)) {
-			parameters.push({ name: operand.name, type: Type.toString(operand.returnType) })
+			variables.push(operand)
 		}
 		for (const child of operand.children) {
-			this.loadParameters(child, parameters)
+			this.loadVariables(child, variables)
 		}
 	}
 
-	public enumerateVariables (sentence: Sentence):void {		
-		for (let i=0;i< sentence.parameters.length;i++) {
-			const parameter = sentence.parameters[i]
-			for (const child of sentence.children) {
-				this.enumerateVariable(child,parameter.name, i+1)
-			}
-		}
-	}
-
-	private enumerateVariable (operand: Operand, name:string, number:number):void {
-		if (operand.type === OperandType.Var && !(operand instanceof Field) && operand.name === name) {
-			operand.number= number
-		}
-		for (const child of operand.children) {
-			this.enumerateVariable(child, name,number)
-		}
-	}
 }

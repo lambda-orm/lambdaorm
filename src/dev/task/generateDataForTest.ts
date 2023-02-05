@@ -1002,11 +1002,11 @@ export async function apply (stages: string[], callback: any) {
 			await stageImport('Source', stage)
 			await stageExport(stage)
 		}
-		// errors = errors + await writeQueryTest(stages)
-		// errors = errors + await writeNumericFunctionsTest(stages)
-		// errors = errors + await writeGroupByTest(stages)
-		// errors = errors + await writeIncludeTest(stages)
-		// errors = errors + await writeInsertsTest(stages)
+		errors = errors + await writeQueryTest(stages)
+		errors = errors + await writeNumericFunctionsTest(stages)
+		errors = errors + await writeGroupByTest(stages)
+		errors = errors + await writeIncludeTest(stages)
+		errors = errors + await writeInsertsTest(stages)
 		errors = errors + await writeUpdateTest(stages)
 
 		// errors = errors + await writeDeleteTest(stages)
@@ -1031,5 +1031,5 @@ export async function apply (stages: string[], callback: any) {
 	}
 	callback()
 }
-apply(['MySQL'], function () { console.log('end') })
+apply(['PostgreSQL'], function () { console.log('end') })
 // apply(['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })

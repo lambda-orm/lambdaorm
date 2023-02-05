@@ -225,16 +225,16 @@ test:
   - name: update 1
     data: a
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
           children: []
     errors: 0
     expression: >-
@@ -379,7 +379,7 @@ test:
       clause: update
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         id: 7
@@ -410,16 +410,16 @@ test:
   - name: update 2
     data: b
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
           children: []
     errors: 0
     expression: >-
@@ -556,7 +556,7 @@ test:
       clause: update
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         entity:
@@ -593,12 +593,12 @@ test:
   - name: update 3
     data: c
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
-          sentence: 'UPDATE Orders o SET ShipPostalCode = ? WHERE o.OrderID = ? '
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipPostalCode = $1 WHERE o.OrderID = $2 '
           children: []
     errors: 0
     expression: Orders.update(=>{postalCode:postalCode})
@@ -637,19 +637,19 @@ test:
       clause: update
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         postalCode: xxx
   - name: update 4
     data: b
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
           children: []
     errors: 0
     expression: Orders.update(p=>{name:entity.name}).filter(p=>(p.id==entity.id))
@@ -688,7 +688,7 @@ test:
       clause: update
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         entity:
@@ -725,20 +725,20 @@ test:
   - name: update 5
     data: b
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
           children:
             - entity: Orders.details
-              dialect: MySQL
-              source: MySQL
+              dialect: PostgreSQL
+              source: PostgreSQL
               sentence: >-
-                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
-                AND o1.ProductID = ?) 
+                UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
+                = $6 AND o1.ProductID = $7) 
               children: []
     errors: 0
     expression: >-
@@ -779,10 +779,6 @@ test:
             type: any
           - name: discount
             type: any
-          - name: orderId
-            type: integer
-          - name: productId
-            type: integer
     constraints:
       entity: Orders
       constraints: []
@@ -867,7 +863,7 @@ test:
       clause: update
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         entity:
@@ -904,19 +900,19 @@ test:
   - name: update 6
     data: b
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
           children:
             - entity: Orders.details
-              dialect: MySQL
-              source: MySQL
+              dialect: PostgreSQL
+              source: PostgreSQL
               sentence: >-
-                UPDATE `Order Details` o1 SET UnitPrice = ?,Quantity =
-                ?,Discount = ? WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
+                UPDATE "Order Details" o1 SET UnitPrice = $1,Quantity =
+                $2,Discount = $3 WHERE (o1.OrderID = $4 AND o1.ProductID = $5) 
               children: []
     errors: 0
     expression: >-
@@ -1021,7 +1017,7 @@ test:
       clause: update
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         entity:
@@ -1058,19 +1054,19 @@ test:
   - name: update 7
     data: b
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
-          sentence: 'UPDATE Orders o SET ShipName = ? WHERE o.OrderID = ? '
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'UPDATE Orders o SET ShipName = $1 WHERE o.OrderID = $2 '
           children:
             - entity: Orders.details
-              dialect: MySQL
-              source: MySQL
+              dialect: PostgreSQL
+              source: PostgreSQL
               sentence: >-
-                UPDATE `Order Details` o1 SET UnitPrice = o1.UnitPrice,ProductID
-                = o1.ProductID WHERE (o1.OrderID = ? AND o1.ProductID = ?) 
+                UPDATE "Order Details" o1 SET UnitPrice = o1.UnitPrice,ProductID
+                = o1.ProductID WHERE (o1.OrderID = $1 AND o1.ProductID = $2) 
               children: []
     errors: 0
     expression: >-
@@ -1159,7 +1155,7 @@ test:
       clause: update
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         entity:
@@ -1196,24 +1192,24 @@ test:
   - name: update 8
     data: a
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-            ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight = ?,ShipName
-            = ?,ShipAddress = ?,ShipCity = ?,ShipRegion = ?,ShipPostalCode =
-            ?,ShipCountry = ? WHERE o.OrderID = ? 
+            UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+            $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+            $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+            $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID = $14 
           children:
             - entity: Orders.details
-              dialect: MySQL
-              source: MySQL
+              dialect: PostgreSQL
+              source: PostgreSQL
               sentence: >-
-                UPDATE `Order Details` o1 SET OrderID = ?,ProductID =
-                ?,UnitPrice = ?,Quantity = ?,Discount = ? WHERE (o1.OrderID = ?
-                AND o1.ProductID = ?) 
+                UPDATE "Order Details" o1 SET OrderID = $1,ProductID =
+                $2,UnitPrice = $3,Quantity = $4,Discount = $5 WHERE (o1.OrderID
+                = $6 AND o1.ProductID = $7) 
               children: []
     errors: 0
     expression: >-
@@ -1302,10 +1298,6 @@ test:
             type: any
           - name: discount
             type: any
-          - name: orderId
-            type: integer
-          - name: productId
-            type: integer
     constraints:
       entity: Orders
       constraints:
@@ -1446,7 +1438,7 @@ test:
       clause: update
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         id: 7
@@ -1477,24 +1469,25 @@ test:
   - name: update 9
     data: d
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Customers
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            UPDATE Customers c SET CustomerID = ?,CompanyName = ?,ContactName =
-            ?,ContactTitle = ?,Address = ?,City = ?,Region = ?,PostalCode =
-            ?,Country = ? WHERE c.CustomerID = ? 
+            UPDATE Customers c SET CustomerID = $1,CompanyName = $2,ContactName
+            = $3,ContactTitle = $4,Address = $5,City = $6,Region = $7,PostalCode
+            = $8,Country = $9 WHERE c.CustomerID = $10 
           children:
             - entity: Orders
-              dialect: MySQL
-              source: MySQL
+              dialect: PostgreSQL
+              source: PostgreSQL
               sentence: >-
-                UPDATE Orders o SET CustomerID = ?,EmployeeID = ?,OrderDate =
-                ?,RequiredDate = ?,ShippedDate = ?,ShipVia = ?,Freight =
-                ?,ShipName = ?,ShipAddress = ?,ShipCity = ?,ShipRegion =
-                ?,ShipPostalCode = ?,ShipCountry = ? WHERE o.OrderID = ? 
+                UPDATE Orders o SET CustomerID = $1,EmployeeID = $2,OrderDate =
+                $3,RequiredDate = $4,ShippedDate = $5,ShipVia = $6,Freight =
+                $7,ShipName = $8,ShipAddress = $9,ShipCity = $10,ShipRegion =
+                $11,ShipPostalCode = $12,ShipCountry = $13 WHERE o.OrderID =
+                $14 
               children: []
     errors: 0
     expression: >-
@@ -1568,8 +1561,6 @@ test:
         type: any
       - name: country
         type: any
-      - name: id
-        type: string
       - name: orders
         type: Orders
         children:
@@ -1751,7 +1742,7 @@ test:
       clause: update
       alias: c
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       data:
         id: ALFKI

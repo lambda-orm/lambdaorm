@@ -9,21 +9,22 @@ data:
 test:
   - name: query 1
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
-            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
-            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
-            p.Discontinued AS discontinued FROM Products p  ORDER BY
+            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
             p.ProductName asc 
           children: []
     errors: 0
-    expression: Products.sort(p=>p.name)
+    expression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.name))
     normalizeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.name))
     model:
@@ -55,7 +56,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 14
+        col: 218
       name: select
       children: []
       type: any
@@ -88,7 +89,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - id: 17
         name: Alice Mutton
@@ -700,6 +701,16 @@ test:
         onOrder: 0
         reorderLevel: 0
         discontinued: true
+      - id: 61
+        name: Sirop d'rable
+        supplierId: 29
+        categoryId: 2
+        quantity: 24 - 500 ml bottles
+        price: 28.5
+        inStock: 113
+        onOrder: 0
+        reorderLevel: 25
+        discontinued: false
       - id: 20
         name: Sir Rodney's Marmalade
         supplierId: 8
@@ -719,16 +730,6 @@ test:
         inStock: 3
         onOrder: 40
         reorderLevel: 5
-        discontinued: false
-      - id: 61
-        name: Sirop d'rable
-        supplierId: 29
-        categoryId: 2
-        quantity: 24 - 500 ml bottles
-        price: 28.5
-        inStock: 113
-        onOrder: 0
-        reorderLevel: 25
         discontinued: false
       - id: 46
         name: Spegesild
@@ -862,21 +863,22 @@ test:
         discontinued: false
   - name: query 2
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
-            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
-            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
-            p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID
-            asc  LIMIT 0,1 
+            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
+            p.ProductID asc  OFFSET 0 LIMIT 1 
           children: []
     errors: 0
-    expression: Products.map(p=>p).sort(p=>p.id).page(1,1)
+    expression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)
     normalizeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)
     model:
@@ -908,7 +910,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 38
+        col: 237
       name: select
       children: []
       type: any
@@ -941,7 +943,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - id: 1
         name: Chai
@@ -955,21 +957,22 @@ test:
         discontinued: false
   - name: query 3
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
-            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
-            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
-            p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID
-            asc  LIMIT 0,1 
+            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
+            p.ProductID asc  OFFSET 0 LIMIT 1 
           children: []
     errors: 0
-    expression: Products.sort(p=>p.id).page(1,1)
+    expression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)
     normalizeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)
     model:
@@ -1001,7 +1004,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 28
+        col: 237
       name: select
       children: []
       type: any
@@ -1034,7 +1037,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - id: 1
         name: Chai
@@ -1049,21 +1052,22 @@ test:
   - name: query 4
     data: a
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
-            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
-            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
-            p.Discontinued AS discontinued FROM Products p  WHERE p.ProductID =
-            ? ORDER BY p.ProductID asc 
+            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+            p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID
+            = $1 ORDER BY p.ProductID asc 
           children: []
     errors: 0
-    expression: Products.filter(p=>(p.id==id)).map(p=>p).sort(p=>p.id)
+    expression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).filter(p=>(p.id==id)).sort(p=>asc(p.id))
     normalizeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).filter(p=>(p.id==id)).sort(p=>asc(p.id))
     model:
@@ -1097,7 +1101,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 46
+        col: 240
       name: select
       children: []
       type: any
@@ -1132,7 +1136,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - id: 1
         name: Chai
@@ -1147,21 +1151,22 @@ test:
   - name: query 5
     data: a
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
-            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
-            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
-            p.Discontinued AS discontinued FROM Products p  WHERE p.ProductID =
-            ? ORDER BY p.ProductID asc 
+            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+            p.Discontinued AS "discontinued" FROM Products p  WHERE p.ProductID
+            = $1 ORDER BY p.ProductID asc 
           children: []
     errors: 0
-    expression: Products.filter(p=>(p.id==id)).sort(p=>p.id)
+    expression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).filter(p=>(p.id==id)).sort(p=>asc(p.id))
     normalizeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).filter(p=>(p.id==id)).sort(p=>asc(p.id))
     model:
@@ -1195,7 +1200,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 36
+        col: 240
       name: select
       children: []
       type: any
@@ -1230,7 +1235,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - id: 1
         name: Chai
@@ -1245,17 +1250,17 @@ test:
   - name: query 6
     data: a
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT c.CategoryName AS category FROM Products p INNER JOIN
-            Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc 
+            SELECT c.CategoryName AS "category" FROM Products p INNER JOIN
+            Categories c ON c.CategoryID = p.CategoryID ORDER BY "category" asc 
           children: []
     errors: 0
-    expression: Products.map(p=>{category:p.category.name}).sort(p=>p.category)
+    expression: Products.map(p=>{category:p.category.name}).sort(p=>asc(p.category))
     normalizeExpression: Products.map(p=>{category:p.category.name}).sort(p=>asc(p.category))
     model:
       - name: category
@@ -1283,7 +1288,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - category: Beverages
       - category: Beverages
@@ -1365,19 +1370,19 @@ test:
   - name: query 7
     data: a
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.ProductName AS name, c.CategoryName AS category FROM
+            SELECT p.ProductName AS "name", c.CategoryName AS "category" FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-            ORDER BY category asc, p.ProductName asc 
+            ORDER BY "category" asc, p.ProductName asc 
           children: []
     errors: 0
     expression: >-
-      Products.map(p=>{name:p.name,category:p.category.name}).sort(p=>[p.category,p.name])
+      Products.map(p=>{name:p.name,category:p.category.name}).sort(p=>[asc(p.category),asc(p.name)])
     normalizeExpression: >-
       Products.map(p=>{name:p.name,category:p.category.name}).sort(p=>[asc(p.category),asc(p.name)])
     model:
@@ -1410,7 +1415,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - name: Chai
         category: Beverages
@@ -1568,20 +1573,20 @@ test:
         category: Seafood
   - name: query 8
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT c.CategoryName AS category, p.ProductName AS name,
-            p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+            SELECT c.CategoryName AS "category", p.ProductName AS "name",
+            p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
             ORDER BY p.ProductName asc 
           children: []
     errors: 0
     expression: >-
-      Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>p.name)
+      Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>asc(p.name))
     normalizeExpression: >-
       Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>asc(p.name))
     model:
@@ -1622,7 +1627,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - category: Meat/Poultry
         name: Alice Mutton
@@ -1868,6 +1873,10 @@ test:
         name: Singaporean Hokkien Fried Mee
         quantity: 32 - 1 kg pkgs.
         inStock: 26
+      - category: Condiments
+        name: Sirop d'rable
+        quantity: 24 - 500 ml bottles
+        inStock: 113
       - category: Confections
         name: Sir Rodney's Marmalade
         quantity: 30 gift boxes
@@ -1876,10 +1885,6 @@ test:
         name: Sir Rodney's Scones
         quantity: 24 pkgs. x 4 pieces
         inStock: 3
-      - category: Condiments
-        name: Sirop d'rable
-        quantity: 24 - 500 ml bottles
-        inStock: 113
       - category: Seafood
         name: Spegesild
         quantity: 4 - 450 g glasses
@@ -1934,21 +1939,21 @@ test:
         inStock: 36
   - name: query 9
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT c.CategoryName AS category, p.ProductName AS name,
-            p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+            SELECT c.CategoryName AS "category", p.ProductName AS "name",
+            p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-            WHERE p.Discontinued <> false ORDER BY category asc, p.ProductName
+            WHERE p.Discontinued <> false ORDER BY "category" asc, p.ProductName
             desc 
           children: []
     errors: 0
     expression: >-
-      Products.filter(p=>(p.discontinued!=false)).map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>[p.category,desc(p.name)])
+      Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).filter(p=>(p.discontinued!=false)).sort(p=>[asc(p.category),desc(p.name)])
     normalizeExpression: >-
       Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).filter(p=>(p.discontinued!=false)).sort(p=>[asc(p.category),desc(p.name)])
     model:
@@ -1989,7 +1994,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - category: Beverages
         name: Guaran Fantstica
@@ -2026,23 +2031,23 @@ test:
   - name: query 10
     data: b
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders.details
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT c.CategoryName AS category, p.ProductName AS product,
-            o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order
-            Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
+            SELECT c.CategoryName AS "category", p.ProductName AS "product",
+            o.UnitPrice AS "unitPrice", o.Quantity AS "quantity" FROM "Order
+            Details" o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN
             Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON
-            c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ?
-            AND o.UnitPrice > ?) ORDER BY category asc, product asc, o.UnitPrice
-            asc, o.Quantity asc 
+            c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN $1 AND $2
+            AND o.UnitPrice > $3) ORDER BY "category" asc, "product" asc,
+            o.UnitPrice asc, o.Quantity asc 
           children: []
     errors: 0
     expression: >-
-      Orders.details.filter(p=>(between(p.order.shippedDate,fromDate,toDate)&&(p.unitPrice>minValue))).map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).sort(p=>[p.category,p.product,p.unitPrice,p.quantity])
+      Orders.details.map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).filter(p=>(between(p.order.shippedDate,fromDate,toDate)&&(p.unitPrice>minValue))).sort(p=>[asc(p.category),asc(p.product),asc(p.unitPrice),asc(p.quantity)])
     normalizeExpression: >-
       Orders.details.map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).filter(p=>(between(p.order.shippedDate,fromDate,toDate)&&(p.unitPrice>minValue))).sort(p=>[asc(p.category),asc(p.product),asc(p.unitPrice),asc(p.quantity)])
     model:
@@ -2095,7 +2100,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - category: Beverages
         product: Chai
@@ -5351,114 +5356,22 @@ test:
         quantity: 60
   - name: query 11
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
-            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
-            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
-            p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID
-            asc  LIMIT 0,1 
+            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
+            p.ProductID asc  OFFSET 0 LIMIT 1 
           children: []
     errors: 0
-    expression: Products.sort(p=>p.id).page(1,1)
-    normalizeExpression: >-
-      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(id)).page(1,1)
-    model:
-      - name: id
-        type: integer
-      - name: name
-        type: string
-      - name: supplierId
-        type: integer
-      - name: categoryId
-        type: integer
-      - name: quantity
-        type: string
-      - name: price
-        type: decimal
-      - name: inStock
-        type: decimal
-      - name: onOrder
-        type: decimal
-      - name: reorderLevel
-        type: decimal
-      - name: discontinued
-        type: boolean
-    parameters: []
-    constraints:
-      entity: Products
-      constraints: []
-    metadata:
-      classtype: Sentence
-      pos:
-        ln: 0
-        col: 28
-      name: select
-      children: []
-      type: any
-      entity: Products
-      columns:
-        - name: id
-          type: integer
-        - name: name
-          type: string
-        - name: supplierId
-          type: integer
-        - name: categoryId
-          type: integer
-        - name: quantity
-          type: string
-        - name: price
-          type: decimal
-        - name: inStock
-          type: decimal
-        - name: onOrder
-          type: decimal
-        - name: reorderLevel
-          type: decimal
-        - name: discontinued
-          type: boolean
-      parameters: []
-      constraints: []
-      values: []
-      defaults: []
-      clause: select
-      alias: p
-    executions:
-      - stage: MySQL
-    result:
-      - id: 1
-        name: Chai
-        supplierId: 1
-        categoryId: 1
-        quantity: 10 boxes x 20 bags
-        price: 18
-        inStock: 39
-        onOrder: 0
-        reorderLevel: 10
-        discontinued: false
-  - name: query 12
-    sentences:
-      - stage: MySQL
-        info:
-          entity: Products
-          dialect: MySQL
-          source: MySQL
-          sentence: >-
-            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
-            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
-            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
-            p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID
-            asc  LIMIT 0,1 
-          children: []
-    errors: 0
-    expression: Products.first(p=>p)
+    expression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)
     normalizeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)
     model:
@@ -5490,7 +5403,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 15
+        col: 237
       name: select
       children: []
       type: any
@@ -5523,7 +5436,101 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
+    result:
+      - id: 1
+        name: Chai
+        supplierId: 1
+        categoryId: 1
+        quantity: 10 boxes x 20 bags
+        price: 18
+        inStock: 39
+        onOrder: 0
+        reorderLevel: 10
+        discontinued: false
+  - name: query 12
+    sentences:
+      - stage: PostgreSQL
+        info:
+          entity: Products
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
+            p.ProductID asc  OFFSET 0 LIMIT 1 
+          children: []
+    errors: 0
+    expression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)
+    normalizeExpression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)
+    model:
+      - name: id
+        type: integer
+      - name: name
+        type: string
+      - name: supplierId
+        type: integer
+      - name: categoryId
+        type: integer
+      - name: quantity
+        type: string
+      - name: price
+        type: decimal
+      - name: inStock
+        type: decimal
+      - name: onOrder
+        type: decimal
+      - name: reorderLevel
+        type: decimal
+      - name: discontinued
+        type: boolean
+    parameters: []
+    constraints:
+      entity: Products
+      constraints: []
+    metadata:
+      classtype: Sentence
+      pos:
+        ln: 0
+        col: 237
+      name: select
+      children: []
+      type: any
+      entity: Products
+      columns:
+        - name: id
+          type: integer
+        - name: name
+          type: string
+        - name: supplierId
+          type: integer
+        - name: categoryId
+          type: integer
+        - name: quantity
+          type: string
+        - name: price
+          type: decimal
+        - name: inStock
+          type: decimal
+        - name: onOrder
+          type: decimal
+        - name: reorderLevel
+          type: decimal
+        - name: discontinued
+          type: boolean
+      parameters: []
+      constraints: []
+      values: []
+      defaults: []
+      clause: select
+      alias: p
+    executions:
+      - stage: PostgreSQL
     result:
       - id: 1
         name: Chai
@@ -5537,21 +5544,22 @@ test:
         discontinued: false
   - name: query 13
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS
-            supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS
-            quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock,
-            p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel,
-            p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID
-            desc  LIMIT 0,1 
+            SELECT p.ProductID AS "id", p.ProductName AS "name", p.SupplierID AS
+            "supplierId", p.CategoryID AS "categoryId", p.QuantityPerUnit AS
+            "quantity", p.UnitPrice AS "price", p.UnitsInStock AS "inStock",
+            p.UnitsOnOrder AS "onOrder", p.ReorderLevel AS "reorderLevel",
+            p.Discontinued AS "discontinued" FROM Products p  ORDER BY
+            p.ProductID desc  OFFSET 0 LIMIT 1 
           children: []
     errors: 0
-    expression: Products.last(p=>p)
+    expression: >-
+      Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>desc(p.id)).page(1,1)
     normalizeExpression: >-
       Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>desc(p.id)).page(1,1)
     model:
@@ -5583,7 +5591,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 14
+        col: 238
       name: select
       children: []
       type: any
@@ -5616,7 +5624,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - id: 77
         name: Original Frankfurter grne Soe
@@ -5630,20 +5638,20 @@ test:
         discontinued: false
   - name: query 14
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT c.CategoryName AS category, p.ProductName AS name,
-            p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM
+            SELECT c.CategoryName AS "category", p.ProductName AS "name",
+            p.QuantityPerUnit AS "quantity", p.UnitsInStock AS "inStock" FROM
             Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID
-            ORDER BY category asc  LIMIT 0,1 
+            ORDER BY "category" asc  OFFSET 0 LIMIT 1 
           children: []
     errors: 0
     expression: >-
-      Products.first(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock})
+      Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>asc(p.category)).page(1,1)
     normalizeExpression: >-
       Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>asc(p.category)).page(1,1)
     model:
@@ -5663,7 +5671,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 15
+        col: 124
       name: select
       children: []
       type: any
@@ -5684,7 +5692,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - category: Beverages
         name: Chai
@@ -5692,17 +5700,18 @@ test:
         inStock: 39
   - name: query 15
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <>
-            false ORDER BY p.ProductID desc  LIMIT 0,1 
+            SELECT p.ProductID AS "id" FROM Products p  WHERE p.Discontinued <>
+            false ORDER BY p.ProductID desc  OFFSET 0 LIMIT 1 
           children: []
     errors: 0
-    expression: Products.filter(p=>(p.discontinued!=false)).last(p=>p.id)
+    expression: >-
+      Products.map(p=>{id:p.id}).filter(p=>(p.discontinued!=false)).sort(p=>desc(p.id)).page(1,1)
     normalizeExpression: >-
       Products.map(p=>{id:p.id}).filter(p=>(p.discontinued!=false)).sort(p=>desc(p.id)).page(1,1)
     model:
@@ -5716,7 +5725,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 49
+        col: 87
       name: select
       children: []
       type: any
@@ -5731,26 +5740,27 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - id: 53
   - name: query 16
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT DISTINCT p.ProductID AS id, p.ProductName AS name,
-            p.SupplierID AS supplierId, p.CategoryID AS categoryId,
-            p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock
-            AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS
-            reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER
-            BY p.ProductID asc 
+            SELECT DISTINCT p.ProductID AS "id", p.ProductName AS "name",
+            p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
+            p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
+            p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
+            p.ReorderLevel AS "reorderLevel", p.Discontinued AS "discontinued"
+            FROM Products p  ORDER BY p.ProductID asc 
           children: []
     errors: 0
-    expression: Products.distinct(p=>p).sort(p=>p.id)
+    expression: >-
+      Products.map(p=>distinct({id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})).sort(p=>asc(p.id))
     normalizeExpression: >-
       Products.map(p=>distinct({id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})).sort(p=>asc(p.id))
     model:
@@ -5782,7 +5792,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 29
+        col: 228
       name: select
       children: []
       type: any
@@ -5815,7 +5825,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - id: 1
         name: Chai
@@ -6590,18 +6600,19 @@ test:
   - name: query 17
     data: a
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT DISTINCT c.CategoryName AS category FROM Products p INNER
-            JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category
+            SELECT DISTINCT c.CategoryName AS "category" FROM Products p INNER
+            JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY "category"
             asc 
           children: []
     errors: 0
-    expression: Products.distinct(p=>{category:p.category.name}).sort(p=>p.category)
+    expression: >-
+      Products.map(p=>distinct({category:p.category.name})).sort(p=>asc(p.category))
     normalizeExpression: >-
       Products.map(p=>distinct({category:p.category.name})).sort(p=>asc(p.category))
     model:
@@ -6615,7 +6626,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 54
+        col: 59
       name: select
       children: []
       type: any
@@ -6630,7 +6641,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - category: Beverages
       - category: Condiments
@@ -6643,19 +6654,19 @@ test:
   - name: query 18
     data: a
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS
-            category FROM Products p INNER JOIN Categories c ON c.CategoryID =
-            p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc 
+            SELECT DISTINCT p.QuantityPerUnit AS "quantity", c.CategoryName AS
+            "category" FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID ORDER BY p.QuantityPerUnit asc, "category" asc 
           children: []
     errors: 0
     expression: >-
-      Products.distinct(p=>{quantity:p.quantity,category:p.category.name}).sort(p=>[p.quantity,p.category])
+      Products.map(p=>distinct({quantity:p.quantity,category:p.category.name})).sort(p=>[asc(p.quantity),asc(p.category)])
     normalizeExpression: >-
       Products.map(p=>distinct({quantity:p.quantity,category:p.category.name})).sort(p=>[asc(p.quantity),asc(p.category)])
     model:
@@ -6671,7 +6682,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 74
+        col: 79
       name: select
       children: []
       type: any
@@ -6688,10 +6699,12 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
-      - quantity: 1 kg pkg.
-        category: Dairy Products
+      - quantity: 100 - 100 g pieces
+        category: Confections
+      - quantity: 100 - 250 g bags
+        category: Confections
       - quantity: 10 - 200 g glasses
         category: Seafood
       - quantity: 10 - 4 oz boxes
@@ -6708,12 +6721,6 @@ test:
         category: Dairy Products
       - quantity: 10 pkgs.
         category: Confections
-      - quantity: 100 - 100 g pieces
-        category: Confections
-      - quantity: 100 - 250 g bags
-        category: Confections
-      - quantity: 12 - 1 lb pkgs.
-        category: Produce
       - quantity: 12 - 100 g bars
         category: Confections
       - quantity: 12 - 100 g pkgs
@@ -6722,6 +6729,8 @@ test:
         category: Seafood
       - quantity: 12 - 12 oz jars
         category: Condiments
+      - quantity: 12 - 1 lb pkgs.
+        category: Produce
       - quantity: 12 - 200 ml jars
         category: Seafood
       - quantity: 12 - 250 g pkgs.
@@ -6752,9 +6761,9 @@ test:
         category: Meat/Poultry
       - quantity: 18 - 500 g pkgs.
         category: Meat/Poultry
+      - quantity: 1 kg pkg.
+        category: Dairy Products
       - quantity: 1k pkg.
-        category: Seafood
-      - quantity: 2 kg box
         category: Seafood
       - quantity: 20 - 1 kg tins
         category: Meat/Poultry
@@ -6782,12 +6791,12 @@ test:
         category: Beverages
       - quantity: 24 - 4 oz tins
         category: Seafood
-      - quantity: 24 - 50 g pkgs.
-        category: Confections
       - quantity: 24 - 500 g pkgs.
         category: Grains/Cereals
       - quantity: 24 - 500 ml bottles
         category: Condiments
+      - quantity: 24 - 50 g pkgs.
+        category: Confections
       - quantity: 24 - 8 oz jars
         category: Condiments
       - quantity: 24 boxes x 2 pies
@@ -6798,6 +6807,8 @@ test:
         category: Confections
       - quantity: 25 - 825 g cans
         category: Produce
+      - quantity: 2 kg box
+        category: Seafood
       - quantity: 30 gift boxes
         category: Confections
       - quantity: 32 - 1 kg pkgs.
@@ -6808,28 +6819,28 @@ test:
         category: Condiments
       - quantity: 36 boxes
         category: Condiments
-      - quantity: 4 - 450 g glasses
-        category: Seafood
       - quantity: 40 - 100 g pkgs.
         category: Produce
+      - quantity: 4 - 450 g glasses
+        category: Seafood
       - quantity: 48 - 6 oz jars
         category: Condiments
       - quantity: 48 pieces
         category: Meat/Poultry
       - quantity: 48 pies
         category: Confections
-      - quantity: 5 kg pkg.
-        category: Dairy Products
-      - quantity: 5 kg pkg.
-        category: Produce
-      - quantity: 50 - 300 g pkgs.
-        category: Produce
-      - quantity: 50 bags x 30 sausgs.
-        category: Meat/Poultry
       - quantity: 500 g
         category: Dairy Products
       - quantity: 500 ml
         category: Beverages
+      - quantity: 50 - 300 g pkgs.
+        category: Produce
+      - quantity: 50 bags x 30 sausgs.
+        category: Meat/Poultry
+      - quantity: 5 kg pkg.
+        category: Dairy Products
+      - quantity: 5 kg pkg.
+        category: Produce
       - quantity: 750 cc per bottle
         category: Beverages
 errors: 0

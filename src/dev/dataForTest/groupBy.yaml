@@ -5,12 +5,12 @@ data:
 test:
   - name: groupBy 1
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
-          sentence: 'SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p  '
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{maxPrice:max(p.price)})
@@ -41,17 +41,17 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - maxPrice: 263.5
   - name: groupBy 2
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
-          sentence: 'SELECT MIN(p.UnitPrice) AS minPrice FROM Products p  '
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{minPrice:min(p.price)})
@@ -82,17 +82,17 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - minPrice: 2.5
   - name: groupBy 3
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
-          sentence: 'SELECT SUM(p.UnitPrice) AS total FROM Products p  '
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{total:sum(p.price)})
@@ -123,17 +123,19 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - total: 2222.71
   - name: groupBy 4
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
-          sentence: 'SELECT ROUND(AVG(p.UnitPrice),4) AS average FROM Products p  '
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            SELECT ROUND(CAST(AVG(p.UnitPrice) AS DECIMAL),4) AS "average" FROM
+            Products p  
           children: []
     errors: 0
     expression: Products.map(p=>{average:round(avg(p.price),4)})
@@ -164,17 +166,17 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - average: 28.8664
   - name: groupBy 5
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
-          sentence: 'SELECT COUNT(1) AS count FROM Products p  '
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
           children: []
     errors: 0
     expression: Products.map(p=>{count:count(1)})
@@ -205,19 +207,19 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - count: 77
   - name: groupBy 6
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
-            FROM Products p  GROUP BY p.CategoryID 
+            SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p  GROUP BY p.CategoryID 
           children: []
     errors: 0
     expression: Products.map(p=>{category:p.categoryId,largestPrice:max(p.price)})
@@ -252,35 +254,35 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
-      - category: 1
-        largestPrice: 263.5
-      - category: 2
-        largestPrice: 43.9
       - category: 3
         largestPrice: 81
-      - category: 4
-        largestPrice: 55
       - category: 5
         largestPrice: 38
+      - category: 4
+        largestPrice: 55
       - category: 6
         largestPrice: 123.79
+      - category: 2
+        largestPrice: 43.9
       - category: 7
         largestPrice: 53
+      - category: 1
+        largestPrice: 263.5
       - category: 8
         largestPrice: 62.5
   - name: groupBy 7
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
-            FROM Products p INNER JOIN Categories c ON c.CategoryID =
-            p.CategoryID GROUP BY c.CategoryName 
+            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p INNER JOIN Categories c ON
+            c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
           children: []
     errors: 0
     expression: Products.map(p=>{category:p.category.name,largestPrice:max(p.price)})
@@ -315,39 +317,40 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
-      - category: Beverages
-        largestPrice: 263.5
-      - category: Condiments
-        largestPrice: 43.9
-      - category: Confections
-        largestPrice: 81
-      - category: Dairy Products
-        largestPrice: 55
       - category: Grains/Cereals
         largestPrice: 38
-      - category: Meat/Poultry
-        largestPrice: 123.79
-      - category: Produce
-        largestPrice: 53
+      - category: Beverages
+        largestPrice: 263.5
+      - category: Dairy Products
+        largestPrice: 55
       - category: Seafood
         largestPrice: 62.5
+      - category: Produce
+        largestPrice: 53
+      - category: Condiments
+        largestPrice: 43.9
+      - category: Meat/Poultry
+        largestPrice: 123.79
+      - category: Confections
+        largestPrice: 81
   - name: groupBy 8
     data: a
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT p.ProductName AS name, p.UnitPrice AS source,
-            ABS(p.UnitPrice) AS result FROM Products p  WHERE p.ProductID = ? 
+            SELECT p.ProductName AS "name", p.UnitPrice AS "source",
+            ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID =
+            $1 
           children: []
     errors: 0
     expression: >-
-      Products.filter(p=>(p.id==id)).map(p=>{name:p.name,source:p.price,result:abs(p.price)})
+      Products.map(p=>{name:p.name,source:p.price,result:abs(p.price)}).filter(p=>(p.id==id))
     normalizeExpression: >-
       Products.map(p=>{name:p.name,source:p.price,result:abs(p.price)}).filter(p=>(p.id==id))
     model:
@@ -367,7 +370,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 35
+        col: 73
       name: select
       children: []
       type: any
@@ -388,26 +391,27 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - name: Chai
         source: 18
         result: 18
   - name: groupBy 9
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Products
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
-            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
-            FROM Products p INNER JOIN Categories c ON c.CategoryID =
-            p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
+            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p INNER JOIN Categories c ON
+            c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+            MAX(p.UnitPrice) > 100 
           children: []
     errors: 0
     expression: >-
-      Products.having(p=>(max(p.price)>100)).map(p=>{category:p.category.name,largestPrice:max(p.price)})
+      Products.map(p=>{category:p.category.name,largestPrice:max(p.price)}).having(p=>(max(p.price)>100))
     normalizeExpression: >-
       Products.map(p=>{category:p.category.name,largestPrice:max(p.price)}).having(p=>(max(p.price)>100))
     model:
@@ -423,7 +427,7 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 43
+        col: 77
       name: select
       children: []
       type: any
@@ -440,7 +444,7 @@ test:
       clause: select
       alias: p
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - category: Beverages
         largestPrice: 263.5
@@ -448,18 +452,19 @@ test:
         largestPrice: 123.79
   - name: query 10
     sentences:
-      - stage: MySQL
+      - stage: PostgreSQL
         info:
           entity: Orders.details
-          dialect: MySQL
-          source: MySQL
+          dialect: PostgreSQL
+          source: PostgreSQL
           sentence: >-
             SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100)))
-            * 100)) AS subTotal FROM `Order Details` o  ORDER BY subTotal asc 
+            * 100)) AS "subTotal" FROM "Order Details" o  ORDER BY "subTotal"
+            asc 
           children: []
     errors: 0
     expression: >-
-      Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>p.subTotal)
+      Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>asc(p.subTotal))
     normalizeExpression: >-
       Orders.details.map(p=>{subTotal:sum((((p.unitPrice*p.quantity)*(1-(p.discount/100)))*100))}).sort(p=>asc(p.subTotal))
     model:
@@ -488,7 +493,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: MySQL
+      - stage: PostgreSQL
     result:
       - subTotal: 135445859
 errors: 0

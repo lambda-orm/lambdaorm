@@ -976,14 +976,6 @@
                 {
                   "name": "discount",
                   "type": "decimal"
-                },
-                {
-                  "name": "orderId",
-                  "type": "integer"
-                },
-                {
-                  "name": "productId",
-                  "type": "integer"
                 }
               ]
             }
@@ -1137,14 +1129,6 @@
                 {
                   "name": "discount",
                   "type": "decimal"
-                },
-                {
-                  "name": "orderId",
-                  "type": "integer"
-                },
-                {
-                  "name": "productId",
-                  "type": "integer"
                 }
               ]
             }
@@ -1187,10 +1171,6 @@
             },
             {
               "name": "country",
-              "type": "string"
-            },
-            {
-              "name": "id",
               "type": "string"
             },
             {
@@ -1276,14 +1256,6 @@
                     {
                       "name": "discount",
                       "type": "decimal"
-                    },
-                    {
-                      "name": "orderId",
-                      "type": "integer"
-                    },
-                    {
-                      "name": "productId",
-                      "type": "integer"
                     }
                   ]
                 }
