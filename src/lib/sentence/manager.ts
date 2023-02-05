@@ -1,7 +1,7 @@
 
 import { MetadataParameter,SintaxisError, MetadataConstraint, MetadataModel, Metadata, source, Sentence, SentenceInfo, ObservableAction } from '../contract'
 import { SchemaManager, Routing, ViewConfig, helper } from '../manager'
-import { IExpressions, Type, OperandType } from '3xpr'
+import { IExpressions, Type, Operand, OperandType } from '3xpr'
 import { MemoryCache, ICache } from 'h3lp'
 import { SentenceCompleter, SentenceBuilder, SentenceSerializer, SentenceNormalizer, SentenceHelper } from '.'
 
@@ -10,7 +10,8 @@ export class SentenceManager {
 	private schema: SchemaManager
 	private routing: Routing
 	private completer: SentenceCompleter
-	private cache: ICache<string, Sentence>
+	private operandCache: ICache<number, Operand>
+	private sentenceCache: ICache<string, Sentence>
 	private expressions: IExpressions
 	private serializer:SentenceSerializer
 	private normalizer: SentenceNormalizer
@@ -23,10 +24,10 @@ export class SentenceManager {
 		this.helper = new SentenceHelper(this.schema.model)
 		this.builder = new SentenceBuilder(schema, expressions, this.helper)
 		this.completer = new SentenceCompleter(expressions)
-		this.cache = new MemoryCache<string, Sentence>()
+		this.operandCache = new MemoryCache<number, Operand>()
+		this.sentenceCache = new MemoryCache<string, Sentence>()
 		this.serializer = new SentenceSerializer()
-		this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)
-		
+		this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)		
 	}
 
 		/**
@@ -62,9 +63,8 @@ export class SentenceManager {
 
 	public normalize (expression: string): string {
 		try {
-			const operand = this.expressions.build(expression)
-			const normalized = this.normalizer.normalize(operand)
-			const result = this.helper.toExpression(normalized)
+			const operand = this.toOperand(expression)
+			const result = this.helper.toExpression(operand)
 			return result
 		} catch (error: any) {
 			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
@@ -77,7 +77,7 @@ export class SentenceManager {
 	 * @returns Model of expression
 	 */
 	public model (expression: string): MetadataModel[] {
-		const sentence = this.builder.build(expression)
+		const sentence = this.toSentence(expression)
 		return this.modelFromSentence(sentence)
 	}
 
@@ -87,7 +87,7 @@ export class SentenceManager {
 	 * @returns constraints
 	 */
 	public constraints (expression: string): MetadataConstraint {
-		const sentence = this.builder.build(expression)
+		const sentence = this.toSentence(expression)
 		return this.constraintsFromSentence(sentence)
 	}
 
@@ -97,7 +97,7 @@ export class SentenceManager {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): MetadataParameter[] {
-		const sentence = this.builder.build(expression)
+		const sentence = this.toSentence(expression)
 		return this.parametersFromSentence(sentence)
 	}
 
@@ -107,20 +107,20 @@ export class SentenceManager {
 	 * @returns metadata of expression
 	 */
 	public metadata (expression: string): Metadata {
-		const sentence = this.builder.build(expression)
+		const sentence = this.toSentence(expression)
 		return this.metadataFromSentence(sentence)
 	}
 
 	public create (expression: string, view: ViewConfig, stage:string): Sentence {
 		const expressionKey = helper.utils.hashCode(expression)
 		const key = `${expressionKey}-${stage}-${view.name}`
-		const value = this.cache.get(key)
+		const value = this.sentenceCache.get(key)
 		if (value) {
 			return value
 		}
-		const sentence = this.builder.build(expression)		
+		const sentence = this.toSentence(expression)	
 		const completed = this.complete(sentence, view, stage)
-		this.cache.set(key, completed)
+		this.sentenceCache.set(key, completed)
 		return completed
 	}
 
@@ -128,6 +128,24 @@ export class SentenceManager {
 		const sentenceInfo: SentenceInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
 		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
 		return this.schema.source.get(dataSourceName)
+	}
+
+	private toOperand(expression: string): Operand {
+		const key = helper.utils.hashCode(expression)
+		const value = this.operandCache.get(key)
+		if (value) {
+			return value
+		}
+		const operand = this.expressions.build(expression)
+		const normalized = this.normalizer.normalize(operand)
+		this.operandCache.set(key, normalized)
+		return normalized	
+	}
+
+	private toSentence(expression: string): Sentence{
+		const operand = this.toOperand(expression)
+		const sentence = this.builder.build(operand)
+		return sentence
 	}
 
 	private metadataFromSentence (sentence: Sentence): Metadata {

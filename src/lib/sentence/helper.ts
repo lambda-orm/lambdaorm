@@ -210,7 +210,8 @@ export class SentenceHelper {
 	}
 
 	private loadParameters (operand: Operand, parameters: Parameter[]) {
-		if (operand.type === OperandType.Var && !(operand instanceof Field) && parameters.find(p=> p.name === operand.name ) === undefined) {
+		// if (operand.type === OperandType.Var && !(operand instanceof Field) && parameters.find(p=> p.name === operand.name ) === undefined) {
+		if (operand.type === OperandType.Var && !(operand instanceof Field)) {
 			parameters.push({ name: operand.name, type: Type.toString(operand.returnType) })
 		}
 		for (const child of operand.children) {

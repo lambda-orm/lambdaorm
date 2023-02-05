@@ -2,10 +2,9 @@
 
 import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity } from '../contract'
 import { ModelConfig, SchemaManager } from '../manager'
-import { Operand, Parameter, OperandType, Type, IExpressions, Position, helper, ITypeManager } from '3xpr'
-import { MemoryCache, ICache } from 'h3lp'
+import { Operand, Parameter, OperandType, Type, IExpressions, Position, ITypeManager } from '3xpr'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../contract/operands'
-import { SentenceNormalizer, SentenceTypeManager, SentenceHelper } from '.'
+import { SentenceTypeManager, SentenceHelper } from '.'
 
 class EntityContext {
 	// eslint-disable-next-line no-use-before-define
@@ -209,10 +208,10 @@ export class SentenceBuilder {
 	private typeManager: ITypeManager
 	private solveBehaviors: SentenceSolveBehaviors
 	private solveConstraints : SentenceSolveConstraints
-	private normalizer: SentenceNormalizer
+	// private normalizer: SentenceNormalizer
 	private expressions: IExpressions
 	private helper:SentenceHelper
-	private cache: ICache<string, Sentence>
+	// private cache: ICache<string, Sentence>
 
 	constructor (schema: SchemaManager, expressions: IExpressions, sentenceHelper:SentenceHelper) {
 		this.schema = schema
@@ -221,20 +220,14 @@ export class SentenceBuilder {
 		this.typeManager = new SentenceTypeManager(this.schema.model, expressions.model)
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, this.helper, expressions)
-		this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)
-		this.cache = new MemoryCache<string, Sentence>()
+		// this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)
+		// this.cache = new MemoryCache<string, Sentence>()
 	}
 
-	public build (expression: string): Sentence {
-		const key = helper.utils.hashCode(expression)
-		const value = this.cache.get(key.toString())
-		if (value) {
-			return value
-		}
-		const operand = this.expressions.build(expression)
-		const normalized = this.normalizer.normalize(operand)
-		const sentence = this.createSentence(normalized, new ExpressionContext(new EntityContext())) as Sentence
-		this.cache.set(key.toString(), sentence)
+	public build (operand: Operand): Sentence {
+		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter		
+		const cloned = this.expressions.clone(operand)
+		const sentence = this.createSentence(cloned, new ExpressionContext(new EntityContext())) as Sentence		
 		return sentence
 	}
 
