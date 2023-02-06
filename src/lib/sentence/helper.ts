@@ -49,7 +49,7 @@ export class SentenceHelper {
 		}
 		if (clauses.include) {
 			const body = clauses.include.children[2]
-			if (body.type === 'array') {
+			if (Type.isList(body.type as string)) {
 				const includes:string[] = []
 				for (const child of body.children) {
 					const include = this.toExpression(child)

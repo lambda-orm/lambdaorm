@@ -3,7 +3,7 @@ import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data } from '../../contract'
 import { MappingConfig, helper } from '../../manager'
 import { Dialect } from '../../language'
-import { Parameter } from '3xpr'
+import { Parameter, Type, Kind } from '3xpr'
 
 // https://node-postgres.com/features/connecting
 
@@ -119,9 +119,9 @@ export class PostgreSQLConnection extends Connection {
 			value = 'null'
 		} else {
 			switch (parameter.type) {
-			case 'boolean':
+			case Kind.boolean:
 				value = value ? 'true' : 'false'; break
-			case 'string':
+			case Kind.string:
 				if (value.includes('\'')) {
 					// value = helper.escape(value)
 					value = `'${helper.str.replace(value, '\'', '\'\'')}'`
@@ -130,13 +130,13 @@ export class PostgreSQLConnection extends Connection {
 					value = `'${value}'`
 				}
 				break
-			case 'dateTime':
+			case Kind.dateTime:
 				value = helper.query.escape(this.writeDateTime(value, mapping, dialect))
 				break
-			case 'date':
+			case Kind.date:
 				value = helper.query.escape(this.writeDate(value, mapping, dialect))
 				break
-			case 'time':
+			case Kind.time:
 				value = helper.query.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
@@ -188,7 +188,7 @@ export class PostgreSQLConnection extends Connection {
 
 		for (let i = 0; i < params.length; i++) {
 			const param = params[i]
-			if (param.type === 'array' || (param.type === 'any' && Array.isArray(param.value))) {
+			if (Type.isList(param.type as string)  || (param.type === Kind.any && Array.isArray(param.value))) {
 				// https://stackoverflow.com/questions/10720420/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
 				// https://www.it-swarm-es.com/es/node.js/node-postgres-como-ejecutar-la-consulta-where-col-lista-de-valores-dinamicos/1066948040/
 				// https://www.postgresql.org/docs/9.2/functions-array.html
@@ -203,12 +203,12 @@ export class PostgreSQLConnection extends Connection {
 				}
 				const type = typeof param.value[0]
 				switch (type) {
-				case 'string':
+				case Kind.string:
 					sql = helper.str.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
 					values.push(param.value)
 					break
 				case 'bigint':
-				case 'number':
+				case Kind.number:
 					sql = helper.str.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
 					values.push(param.value)
 					break

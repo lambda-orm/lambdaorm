@@ -226,7 +226,7 @@ export class SentenceTypeManager extends TypeManager {
 // const keyVal = obj.children[p] as KeyValue
 // const entityName = operand.name
 // const property = this.modelConfig.getProperty(entityName, keyVal.name)
-// if (keyVal.children[0].type === 'any') {
+// if (keyVal.children[0].type === Kind.any) {
 // keyVal.children[0].type = property.type
 // }
 // }
@@ -240,7 +240,7 @@ export class SentenceTypeManager extends TypeManager {
 // ? this.modelManager.getOperator(operand.name, operand.children.length)
 // : this.modelManager.getFunction(operand.name)
 
-// if (!['T', 'T[]', 'any', 'any[]'].includes(metadata.return) && operand.type === 'any') {
+// if (!['T', 'T[]', Kind.any, 'any[]'].includes(metadata.return) && operand.type === Kind.any) {
 // operand.type = metadata.return
 // }
 
@@ -249,7 +249,7 @@ export class SentenceTypeManager extends TypeManager {
 // for (let i = 0; i < metadata.params.length; i++) {
 // const param = metadata.params[i]
 // const child = operand.children[i]
-// if (['T', 'T[]', 'any', 'any[]'].includes(param.type) && child.type === 'any') {
+// if (['T', 'T[]', Kind.any, 'any[]'].includes(param.type) && child.type === Kind.any) {
 // // in case the parameter has a defined type and the child does not, assign the type of the parameter to the child
 // child.type = param.type
 // }
@@ -258,7 +258,7 @@ export class SentenceTypeManager extends TypeManager {
 
 // const templateType = this.getTemplateType(operand, metadata)
 // // in the case that it has been possible to solve T
-// if (metadata.return === 'T' && operand.type === 'any' && (templateType !== undefined && templateType !== 'any')) {
+// if (metadata.return === 'T' && operand.type === Kind.any && (templateType !== undefined && templateType !== Kind.any)) {
 // // in case the operand is T assigns the type corresponding to the operand
 // operand.type = templateType
 
@@ -269,7 +269,7 @@ export class SentenceTypeManager extends TypeManager {
 // for (let i = 0; i < metadata.params.length; i++) {
 // const param = metadata.params[i]
 // const child = operand.children[i]
-// if (param.type === 'T' && child.type === 'any') {
+// if (param.type === 'T' && child.type === Kind.any) {
 // child.type = templateType
 // }
 // }
@@ -284,8 +284,8 @@ export class SentenceTypeManager extends TypeManager {
 // : this.modelManager.getFunction(operand.name)
 // const templateType = this.getTemplateType(operand, metadata)
 // // in the case that it has been possible to solve T
-// if (templateType !== undefined && templateType !== 'any') {
-// if (metadata.return === 'T' && operand.type === 'any') {
+// if (templateType !== undefined && templateType !== Kind.any) {
+// if (metadata.return === 'T' && operand.type === Kind.any) {
 // // in case the operand is T assigns the type corresponding to the operand
 // operand.type = templateType
 // }
@@ -293,7 +293,7 @@ export class SentenceTypeManager extends TypeManager {
 // for (let i = 0; i < metadata.params.length; i++) {
 // const param = metadata.params[i]
 // const child = operand.children[i]
-// if (param.type === 'T' && (child.type === 'any' || child.type === 'T')) {
+// if (param.type === 'T' && (child.type === Kind.any || child.type === 'T')) {
 // child.type = templateType
 // }
 // }
@@ -319,7 +319,7 @@ export class SentenceTypeManager extends TypeManager {
 // for (let i = 0; i < metadata.params.length; i++) {
 // const param = metadata.params[i]
 // const child = operand.children[i]
-// if (param.type === 'T' && child.type !== 'any') {
+// if (param.type === 'T' && child.type !== Kind.any) {
 // // in the case that the parameter is T and the child has a defined type, it determines that T is the type of the child
 // return child.type
 // }
@@ -333,7 +333,7 @@ export class SentenceTypeManager extends TypeManager {
 // // in case the parameter is T and the child has no defined type, try to resolve the child
 // // if successful, it determines that T is the type of child
 // const childType = this.solveTypes(child)
-// if (childType !== 'any') {
+// if (childType !== Kind.any) {
 // return childType
 // } else {
 // unsolvedTemplateType = true
@@ -341,7 +341,7 @@ export class SentenceTypeManager extends TypeManager {
 // }
 // }
 // if (unsolvedTemplateType) {
-// return 'any'
+// return Kind.any
 // } else {
 // return undefined
 // }

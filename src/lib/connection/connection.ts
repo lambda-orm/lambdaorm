@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Query, Data, MethodNotImplemented } from '../contract'
-import { Parameter } from '3xpr'
+import { Parameter, Kind } from '3xpr'
 import { ConnectionConfig } from './connectionConfig'
 import { MappingConfig, helper } from '../manager'
 import { Dialect } from '../language'
@@ -36,16 +36,16 @@ export abstract class Connection {
 				let value = item[parameter.name]
 				if (value) {
 					switch (parameter.type) {
-					case 'dateTime':
+					case Kind.dateTime:
 						value = this.writeDateTime(value, mapping, dialect)
 						break
-					case 'date':
+					case Kind.date:
 						value = this.writeDate(value, mapping, dialect)
 						break
-					case 'time':
+					case Kind.time:
 						value = this.writeTime(value, mapping, dialect)
 						break
-					case 'any':
+					case Kind.any:
 						if(helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)){
 							value = this.writeDateTime(value, mapping, dialect)
 							break
@@ -71,16 +71,16 @@ export abstract class Connection {
 			let value = data.get(parameter.name)
 			if (value) {
 				switch (parameter.type) {
-				case 'dateTime':
+				case Kind.dateTime:
 					value = this.writeDateTime(value, mapping, dialect)
 					break
-				case 'date':
+				case Kind.date:
 					value = this.writeDate(value, mapping, dialect)
 					break
-				case 'time':
+				case Kind.time:
 					value = this.writeTime(value, mapping, dialect)
 					break
-				case 'any':
+				case Kind.any:
 					if(helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)){
 						value = this.writeDateTime(value, mapping, dialect)
 						break

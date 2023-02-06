@@ -205,8 +205,8 @@ export class OracleConnection extends Connection {
 		let sql = query.sentence
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		for (const param of params) {
-			if (param.type !== 'array' && !(param.type === 'any' && Array.isArray(param.value))) {
-				if (param.type === 'dateTime' || param.type === 'date' || param.type === 'time') {
+			if (!Type.isList(param.type as string) && !(param.type === Kind.any && Array.isArray(param.value))) {
+				if (param.type === Kind.dateTime || param.type === Kind.date || param.type === Kind.time) {
 					values[param.name] = new Date(param.value)
 				} else {
 					values[param.name] = param.value
@@ -216,7 +216,7 @@ export class OracleConnection extends Connection {
 			// if array
 			if (param.value.length > 0) {
 				const type = typeof param.value[0]
-				if (type === 'string') {
+				if (type === Kind.string) {
 					const list:string[] = []
 					for (const _item of param.value) {
 						let item = _item
@@ -302,7 +302,7 @@ export class OracleConnection extends Connection {
 		case Kind.boolean:
 			return value ? 'Y' : 'N'
 		case Kind.string:
-			return typeof value === 'string' || value === null ? value : value.toString()
+			return typeof value === Kind.string || value === null ? value : value.toString()
 		case Kind.dateTime:
 		case Kind.date:
 		case Kind.time:

@@ -5,6 +5,7 @@ import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data } from '../../contract'
 import { MappingConfig } from '../../manager'
 import { Dialect } from '../../language'
+import {Type, Kind } from '3xpr'
 
 const DECIMAL = 0
 const TINY = 1
@@ -142,8 +143,8 @@ export class MySqlConnection extends Connection {
 		// for this reason query is being used in this case.
 		// see how this case can be resolved to always use execute.
 		const params = this.dataToParameters(mapping, dialect, query, data)
-		for (const param of params) {
-			if (param.type === 'array' || (param.type === 'any' && Array.isArray(param.value))) {
+		for (const param of params) {			
+			if (Type.isList(param.type as string) || (param.type === Kind.any && Array.isArray(param.value))) {
 				useExecute = false
 				break
 			}

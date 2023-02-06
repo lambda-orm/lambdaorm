@@ -1,7 +1,7 @@
 
 import { MetadataParameter,SintaxisError, MetadataConstraint, MetadataModel, Metadata, source, Sentence, SentenceInfo, ObservableAction } from '../contract'
 import { SchemaManager, Routing, ViewConfig, helper } from '../manager'
-import { IExpressions, Type, Operand, OperandType } from '3xpr'
+import { IExpressions, Type, Kind, Operand, OperandType } from '3xpr'
 import { MemoryCache, ICache } from 'h3lp'
 import { SentenceCompleter, SentenceBuilder, SentenceSerializer, SentenceNormalizer, SentenceHelper } from '.'
 
@@ -40,7 +40,7 @@ export class SentenceManager {
 		if (!func) {
 			throw new Error('empty lambda function}')
 		}
-		const expression = helper.expression.clearLambda(func)
+		const expression = helper.expression.clearLambda(func)		
 		const operand = this.expressions.build(expression)		
 		let aux = operand
 		while (aux.type !== OperandType.Var) {
@@ -53,12 +53,14 @@ export class SentenceManager {
 			// Example: __model_1.Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
 			const names:string[] = aux.name.split('.')
 			if (names[0].startsWith('__')) {
-				aux.name = names.slice(1).join('.')
+				// aux.name = names.slice(1).join('.')
+				const result = expression.replace(names[0]+'.','')
+				return result
 			}
 		}
-		const normalized = this.normalizer.normalize(operand)
-		const result = this.helper.toExpression(normalized)
-		return result
+		// Example: Products.map(p=>p) =>  Products.map(p=>p)
+		// Example: Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
+		return expression		
 	}
 
 	public normalize (expression: string): string {
@@ -211,7 +213,7 @@ export class SentenceManager {
 		const parameters: MetadataParameter[] = []
 		for (const parameter of sentence.parameters) {
 			if(parameters.find(p=> p.name === parameter.name) === undefined) {
-				parameters.push({ name: parameter.name, type: parameter.type ? parameter.type : 'any' })
+				parameters.push({ name: parameter.name, type: parameter.type ? parameter.type : Kind.any })
 			}
 		}
 		const includes = sentence.getIncludes()

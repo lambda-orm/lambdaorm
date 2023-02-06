@@ -1,7 +1,7 @@
 import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, QueryOptions, Dependent, ObservableAction } from '../contract'
 import path from 'path'
 import { helper } from './'
-import { IExpressions, Kind } from '3xpr'
+import { IExpressions,Type, Kind } from '3xpr'
 
 const yaml = require('js-yaml')
 
@@ -927,7 +927,7 @@ export class SchemaManager {
 
 		if (source === undefined) {
 			configFile = await this.getConfigFileName(workspace)
-		} else if (typeof source === 'string') {
+		} else if (typeof source === Kind.string) {
 			if (await helper.fs.exists(source)) {
 				const lstat = await helper.fs.lstat(source)
 				if (lstat.isFile()) {
@@ -1009,7 +1009,7 @@ export class SchemaManager {
 					console.log(`WARNING|source:"${source.name}"|connection is empty`)
 					continue
 				}
-				if (typeof source.connection === 'string') {
+				if (typeof source.connection === Kind.string) {
 					if (source.connection.includes('${')) {
 						console.log(`WARNING|source:"${source.name}"|had environment variables unsolved`)
 						continue

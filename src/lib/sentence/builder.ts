@@ -2,7 +2,7 @@
 
 import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity } from '../contract'
 import { ModelConfig, SchemaManager } from '../manager'
-import { Operand, Parameter, OperandType, Type, IExpressions, Position, ITypeManager } from '3xpr'
+import { Operand, Parameter, OperandType, Type, Kind, IExpressions, Position, ITypeManager } from '3xpr'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../contract/operands'
 import { SentenceTypeManager, SentenceHelper } from '.'
 
@@ -99,7 +99,7 @@ class SentenceSolveConstraints {
 			if (property.enum) {
 				const _enum = this.modelConfig.getEnum(property.enum)
 				if (_enum && _enum.values) {
-					const values = _enum.values.map(p => typeof p.value === 'number' ? p.value : '"' + p.value + '"').join(',')
+					const values = _enum.values.map(p => typeof p.value === Kind.number ? p.value : '"' + p.value + '"').join(',')
 					const constraint: Constraint = {
 						message: `invalid value for property ${property.name} in entity ${entityName}`,
 						condition: `in([${values}],${property.name})`
@@ -364,6 +364,7 @@ export class SentenceBuilder {
 			if (fields.length === 1) {
 				children.push(new GroupBy(pos, 'groupBy', fields, entityName, alias))
 			} else {
+				//TODO: chequear este caso
 				const array: Operand = new Operand(pos, 'array', OperandType.List, fields)
 				children.push(new GroupBy(pos, 'groupBy', [array], entityName, alias))
 			}
@@ -447,7 +448,7 @@ export class SentenceBuilder {
 		}
 		expressionContext.current.arrowVar = clauses.include.children[1].name
 		const body = clauses.include.children[2]
-		if (body.type === 'array') {
+		if (Type.isList(body.type as string)) {
 			for (const child of body.children) {
 				const include = createInclude.bind(this)(child, expressionContext)
 				children.push(include)

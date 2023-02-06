@@ -6,38 +6,12 @@ test:
   - name: include 1
     data: a
     sentences:
-      - stage: Oracle
-        info:
-          entity: Orders
-          dialect: Oracle
-          source: Oracle
-          sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.CustomerID AS "__customerId", o.CustomerID AS
-            "__customerId" FROM Orders o  WHERE o.OrderID = :id 
-          children:
-            - entity: Customers
-              dialect: Oracle
-              source: Oracle
-              sentence: >-
-                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
-                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
-                AS "address", c.City AS "city", c.Region AS "region",
-                c.PostalCode AS "postalCode", c.Country AS "country",
-                c.CustomerID AS "LambdaOrmParentId", c.CustomerID AS
-                "LambdaOrmParentId" FROM Customers c  WHERE  c.CustomerID IN
-                (:LambdaOrmParentId) 
-              children: []
-    errors: 0
-    expression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))
+      - stage: MongoDB
+        error: 'SintaxisError: Function in not found'
+    errors: 2
+    expression: Orders.filter(p => p.id === id).include(p => p.customer)
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id,LambdaOrmParentId:p.id}).filter(p=>includes(LambdaOrmParentId,p.id)))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))
     model:
       - name: id
         type: integer
@@ -90,8 +64,6 @@ test:
             type: string
           - name: LambdaOrmParentId
             type: string
-          - name: LambdaOrmParentId
-            type: string
     parameters:
       - name: id
         type: integer
@@ -99,7 +71,7 @@ test:
         type: Customers
         children:
           - name: LambdaOrmParentId
-            type: any
+            type: '[string]'
     constraints:
       entity: Orders
       constraints: []
@@ -110,13 +82,13 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 345
+        col: 40
       name: select
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 539
+            col: 45
           name: select
           children: []
           type: any
@@ -142,11 +114,9 @@ test:
               type: string
             - name: LambdaOrmParentId
               type: string
-            - name: LambdaOrmParentId
-              type: string
           parameters:
             - name: LambdaOrmParentId
-              type: any
+              type: '[string]'
           constraints: []
           values: []
           defaults: []
@@ -185,8 +155,6 @@ test:
           type: string
         - name: __customerId
           type: string
-        - name: __customerId
-          type: string
       parameters:
         - name: id
           type: integer
@@ -196,65 +164,34 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: Oracle
-    result:
-      - id: 1
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        customer:
-          id: VINET
-          name: Vins et alcools Chevalier
-          contact: Paul Henriot
-          phone: Accounting Manager
-          address: 59 rue de l'Abbaye
-          city: Reims
-          region: null
-          postalCode: '51100'
-          country: France
+      - stage: MongoDB
+        error: 'SintaxisError: Function in not found'
   - name: include 2
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MongoDB
         info:
           entity: Orders
-          dialect: Oracle
-          source: Oracle
+          dialect: MongoDB
+          source: MongoDB
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.OrderID AS "__id" FROM Orders o 
-            WHERE o.OrderID = :id 
-          children:
-            - entity: Orders.details
-              dialect: Oracle
-              source: Oracle
-              sentence: >-
-                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
-                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
-                o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId",
-                o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
-                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
-              children: []
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id" ,"details": { "$map":{ "input": "$\"Order Details\"",
+            "in": { "orderId":"$this.OrderID", "productId":"$this.ProductID",
+            "unitPrice":"$this.UnitPrice", "quantity":"$this.Quantity",
+            "discount":"$this.Discount", "LambdaOrmParentId":"$this.OrderID" }
+            }} }} ]
+          children: []
     errors: 0
-    expression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
+    expression: Orders.filter(p => p.id === id).include(p => p.details)
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId,LambdaOrmParentId:p.orderId}).filter(p=>includes(LambdaOrmParentId,p.orderId)))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
     model:
       - name: id
         type: integer
@@ -299,8 +236,6 @@ test:
             type: decimal
           - name: LambdaOrmParentId
             type: integer
-          - name: LambdaOrmParentId
-            type: integer
     parameters:
       - name: id
         type: integer
@@ -308,7 +243,7 @@ test:
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: any
+            type: '[integer]'
     constraints:
       entity: Orders
       constraints: []
@@ -319,13 +254,13 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 329
+        col: 40
       name: select
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 489
+            col: 45
           name: select
           children: []
           type: any
@@ -343,11 +278,9 @@ test:
               type: decimal
             - name: LambdaOrmParentId
               type: integer
-            - name: LambdaOrmParentId
-              type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: any
+              type: '[integer]'
           constraints: []
           values: []
           defaults: []
@@ -386,8 +319,6 @@ test:
           type: string
         - name: __id
           type: integer
-        - name: __id
-          type: integer
       parameters:
         - name: id
           type: integer
@@ -397,7 +328,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: Oracle
+      - stage: MongoDB
     result:
       - id: 1
         customerId: VINET
@@ -413,55 +344,37 @@ test:
         region: null
         postalCode: '51100'
         country: France
+        __id: 1
         details:
-          - orderId: 1
-            productId: 11
-            unitPrice: 14
-            quantity: 12
-            discount: 0
-          - orderId: 1
-            productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 0
-          - orderId: 1
-            productId: 72
-            unitPrice: 34.800000000000004
-            quantity: 5
-            discount: 0
+          - {}
+          - {}
+          - {}
   - name: include 3
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MongoDB
         info:
           entity: Orders
-          dialect: Oracle
-          source: Oracle
+          dialect: MongoDB
+          source: MongoDB
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId",
-            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
-          children:
-            - entity: Orders.details
-              dialect: Oracle
-              source: Oracle
-              sentence: >-
-                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
-                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
-                o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId",
-                o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
-                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
-              children: []
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "orderId":"$this.OrderID",
+            "productId":"$this.ProductID", "unitPrice":"$this.UnitPrice",
+            "quantity":"$this.Quantity", "discount":"$this.Discount",
+            "LambdaOrmParentId":"$this.OrderID" } }} }} ]
+          children: []
     errors: 0
-    expression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
+    expression: Orders.filter(p => p.id === id).include(p => [p.details, p.customer])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId,LambdaOrmParentId:p.orderId}).filter(p=>includes(LambdaOrmParentId,p.orderId)))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
     model:
       - name: id
         type: integer
@@ -506,8 +419,6 @@ test:
             type: decimal
           - name: LambdaOrmParentId
             type: integer
-          - name: LambdaOrmParentId
-            type: integer
     parameters:
       - name: id
         type: integer
@@ -515,7 +426,7 @@ test:
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: any
+            type: '[integer]'
     constraints:
       entity: Orders
       constraints: []
@@ -526,13 +437,13 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 355
+        col: 40
       name: select
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 515
+            col: 45
           name: select
           children: []
           type: any
@@ -550,11 +461,9 @@ test:
               type: decimal
             - name: LambdaOrmParentId
               type: integer
-            - name: LambdaOrmParentId
-              type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: any
+              type: '[integer]'
           constraints: []
           values: []
           defaults: []
@@ -595,8 +504,6 @@ test:
           type: integer
         - name: __customerId
           type: string
-        - name: __id
-          type: integer
       parameters:
         - name: id
           type: integer
@@ -606,7 +513,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: Oracle
+      - stage: MongoDB
     result:
       - id: 1
         customerId: VINET
@@ -622,70 +529,41 @@ test:
         region: null
         postalCode: '51100'
         country: France
+        __id: 1
         __customerId: VINET
         details:
-          - orderId: 1
-            productId: 11
-            unitPrice: 14
-            quantity: 12
-            discount: 0
-          - orderId: 1
-            productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 0
-          - orderId: 1
-            productId: 72
-            unitPrice: 34.800000000000004
-            quantity: 5
-            discount: 0
+          - {}
+          - {}
+          - {}
   - name: include 4
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MongoDB
         info:
           entity: Orders
-          dialect: Oracle
-          source: Oracle
+          dialect: MongoDB
+          source: MongoDB
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId",
-            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
-          children:
-            - entity: Orders.details
-              dialect: Oracle
-              source: Oracle
-              sentence: >-
-                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
-                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
-                o1.Discount AS "discount", o1.ProductID AS "__productId",
-                o1.OrderID AS "LambdaOrmParentId", o1.ProductID AS
-                "__productId", o1.OrderID AS "LambdaOrmParentId" FROM "Order
-                Details" o1  WHERE  o1.OrderID IN (:LambdaOrmParentId) 
-              children:
-                - entity: Products
-                  dialect: Oracle
-                  source: Oracle
-                  sentence: >-
-                    SELECT p.ProductID AS "id", p.ProductName AS "name",
-                    p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
-                    p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
-                    p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
-                    p.ReorderLevel AS "reorderLevel", p.Discontinued AS
-                    "discontinued", p.ProductID AS "LambdaOrmParentId",
-                    p.ProductID AS "LambdaOrmParentId" FROM Products p  WHERE 
-                    p.ProductID IN (:LambdaOrmParentId) 
-                  children: []
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "orderId":"$this.OrderID",
+            "productId":"$this.ProductID", "unitPrice":"$this.UnitPrice",
+            "quantity":"$this.Quantity", "discount":"$this.Discount",
+            "__productId":"$this.ProductID", "LambdaOrmParentId":"$this.OrderID"
+            } }} }} ]
+          children: []
     errors: 0
     expression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id))))
+      Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
+      q.product), p.customer])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>includes(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id,LambdaOrmParentId:p.id}).filter(p=>includes(LambdaOrmParentId,p.id))))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id))))
     model:
       - name: id
         type: integer
@@ -728,8 +606,6 @@ test:
             type: decimal
           - name: discount
             type: decimal
-          - name: LambdaOrmParentId
-            type: integer
           - name: LambdaOrmParentId
             type: integer
           - name: product
@@ -757,8 +633,6 @@ test:
                 type: boolean
               - name: LambdaOrmParentId
                 type: integer
-              - name: LambdaOrmParentId
-                type: integer
     parameters:
       - name: id
         type: integer
@@ -766,12 +640,12 @@ test:
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: any
+            type: '[integer]'
           - name: product
             type: Products
             children:
               - name: LambdaOrmParentId
-                type: any
+                type: '[integer]'
     constraints:
       entity: Orders
       constraints: []
@@ -785,19 +659,19 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 355
+        col: 40
       name: select
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 583
+            col: 45
           name: select
           children:
             - classtype: Sentence
               pos:
                 ln: 0
-                col: 830
+                col: 69
               name: select
               children: []
               type: any
@@ -825,11 +699,9 @@ test:
                   type: boolean
                 - name: LambdaOrmParentId
                   type: integer
-                - name: LambdaOrmParentId
-                  type: integer
               parameters:
                 - name: LambdaOrmParentId
-                  type: any
+                  type: '[integer]'
               constraints: []
               values: []
               defaults: []
@@ -852,13 +724,9 @@ test:
               type: integer
             - name: LambdaOrmParentId
               type: integer
-            - name: __productId
-              type: integer
-            - name: LambdaOrmParentId
-              type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: any
+              type: '[integer]'
           constraints: []
           values: []
           defaults: []
@@ -899,8 +767,6 @@ test:
           type: integer
         - name: __customerId
           type: string
-        - name: __id
-          type: integer
       parameters:
         - name: id
           type: integer
@@ -910,7 +776,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: Oracle
+      - stage: MongoDB
     result:
       - id: 1
         customerId: VINET
@@ -926,114 +792,41 @@ test:
         region: null
         postalCode: '51100'
         country: France
+        __id: 1
         __customerId: VINET
         details:
-          - orderId: 1
-            productId: 11
-            unitPrice: 14
-            quantity: 12
-            discount: 0
-            product:
-              id: 11
-              name: Queso Cabrales
-              supplierId: 5
-              categoryId: 4
-              quantity: 1 kg pkg.
-              price: 21
-              inStock: 22
-              onOrder: 30
-              reorderLevel: 30
-              discontinued: 'N'
-          - orderId: 1
-            productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 0
-            product:
-              id: 42
-              name: Singaporean Hokkien Fried Mee
-              supplierId: 20
-              categoryId: 5
-              quantity: 32 - 1 kg pkgs.
-              price: 14
-              inStock: 26
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: 'Y'
-          - orderId: 1
-            productId: 72
-            unitPrice: 34.800000000000004
-            quantity: 5
-            discount: 0
-            product:
-              id: 72
-              name: Mozzarella di Giovanni
-              supplierId: 14
-              categoryId: 4
-              quantity: 24 - 200 g pkgs.
-              price: 34.800000000000004
-              inStock: 14
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: 'N'
+          - {}
+          - {}
+          - {}
   - name: include 5
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MongoDB
         info:
           entity: Orders
-          dialect: Oracle
-          source: Oracle
+          dialect: MongoDB
+          source: MongoDB
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId",
-            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
-          children:
-            - entity: Orders.details
-              dialect: Oracle
-              source: Oracle
-              sentence: >-
-                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
-                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
-                o1.Discount AS "discount", o1.ProductID AS "__productId",
-                o1.OrderID AS "LambdaOrmParentId", o1.ProductID AS
-                "__productId", o1.OrderID AS "LambdaOrmParentId" FROM "Order
-                Details" o1  WHERE  o1.OrderID IN (:LambdaOrmParentId) 
-              children:
-                - entity: Products
-                  dialect: Oracle
-                  source: Oracle
-                  sentence: >-
-                    SELECT p.ProductID AS "id", p.ProductName AS "name",
-                    p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
-                    p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
-                    p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
-                    p.ReorderLevel AS "reorderLevel", p.Discontinued AS
-                    "discontinued", p.CategoryID AS "__categoryId", p.ProductID
-                    AS "LambdaOrmParentId", p.CategoryID AS "__categoryId",
-                    p.ProductID AS "LambdaOrmParentId" FROM Products p  WHERE 
-                    p.ProductID IN (:LambdaOrmParentId) 
-                  children:
-                    - entity: Categories
-                      dialect: Oracle
-                      source: Oracle
-                      sentence: >-
-                        SELECT c.CategoryID AS "id", c.CategoryName AS "name",
-                        c.Description AS "description", c.CategoryID AS
-                        "LambdaOrmParentId", c.CategoryID AS "LambdaOrmParentId"
-                        FROM Categories c  WHERE  c.CategoryID IN
-                        (:LambdaOrmParentId) 
-                      children: []
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "orderId":"$this.OrderID",
+            "productId":"$this.ProductID", "unitPrice":"$this.UnitPrice",
+            "quantity":"$this.Quantity", "discount":"$this.Discount",
+            "__productId":"$this.ProductID", "LambdaOrmParentId":"$this.OrderID"
+            } }} }} ]
+          children: []
     errors: 0
     expression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)).include(p=>p.category.map(p=>{id:p.id,name:p.name,description:p.description,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))))
+      Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
+      q.product.include(p => p.category)), p.customer])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>includes(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,LambdaOrmParentId:p.id,__categoryId:p.categoryId,LambdaOrmParentId:p.id}).filter(p=>includes(LambdaOrmParentId,p.id)).include(p=>p.category.map(p=>{id:p.id,name:p.name,description:p.description,LambdaOrmParentId:p.id,LambdaOrmParentId:p.id}).filter(p=>includes(LambdaOrmParentId,p.id)))))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)).include(p=>p.category.map(p=>{id:p.id,name:p.name,description:p.description,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))))
     model:
       - name: id
         type: integer
@@ -1078,8 +871,6 @@ test:
             type: decimal
           - name: LambdaOrmParentId
             type: integer
-          - name: LambdaOrmParentId
-            type: integer
           - name: product
             type: Products
             children:
@@ -1105,8 +896,6 @@ test:
                 type: boolean
               - name: LambdaOrmParentId
                 type: integer
-              - name: LambdaOrmParentId
-                type: integer
               - name: category
                 type: Categories
                 children:
@@ -1118,8 +907,6 @@ test:
                     type: string
                   - name: LambdaOrmParentId
                     type: integer
-                  - name: LambdaOrmParentId
-                    type: integer
     parameters:
       - name: id
         type: integer
@@ -1127,17 +914,17 @@ test:
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: any
+            type: '[integer]'
           - name: product
             type: Products
             children:
               - name: LambdaOrmParentId
-                type: any
+                type: '[integer]'
               - name: category
                 type: Categories
                 children:
                   - name: LambdaOrmParentId
-                    type: any
+                    type: '[integer]'
     constraints:
       entity: Orders
       constraints: []
@@ -1154,25 +941,25 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 355
+        col: 40
       name: select
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 583
+            col: 45
           name: select
           children:
             - classtype: Sentence
               pos:
                 ln: 0
-                col: 895
+                col: 87
               name: select
               children:
                 - classtype: Sentence
                   pos:
                     ln: 0
-                    col: 995
+                    col: 92
                   name: select
                   children: []
                   type: any
@@ -1186,11 +973,9 @@ test:
                       type: string
                     - name: LambdaOrmParentId
                       type: integer
-                    - name: LambdaOrmParentId
-                      type: integer
                   parameters:
                     - name: LambdaOrmParentId
-                      type: any
+                      type: '[integer]'
                   constraints: []
                   values: []
                   defaults: []
@@ -1223,13 +1008,9 @@ test:
                   type: integer
                 - name: LambdaOrmParentId
                   type: integer
-                - name: __categoryId
-                  type: integer
-                - name: LambdaOrmParentId
-                  type: integer
               parameters:
                 - name: LambdaOrmParentId
-                  type: any
+                  type: '[integer]'
               constraints: []
               values: []
               defaults: []
@@ -1252,13 +1033,9 @@ test:
               type: integer
             - name: LambdaOrmParentId
               type: integer
-            - name: __productId
-              type: integer
-            - name: LambdaOrmParentId
-              type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: any
+              type: '[integer]'
           constraints: []
           values: []
           defaults: []
@@ -1299,8 +1076,6 @@ test:
           type: integer
         - name: __customerId
           type: string
-        - name: __id
-          type: integer
       parameters:
         - name: id
           type: integer
@@ -1310,7 +1085,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: Oracle
+      - stage: MongoDB
     result:
       - id: 1
         customerId: VINET
@@ -1326,100 +1101,40 @@ test:
         region: null
         postalCode: '51100'
         country: France
+        __id: 1
         __customerId: VINET
         details:
-          - orderId: 1
-            productId: 11
-            unitPrice: 14
-            quantity: 12
-            discount: 0
-            product:
-              id: 11
-              name: Queso Cabrales
-              supplierId: 5
-              categoryId: 4
-              quantity: 1 kg pkg.
-              price: 21
-              inStock: 22
-              onOrder: 30
-              reorderLevel: 30
-              discontinued: 'N'
-              category:
-                id: 4
-                name: Dairy Products
-                description: Cheeses
-          - orderId: 1
-            productId: 42
-            unitPrice: 9.8
-            quantity: 10
-            discount: 0
-            product:
-              id: 42
-              name: Singaporean Hokkien Fried Mee
-              supplierId: 20
-              categoryId: 5
-              quantity: 32 - 1 kg pkgs.
-              price: 14
-              inStock: 26
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: 'Y'
-              category:
-                id: 5
-                name: Grains/Cereals
-                description: Breads, crackers, pasta, and cereal
-          - orderId: 1
-            productId: 72
-            unitPrice: 34.800000000000004
-            quantity: 5
-            discount: 0
-            product:
-              id: 72
-              name: Mozzarella di Giovanni
-              supplierId: 14
-              categoryId: 4
-              quantity: 24 - 200 g pkgs.
-              price: 34.800000000000004
-              inStock: 14
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: 'N'
-              category:
-                id: 4
-                name: Dairy Products
-                description: Cheeses
+          - {}
+          - {}
+          - {}
   - name: include 6
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MongoDB
         info:
           entity: Orders
-          dialect: Oracle
-          source: Oracle
+          dialect: MongoDB
+          source: MongoDB
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId",
-            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
-          children:
-            - entity: Orders.details
-              dialect: Oracle
-              source: Oracle
-              sentence: >-
-                SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-                o1.ProductID AS "productId", o1.OrderID AS "LambdaOrmParentId",
-                o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
-                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
-              children: []
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "quantity":"$this.Quantity",
+            "unitPrice":"$this.UnitPrice", "productId":"$this.ProductID",
+            "LambdaOrmParentId":"$this.OrderID" } }} }} ]
+          children: []
     errors: 0
     expression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
+      Orders.filter(p => p.id === id).include(p => [p.details.map(p => ({
+      quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })),
+      p.customer])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,LambdaOrmParentId:p.orderId,LambdaOrmParentId:p.orderId}).filter(p=>includes(LambdaOrmParentId,p.orderId)))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
     model:
       - name: id
         type: integer
@@ -1460,8 +1175,6 @@ test:
             type: integer
           - name: LambdaOrmParentId
             type: integer
-          - name: LambdaOrmParentId
-            type: integer
     parameters:
       - name: id
         type: integer
@@ -1469,7 +1182,7 @@ test:
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: any
+            type: '[integer]'
     constraints:
       entity: Orders
       constraints: []
@@ -1480,13 +1193,13 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 355
+        col: 40
       name: select
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 477
+            col: 45
           name: select
           children: []
           type: any
@@ -1500,11 +1213,9 @@ test:
               type: integer
             - name: LambdaOrmParentId
               type: integer
-            - name: LambdaOrmParentId
-              type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: any
+              type: '[integer]'
           constraints: []
           values: []
           defaults: []
@@ -1545,8 +1256,6 @@ test:
           type: integer
         - name: __customerId
           type: string
-        - name: __id
-          type: integer
       parameters:
         - name: id
           type: integer
@@ -1556,7 +1265,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: Oracle
+      - stage: MongoDB
     result:
       - id: 1
         customerId: VINET
@@ -1572,63 +1281,41 @@ test:
         region: null
         postalCode: '51100'
         country: France
+        __id: 1
         __customerId: VINET
         details:
-          - quantity: 12
-            unitPrice: 14
-            productId: 11
-          - quantity: 10
-            unitPrice: 9.8
-            productId: 42
-          - quantity: 5
-            unitPrice: 34.800000000000004
-            productId: 72
+          - {}
+          - {}
+          - {}
   - name: include 7
     data: a
     sentences:
-      - stage: Oracle
+      - stage: MongoDB
         info:
           entity: Orders
-          dialect: Oracle
-          source: Oracle
+          dialect: MongoDB
+          source: MongoDB
           sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId",
-            o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
-          children:
-            - entity: Orders.details
-              dialect: Oracle
-              source: Oracle
-              sentence: >-
-                SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
-                o1.ProductID AS "productId", o1.ProductID AS "__productId",
-                o1.OrderID AS "LambdaOrmParentId", o1.ProductID AS
-                "__productId", o1.OrderID AS "LambdaOrmParentId" FROM "Order
-                Details" o1  WHERE  o1.OrderID IN (:LambdaOrmParentId) 
-              children:
-                - entity: Products
-                  dialect: Oracle
-                  source: Oracle
-                  sentence: >-
-                    SELECT p.ProductID AS "id", p.ProductName AS "name",
-                    p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
-                    p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
-                    p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
-                    p.ReorderLevel AS "reorderLevel", p.Discontinued AS
-                    "discontinued", p.ProductID AS "LambdaOrmParentId",
-                    p.ProductID AS "LambdaOrmParentId" FROM Products p  WHERE 
-                    p.ProductID IN (:LambdaOrmParentId) 
-                  children: []
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "quantity":"$this.Quantity",
+            "unitPrice":"$this.UnitPrice", "productId":"$this.ProductID",
+            "__productId":"$this.ProductID", "LambdaOrmParentId":"$this.OrderID"
+            } }} }} ]
+          children: []
     errors: 0
     expression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id))))
+      Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
+      q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice,
+      productId: p.productId })), p.customer])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,LambdaOrmParentId:p.orderId,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>includes(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id,LambdaOrmParentId:p.id}).filter(p=>includes(LambdaOrmParentId,p.id))))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id))))
     model:
       - name: id
         type: integer
@@ -1666,8 +1353,6 @@ test:
           - name: unitPrice
             type: decimal
           - name: productId
-            type: integer
-          - name: LambdaOrmParentId
             type: integer
           - name: LambdaOrmParentId
             type: integer
@@ -1696,8 +1381,6 @@ test:
                 type: boolean
               - name: LambdaOrmParentId
                 type: integer
-              - name: LambdaOrmParentId
-                type: integer
     parameters:
       - name: id
         type: integer
@@ -1705,12 +1388,12 @@ test:
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: any
+            type: '[integer]'
           - name: product
             type: Products
             children:
               - name: LambdaOrmParentId
-                type: any
+                type: '[integer]'
     constraints:
       entity: Orders
       constraints: []
@@ -1724,19 +1407,19 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 355
+        col: 40
       name: select
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 545
+            col: 45
           name: select
           children:
             - classtype: Sentence
               pos:
                 ln: 0
-                col: 792
+                col: 69
               name: select
               children: []
               type: any
@@ -1764,11 +1447,9 @@ test:
                   type: boolean
                 - name: LambdaOrmParentId
                   type: integer
-                - name: LambdaOrmParentId
-                  type: integer
               parameters:
                 - name: LambdaOrmParentId
-                  type: any
+                  type: '[integer]'
               constraints: []
               values: []
               defaults: []
@@ -1787,13 +1468,9 @@ test:
               type: integer
             - name: LambdaOrmParentId
               type: integer
-            - name: __productId
-              type: integer
-            - name: LambdaOrmParentId
-              type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: any
+              type: '[integer]'
           constraints: []
           values: []
           defaults: []
@@ -1834,8 +1511,6 @@ test:
           type: integer
         - name: __customerId
           type: string
-        - name: __id
-          type: integer
       parameters:
         - name: id
           type: integer
@@ -1845,7 +1520,7 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: Oracle
+      - stage: MongoDB
     result:
       - id: 1
         customerId: VINET
@@ -1861,81 +1536,24 @@ test:
         region: null
         postalCode: '51100'
         country: France
+        __id: 1
         __customerId: VINET
         details:
-          - quantity: 12
-            unitPrice: 14
-            productId: 11
-            product:
-              id: 11
-              name: Queso Cabrales
-              supplierId: 5
-              categoryId: 4
-              quantity: 1 kg pkg.
-              price: 21
-              inStock: 22
-              onOrder: 30
-              reorderLevel: 30
-              discontinued: 'N'
-          - quantity: 10
-            unitPrice: 9.8
-            productId: 42
-            product:
-              id: 42
-              name: Singaporean Hokkien Fried Mee
-              supplierId: 20
-              categoryId: 5
-              quantity: 32 - 1 kg pkgs.
-              price: 14
-              inStock: 26
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: 'Y'
-          - quantity: 5
-            unitPrice: 34.800000000000004
-            productId: 72
-            product:
-              id: 72
-              name: Mozzarella di Giovanni
-              supplierId: 14
-              categoryId: 4
-              quantity: 24 - 200 g pkgs.
-              price: 34.800000000000004
-              inStock: 14
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: 'N'
+          - {}
+          - {}
+          - {}
   - name: include 8
     data: a
     sentences:
-      - stage: Oracle
-        info:
-          entity: Orders
-          dialect: Oracle
-          source: Oracle
-          sentence: >-
-            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
-            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
-            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
-            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
-            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
-            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
-            "country", o.CustomerID AS "__customerId", o.OrderID AS "__id",
-            o.CustomerID AS "__customerId" FROM Orders o  WHERE o.OrderID = :id 
-          children:
-            - entity: Customers
-              dialect: Oracle
-              source: Oracle
-              sentence: >-
-                SELECT c.CompanyName AS "name", c.CustomerID AS
-                "LambdaOrmParentId", c.CustomerID AS "LambdaOrmParentId" FROM
-                Customers c  WHERE  c.CustomerID IN (:LambdaOrmParentId) 
-              children: []
-    errors: 0
+      - stage: MongoDB
+        error: 'SintaxisError: Function in not found'
+    errors: 2
     expression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{name:p.name,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))
+      Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name),
+      p.details.include(p => p.product.include(p => p.category.map(p =>
+      p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{name:p.name,LambdaOrmParentId:p.id,LambdaOrmParentId:p.id}).filter(p=>includes(LambdaOrmParentId,p.id)))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{name:p.name,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))
     model:
       - name: id
         type: integer
@@ -1972,8 +1590,6 @@ test:
             type: string
           - name: LambdaOrmParentId
             type: string
-          - name: LambdaOrmParentId
-            type: string
     parameters:
       - name: id
         type: integer
@@ -1981,7 +1597,7 @@ test:
         type: Customers
         children:
           - name: LambdaOrmParentId
-            type: any
+            type: '[string]'
     constraints:
       entity: Orders
       constraints: []
@@ -1992,13 +1608,13 @@ test:
       classtype: Sentence
       pos:
         ln: 0
-        col: 355
+        col: 40
       name: select
       children:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 421
+            col: 45
           name: select
           children: []
           type: any
@@ -2008,11 +1624,9 @@ test:
               type: string
             - name: LambdaOrmParentId
               type: string
-            - name: LambdaOrmParentId
-              type: string
           parameters:
             - name: LambdaOrmParentId
-              type: any
+              type: '[string]'
           constraints: []
           values: []
           defaults: []
@@ -2053,8 +1667,6 @@ test:
           type: string
         - name: __id
           type: integer
-        - name: __customerId
-          type: string
       parameters:
         - name: id
           type: integer
@@ -2064,23 +1676,6 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: Oracle
-    result:
-      - id: 1
-        customerId: VINET
-        employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
-        shipViaId: 3
-        freight: 32.38
-        name: Vins et alcools Chevalier
-        address: 59 rue de l-Abbaye
-        city: Reims
-        region: null
-        postalCode: '51100'
-        country: France
-        __id: 1
-        customer:
-          name: Vins et alcools Chevalier
-errors: 0
+      - stage: MongoDB
+        error: 'SintaxisError: Function in not found'
+errors: 4

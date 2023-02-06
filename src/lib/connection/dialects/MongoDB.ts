@@ -3,7 +3,7 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../contract'
-import { Parameter, Type } from '3xpr'
+import { Parameter, Type, Kind } from '3xpr'
 import { MappingConfig, helper } from '../../manager'
 import { Dialect } from '../../language'
 
@@ -257,7 +257,7 @@ export class MongodbConnection extends Connection {
 			let strObj: string | undefined
 			if (query.parameters && query.parameters.length > 0) {
 				for (const param of query.parameters) {
-					const value = this.getValue(mapping, dialect, item[param.name], Type.to(param.type ? param.type : 'any'))
+					const value = this.getValue(mapping, dialect, item[param.name], Type.to(param.type ? param.type : Kind.any))
 					strObj = helper.str.replace(strObj || template, `{{${param.name}}}`, value)
 				}
 			} else {
@@ -274,7 +274,7 @@ export class MongodbConnection extends Connection {
 		const row: any = {}
 		if (params.length && params.length > 0) {
 			for (const param of params) {
-				const value = this.getValue(mapping, dialect, param.value, Type.to(param.type ? param.type : 'any'))
+				const value = this.getValue(mapping, dialect, param.value, Type.to(param.type ? param.type : Kind.any))
 				result = helper.str.replace(result || template, `{{${param.name}}}`, value)
 			}
 		} else {
@@ -292,7 +292,7 @@ export class MongodbConnection extends Connection {
 			if (source.length === 0) {
 				return ''
 			}
-			if (typeof source[0] === 'string') {
+			if (typeof source[0] === Kind.string) {
 				return source.map((p:string) => `"${p}"`).join(',')
 			} else {
 				return source.join(',')
@@ -302,7 +302,7 @@ export class MongodbConnection extends Connection {
 			case Type.boolean:
 				return source ? 'true' : 'false'
 			case Type.string:
-				value = typeof source === 'string' ? source : source.toString()
+				value = typeof source === Kind.string ? source : source.toString()
 				value = helper.str.replace(value, '\n', '\\n')
 				value = helper.str.replace(value, '"', '\\"')
 				return `"${value}"`
@@ -313,7 +313,7 @@ export class MongodbConnection extends Connection {
 			case Type.time:
 				return `"${this.writeTime(source, mapping, dialect)}"`
 			default:
-				if (typeof source === 'string') {
+				if (typeof source === Kind.string) {
 					value = helper.str.replace(source, '\n', '\\n')
 					value = helper.str.replace(value, '"', '\\"')
 					return `"${value}"`
