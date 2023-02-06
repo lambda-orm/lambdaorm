@@ -1,4 +1,4 @@
-import { Operand, OperandType, Type, Kind, IExpressions } from '3xpr'
+import { Operand, OperandType, Kind, IExpressions } from '3xpr'
 import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source, BulkInsert } from '../contract'
 import { MappingConfig, helper } from '../manager'
 import { Dialect } from '../language'
@@ -89,8 +89,8 @@ export abstract class DmlBuilder {
 
 	protected buildInsertSentence (sentence: Sentence): string {
 		const insert = sentence.action === 'bulkInsert'
-		 ? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert | undefined
-		 : sentence.children.find(p => p instanceof Insert) as Insert | undefined
+			? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert | undefined
+			: sentence.children.find(p => p instanceof Insert) as Insert | undefined
 		const entity = this.mapping.getEntity(sentence.entity)
 		if (entity === undefined) {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)

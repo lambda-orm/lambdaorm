@@ -231,7 +231,7 @@ export class SqlServerConnection extends Connection {
 		for (const parameter of query.parameters) {
 			const value = data.get(parameter.name)
 			const type = parameter.type as string
-			if ( Type.isList(type) || (type === Kind.any && Array.isArray(value))) {
+			if (Type.isList(type) || (type === Kind.any && Array.isArray(value))) {
 				let list:any
 				if (value.length > 0) {
 					const type = typeof value[0]

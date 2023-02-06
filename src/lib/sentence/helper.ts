@@ -167,17 +167,21 @@ export class SentenceHelper {
 	public getColumns (sentence: Sentence): Property[] {
 		switch (sentence.crudAction) {
 		case SentenceCrudAction.select:
+			// eslint-disable-next-line no-case-declarations
 			const map = sentence.children.find(p => p.name === 'map') as Map
 			return this.fieldsInSelect(map)
-		case SentenceCrudAction.insert:			
-				const insert = sentence.action === 'bulkInsert' 
-				? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert 
+		case SentenceCrudAction.insert:
+			// eslint-disable-next-line no-case-declarations
+			const insert = sentence.action === 'bulkInsert'
+				? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert
 				: sentence.children.find(p => p instanceof Insert) as Insert
-				return this.fieldsInModify(insert, sentence.entity, true)			
+			return this.fieldsInModify(insert, sentence.entity, true)
 		case SentenceCrudAction.update:
+			// eslint-disable-next-line no-case-declarations
 			const update = sentence.children.find(p => p instanceof Update) as Update
 			return this.fieldsInModify(update, sentence.entity)
 		case SentenceCrudAction.delete:
+			// eslint-disable-next-line no-case-declarations
 			const _delete = sentence.children.find(p => p instanceof Delete) as Delete
 			return this.fieldsInModify(_delete, sentence.entity)
 		default:
@@ -211,7 +215,7 @@ export class SentenceHelper {
 		for (let i = 0; i < variables.length; i++) {
 			const variable = variables[i]
 			variable.number = i + 1
-			parameters.push({ name: variable.name, type: Type.toString(variable.returnType) })			
+			parameters.push({ name: variable.name, type: Type.toString(variable.returnType) })
 		}
 		return parameters
 	}
@@ -224,5 +228,4 @@ export class SentenceHelper {
 			this.loadVariables(child, variables)
 		}
 	}
-
 }

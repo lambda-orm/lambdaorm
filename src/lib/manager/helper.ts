@@ -1,6 +1,5 @@
-import { H3lp } from 'h3lp'
+import { H3lp, StringHelper } from 'h3lp'
 import { OperandHelper } from '3xpr'
-import { StringHelper } from 'h3lp'
 import { QueryInfo } from '../index'
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
@@ -35,7 +34,7 @@ export class QueryHelper {
 		return this.str.replace(name, '.', '_')
 		// con la siguiente opción falla cuando se hace value=Helper.str.replace(value,"\\'","\\''")
 		// return string.replace(new RegExp(search, 'g'), replace)
-	}	
+	}
 }
 
 export class ExpressionHelper {

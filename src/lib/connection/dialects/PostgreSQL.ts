@@ -188,7 +188,7 @@ export class PostgreSQLConnection extends Connection {
 
 		for (let i = 0; i < params.length; i++) {
 			const param = params[i]
-			if (Type.isList(param.type as string)  || (param.type === Kind.any && Array.isArray(param.value))) {
+			if (Type.isList(param.type as string) || (param.type === Kind.any && Array.isArray(param.value))) {
 				// https://stackoverflow.com/questions/10720420/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
 				// https://www.it-swarm-es.com/es/node.js/node-postgres-como-ejecutar-la-consulta-where-col-lista-de-valores-dinamicos/1066948040/
 				// https://www.postgresql.org/docs/9.2/functions-array.html

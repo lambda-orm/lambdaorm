@@ -214,7 +214,7 @@ export class Orm implements IOrm {
 	 */
 	public getInfo(expression: Function, options?: QueryOptions): QueryInfo;
 	public getInfo(expression: string, options?: QueryOptions): QueryInfo;
-	public getInfo (expression: string|Function, options: QueryOptions|undefined): QueryInfo {		
+	public getInfo (expression: string|Function, options: QueryOptions|undefined): QueryInfo {
 		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
 		const _options = this.schemaManager.solveOptions(options)
 		return this.queryManager.getInfo(_expression, _options)

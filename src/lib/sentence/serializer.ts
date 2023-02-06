@@ -83,7 +83,8 @@ export class SentenceSerializer {
 		case 'Field':
 			return new Field(value.pos, value.entity as string, value.name, Type.to(value.returnType as string), value.alias, value.isRoot)
 		default:
-			let operand = new Operand(value.pos, value.name, OperandType[value.type], children, Type.to(value.returnType as string))
+			// eslint-disable-next-line no-case-declarations
+			const operand = new Operand(value.pos, value.name, OperandType[value.type], children, Type.to(value.returnType as string))
 			operand.number = value.number
 			return operand
 		}

@@ -46,16 +46,16 @@ export abstract class Connection {
 						value = this.writeTime(value, mapping, dialect)
 						break
 					case Kind.any:
-						if(helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)){
+						if (helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)) {
 							value = this.writeDateTime(value, mapping, dialect)
 							break
-						} else if(helper.val.isDate(value) || helper.val.isDateFormat(value)){
+						} else if (helper.val.isDate(value) || helper.val.isDateFormat(value)) {
 							value = this.writeDate(value, mapping, dialect)
 							break
-						} else if(helper.val.isTime(value) || helper.val.isTimeFormat(value)){
+						} else if (helper.val.isTime(value) || helper.val.isTimeFormat(value)) {
 							value = this.writeTime(value, mapping, dialect)
 							break
-						} 
+						}
 					}
 				}
 				row.push(value === undefined ? null : value)
@@ -81,16 +81,16 @@ export abstract class Connection {
 					value = this.writeTime(value, mapping, dialect)
 					break
 				case Kind.any:
-					if(helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)){
+					if (helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)) {
 						value = this.writeDateTime(value, mapping, dialect)
 						break
-					} else if(helper.val.isDate(value) || helper.val.isDateFormat(value)){
+					} else if (helper.val.isDate(value) || helper.val.isDateFormat(value)) {
 						value = this.writeDate(value, mapping, dialect)
 						break
-					} else if(helper.val.isTime(value) || helper.val.isTimeFormat(value)){
+					} else if (helper.val.isTime(value) || helper.val.isTimeFormat(value)) {
 						value = this.writeTime(value, mapping, dialect)
 						break
-					} 	
+					}
 				}
 			} else {
 				value = null

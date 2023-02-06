@@ -225,9 +225,9 @@ export class SentenceBuilder {
 	}
 
 	public build (operand: Operand): Sentence {
-		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter		
+		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter
 		const cloned = this.expressions.clone(operand)
-		const sentence = this.createSentence(cloned, new ExpressionContext(new EntityContext())) as Sentence		
+		const sentence = this.createSentence(cloned, new ExpressionContext(new EntityContext())) as Sentence
 		return sentence
 	}
 
@@ -364,7 +364,7 @@ export class SentenceBuilder {
 			if (fields.length === 1) {
 				children.push(new GroupBy(pos, 'groupBy', fields, entityName, alias))
 			} else {
-				//TODO: chequear este caso
+				// TODO: chequear este caso
 				const array: Operand = new Operand(pos, 'array', OperandType.List, fields)
 				children.push(new GroupBy(pos, 'groupBy', [array], entityName, alias))
 			}
@@ -502,7 +502,7 @@ export class SentenceBuilder {
 		if (clause.children.length === 2 && clause.children[1].type === OperandType.Obj) {
 			// Example: Categories.insert({ name: name, description: description })
 			const child = this.solveFields(clause.children[1], expressionContext)
-			if(clause.name === 'bulkInsert'){
+			if (clause.name === 'bulkInsert') {
 				return new BulkInsert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 			} else {
 				return new Insert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)

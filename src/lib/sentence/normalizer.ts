@@ -1,6 +1,6 @@
 
 import { helper, SchemaManager } from '../manager'
-import { Entity, Field,Relation, SchemaError, SintaxisError } from '../contract'
+import { Entity, Field, Relation, SchemaError, SintaxisError } from '../contract'
 import { IExpressions, Operand, OperandType, Position, IModelManager, IOperandNormalizer, Type, Kind } from '3xpr'
 
 /**
@@ -40,7 +40,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			}
 		} else if (operand.type === OperandType.Const && operand.returnType !== undefined && operand.returnType.kind === Kind.boolean) {
 			operand.name = (operand.name.toString().toLowerCase() === 'true')
-		}		
+		}
 		for (const child of operand.children) {
 			this.normalizeOperand(child)
 		}
@@ -456,8 +456,8 @@ export class SentenceNormalizer implements IOperandNormalizer {
 				if (current.children.length > 0) { current = current.children[0] } else { break }
 			}
 			map = operand// new Node(clause,'childFunc',[operand])
-			if(relation === undefined){
-				throw Error(`Relation not found`)
+			if (relation === undefined) {
+				throw Error('Relation not found')
 			}
 			this.normalizeSentence(map, relation.entity)
 		} else if (operand.type === OperandType.Var) {
@@ -468,8 +468,8 @@ export class SentenceNormalizer implements IOperandNormalizer {
 			const parts = operand.name.split('.')
 			const relationName = parts[1]
 			relation = entity.relations.find(p => p.name === relationName)
-			if(relation === undefined){
-				throw Error(`Relation not found`)
+			if (relation === undefined) {
+				throw Error('Relation not found')
 			}
 			map = new Operand(operand.pos, clause, OperandType.Arrow, [operand, varArrowNode, varAll])
 			this.normalizeSentence(map, relation.entity)
@@ -480,10 +480,10 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		const clauses: any = this.getClauses(map)
 		const childFilter = clauses.filter
 		const arrowFilterVar = childFilter ? childFilter.children[1].name : 'p'
-		const propertyTo = this.schema.model.getProperty(relation.entity,relation.to)
-		const fieldRelation = new Field(operand.pos,relation.entity, arrowFilterVar + '.' + relation.to,Type.to(propertyTo.type)) 
+		const propertyTo = this.schema.model.getProperty(relation.entity, relation.to)
+		const fieldRelation = new Field(operand.pos, relation.entity, arrowFilterVar + '.' + relation.to, Type.to(propertyTo.type))
 		// new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping)
-		const varRelation = new Operand(operand.pos, 'LambdaOrmParentId', OperandType.Var,[],Type.List(Type.to(propertyTo.type)))
+		const varRelation = new Operand(operand.pos, 'LambdaOrmParentId', OperandType.Var, [], Type.List(Type.to(propertyTo.type)))
 		const filterInclude = new Operand(operand.pos, 'in', OperandType.CallFunc, [varRelation, fieldRelation])
 		if (!childFilter) {
 			const varFilterArrowNode = new Operand(operand.pos, arrowFilterVar, OperandType.Var, [])
@@ -494,7 +494,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		// If the column for which the include is to be resolved is not in the select, it must be added
 		const arrowSelect = clauses.map.children[1].name
 		// const field = new Operand(operand.pos, arrowSelect + '.' + relation.to, OperandType.Var)
-		const field = new Field(operand.pos,relation.target as string, arrowSelect + '.' + relation.to, Type.to(propertyTo.type))
+		const field = new Field(operand.pos, relation.target as string, arrowSelect + '.' + relation.to, Type.to(propertyTo.type))
 		clauses.map.children[2].children.push(new Operand(operand.pos, 'LambdaOrmParentId', OperandType.KeyVal, [field]))
 		return map
 	}

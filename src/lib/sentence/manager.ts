@@ -1,5 +1,5 @@
 
-import { MetadataParameter,SintaxisError, MetadataConstraint, MetadataModel, Metadata, source, Sentence, SentenceInfo, ObservableAction } from '../contract'
+import { MetadataParameter, SintaxisError, MetadataConstraint, MetadataModel, Metadata, source, Sentence, SentenceInfo, ObservableAction } from '../contract'
 import { SchemaManager, Routing, ViewConfig, helper } from '../manager'
 import { IExpressions, Type, Kind, Operand, OperandType } from '3xpr'
 import { MemoryCache, ICache } from 'h3lp'
@@ -27,10 +27,10 @@ export class SentenceManager {
 		this.operandCache = new MemoryCache<number, Operand>()
 		this.sentenceCache = new MemoryCache<string, Sentence>()
 		this.serializer = new SentenceSerializer()
-		this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)		
+		this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)
 	}
 
-		/**
+	/**
 	 * Convert a lambda expression to a query expression
 	 * @param lambda lambda expression
 	 * @returns Expression manager
@@ -40,8 +40,8 @@ export class SentenceManager {
 		if (!func) {
 			throw new Error('empty lambda function}')
 		}
-		const expression = helper.expression.clearLambda(func)		
-		const operand = this.expressions.build(expression)		
+		const expression = helper.expression.clearLambda(func)
+		const operand = this.expressions.build(expression)
 		let aux = operand
 		while (aux.type !== OperandType.Var) {
 			if (aux.children.length > 0) {
@@ -54,13 +54,13 @@ export class SentenceManager {
 			const names:string[] = aux.name.split('.')
 			if (names[0].startsWith('__')) {
 				// aux.name = names.slice(1).join('.')
-				const result = expression.replace(names[0]+'.','')
+				const result = expression.replace(names[0] + '.', '')
 				return result
 			}
 		}
 		// Example: Products.map(p=>p) =>  Products.map(p=>p)
 		// Example: Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
-		return expression		
+		return expression
 	}
 
 	public normalize (expression: string): string {
@@ -71,7 +71,7 @@ export class SentenceManager {
 		} catch (error: any) {
 			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
 		}
-	}	
+	}
 
 	/**
 	 * Get model of expression
@@ -120,7 +120,7 @@ export class SentenceManager {
 		if (value) {
 			return value
 		}
-		const sentence = this.toSentence(expression)	
+		const sentence = this.toSentence(expression)
 		const completed = this.complete(sentence, view, stage)
 		this.sentenceCache.set(key, completed)
 		return completed
@@ -132,7 +132,7 @@ export class SentenceManager {
 		return this.schema.source.get(dataSourceName)
 	}
 
-	private toOperand(expression: string): Operand {
+	private toOperand (expression: string): Operand {
 		const key = helper.utils.hashCode(expression)
 		const value = this.operandCache.get(key)
 		if (value) {
@@ -141,10 +141,10 @@ export class SentenceManager {
 		const operand = this.expressions.build(expression)
 		const normalized = this.normalizer.normalize(operand)
 		this.operandCache.set(key, normalized)
-		return normalized	
+		return normalized
 	}
 
-	private toSentence(expression: string): Sentence{
+	private toSentence (expression: string): Sentence {
 		const operand = this.toOperand(expression)
 		const sentence = this.builder.build(operand)
 		return sentence
@@ -212,7 +212,7 @@ export class SentenceManager {
 	private parametersFromSentence (sentence: Sentence): MetadataParameter[] {
 		const parameters: MetadataParameter[] = []
 		for (const parameter of sentence.parameters) {
-			if(parameters.find(p=> p.name === parameter.name) === undefined) {
+			if (parameters.find(p => p.name === parameter.name) === undefined) {
 				parameters.push({ name: parameter.name, type: parameter.type ? parameter.type : Kind.any })
 			}
 		}
@@ -247,8 +247,6 @@ export class SentenceManager {
 		}
 		return result
 	}
-
-
 
 	// private serialize (sentence: Sentence): string {
 	// return this.serializer.serialize(sentence)

@@ -1,7 +1,7 @@
 import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, QueryOptions, Dependent, ObservableAction } from '../contract'
 import path from 'path'
 import { helper } from './'
-import { IExpressions,Type, Kind } from '3xpr'
+import { IExpressions, Kind } from '3xpr'
 
 const yaml = require('js-yaml')
 
