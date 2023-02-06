@@ -23,7 +23,7 @@ export class SentenceSerializer {
 			children.push(this._serialize(child))
 		}
 		if (operand instanceof Sentence) {
-			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.toString(operand.returnType), columns: operand.columns, parameters: operand.parameters, entity: operand.entity,alias: operand.alias , constraints: operand.constraints }
+			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.toString(operand.returnType), columns: operand.columns, parameters: operand.parameters, entity: operand.entity, alias: operand.alias, constraints: operand.constraints }
 		} else if (operand instanceof SentenceInclude) {
 			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.toString(operand.returnType), relation: operand.relation }
 		} else if (operand instanceof Map || operand instanceof From || operand instanceof Filter || operand instanceof Join ||

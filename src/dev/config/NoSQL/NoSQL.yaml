@@ -115,7 +115,8 @@ functions:
     # remainder: ':[{0},{1}]'
     round: '{ "$round" :[{0},{1}] }'
     # sign function not supported
-    sign: '{ "$sign":{0}}'
+    # sign: '{ "$sign":{0}}'
+    sign: '{ $cond: [ { $gt: 0 }, 1, { $cond: [ { $lt: 0 }, -1, 0] }] }'
     sin: '{ "$sin" :{0} }'
     sinh: '{ "$sinh" :{0} }'
     tan: '{ "$tan" :{0} }'
