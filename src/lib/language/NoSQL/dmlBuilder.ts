@@ -59,6 +59,9 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 			text = this.addAggregate(text, this.getMap(map, sentence))
 		}
 		if (having) {
+			// TODO: solve:bugs with round(avg(
+			// Example: Products.map(p => ({ average: round(avg(p.price), 4) }))
+			// this.setPrefixToField(having, '$')
 			text = this.addAggregate(text, this.buildArrowFunction(having))
 		}
 		if (sort) {

@@ -3,11 +3,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-	// "editor.codeActionsOnSave": {
-	// 	"source.fixAll": true
-	// },
-	// "editor.formatOnSave": true,
-	// "eslint.run": "onSave",
 	"editor.tabSize": 2,
 	"editor.insertSpaces": false,
 	"cSpell.words": [
@@ -16,6 +11,7 @@
 		"cclp",
 		"classtype",
 		"concat",
+		"cond",
 		"cqrs",
 		"CQRS",
 		"CREATEDB",

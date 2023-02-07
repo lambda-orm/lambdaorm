@@ -257,7 +257,7 @@ export class MongodbConnection extends Connection {
 			let strObj: string | undefined
 			if (query.parameters && query.parameters.length > 0) {
 				for (const param of query.parameters) {
-					const value = this.getValue(mapping, dialect, item[param.name], Type.to(param.type ? param.type : Kind.any))
+					const value = this.getValue(mapping, dialect, item[param.name], param.type ? param.type : Kind.any)
 					strObj = helper.str.replace(strObj || template, `{{${param.name}}}`, value)
 				}
 			} else {
@@ -274,7 +274,7 @@ export class MongodbConnection extends Connection {
 		const row: any = {}
 		if (params.length && params.length > 0) {
 			for (const param of params) {
-				const value = this.getValue(mapping, dialect, param.value, Type.to(param.type ? param.type : Kind.any))
+				const value = this.getValue(mapping, dialect, param.value, param.type ? param.type : Kind.any)
 				result = helper.str.replace(result || template, `{{${param.name}}}`, value)
 			}
 		} else {
@@ -283,7 +283,7 @@ export class MongodbConnection extends Connection {
 		return result ? JSON.parse(result) : undefined
 	}
 
-	private getValue (mapping: MappingConfig, dialect: Dialect, source: any, type: Type) {
+	private getValue (mapping: MappingConfig, dialect: Dialect, source: any, type: string) {
 		let value: any
 		if (source === undefined || source === null) {
 			return 'null'
@@ -299,18 +299,18 @@ export class MongodbConnection extends Connection {
 			}
 		} else {
 			switch (type) {
-			case Type.boolean:
+			case Kind.boolean:
 				return source ? 'true' : 'false'
-			case Type.string:
+			case Kind.string:
 				value = typeof source === Kind.string ? source : source.toString()
 				value = helper.str.replace(value, '\n', '\\n')
 				value = helper.str.replace(value, '"', '\\"')
 				return `"${value}"`
-			case Type.dateTime:
+			case Kind.dateTime:
 				return `"${this.writeDateTime(source, mapping, dialect)}"`
-			case Type.date:
+			case Kind.date:
 				return `"${this.writeDate(source, mapping, dialect)}"`
-			case Type.time:
+			case Kind.time:
 				return `"${this.writeTime(source, mapping, dialect)}"`
 			default:
 				if (typeof source === Kind.string) {

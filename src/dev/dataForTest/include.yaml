@@ -7,8 +7,32 @@ test:
     data: a
     sentences:
       - stage: MongoDB
-        error: 'SintaxisError: Function in not found'
-    errors: 2
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__customerId":"$CustomerID" }} ]
+          children:
+            - entity: Customers
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                "contact":"$ContactName", "phone":"$ContactTitle",
+                "address":"$Address", "city":"$City", "region":"$Region",
+                "postalCode":"$PostalCode", "country":"$Country",
+                "LambdaOrmParentId":"$_id" }} ]
+              children: []
+    errors: 0
     expression: Orders.filter(p => p.id === id).include(p => p.customer)
     normalizeExpression: >-
       Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))
@@ -165,7 +189,31 @@ test:
       alias: o
     executions:
       - stage: MongoDB
-        error: 'SintaxisError: Function in not found'
+    result:
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-04T00:00:00.000+02:00'
+        requiredDate: '1996-08-01'
+        shippedDate: '1996-07-16'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 2
     data: a
     sentences:
@@ -333,9 +381,9 @@ test:
       - id: 1
         customerId: VINET
         employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
+        orderDate: '1996-07-04T00:00:00.000+02:00'
+        requiredDate: '1996-08-01'
+        shippedDate: '1996-07-16'
         shipViaId: 3
         freight: 32.38
         name: Vins et alcools Chevalier
@@ -518,9 +566,9 @@ test:
       - id: 1
         customerId: VINET
         employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
+        orderDate: '1996-07-04T00:00:00.000+02:00'
+        requiredDate: '1996-08-01'
+        shippedDate: '1996-07-16'
         shipViaId: 3
         freight: 32.38
         name: Vins et alcools Chevalier
@@ -781,9 +829,9 @@ test:
       - id: 1
         customerId: VINET
         employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
+        orderDate: '1996-07-04T00:00:00.000+02:00'
+        requiredDate: '1996-08-01'
+        shippedDate: '1996-07-16'
         shipViaId: 3
         freight: 32.38
         name: Vins et alcools Chevalier
@@ -1090,9 +1138,9 @@ test:
       - id: 1
         customerId: VINET
         employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
+        orderDate: '1996-07-04T00:00:00.000+02:00'
+        requiredDate: '1996-08-01'
+        shippedDate: '1996-07-16'
         shipViaId: 3
         freight: 32.38
         name: Vins et alcools Chevalier
@@ -1270,9 +1318,9 @@ test:
       - id: 1
         customerId: VINET
         employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
+        orderDate: '1996-07-04T00:00:00.000+02:00'
+        requiredDate: '1996-08-01'
+        shippedDate: '1996-07-16'
         shipViaId: 3
         freight: 32.38
         name: Vins et alcools Chevalier
@@ -1525,9 +1573,9 @@ test:
       - id: 1
         customerId: VINET
         employeeId: 5
-        orderDate: '1996-07-03T22:00:00.000Z'
-        requiredDate: '1996-07-31T22:00:00.000Z'
-        shippedDate: '1996-07-15T22:00:00.000Z'
+        orderDate: '1996-07-04T00:00:00.000+02:00'
+        requiredDate: '1996-08-01'
+        shippedDate: '1996-07-16'
         shipViaId: 3
         freight: 32.38
         name: Vins et alcools Chevalier
@@ -1546,8 +1594,29 @@ test:
     data: a
     sentences:
       - stage: MongoDB
-        error: 'SintaxisError: Function in not found'
-    errors: 2
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__customerId":"$CustomerID", "__id":"$_id" }} ]
+          children:
+            - entity: Customers
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                "$project" :{ "_id": 0 , "name":"$CompanyName",
+                "LambdaOrmParentId":"$_id" }} ]
+              children: []
+    errors: 0
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name),
       p.details.include(p => p.product.include(p => p.category.map(p =>
@@ -1677,5 +1746,22 @@ test:
       alias: o
     executions:
       - stage: MongoDB
-        error: 'SintaxisError: Function in not found'
-errors: 4
+    result:
+      - id: 1
+        customerId: VINET
+        employeeId: 5
+        orderDate: '1996-07-04T00:00:00.000+02:00'
+        requiredDate: '1996-08-01'
+        shippedDate: '1996-07-16'
+        shipViaId: 3
+        freight: 32.38
+        name: Vins et alcools Chevalier
+        address: 59 rue de l-Abbaye
+        city: Reims
+        region: null
+        postalCode: '51100'
+        country: France
+        __id: 1
+        customer:
+          name: Vins et alcools Chevalier
+errors: 0

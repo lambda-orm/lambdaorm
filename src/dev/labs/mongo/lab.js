@@ -7,10 +7,15 @@ const MongoClient = require('mongodb').MongoClient;
 	const db = client.db(dbName)
 	//await db.collection('inventory').deleteMany({})
 
-
-	const result = await db.collection('Products').aggregate(
-		[{ "$group": { "_id": 0, "count": { "$sum": 1 } } }]
+	const result = await db.collection('Customers').aggregate(
+		[{ "$match" : { "_id":{ "$in" :["VINET"]} } }, { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName", "contact":"$ContactName", "phone":"$ContactTitle", "address":"$Address", "city":"$City", "region":"$Region", "postalCode":"$PostalCode", "country":"$Country", "LambdaOrmParentId":"$_id" }} ]
 	).toArray()
+	// 	[{ "$match" : { "VINET":{ "$in" :["_id"]} } }, { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName", "contact":"$ContactName", "phone":"$ContactTitle", "address":"$Address", "city":"$City", "region":"$Region", "postalCode":"$PostalCode", "country":"$Country", "LambdaOrmParentId":"$_id" }} ]
+	
+
+	// const result = await db.collection('Products').aggregate(
+	// 	[{ "$group": { "_id": 0, "count": { "$sum": 1 } } }]
+	// ).toArray()
 	//GROUP BY
 	// const result = await db.collection('Products').aggregate(
 	// 	[{
@@ -131,7 +136,7 @@ const MongoClient = require('mongodb').MongoClient;
 	// 						price: '$$this.UnitPrice',
 	// 						qty: '$$this.Quantity'
 	// 					}
-	// 				}
+	// 				}"_id"
 	// 			}
 	// 		}
 	// 	}
