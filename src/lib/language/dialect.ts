@@ -88,8 +88,8 @@ export class Dialect {
 		return this._types[name]
 	}
 
-	public delimiter (name: string, force = false): string {
-		if (!name.startsWith('_') && name.indexOf(' ') === -1 && name.indexOf('.') === -1 && !force) {
+	public delimiter (name: string, force = false, excludeUnderscore = false): string {
+		if ((!name.startsWith('_') || excludeUnderscore) && name.indexOf(' ') === -1 && name.indexOf('.') === -1 && !force) {
 			return name
 		}
 		const template = this._others.delimiter

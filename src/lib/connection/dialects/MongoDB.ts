@@ -162,9 +162,10 @@ export class MongodbConnection extends Connection {
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		const obj = this.getObject(mapping, dialect, query, data)
 		const filter = this.parseTemplate(mapping, dialect, sentence.filter, params)
+
 		const result = this.session
-			? await this.cnx.db.collection(collection).updateMany(filter, obj, this.session)
-			: await this.cnx.db.collection(collection).updateMany(filter, obj)
+			? await this.cnx.db.collection(collection).updateMany(filter, { $set: obj }, this.session)
+			: await this.cnx.db.collection(collection).updateMany(filter, { $set: obj })
 		return result.modifiedCount as number
 	}
 

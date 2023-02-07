@@ -11,7 +11,9 @@ export interface QueryArgs{
 	parameters?: Parameter[],
 	constraints?: Constraint[],
 	values?: Behavior[],
-	defaults?: Behavior[]
+	defaults?: Behavior[],
+	// eslint-disable-next-line no-use-before-define
+	includes?: Include[]
 }
 
 export class Query {
@@ -38,7 +40,7 @@ export class Query {
 		this.constraints = args.constraints || []
 		this.values = args.values || []
 		this.defaults = args.defaults || []
-		this.includes = []
+		this.includes = args.includes || []
 	}
 }
 export class Include {

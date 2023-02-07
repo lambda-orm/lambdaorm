@@ -1,30 +1,39 @@
 /* eslint-disable no-tabs */
 
 import { Operand, OperandType } from '3xpr'
-import { SentenceCrudAction, SentenceAction, Include, Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Query, SchemaError, EntityMapping, RelationType } from '../../contract'
+import {
+	Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update,
+	SentenceCrudAction, SentenceAction, Include, Query, SchemaError, SintaxisError, EntityMapping, RelationType
+} from '../../contract'
 import { DmlBuilder } from '../dmlBuilder'
 import { helper } from '../../manager'
 
 export class NoSqlDMLBuilder extends DmlBuilder {
 	public override build (sentence: Sentence): Query {
-		if (sentence.crudAction === SentenceCrudAction.select) {
-			const noSQLSentence = this.buildSentence(sentence)
-			return new Query({ action: sentence.action, dialect: this.source.dialect, source: this.source.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
-		} else {
-			const includes:Include[] = []
+		const includes:Include[] = []
+		if (sentence.crudAction !== SentenceCrudAction.select) {
 			const sentenceIncludes = sentence.getCompositeIncludes()
-			for (const p in sentenceIncludes) {
-				const sentenceInclude = sentenceIncludes[p]
+			for (const sentenceInclude of sentenceIncludes) {
 				const childSentence = sentenceInclude.children[0] as Sentence
 				const childQuery = this.build(childSentence)
 				const include = new Include(sentenceInclude.name, childQuery, sentenceInclude.relation)
 				includes.push(include)
 			}
-			const noSQLSentence = this.buildSentence(sentence)
-			const query = new Query({ action: SentenceAction[sentence.name], dialect: this.source.dialect, source: this.source.name, sentence: noSQLSentence, entity: sentence.entity, columns: sentence.columns, parameters: sentence.parameters, constraints: sentence.constraints, values: sentence.values, defaults: sentence.defaults })
-			query.includes = includes
-			return query
 		}
+		const textSentence = this.buildSentence(sentence)
+		return new Query({
+			action: SentenceAction[sentence.name],
+			dialect: this.source.dialect,
+			source: this.source.name,
+			sentence: textSentence,
+			entity: sentence.entity,
+			columns: sentence.columns,
+			parameters: sentence.parameters,
+			constraints: sentence.constraints,
+			values: sentence.values,
+			defaults: sentence.defaults,
+			includes
+		})
 	}
 
 	protected override buildMapSentence (sentence: Sentence): string {
@@ -107,25 +116,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		const replaceRootTemplate = this.dialect.dml('replaceRoot')
 		text = text !== '' ? `${text}, ${replaceRootTemplate.replace('{0}', newRoot)}` : replaceRootTemplate.replace('{0}', newRoot)
 		return text
-	}
-
-	protected override buildUpdateSentence (sentence: Sentence): string {
-		const entity = this.mapping.getEntity(sentence.entity)
-		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
-		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
-		if (entity === undefined) {
-			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
-		}
-		if (update === undefined) {
-			throw new SchemaError('update operand not found')
-		}
-		// Keep in mind that when there are includes, the set must only be in the root.
-		// maybe the set should be in the connection
-		const data: any = {
-			set: `{ "$set" :{ ${this.buildUpdate(update, entity)} }}`,
-			filter: filter ? this.buildArrowFunction(filter) : '{}'
-		}
-		return JSON.stringify(data)
 	}
 
 	protected override buildDeleteSentence (sentence: Sentence): string {
@@ -403,13 +393,33 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		return template.replace('{assigns}', assigns.join(','))
 	}
 
-	protected override buildUpdate (operand: Update, entity: EntityMapping): string {
+	protected buildUpdateSentence (sentence: Sentence): string {
+		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
+		// Keep in mind that when there are includes, the set must only be in the root.
+		// maybe the set should be in the connection
+		const data: any = {
+			set: this.buildUpdate(sentence),
+			filter: filter ? this.buildArrowFunction(filter) : '{}'
+		}
+		return JSON.stringify(data)
+	}
+
+	protected override buildUpdate (sentence: Sentence): string {
+		const entity = this.mapping.getEntity(sentence.entity)
+		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
+		if (entity === undefined) {
+			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
+		if (update === undefined) {
+			throw new SintaxisError('update operand not found')
+		}
+
 		const template = this.dialect.dml('update')
 		const templateAssign = this.dialect.operator('=', 2)
 		const assigns: string[] = []
 
-		if (operand.children[0].type === OperandType.Obj) {
-			const obj = operand.children[0]
+		if (update.children[0].type === OperandType.Obj) {
+			const obj = update.children[0]
 			for (const p in obj.children) {
 				const keyVal = obj.children[p]
 				let name: string
@@ -419,17 +429,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 				} else {
 					name = keyVal.name
 				}
-				// let name: string
-				// if (keyVal.property !== undefined) {
-				// const property = entity.properties.find(q => q.name === keyVal.property)
-				// if (property === undefined) {
-				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-				// }
-				// name = property.mapping
-				// } else {
-				// name = keyVal.name
-				// }
-				const field = this.dialect.delimiter(name)
+				const field = this.dialect.delimiter(name, false, true)
 				const value = this.buildOperand(keyVal.children[0])
 				let assign = templateAssign.replace('{0}', field)
 				assign = assign.replace('{1}', value)
@@ -472,14 +472,6 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		}
 		return text
 	}
-
-	// protected override buildVariable (operand: Operand): string {
-	// const number = operand.number ? operand.number : 0
-	// let text = this.dialect.other('variable')
-	// text = text.replace('{name}', operand.name)
-	// text = text.replace('{number}', number.toString())
-	// return text
-	// }
 
 	protected setPrefixToField (operand: Operand, prefix: string) {
 		if (operand instanceof Field) {

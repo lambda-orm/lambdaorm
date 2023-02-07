@@ -31,7 +31,7 @@ dml:
   page: ' {sentence} , { "$skip" : {offset} }, { "$limit" : {records} }'
   insert: "{ {assigns} }"
   # update: '{ "$set" :{ {assigns} }}'
-  update: "{assigns}"
+  update: "{ {assigns} }"
   # delete: DELETE FROM {name} {alias}
   # bulkInsert: insertMany([{values}])
   # from: 'FROM {name} {alias} '

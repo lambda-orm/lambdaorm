@@ -18,12 +18,11 @@ export abstract class DmlBuilder {
 	}
 
 	public build (sentence: Sentence): Query {
-		const sqlSentence = this.buildSentence(sentence)
 		return new Query({
 			action: sentence.action,
 			dialect: this.source.dialect,
 			source: this.source.name,
-			sentence: sqlSentence,
+			sentence: this.buildSentence(sentence),
 			entity: sentence.entity,
 			columns: sentence.columns,
 			parameters: sentence.parameters,
