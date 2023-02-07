@@ -596,9 +596,9 @@ test:
           source: MongoDB
           sentence: >-
             {"set":"{ \"$set\" :{ \"ShipPostalCode\":{{postalCode}}
-            }}","filter":{}}
+            }}","filter":"{}"}
           children: []
-    errors: 1
+    errors: 0
     expression: Orders.updateAll(() => [postalCode])
     normalizeExpression: Orders.update(=>{postalCode:postalCode})
     model:
@@ -632,7 +632,9 @@ test:
       alias: o
     executions:
       - stage: MongoDB
-        error: 'TypeError: string.split is not a function'
+    result:
+      data:
+        postalCode: xxx
   - name: update 4
     data: b
     sentences:
@@ -1820,4 +1822,4 @@ test:
     executions:
       - stage: MongoDB
         error: 'SyntaxError: Unexpected token _ in JSON at position 14'
-errors: 3
+errors: 2

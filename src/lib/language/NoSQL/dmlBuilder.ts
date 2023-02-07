@@ -123,7 +123,7 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		// maybe the set should be in the connection
 		const data: any = {
 			set: `{ "$set" :{ ${this.buildUpdate(update, entity)} }}`,
-			filter: filter ? this.buildArrowFunction(filter) : {}
+			filter: filter ? this.buildArrowFunction(filter) : '{}'
 		}
 		return JSON.stringify(data)
 	}
