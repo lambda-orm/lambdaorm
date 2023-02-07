@@ -5,6 +5,41 @@ data:
 test:
   - name: groupBy 1
     sentences:
+      - stage: MySQL
+        info:
+          entity: Products
+          dialect: MySQL
+          source: MySQL
+          sentence: 'SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p  '
+          children: []
+      - stage: MariaDB
+        info:
+          entity: Products
+          dialect: MariaDB
+          source: MariaDB
+          sentence: 'SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p  '
+          children: []
+      - stage: PostgreSQL
+        info:
+          entity: Products
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
+          children: []
+      - stage: SqlServer
+        info:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: 'SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p  '
+          children: []
+      - stage: Oracle
+        info:
+          entity: Products
+          dialect: Oracle
+          source: Oracle
+          sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
+          children: []
       - stage: MongoDB
         info:
           entity: Products
@@ -12,7 +47,7 @@ test:
           source: MongoDB
           sentence: '[{ "$group" :{ "_id": 0 , "maxPrice":{ "$max" :"$UnitPrice" } }} ]'
           children: []
-    errors: 0
+    errors: 1
     expression: 'Products.map(p => ({ maxPrice: max(p.price) }))'
     normalizeExpression: Products.map(p=>{maxPrice:max(p.price)})
     model:
@@ -41,12 +76,55 @@ test:
       clause: select
       alias: p
     executions:
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - _id: 0
+            maxPrice: 263.5
     result:
-      - _id: 0
-        maxPrice: 263.5
+      - maxPrice: 263.5
   - name: groupBy 2
     sentences:
+      - stage: MySQL
+        info:
+          entity: Products
+          dialect: MySQL
+          source: MySQL
+          sentence: 'SELECT MIN(p.UnitPrice) AS minPrice FROM Products p  '
+          children: []
+      - stage: MariaDB
+        info:
+          entity: Products
+          dialect: MariaDB
+          source: MariaDB
+          sentence: 'SELECT MIN(p.UnitPrice) AS minPrice FROM Products p  '
+          children: []
+      - stage: PostgreSQL
+        info:
+          entity: Products
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
+          children: []
+      - stage: SqlServer
+        info:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: 'SELECT MIN(p.UnitPrice) AS minPrice FROM Products p  '
+          children: []
+      - stage: Oracle
+        info:
+          entity: Products
+          dialect: Oracle
+          source: Oracle
+          sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
+          children: []
       - stage: MongoDB
         info:
           entity: Products
@@ -54,7 +132,7 @@ test:
           source: MongoDB
           sentence: '[{ "$group" :{ "_id": 0 , "minPrice":{ "$min" :"$UnitPrice" } }} ]'
           children: []
-    errors: 0
+    errors: 1
     expression: 'Products.map(p => ({ minPrice: min(p.price) }))'
     normalizeExpression: Products.map(p=>{minPrice:min(p.price)})
     model:
@@ -83,12 +161,55 @@ test:
       clause: select
       alias: p
     executions:
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - _id: 0
+            minPrice: 2.5
     result:
-      - _id: 0
-        minPrice: 2.5
+      - minPrice: 2.5
   - name: groupBy 3
     sentences:
+      - stage: MySQL
+        info:
+          entity: Products
+          dialect: MySQL
+          source: MySQL
+          sentence: 'SELECT SUM(p.UnitPrice) AS total FROM Products p  '
+          children: []
+      - stage: MariaDB
+        info:
+          entity: Products
+          dialect: MariaDB
+          source: MariaDB
+          sentence: 'SELECT SUM(p.UnitPrice) AS total FROM Products p  '
+          children: []
+      - stage: PostgreSQL
+        info:
+          entity: Products
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
+          children: []
+      - stage: SqlServer
+        info:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: 'SELECT SUM(p.UnitPrice) AS total FROM Products p  '
+          children: []
+      - stage: Oracle
+        info:
+          entity: Products
+          dialect: Oracle
+          source: Oracle
+          sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
+          children: []
       - stage: MongoDB
         info:
           entity: Products
@@ -96,7 +217,7 @@ test:
           source: MongoDB
           sentence: '[{ "$group" :{ "_id": 0 , "total":{ "$sum" :"$UnitPrice" } }} ]'
           children: []
-    errors: 0
+    errors: 1
     expression: 'Products.map(p => ({ total: sum(p.price) }))'
     normalizeExpression: Products.map(p=>{total:sum(p.price)})
     model:
@@ -125,12 +246,57 @@ test:
       clause: select
       alias: p
     executions:
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - _id: 0
+            total: 2222.71
     result:
-      - _id: 0
-        total: 2222.71
+      - total: 2222.71
   - name: groupBy 4
     sentences:
+      - stage: MySQL
+        info:
+          entity: Products
+          dialect: MySQL
+          source: MySQL
+          sentence: 'SELECT ROUND(AVG(p.UnitPrice),4) AS average FROM Products p  '
+          children: []
+      - stage: MariaDB
+        info:
+          entity: Products
+          dialect: MariaDB
+          source: MariaDB
+          sentence: 'SELECT ROUND(AVG(p.UnitPrice),4) AS average FROM Products p  '
+          children: []
+      - stage: PostgreSQL
+        info:
+          entity: Products
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            SELECT ROUND(CAST(AVG(p.UnitPrice) AS DECIMAL),4) AS "average" FROM
+            Products p  
+          children: []
+      - stage: SqlServer
+        info:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: 'SELECT ROUND(AVG(p.UnitPrice),4) AS average FROM Products p  '
+          children: []
+      - stage: Oracle
+        info:
+          entity: Products
+          dialect: Oracle
+          source: Oracle
+          sentence: 'SELECT ROUND(AVG(p.UnitPrice),4) AS "average" FROM Products p  '
+          children: []
       - stage: MongoDB
         info:
           entity: Products
@@ -140,7 +306,7 @@ test:
             [{ "$group" :{ "_id": 0 , "average":{ "$round" :[{ "$avg"
             :"$UnitPrice" },4] } }} ]
           children: []
-    errors: 1
+    errors: 2
     expression: 'Products.map(p => ({ average: round(avg(p.price), 4) }))'
     normalizeExpression: Products.map(p=>{average:round(avg(p.price),4)})
     model:
@@ -171,8 +337,53 @@ test:
     executions:
       - stage: MongoDB
         error: 'MongoServerError: The $round accumulator is a unary operator'
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+        error: not equal MySQL
+        result:
+          - average: 28.866400000000002
+    result:
+      - average: 28.8664
   - name: groupBy 5
     sentences:
+      - stage: MySQL
+        info:
+          entity: Products
+          dialect: MySQL
+          source: MySQL
+          sentence: 'SELECT COUNT(1) AS count FROM Products p  '
+          children: []
+      - stage: MariaDB
+        info:
+          entity: Products
+          dialect: MariaDB
+          source: MariaDB
+          sentence: 'SELECT COUNT(1) AS count FROM Products p  '
+          children: []
+      - stage: PostgreSQL
+        info:
+          entity: Products
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
+          children: []
+      - stage: SqlServer
+        info:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: 'SELECT COUNT(1) AS count FROM Products p  '
+          children: []
+      - stage: Oracle
+        info:
+          entity: Products
+          dialect: Oracle
+          source: Oracle
+          sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
+          children: []
       - stage: MongoDB
         info:
           entity: Products
@@ -180,7 +391,7 @@ test:
           source: MongoDB
           sentence: '[{ "$group" :{ "_id": 0 , "count":{ "$sum" : 1 } }} ]'
           children: []
-    errors: 0
+    errors: 1
     expression: 'Products.map(p => ({ count: count(1) }))'
     normalizeExpression: Products.map(p=>{count:count(1)})
     model:
@@ -209,12 +420,65 @@ test:
       clause: select
       alias: p
     executions:
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - _id: 0
+            count: 77
     result:
-      - _id: 0
-        count: 77
+      - count: 77
   - name: groupBy 6
     sentences:
+      - stage: MySQL
+        info:
+          entity: Products
+          dialect: MySQL
+          source: MySQL
+          sentence: >-
+            SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p  GROUP BY p.CategoryID 
+          children: []
+      - stage: MariaDB
+        info:
+          entity: Products
+          dialect: MariaDB
+          source: MariaDB
+          sentence: >-
+            SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p  GROUP BY p.CategoryID 
+          children: []
+      - stage: PostgreSQL
+        info:
+          entity: Products
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p  GROUP BY p.CategoryID 
+          children: []
+      - stage: SqlServer
+        info:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p  GROUP BY p.CategoryID 
+          children: []
+      - stage: Oracle
+        info:
+          entity: Products
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT p.CategoryID AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p  GROUP BY p.CategoryID 
+          children: []
       - stage: MongoDB
         info:
           entity: Products
@@ -225,7 +489,7 @@ test:
             "$max" :"$UnitPrice" } }}, { "$project" :{ "_id": 0 ,
             "category":"$_id.category" , "largestPrice":"$largestPrice" }} ]
           children: []
-    errors: 0
+    errors: 3
     expression: >-
       Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price)
       }))
@@ -260,26 +524,135 @@ test:
       clause: select
       alias: p
     executions:
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+        error: not equal MySQL
+        result:
+          - category: 3
+            largestPrice: 81
+          - category: 5
+            largestPrice: 38
+          - category: 4
+            largestPrice: 55
+          - category: 6
+            largestPrice: 123.79
+          - category: 2
+            largestPrice: 43.9
+          - category: 7
+            largestPrice: 53
+          - category: 1
+            largestPrice: 263.5
+          - category: 8
+            largestPrice: 62.5
+      - stage: SqlServer
+      - stage: Oracle
+        error: not equal MySQL
+        result:
+          - category: 6
+            largestPrice: 123.79
+          - category: 1
+            largestPrice: 263.5
+          - category: 7
+            largestPrice: 53
+          - category: 2
+            largestPrice: 43.9
+          - category: 8
+            largestPrice: 62.5
+          - category: 4
+            largestPrice: 55
+          - category: 5
+            largestPrice: 38
+          - category: 3
+            largestPrice: 81
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - category: 2
+            largestPrice: 43.9
+          - category: 5
+            largestPrice: 38
+          - category: 3
+            largestPrice: 81
+          - category: 1
+            largestPrice: 263.5
+          - category: 6
+            largestPrice: 123.79
+          - category: 4
+            largestPrice: 55
+          - category: 7
+            largestPrice: 53
+          - category: 8
+            largestPrice: 62.5
     result:
-      - category: 7
-        largestPrice: 53
-      - category: 5
-        largestPrice: 38
-      - category: 8
-        largestPrice: 62.5
-      - category: 6
-        largestPrice: 123.79
       - category: 1
         largestPrice: 263.5
-      - category: 4
-        largestPrice: 55
       - category: 2
         largestPrice: 43.9
       - category: 3
         largestPrice: 81
+      - category: 4
+        largestPrice: 55
+      - category: 5
+        largestPrice: 38
+      - category: 6
+        largestPrice: 123.79
+      - category: 7
+        largestPrice: 53
+      - category: 8
+        largestPrice: 62.5
   - name: groupBy 7
     sentences:
+      - stage: MySQL
+        info:
+          entity: Products
+          dialect: MySQL
+          source: MySQL
+          sentence: >-
+            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID GROUP BY c.CategoryName 
+          children: []
+      - stage: MariaDB
+        info:
+          entity: Products
+          dialect: MariaDB
+          source: MariaDB
+          sentence: >-
+            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID GROUP BY c.CategoryName 
+          children: []
+      - stage: PostgreSQL
+        info:
+          entity: Products
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p INNER JOIN Categories c ON
+            c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
+          children: []
+      - stage: SqlServer
+        info:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID GROUP BY c.CategoryName 
+          children: []
+      - stage: Oracle
+        info:
+          entity: Products
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p INNER JOIN Categories c ON
+            c.CategoryID = p.CategoryID GROUP BY c.CategoryName 
+          children: []
       - stage: MongoDB
         info:
           entity: Products
@@ -292,7 +665,7 @@ test:
             "largestPrice":{ "$max" :"$UnitPrice" } }}, { "$project" :{ "_id": 0
             , "category":"$_id.category" , "largestPrice":"$largestPrice" }} ]
           children: []
-    errors: 0
+    errors: 3
     expression: >-
       Products.map(p => ({ category: p.category.name, largestPrice: max(p.price)
       }))
@@ -327,27 +700,133 @@ test:
       clause: select
       alias: p
     executions:
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+        error: not equal MySQL
+        result:
+          - category: Grains/Cereals
+            largestPrice: 38
+          - category: Beverages
+            largestPrice: 263.5
+          - category: Dairy Products
+            largestPrice: 55
+          - category: Seafood
+            largestPrice: 62.5
+          - category: Produce
+            largestPrice: 53
+          - category: Condiments
+            largestPrice: 43.9
+          - category: Meat/Poultry
+            largestPrice: 123.79
+          - category: Confections
+            largestPrice: 81
+      - stage: SqlServer
+      - stage: Oracle
+        error: not equal MySQL
+        result:
+          - category: Confections
+            largestPrice: 81
+          - category: Produce
+            largestPrice: 53
+          - category: Seafood
+            largestPrice: 62.5
+          - category: Beverages
+            largestPrice: 263.5
+          - category: Grains/Cereals
+            largestPrice: 38
+          - category: Condiments
+            largestPrice: 43.9
+          - category: Meat/Poultry
+            largestPrice: 123.79
+          - category: Dairy Products
+            largestPrice: 55
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - category: Produce
+            largestPrice: 53
+          - category: Dairy Products
+            largestPrice: 55
+          - category: Seafood
+            largestPrice: 62.5
+          - category: Beverages
+            largestPrice: 263.5
+          - category: Grains/Cereals
+            largestPrice: 38
+          - category: Meat/Poultry
+            largestPrice: 123.79
+          - category: Condiments
+            largestPrice: 43.9
+          - category: Confections
+            largestPrice: 81
     result:
-      - category: Confections
-        largestPrice: 81
-      - category: Condiments
-        largestPrice: 43.9
-      - category: Meat/Poultry
-        largestPrice: 123.79
-      - category: Grains/Cereals
-        largestPrice: 38
       - category: Beverages
         largestPrice: 263.5
-      - category: Seafood
-        largestPrice: 62.5
+      - category: Condiments
+        largestPrice: 43.9
+      - category: Confections
+        largestPrice: 81
       - category: Dairy Products
         largestPrice: 55
+      - category: Grains/Cereals
+        largestPrice: 38
+      - category: Meat/Poultry
+        largestPrice: 123.79
       - category: Produce
         largestPrice: 53
+      - category: Seafood
+        largestPrice: 62.5
   - name: groupBy 8
     data: a
     sentences:
+      - stage: MySQL
+        info:
+          entity: Products
+          dialect: MySQL
+          source: MySQL
+          sentence: >-
+            SELECT p.ProductName AS name, p.UnitPrice AS source,
+            ABS(p.UnitPrice) AS result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: MariaDB
+        info:
+          entity: Products
+          dialect: MariaDB
+          source: MariaDB
+          sentence: >-
+            SELECT p.ProductName AS name, p.UnitPrice AS source,
+            ABS(p.UnitPrice) AS result FROM Products p  WHERE p.ProductID = ? 
+          children: []
+      - stage: PostgreSQL
+        info:
+          entity: Products
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            SELECT p.ProductName AS "name", p.UnitPrice AS "source",
+            ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID =
+            $1 
+          children: []
+      - stage: SqlServer
+        info:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            SELECT p.ProductName AS name, p.UnitPrice AS source,
+            ABS(p.UnitPrice) AS result FROM Products p  WHERE p.ProductID = @id 
+          children: []
+      - stage: Oracle
+        info:
+          entity: Products
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT p.ProductName AS "name", p.UnitPrice AS "source",
+            ABS(p.UnitPrice) AS "result" FROM Products p  WHERE p.ProductID =
+            :id 
+          children: []
       - stage: MongoDB
         info:
           entity: Products
@@ -402,6 +881,11 @@ test:
       clause: select
       alias: p
     executions:
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
       - stage: MongoDB
     result:
       - name: Chai
@@ -409,6 +893,58 @@ test:
         result: 18
   - name: groupBy 9
     sentences:
+      - stage: MySQL
+        info:
+          entity: Products
+          dialect: MySQL
+          source: MySQL
+          sentence: >-
+            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
+          children: []
+      - stage: MariaDB
+        info:
+          entity: Products
+          dialect: MariaDB
+          source: MariaDB
+          sentence: >-
+            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
+          children: []
+      - stage: PostgreSQL
+        info:
+          entity: Products
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p INNER JOIN Categories c ON
+            c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+            MAX(p.UnitPrice) > 100 
+          children: []
+      - stage: SqlServer
+        info:
+          entity: Products
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice
+            FROM Products p INNER JOIN Categories c ON c.CategoryID =
+            p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 
+          children: []
+      - stage: Oracle
+        info:
+          entity: Products
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT c.CategoryName AS "category", MAX(p.UnitPrice) AS
+            "largestPrice" FROM Products p INNER JOIN Categories c ON
+            c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
+            MAX(p.UnitPrice) > 100 
+          children: []
       - stage: MongoDB
         info:
           entity: Products
@@ -460,8 +996,65 @@ test:
     executions:
       - stage: MongoDB
         error: 'SyntaxError: Unexpected token { in JSON at position 335'
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
+    result:
+      - category: Beverages
+        largestPrice: 263.5
+      - category: Meat/Poultry
+        largestPrice: 123.79
   - name: query 10
     sentences:
+      - stage: MySQL
+        info:
+          entity: Orders.details
+          dialect: MySQL
+          source: MySQL
+          sentence: >-
+            SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100)))
+            * 100)) AS subTotal FROM `Order Details` o  ORDER BY subTotal asc 
+          children: []
+      - stage: MariaDB
+        info:
+          entity: Orders.details
+          dialect: MariaDB
+          source: MariaDB
+          sentence: >-
+            SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100)))
+            * 100)) AS subTotal FROM `Order Details` o  ORDER BY subTotal asc 
+          children: []
+      - stage: PostgreSQL
+        info:
+          entity: Orders.details
+          dialect: PostgreSQL
+          source: PostgreSQL
+          sentence: >-
+            SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100)))
+            * 100)) AS "subTotal" FROM "Order Details" o  ORDER BY "subTotal"
+            asc 
+          children: []
+      - stage: SqlServer
+        info:
+          entity: Orders.details
+          dialect: SqlServer
+          source: SqlServer
+          sentence: >-
+            SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100)))
+            * 100)) AS subTotal FROM [Order Details] o  ORDER BY subTotal asc 
+          children: []
+      - stage: Oracle
+        info:
+          entity: Orders.details
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100)))
+            * 100)) AS "subTotal" FROM "Order Details" o  ORDER BY "subTotal"
+            asc 
+          children: []
       - stage: MongoDB
         info:
           entity: Orders.details
@@ -475,7 +1068,7 @@ test:
             :["$Discount",100] }] }] },100] } } }} , { "$sort" :{ "subTotal":1 }
             }]
           children: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 -
       p.discount / 100)) * 100) })).sort(p => p.subTotal)
@@ -507,8 +1100,16 @@ test:
       clause: select
       alias: o
     executions:
+      - stage: MySQL
+      - stage: MariaDB
+      - stage: PostgreSQL
+      - stage: SqlServer
+      - stage: Oracle
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - _id: 0
+            subTotal: 135445859
     result:
-      - _id: 0
-        subTotal: 135445859
-errors: 2
+      - subTotal: 135445859
+errors: 14

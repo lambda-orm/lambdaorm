@@ -7,18 +7,19 @@ import { MemoryCache, ICache } from 'h3lp'
 import { IExpressions } from '3xpr'
 
 export class QueryManager {
-	private cache: ICache<number, string>
+	private cache: ICache<string, string>
 	private builder: QueryBuilder
 	private expressions: IExpressions
 
 	constructor (sentenceManager: SentenceManager, schema: SchemaManager, languages: Languages, expressions: IExpressions) {
-		this.cache = new MemoryCache<number, string>()
+		this.cache = new MemoryCache<string, string>()
 		this.builder = new QueryBuilder(sentenceManager, schema, languages)
 		this.expressions = expressions
 	}
 
 	public create (expression: string, options: QueryOptions): Query {
-		const key = helper.utils.hashCode(expression)
+		const expressionKey = helper.utils.hashCode(expression)
+		const key = `${expressionKey}-${options.stage}-${options.view || 'default'}`
 		const value = this.cache.get(key)
 		if (!value) {
 			const query = this.builder.build(expression, options)
