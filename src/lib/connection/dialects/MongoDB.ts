@@ -257,8 +257,10 @@ export class MongodbConnection extends Connection {
 			let strObj: string | undefined
 			if (query.parameters && query.parameters.length > 0) {
 				for (const param of query.parameters) {
-					const value = this.getValue(mapping, dialect, item[param.name], param.type ? param.type : Kind.any)
-					strObj = helper.str.replace(strObj || template, `{{${param.name}}}`, value)
+					const paramName = helper.query.transformParameter(param.name)
+					const itemValue = helper.obj.getValue(item, param.name)
+					const value = this.getValue(mapping, dialect, itemValue, param.type ? param.type : Kind.any)
+					strObj = helper.str.replace(strObj || template, `{{${paramName}}}`, value)
 				}
 			} else {
 				strObj = template
@@ -274,8 +276,9 @@ export class MongodbConnection extends Connection {
 		const row: any = {}
 		if (params.length && params.length > 0) {
 			for (const param of params) {
+				const paramName = helper.query.transformParameter(param.name)
 				const value = this.getValue(mapping, dialect, param.value, param.type ? param.type : Kind.any)
-				result = helper.str.replace(result || template, `{{${param.name}}}`, value)
+				result = helper.str.replace(result || template, `{{${paramName}}}`, value)
 			}
 		} else {
 			result = template

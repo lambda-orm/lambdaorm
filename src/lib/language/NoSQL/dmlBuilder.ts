@@ -473,6 +473,14 @@ export class NoSqlDMLBuilder extends DmlBuilder {
 		return text
 	}
 
+	// protected override buildVariable (operand: Operand): string {
+	// const number = operand.number ? operand.number : 0
+	// let text = this.dialect.other('variable')
+	// text = text.replace('{name}', operand.name)
+	// text = text.replace('{number}', number.toString())
+	// return text
+	// }
+
 	protected setPrefixToField (operand: Operand, prefix: string) {
 		if (operand instanceof Field) {
 			operand.prefix = prefix

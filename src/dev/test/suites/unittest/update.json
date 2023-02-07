@@ -729,7 +729,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "id",
@@ -769,7 +769,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "id",
@@ -808,11 +808,11 @@
           "result": [
             {
               "name": "name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "description",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "id",
@@ -825,7 +825,7 @@
           "result": [
             {
               "name": "description",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "id",
@@ -855,7 +855,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
@@ -868,7 +868,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
@@ -907,7 +907,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
@@ -934,7 +934,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
@@ -947,7 +947,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
@@ -986,7 +986,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
@@ -1025,7 +1025,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
@@ -1854,7 +1854,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "id",
@@ -1987,7 +1987,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "id",
@@ -2114,11 +2114,11 @@
             "parameters": [
               {
                 "name": "name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "description",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "id",
@@ -2162,7 +2162,7 @@
             "parameters": [
               {
                 "name": "description",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "id",
@@ -2285,7 +2285,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
@@ -2382,7 +2382,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
@@ -2463,7 +2463,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
@@ -2498,7 +2498,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
@@ -2619,7 +2619,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
@@ -2716,7 +2716,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
@@ -2797,7 +2797,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",

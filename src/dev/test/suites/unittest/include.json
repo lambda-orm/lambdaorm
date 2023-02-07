@@ -948,7 +948,7 @@
               "children": [
                 {
                   "name": "LambdaOrmParentId",
-                  "type": "any"
+                  "type": "[string]"
                 }
               ]
             }
@@ -967,7 +967,7 @@
               "children": [
                 {
                   "name": "LambdaOrmParentId",
-                  "type": "any"
+                  "type": "[integer]"
                 }
               ]
             }
@@ -986,7 +986,7 @@
               "children": [
                 {
                   "name": "LambdaOrmParentId",
-                  "type": "any"
+                  "type": "[integer]"
                 }
               ]
             }
@@ -1005,7 +1005,7 @@
               "children": [
                 {
                   "name": "LambdaOrmParentId",
-                  "type": "any"
+                  "type": "[integer]"
                 },
                 {
                   "name": "product",
@@ -1013,7 +1013,7 @@
                   "children": [
                     {
                       "name": "LambdaOrmParentId",
-                      "type": "any"
+                      "type": "[integer]"
                     }
                   ]
                 }
@@ -1034,7 +1034,7 @@
               "children": [
                 {
                   "name": "LambdaOrmParentId",
-                  "type": "any"
+                  "type": "[integer]"
                 },
                 {
                   "name": "product",
@@ -1042,7 +1042,7 @@
                   "children": [
                     {
                       "name": "LambdaOrmParentId",
-                      "type": "any"
+                      "type": "[integer]"
                     },
                     {
                       "name": "category",
@@ -1050,7 +1050,7 @@
                       "children": [
                         {
                           "name": "LambdaOrmParentId",
-                          "type": "any"
+                          "type": "[integer]"
                         }
                       ]
                     }
@@ -1073,7 +1073,7 @@
               "children": [
                 {
                   "name": "LambdaOrmParentId",
-                  "type": "any"
+                  "type": "[integer]"
                 }
               ]
             }
@@ -1092,7 +1092,7 @@
               "children": [
                 {
                   "name": "LambdaOrmParentId",
-                  "type": "any"
+                  "type": "[integer]"
                 },
                 {
                   "name": "product",
@@ -1100,7 +1100,7 @@
                   "children": [
                     {
                       "name": "LambdaOrmParentId",
-                      "type": "any"
+                      "type": "[integer]"
                     }
                   ]
                 }
@@ -1121,7 +1121,7 @@
               "children": [
                 {
                   "name": "LambdaOrmParentId",
-                  "type": "any"
+                  "type": "[string]"
                 }
               ]
             }
@@ -1332,7 +1332,7 @@
                 "parameters": [
                   {
                     "name": "LambdaOrmParentId",
-                    "type": "any"
+                    "type": "[string]"
                   }
                 ],
                 "constraints": [],
@@ -1468,7 +1468,7 @@
                 "parameters": [
                   {
                     "name": "LambdaOrmParentId",
-                    "type": "any"
+                    "type": "[integer]"
                   }
                 ],
                 "constraints": [],
@@ -1604,7 +1604,7 @@
                 "parameters": [
                   {
                     "name": "LambdaOrmParentId",
-                    "type": "any"
+                    "type": "[integer]"
                   }
                 ],
                 "constraints": [],
@@ -1772,7 +1772,7 @@
                     "parameters": [
                       {
                         "name": "LambdaOrmParentId",
-                        "type": "any"
+                        "type": "[integer]"
                       }
                     ],
                     "constraints": [],
@@ -1817,7 +1817,7 @@
                 "parameters": [
                   {
                     "name": "LambdaOrmParentId",
-                    "type": "any"
+                    "type": "[integer]"
                   }
                 ],
                 "constraints": [],
@@ -1965,7 +1965,7 @@
                         "parameters": [
                           {
                             "name": "LambdaOrmParentId",
-                            "type": "any"
+                            "type": "[integer]"
                           }
                         ],
                         "constraints": [],
@@ -2030,7 +2030,7 @@
                     "parameters": [
                       {
                         "name": "LambdaOrmParentId",
-                        "type": "any"
+                        "type": "[integer]"
                       }
                     ],
                     "constraints": [],
@@ -2075,7 +2075,7 @@
                 "parameters": [
                   {
                     "name": "LambdaOrmParentId",
-                    "type": "any"
+                    "type": "[integer]"
                   }
                 ],
                 "constraints": [],
@@ -2207,7 +2207,7 @@
                 "parameters": [
                   {
                     "name": "LambdaOrmParentId",
-                    "type": "any"
+                    "type": "[integer]"
                   }
                 ],
                 "constraints": [],
@@ -2375,7 +2375,7 @@
                     "parameters": [
                       {
                         "name": "LambdaOrmParentId",
-                        "type": "any"
+                        "type": "[integer]"
                       }
                     ],
                     "constraints": [],
@@ -2412,7 +2412,7 @@
                 "parameters": [
                   {
                     "name": "LambdaOrmParentId",
-                    "type": "any"
+                    "type": "[integer]"
                   }
                 ],
                 "constraints": [],
@@ -2536,7 +2536,7 @@
                 "parameters": [
                   {
                     "name": "LambdaOrmParentId",
-                    "type": "any"
+                    "type": "[string]"
                   }
                 ],
                 "constraints": [],

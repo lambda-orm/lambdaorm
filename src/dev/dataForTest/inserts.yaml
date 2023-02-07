@@ -12,10 +12,12 @@ data:
     entity:
       name: Beverages22
       description: Soft drinks, coffees, teas, beers, and ales
+    id: 14
   d:
     entity:
       name: Beverages23
       description: Soft drinks, coffees, teas, beers, and ales
+    id: 16
   order:
     customerId: VINET
     employeeId: 5
@@ -195,7 +197,7 @@ test:
             "CategoryName":{{entity_name}},"Description":{{entity_description}}
             }
           children: []
-    errors: 1
+    errors: 0
     expression: Categories.insert(entity)
     normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
     model:
@@ -243,7 +245,12 @@ test:
       alias: c
     executions:
       - stage: MongoDB
-        error: 'SyntaxError: Unexpected token { in JSON at position 18'
+    result:
+      data:
+        entity:
+          name: Beverages22
+          description: Soft drinks, coffees, teas, beers, and ales
+        id: 14
   - name: insert 4
     data: d
     sentences:
@@ -257,7 +264,7 @@ test:
             "CategoryName":{{entity_name}},"Description":{{entity_description}}
             }
           children: []
-    errors: 1
+    errors: 0
     expression: Categories.insert(entity)
     normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
     model:
@@ -305,7 +312,12 @@ test:
       alias: c
     executions:
       - stage: MongoDB
-        error: 'SyntaxError: Unexpected token { in JSON at position 18'
+    result:
+      data:
+        entity:
+          name: Beverages23
+          description: Soft drinks, coffees, teas, beers, and ales
+        id: 16
   - name: insert 5
     data: order
     sentences:
@@ -1036,4 +1048,4 @@ test:
             discount: 10
             orderId: 835
         id: 836
-errors: 2
+errors: 0
