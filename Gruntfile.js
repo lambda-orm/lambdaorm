@@ -1,5 +1,5 @@
 const fs = require('fs')
-require('dotenv').config({ path: './test.env' })
+require('dotenv').config({ path: './northwind.env' })
 
 const sources = ['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB']
 

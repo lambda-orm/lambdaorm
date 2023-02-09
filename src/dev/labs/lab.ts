@@ -1,9 +1,9 @@
 import { orm } from '../../lib'
-import { Categories, Customers, Products, Orders } from '../model/__model'
+import { Categories, Customers, Products, Orders } from '../northwind/model/__model'
 
 export async function apply (callback: any) {
 	try {
-		await orm.init('./lambdaORM.yaml')		
+		await orm.init('./northwind.yaml')		
 		const options = {stage:'MongoDB'}	
 		const query = () => Customers.update().include(p => p.orders.include(p => p.details))   
 		// const query = () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))

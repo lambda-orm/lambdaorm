@@ -1,5 +1,5 @@
 import { orm} from '../../../lib'
-import { Orders ,Products } from '../../model/__model'
+import { Orders ,Products } from '../../northwind/model/__model'
 
 async function apply () {
 	try {

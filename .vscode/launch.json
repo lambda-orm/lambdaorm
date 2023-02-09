@@ -12,226 +12,17 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab.ts",
-			"envFile": "${workspaceFolder}/test.env"
+			"envFile": "${workspaceFolder}/northwind.env"
 		},
 		{
-			"name": "lab-listener",
+			"name": "clean data",
 			"type": "node",
 			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"clean-data"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/lab-listener.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "lab performance northwind",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/performance/northwind.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "lab performance shapes",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/performance/shape/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/performance/shape/.env"
-		},		
-		{
-			"name": "lab config",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/lab-config.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "lab config 2",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/lab-config02.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "lab mssql",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/lab-mssql.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "lab mongo",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/mongo/lab.js"
-		},
-		{
-			"name": "lab mongo queries",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/mongo/queries.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "lab mongo stage queries",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/mongo/stage.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "lab sync",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/lab-sync.ts",
-			"envFile": "${workspaceFolder}/test.env"
-		},
-		{
-			"name": "lab devicenet sync",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/devicenet-sync/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/devicenet-sync/.env"
-		},
-		{
-			"name": "lab countries",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
-		},
-		{
-			"name": "lab-bitwise",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-bitwise.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
-		},
-		{
-			"name": "lab-comparison",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-comparison.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
-		},
-		{
-			"name": "lab-dateTime",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-dateTime.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
-		},
-		{
-			"name": "lab-logical",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-logical.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
-		},
-		{
-			"name": "lab-nullable",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-nullable.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
-		},
-		{
-			"name": "lab-numeric",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-numeric.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
-		},
-		{
-			"name": "lab-string",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-string.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
-		},
-		{
-			"name": "lab-group",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-group.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
-		},
-		{
-			"name": "lab-sort",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/countries/labs/lab-sort.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/countries/countries.env"
-		},
-		{
-			"name": "test create suite",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/test/createSuite.ts",
-			"envFile": "${workspaceFolder}/test.env"
+			"stopOnEntry": false
 		},
 		{
 			"name": "build wiki",
@@ -252,7 +43,25 @@
 			"program": "${workspaceFolder}/src/dev/task/buildConfig.ts"
 		},
 		{
-			"name": "drop dbs",
+			"name": "countries create test suite",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/countries/test/createSuite.ts"
+		},		
+		{
+			"name": "northwind create test suite",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/northwind/test/createSuite.ts"
+		},
+		{
+			"name": "northwind drop dbs",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -260,19 +69,9 @@
 				"drop-dbs"
 			],
 			"stopOnEntry": false
-		},
+		},		
 		{
-			"name": "clean data",
-			"type": "node",
-			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"clean-data"
-			],
-			"stopOnEntry": false
-		},
-		{
-			"name": "populate source",
+			"name": "northwind populate source",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -282,37 +81,37 @@
 			"stopOnEntry": false
 		},
 		{
-			"name": "populate databases",
+			"name": "northwind populate databases",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/task/populateDatabases.ts",
-			"envFile": "${workspaceFolder}/test.env"
+			"program": "${workspaceFolder}/src/dev/northwind/task/populateDatabases.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
 		},
 		{
-			"name": "generate data for test",
+			"name": "northwind generate data for test",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/task/generateDataForTest.ts",
-			"envFile": "${workspaceFolder}/test.env"
+			"program": "${workspaceFolder}/src/dev/northwind/task/generateDataForTest.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
 		},
 		{
-			"name": "generate test",
+			"name": "northwind generate test",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/task/generateTest.ts",
-			"envFile": "${workspaceFolder}/test.env"
+			"program": "${workspaceFolder}/src/dev/northwind/task/generateTest.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
 		},
 		{
-			"name": "build test",
+			"name": "northwind build test",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -320,7 +119,116 @@
 				"build-test"
 			],
 			"stopOnEntry": false
+		},		
+		{
+			"name": "lab-listener",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/lab-listener.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
 		},
+		{
+			"name": "lab performance northwind",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/northwind.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
+		},
+		{
+			"name": "lab performance shapes",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/shape/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/performance/shape/.env"
+		},		
+		{
+			"name": "lab config",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/lab-config.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
+		},
+		{
+			"name": "lab config 2",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/lab-config02.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
+		},
+		{
+			"name": "lab mssql",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/lab-mssql.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
+		},
+		{
+			"name": "lab mongo",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/mongo/lab.js"
+		},
+		{
+			"name": "lab mongo queries",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/mongo/queries.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
+		},
+		{
+			"name": "lab mongo stage queries",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/mongo/stage.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
+		},
+		{
+			"name": "lab sync",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/lab-sync.ts",
+			"envFile": "${workspaceFolder}/northwind.env"
+		},
+		{
+			"name": "lab devicenet sync",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/devicenet-sync/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/devicenet-sync/.env"
+		},	
 		{
 			"name": "lab03 sync",
 			"type": "node",
