@@ -126,7 +126,7 @@ WHERE SUBSTR(s.NAME,1,1) = 'F'
 
 To work with the orm we can do it using the singleton object called "orm" or using repositories.
 
-### Objet **orm**
+### Object **orm**
 
 This orm object acts as a facade and from this we access all the methods.
 
@@ -136,7 +136,7 @@ When the orm.init() method is called, the orm initialization will be executed fr
 
 This method receives the expression as a javascript lambda function or a string.
 
-#### Use Javascript lambda expression:
+#### Use lambda expression:
 
 The advantage of writing the expression as a javascript lambda function is that this way we will have the help of intellisense and we will make sure that the expression has no syntax errors.
 
@@ -157,7 +157,7 @@ import { orm } from 'lambdaorm'
 })()
 ```
 
-#### Use Javascript lambda expression as string:
+#### Use string expression
 
 The advantage of writing the expression in a string is that we can receive it from outside, example UI, CLI command, stored, etc.
 
