@@ -118,5 +118,5 @@ export async function apply (dataForTestPath: string, stages: string[], callback
 	}
 	callback()
 }
-apply(path.join(process.cwd(), 'src/dev/northwind/dataForTest'), ['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer'], function () { console.log('end') })
-// apply(path.join(process.cwd(), 'src/dev/dataForTest'),['MySQL', 'MariaDB', 'PostgreSQL','SqlServer','Oracle', 'MongoDB'], function () { console.log('end') })
+apply(path.join(process.cwd(), 'src/dev/northwind/test/data'), ['MySQL', 'PostgreSQL', 'MariaDB', 'SqlServer'], function () { console.log('end') })
+// apply(path.join(process.cwd(), 'src/dev/northwind/test/data'),['MySQL', 'MariaDB', 'PostgreSQL','SqlServer','Oracle', 'MongoDB'], function () { console.log('end') })

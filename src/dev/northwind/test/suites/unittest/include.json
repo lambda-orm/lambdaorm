@@ -1,8 +1,5 @@
 {
   "name": "include",
-  "context": {
-    "id": 1
-  },
   "cases": [
     {
       "name": "normalize",

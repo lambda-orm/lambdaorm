@@ -1,0 +1,374 @@
+{
+  "name": "group",
+  "cases": [
+    {
+      "name": "normalize",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\").map(p=> {result:count(1)})",
+          "result": "Countries.map(p=>{result:count(1)}).filter(p=>(p.region==Americas))"
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,countries:count(1)})",
+          "result": "Countries.map(p=>{region:p.region,countries:count(1)})"
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,max:max(p.latitude)})",
+          "result": "Countries.map(p=>{region:p.region,max:max(p.latitude)})"
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,min:min(p.latitude)})",
+          "result": "Countries.map(p=>{region:p.region,min:min(p.latitude)})"
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,avg:avg(p.latitude)})",
+          "result": "Countries.map(p=>{region:p.region,avg:avg(p.latitude)})"
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "model",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\").map(p=> {result:count(1)})",
+          "result": [
+            {
+              "name": "result",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,countries:count(1)})",
+          "result": [
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "countries",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,max:max(p.latitude)})",
+          "result": [
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "max",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,min:min(p.latitude)})",
+          "result": [
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "min",
+              "type": "any"
+            }
+          ]
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,avg:avg(p.latitude)})",
+          "result": [
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "avg",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "parameters",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\").map(p=> {result:count(1)})",
+          "result": []
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,countries:count(1)})",
+          "result": []
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,max:max(p.latitude)})",
+          "result": []
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,min:min(p.latitude)})",
+          "result": []
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,avg:avg(p.latitude)})",
+          "result": []
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "constraints",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\").map(p=> {result:count(1)})",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,countries:count(1)})",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,max:max(p.latitude)})",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,min:min(p.latitude)})",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,avg:avg(p.latitude)})",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "metadata",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\").map(p=> {result:count(1)})",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 49
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "result",
+                "type": "integer"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,countries:count(1)})",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 14
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "countries",
+                "type": "integer"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,max:max(p.latitude)})",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 14
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "max",
+                "type": "any"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,min:min(p.latitude)})",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 14
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "min",
+                "type": "any"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,avg:avg(p.latitude)})",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 14
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "avg",
+                "type": "number"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "getInfo",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\").map(p=> {result:count(1)})",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE c.region = 'Americas' ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,countries:count(1)})",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT c.region AS region, COUNT(1) AS countries FROM Countries c  GROUP BY c.region ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,max:max(p.latitude)})",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT c.region AS region, MAX(c.latitude) AS max FROM Countries c  GROUP BY c.region ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,min:min(p.latitude)})",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT c.region AS region, MIN(c.latitude) AS min FROM Countries c  GROUP BY c.region ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.map(p=> {region:p.region,avg:avg(p.latitude)})",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT c.region AS region, AVG(c.latitude) AS avg FROM Countries c  GROUP BY c.region ",
+            "children": []
+          }
+        }
+      ],
+      "errors": 0
+    }
+  ],
+  "errors": 0
+}

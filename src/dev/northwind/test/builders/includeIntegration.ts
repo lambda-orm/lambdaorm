@@ -1,4 +1,4 @@
-import { IntegrationBuildTest } from '../../../general/integrationBuildTest'
+import { IntegrationBuildTest } from '../../../task/integrationBuildTest'
 import { TestSuiteRequest} from 'h3lp'
 
 export class IncludeIntegrationBuildTest extends IntegrationBuildTest {

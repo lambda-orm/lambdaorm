@@ -548,6 +548,9 @@ class SchemaExtender {
 		} else {
 			// extend entities into mapping
 			for (const mapping of schema.mappings) {
+				if (mapping.entities === undefined) {
+					mapping.entities = []
+				}
 				for (const entity of mapping.entities) {
 					this.extendEntityMapping(entity, mapping.entities)
 				}

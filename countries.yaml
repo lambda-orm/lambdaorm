@@ -54,6 +54,8 @@ sources:
     dialect: PostgreSQL
     mapping: mapping2
     connection: ${CNX_POSTGRES}
+views:
+  - name: default    
 mappings:
   - name: mapping1
   - name: mapping2

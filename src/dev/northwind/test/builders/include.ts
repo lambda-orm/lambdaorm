@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { UnitBuildTest } from '../../../general/UnitBuildTest'
+import { UnitBuildTest } from '../../../task/UnitBuildTest'
 
 export class IncludeBuildTest extends UnitBuildTest {
 	protected override get name() { return "include" }

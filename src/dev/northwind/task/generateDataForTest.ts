@@ -103,7 +103,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 	}
 	try {
 		const yamlStr = yaml.dump(JSON.parse(JSON.stringify(category)))
-		fs.writeFileSync(path.join('src/dev/dataForTest', category.name.replace(' ', '_') + '.yaml'), yamlStr)
+		fs.writeFileSync(path.join('src/dev/northwind/test/data', category.name.replace(' ', '_') + '.yaml'), yamlStr)
 	} catch (error) {
 		console.error(error)
 		for (const q in category.test) {

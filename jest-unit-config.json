@@ -3,7 +3,8 @@
 		"^.+\\.(t|j)sx?$": "ts-jest"
 	},
 	"testMatch": [
-		"**/__tests__/*.test.ts"
+		"**/__tests__/*.test.ts",
+		"**/__tests__/*/*.test.ts"
 	],
 	"moduleFileExtensions": [
 		"ts",

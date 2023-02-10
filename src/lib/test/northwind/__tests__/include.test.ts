@@ -1,4 +1,4 @@
-import { orm, helper } from '../../..'
+import { orm } from '../../..'
 beforeAll(async () => {
 	require('dotenv').config({ path: './northwind.env' })
 	await orm.init('./northwind.yaml')

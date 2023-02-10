@@ -3,7 +3,7 @@
 	// Hover to view descriptions of existing attributes.
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
-	"configurations": [
+	"configurations": [		
 		{
 			"name": "lab",
 			"type": "node",
@@ -13,6 +13,15 @@
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab.ts",
 			"envFile": "${workspaceFolder}/northwind.env"
+		},
+		{
+			"name": "build config",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/buildConfig.ts"
 		},
 		{
 			"name": "clean data",
@@ -32,16 +41,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/task/buildWiki.ts"
-		},
-		{
-			"name": "build config",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/task/buildConfig.ts"
-		},
+		},		
 		{
 			"name": "countries create test suite",
 			"type": "node",
@@ -49,27 +49,17 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/countries/test/createSuite.ts"
-		},		
+			"program": "${workspaceFolder}/src/dev/countries/task/createSuite.ts"
+		},
 		{
-			"name": "northwind create test suite",
+			"name": "countries build test",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/northwind/test/createSuite.ts"
-		},
-		{
-			"name": "northwind drop dbs",
-			"type": "node",
-			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"drop-dbs"
-			],
-			"stopOnEntry": false
-		},		
+			"program": "${workspaceFolder}/src/dev/countries/task/buildTest.ts"
+		},	
 		{
 			"name": "northwind populate source",
 			"type": "node",
@@ -91,7 +81,7 @@
 			"envFile": "${workspaceFolder}/northwind.env"
 		},
 		{
-			"name": "northwind generate data for test",
+			"name": "northwind create data test",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -101,7 +91,25 @@
 			"envFile": "${workspaceFolder}/northwind.env"
 		},
 		{
-			"name": "northwind generate test",
+			"name": "northwind create test suite",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/northwind/task/createSuite.ts"
+		},
+		{
+			"name": "northwind build test",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/northwind/task/buildTest.ts"
+		},
+		{
+			"name": "northwind create test",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -119,7 +127,17 @@
 				"build-test"
 			],
 			"stopOnEntry": false
-		},		
+		},
+		{
+			"name": "northwind drop dbs",
+			"type": "node",
+			"request": "launch",
+			"program": "/usr/bin/grunt",
+			"args": [
+				"drop-dbs"
+			],
+			"stopOnEntry": false
+		},	
 		{
 			"name": "lab-listener",
 			"type": "node",
