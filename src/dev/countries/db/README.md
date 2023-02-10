@@ -4,7 +4,7 @@
 Create MySql database for test:
 
 ```sh
-docker-compose up -d
+docker-compose -p "countries" up -d
 ```
 
 Create user and set character:
