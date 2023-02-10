@@ -7,8 +7,8 @@ const unitTemplate = {
 `/* eslint-disable no-template-curly-in-string */
 import { orm } from '../../..'
 beforeAll(async () => {
-	require('dotenv').config({ path: './countries.env' })
-	await orm.init('./countries.yaml')
+	require('dotenv').config({ path: './config/countries.env' })
+	await orm.init('./config/countries.yaml')
 })
 `,
 	cases: [

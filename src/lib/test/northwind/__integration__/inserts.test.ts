@@ -1,7 +1,7 @@
 import { orm } from '../../..'
 beforeAll(async () => {
-	require('dotenv').config({ path: './northwind.env' })
-	await orm.init('./northwind.yaml')
+	require('dotenv').config({ path: './config/northwind.env' })
+	await orm.init('./config/northwind.yaml')
 })
 describe('Execute', () => {
 	const data = {"a":{"name":"Beverages20","description":"Soft drinks, coffees, teas, beers, and ales","id":9},"b":{"name":"Beverages21","description":"Soft drinks, coffees, teas, beers, and ales","id":10},"c":{"entity":{"name":"Beverages22","description":"Soft drinks, coffees, teas, beers, and ales"},"id":11},"d":{"entity":{"name":"Beverages23","description":"Soft drinks, coffees, teas, beers, and ales"},"id":12},"order":{"customerId":"VINET","employeeId":5,"orderDate":"1996-07-03T22:00:00.000Z","requiredDate":"1996-07-31T22:00:00.000Z","shippedDate":"1996-07-15T22:00:00.000Z","shipViaId":3,"freight":32.38,"name":"Vins et alcools Chevalier","address":"59 rue de l-Abbaye","city":"Reims","region":null,"postalCode":"51100","country":"France","details":[{"productId":11,"unitPrice":14,"quantity":12,"discount":10,"orderId":833},{"productId":42,"unitPrice":9.8,"quantity":10,"discount":10,"orderId":833},{"productId":72,"unitPrice":34.8,"quantity":5,"discount":10,"orderId":833}],"id":833}}

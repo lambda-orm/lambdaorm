@@ -1,7 +1,7 @@
 import { orm } from '../../..'
 beforeAll(async () => {
-	require('dotenv').config({ path: './northwind.env' })
-	await orm.init('./northwind.yaml')
+	require('dotenv').config({ path: './config/northwind.env' })
+	await orm.init('./config/northwind.yaml')
 })
 describe('Execute', () => {
 	const data = {"a":{"id":1}}

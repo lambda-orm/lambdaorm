@@ -7,8 +7,8 @@ import { h3lp } from 'h3lp'
 
 ; (async () => {
 	try {
-		require('dotenv').config({ path: './northwind.env' })
-		await orm.init('./northwind.yaml')
+		require('dotenv').config({ path: './config/northwind.env' })
+		await orm.init('./config/northwind.yaml')
 
 		const options:QueryOptions = { stage: 'MySQL' }
 		await h3lp.test

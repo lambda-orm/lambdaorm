@@ -12,7 +12,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "build config",
@@ -78,7 +78,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/northwind/task/populateDatabases.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "northwind create data test",
@@ -88,7 +88,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/northwind/task/generateDataForTest.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "northwind create test suite",
@@ -116,7 +116,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/northwind/task/generateTest.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "northwind build test",
@@ -146,7 +146,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-listener.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lab performance northwind",
@@ -156,7 +156,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/performance/northwind.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lab performance shapes",
@@ -176,7 +176,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-config.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lab config 2",
@@ -186,7 +186,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-config02.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lab mssql",
@@ -196,7 +196,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-mssql.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lab mongo",
@@ -215,7 +215,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/mongo/queries.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lab mongo stage queries",
@@ -225,7 +225,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/mongo/stage.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lab sync",
@@ -235,7 +235,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-sync.ts",
-			"envFile": "${workspaceFolder}/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lab devicenet sync",

@@ -7,8 +7,8 @@ import { h3lp } from 'h3lp'
 
 ; (async () => {
 	try {
-		require('dotenv').config({ path: './countries.env' })
-		await orm.init('./countries.yaml')
+		require('dotenv').config({ path: './config/countries.env' })
+		await orm.init('./config/countries.yaml')
 
 		const options:QueryOptions = { stage: 'stage1' }
 		await h3lp.test

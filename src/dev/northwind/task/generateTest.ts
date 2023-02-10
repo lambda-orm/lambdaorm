@@ -9,8 +9,8 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 	const lines: string[] = []
 	lines.push('import { orm } from \'../../..\'')
 	lines.push('beforeAll(async () => {')
-	lines.push('\trequire(\'dotenv\').config({ path: \'./northwind.env\' })')
-	lines.push('\tawait orm.init(\'./northwind.yaml\')')
+	lines.push('\trequire(\'dotenv\').config({ path: \'./config/northwind.env\' })')
+	lines.push('\tawait orm.init(\'./config/northwind.yaml\')')
 	lines.push('})')
 
 	lines.push('describe(\'Normalize Expression\', () => {')
@@ -82,8 +82,8 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 
 	lines.push('import { orm } from \'../../..\'')
 	lines.push('beforeAll(async () => {')
-	lines.push('\trequire(\'dotenv\').config({ path: \'./northwind.env\' })')
-	lines.push('\tawait orm.init(\'./northwind.yaml\')')
+	lines.push('\trequire(\'dotenv\').config({ path: \'./config/northwind.env\' })')
+	lines.push('\tawait orm.init(\'./config/northwind.yaml\')')
 	lines.push('})')
 
 	lines.push('describe(\'Execute\', () => {')
