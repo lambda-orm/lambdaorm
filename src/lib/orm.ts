@@ -140,13 +140,6 @@ export class Orm implements IOrm {
 		return this._expressions
 	}
 
-	// /**
-	// * set to cache manager
-	// */
-	// public setCache (value: Cache):void {
-	// this._cache = value
-	// }
-
 	/**
 	 * Normalize expression
 	 * @param expression query expression

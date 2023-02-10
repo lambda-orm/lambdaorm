@@ -181,16 +181,6 @@ export abstract class DmlBuilder {
 				} else {
 					name = keyVal.name
 				}
-				// let name: string
-				// if (keyVal.property !== undefined) {
-				// const property = entity.properties.find(q => q.name === keyVal.property)
-				// if (property === undefined) {
-				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-				// }
-				// name = property.mapping
-				// } else {
-				// name = keyVal.name
-				// }
 				fields.push(templateColumn.replace('{name}', this.dialect.delimiter(name)))
 				values.push(this.buildOperand(keyVal.children[0]))
 			}
@@ -218,16 +208,6 @@ export abstract class DmlBuilder {
 				} else {
 					name = keyVal.name
 				}
-				// let name: string
-				// if (keyVal.property !== undefined) {
-				// const property = entity.properties.find(q => q.name === keyVal.property)
-				// if (property === undefined) {
-				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-				// }
-				// name = property.mapping
-				// } else {
-				// name = keyVal.name
-				// }
 				const column = templateColumn.replace('{name}', this.dialect.delimiter(name))
 				const value = this.buildOperand(keyVal.children[0])
 				let assign = templateAssign.replace('{0}', column)

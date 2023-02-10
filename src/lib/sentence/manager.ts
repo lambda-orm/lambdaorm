@@ -247,11 +247,4 @@ export class SentenceManager {
 		}
 		return result
 	}
-
-	// private serialize (sentence: Sentence): string {
-	// return this.serializer.serialize(sentence)
-	// }
-	// private deserialize (value: string): Sentence {
-	// return this.serializer.deserialize(value)
-	// }
 }
