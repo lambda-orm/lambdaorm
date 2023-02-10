@@ -8,7 +8,7 @@ export async function apply (callback: any) {
 		await orm.stage.sync().execute()
 		const content = await helper.fs.read('./src/dev/labs/countries/data.json')
 		const data = JSON.parse(content as string)
-		await orm.execute(`Countries.bulkInsert().include(p => p.states)`, data)
+		await orm.execute('Countries.bulkInsert().include(p => p.states)', data)
 
 		const query = `Countries.filter(p=> p.region == region)
 														.map(p=> [p.name,p.subregion,p.latitude,p.longitude])

@@ -4,4 +4,6 @@ public/
 test/
 build/
 labs/
-src/dev/db/volume
+node_modules/
+src/dev/northwind/db/volume
+src/dev/countries/db/volume
