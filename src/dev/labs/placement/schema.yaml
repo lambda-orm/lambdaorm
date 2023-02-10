@@ -15,7 +15,7 @@ entities:
       - name: status
       - name: entity   
       - name: creation
-        type: datetime
+        type: dateTime
   - name: InsightDebtors
     primaryKey: ["id"]
     uniqueKey: []
@@ -25,7 +25,7 @@ entities:
       - name: place
       - name: status            
       - name: creation
-        type: datetime          
+        type: dateTime          
 sources:
   - name: source
     dialect: PostgreSQL

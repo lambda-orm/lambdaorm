@@ -1,29 +1,33 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { ActionObserver, Dialect, IOrm, OrmOptions, Schema, Stage, MetadataParameter, MetadataConstraint, MetadataSentence, MetadataModel, Metadata, Query } from './model'
-import { ExpressionManager, Transaction, StageFacade, Executor, SchemaManager, Routing, Languages, helper } from './manager'
+import { ActionObserver, Dialect, IOrm, QueryOptions, Schema, Stage, MetadataParameter, MetadataConstraint, QueryInfo, MetadataModel, Metadata, Query } from './contract'
+import { SchemaManager, Routing, helper, Executor, Transaction } from './manager'
+import { QueryManager } from './query'
+import { Languages } from './language'
+import { SentenceManager } from './sentence'
+import { StageFacade } from './stage'
 import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './connection'
 import { SqlLanguage } from './language/SQL'
 import { NoSqlLanguage } from './language/NoSQL'
-import { expressions, Expressions, Cache, MemoryCache } from 'js-expressions'
-import modelConfig from './expression/model.json'
-import { OrmExtensionLib } from './expression/extension'
+import { expressions, IExpressions } from '3xpr'
+import { SentenceLibrary } from './sentence/library'
 /**
  * Facade through which you can access all the functionalities of the library.
  */
 export class Orm implements IOrm {
-	private _cache: Cache
+	// private _cache: Cache
 	private stageFacade: StageFacade
 	private connectionManager: ConnectionManager
 	private languages: Languages
 	// private libManager: LibManager
-	private expressionManager: ExpressionManager
+	private sentenceManager: SentenceManager
+	private queryManager: QueryManager
 	private routing: Routing
 	private executor:Executor
 	// eslint-disable-next-line no-use-before-define
 	private static _instance: Orm
 	private schemaManager: SchemaManager
-	private _expressions: Expressions
+	private _expressions: IExpressions
 	private observers:any = {}
 
 	/**
@@ -38,11 +42,10 @@ export class Orm implements IOrm {
 
 	constructor (workspace: string = process.cwd()) {
 		this._expressions = expressions
-		this._expressions.config.load(modelConfig)
-		this._expressions.config.addLibrary(new OrmExtensionLib())
+		new SentenceLibrary(expressions.model).load()
 
 		this.schemaManager = new SchemaManager(workspace, this._expressions)
-		this._cache = new MemoryCache()
+		// this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
 
 		this.languages = new Languages()
@@ -57,9 +60,10 @@ export class Orm implements IOrm {
 		this.connectionManager.addType(Dialect.MongoDB, MongoDBConnectionPool)
 
 		this.routing = new Routing(this.schemaManager, this._expressions)
-		this.expressionManager = new ExpressionManager(this._cache, this.schemaManager, this.languages, this._expressions, this.routing)
-		this.executor = new Executor(this.connectionManager, this.languages, this.schemaManager, this.expressionManager, this._expressions)
-		this.stageFacade = new StageFacade(this.schemaManager, this.routing, this.expressionManager, this.languages, this.executor)
+		this.sentenceManager = new SentenceManager(this.schemaManager, this.expressions, this.routing)
+		this.queryManager = new QueryManager(this.sentenceManager, this.schemaManager, this.languages, this._expressions)
+		this.executor = new Executor(this.connectionManager, this.languages, this.schemaManager, this.sentenceManager, this.queryManager, this._expressions)
+		this.stageFacade = new StageFacade(this.schemaManager, this.routing, this.queryManager, this.languages, this.executor)
 	}
 
 	public get defaultStage ():Stage {
@@ -81,15 +85,13 @@ export class Orm implements IOrm {
 		}
 		// add enums
 		if (schema.enums) {
-			const enums: any = {}
 			for (const _enum of schema.enums) {
-				const values:any = {}
+				const values:[string, any][] = []
 				for (const enumValue of _enum.values) {
-					values[enumValue.name] = enumValue.value
+					values.push([enumValue.name, enumValue.value])
 				}
-				enums[_enum.name] = values
+				expressions.addEnum(_enum.name, values)
 			}
-			expressions.config.load({ enums })
 		}
 		return schema
 	}
@@ -134,25 +136,16 @@ export class Orm implements IOrm {
 	/**
 	 * Get reference to SchemaConfig
 	 */
-	public get expressions (): Expressions {
+	public get expressions (): IExpressions {
 		return this._expressions
 	}
 
-	/**
-	* set to cache manager
-	*/
-	public setCache (value: Cache):void {
-		this._cache = value
-	}
-
-	/**
-	 * Convert a lambda expression to a query expression
-	 * @param lambda lambda expression
-	 * @returns Expression manager
-	 */
-	public toExpression (lambda: Function): string {
-		return this.expressionManager.toExpression(lambda)
-	}
+	// /**
+	// * set to cache manager
+	// */
+	// public setCache (value: Cache):void {
+	// this._cache = value
+	// }
 
 	/**
 	 * Normalize expression
@@ -162,10 +155,8 @@ export class Orm implements IOrm {
 	public normalize(expression:Function): string
 	public normalize(expression:string): string
 	public normalize (expression: string|Function): string {
-		if (typeof expression !== 'string') {
-			expression = this.expressionManager.toExpression(expression)
-		}
-		return this.expressionManager.normalize(expression)
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		return this.sentenceManager.normalize(_expression)
 	}
 
 	/**
@@ -176,10 +167,8 @@ export class Orm implements IOrm {
 	public model(expression:Function): MetadataModel[]
 	public model(expression:string): MetadataModel[]
 	public model (expression: string|Function): MetadataModel[] {
-		if (typeof expression !== 'string') {
-			expression = this.expressionManager.toExpression(expression)
-		}
-		return this.expressionManager.model(expression)
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		return this.sentenceManager.model(_expression)
 	}
 
 	/**
@@ -190,10 +179,8 @@ export class Orm implements IOrm {
 	public parameters(expression:Function): MetadataParameter[];
 	public parameters(expression:string): MetadataParameter[];
 	public parameters (expression: string|Function): MetadataParameter[] {
-		if (typeof expression !== 'string') {
-			expression = this.expressionManager.toExpression(expression)
-		}
-		return this.expressionManager.parameters(expression)
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		return this.sentenceManager.parameters(_expression)
 	}
 
 	/**
@@ -204,10 +191,8 @@ export class Orm implements IOrm {
 	public constraints(expression:Function): MetadataConstraint;
 	public constraints(expression:string): MetadataConstraint;
 	public constraints (expression: string|Function): MetadataConstraint {
-		if (typeof expression !== 'string') {
-			expression = this.expressionManager.toExpression(expression)
-		}
-		return this.expressionManager.constraints(expression)
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		return this.sentenceManager.constraints(_expression)
 	}
 
 	/**
@@ -218,25 +203,21 @@ export class Orm implements IOrm {
 	public metadata(expression: Function): Metadata
 	public metadata (expression:string):Metadata
 	public metadata (expression: string|Function): Metadata {
-		if (typeof expression !== 'string') {
-			expression = this.expressionManager.toExpression(expression)
-		}
-		return this.expressionManager.metadata(expression)
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		return this.sentenceManager.metadata(_expression)
 	}
 
 	/**
-	 * Get sentence of expression
+	 * Get getInfo of expression
 	 * @param expression query expression
 	 * @param options options of execution
 	 */
-	public sentence(expression: Function, options?: OrmOptions): MetadataSentence;
-	public sentence(expression: string, options?: OrmOptions): MetadataSentence;
-	public sentence (expression: string|Function, options: OrmOptions|undefined): MetadataSentence {
-		if (typeof expression !== 'string') {
-			expression = this.expressionManager.toExpression(expression)
-		}
+	public getInfo(expression: Function, options?: QueryOptions): QueryInfo;
+	public getInfo(expression: string, options?: QueryOptions): QueryInfo;
+	public getInfo (expression: string|Function, options: QueryOptions|undefined): QueryInfo {
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
 		const _options = this.schemaManager.solveOptions(options)
-		return this.expressionManager.sentence(expression, _options)
+		return this.queryManager.getInfo(_expression, _options)
 	}
 
 	/**
@@ -246,12 +227,12 @@ export class Orm implements IOrm {
 	 * @param options options of execution
 	 * @returns Result of execution
 	 */
-	public async execute(expression: Function, data?: any, options?: OrmOptions):Promise<any>;
-	public async execute(expression: string, data?: any, options?: OrmOptions):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}, options: OrmOptions|undefined = undefined): Promise<any> {
-		const _expression = typeof expression !== 'string' ? this.expressionManager.toExpression(expression) : expression
+	public async execute(expression: Function, data?: any, options?: QueryOptions):Promise<any>;
+	public async execute(expression: string, data?: any, options?: QueryOptions):Promise<any>;
+	public async execute (expression: string|Function, data: any = {}, options: QueryOptions|undefined = undefined): Promise<any> {
+		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
 		const _options = this.schemaManager.solveOptions(options)
-		const query = this.expressionManager.toQuery(_expression, _options)
+		const query = this.queryManager.create(_expression, _options)
 		try {
 			this.beforeExecutionNotify(_expression, query, data, _options)
 			const result = await this.executor.execute(query, data, _options)
@@ -268,9 +249,19 @@ export class Orm implements IOrm {
 	 * @param options options of execution
 	 * @param callback Code to be executed in transaction
 	 */
-	public async transaction (options: OrmOptions|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
+	public async transaction (options: QueryOptions|undefined, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
 		const _options = this.schemaManager.solveOptions(options)
 		return this.executor.transaction(_options, callback)
+	}
+
+	/**
+	 * Convert a lambda expression to a query expression
+	 * @param lambda lambda expression
+	 * @returns Expression manager
+	 */
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	public toExpression (func: Function): string {
+		return this.sentenceManager.toExpression(func)
 	}
 
 	// Listeners and subscribers
@@ -294,7 +285,7 @@ export class Orm implements IOrm {
 		observers.splice(index, 1)
 	}
 
-	private beforeExecutionNotify (expression:string, query: Query, data: any, options: OrmOptions) {
+	private beforeExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions) {
 		const observers = this.observers[query.action]
 		if (!observers) {
 			return
@@ -312,7 +303,7 @@ export class Orm implements IOrm {
 		})
 	}
 
-	private afterExecutionNotify (expression:string, query: Query, data: any, options: OrmOptions, result:any) {
+	private afterExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, result:any) {
 		const observers = this.observers[query.action]
 		if (!observers) {
 			return
@@ -330,7 +321,7 @@ export class Orm implements IOrm {
 		})
 	}
 
-	private errorExecutionNotify (expression:string, query: Query, data: any, options: OrmOptions, error:any) {
+	private errorExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, error:any) {
 		const observers = this.observers[query.action]
 		if (!observers) {
 			return

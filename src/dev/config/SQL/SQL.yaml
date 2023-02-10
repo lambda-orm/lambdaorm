@@ -4,11 +4,11 @@ types:
   integer: INTEGER
   decimal: DECIMAL(10,4)
   string: VARCHAR({0})
-  datetime: DATETIME
+  dateTime: DATETIME
   date: DATE
   time: TIME
 format:
-  datetime: 'yyyy-LL-dd HH:mm:ss'
+  dateTime: 'yyyy-LL-dd HH:mm:ss'
   date: 'yyyy-LL-dd'
   time: 'HH:mm:ss'  
 ddl:  
@@ -163,13 +163,13 @@ functions:
     parse: 'json_value({0})'
     # stringify: 'JSON_OBJECT({0})'
     toString: 'CAST({0} AS VARCHAR2)'
-  datetime:
+  dateTime:
     # https://www.w3schools.com/jsref/jsref_obj_date.asp
     # https://phoenixnap.com/kb/mysql-date-function#ftoc-heading-8
     now: 'SYSTIMESTAMP'
     curTime: 'CAST(SYSTIMESTAMP AS TIME)'
     today: 'TRUNC(SYSDATE)'     
-    datetime: 'CAST({0} AS TIMESTAMP)'
+    dateTime: 'CAST({0} AS TIMESTAMP)'
     date: 'CAST({0} AS DATE)'
     time: 'CAST({0} AS TIME)'
     year: 'EXTRACT(YEAR FROM {0})'

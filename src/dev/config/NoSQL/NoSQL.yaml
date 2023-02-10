@@ -4,11 +4,11 @@ types:
 # integer: INTEGER
 # decimal: DECIMAL(10,4)
 # string: VARCHAR({0})
-# datetime: DATETIME
+# dateTime: DATETIME
 # date: DATE
 # time: TIME
 format:
-  datetime: 'ISO'
+  dateTime: 'ISO'
   date: 'yyyy-LL-dd'
   time: 'HH:mm:ss' 
 ddl:
@@ -31,7 +31,7 @@ dml:
   page: ' {sentence} , { "$skip" : {offset} }, { "$limit" : {records} }'
   insert: "{ {assigns} }"
   # update: '{ "$set" :{ {assigns} }}'
-  update: "{assigns}"
+  update: "{ {assigns} }"
   # delete: DELETE FROM {name} {alias}
   # bulkInsert: insertMany([{values}])
   # from: 'FROM {name} {alias} '
@@ -81,7 +81,7 @@ operators:
     # "!=": '{ "$ne" :[{0},{1}] }'
     "!=": '{ {0}: { "$ne": {1} } }'
     "!==": '{ {0}: { "$ne": {1} } }'
-    ">": '{ {0}: { "$gt": {1} } }' # '{ "$gt" :[{0},{1}] }'
+    ">": '{ {0}: { "$gt": {1} } }' # '{ "$gt" :[{0},{1}] }' 
     "<": '{ {0}: { "$lt": {1} } }' # '{ "$lt" :[{0},{1}] }'
     ">=": '{ {0}: { "$gte": {1} } }' #  '{ "$gte" :[{0},{1}] }'
     "<=": '{ {0}: { "$lte": {1} } }' #  '{ "$lte" :[{0},{1}] }'
@@ -96,7 +96,8 @@ functions:
     desc: "{0}:-1"
     asc: "{0}:1"
     between: '{ {0}: { "$gte": {1} , "$lt": {2} } }' # '{ "$and" :[{ "$gte" :[{0},{1}] },{ "$lt" :[{0},{2}] }] }'
-    includes: '{ {0}:{ "$in" :[{1}]} }'
+    includes: '{ {1}:{ "$in" :[{0}]} }'
+    in: '{ {1}:{ "$in" :[{0}]} }'
     distinct: '{ "$group" :{ "_id" : null , "__distinct":{ "$addToSet": { {0} }}}}'
   numeric:
     abs: '{ "$abs" :{0} }'
@@ -115,7 +116,8 @@ functions:
     # remainder: ':[{0},{1}]'
     round: '{ "$round" :[{0},{1}] }'
     # sign function not supported
-    sign: '{ "$sign":{0}}'
+    # sign: '{ "$sign":{0}}'
+    sign: '{"$cond":{"if":{"$gt":[{0},0]},"then":1,"else":{"if":{"$lt":[{0},0]},"then":-1,"else":0}}}'
     sin: '{ "$sin" :{0} }'
     sinh: '{ "$sinh" :{0} }'
     tan: '{ "$tan" :{0} }'
@@ -136,13 +138,13 @@ functions:
     trim: '{ "$trim" :{input:{0}, chars:" " } }'
     upper: '{ "$toUpper" :{0} }'
     length: '{ "$strLenCP" :{0} }'
-  datetime:
+  dateTime:
     curtime: '"$$CLUSTER_TIME"'
     today: '{ "$currentDate" :{ "$type":"date"} }'
     timestamp: '{ "$currentDate" :{ "$type":"timestamp"} }'
     now: '"$$NOW"'
     date: '{ "$toDate" :{0} }'
-    # datetime: 'CAST({0} AS TIMESTAMP)'
+    # dateTime: 'CAST({0} AS TIMESTAMP)'
     # time: 'CAST({0} AS TIME)'
     year: '{ "$year" :{0} }'
     month: '{ "$month" :{0} }'
@@ -154,7 +156,7 @@ functions:
     addYear: '{ "$dateAdd" :{ startDate:{0}, unit:"year", amount:{1}} }'
     addMonth: '{ "$dateAdd" :{ startDate:{0}, unit:"month", amount:{1}} }'
     addDay: '{ "$dateAdd" :{ startDate:{0}, unit:"day", amount:{1}} }'
-    addHours: '{ "$dateAdd" :{ startDate:{0}, unit:"hous", amount:{1}} }'
+    addHours: '{ "$dateAdd" :{ startDate:{0}, unit:"hour", amount:{1}} }'
     addMinutes: '{ "$dateAdd" :{ startDate:{0}, unit:"minute", amount:{1}} }'
     addSeconds: '{ "$dateAdd" :{ startDate:{0}, unit:"seconds", amount:{1}} }'
     addTime: '{ "$dateAdd" :{ startDate:{0}, unit:"seconds", amount:{1}} }'

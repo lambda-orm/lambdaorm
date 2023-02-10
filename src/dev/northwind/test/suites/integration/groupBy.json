@@ -1,0 +1,781 @@
+{
+  "name": "groupBy",
+  "context": {
+    "id": 1
+  },
+  "cases": [
+    {
+      "name": "MySQL",
+      "tests": [
+        {
+          "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
+          "result": [
+            {
+              "maxPrice": 263.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ minPrice: min(p.price) }))",
+          "result": [
+            {
+              "minPrice": 2.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ total: sum(p.price) }))",
+          "result": [
+            {
+              "total": 2222.71
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
+          "result": [
+            {
+              "average": 28.8664
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ count: count(1) }))",
+          "result": [
+            {
+              "count": 77
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": 1,
+              "largestPrice": 263.5
+            },
+            {
+              "category": 2,
+              "largestPrice": 43.9
+            },
+            {
+              "category": 3,
+              "largestPrice": 81
+            },
+            {
+              "category": 4,
+              "largestPrice": 55
+            },
+            {
+              "category": 5,
+              "largestPrice": 38
+            },
+            {
+              "category": 6,
+              "largestPrice": 123.79
+            },
+            {
+              "category": 7,
+              "largestPrice": 53
+            },
+            {
+              "category": 8,
+              "largestPrice": 62.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Condiments",
+              "largestPrice": 43.9
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
+            },
+            {
+              "category": "Dairy Products",
+              "largestPrice": 55
+            },
+            {
+              "category": "Grains/Cereals",
+              "largestPrice": 38
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Produce",
+              "largestPrice": 53
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))",
+          "result": [
+            {
+              "name": "Chai",
+              "source": 18,
+              "result": 18
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            }
+          ]
+        },
+        {
+          "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
+          "result": [
+            {
+              "subTotal": 135525059
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
+            },
+            {
+              "category": "Dairy Products",
+              "largestPrice": 55
+            },
+            {
+              "category": "Produce",
+              "largestPrice": 53
+            }
+          ]
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "MariaDB",
+      "tests": [
+        {
+          "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
+          "result": [
+            {
+              "maxPrice": 263.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ minPrice: min(p.price) }))",
+          "result": [
+            {
+              "minPrice": 2.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ total: sum(p.price) }))",
+          "result": [
+            {
+              "total": 2222.71
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
+          "result": [
+            {
+              "average": 28.8664
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ count: count(1) }))",
+          "result": [
+            {
+              "count": 77
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": 1,
+              "largestPrice": 263.5
+            },
+            {
+              "category": 2,
+              "largestPrice": 43.9
+            },
+            {
+              "category": 3,
+              "largestPrice": 81
+            },
+            {
+              "category": 4,
+              "largestPrice": 55
+            },
+            {
+              "category": 5,
+              "largestPrice": 38
+            },
+            {
+              "category": 6,
+              "largestPrice": 123.79
+            },
+            {
+              "category": 7,
+              "largestPrice": 53
+            },
+            {
+              "category": 8,
+              "largestPrice": 62.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Condiments",
+              "largestPrice": 43.9
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
+            },
+            {
+              "category": "Dairy Products",
+              "largestPrice": 55
+            },
+            {
+              "category": "Grains/Cereals",
+              "largestPrice": 38
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Produce",
+              "largestPrice": 53
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))",
+          "result": [
+            {
+              "name": "Chai",
+              "source": 18,
+              "result": 18
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            }
+          ]
+        },
+        {
+          "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
+          "result": [
+            {
+              "subTotal": 135525059
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
+            },
+            {
+              "category": "Dairy Products",
+              "largestPrice": 55
+            },
+            {
+              "category": "Produce",
+              "largestPrice": 53
+            }
+          ]
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "PostgreSQL",
+      "tests": [
+        {
+          "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
+          "result": [
+            {
+              "maxPrice": 263.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ minPrice: min(p.price) }))",
+          "result": [
+            {
+              "minPrice": 2.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ total: sum(p.price) }))",
+          "result": [
+            {
+              "total": 2222.71
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
+          "result": [
+            {
+              "average": 28.8664
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ count: count(1) }))",
+          "result": [
+            {
+              "count": 77
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": 8,
+              "largestPrice": 62.5
+            },
+            {
+              "category": 7,
+              "largestPrice": 53
+            },
+            {
+              "category": 1,
+              "largestPrice": 263.5
+            },
+            {
+              "category": 5,
+              "largestPrice": 38
+            },
+            {
+              "category": 4,
+              "largestPrice": 55
+            },
+            {
+              "category": 2,
+              "largestPrice": 43.9
+            },
+            {
+              "category": 6,
+              "largestPrice": 123.79
+            },
+            {
+              "category": 3,
+              "largestPrice": 81
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": "Grains/Cereals",
+              "largestPrice": 38
+            },
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Dairy Products",
+              "largestPrice": 55
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
+            },
+            {
+              "category": "Produce",
+              "largestPrice": 53
+            },
+            {
+              "category": "Condiments",
+              "largestPrice": 43.9
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))",
+          "result": [
+            {
+              "name": "Chai",
+              "source": 18,
+              "result": 18
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            }
+          ]
+        },
+        {
+          "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
+          "result": [
+            {
+              "subTotal": 135525059
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
+            },
+            {
+              "category": "Dairy Products",
+              "largestPrice": 55
+            },
+            {
+              "category": "Produce",
+              "largestPrice": 53
+            }
+          ]
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "SqlServer",
+      "tests": [
+        {
+          "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
+          "result": [
+            {
+              "maxPrice": 263.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ minPrice: min(p.price) }))",
+          "result": [
+            {
+              "minPrice": 2.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ total: sum(p.price) }))",
+          "result": [
+            {
+              "total": 2222.71
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
+          "result": [
+            {
+              "average": 28.8664
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ count: count(1) }))",
+          "result": [
+            {
+              "count": 77
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": 1,
+              "largestPrice": 263.5
+            },
+            {
+              "category": 2,
+              "largestPrice": 43.9
+            },
+            {
+              "category": 3,
+              "largestPrice": 81
+            },
+            {
+              "category": 4,
+              "largestPrice": 55
+            },
+            {
+              "category": 5,
+              "largestPrice": 38
+            },
+            {
+              "category": 6,
+              "largestPrice": 123.79
+            },
+            {
+              "category": 7,
+              "largestPrice": 53
+            },
+            {
+              "category": 8,
+              "largestPrice": 62.5
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Condiments",
+              "largestPrice": 43.9
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
+            },
+            {
+              "category": "Dairy Products",
+              "largestPrice": 55
+            },
+            {
+              "category": "Grains/Cereals",
+              "largestPrice": 38
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Produce",
+              "largestPrice": 53
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))",
+          "result": [
+            {
+              "name": "Chai",
+              "source": 18,
+              "result": 18
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            }
+          ]
+        },
+        {
+          "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
+          "result": [
+            {
+              "subTotal": 135525599
+            }
+          ]
+        },
+        {
+          "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
+            },
+            {
+              "category": "Dairy Products",
+              "largestPrice": 55
+            },
+            {
+              "category": "Produce",
+              "largestPrice": 53
+            }
+          ]
+        }
+      ],
+      "errors": 0
+    }
+  ],
+  "errors": 0
+}

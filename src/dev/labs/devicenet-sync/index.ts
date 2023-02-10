@@ -90,10 +90,10 @@ function getDevices () {
 		// const expression = 'Users.filter(p-> p.username == "flaviolrita")'
 		const expression = 'Users'
 
-		console.log('sentence:')
-		console.log(JSON.stringify(orm.sentence(expression,{view:'admin'})))
-		console.log(JSON.stringify(orm.sentence(expression)))
-		// console.log(JSON.stringify(orm.sentence(expression, 'collector')))
+		console.log('info:')
+		console.log(JSON.stringify(orm.getInfo(expression,{view:'admin'})))
+		console.log(JSON.stringify(orm.getInfo(expression)))
+		// console.log(JSON.stringify(orm.getInfo(expression, 'collector')))
 		// console.log('parameters:')
 		// console.log(JSON.stringify(orm.parameters(expression)))
 		// console.log('model:')

@@ -1,13 +1,14 @@
-import { LanguageDDLBuilder, MappingConfig } from '../../manager'
-import { source, Sentence, Query } from '../../model'
-import { Language } from '../../manager/language'
+import { MappingConfig } from '../../manager'
+import { LanguageDDLBuilder } from '../../query'
+import { source, Sentence, Query } from '../../contract'
+import { Language } from '../language'
 import { SqlDMLBuilder } from './dmlBuilder'
 import { SqlDDLBuilder } from './ddlBuilder'
 import config from './config.json'
-import { Expressions } from 'js-expressions'
+import { IExpressions } from '3xpr'
 
 export class SqlLanguage extends Language {
-	constructor (expressions: Expressions) {
+	constructor (expressions: IExpressions) {
 		super('SQL', config.dialects, expressions)
 		this.solveComposite = false
 	}

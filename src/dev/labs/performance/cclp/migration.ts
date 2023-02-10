@@ -1,4 +1,4 @@
-import { Orm, helper, IOrm, OrmOptions } from '../../../../lib'
+import { Orm, helper, IOrm, QueryOptions } from '../../../../lib'
 import {sourcePath } from './common'
 import {
 	PmIndividuals, PmOrganizations,	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses,
@@ -31,7 +31,7 @@ interface ImportData {
 }
 class CollectionExporter {
 	private orm: IOrm
-	constructor(workspace:string, private readonly options:OrmOptions ){
+	constructor(workspace:string, private readonly options:QueryOptions ){
 		this.orm = new Orm(workspace)
 	}
 	public async export(): Promise<any> {
@@ -121,7 +121,7 @@ class CollectionExporter {
 }
 class CollectionImporter {
 	private orm: IOrm
-	constructor(workspace:string, private readonly options:OrmOptions ){
+	constructor(workspace:string, private readonly options:QueryOptions ){
 		this.orm = new Orm(workspace)
 	}
 	public async import(exportData:ExportData): Promise<ImportData> {

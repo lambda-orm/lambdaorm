@@ -1,5 +1,5 @@
 const fs = require('fs')
-require('dotenv').config({ path: './test.env' })
+require('dotenv').config({ path: './config/northwind.env' })
 
 const sources = ['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB']
 
@@ -9,8 +9,8 @@ module.exports = function (grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		exec: {
-			db_up: { cmd: './db.sh up', options: { cwd: './src/dev/db' } },
-			db_down: { cmd: './db.sh down', options: { cwd: './src/dev/db' } },
+			db_up: { cmd: './db.sh up', options: { cwd: './src/dev/northwind/db' } },
+			db_down: { cmd: './db.sh down', options: { cwd: './src/dev/northwind/db' } },
 			clean_data: { cmd: './clean_data.sh ' + sources.join(','), options: { cwd: './src/dev/task' } },
 			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
 			lint: { cmd: 'npx eslint src' },
@@ -27,6 +27,7 @@ module.exports = function (grunt) {
 		},
 		copy: {
 			lib: { expand: true, cwd: 'build/lib', src: '**', dest: 'dist/' },
+			config: { expand: true, cwd: 'config', src: '**', dest: 'dist/' },
 			sintaxis: { expand: true, cwd: './src', src: './__sintaxis.d.ts', dest: 'build/lib/' },
 			readme: { expand: true, src: './README.md', dest: 'dist/' },
 			license: { expand: true, src: './LICENSE', dest: 'dist/' },
@@ -49,19 +50,19 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('populate-source', 'populate source db', function () {
 		const task = require('./build/dev/task/mysqlExecute')
-		const sourceFile = './src/dev/db/northwind-mysql.sql'
+		const sourceFile = './src/dev/northwind/db/northwind-mysql.sql'
 		const connection = JSON.parse(process.env.ORM_CNN_SOURCE)
 		const script = fs.readFileSync(sourceFile, { encoding: 'utf8' })
 		task.apply(script, connection, this.async())
 	})
 
 	grunt.registerTask('populate-databases', 'populate databases for test', function () {
-		const task = require('./build/dev/task/populateDatabases')
+		const task = require('./build/dev/northwind/task/populateDatabases')
 		task.apply(sources, this.async())
 	})
 
 	grunt.registerTask('generate-data-for-test', 'generate data for test', function () {
-		const task = require('./build/dev/task/generateDataForTest')
+		const task = require('./build/dev/northwind/task/generateDataForTest')
 		task.apply(sources, this.async())
 	})
 
@@ -77,8 +78,8 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('generate-test', 'generate test', function () {
-		const task = require('./build/dev/task/generateTest')
-		const dataForTestPath = './src/dev/dataForTest'
+		const task = require('./build/dev/northwind/task/generateTest')
+		const dataForTestPath = './src/dev/northwind/test/data'
 		task.apply(dataForTestPath, sources, this.async())
 	})
 	grunt.registerTask('clean-test', ['exec:clean_test'])
@@ -89,7 +90,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('build', ['exec:lint', 'clean:build', 'build-config', 'exec:tsc', 'copy:sintaxis'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])
-	grunt.registerTask('dist', ['build', 'exec:test', 'clean:dist', 'copy:lib', 'copy:jest', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('dist', ['build', 'exec:test', 'clean:dist', 'copy:lib', 'copy:config', 'copy:jest', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
 	grunt.registerTask('release', ['dist', 'exec:release'])
 	grunt.registerTask('to_develop', ['build', 'exec:to_develop'])
 	grunt.registerTask('default', [])

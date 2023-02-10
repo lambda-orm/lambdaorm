@@ -1,5 +1,5 @@
 import { orm} from '../../../lib'
-import { Orders ,Products } from '../../model/__model'
+import { Orders ,Products } from '../../northwind/model/__model'
 
 async function apply () {
 	try {
@@ -14,7 +14,7 @@ async function apply () {
 		const lambdaExpression =  () => Products.map(p => ({ category: p.categoryId,supplier: p.supplierId, largestPrice: max(p.price) })) 
 
 
-		const result =orm.sentence(lambdaExpression,{ stage: stage})
+		const result =orm.getInfo(lambdaExpression,{ stage: stage})
 		console.log(result.sentence)
 		const data = await orm.execute(lambdaExpression,context,{ stage: stage})
 		console.log(JSON.stringify(data, null,2))

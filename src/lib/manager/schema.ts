@@ -1,7 +1,7 @@
-import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, OrmOptions, Dependent, ObservableAction } from '../model'
+import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, QueryOptions, Dependent, ObservableAction } from '../contract'
 import path from 'path'
 import { helper } from './'
-import { Expressions } from 'js-expressions'
+import { IExpressions, Kind } from '3xpr'
 
 const yaml = require('js-yaml')
 
@@ -474,8 +474,8 @@ export class StageConfig {
 	}
 }
 class SchemaExtender {
-	private expressions: Expressions
-	constructor (expressions: Expressions) {
+	private expressions: IExpressions
+	constructor (expressions: IExpressions) {
 		this.expressions = expressions
 	}
 
@@ -548,6 +548,9 @@ class SchemaExtender {
 		} else {
 			// extend entities into mapping
 			for (const mapping of schema.mappings) {
+				if (mapping.entities === undefined) {
+					mapping.entities = []
+				}
 				for (const entity of mapping.entities) {
 					this.extendEntityMapping(entity, mapping.entities)
 				}
@@ -659,8 +662,8 @@ class SchemaExtender {
 				} else if (property.required === undefined) {
 					property.required = (entity.required.includes(property.name) || entity.primaryKey.includes(property.name) || entity.uniqueKey.includes(property.name))
 				}
-				if (property.type === undefined) property.type = 'string'
-				if (property.type === 'string' && property.length === undefined) property.length = 80
+				if (property.type === undefined) property.type = Kind.string
+				if (property.type === Kind.string && property.length === undefined) property.length = 80
 				if (property.length !== undefined && isNaN(property.length)) {
 					throw new SchemaError(`Invalid length in ${entity.name}.${property.name}`)
 				}
@@ -866,9 +869,9 @@ export class SchemaManager {
 	public schema: Schema
 	public workspace: string
 	private extender: SchemaExtender
-	private expressions: Expressions
+	private expressions: IExpressions
 
-	constructor (workspace: string, expressions: Expressions) {
+	constructor (workspace: string, expressions: IExpressions) {
 		this.expressions = expressions
 		this.workspace = workspace
 		this.source = new DataSourceConfig()
@@ -927,7 +930,7 @@ export class SchemaManager {
 
 		if (source === undefined) {
 			configFile = await this.getConfigFileName(workspace)
-		} else if (typeof source === 'string') {
+		} else if (typeof source === Kind.string) {
 			if (await helper.fs.exists(source)) {
 				const lstat = await helper.fs.lstat(source)
 				if (lstat.isFile()) {
@@ -1009,7 +1012,7 @@ export class SchemaManager {
 					console.log(`WARNING|source:"${source.name}"|connection is empty`)
 					continue
 				}
-				if (typeof source.connection === 'string') {
+				if (typeof source.connection === Kind.string) {
 					if (source.connection.includes('${')) {
 						console.log(`WARNING|source:"${source.name}"|had environment variables unsolved`)
 						continue
@@ -1034,7 +1037,7 @@ export class SchemaManager {
 		return this.schema
 	}
 
-	public solveOptions (options?: OrmOptions):OrmOptions {
+	public solveOptions (options?: QueryOptions):QueryOptions {
 		if (!options) {
 			options = {}
 		}

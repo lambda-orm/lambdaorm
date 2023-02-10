@@ -1,15 +1,16 @@
-
-import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, ArrowFunction, Block, Expressions } from 'js-expressions'
-import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source } from '../model'
-import { MappingConfig, Dialect, helper } from '../manager'
+import { Operand, OperandType, Kind, IExpressions } from '3xpr'
+import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source, BulkInsert } from '../contract'
+import { MappingConfig, helper } from '../manager'
+import { Dialect } from '../language'
+const SqlString = require('sqlstring')
 
 export abstract class DmlBuilder {
 	protected source: source
 	protected mapping: MappingConfig
 	protected dialect: Dialect
-	protected expressions: Expressions
+	protected expressions: IExpressions
 
-	constructor (source: source, mapping: MappingConfig, dialect: Dialect, expressions: Expressions) {
+	constructor (source: source, mapping: MappingConfig, dialect: Dialect, expressions: IExpressions) {
 		this.source = source
 		this.mapping = mapping
 		this.expressions = expressions
@@ -17,12 +18,11 @@ export abstract class DmlBuilder {
 	}
 
 	public build (sentence: Sentence): Query {
-		const sqlSentence = this.buildSentence(sentence)
 		return new Query({
 			action: sentence.action,
 			dialect: this.source.dialect,
 			source: this.source.name,
-			sentence: sqlSentence,
+			sentence: this.buildSentence(sentence),
 			entity: sentence.entity,
 			columns: sentence.columns,
 			parameters: sentence.parameters,
@@ -87,7 +87,9 @@ export abstract class DmlBuilder {
 	}
 
 	protected buildInsertSentence (sentence: Sentence): string {
-		const insert = sentence.children.find(p => p instanceof Insert) as Insert | undefined
+		const insert = sentence.action === 'bulkInsert'
+			? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert | undefined
+			: sentence.children.find(p => p instanceof Insert) as Insert | undefined
 		const entity = this.mapping.getEntity(sentence.entity)
 		if (entity === undefined) {
 			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
@@ -146,17 +148,17 @@ export abstract class DmlBuilder {
 
 	protected buildFrom (from: From): string {
 		let template = this.dialect.dml('from')
-		const entityMapping = this.mapping.entityMapping(from.name)
+		const entityMapping = this.mapping.entityMapping(from.entity)
 		if (entityMapping === undefined) {
-			throw new SchemaError(`not found mapping for ${from.name}`)
+			throw new SchemaError(`not found mapping for ${from.entity}`)
 		}
 		template = template.replace('{name}', this.dialect.delimiter(entityMapping))
 		template = helper.str.replace(template, '{alias}', from.alias)
 		return template.trim()
 	}
 
-	protected buildInsert (operand: Insert, entity: EntityMapping): string {
-		let template = this.dialect.dml(operand.clause)
+	protected buildInsert (operand: Insert|BulkInsert, entity: EntityMapping): string {
+		let template = this.dialect.dml(operand instanceof BulkInsert ? 'bulkInsert' : 'insert')
 		const templateColumn = this.dialect.other('column')
 		const fields: string[] = []
 		const values: any[] = []
@@ -168,21 +170,27 @@ export abstract class DmlBuilder {
 			fields.push(templateColumn.replace('{name}', this.dialect.delimiter(autoIncrement.mapping)))
 			values.push(templateSequenceNextVal.replace('{name}', entity.sequence))
 		}
-		if (operand.children[0] instanceof Object) {
+		if (operand.children[0].type === OperandType.Obj) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
-				const keyVal = obj.children[p] as KeyValue
-
+				const keyVal = obj.children[p]
+				const property = entity.properties.find(q => q.name === keyVal.name)
 				let name: string
-				if (keyVal.property !== undefined) {
-					const property = entity.properties.find(q => q.name === keyVal.property)
-					if (property === undefined) {
-						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-					}
+				if (property) {
 					name = property.mapping
 				} else {
 					name = keyVal.name
 				}
+				// let name: string
+				// if (keyVal.property !== undefined) {
+				// const property = entity.properties.find(q => q.name === keyVal.property)
+				// if (property === undefined) {
+				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
+				// }
+				// name = property.mapping
+				// } else {
+				// name = keyVal.name
+				// }
 				fields.push(templateColumn.replace('{name}', this.dialect.delimiter(name)))
 				values.push(this.buildOperand(keyVal.children[0]))
 			}
@@ -202,17 +210,24 @@ export abstract class DmlBuilder {
 		if (operand.children[0] instanceof Object) {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
-				const keyVal = obj.children[p] as KeyValue
+				const keyVal = obj.children[p]
 				let name: string
-				if (keyVal.property !== undefined) {
-					const property = entity.properties.find(q => q.name === keyVal.property)
-					if (property === undefined) {
-						throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-					}
+				const property = entity.properties.find(q => q.name === keyVal.name)
+				if (property) {
 					name = property.mapping
 				} else {
 					name = keyVal.name
 				}
+				// let name: string
+				// if (keyVal.property !== undefined) {
+				// const property = entity.properties.find(q => q.name === keyVal.property)
+				// if (property === undefined) {
+				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
+				// }
+				// name = property.mapping
+				// } else {
+				// name = keyVal.name
+				// }
 				const column = templateColumn.replace('{name}', this.dialect.delimiter(name))
 				const value = this.buildOperand(keyVal.children[0])
 				let assign = templateAssign.replace('{0}', column)
@@ -254,32 +269,32 @@ export abstract class DmlBuilder {
 	protected buildOperand (operand: Operand): string {
 		if (operand instanceof Sentence) {
 			return this.buildSentence(operand)
-		} else if (operand instanceof ArrowFunction) {
+		} else if (operand.type === OperandType.Arrow) {
 			return this.buildArrowFunction(operand)
-		} else if (operand instanceof FunctionRef) {
+		} else if (operand.type === OperandType.CallFunc) {
 			return this.buildFunctionRef(operand)
-		} else if (operand instanceof Operator) {
+		} else if (operand.type === OperandType.Operator) {
 			return this.buildOperator(operand)
-		} else if (operand instanceof Block) {
+		} else if (operand.type === OperandType.Block) {
 			return this.buildBlock(operand)
-		} else if (operand instanceof Obj) {
+		} else if (operand.type === OperandType.Obj) {
 			return this.buildObject(operand)
-		} else if (operand instanceof List) {
+		} else if (operand.type === OperandType.List) {
 			return this.buildList(operand)
-		} else if (operand instanceof KeyValue) {
+		} else if (operand.type === OperandType.KeyVal) {
 			return this.buildKeyValue(operand)
 		} else if (operand instanceof Field) {
 			return this.buildField(operand)
-		} else if (operand instanceof Variable) {
+		} else if (operand.type === OperandType.Var) {
 			return this.buildVariable(operand)
-		} else if (operand instanceof Constant) {
+		} else if (operand.type === OperandType.Const) {
 			return this.buildConstant(operand)
 		} else {
 			throw new SintaxisError(`Operand ${operand.type} ${operand.name} not supported`)
 		}
 	}
 
-	protected buildArrowFunction (operand: ArrowFunction): string {
+	protected buildArrowFunction (operand: Operand): string {
 		let template = this.dialect.dml(operand.name)
 		for (let i = 0; i < operand.children.length; i++) {
 			const text = this.buildOperand(operand.children[i])
@@ -288,7 +303,7 @@ export abstract class DmlBuilder {
 		return template.trim()
 	}
 
-	protected buildFunctionRef (operand: FunctionRef): string {
+	protected buildFunctionRef (operand: Operand): string {
 		const funcData = this.dialect.function(operand.name)
 		if (!funcData) throw new SintaxisError('Function ' + operand.name + ' not found')
 		let text = ''
@@ -308,7 +323,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildOperator (operand: Operator): string {
+	protected buildOperator (operand: Operand): string {
 		let text = this.dialect.operator(operand.name, operand.children.length)
 		for (let i = 0; i < operand.children.length; i++) {
 			text = text.replace('{' + i + '}', this.buildOperand(operand.children[i]))
@@ -316,7 +331,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildBlock (operand: Block): string {
+	protected buildBlock (operand: Operand): string {
 		let text = ''
 		for (const child of operand.children) {
 			text += (this.buildOperand(child) + '')
@@ -324,7 +339,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildObject (operand: Obj): string {
+	protected buildObject (operand: Operand): string {
 		let text = ''
 		const template = this.dialect.function('as').template
 		for (let i = 0; i < operand.children.length; i++) {
@@ -338,7 +353,7 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildList (operand: List): string {
+	protected buildList (operand: Operand): string {
 		let text = ''
 		for (let i = 0; i < operand.children.length; i++) {
 			text += (i > 0 ? ', ' : '') + this.buildOperand(operand.children[i])
@@ -346,36 +361,51 @@ export abstract class DmlBuilder {
 		return text
 	}
 
-	protected buildKeyValue (operand: KeyValue): string {
+	protected buildKeyValue (operand: Operand): string {
 		return this.buildOperand(operand.children[0])
 	}
 
-	protected buildField (operand: Field): string {
-		if (this.mapping.existsProperty(operand.entity, operand.name)) {
-			const property = this.mapping.getProperty(operand.entity, operand.name)
-			if (operand.alias === undefined) {
+	protected buildField (field: Field): string {
+		if (this.mapping.existsProperty(field.entity, field.fieldName())) {
+			const property = this.mapping.getProperty(field.entity, field.fieldName())
+			if (field.alias === undefined) {
 				return this.dialect.other('column').replace('{name}', this.dialect.delimiter(property.mapping, true))
 			} else {
 				let text = this.dialect.other('field')
-				text = text.replace('{entityAlias}', operand.alias)
+				text = text.replace('{entityAlias}', field.alias)
 				text = text.replace('{name}', this.dialect.delimiter(property.mapping))
 				return text
 			}
 		} else {
 			const forceDelimiter = ['PostgreSQL', 'Oracle'].includes(this.dialect.name)
-			return this.dialect.other('column').replace('{name}', this.dialect.delimiter(operand.name, forceDelimiter))
+			return this.dialect.other('column').replace('{name}', this.dialect.delimiter(field.name, forceDelimiter))
 		}
 	}
 
-	protected buildVariable (operand: Variable): string {
+	protected buildVariable (operand: Operand): string {
 		const number = operand.number ? operand.number : 0
 		let text = this.dialect.other('variable')
-		text = text.replace('{name}', helper.transformParameter(operand.name))
+		text = text.replace('{name}', helper.query.transformParameter(operand.name))
 		text = text.replace('{number}', number.toString())
 		return text
 	}
 
-	protected buildConstant (operand: Constant): string {
-		return operand.name
+	protected buildConstant (operand: Operand): string {
+		if (operand.returnType === undefined) {
+			return SqlString.escape(operand.name)
+		}
+		switch (operand.returnType.kind) {
+		case Kind.string:
+			return SqlString.escape(operand.name)
+		case Kind.boolean:
+			return this.dialect.other(operand.name.toString())
+		case Kind.integer:
+			return parseInt(operand.name).toString()
+		case Kind.number:
+		case Kind.decimal:
+			return parseFloat(operand.name).toString()
+		default:
+			return SqlString.escape(operand.name)
+		}
 	}
 }

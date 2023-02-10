@@ -2,8 +2,10 @@
 /* eslint-disable no-tabs */
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../model'
-import { MappingConfig, Dialect, helper } from '../../manager'
+import { Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../contract'
+import { Parameter, Type, Kind } from '3xpr'
+import { MappingConfig, helper } from '../../manager'
+import { Dialect } from '../../language'
 
 export class MongoDBConnectionPool extends ConnectionPool {
 	private static lib: any
@@ -160,9 +162,10 @@ export class MongodbConnection extends Connection {
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		const obj = this.getObject(mapping, dialect, query, data)
 		const filter = this.parseTemplate(mapping, dialect, sentence.filter, params)
+
 		const result = this.session
-			? await this.cnx.db.collection(collection).updateMany(filter, obj, this.session)
-			: await this.cnx.db.collection(collection).updateMany(filter, obj)
+			? await this.cnx.db.collection(collection).updateMany(filter, { $set: obj }, this.session)
+			: await this.cnx.db.collection(collection).updateMany(filter, { $set: obj })
 		return result.modifiedCount as number
 	}
 
@@ -255,8 +258,10 @@ export class MongodbConnection extends Connection {
 			let strObj: string | undefined
 			if (query.parameters && query.parameters.length > 0) {
 				for (const param of query.parameters) {
-					const value = this.getValue(mapping, dialect, item[param.name], param.type)
-					strObj = helper.str.replace(strObj || template, `{{${param.name}}}`, value)
+					const paramName = helper.query.transformParameter(param.name)
+					const itemValue = helper.obj.getValue(item, param.name)
+					const value = this.getValue(mapping, dialect, itemValue, param.type ? param.type : Kind.any)
+					strObj = helper.str.replace(strObj || template, `{{${paramName}}}`, value)
 				}
 			} else {
 				strObj = template
@@ -272,8 +277,9 @@ export class MongodbConnection extends Connection {
 		const row: any = {}
 		if (params.length && params.length > 0) {
 			for (const param of params) {
-				const value = this.getValue(mapping, dialect, param.value, param.type)
-				result = helper.str.replace(result || template, `{{${param.name}}}`, value)
+				const paramName = helper.query.transformParameter(param.name)
+				const value = this.getValue(mapping, dialect, param.value, param.type ? param.type : Kind.any)
+				result = helper.str.replace(result || template, `{{${paramName}}}`, value)
 			}
 		} else {
 			result = template
@@ -286,36 +292,38 @@ export class MongodbConnection extends Connection {
 		if (source === undefined || source === null) {
 			return 'null'
 		}
-		switch (type) {
-		case 'array':
+		if (Type.isList(type)) {
 			if (source.length === 0) {
 				return ''
 			}
-			if (typeof source[0] === 'string') {
+			if (typeof source[0] === Kind.string) {
 				return source.map((p:string) => `"${p}"`).join(',')
 			} else {
 				return source.join(',')
 			}
-		case 'boolean':
-			return source ? 'true' : 'false'
-		case 'string':
-			value = typeof source === 'string' ? source : source.toString()
-			value = helper.str.replace(value, '\n', '\\n')
-			value = helper.str.replace(value, '"', '\\"')
-			return `"${value}"`
-		case 'datetime':
-			return `"${this.writeDateTime(source, mapping, dialect)}"`
-		case 'date':
-			return `"${this.writeDate(source, mapping, dialect)}"`
-		case 'time':
-			return `"${this.writeTime(source, mapping, dialect)}"`
-		default:
-			if (typeof source === 'string') {
-				value = helper.str.replace(source, '\n', '\\n')
+		} else {
+			switch (type) {
+			case Kind.boolean:
+				return source ? 'true' : 'false'
+			case Kind.string:
+				value = typeof source === Kind.string ? source : source.toString()
+				value = helper.str.replace(value, '\n', '\\n')
 				value = helper.str.replace(value, '"', '\\"')
 				return `"${value}"`
-			} else {
-				return source
+			case Kind.dateTime:
+				return `"${this.writeDateTime(source, mapping, dialect)}"`
+			case Kind.date:
+				return `"${this.writeDate(source, mapping, dialect)}"`
+			case Kind.time:
+				return `"${this.writeTime(source, mapping, dialect)}"`
+			default:
+				if (typeof source === Kind.string) {
+					value = helper.str.replace(source, '\n', '\\n')
+					value = helper.str.replace(value, '"', '\\"')
+					return `"${value}"`
+				} else {
+					return source
+				}
 			}
 		}
 	}

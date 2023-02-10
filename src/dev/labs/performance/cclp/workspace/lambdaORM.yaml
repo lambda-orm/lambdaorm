@@ -236,7 +236,7 @@ entities:
         type: integer
         required: true
       - name: registredDate
-        type: datetime
+        type: dateTime
         required: true
         default: now()
     relations:
@@ -289,9 +289,9 @@ entities:
         length: 100
         required: true
       - name: validFrom
-        type: datetime
+        type: dateTime
       - name: validTo
-        type: datetime
+        type: dateTime
       - name: isMain
         type: boolean
       - name: isFavorite
@@ -323,9 +323,9 @@ entities:
       - name: genderId
         type: integer
       - name: birthDate
-        type: datetime
+        type: dateTime
       - name: deathDate
-        type: datetime
+        type: dateTime
       - name: nationalityRefId
         type: integer
       - name: currentNameId
@@ -380,7 +380,7 @@ entities:
         type: integer
         required: true
       - name: legalPeriodFrom
-        type: datetime
+        type: dateTime
       - name: currentNameId
         type: integer
       - name: industyTypeId
@@ -436,7 +436,7 @@ entities:
         length: 100
         required: true
       - name: validFrom
-        type: datetime
+        type: dateTime
   - name: PrPartyRoleStatuses
     primaryKey: ["id"]
     uniqueKey: ["code"]
@@ -512,7 +512,7 @@ entities:
         type: integer
         required: true
       - name: validFrom
-        type: datetime
+        type: dateTime
       - name: partyRoleSpecId
         type: integer
         required: true
@@ -703,7 +703,7 @@ entities:
         type: integer
         required: true
       - name: registrationDate
-        type: datetime
+        type: dateTime
         required: true
       - name: creditorId
         type: integer
@@ -743,7 +743,7 @@ entities:
         type: integer
         required: true
       - name: registerDate
-        type: datetime
+        type: dateTime
         required: true
       - name: userRefId
         type: integer
@@ -932,9 +932,9 @@ entities:
         length: 50
         required: true
       - name: lastModificationDate
-        type: datetime
+        type: dateTime
       - name: registrationDate
-        type: datetime
+        type: dateTime
       - name: identificationValue
         length: 80
       - name: identificationType
@@ -962,7 +962,7 @@ entities:
         type: integer
         required: true
       - name: registrationDate
-        type: datetime
+        type: dateTime
         required: true
       - name: userRefId
         type: integer
@@ -1005,13 +1005,13 @@ entities:
       - name: serialNumber
         length: 50
       - name: registrationDate
-        type: datetime
+        type: dateTime
       - name: activationDate
-        type: datetime
-        readMappingExp: datetime(activationDate)
+        type: dateTime
+        readMappingExp: dateTime(activationDate)
       - name: deactivationDate
-        type: datetime
-        readMappingExp: datetime(deactivationDate)
+        type: dateTime
+        readMappingExp: dateTime(deactivationDate)
       - name: contractNumber
         length: 50
       - name: serviceExternalCode
@@ -1055,13 +1055,13 @@ entities:
       - name: accountLedgerRefId
         type: integer
       - name: lastModificationDate
-        type: datetime
+        type: dateTime
       - name: referenceNumber
         length: 50
       - name: accountStatusId
         type: integer
       - name: registrationDate
-        type: datetime
+        type: dateTime
       # TODO: Pendig solver
       - name: currencyRefId
         type: integer
@@ -1093,7 +1093,7 @@ entities:
         type: integer
         required: true
       - name: registrationDate
-        type: datetime
+        type: dateTime
         required: true
         default: now()
       - name: userRefId
@@ -1716,7 +1716,7 @@ mappings:
             mapping: REFERENCE_NUMBER
           - name: lastModificationDate
             mapping: LAST_MODIFICATION_DATE
-            readMappingExp: datetime(lastModificationDate)
+            readMappingExp: dateTime(lastModificationDate)
           - name: registrationDate
             mapping: REGISTRATION_DATE
           - name: identificationValue
@@ -2017,50 +2017,50 @@ mappings:
       - name: PmParties
         properties:
           - name: registredDate
-            readMappingExp: datetime(registredDate)
+            readMappingExp: dateTime(registredDate)
       - name: PmPartyContactMediums
         properties:
           - name: validFrom
-            readMappingExp: datetime(validFrom)
+            readMappingExp: dateTime(validFrom)
           - name: validTo
-            readMappingExp: datetime(validTo)
+            readMappingExp: dateTime(validTo)
       - name: PmIndividuals
         properties:
           - name: birthDate
-            readMappingExp: datetime(birthDate)
+            readMappingExp: dateTime(birthDate)
           - name: deathDate
-            readMappingExp: datetime(deathDate)
+            readMappingExp: dateTime(deathDate)
       - name: PmOrganizations
         properties:
           - name: legalPeriodFrom
-            readMappingExp: datetime(legalPeriodFrom)
+            readMappingExp: dateTime(legalPeriodFrom)
       - name: PrPartyRoleSpecs
         properties:
           - name: validFrom
-            readMappingExp: datetime(validFrom)
+            readMappingExp: dateTime(validFrom)
       - name: LamAccountStatusHistories
         properties:
           - name: registerDate
-            readMappingExp: datetime(registerDate)
+            readMappingExp: dateTime(registerDate)
       - name: DbDebtors
         properties:
           - name: lastModificationDate
-            readMappingExp: datetime(lastModificationDate)
+            readMappingExp: dateTime(lastModificationDate)
       - name: DbDebtorStatusHistories
         mapping: TBL_DB_DEBTOR_STATUS_HISTORY
         properties:
           - name: registrationDate
-            readMappingExp: datetime(registrationDate)
+            readMappingExp: dateTime(registrationDate)
       - name: DbDebtorAccounts
         mapping: TBL_DB_DEBTOR_ACCOUNT
         properties:
           - name: lastModificationDate
-            readMappingExp: datetime(lastModificationDate)
+            readMappingExp: dateTime(lastModificationDate)
       - name: DbAccountStatusHistories
         mapping: TBL_DB_ACCOUNT_STATUS_HISTORY
         properties:
           - name: registrationDate
-            readMappingExp: datetime(registrationDate)
+            readMappingExp: dateTime(registrationDate)
 sources:
   # Beesion sources
   - name: beeLocations

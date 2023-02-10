@@ -29,7 +29,7 @@
 						},
 						{
 							"name": "created",
-							"type": "datetime",
+							"type": "dateTime",
 							"default": "now()",
 							"mapping": "created"
 						}
@@ -229,7 +229,7 @@
 						},
 						{
 							"name": "created",
-							"type": "datetime",
+							"type": "dateTime",
 							"default": "now()",
 							"mapping": "created"
 						}
@@ -374,7 +374,7 @@
 						},
 						{
 							"name": "created",
-							"type": "datetime",
+							"type": "dateTime",
 							"default": "now()",
 							"mapping": "created"
 						}
@@ -446,12 +446,12 @@
 						},
 						{
 							"name": "time",
-							"type": "datetime",
+							"type": "dateTime",
 							"mapping": "time"
 						},
 						{
 							"name": "created",
-							"type": "datetime",
+							"type": "dateTime",
 							"default": "now()",
 							"mapping": "created"
 						}
@@ -648,19 +648,19 @@
 						},
 						{
 							"name": "startDate",
-							"type": "datetime",
+							"type": "dateTime",
 							"required": true,
 							"mapping": "startDate"
 						},
 						{
 							"name": "endDate",
-							"type": "datetime",
+							"type": "dateTime",
 							"required": true,
 							"mapping": "endDate"
 						},
 						{
 							"name": "created",
-							"type": "datetime",
+							"type": "dateTime",
 							"default": "now()",
 							"mapping": "created"
 						}
@@ -737,7 +737,7 @@
 							"name": "created",
 							"mapping": "created_timestamp",
 							"readMappingExp": "millisecondToDate(created/1000)",
-							"type": "datetime",
+							"type": "dateTime",
 							"default": "now()"
 						},
 						{

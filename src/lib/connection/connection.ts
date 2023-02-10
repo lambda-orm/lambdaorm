@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { Parameter, Query, Data, MethodNotImplemented } from '../model'
+import { Query, Data, MethodNotImplemented } from '../contract'
+import { Parameter, Kind } from '3xpr'
 import { ConnectionConfig } from './connectionConfig'
-import { MappingConfig, Dialect, helper } from '../manager'
+import { MappingConfig, helper } from '../manager'
+import { Dialect } from '../language'
 
 export abstract class Connection {
 	public cnx: any
@@ -34,15 +36,26 @@ export abstract class Connection {
 				let value = item[parameter.name]
 				if (value) {
 					switch (parameter.type) {
-					case 'datetime':
+					case Kind.dateTime:
 						value = this.writeDateTime(value, mapping, dialect)
 						break
-					case 'date':
+					case Kind.date:
 						value = this.writeDate(value, mapping, dialect)
 						break
-					case 'time':
+					case Kind.time:
 						value = this.writeTime(value, mapping, dialect)
 						break
+					case Kind.any:
+						if (helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)) {
+							value = this.writeDateTime(value, mapping, dialect)
+							break
+						} else if (helper.val.isDate(value) || helper.val.isDateFormat(value)) {
+							value = this.writeDate(value, mapping, dialect)
+							break
+						} else if (helper.val.isTime(value) || helper.val.isTimeFormat(value)) {
+							value = this.writeTime(value, mapping, dialect)
+							break
+						}
 					}
 				}
 				row.push(value === undefined ? null : value)
@@ -58,37 +71,48 @@ export abstract class Connection {
 			let value = data.get(parameter.name)
 			if (value) {
 				switch (parameter.type) {
-				case 'datetime':
+				case Kind.dateTime:
 					value = this.writeDateTime(value, mapping, dialect)
 					break
-				case 'date':
+				case Kind.date:
 					value = this.writeDate(value, mapping, dialect)
 					break
-				case 'time':
+				case Kind.time:
 					value = this.writeTime(value, mapping, dialect)
 					break
+				case Kind.any:
+					if (helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)) {
+						value = this.writeDateTime(value, mapping, dialect)
+						break
+					} else if (helper.val.isDate(value) || helper.val.isDateFormat(value)) {
+						value = this.writeDate(value, mapping, dialect)
+						break
+					} else if (helper.val.isTime(value) || helper.val.isTimeFormat(value)) {
+						value = this.writeTime(value, mapping, dialect)
+						break
+					}
 				}
 			} else {
 				value = null
 			}
-			parameters.push({ name: helper.transformParameter(parameter.name), type: parameter.type, value })
+			parameters.push({ name: helper.query.transformParameter(parameter.name), type: parameter.type, value })
 		}
 		return parameters
 	}
 
 	protected writeDateTime (value: any, mapping: MappingConfig, dialect: Dialect): any {
-		const format = mapping.format?.datetime || dialect.format.datetime
-		return format ? helper.dateFormat(value, format) : value
+		const format = mapping.format?.dateTime || dialect.format.dateTime
+		return format ? helper.query.dateFormat(value, format) : value
 	}
 
 	public writeDate (value: any, mapping: MappingConfig, dialect: Dialect): any {
 		const format = mapping.format?.date || dialect.format.date
-		return format ? helper.dateFormat(value, format) : value
+		return format ? helper.query.dateFormat(value, format) : value
 	}
 
 	public writeTime (value: any, mapping: MappingConfig, dialect: Dialect): any {
 		const format = mapping.format?.time || dialect.format.time
-		return format ? helper.dateFormat(value, format) : value
+		return format ? helper.query.dateFormat(value, format) : value
 	}
 
 	public abstract select(mapping: MappingConfig, dialect: Dialect, query: Query, data: Data): Promise<any>

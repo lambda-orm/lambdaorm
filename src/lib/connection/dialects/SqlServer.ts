@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
-import { Parameter, Query, Data } from '../../model'
-import { MappingConfig, Dialect, helper } from '../../manager'
+import { Query, Data } from '../../contract'
+import { MappingConfig, helper } from '../../manager'
+import { Dialect } from '../../language'
+import { Parameter, Type, Kind } from '3xpr'
 
 export class SqlServerConnectionPool extends ConnectionPool {
 	public static lib: any
@@ -228,15 +230,16 @@ export class SqlServerConnection extends Connection {
 		let _sentence = sentence
 		for (const parameter of query.parameters) {
 			const value = data.get(parameter.name)
-			if (parameter.type === 'array' || (parameter.type === 'any' && Array.isArray(value))) {
+			const type = parameter.type as string
+			if (Type.isList(type) || (type === Kind.any && Array.isArray(value))) {
 				let list:any
 				if (value.length > 0) {
 					const type = typeof value[0]
-					if (type === 'string') {
+					if (type === Kind.string) {
 						const values: string[] = []
 						for (const item of value) {
 							let _item = item
-							_item = helper.escape(_item)
+							_item = helper.query.escape(_item)
 							_item = helper.str.replace(_item, '\\\'', '\\\'\'')
 							values.push(_item)
 						}
@@ -259,15 +262,15 @@ export class SqlServerConnection extends Connection {
 				continue
 			}
 			switch (param.type) {
-			case 'string': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.NVarChar, param.value); break
-			case 'number': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Numeric, param.value); break
-			case 'integer': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Int, param.value); break
-			case 'decimal': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Decimal, param.value); break
-			case 'boolean': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Bit, param.value); break
-			case 'datetime': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.DateTime, param.value); break
-			case 'date': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Date, param.value); break
-			case 'time': request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Time, param.value); break
-			case 'any':
+			case Kind.string: request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.NVarChar, param.value); break
+			case Kind.number: request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Numeric, param.value); break
+			case Kind.integer: request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Int, param.value); break
+			case Kind.decimal: request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Decimal, param.value); break
+			case Kind.boolean: request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Bit, param.value); break
+			case Kind.dateTime: request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.DateTime, param.value); break
+			case Kind.date: request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Date, param.value); break
+			case Kind.time: request.addParameter(param.name, SqlServerConnectionPool.lib.TYPES.Time, param.value); break
+			case Kind.any:
 				throw new Error(`Param: ${param.name} is any type in sentence: ${sentence}`)
 			}
 		}
@@ -292,9 +295,9 @@ export class SqlServerConnection extends Connection {
 			value = 'null'
 		} else {
 			switch (parameter.type) {
-			case 'boolean':
+			case Kind.boolean:
 				value = value ? 1 : 0; break
-			case 'string':
+			case Kind.string:
 				if (value.includes('\'')) {
 					value = `'${helper.str.replace(value, '\'', '\'\'')}'`
 				} else {
@@ -303,14 +306,14 @@ export class SqlServerConnection extends Connection {
 				// value = helper.escape(value)
 				// value = helper.str.replace(value, '\\\'', '\\\'\'')
 				break
-			case 'datetime':
-				value = helper.escape(this.writeDateTime(value, mapping, dialect))
+			case Kind.dateTime:
+				value = helper.query.escape(this.writeDateTime(value, mapping, dialect))
 				break
-			case 'date':
-				value = helper.escape(this.writeDate(value, mapping, dialect))
+			case Kind.date:
+				value = helper.query.escape(this.writeDate(value, mapping, dialect))
 				break
-			case 'time':
-				value = helper.escape(this.writeTime(value, mapping, dialect))
+			case Kind.time:
+				value = helper.query.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}

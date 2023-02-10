@@ -215,12 +215,12 @@ declare function upper(value:string):string
 declare function concat(...values:string[]):string
 // function length(value:string):number
 
-// datetime:
+// dateTime:
 /** Get the current time */
 declare function curTime():Date
 /** Get the current date */
 declare function today():Date
-/** Get the current datetime */
+/** Get the current dateTime */
 declare function now():Date
 /**  */
 declare function time(value:any):Date

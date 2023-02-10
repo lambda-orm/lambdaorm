@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Connection, ConnectionPool } from '..'
-import { SchemaError, Query, Data, ExecutionError, PropertyMapping } from '../../model'
-import { MappingConfig, Dialect, helper } from '../../manager'
+import { SchemaError, Query, Data, ExecutionError, PropertyMapping } from '../../contract'
+import { MappingConfig, helper } from '../../manager'
+import { Dialect } from '../../language'
+import { Type, Kind } from '3xpr'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples
@@ -74,7 +76,7 @@ export class OracleConnection extends Connection {
 			for (const j in result.metaData) {
 				const col = result.metaData[j]
 				const colInfo = query.columns.find(p => p.name === col.name)
-				if (colInfo && colInfo.type === 'boolean') {
+				if (colInfo && colInfo.type === Kind.boolean) {
 					item[col.name] = row[j] === 'Y'
 				} else {
 					item[col.name] = row[j]
@@ -109,7 +111,7 @@ export class OracleConnection extends Connection {
 		const bindDefs: any = {}
 		for (const param of query.parameters) {
 			const property = mapping.getProperty(query.entity, param.name)
-			bindDefs[param.name] = this.getOracleType(param.type, property)
+			bindDefs[param.name] = this.getOracleType(param.type ? Kind[param.type] : Kind.any, property)
 		}
 		if (autoIncrementInfo) {
 			bindDefs[autoIncrementInfo.key] = autoIncrementInfo.bindDef
@@ -191,7 +193,7 @@ export class OracleConnection extends Connection {
 			const row: any = {}
 			for (const parameter of query.parameters) {
 				const value = item[parameter.name]
-				row[parameter.name] = this.getItemValue(parameter.type, value)
+				row[parameter.name] = this.getItemValue(parameter.type ? Kind[parameter.type] : Kind.any, value)
 			}
 			rows.push(row)
 		}
@@ -203,8 +205,8 @@ export class OracleConnection extends Connection {
 		let sql = query.sentence
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		for (const param of params) {
-			if (param.type !== 'array' && !(param.type === 'any' && Array.isArray(param.value))) {
-				if (param.type === 'datetime' || param.type === 'date' || param.type === 'time') {
+			if (!Type.isList(param.type as string) && !(param.type === Kind.any && Array.isArray(param.value))) {
+				if (param.type === Kind.dateTime || param.type === Kind.date || param.type === Kind.time) {
 					values[param.name] = new Date(param.value)
 				} else {
 					values[param.name] = param.value
@@ -214,11 +216,11 @@ export class OracleConnection extends Connection {
 			// if array
 			if (param.value.length > 0) {
 				const type = typeof param.value[0]
-				if (type === 'string') {
+				if (type === Kind.string) {
 					const list:string[] = []
 					for (const _item of param.value) {
 						let item = _item
-						item = helper.escape(item)
+						item = helper.query.escape(item)
 						item = helper.str.replace(item, '\\\'', '\\\'\'')
 						list.push(item)
 					}
@@ -243,8 +245,8 @@ export class OracleConnection extends Connection {
 		const key = 'lbdOrm_' + fieldId.name
 		// oracledb.BIND_OUT 3003
 		let bindDef:any
-		const oracleType = this.oracleType(fieldId.type)
-		if (fieldId.type === 'string') {
+		const oracleType = this.oracleType(Kind[fieldId.type])
+		if (fieldId.type === Kind.string) {
 			const property = mapping.getProperty(query.entity, fieldId.name)
 			bindDef = { dir: 3003, type: oracleType, maxSize: property.length }
 		} else {
@@ -254,22 +256,22 @@ export class OracleConnection extends Connection {
 		return { key, bindDef, returning }
 	}
 
-	private oracleType (type: string): number {
+	private oracleType (type: Kind): number {
 		switch (type) {
-		case 'boolean':
+		case Kind.boolean:
 			return 2003
 			// oracledb.DB_TYPE_CHAR 2003
-		case 'string':
+		case Kind.string:
 			// eslint-disable-next-line no-case-declarations
 			return 2001
 			// oracledb.STRING 2001
-		case 'integer':
-		case 'decimal':
+		case Kind.integer:
+		case Kind.decimal:
 			return 2010
 			// oracledb.NUMBER 2010
-		case 'datetime':
-		case 'date':
-		case 'time':
+		case Kind.dateTime:
+		case Kind.date:
+		case Kind.time:
 			return 2014
 			// oracledb.DATE 2014
 		default:
@@ -277,32 +279,33 @@ export class OracleConnection extends Connection {
 		}
 	}
 
-	private getOracleType (type:string, property:PropertyMapping):any {
+	private getOracleType (type:Kind, property:PropertyMapping):any {
 		const oracleType = this.oracleType(type)
 		switch (type) {
-		case 'boolean':
+		case Kind.boolean:
 			return { type: oracleType, maxSize: 1 }
-		case 'string':
+		case Kind.string:
 			return { type: oracleType, maxSize: property.length }
-		case 'integer':
-		case 'decimal':
+		case Kind.number:
+		case Kind.integer:
+		case Kind.decimal:
 			return { type: oracleType }
-		case 'datetime':
-		case 'date':
-		case 'time':
+		case Kind.dateTime:
+		case Kind.date:
+		case Kind.time:
 			return { type: oracleType }
 		}
 	}
 
-	private getItemValue (type:string, value:any):any {
+	private getItemValue (type:Kind, value:any):any {
 		switch (type) {
-		case 'boolean':
+		case Kind.boolean:
 			return value ? 'Y' : 'N'
-		case 'string':
-			return typeof value === 'string' || value === null ? value : value.toString()
-		case 'datetime':
-		case 'date':
-		case 'time':
+		case Kind.string:
+			return typeof value === Kind.string || value === null ? value : value.toString()
+		case Kind.dateTime:
+		case Kind.date:
+		case Kind.time:
 			return value ? new Date(value) : null
 		default:
 			return value

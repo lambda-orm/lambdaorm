@@ -1,6 +1,6 @@
 import { orm, IOrm } from '../index'
 import { Queryable } from './query'
-import { ExpressionActions } from './expressionActions'
+import { ExpressionActions } from './actions'
 
 export class Repository<TEntity, TQuery> {
 	public name

@@ -415,8 +415,8 @@ export function equalAddress(value1: LocAddress, value2: LocAddress): boolean {
 	}
 }
 export async function sentence() {
-	const sentences = orm.sentence(expDebtorsImport, {stage:locStage,view:view})
-	await helper.fs.write(sourcePath + '/sentences.json', JSON.stringify(sentences))
+	const info = orm.getInfo(expDebtorsImport, {stage:locStage,view:view})
+	await helper.fs.write(sourcePath + '/info.json', JSON.stringify(info))
 }
 export async function exportLocal() {
 	const start = new Date().getTime()

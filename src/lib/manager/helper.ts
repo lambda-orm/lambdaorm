@@ -1,15 +1,18 @@
-
-import { H3lp } from 'h3lp'
-import { MetadataSentence } from '../index'
+import { H3lp, StringHelper } from 'h3lp'
+import { OperandHelper } from '3xpr'
+import { QueryInfo } from '../index'
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
 
-export class Helper extends H3lp {
-	public sentenceToArray (sentence:MetadataSentence):string[] {
+export class QueryHelper {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly str:StringHelper) {}
+
+	public toArray (sentence:QueryInfo):string[] {
 		const sentences:string[] = []
 		sentences.push(sentence.sentence)
 		if (sentence.children) {
-			sentence.children.forEach(p => this.sentenceToArray(p).forEach(p => sentences.push(p)))
+			sentence.children.forEach(p => this.toArray(p).forEach(p => sentences.push(p)))
 		}
 		return sentences
 	}
@@ -32,6 +35,11 @@ export class Helper extends H3lp {
 		// con la siguiente opción falla cuando se hace value=Helper.str.replace(value,"\\'","\\''")
 		// return string.replace(new RegExp(search, 'g'), replace)
 	}
+}
+
+export class ExpressionHelper {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly str:StringHelper) {}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public clearLambda (func:Function):string {
@@ -54,5 +62,18 @@ export class Helper extends H3lp {
 			}
 		}
 		return str
+	}
+}
+
+export class Helper extends H3lp {
+	public query:QueryHelper
+	public operand: OperandHelper
+	public expression: ExpressionHelper
+
+	constructor () {
+		super()
+		this.operand = new OperandHelper()
+		this.query = new QueryHelper(this.str)
+		this.expression = new ExpressionHelper(this.str)
 	}
 }
