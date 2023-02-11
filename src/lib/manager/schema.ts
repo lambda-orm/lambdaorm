@@ -634,6 +634,7 @@ class SchemaExtender {
 	}
 
 	private completeEntity (entity: Entity, views: View[]):void {
+		this.entitySecureArrays(entity)
 		entity.composite = entity.name.includes('.')
 		this.completeEntityProperties(entity)
 		this.completeEntityRelations(entity)
