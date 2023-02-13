@@ -408,22 +408,22 @@ test:
       - stage: PostgreSQL
         error: not equal MySQL
         result:
-          - category: 8
-            largestPrice: 62.5
-          - category: 7
-            largestPrice: 53
-          - category: 1
-            largestPrice: 263.5
+          - category: 3
+            largestPrice: 81
           - category: 5
             largestPrice: 38
           - category: 4
             largestPrice: 55
-          - category: 2
-            largestPrice: 43.9
           - category: 6
             largestPrice: 123.79
-          - category: 3
-            largestPrice: 81
+          - category: 2
+            largestPrice: 43.9
+          - category: 7
+            largestPrice: 53
+          - category: 1
+            largestPrice: 263.5
+          - category: 8
+            largestPrice: 62.5
       - stage: SqlServer
     result:
       - category: 1

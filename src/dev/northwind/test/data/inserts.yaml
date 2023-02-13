@@ -1000,6 +1000,14 @@ test:
                 Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES(?,?,?,?,?)
               children: []
+            - entity: Customers
+              dialect: MySQL
+              source: MySQL
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                VALUES(?,?,?,?,?,?,?,?,?)
+              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -1017,6 +1025,14 @@ test:
                 INSERT INTO `Order
                 Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES(?,?,?,?,?)
+              children: []
+            - entity: Customers
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                VALUES(?,?,?,?,?,?,?,?,?)
               children: []
       - stage: PostgreSQL
         info:
@@ -1037,6 +1053,14 @@ test:
                 Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
               children: []
+            - entity: Customers
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
+              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -1056,6 +1080,15 @@ test:
                 Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
                 INSERTED.0
                 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
+              children: []
+            - entity: Customers
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                OUTPUT INSERTED.0
+                VALUES(@id,@name,@contact,@phone,@address,@city,@region,@postalCode,@country)
               children: []
     errors: 0
     expression: Orders.insert().include(p => [p.details, p.customer])
@@ -1103,6 +1136,27 @@ test:
             type: decimal
           - name: discount
             type: decimal
+      - name: customer
+        type: Customers
+        children:
+          - name: id
+            type: string
+          - name: name
+            type: string
+          - name: contact
+            type: string
+          - name: phone
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
     parameters:
       - name: customerId
         type: string
@@ -1143,6 +1197,27 @@ test:
             type: decimal
           - name: discount
             type: decimal
+      - name: customer
+        type: Customers
+        children:
+          - name: id
+            type: string
+          - name: name
+            type: string
+          - name: contact
+            type: string
+          - name: phone
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
     constraints:
       entity: Orders
       constraints:
@@ -1157,6 +1232,12 @@ test:
               condition: isNotNull(orderId)
             - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
+        - entity: Customers
+          constraints:
+            - message: Cannot be null property id in entity Customers
+              condition: isNotNull(id)
+            - message: Cannot be null property name in entity Customers
+              condition: isNotNull(name)
     metadata:
       classtype: Sentence
       pos:
@@ -1167,7 +1248,7 @@ test:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 29
+            col: 30
           name: insert
           children: []
           type: any
@@ -1203,6 +1284,61 @@ test:
           defaults: []
           clause: insert
           alias: o1
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 41
+          name: insert
+          children: []
+          type: any
+          entity: Customers
+          columns:
+            - name: id
+              type: string
+            - name: name
+              type: string
+            - name: contact
+              type: string
+            - name: phone
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+          parameters:
+            - name: id
+              type: string
+            - name: name
+              type: string
+            - name: contact
+              type: string
+            - name: phone
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+          constraints:
+            - message: Cannot be null property id in entity Customers
+              condition: isNotNull(id)
+            - message: Cannot be null property name in entity Customers
+              condition: isNotNull(name)
+          values: []
+          defaults: []
+          clause: insert
+          alias: c
       type: any
       entity: Orders
       columns:

@@ -101,7 +101,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -124,7 +123,18 @@
                   "quantity": 5,
                   "discount": 0
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -146,7 +156,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -205,7 +214,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -227,7 +247,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -301,7 +320,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -323,7 +353,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -340,7 +369,18 @@
                   "unitPrice": 34.8,
                   "productId": 72
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -362,7 +402,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -415,7 +454,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -437,10 +487,41 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__id": 1,
               "customer": {
                 "name": "Alfreds Futterkiste"
-              }
+              },
+              "details": [
+                {
+                  "quantity": 12,
+                  "unitPrice": 14,
+                  "product": {
+                    "name": "Queso Cabrales",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                },
+                {
+                  "quantity": 10,
+                  "unitPrice": 9.8,
+                  "product": {
+                    "name": "Singaporean Hokkien Fried Mee",
+                    "category": {
+                      "name": "Grains/Cereals"
+                    }
+                  }
+                },
+                {
+                  "quantity": 5,
+                  "unitPrice": 34.8,
+                  "product": {
+                    "name": "Mozzarella di Giovanni",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                }
+              ]
             }
           ]
         }
@@ -544,7 +625,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -567,7 +647,18 @@
                   "quantity": 5,
                   "discount": 0
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -589,7 +680,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -648,7 +738,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -670,7 +771,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -744,7 +844,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -766,7 +877,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -783,7 +893,18 @@
                   "unitPrice": 34.8,
                   "productId": 72
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -805,7 +926,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -858,7 +978,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -880,10 +1011,41 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__id": 1,
               "customer": {
                 "name": "Alfreds Futterkiste"
-              }
+              },
+              "details": [
+                {
+                  "quantity": 12,
+                  "unitPrice": 14,
+                  "product": {
+                    "name": "Queso Cabrales",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                },
+                {
+                  "quantity": 10,
+                  "unitPrice": 9.8,
+                  "product": {
+                    "name": "Singaporean Hokkien Fried Mee",
+                    "category": {
+                      "name": "Grains/Cereals"
+                    }
+                  }
+                },
+                {
+                  "quantity": 5,
+                  "unitPrice": 34.8,
+                  "product": {
+                    "name": "Mozzarella di Giovanni",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                }
+              ]
             }
           ]
         }
@@ -987,7 +1149,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1010,7 +1171,18 @@
                   "quantity": 5,
                   "discount": 0
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1032,7 +1204,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1091,7 +1262,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1113,7 +1295,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1187,7 +1368,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1209,7 +1401,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -1226,7 +1417,18 @@
                   "unitPrice": 34.8,
                   "productId": 72
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1248,7 +1450,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -1301,7 +1502,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1323,10 +1535,41 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__id": 1,
               "customer": {
                 "name": "Alfreds Futterkiste"
-              }
+              },
+              "details": [
+                {
+                  "quantity": 12,
+                  "unitPrice": 14,
+                  "product": {
+                    "name": "Queso Cabrales",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                },
+                {
+                  "quantity": 10,
+                  "unitPrice": 9.8,
+                  "product": {
+                    "name": "Singaporean Hokkien Fried Mee",
+                    "category": {
+                      "name": "Grains/Cereals"
+                    }
+                  }
+                },
+                {
+                  "quantity": 5,
+                  "unitPrice": 34.8,
+                  "product": {
+                    "name": "Mozzarella di Giovanni",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                }
+              ]
             }
           ]
         }
@@ -1423,7 +1666,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1439,7 +1681,18 @@
                   "quantity": 20,
                   "discount": 0
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1461,7 +1714,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1501,7 +1753,18 @@
                     "discontinued": true
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1523,7 +1786,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1573,7 +1835,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1595,7 +1868,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 15,
@@ -1607,7 +1879,18 @@
                   "unitPrice": 123.79,
                   "productId": 29
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1629,7 +1912,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 15,
@@ -1665,7 +1947,18 @@
                     "discontinued": true
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1687,10 +1980,31 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__id": 1,
               "customer": {
                 "name": "Alfreds Futterkiste"
-              }
+              },
+              "details": [
+                {
+                  "quantity": 15,
+                  "unitPrice": 19,
+                  "product": {
+                    "name": "Chang",
+                    "category": {
+                      "name": "Beverages"
+                    }
+                  }
+                },
+                {
+                  "quantity": 20,
+                  "unitPrice": 123.79,
+                  "product": {
+                    "name": "Thringer Rostbratwurst",
+                    "category": {
+                      "name": "Meat/Poultry"
+                    }
+                  }
+                }
+              ]
             }
           ]
         }

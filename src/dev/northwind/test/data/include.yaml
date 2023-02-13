@@ -638,6 +638,16 @@ test:
                 AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order
                 Details` o1  WHERE  o1.OrderID IN (?) 
               children: []
+            - entity: Customers
+              dialect: MySQL
+              source: MySQL
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (?) 
+              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -660,6 +670,16 @@ test:
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
                 AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order
                 Details` o1  WHERE  o1.OrderID IN (?) 
+              children: []
+            - entity: Customers
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (?) 
               children: []
       - stage: PostgreSQL
         info:
@@ -685,6 +705,17 @@ test:
                 o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId"
                 FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
               children: []
+            - entity: Customers
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
+                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
+                AS "address", c.City AS "city", c.Region AS "region",
+                c.PostalCode AS "postalCode", c.Country AS "country",
+                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
+                c.CustomerID IN ($1) 
+              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -707,6 +738,16 @@ test:
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
                 AS discount, o1.OrderID AS LambdaOrmParentId FROM [Order
                 Details] o1  WHERE  o1.OrderID IN (@LambdaOrmParentId) 
+              children: []
+            - entity: Customers
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
               children: []
     errors: 1
     expression: Orders.filter(p => p.id === id).include(p => [p.details, p.customer])
@@ -756,6 +797,29 @@ test:
             type: decimal
           - name: LambdaOrmParentId
             type: integer
+      - name: customer
+        type: Customers
+        children:
+          - name: id
+            type: string
+          - name: name
+            type: string
+          - name: contact
+            type: string
+          - name: phone
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
+          - name: LambdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
@@ -764,11 +828,18 @@ test:
         children:
           - name: LambdaOrmParentId
             type: '[integer]'
+      - name: customer
+        type: Customers
+        children:
+          - name: LambdaOrmParentId
+            type: '[string]'
     constraints:
       entity: Orders
       constraints: []
       children:
         - entity: Orders.details
+          constraints: []
+        - entity: Customers
           constraints: []
     metadata:
       classtype: Sentence
@@ -780,7 +851,7 @@ test:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 45
+            col: 46
           name: select
           children: []
           type: any
@@ -806,6 +877,43 @@ test:
           defaults: []
           clause: select
           alias: o1
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 57
+          name: select
+          children: []
+          type: any
+          entity: Customers
+          columns:
+            - name: id
+              type: string
+            - name: name
+              type: string
+            - name: contact
+              type: string
+            - name: phone
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+            - name: LambdaOrmParentId
+              type: string
+          parameters:
+            - name: LambdaOrmParentId
+              type: '[string]'
+          constraints: []
+          values: []
+          defaults: []
+          clause: select
+          alias: c
       type: any
       entity: Orders
       columns:
@@ -870,7 +978,6 @@ test:
             region: null
             postalCode: '51100'
             country: France
-            __customerId: VINET
             details:
               - orderId: 1
                 productId: 2
@@ -882,6 +989,16 @@ test:
                 unitPrice: 123.79
                 quantity: 20
                 discount: 0
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -897,7 +1014,6 @@ test:
         region: null
         postalCode: '51100'
         country: France
-        __customerId: VINET
         details:
           - orderId: 1
             productId: 11
@@ -914,6 +1030,16 @@ test:
             unitPrice: 34.8
             quantity: 5
             discount: 0
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 4
     data: a
     sentences:
@@ -953,6 +1079,16 @@ test:
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (?) 
                   children: []
+            - entity: Customers
+              dialect: MySQL
+              source: MySQL
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (?) 
+              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -989,6 +1125,16 @@ test:
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (?) 
                   children: []
+            - entity: Customers
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (?) 
+              children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -1026,6 +1172,17 @@ test:
                     "discontinued", p.ProductID AS "LambdaOrmParentId" FROM
                     Products p  WHERE  p.ProductID IN ($1) 
                   children: []
+            - entity: Customers
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
+                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
+                AS "address", c.City AS "city", c.Region AS "region",
+                c.PostalCode AS "postalCode", c.Country AS "country",
+                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
+                c.CustomerID IN ($1) 
+              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -1062,6 +1219,16 @@ test:
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
                   children: []
+            - entity: Customers
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
+              children: []
     errors: 1
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
@@ -1137,6 +1304,29 @@ test:
                 type: boolean
               - name: LambdaOrmParentId
                 type: integer
+      - name: customer
+        type: Customers
+        children:
+          - name: id
+            type: string
+          - name: name
+            type: string
+          - name: contact
+            type: string
+          - name: phone
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
+          - name: LambdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
@@ -1150,6 +1340,11 @@ test:
             children:
               - name: LambdaOrmParentId
                 type: '[integer]'
+      - name: customer
+        type: Customers
+        children:
+          - name: LambdaOrmParentId
+            type: '[string]'
     constraints:
       entity: Orders
       constraints: []
@@ -1159,6 +1354,8 @@ test:
           children:
             - entity: Products
               constraints: []
+        - entity: Customers
+          constraints: []
     metadata:
       classtype: Sentence
       pos:
@@ -1169,7 +1366,7 @@ test:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 45
+            col: 64
           name: select
           children:
             - classtype: Sentence
@@ -1236,6 +1433,43 @@ test:
           defaults: []
           clause: select
           alias: o1
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 81
+          name: select
+          children: []
+          type: any
+          entity: Customers
+          columns:
+            - name: id
+              type: string
+            - name: name
+              type: string
+            - name: contact
+              type: string
+            - name: phone
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+            - name: LambdaOrmParentId
+              type: string
+          parameters:
+            - name: LambdaOrmParentId
+              type: '[string]'
+          constraints: []
+          values: []
+          defaults: []
+          clause: select
+          alias: c
       type: any
       entity: Orders
       columns:
@@ -1300,7 +1534,6 @@ test:
             region: null
             postalCode: '51100'
             country: France
-            __customerId: VINET
             details:
               - orderId: 1
                 productId: 2
@@ -1334,6 +1567,16 @@ test:
                   onOrder: 0
                   reorderLevel: 0
                   discontinued: true
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -1349,7 +1592,6 @@ test:
         region: null
         postalCode: '51100'
         country: France
-        __customerId: VINET
         details:
           - orderId: 1
             productId: 11
@@ -1399,6 +1641,16 @@ test:
               onOrder: 0
               reorderLevel: 0
               discontinued: false
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 5
     data: a
     sentences:
@@ -1448,6 +1700,17 @@ test:
                         LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID
                         IN (?) 
                       children: []
+            - entity: Customers
+              dialect: MySQL
+              source: MySQL
+              sentence: >-
+                SELECT c1.CustomerID AS id, c1.CompanyName AS name,
+                c1.ContactName AS contact, c1.ContactTitle AS phone, c1.Address
+                AS address, c1.City AS city, c1.Region AS region, c1.PostalCode
+                AS postalCode, c1.Country AS country, c1.CustomerID AS
+                LambdaOrmParentId FROM Customers c1  WHERE  c1.CustomerID IN
+                (?) 
+              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -1494,6 +1757,17 @@ test:
                         LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID
                         IN (?) 
                       children: []
+            - entity: Customers
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                SELECT c1.CustomerID AS id, c1.CompanyName AS name,
+                c1.ContactName AS contact, c1.ContactTitle AS phone, c1.Address
+                AS address, c1.City AS city, c1.Region AS region, c1.PostalCode
+                AS postalCode, c1.Country AS country, c1.CustomerID AS
+                LambdaOrmParentId FROM Customers c1  WHERE  c1.CustomerID IN
+                (?) 
+              children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -1541,6 +1815,17 @@ test:
                         "LambdaOrmParentId" FROM Categories c  WHERE 
                         c.CategoryID IN ($1) 
                       children: []
+            - entity: Customers
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                SELECT c1.CustomerID AS "id", c1.CompanyName AS "name",
+                c1.ContactName AS "contact", c1.ContactTitle AS "phone",
+                c1.Address AS "address", c1.City AS "city", c1.Region AS
+                "region", c1.PostalCode AS "postalCode", c1.Country AS
+                "country", c1.CustomerID AS "LambdaOrmParentId" FROM Customers
+                c1  WHERE  c1.CustomerID IN ($1) 
+              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -1587,6 +1872,17 @@ test:
                         LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID
                         IN (@LambdaOrmParentId) 
                       children: []
+            - entity: Customers
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                SELECT c1.CustomerID AS id, c1.CompanyName AS name,
+                c1.ContactName AS contact, c1.ContactTitle AS phone, c1.Address
+                AS address, c1.City AS city, c1.Region AS region, c1.PostalCode
+                AS postalCode, c1.Country AS country, c1.CustomerID AS
+                LambdaOrmParentId FROM Customers c1  WHERE  c1.CustomerID IN
+                (@LambdaOrmParentId) 
+              children: []
     errors: 1
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
@@ -1673,6 +1969,29 @@ test:
                     type: string
                   - name: LambdaOrmParentId
                     type: integer
+      - name: customer
+        type: Customers
+        children:
+          - name: id
+            type: string
+          - name: name
+            type: string
+          - name: contact
+            type: string
+          - name: phone
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
+          - name: LambdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
@@ -1691,6 +2010,11 @@ test:
                 children:
                   - name: LambdaOrmParentId
                     type: '[integer]'
+      - name: customer
+        type: Customers
+        children:
+          - name: LambdaOrmParentId
+            type: '[string]'
     constraints:
       entity: Orders
       constraints: []
@@ -1703,6 +2027,8 @@ test:
               children:
                 - entity: Categories
                   constraints: []
+        - entity: Customers
+          constraints: []
     metadata:
       classtype: Sentence
       pos:
@@ -1713,7 +2039,7 @@ test:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 45
+            col: 64
           name: select
           children:
             - classtype: Sentence
@@ -1807,6 +2133,43 @@ test:
           defaults: []
           clause: select
           alias: o1
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 106
+          name: select
+          children: []
+          type: any
+          entity: Customers
+          columns:
+            - name: id
+              type: string
+            - name: name
+              type: string
+            - name: contact
+              type: string
+            - name: phone
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+            - name: LambdaOrmParentId
+              type: string
+          parameters:
+            - name: LambdaOrmParentId
+              type: '[string]'
+          constraints: []
+          values: []
+          defaults: []
+          clause: select
+          alias: c1
       type: any
       entity: Orders
       columns:
@@ -1871,7 +2234,6 @@ test:
             region: null
             postalCode: '51100'
             country: France
-            __customerId: VINET
             details:
               - orderId: 1
                 productId: 2
@@ -1913,6 +2275,16 @@ test:
                     id: 6
                     name: Meat/Poultry
                     description: Prepared meats
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -1928,7 +2300,6 @@ test:
         region: null
         postalCode: '51100'
         country: France
-        __customerId: VINET
         details:
           - orderId: 1
             productId: 11
@@ -1990,6 +2361,16 @@ test:
                 id: 4
                 name: Dairy Products
                 description: Cheeses
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 6
     data: a
     sentences:
@@ -2015,6 +2396,16 @@ test:
                 o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
                 `Order Details` o1  WHERE  o1.OrderID IN (?) 
               children: []
+            - entity: Customers
+              dialect: MySQL
+              source: MySQL
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (?) 
+              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -2036,6 +2427,16 @@ test:
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
                 `Order Details` o1  WHERE  o1.OrderID IN (?) 
+              children: []
+            - entity: Customers
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (?) 
               children: []
       - stage: PostgreSQL
         info:
@@ -2060,6 +2461,17 @@ test:
                 o1.ProductID AS "productId", o1.OrderID AS "LambdaOrmParentId"
                 FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
               children: []
+            - entity: Customers
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
+                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
+                AS "address", c.City AS "city", c.Region AS "region",
+                c.PostalCode AS "postalCode", c.Country AS "country",
+                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
+                c.CustomerID IN ($1) 
+              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -2081,6 +2493,16 @@ test:
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
                 [Order Details] o1  WHERE  o1.OrderID IN (@LambdaOrmParentId) 
+              children: []
+            - entity: Customers
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
               children: []
     errors: 1
     expression: >-
@@ -2129,6 +2551,29 @@ test:
             type: integer
           - name: LambdaOrmParentId
             type: integer
+      - name: customer
+        type: Customers
+        children:
+          - name: id
+            type: string
+          - name: name
+            type: string
+          - name: contact
+            type: string
+          - name: phone
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
+          - name: LambdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
@@ -2137,11 +2582,18 @@ test:
         children:
           - name: LambdaOrmParentId
             type: '[integer]'
+      - name: customer
+        type: Customers
+        children:
+          - name: LambdaOrmParentId
+            type: '[string]'
     constraints:
       entity: Orders
       constraints: []
       children:
         - entity: Orders.details
+          constraints: []
+        - entity: Customers
           constraints: []
     metadata:
       classtype: Sentence
@@ -2153,7 +2605,7 @@ test:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 45
+            col: 60
           name: select
           children: []
           type: any
@@ -2175,6 +2627,43 @@ test:
           defaults: []
           clause: select
           alias: o1
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 142
+          name: select
+          children: []
+          type: any
+          entity: Customers
+          columns:
+            - name: id
+              type: string
+            - name: name
+              type: string
+            - name: contact
+              type: string
+            - name: phone
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+            - name: LambdaOrmParentId
+              type: string
+          parameters:
+            - name: LambdaOrmParentId
+              type: '[string]'
+          constraints: []
+          values: []
+          defaults: []
+          clause: select
+          alias: c
       type: any
       entity: Orders
       columns:
@@ -2239,7 +2728,6 @@ test:
             region: null
             postalCode: '51100'
             country: France
-            __customerId: VINET
             details:
               - quantity: 15
                 unitPrice: 19
@@ -2247,6 +2735,16 @@ test:
               - quantity: 20
                 unitPrice: 123.79
                 productId: 29
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -2262,7 +2760,6 @@ test:
         region: null
         postalCode: '51100'
         country: France
-        __customerId: VINET
         details:
           - quantity: 12
             unitPrice: 14
@@ -2273,6 +2770,16 @@ test:
           - quantity: 5
             unitPrice: 34.8
             productId: 72
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 7
     data: a
     sentences:
@@ -2311,6 +2818,16 @@ test:
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (?) 
                   children: []
+            - entity: Customers
+              dialect: MySQL
+              source: MySQL
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (?) 
+              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -2346,6 +2863,16 @@ test:
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (?) 
                   children: []
+            - entity: Customers
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (?) 
+              children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -2382,6 +2909,17 @@ test:
                     "discontinued", p.ProductID AS "LambdaOrmParentId" FROM
                     Products p  WHERE  p.ProductID IN ($1) 
                   children: []
+            - entity: Customers
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
+                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
+                AS "address", c.City AS "city", c.Region AS "region",
+                c.PostalCode AS "postalCode", c.Country AS "country",
+                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
+                c.CustomerID IN ($1) 
+              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -2417,6 +2955,16 @@ test:
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
                   children: []
+            - entity: Customers
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                SELECT c.CustomerID AS id, c.CompanyName AS name, c.ContactName
+                AS contact, c.ContactTitle AS phone, c.Address AS address,
+                c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
+                c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
+                Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
+              children: []
     errors: 1
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
@@ -2489,6 +3037,29 @@ test:
                 type: boolean
               - name: LambdaOrmParentId
                 type: integer
+      - name: customer
+        type: Customers
+        children:
+          - name: id
+            type: string
+          - name: name
+            type: string
+          - name: contact
+            type: string
+          - name: phone
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
+          - name: LambdaOrmParentId
+            type: string
     parameters:
       - name: id
         type: integer
@@ -2502,6 +3073,11 @@ test:
             children:
               - name: LambdaOrmParentId
                 type: '[integer]'
+      - name: customer
+        type: Customers
+        children:
+          - name: LambdaOrmParentId
+            type: '[string]'
     constraints:
       entity: Orders
       constraints: []
@@ -2511,6 +3087,8 @@ test:
           children:
             - entity: Products
               constraints: []
+        - entity: Customers
+          constraints: []
     metadata:
       classtype: Sentence
       pos:
@@ -2521,7 +3099,7 @@ test:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 45
+            col: 84
           name: select
           children:
             - classtype: Sentence
@@ -2584,6 +3162,43 @@ test:
           defaults: []
           clause: select
           alias: o1
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 166
+          name: select
+          children: []
+          type: any
+          entity: Customers
+          columns:
+            - name: id
+              type: string
+            - name: name
+              type: string
+            - name: contact
+              type: string
+            - name: phone
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+            - name: LambdaOrmParentId
+              type: string
+          parameters:
+            - name: LambdaOrmParentId
+              type: '[string]'
+          constraints: []
+          values: []
+          defaults: []
+          clause: select
+          alias: c
       type: any
       entity: Orders
       columns:
@@ -2648,7 +3263,6 @@ test:
             region: null
             postalCode: '51100'
             country: France
-            __customerId: VINET
             details:
               - quantity: 15
                 unitPrice: 19
@@ -2678,6 +3292,16 @@ test:
                   onOrder: 0
                   reorderLevel: 0
                   discontinued: true
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -2693,7 +3317,6 @@ test:
         region: null
         postalCode: '51100'
         country: France
-        __customerId: VINET
         details:
           - quantity: 12
             unitPrice: 14
@@ -2737,6 +3360,16 @@ test:
               onOrder: 0
               reorderLevel: 0
               discontinued: false
+        customer:
+          id: VINET
+          name: Vins et alcools Chevalier
+          contact: Paul Henriot
+          phone: Accounting Manager
+          address: 59 rue de l'Abbaye
+          city: Reims
+          region: null
+          postalCode: '51100'
+          country: France
   - name: include 8
     data: a
     sentences:
@@ -2762,6 +3395,30 @@ test:
                 SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
                 FROM Customers c  WHERE  c.CustomerID IN (?) 
               children: []
+            - entity: Orders.details
+              dialect: MySQL
+              source: MySQL
+              sentence: >-
+                SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+                o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId
+                FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+              children:
+                - entity: Products
+                  dialect: MySQL
+                  source: MySQL
+                  sentence: >-
+                    SELECT p.ProductName AS name, p.CategoryID AS
+                    `__categoryId`, p.ProductID AS LambdaOrmParentId FROM
+                    Products p  WHERE  p.ProductID IN (?) 
+                  children:
+                    - entity: Categories
+                      dialect: MySQL
+                      source: MySQL
+                      sentence: >-
+                        SELECT c1.CategoryName AS name, c1.CategoryID AS
+                        LambdaOrmParentId FROM Categories c1  WHERE 
+                        c1.CategoryID IN (?) 
+                      children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -2784,6 +3441,30 @@ test:
                 SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
                 FROM Customers c  WHERE  c.CustomerID IN (?) 
               children: []
+            - entity: Orders.details
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+                o1.ProductID AS `__productId`, o1.OrderID AS LambdaOrmParentId
+                FROM `Order Details` o1  WHERE  o1.OrderID IN (?) 
+              children:
+                - entity: Products
+                  dialect: MariaDB
+                  source: MariaDB
+                  sentence: >-
+                    SELECT p.ProductName AS name, p.CategoryID AS
+                    `__categoryId`, p.ProductID AS LambdaOrmParentId FROM
+                    Products p  WHERE  p.ProductID IN (?) 
+                  children:
+                    - entity: Categories
+                      dialect: MariaDB
+                      source: MariaDB
+                      sentence: >-
+                        SELECT c1.CategoryName AS name, c1.CategoryID AS
+                        LambdaOrmParentId FROM Categories c1  WHERE 
+                        c1.CategoryID IN (?) 
+                      children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -2807,6 +3488,30 @@ test:
                 "LambdaOrmParentId" FROM Customers c  WHERE  c.CustomerID IN
                 ($1) 
               children: []
+            - entity: Orders.details
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+                o1.ProductID AS "__productId", o1.OrderID AS "LambdaOrmParentId"
+                FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
+              children:
+                - entity: Products
+                  dialect: PostgreSQL
+                  source: PostgreSQL
+                  sentence: >-
+                    SELECT p.ProductName AS "name", p.CategoryID AS
+                    "__categoryId", p.ProductID AS "LambdaOrmParentId" FROM
+                    Products p  WHERE  p.ProductID IN ($1) 
+                  children:
+                    - entity: Categories
+                      dialect: PostgreSQL
+                      source: PostgreSQL
+                      sentence: >-
+                        SELECT c1.CategoryName AS "name", c1.CategoryID AS
+                        "LambdaOrmParentId" FROM Categories c1  WHERE 
+                        c1.CategoryID IN ($1) 
+                      children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -2829,6 +3534,31 @@ test:
                 SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
                 FROM Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
               children: []
+            - entity: Orders.details
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
+                o1.ProductID AS [__productId], o1.OrderID AS LambdaOrmParentId
+                FROM [Order Details] o1  WHERE  o1.OrderID IN
+                (@LambdaOrmParentId) 
+              children:
+                - entity: Products
+                  dialect: SqlServer
+                  source: SqlServer
+                  sentence: >-
+                    SELECT p.ProductName AS name, p.CategoryID AS
+                    [__categoryId], p.ProductID AS LambdaOrmParentId FROM
+                    Products p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
+                  children:
+                    - entity: Categories
+                      dialect: SqlServer
+                      source: SqlServer
+                      sentence: >-
+                        SELECT c1.CategoryName AS name, c1.CategoryID AS
+                        LambdaOrmParentId FROM Categories c1  WHERE 
+                        c1.CategoryID IN (@LambdaOrmParentId) 
+                      children: []
     errors: 1
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name),
@@ -2872,6 +3602,29 @@ test:
             type: string
           - name: LambdaOrmParentId
             type: string
+      - name: details
+        type: Orders.details[]
+        children:
+          - name: quantity
+            type: decimal
+          - name: unitPrice
+            type: decimal
+          - name: LambdaOrmParentId
+            type: integer
+          - name: product
+            type: Products
+            children:
+              - name: name
+                type: string
+              - name: LambdaOrmParentId
+                type: integer
+              - name: category
+                type: Categories
+                children:
+                  - name: name
+                    type: string
+                  - name: LambdaOrmParentId
+                    type: integer
     parameters:
       - name: id
         type: integer
@@ -2880,12 +3633,35 @@ test:
         children:
           - name: LambdaOrmParentId
             type: '[string]'
+      - name: details
+        type: Orders.details
+        children:
+          - name: LambdaOrmParentId
+            type: '[integer]'
+          - name: product
+            type: Products
+            children:
+              - name: LambdaOrmParentId
+                type: '[integer]'
+              - name: category
+                type: Categories
+                children:
+                  - name: LambdaOrmParentId
+                    type: '[integer]'
     constraints:
       entity: Orders
       constraints: []
       children:
         - entity: Customers
           constraints: []
+        - entity: Orders.details
+          constraints: []
+          children:
+            - entity: Products
+              constraints: []
+              children:
+                - entity: Categories
+                  constraints: []
     metadata:
       classtype: Sentence
       pos:
@@ -2896,7 +3672,7 @@ test:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 45
+            col: 61
           name: select
           children: []
           type: any
@@ -2914,6 +3690,75 @@ test:
           defaults: []
           clause: select
           alias: c
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 172
+          name: select
+          children:
+            - classtype: Sentence
+              pos:
+                ln: 0
+                col: 154
+              name: select
+              children:
+                - classtype: Sentence
+                  pos:
+                    ln: 0
+                    col: 136
+                  name: select
+                  children: []
+                  type: any
+                  entity: Categories
+                  columns:
+                    - name: name
+                      type: string
+                    - name: LambdaOrmParentId
+                      type: integer
+                  parameters:
+                    - name: LambdaOrmParentId
+                      type: '[integer]'
+                  constraints: []
+                  values: []
+                  defaults: []
+                  clause: select
+                  alias: c1
+              type: any
+              entity: Products
+              columns:
+                - name: name
+                  type: string
+                - name: __categoryId
+                  type: integer
+                - name: LambdaOrmParentId
+                  type: integer
+              parameters:
+                - name: LambdaOrmParentId
+                  type: '[integer]'
+              constraints: []
+              values: []
+              defaults: []
+              clause: select
+              alias: p
+          type: any
+          entity: Orders.details
+          columns:
+            - name: quantity
+              type: decimal
+            - name: unitPrice
+              type: decimal
+            - name: __productId
+              type: integer
+            - name: LambdaOrmParentId
+              type: integer
+          parameters:
+            - name: LambdaOrmParentId
+              type: '[integer]'
+          constraints: []
+          values: []
+          defaults: []
+          clause: select
+          alias: o1
       type: any
       entity: Orders
       columns:
@@ -2978,9 +3823,21 @@ test:
             region: null
             postalCode: '51100'
             country: France
-            __id: 1
             customer:
               name: Vins et alcools Chevalier
+            details:
+              - quantity: 15
+                unitPrice: 19
+                product:
+                  name: Chang
+                  category:
+                    name: Beverages
+              - quantity: 20
+                unitPrice: 123.79
+                product:
+                  name: Thringer Rostbratwurst
+                  category:
+                    name: Meat/Poultry
     result:
       - id: 1
         customerId: VINET
@@ -2996,7 +3853,25 @@ test:
         region: null
         postalCode: '51100'
         country: France
-        __id: 1
         customer:
           name: Vins et alcools Chevalier
+        details:
+          - quantity: 12
+            unitPrice: 14
+            product:
+              name: Queso Cabrales
+              category:
+                name: Dairy Products
+          - quantity: 10
+            unitPrice: 9.8
+            product:
+              name: Singaporean Hokkien Fried Mee
+              category:
+                name: Grains/Cereals
+          - quantity: 5
+            unitPrice: 34.8
+            product:
+              name: Mozzarella di Giovanni
+              category:
+                name: Dairy Products
 errors: 8

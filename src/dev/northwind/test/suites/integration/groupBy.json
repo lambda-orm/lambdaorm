@@ -437,16 +437,8 @@
           "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
           "result": [
             {
-              "category": 8,
-              "largestPrice": 62.5
-            },
-            {
-              "category": 7,
-              "largestPrice": 53
-            },
-            {
-              "category": 1,
-              "largestPrice": 263.5
+              "category": 3,
+              "largestPrice": 81
             },
             {
               "category": 5,
@@ -457,16 +449,24 @@
               "largestPrice": 55
             },
             {
-              "category": 2,
-              "largestPrice": 43.9
-            },
-            {
               "category": 6,
               "largestPrice": 123.79
             },
             {
-              "category": 3,
-              "largestPrice": 81
+              "category": 2,
+              "largestPrice": 43.9
+            },
+            {
+              "category": 7,
+              "largestPrice": 53
+            },
+            {
+              "category": 1,
+              "largestPrice": 263.5
+            },
+            {
+              "category": 8,
+              "largestPrice": 62.5
             }
           ]
         },

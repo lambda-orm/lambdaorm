@@ -362,6 +362,48 @@
                   "type": "decimal"
                 }
               ]
+            },
+            {
+              "name": "customer",
+              "type": "Customers",
+              "children": [
+                {
+                  "name": "id",
+                  "type": "string"
+                },
+                {
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "name": "contact",
+                  "type": "string"
+                },
+                {
+                  "name": "phone",
+                  "type": "string"
+                },
+                {
+                  "name": "address",
+                  "type": "string"
+                },
+                {
+                  "name": "city",
+                  "type": "string"
+                },
+                {
+                  "name": "region",
+                  "type": "string"
+                },
+                {
+                  "name": "postalCode",
+                  "type": "string"
+                },
+                {
+                  "name": "country",
+                  "type": "string"
+                }
+              ]
             }
           ]
         },
@@ -602,6 +644,48 @@
                 {
                   "name": "discount",
                   "type": "decimal"
+                }
+              ]
+            },
+            {
+              "name": "customer",
+              "type": "Customers",
+              "children": [
+                {
+                  "name": "id",
+                  "type": "string"
+                },
+                {
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "name": "contact",
+                  "type": "string"
+                },
+                {
+                  "name": "phone",
+                  "type": "string"
+                },
+                {
+                  "name": "address",
+                  "type": "string"
+                },
+                {
+                  "name": "city",
+                  "type": "string"
+                },
+                {
+                  "name": "region",
+                  "type": "string"
+                },
+                {
+                  "name": "postalCode",
+                  "type": "string"
+                },
+                {
+                  "name": "country",
+                  "type": "string"
                 }
               ]
             }
@@ -885,6 +969,48 @@
                   "type": "decimal"
                 }
               ]
+            },
+            {
+              "name": "customer",
+              "type": "Customers",
+              "children": [
+                {
+                  "name": "id",
+                  "type": "string"
+                },
+                {
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "name": "contact",
+                  "type": "string"
+                },
+                {
+                  "name": "phone",
+                  "type": "string"
+                },
+                {
+                  "name": "address",
+                  "type": "string"
+                },
+                {
+                  "name": "city",
+                  "type": "string"
+                },
+                {
+                  "name": "region",
+                  "type": "string"
+                },
+                {
+                  "name": "postalCode",
+                  "type": "string"
+                },
+                {
+                  "name": "country",
+                  "type": "string"
+                }
+              ]
             }
           ]
         },
@@ -1103,6 +1229,48 @@
                   "type": "decimal"
                 }
               ]
+            },
+            {
+              "name": "customer",
+              "type": "Customers",
+              "children": [
+                {
+                  "name": "id",
+                  "type": "string"
+                },
+                {
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "name": "contact",
+                  "type": "string"
+                },
+                {
+                  "name": "phone",
+                  "type": "string"
+                },
+                {
+                  "name": "address",
+                  "type": "string"
+                },
+                {
+                  "name": "city",
+                  "type": "string"
+                },
+                {
+                  "name": "region",
+                  "type": "string"
+                },
+                {
+                  "name": "postalCode",
+                  "type": "string"
+                },
+                {
+                  "name": "country",
+                  "type": "string"
+                }
+              ]
             }
           ]
         }
@@ -1229,6 +1397,19 @@
                     "condition": "isNotNull(productId)"
                   }
                 ]
+              },
+              {
+                "entity": "Customers",
+                "constraints": [
+                  {
+                    "message": "Cannot be null property id in entity Customers",
+                    "condition": "isNotNull(id)"
+                  },
+                  {
+                    "message": "Cannot be null property name in entity Customers",
+                    "condition": "isNotNull(name)"
+                  }
+                ]
               }
             ]
           }
@@ -1332,6 +1513,19 @@
                   {
                     "message": "Cannot be null property productId in entity Orders.details",
                     "condition": "isNotNull(productId)"
+                  }
+                ]
+              },
+              {
+                "entity": "Customers",
+                "constraints": [
+                  {
+                    "message": "Cannot be null property id in entity Customers",
+                    "condition": "isNotNull(id)"
+                  },
+                  {
+                    "message": "Cannot be null property name in entity Customers",
+                    "condition": "isNotNull(name)"
                   }
                 ]
               }
@@ -1907,7 +2101,7 @@
                 "classtype": "Sentence",
                 "pos": {
                   "ln": 0,
-                  "col": 29
+                  "col": 30
                 },
                 "name": "insert",
                 "children": [],
@@ -1971,6 +2165,107 @@
                 "defaults": [],
                 "clause": "insert",
                 "alias": "o1"
+              },
+              {
+                "classtype": "Sentence",
+                "pos": {
+                  "ln": 0,
+                  "col": 41
+                },
+                "name": "insert",
+                "children": [],
+                "type": "any",
+                "entity": "Customers",
+                "columns": [
+                  {
+                    "name": "id",
+                    "type": "string"
+                  },
+                  {
+                    "name": "name",
+                    "type": "string"
+                  },
+                  {
+                    "name": "contact",
+                    "type": "string"
+                  },
+                  {
+                    "name": "phone",
+                    "type": "string"
+                  },
+                  {
+                    "name": "address",
+                    "type": "string"
+                  },
+                  {
+                    "name": "city",
+                    "type": "string"
+                  },
+                  {
+                    "name": "region",
+                    "type": "string"
+                  },
+                  {
+                    "name": "postalCode",
+                    "type": "string"
+                  },
+                  {
+                    "name": "country",
+                    "type": "string"
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "id",
+                    "type": "string"
+                  },
+                  {
+                    "name": "name",
+                    "type": "string"
+                  },
+                  {
+                    "name": "contact",
+                    "type": "string"
+                  },
+                  {
+                    "name": "phone",
+                    "type": "string"
+                  },
+                  {
+                    "name": "address",
+                    "type": "string"
+                  },
+                  {
+                    "name": "city",
+                    "type": "string"
+                  },
+                  {
+                    "name": "region",
+                    "type": "string"
+                  },
+                  {
+                    "name": "postalCode",
+                    "type": "string"
+                  },
+                  {
+                    "name": "country",
+                    "type": "string"
+                  }
+                ],
+                "constraints": [
+                  {
+                    "message": "Cannot be null property id in entity Customers",
+                    "condition": "isNotNull(id)"
+                  },
+                  {
+                    "message": "Cannot be null property name in entity Customers",
+                    "condition": "isNotNull(name)"
+                  }
+                ],
+                "values": [],
+                "defaults": [],
+                "clause": "insert",
+                "alias": "c"
               }
             ],
             "type": "any",
@@ -2526,7 +2821,7 @@
                 "classtype": "Sentence",
                 "pos": {
                   "ln": 0,
-                  "col": 33
+                  "col": 34
                 },
                 "name": "bulkInsert",
                 "children": [],
@@ -2590,6 +2885,107 @@
                 "defaults": [],
                 "clause": "bulkInsert",
                 "alias": "o1"
+              },
+              {
+                "classtype": "Sentence",
+                "pos": {
+                  "ln": 0,
+                  "col": 45
+                },
+                "name": "bulkInsert",
+                "children": [],
+                "type": "any",
+                "entity": "Customers",
+                "columns": [
+                  {
+                    "name": "id",
+                    "type": "string"
+                  },
+                  {
+                    "name": "name",
+                    "type": "string"
+                  },
+                  {
+                    "name": "contact",
+                    "type": "string"
+                  },
+                  {
+                    "name": "phone",
+                    "type": "string"
+                  },
+                  {
+                    "name": "address",
+                    "type": "string"
+                  },
+                  {
+                    "name": "city",
+                    "type": "string"
+                  },
+                  {
+                    "name": "region",
+                    "type": "string"
+                  },
+                  {
+                    "name": "postalCode",
+                    "type": "string"
+                  },
+                  {
+                    "name": "country",
+                    "type": "string"
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "id",
+                    "type": "string"
+                  },
+                  {
+                    "name": "name",
+                    "type": "string"
+                  },
+                  {
+                    "name": "contact",
+                    "type": "string"
+                  },
+                  {
+                    "name": "phone",
+                    "type": "string"
+                  },
+                  {
+                    "name": "address",
+                    "type": "string"
+                  },
+                  {
+                    "name": "city",
+                    "type": "string"
+                  },
+                  {
+                    "name": "region",
+                    "type": "string"
+                  },
+                  {
+                    "name": "postalCode",
+                    "type": "string"
+                  },
+                  {
+                    "name": "country",
+                    "type": "string"
+                  }
+                ],
+                "constraints": [
+                  {
+                    "message": "Cannot be null property id in entity Customers",
+                    "condition": "isNotNull(id)"
+                  },
+                  {
+                    "message": "Cannot be null property name in entity Customers",
+                    "condition": "isNotNull(name)"
+                  }
+                ],
+                "values": [],
+                "defaults": [],
+                "clause": "bulkInsert",
+                "alias": "c"
               }
             ],
             "type": "any",
@@ -2812,6 +3208,13 @@
                 "source": "MySQL",
                 "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)",
                 "children": []
+              },
+              {
+                "entity": "Customers",
+                "dialect": "MySQL",
+                "source": "MySQL",
+                "sentence": "INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(?,?,?,?,?,?,?,?,?)",
+                "children": []
               }
             ]
           }
@@ -2887,6 +3290,13 @@
                 "dialect": "MySQL",
                 "source": "MySQL",
                 "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?",
+                "children": []
+              },
+              {
+                "entity": "Customers",
+                "dialect": "MySQL",
+                "source": "MySQL",
+                "sentence": "INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES ?",
                 "children": []
               }
             ]
