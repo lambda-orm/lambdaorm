@@ -208,10 +208,8 @@ export class SentenceBuilder {
 	private typeManager: ITypeManager
 	private solveBehaviors: SentenceSolveBehaviors
 	private solveConstraints : SentenceSolveConstraints
-	// private normalizer: SentenceNormalizer
 	private expressions: IExpressions
 	private helper:SentenceHelper
-	// private cache: ICache<string, Sentence>
 
 	constructor (schema: SchemaManager, expressions: IExpressions, sentenceHelper:SentenceHelper) {
 		this.schema = schema
@@ -220,8 +218,6 @@ export class SentenceBuilder {
 		this.typeManager = new SentenceTypeManager(this.schema.model, expressions.model)
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, this.helper, expressions)
-		// this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)
-		// this.cache = new MemoryCache<string, Sentence>()
 	}
 
 	public build (operand: Operand): Sentence {
@@ -448,7 +444,7 @@ export class SentenceBuilder {
 		}
 		expressionContext.current.arrowVar = clauses.include.children[1].name
 		const body = clauses.include.children[2]
-		if (Type.isList(body.type as string)) {
+		if (body.type === 'List') {
 			for (const child of body.children) {
 				const include = createInclude.bind(this)(child, expressionContext)
 				children.push(include)
