@@ -266,8 +266,8 @@ export interface QryPmIndividual {
 	deathDate: string
 	nationalityRefId: number
 	currentNameId: number
-	party: PmParty & OneToOne<PmParty> & PmParty
-	currentName: PmIndividualName & OneToMany<PmIndividualName> & PmIndividualName
+	party: QryPmParty & OneToOne<QryPmParty> & PmParty
+	currentName: QryPmIndividualName & OneToMany<PmIndividualName> & PmIndividualName
 	nationalityRef: PmNationalReference & OneToMany<PmNationalReference> & PmNationalReference
 	names: ManyToOne<PmIndividualName> & PmIndividualName[]
 }

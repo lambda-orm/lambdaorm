@@ -2,7 +2,7 @@ import { Orm, helper, IOrm, QueryOptions } from '../../../../lib'
 import {sourcePath } from './common'
 import {
 	PmIndividuals, PmOrganizations,	LocCountries, LocAreaTypes, PmIndustryTypes, PmPartyStatuses, PmMaritalStatuses,
-	PmIdentificationTypes, PmContactMediumTypes, PmGenders,  PmIndividual, PmOrganization, PmParty, PmNationalReferences, PmIndustryType, LocAreas, LocAddresses
+	PmIdentificationTypes, PmContactMediumTypes, PmGenders,LocCountry, LocArea,LocAddress, PmIndividual, PmOrganization, PmParty, PmNationalReferences, PmIndustryType, LocAreas, LocAddresses
 } from './workspace/src/model'
 import * as c  from './collections/workspace/src/model/model'
 
@@ -19,6 +19,9 @@ interface LocMapping {
 	areaTypes: any
 }
 interface ExportData {
+	countries:LocCountry[]
+	areas: LocArea[]
+	addresses: LocAddress[]
 	pmMapping:PmMapping
 	locMapping: LocMapping
 	individuals:PmIndividual[]
@@ -38,21 +41,21 @@ class CollectionExporter {
 		try {
 			await this.orm.init()
 			
-			// const locMapping = await this.getLocMapping()
-			// const countries = await this.orm.execute(() => LocCountries, {}, this.options)
-			// const areas = await this.orm.execute(() => LocAreas, {}, this.options)
-			// const addresses = await this.orm.execute(() => LocAddresses, {}, this.options)
-			// await helper.fs.write(`${this.orm.workspace}/confidential_data/locMapping.json`, JSON.stringify(locMapping))
-			// await helper.fs.write(`${this.orm.workspace}/confidential_data/countries.json`, JSON.stringify(countries))
-			// await helper.fs.write(`${this.orm.workspace}/confidential_data/areas.json`, JSON.stringify(areas))
-			// await helper.fs.write(`${this.orm.workspace}/confidential_data/addresses.json`, JSON.stringify(addresses))
+			const locMapping = await this.getLocMapping()
+			const countries = await this.orm.execute(() => LocCountries, {}, this.options)
+			const areas = await this.orm.execute(() => LocAreas, {}, this.options)
+			const addresses = await this.orm.execute(() => LocAddresses, {}, this.options)
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/locMapping.json`, JSON.stringify(locMapping))
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/countries.json`, JSON.stringify(countries))
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/areas.json`, JSON.stringify(areas))
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/addresses.json`, JSON.stringify(addresses))
 
-			// const pmMapping = await this.getPmMapping()
+			const pmMapping = await this.getPmMapping()
 			const individuals = await this.getIndividuals()
 			const organizations = await this.getOrganizations()
-			// await helper.fs.write(`${this.orm.workspace}/confidential_data/pmMapping.json`, JSON.stringify(pmMapping))			
-			// await helper.fs.write(`${this.orm.workspace}/confidential_data/individuals.json`, JSON.stringify(individuals))
-			// await helper.fs.write(`${this.orm.workspace}/confidential_data/organizations.json`, JSON.stringify(organizations))
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/pmMapping.json`, JSON.stringify(pmMapping))			
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/individuals.json`, JSON.stringify(individuals))
+			await helper.fs.write(`${this.orm.workspace}/confidential_data/organizations.json`, JSON.stringify(organizations))
 		} catch (error: any) {
 			console.error(error)
 		} finally {
@@ -61,6 +64,9 @@ class CollectionExporter {
 	}
 	public async getExportData(): Promise<ExportData> {
 		return {
+			countries: JSON.parse(await helper.fs.read(`${this.orm.workspace}/confidential_data/countries.json`) as string),
+			areas: JSON.parse(await helper.fs.read(`${this.orm.workspace}/confidential_data/areas.json`) as string),
+			addresses: JSON.parse(await helper.fs.read(`${this.orm.workspace}/confidential_data/addresses.json`) as string),
 			pmMapping: JSON.parse(await helper.fs.read(`${this.orm.workspace}/confidential_data/pmMapping.json`) as string),
 			locMapping: JSON.parse(await helper.fs.read(`${this.orm.workspace}/confidential_data/locMapping.json`) as string),
 			individuals:JSON.parse(await helper.fs.read(`${this.orm.workspace}/confidential_data/individuals.json`) as string),
@@ -68,12 +74,8 @@ class CollectionExporter {
 		}
 	}
 	private async getLocMapping(): Promise<LocMapping> {
-		// const countries = await this.orm.execute(() => LocCountries, {}, this.options)
 		const areaTypes = await this.orm.execute(() => LocAreaTypes, {}, this.options)
 		const mapping: LocMapping = { areaTypes: {}}
-		// for (const source of countries) {
-		// 	mapping.countries[source.id] = source
-		// }
 		for (const areaType of areaTypes) {
 			mapping.areaTypes[areaType.id] = areaType
 		}
@@ -113,7 +115,7 @@ class CollectionExporter {
 		return mapping
 	}
 	private async getIndividuals():Promise<PmIndividual[]> {
-		return await this.orm.execute(() => PmIndividuals.include(p=> [ p.party.include( p=> [p.indentifications, p.contactMediums]).map(p=> [p.status, p.registredDate ] ) , p.currentName ]).map( p=> p.deathDate ), {}, this.options)
+		return await this.orm.execute(() => PmIndividuals.include(p=> [ p.party.include( p=> [p.indentifications, p.contactMediums]).map(p=> [p.status.code, p.registredDate ] ) , p.currentName ]).map( p=> p.deathDate ), {}, this.options)
 	}
 	private async getOrganizations():Promise<PmOrganization[]> {
 		return await this.orm.execute(() => PmOrganizations.include(p=> [ p.party.include( p=> [p.indentifications, p.contactMediums] ), p.currentName ]), {}, this.options)
@@ -248,7 +250,7 @@ async function execute () {
 	try {
 		const exporter =  new CollectionExporter(`${sourcePath}/workspace`, { stage: 'beesion' })
 		const importer =  new CollectionImporter(`${sourcePath}/collections/workspace`, { stage: 'PostgreSQL', tryAllCan: true})
-		await exporter.export()
+		// await exporter.export()
 		const exportData = await exporter.getExportData()
 		const importData = await importer.import(exportData)
 	} catch (error: any) {
