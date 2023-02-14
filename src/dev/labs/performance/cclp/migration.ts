@@ -38,21 +38,21 @@ class CollectionExporter {
 		try {
 			await this.orm.init()
 			
-			const locMapping = await this.getLocMapping()
-			const countries = await this.orm.execute(() => LocCountries, {}, this.options)
-			const areas = await this.orm.execute(() => LocAreas, {}, this.options)
-			const addresses = await this.orm.execute(() => LocAddresses, {}, this.options)
-			await helper.fs.write(`${this.orm.workspace}/confidential_data/locMapping.json`, JSON.stringify(locMapping))
-			await helper.fs.write(`${this.orm.workspace}/confidential_data/countries.json`, JSON.stringify(countries))
-			await helper.fs.write(`${this.orm.workspace}/confidential_data/areas.json`, JSON.stringify(areas))
-			await helper.fs.write(`${this.orm.workspace}/confidential_data/addresses.json`, JSON.stringify(addresses))
+			// const locMapping = await this.getLocMapping()
+			// const countries = await this.orm.execute(() => LocCountries, {}, this.options)
+			// const areas = await this.orm.execute(() => LocAreas, {}, this.options)
+			// const addresses = await this.orm.execute(() => LocAddresses, {}, this.options)
+			// await helper.fs.write(`${this.orm.workspace}/confidential_data/locMapping.json`, JSON.stringify(locMapping))
+			// await helper.fs.write(`${this.orm.workspace}/confidential_data/countries.json`, JSON.stringify(countries))
+			// await helper.fs.write(`${this.orm.workspace}/confidential_data/areas.json`, JSON.stringify(areas))
+			// await helper.fs.write(`${this.orm.workspace}/confidential_data/addresses.json`, JSON.stringify(addresses))
 
-			const pmMapping = await this.getPmMapping()
+			// const pmMapping = await this.getPmMapping()
 			const individuals = await this.getIndividuals()
 			const organizations = await this.getOrganizations()
-			await helper.fs.write(`${this.orm.workspace}/confidential_data/pmMapping.json`, JSON.stringify(pmMapping))			
-			await helper.fs.write(`${this.orm.workspace}/confidential_data/individuals.json`, JSON.stringify(individuals))
-			await helper.fs.write(`${this.orm.workspace}/confidential_data/organizations.json`, JSON.stringify(organizations))
+			// await helper.fs.write(`${this.orm.workspace}/confidential_data/pmMapping.json`, JSON.stringify(pmMapping))			
+			// await helper.fs.write(`${this.orm.workspace}/confidential_data/individuals.json`, JSON.stringify(individuals))
+			// await helper.fs.write(`${this.orm.workspace}/confidential_data/organizations.json`, JSON.stringify(organizations))
 		} catch (error: any) {
 			console.error(error)
 		} finally {
@@ -248,7 +248,7 @@ async function execute () {
 	try {
 		const exporter =  new CollectionExporter(`${sourcePath}/workspace`, { stage: 'beesion' })
 		const importer =  new CollectionImporter(`${sourcePath}/collections/workspace`, { stage: 'PostgreSQL', tryAllCan: true})
-		// await exporter.export()
+		await exporter.export()
 		const exportData = await exporter.getExportData()
 		const importData = await importer.import(exportData)
 	} catch (error: any) {

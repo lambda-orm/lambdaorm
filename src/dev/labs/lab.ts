@@ -5,7 +5,14 @@ export async function apply (callback: any) {
 	try {
 		await orm.init('./config/northwind.yaml')		
 		const options = {stage:'MySQL'}	
-		const query = (id:number) => Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])  
+		const query = (id:number) => Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])
+		// Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])
+		// Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])) 
+		// Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product])) 
+		// Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details]) 
+		// Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee]) 
+		// Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee]) 
+		// Orders.filter(p => p.id === id).map(p => [p.name,p.customer])  
 		// const query = () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
 		// const query = () => Products.map(p => ({ average: round(avg(p.price), 4) }))
 		const context = { id :1 }

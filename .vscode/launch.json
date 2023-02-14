@@ -276,6 +276,16 @@
 			],
 			"program": "${workspaceFolder}/src/dev/labs/processEntry/index.ts",
 			"envFile": "${workspaceFolder}/src/dev/labs/processEntry/.env"
+		},
+		{
+			"name": "cclp migration",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/performance/cclp/migration.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"
 		}
 	]
 }
