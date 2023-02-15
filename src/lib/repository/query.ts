@@ -38,25 +38,25 @@ export class QueryAction {
 	}
 }
 
-export class PageClauses extends QueryAction {
+class PageClauses extends QueryAction {
 	/**  */
 	page (page:number, records:number): QueryAction {
 		return new QueryAction(this.actions, `${this.expression}.page(${page},${records})`)
 	}
 }
-export class MapClauses<T> extends PageClauses {
+class MapClauses<T> extends PageClauses {
 	/**  */
 	sort (predicate: (value: T, index: number, array: T[]) => unknown): PageClauses {
 		return new PageClauses(this.actions, `${this.expression}.sort(${predicate.toString()})`)
 	}
 }
-export class Map2Clauses<T> extends QueryAction {
+class Map2Clauses<T> extends QueryAction {
 	/**  */
 	sort (predicate: (value: T, index: number, array: T[]) => unknown): PageClauses {
 		return new PageClauses(this.actions, `${this.expression}.sort(${predicate.toString()})`)
 	}
 }
-export class HavingClauses<T> extends MapClauses<T> {
+class HavingClauses<T> extends MapClauses<T> {
 	/**  */
 	map<U> (predicate: (value: T, index: number, array: T[]) => U): MapClauses<U> {
 		return new MapClauses(this.actions, `${this.expression}.map(${predicate.toString()})`)
@@ -77,13 +77,13 @@ export class HavingClauses<T> extends MapClauses<T> {
 		return new MapClauses(this.actions, `${this.expression}.distinct(${predicate.toString()})`)
 	}
 }
-export class FilterIncludeClauses<T> extends HavingClauses<T> {
+class FilterIncludeClauses<T> extends HavingClauses<T> {
 	/**  */
 	having (predicate: (value: T, index: number, array: T[]) => unknown): HavingClauses<T> {
 		return new HavingClauses(this.actions, `${this.expression}.having(${predicate.toString()})`)
 	}
 }
-export class IncludeClauses<T> extends HavingClauses<T> {
+class IncludeClauses<T> extends HavingClauses<T> {
 	/**  */
 	filter (predicate: (value: T, index: number, array: T[]) => unknown): FilterIncludeClauses<T> {
 		return new FilterIncludeClauses(this.actions, `${this.expression}.filter(${predicate.toString()})`)
@@ -94,7 +94,7 @@ export class IncludeClauses<T> extends HavingClauses<T> {
 		return new HavingClauses(this.actions, `${this.expression}.having(${predicate.toString()})`)
 	}
 }
-export class FilterClauses<T> extends HavingClauses<T> {
+class FilterClauses<T> extends HavingClauses<T> {
 	/**  */
 	include (predicate: (value: T, index: number, array: T[]) => unknown): IncludeClauses<T> {
 		return new IncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)
@@ -105,6 +105,33 @@ export class FilterClauses<T> extends HavingClauses<T> {
 		return new HavingClauses(this.actions, `${this.expression}.having(${predicate.toString()})`)
 	}
 }
+
+class Filter<T> extends QueryAction {
+	/**  */
+	filter (predicate: (value: T, index: number, array: T[]) => unknown): QueryAction {
+		return new QueryAction(this.actions, `${this.expression}.filter(${predicate.toString()})`)
+	}
+}
+
+class Include<T> extends QueryAction {
+	/**  */
+	include (predicate: (value: T, index: number, array: T[]) => unknown): QueryAction {
+		return new QueryAction(this.actions, `${this.expression}.include(${predicate.toString()})`)
+	}
+}
+
+class ModificableClauses<T> extends QueryAction {
+	/**  */
+	filter (predicate: (value: T, index: number, array: T[]) => unknown): QueryAction {
+		return new QueryAction(this.actions, `${this.expression}.filter(${predicate.toString()})`)
+	}
+
+	/**  */
+	include (predicate: (value: T, index: number, array: T[]) => unknown): Filter<T> {
+		return new IncludeClauses(this.actions, `${this.expression}.include(${predicate.toString()})`)
+	}
+}
+
 export class Queryable<T> extends HavingClauses<T> {
 	/**  */
 	filter (predicate: (value: T, index: number, array: T[]) => unknown): FilterClauses<T> {
@@ -119,5 +146,35 @@ export class Queryable<T> extends HavingClauses<T> {
 	/**  */
 	having (predicate: (value: T, index: number, array: T[]) => unknown): HavingClauses<T> {
 		return new HavingClauses(this.actions, `${this.expression}.having(${predicate.toString()})`)
+	}
+
+	/**  */
+	insert (value?: T): ModificableClauses<T> {
+		return new ModificableClauses(this.actions, `${this.expression}.insert(${value !== undefined ? JSON.stringify(value) : ''})`)
+	}
+
+	/**  */
+	bulkInsert (value?: T): ModificableClauses<T> {
+		return new ModificableClauses(this.actions, `${this.expression}.bulkInsert(${value !== undefined ? JSON.stringify(value) : ''})`)
+	}
+
+	/**  */
+	update (predicate: (value: T, index: number, array: T[]) => unknown): ModificableClauses<T> {
+		return new ModificableClauses(this.actions, `${this.expression}.update(${predicate.toString()})`)
+	}
+
+	/**  */
+	updateAll (predicate: (value: T, index: number, array: T[]) => unknown): Include<T> {
+		return new Include(this.actions, `${this.expression}.updateAll(${predicate.toString()})`)
+	}
+
+	/**  */
+	delete (): ModificableClauses<T> {
+		return new ModificableClauses(this.actions, `${this.expression}.delete()`)
+	}
+
+	/**  */
+	deleteAll (): Include<T> {
+		return new Include(this.actions, `${this.expression}.deleteAll()`)
 	}
 }
