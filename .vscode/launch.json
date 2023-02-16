@@ -147,26 +147,16 @@
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-listener.ts",
 			"envFile": "${workspaceFolder}/config/northwind.env"
-		},
+		},		
 		{
-			"name": "lab performance northwind",
+			"name": "lab shapes",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/performance/northwind.ts",
-			"envFile": "${workspaceFolder}/config/northwind.env"
-		},
-		{
-			"name": "lab performance shapes",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/performance/shape/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/performance/shape/.env"
+			"program": "${workspaceFolder}/src/dev/labs/shape/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/shape/.env"
 		},		
 		{
 			"name": "lab config",

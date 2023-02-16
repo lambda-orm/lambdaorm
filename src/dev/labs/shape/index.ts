@@ -1,4 +1,4 @@
-import { orm, helper } from '../../../../lib'
+import { orm, helper } from '../../../lib'
 const sourcePath = 'src/dev/labs/performance/shape'
 
 async function execute () {
