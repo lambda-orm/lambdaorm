@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.4.10-beta",
+	"version": "0.4.11-beta",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@gmail.com>",
 	"license": "MIT",
@@ -33,7 +33,7 @@
 		"doc": "grunt doc"
 	},
 	"dependencies": {
-		"3xpr": "1.6.10",
+		"3xpr": "1.6.12",
 		"crypto-js": "^4.1.1",
 		"h3lp": "1.2.3",
 		"js-yaml": "^4.1.0",
