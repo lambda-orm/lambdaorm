@@ -902,26 +902,26 @@ export class SchemaManager {
 		const configPath = await this.getConfigPath(source)
 		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], sources: [], mappings: [], stages: [], views: [] }
 		if (configPath) {
-			if (path.extname(configPath) === '.yaml' || path.extname(configPath) === '.yml') {
-				const content = await helper.fs.read(configPath)
-				if (content !== null) {
-					schema = yaml.load(content)
-				} else {
-					throw new SchemaError(`Schema file: ${configPath} empty`)
-				}
+			const content = await this.readConfig(configPath)
+			if (content === undefined || content === null) {
+				throw new SchemaError(`Schema file: ${configPath} empty`)
+			} else if (path.extname(configPath) === '.yaml' || path.extname(configPath) === '.yml') {
+				schema = yaml.load(content)
 			} else if (path.extname(configPath) === '.json') {
-				const content = await helper.fs.read(configPath)
-				if (content !== null) {
-					schema = JSON.parse(content)
-				} else {
-					throw new SchemaError(`Schema file: ${configPath} empty`)
-				}
+				schema = JSON.parse(content)
 			} else {
 				throw new SchemaError(`Schema file: ${configPath} not supported`)
 			}
 		}
 		this.completeSchema(schema)
 		return schema
+	}
+
+	private async readConfig (path:string):Promise<string|null> {
+		if (path.startsWith('http')) {
+			return await helper.http.get(path)
+		}
+		return await helper.fs.read(path)
 	}
 
 	private async getConfigPath (source?: string):Promise<string|undefined> {
@@ -931,8 +931,10 @@ export class SchemaManager {
 
 		if (source === undefined) {
 			configFile = await this.getConfigFileName(workspace)
-		} else if (typeof source === Kind.string) {
-			if (await helper.fs.exists(source)) {
+		} else if (typeof source === 'string') {
+			if (source.startsWith('http')) {
+				return source
+			} else if (await helper.fs.exists(source)) {
 				const lstat = await helper.fs.lstat(source)
 				if (lstat.isFile()) {
 					configFile = path.basename(source)

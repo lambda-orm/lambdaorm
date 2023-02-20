@@ -3,7 +3,7 @@ import { Categories, Customers, Products, Orders } from '../northwind/model/__mo
 
 export async function apply (callback: any) {
 	try {
-		await orm.init('./config/northwind.yaml')		
+		await orm.init('https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/main/config/northwind.yaml')		
 		const options = {stage:'MySQL'}	
 		const query = (id:number) => Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])
 		// Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])
