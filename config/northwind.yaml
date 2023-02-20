@@ -477,3 +477,9 @@ stages:
   - name: MongoDB
     sources:
       - name: MongoDB
+listeners:
+  - name: test
+    action: select
+    condition: 'options.stage === "MySQL" && query.entity=="Orders"'
+    before: console(args.expression)
+    after: console(stringify(args.result))

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { ActionObserver, Dialect, IOrm, QueryOptions, Schema, Stage, MetadataParameter, MetadataConstraint, QueryInfo, MetadataModel, Metadata, Query } from './contract'
-import { SchemaManager, Routing, helper, Executor, Transaction } from './manager'
+import { SchemaManager, Routing, helper, Executor, Transaction, ExpressionActionObserver } from './manager'
 import { QueryManager } from './query'
 import { Languages } from './language'
 import { SentenceManager } from './sentence'
@@ -42,12 +42,9 @@ export class Orm implements IOrm {
 
 	constructor (workspace: string = process.cwd()) {
 		this._expressions = expressions
-		new SentenceLibrary(expressions.model).load()
-
+		new SentenceLibrary(this._expressions.model).load()
 		this.schemaManager = new SchemaManager(workspace, this._expressions)
-		// this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
-
 		this.languages = new Languages()
 		this.languages.add(new SqlLanguage(this._expressions))
 		this.languages.add(new NoSqlLanguage(this._expressions))
@@ -58,7 +55,6 @@ export class Orm implements IOrm {
 		this.connectionManager.addType(Dialect.SQLjs, SQLjsConnectionPool)
 		this.connectionManager.addType(Dialect.Oracle, OracleConnectionPool)
 		this.connectionManager.addType(Dialect.MongoDB, MongoDBConnectionPool)
-
 		this.routing = new Routing(this.schemaManager, this._expressions)
 		this.sentenceManager = new SentenceManager(this.schemaManager, this.expressions, this.routing)
 		this.queryManager = new QueryManager(this.sentenceManager, this.schemaManager, this.languages, this._expressions)
@@ -90,7 +86,14 @@ export class Orm implements IOrm {
 				for (const enumValue of _enum.values) {
 					values.push([enumValue.name, enumValue.value])
 				}
-				expressions.addEnum(_enum.name, values)
+				this._expressions.addEnum(_enum.name, values)
+			}
+		}
+		// add listeners
+		if (schema.listeners) {
+			for (const listener of schema.listeners) {
+				const observer = new ExpressionActionObserver(listener, this._expressions)
+				this.subscribe(observer)
 			}
 		}
 		return schema
@@ -227,12 +230,12 @@ export class Orm implements IOrm {
 		const _options = this.schemaManager.solveOptions(options)
 		const query = this.queryManager.create(_expression, _options)
 		try {
-			this.beforeExecutionNotify(_expression, query, data, _options)
+			await this.beforeExecutionNotify(_expression, query, data, _options)
 			const result = await this.executor.execute(query, data, _options)
-			this.afterExecutionNotify(_expression, query, data, _options, result)
+			await this.afterExecutionNotify(_expression, query, data, _options, result)
 			return result
 		} catch (error) {
-			this.errorExecutionNotify(_expression, query, data, _options, error)
+			await this.errorExecutionNotify(_expression, query, data, _options, error)
 			throw error
 		}
 	}
@@ -278,55 +281,55 @@ export class Orm implements IOrm {
 		observers.splice(index, 1)
 	}
 
-	private beforeExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions) {
+	private async beforeExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions):Promise<void> {
 		const observers = this.observers[query.action]
 		if (!observers) {
 			return
 		}
 		const args = { expression, query, data, options }
-		observers.forEach((observer:ActionObserver) => {
+		observers.forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.before(args)
 			} else {
 				const context = { query, options }
-				if (this.expressions.eval(observer.condition, context)) {
-					observer.before(args)
+				if (this._expressions.eval(observer.condition, context)) {
+					await observer.before(args)
 				}
 			}
 		})
 	}
 
-	private afterExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, result:any) {
+	private async afterExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, result:any):Promise<void> {
 		const observers = this.observers[query.action]
 		if (!observers) {
 			return
 		}
 		const args = { expression, query, data, options, result }
-		observers.forEach((observer:ActionObserver) => {
+		observers.forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.after(args)
 			} else {
 				const context = { query, options }
-				if (this.expressions.eval(observer.condition, context)) {
-					observer.after(args)
+				if (this._expressions.eval(observer.condition, context)) {
+					await observer.after(args)
 				}
 			}
 		})
 	}
 
-	private errorExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, error:any) {
+	private async errorExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, error:any):Promise<void> {
 		const observers = this.observers[query.action]
 		if (!observers) {
 			return
 		}
 		const args = { expression, query, data, options, error }
-		observers.forEach((observer:ActionObserver) => {
+		observers.forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.error(args)
 			} else {
 				const context = { query, options }
-				if (this.expressions.eval(observer.condition, context)) {
-					observer.error(args)
+				if (this._expressions.eval(observer.condition, context)) {
+					await observer.error(args)
 				}
 			}
 		})

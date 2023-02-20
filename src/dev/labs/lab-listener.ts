@@ -5,15 +5,15 @@ class EmployeeUpdateObserver extends ActionObserver {
 		super(ObservableAction.update,'query.entity=="Employees"')
 	}
 
-	public before(args:ActionObserverArgs): void {
+	public async before(args:ActionObserverArgs): Promise<void> {
 		console.log(`before expression: ${args.expression}`)
 	}
 
-	public after(args:ActionObserverArgs): void {
+	public async after(args:ActionObserverArgs): Promise<void>  {
 		console.log(`after result: ${JSON.stringify(args.result)}`)
 	}
 
-	public error(args:ActionObserverArgs): void {
+	public async error(args:ActionObserverArgs): Promise<void>  {
 		console.log(`error: ${args.error.message}`)
 	}	
 }
@@ -21,16 +21,16 @@ class EmployeeUpdateObserver extends ActionObserver {
 
 export async function apply (callback: any) {
 	try {
-		await orm.init()
+		await orm.init('./config/northwind.yaml')
 		orm.subscribe(new EmployeeUpdateObserver())
 
-		const stage = 'SqlServer'	
+		const options = {stage:'MySQL'}		
 		const query = 'Employees.filter(p=> p.firstName== firstName && p.lastName== lastName).update({reportsToId:reportsToId})'
 		const context = {reportsToId: 1, firstName: 'test', lastName: 'xxx'}
 
-		const info = orm.getInfo(query,{stage: stage})
+		const info = orm.getInfo(query,options)
 		console.log(info)
-		const result = await orm.execute(query, context, {stage: stage})
+		const result = await orm.execute(query, context, options)
 		console.log(JSON.stringify(result, null, 2))
 	} catch (error:any) {
 		console.error(error.stack)

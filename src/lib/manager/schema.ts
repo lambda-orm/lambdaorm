@@ -480,7 +480,7 @@ class SchemaExtender {
 	}
 
 	public extend (source: Schema): Schema {
-		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], sources: [], stages: [], views: [] }
+		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], sources: [], stages: [], views: [], listeners: [] }
 		if (source) {
 			schema = helper.obj.clone(source)
 		}
@@ -881,7 +881,7 @@ export class SchemaManager {
 		this.stage = new StageConfig()
 		this.view = new ViewsConfig()
 		this.extender = new SchemaExtender(this.expressions)
-		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], sources: [], stages: [], views: [] }
+		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], sources: [], stages: [], views: [], listeners: [] }
 	}
 
 	public async init (source?: string | Schema): Promise<Schema> {
@@ -900,7 +900,7 @@ export class SchemaManager {
 
 	public async get (source?: string): Promise<Schema> {
 		const configPath = await this.getConfigPath(source)
-		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], sources: [], mappings: [], stages: [], views: [] }
+		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], sources: [], mappings: [], stages: [], views: [], listeners: [] }
 		if (configPath) {
 			const content = await this.readConfig(configPath)
 			if (content === undefined || content === null) {

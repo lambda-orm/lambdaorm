@@ -1,3 +1,4 @@
+import { ObservableAction } from './observer'
 
 export enum RelationType {
 	oneToMany = 'oneToMany',
@@ -131,6 +132,14 @@ export interface Stage {
 	name: string
 	sources: RuleDataSource[]
 }
+export interface ListenerInfo {
+	name: string
+	action: ObservableAction
+	condition?: string
+	before?:string
+	after?:string
+	error?:string
+}
 export interface App {
 	src: string
 	data: string
@@ -144,6 +153,7 @@ export interface Schema {
 	mappings: Mapping[]
 	sources: source[]
 	stages: Stage[]
+	listeners: ListenerInfo[]
 }
 export interface SchemaModel {
 	mappings: Mapping[]
