@@ -1,29 +1,29 @@
 import { IExpressions } from '3xpr'
-import { ActionObserver, ActionObserverArgs, ListenerInfo } from '../contract'
+import { ActionObserver, ActionObserverArgs, ListenerConfig } from '../contract'
 
 export class ExpressionActionObserver extends ActionObserver {
-	constructor (private readonly info:ListenerInfo, private readonly expressions:IExpressions) {
-		super(info.actions, info.condition)
+	constructor (private readonly config:ListenerConfig, private readonly expressions:IExpressions) {
+		super(config.actions, config.condition)
 	}
 
 	public override async before (args: ActionObserverArgs): Promise<void> {
-		if (this.info.before !== undefined) {
+		if (this.config.before !== undefined) {
 			// TODO: solve async expression
-			this.expressions.eval(this.info.before, args)
+			this.expressions.eval(this.config.before, args)
 		}
 	}
 
 	public override async after (args: ActionObserverArgs): Promise<void> {
-		if (this.info.after !== undefined) {
+		if (this.config.after !== undefined) {
 			// TODO: solve async expression
-			this.expressions.eval(this.info.after, args)
+			this.expressions.eval(this.config.after, args)
 		}
 	}
 
 	public override async error (args: ActionObserverArgs): Promise<void> {
-		if (this.info.error !== undefined) {
+		if (this.config.error !== undefined) {
 			// TODO: solve async expression
-			this.expressions.eval(this.info.error, args)
+			this.expressions.eval(this.config.error, args)
 		}
 	}
 }

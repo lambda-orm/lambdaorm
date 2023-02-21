@@ -132,7 +132,7 @@ export interface Stage {
 	name: string
 	sources: RuleDataSource[]
 }
-export interface ListenerInfo {
+export interface ListenerConfig {
 	name: string
 	actions: SentenceAction[]
 	condition?: string
@@ -140,20 +140,30 @@ export interface ListenerInfo {
 	after?:string
 	error?:string
 }
-export interface App {
+export interface TaskConfig {
+	name:string
+	condition?: string
+	expression: string
+}
+export interface AppPathsConfig {
 	src: string
 	data: string
 	model: string
 }
+export interface AppConfig {
+	paths: AppPathsConfig
+	start:TaskConfig[]
+	listeners: ListenerConfig[]
+	end:TaskConfig[]
+}
 export interface Schema {
-	app: App
 	entities: Entity[]
 	enums: Enum[]
 	views: View[]
 	mappings: Mapping[]
 	sources: source[]
 	stages: Stage[]
-	listeners: ListenerInfo[]
+	app: AppConfig
 }
 export interface SchemaModel {
 	mappings: Mapping[]

@@ -89,9 +89,17 @@ export class Orm implements IOrm {
 				this._expressions.addEnum(_enum.name, values)
 			}
 		}
+		// start
+		if (schema.app.start) {
+			for (const task of schema.app.start) {
+				if (task.condition === undefined || this._expressions.eval(task.condition)) {
+					this._expressions.eval(task.expression)
+				}
+			}
+		}
 		// add listeners
-		if (schema.listeners) {
-			for (const listener of schema.listeners) {
+		if (schema.app.listeners) {
+			for (const listener of schema.app.listeners) {
 				const observer = new ExpressionActionObserver(listener, this._expressions)
 				this.subscribe(observer)
 			}
@@ -103,6 +111,15 @@ export class Orm implements IOrm {
   * Frees the resources used, for example the connection pools
   */
 	public async end (): Promise<void> {
+		// ends task
+		const schema = this.schema.schema
+		if (schema.app.end) {
+			for (const task of schema.app.end) {
+				if (task.condition === undefined || this._expressions.eval(task.condition)) {
+					this._expressions.eval(task.expression)
+				}
+			}
+		}
 		await this.connectionManager.end()
 	}
 

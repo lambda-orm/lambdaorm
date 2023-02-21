@@ -1,7 +1,3 @@
-app:
-  src: src
-  data: data
-  model: model
 enums:
 entities:
   - name: Address
@@ -477,9 +473,20 @@ stages:
   - name: MongoDB
     sources:
       - name: MongoDB
-listeners:
-  - name: tests
-    actions: [select]
-    condition: 'options.stage === "MySQL" && query.entity=="Orders"'
-    before: console(args.expression)
-    after: console(stringify(args.result))
+app:
+  paths:
+    src: src
+    data: data
+    model: model
+  start:
+    - name: test
+      expression: console("App started")
+  end:
+    - name: test
+      expression: console("App ended")          
+  listeners:
+    - name: tests
+      actions: [select]
+      condition: 'options.stage === "MySQL" && query.entity=="Orders"'
+      before: console(args.expression)
+      after: console(stringify(args.result))

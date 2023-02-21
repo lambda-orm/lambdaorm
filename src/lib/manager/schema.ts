@@ -1,4 +1,8 @@
-import { Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping, source, Schema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView, PropertyView, QueryOptions, Dependent, ObservableAction } from '../contract'
+import {
+	Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping,
+	source, Schema, AppConfig, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView,
+	PropertyView, QueryOptions, Dependent, ObservableAction, AppPathsConfig
+} from '../contract'
 import path from 'path'
 import { helper } from './'
 import { IExpressions, Kind } from '3xpr'
@@ -480,10 +484,7 @@ class SchemaExtender {
 	}
 
 	public extend (source: Schema): Schema {
-		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], sources: [], stages: [], views: [], listeners: [] }
-		if (source) {
-			schema = helper.obj.clone(source)
-		}
+		const schema = helper.obj.clone(source)
 		this.extendEntities(schema)
 		this.extendMappings(schema)
 		this.extendDataSources(schema)
@@ -881,7 +882,19 @@ export class SchemaManager {
 		this.stage = new StageConfig()
 		this.view = new ViewsConfig()
 		this.extender = new SchemaExtender(this.expressions)
-		this.schema = { app: { src: 'src', data: 'data', model: 'model' }, enums: [], entities: [], mappings: [], sources: [], stages: [], views: [], listeners: [] }
+		this.schema = this.newSchema()
+	}
+
+	private newSchema ():Schema {
+		return { app: this.newApp(), enums: [], entities: [], mappings: [], sources: [], stages: [], views: [] }
+	}
+
+	private newApp ():AppConfig {
+		return { paths: this.newPathsApp(), start: [], end: [], listeners: [] }
+	}
+
+	private newPathsApp (): AppPathsConfig {
+		return { src: 'src', data: 'data', model: 'model' }
 	}
 
 	public async init (source?: string | Schema): Promise<Schema> {
@@ -900,7 +913,7 @@ export class SchemaManager {
 
 	public async get (source?: string): Promise<Schema> {
 		const configPath = await this.getConfigPath(source)
-		let schema: Schema = { app: { src: 'src', data: 'data', model: 'model' }, entities: [], enums: [], sources: [], mappings: [], stages: [], views: [], listeners: [] }
+		let schema = this.newSchema()
 		if (configPath) {
 			const content = await this.readConfig(configPath)
 			if (content === undefined || content === null) {
@@ -959,16 +972,28 @@ export class SchemaManager {
 
 	private completeSchema (schema: Schema) {
 		if (schema.app === undefined) {
-			schema.app = { src: 'src', data: 'data', model: 'model' }
+			schema.app = this.newApp()
 		} else {
-			if (schema.app.src === undefined) {
-				schema.app.src = 'src'
+			if (schema.app.start === undefined) {
+				schema.app.start = []
 			}
-			if (schema.app.data === undefined) {
-				schema.app.data = 'data'
+			if (schema.app.end === undefined) {
+				schema.app.end = []
 			}
-			if (schema.app.model === undefined) {
-				schema.app.model = 'model'
+			if (schema.app.listeners === undefined) {
+				schema.app.listeners = []
+			}
+			if (schema.app.paths === undefined) {
+				schema.app.paths = this.newPathsApp()
+			}
+			if (schema.app.paths.src === undefined) {
+				schema.app.paths.src = 'src'
+			}
+			if (schema.app.paths.data === undefined) {
+				schema.app.paths.data = 'data'
+			}
+			if (schema.app.paths.model === undefined) {
+				schema.app.paths.model = 'model'
 			}
 		}
 		if (schema.sources === undefined) schema.sources = []

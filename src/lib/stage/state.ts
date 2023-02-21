@@ -42,7 +42,7 @@ export class StageMapping extends StageState<SchemaMapping> {
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.schema.workspace, this.schema.schema.app.data, `${name}-data.json`)
+		return path.join(this.schema.workspace, this.schema.schema.app.paths.data, `${name}-data.json`)
 	}
 }
 
@@ -52,7 +52,7 @@ export class StageModel extends StageState<SchemaModel> {
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.schema.workspace, this.schema.schema.app.data, `${name}-model.json`)
+		return path.join(this.schema.workspace, this.schema.schema.app.paths.data, `${name}-model.json`)
 	}
 
 	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
@@ -80,6 +80,6 @@ export class StageModel extends StageState<SchemaModel> {
 		date = helper.str.replace(date, ':', '')
 		date = helper.str.replace(date, '.', '')
 		date = helper.str.replace(date, '-', '')
-		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
+		return path.join(this.schema.workspace, this.schema.schema.app.paths.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
 	}
 }
