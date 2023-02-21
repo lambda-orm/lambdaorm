@@ -28,7 +28,7 @@ export class Orm implements IOrm {
 	private static _instance: Orm
 	private schemaManager: SchemaManager
 	private _expressions: IExpressions
-	private observers:any = {}
+	private observers:ActionObserver[] = []
 
 	/**
  * Singleton
@@ -263,31 +263,20 @@ export class Orm implements IOrm {
 	// Listeners and subscribers
 
 	public subscribe (observer:ActionObserver):void {
-		if (!this.observers[observer.action]) {
-			this.observers[observer.action] = []
-		}
-		this.observers[observer.action].push(observer)
+		this.observers.push(observer)
 	}
 
 	public unsubscribe (observer:ActionObserver): void {
-		const observers = this.observers[observer.action]
-		if (!observers) {
-			return
-		}
-		const index = observers.indexOf(observer)
+		const index = this.observers.indexOf(observer)
 		if (index === -1) {
 			throw new Error('Subject: Nonexistent observer.')
 		}
-		observers.splice(index, 1)
+		this.observers.splice(index, 1)
 	}
 
 	private async beforeExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions):Promise<void> {
-		const observers = this.observers[query.action]
-		if (!observers) {
-			return
-		}
 		const args = { expression, query, data, options }
-		observers.forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.before(args)
 			} else {
@@ -300,12 +289,8 @@ export class Orm implements IOrm {
 	}
 
 	private async afterExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, result:any):Promise<void> {
-		const observers = this.observers[query.action]
-		if (!observers) {
-			return
-		}
 		const args = { expression, query, data, options, result }
-		observers.forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.after(args)
 			} else {
@@ -318,12 +303,8 @@ export class Orm implements IOrm {
 	}
 
 	private async errorExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, error:any):Promise<void> {
-		const observers = this.observers[query.action]
-		if (!observers) {
-			return
-		}
 		const args = { expression, query, data, options, error }
-		observers.forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.error(args)
 			} else {

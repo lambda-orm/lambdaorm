@@ -1,4 +1,4 @@
-import { ObservableAction } from './observer'
+import { SentenceAction } from './operands'
 
 export enum RelationType {
 	oneToMany = 'oneToMany',
@@ -134,7 +134,7 @@ export interface Stage {
 }
 export interface ListenerInfo {
 	name: string
-	action: ObservableAction
+	actions: SentenceAction[]
 	condition?: string
 	before?:string
 	after?:string
