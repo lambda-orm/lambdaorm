@@ -39,7 +39,7 @@ beforeAll(async () => {
 	]
 }
 
-;(async () => {
+export async function apply (callback: any) {
 	const root = './src/dev/countries/test/suites/unittest'
 	await h3lp.test
 		.createBuilder()
@@ -53,4 +53,6 @@ beforeAll(async () => {
 		.add({ source: path.join(root, 'sort.json'), template: unitTemplate })
 		.add({ source: path.join(root, 'string.json'), template: unitTemplate })
 		.build('./src/lib/test/countries/__tests__')
-})()
+	callback()
+}
+// apply(function () { console.log('end') })

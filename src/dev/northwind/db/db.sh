@@ -76,7 +76,7 @@ down(){
 	docker-compose -p "northwind" down --remove-orphans
 	sudo chmod 755 ./volume/*
 	sudo rm -fR ./volume/*
-	docker volume rm db_northwind_oradata	
+	docker volume rm northwind_northwind_oradata	
 	echo "INFO: stopped Databases (if it was running)."
 }
 

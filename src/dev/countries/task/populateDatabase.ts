@@ -30,7 +30,4 @@ export async function apply (callback: any) {
 		callback()
 	}
 }
-
-apply(function () {
-	console.log('end')
-})
+// apply(function () { console.log('end') })
