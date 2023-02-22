@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- `StageState`<[`SchemaMapping`](../interfaces/model.SchemaMapping.md)\>
+- `StageState`<[`MappingConfig`](../interfaces/model.MappingConfig.md)\>
 
   ↳ **`StageMapping`**
 
@@ -37,7 +37,7 @@
 
 #### Inherited from
 
-StageState<SchemaMapping\>.constructor
+StageState<MappingConfig\>.constructor
 
 #### Defined in
 
@@ -47,7 +47,7 @@ StageState<SchemaMapping\>.constructor
 
 ### get
 
-▸ **get**(`name`): `Promise`<[`SchemaMapping`](../interfaces/model.SchemaMapping.md)\>
+▸ **get**(`name`): `Promise`<[`MappingConfig`](../interfaces/model.MappingConfig.md)\>
 
 #### Parameters
 
@@ -57,7 +57,7 @@ StageState<SchemaMapping\>.constructor
 
 #### Returns
 
-`Promise`<[`SchemaMapping`](../interfaces/model.SchemaMapping.md)\>
+`Promise`<[`MappingConfig`](../interfaces/model.MappingConfig.md)\>
 
 #### Inherited from
 
@@ -126,7 +126,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `name` | `string` |
-| `data` | [`SchemaMapping`](../interfaces/model.SchemaMapping.md) |
+| `data` | [`MappingConfig`](../interfaces/model.MappingConfig.md) |
 
 #### Returns
 

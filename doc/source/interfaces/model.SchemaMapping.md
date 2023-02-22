@@ -1,16 +1,16 @@
-[Lambda ORM](../README.md) / [model](../modules/model.md) / SchemaMapping
+[Lambda ORM](../README.md) / [model](../modules/model.md) / MappingConfig
 
-# Interface: SchemaMapping
+# Interface: MappingConfig
 
-[model](../modules/model.md).SchemaMapping
+[model](../modules/model.md).MappingConfig
 
 ## Table of contents
 
 ### Properties
 
-- [inconsistency](model.SchemaMapping.md#inconsistency)
-- [mapping](model.SchemaMapping.md#mapping)
-- [pending](model.SchemaMapping.md#pending)
+- [inconsistency](model.MappingConfig.md#inconsistency)
+- [mapping](model.MappingConfig.md#mapping)
+- [pending](model.MappingConfig.md#pending)
 
 ## Properties
 

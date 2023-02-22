@@ -41,25 +41,27 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/task/buildWiki.ts"
-		},		
+		},
+		// countries -------------------------------------------------------------------------- 		
 		{
-			"name": "countries create test suite",
+			"name": "countries create test data suite",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/countries/task/createSuite.ts"
+			"program": "${workspaceFolder}/src/dev/countries/task/createDataForTestSuite.ts"
 		},
 		{
-			"name": "countries build test",
+			"name": "countries cretae test suite",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/countries/task/buildTest.ts"
-		},	
+			"program": "${workspaceFolder}/src/dev/countries/task/createTestSuite.ts"
+		},
+		// northwind -------------------------------------------------------------------------- 
 		{
 			"name": "northwind populate source",
 			"type": "node",
@@ -87,26 +89,16 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/northwind/task/generateDataForTest.ts",
-			"envFile": "${workspaceFolder}/config/northwind.env"
+			"program": "${workspaceFolder}/src/dev/northwind/task/createDataForTest.ts"
 		},
 		{
-			"name": "northwind create test suite",
+			"name": "northwind create data test suite",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/northwind/task/createSuite.ts"
-		},
-		{
-			"name": "northwind build test",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/northwind/task/buildTest.ts"
+			"program": "${workspaceFolder}/src/dev/northwind/task/createDataForTestSuite.ts"
 		},
 		{
 			"name": "northwind create test",
@@ -115,18 +107,16 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/northwind/task/generateTest.ts",
-			"envFile": "${workspaceFolder}/config/northwind.env"
+			"program": "${workspaceFolder}/src/dev/northwind/task/cretaeTest.ts"
 		},
 		{
-			"name": "northwind build test",
+			"name": "northwind create test suite",
 			"type": "node",
 			"request": "launch",
-			"program": "/usr/bin/grunt",
-			"args": [
-				"build-test"
+			"skipFiles": [
+				"<node_internals>/**"
 			],
-			"stopOnEntry": false
+			"program": "${workspaceFolder}/src/dev/northwind/task/createTestSuite.ts"
 		},
 		{
 			"name": "northwind drop dbs",

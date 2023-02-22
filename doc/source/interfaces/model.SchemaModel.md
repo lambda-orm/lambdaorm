@@ -1,14 +1,14 @@
-[Lambda ORM](../README.md) / [model](../modules/model.md) / SchemaModel
+[Lambda ORM](../README.md) / [model](../modules/model.md) / ModelConfig
 
-# Interface: SchemaModel
+# Interface: ModelConfig
 
-[model](../modules/model.md).SchemaModel
+[model](../modules/model.md).ModelConfig
 
 ## Table of contents
 
 ### Properties
 
-- [mappings](model.SchemaModel.md#mappings)
+- [mappings](model.ModelConfig.md#mappings)
 
 ## Properties
 

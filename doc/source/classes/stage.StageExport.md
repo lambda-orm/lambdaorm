@@ -50,11 +50,11 @@ StageActionDML.constructor
 
 ### execute
 
-▸ **execute**(): `Promise`<[`SchemaData`](../interfaces/model.SchemaData.md)\>
+▸ **execute**(): `Promise`<[`SchemaConfig`](../interfaces/model.SchemaConfig.md)\>
 
 #### Returns
 
-`Promise`<[`SchemaData`](../interfaces/model.SchemaData.md)\>
+`Promise`<[`SchemaConfig`](../interfaces/model.SchemaConfig.md)\>
 
 #### Defined in
 

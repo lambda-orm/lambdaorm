@@ -6,877 +6,457 @@
       "tests": [
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lower(p.subregion) })",
-          "result": "Countries.map(p=>{result:lower(p.subregion)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lower(p.subregion) }) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lower(p.subregion) }) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: upper(p.subregion) })",
-          "result": "Countries.map(p=>{result:upper(p.subregion)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: upper(p.subregion) }) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: upper(p.subregion) }) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: concat(p.region,\" \",p.subregion) })",
-          "result": "Countries.map(p=>{result:concat(p.region, ,p.subregion)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: concat(p.region,\" \",p.subregion) }) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: concat(p.region,\" \",p.subregion) }) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lpad(p.region,12,\"_\") })",
-          "result": "Countries.map(p=>{result:lpad(p.region,12,_)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lpad(p.region,12,\"_\") }) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lpad(p.region,12,\"_\") }) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rpad(p.region,12,\"_\") })",
-          "result": "Countries.map(p=>{result:rpad(p.region,12,_)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rpad(p.region,12,\"_\") }) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rpad(p.region,12,\"_\") }) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: chr(68)})",
-          "result": "Countries.map(p=>{result:chr(68)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: chr(68)}) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: chr(68)}) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: ltrim(\"  a  \")})",
-          "result": "Countries.map(p=>{result:ltrim(  a  )}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: ltrim(\"  a  \")}) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: ltrim(\"  a  \")}) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rtrim(\"  a  \")})",
-          "result": "Countries.map(p=>{result:rtrim(  a  )}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rtrim(\"  a  \")}) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rtrim(\"  a  \")}) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: replace(p.region,\"a\",\"*\")})",
-          "result": "Countries.map(p=>{result:replace(p.region,a,*)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: replace(p.region,\"a\",\"*\")}) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: replace(p.region,\"a\",\"*\")}) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: mask(p.subregion)})",
-          "result": "Countries.map(p=>{result:mask(p.subregion)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: mask(p.subregion)}) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: mask(p.subregion)}) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substr(p.subregion,1,3)})",
-          "result": "Countries.map(p=>{result:substring(p.subregion,1,3)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substr(p.subregion,1,3)}) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substr(p.subregion,1,3)}) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substring(p.subregion,1,3)})",
-          "result": "Countries.map(p=>{result:substring(p.subregion,1,3)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substring(p.subregion,1,3)}) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substring(p.subregion,1,3)}) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: strCount(p.subregion,\"a\")})",
-          "result": "Countries.map(p=>{result:strCount(p.subregion,a)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: strCount(p.subregion,\"a\")}) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: strCount(p.subregion,\"a\")}) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: toString(p.latitude)})",
-          "result": "Countries.map(p=>{result:toString(p.latitude)}).filter(p=>(p.iso3==BRA))"
+          "error": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: toString(p.latitude)}) error: SchemaError: entity Countries not found",
+          "stack": "SintaxisError: complete expression: Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: toString(p.latitude)}) error: SchemaError: entity Countries not found\n    at SentenceManager.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:38:19)\n    at Orm.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:156:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:16:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:4:12)\n    at TestSuiteBuilder.buildSuite (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:34:16)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:28:42)"
         }
       ],
-      "errors": 0
+      "errors": 14
     },
     {
       "name": "model",
       "tests": [
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lower(p.subregion) })",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: upper(p.subregion) })",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: concat(p.region,\" \",p.subregion) })",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lpad(p.region,12,\"_\") })",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rpad(p.region,12,\"_\") })",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: chr(68)})",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: ltrim(\"  a  \")})",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rtrim(\"  a  \")})",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: replace(p.region,\"a\",\"*\")})",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: mask(p.subregion)})",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substr(p.subregion,1,3)})",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substring(p.subregion,1,3)})",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: strCount(p.subregion,\"a\")})",
-          "result": [
-            {
-              "name": "result",
-              "type": "number"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: toString(p.latitude)})",
-          "result": [
-            {
-              "name": "result",
-              "type": "string"
-            }
-          ]
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:47:31)\n    at Orm.model (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:160:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:21:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         }
       ],
-      "errors": 0
+      "errors": 14
     },
     {
       "name": "parameters",
       "tests": [
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lower(p.subregion) })",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: upper(p.subregion) })",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: concat(p.region,\" \",p.subregion) })",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lpad(p.region,12,\"_\") })",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rpad(p.region,12,\"_\") })",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: chr(68)})",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: ltrim(\"  a  \")})",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rtrim(\"  a  \")})",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: replace(p.region,\"a\",\"*\")})",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: mask(p.subregion)})",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substr(p.subregion,1,3)})",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substring(p.subregion,1,3)})",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: strCount(p.subregion,\"a\")})",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: toString(p.latitude)})",
-          "result": []
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:65:31)\n    at Orm.parameters (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:164:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:26:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         }
       ],
-      "errors": 0
+      "errors": 14
     },
     {
       "name": "constraints",
       "tests": [
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lower(p.subregion) })",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: upper(p.subregion) })",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: concat(p.region,\" \",p.subregion) })",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lpad(p.region,12,\"_\") })",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rpad(p.region,12,\"_\") })",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: chr(68)})",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: ltrim(\"  a  \")})",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rtrim(\"  a  \")})",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: replace(p.region,\"a\",\"*\")})",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: mask(p.subregion)})",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substr(p.subregion,1,3)})",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substring(p.subregion,1,3)})",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: strCount(p.subregion,\"a\")})",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: toString(p.latitude)})",
-          "result": {
-            "entity": "Countries",
-            "constraints": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:56:31)\n    at Orm.constraints (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:168:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:31:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         }
       ],
-      "errors": 0
+      "errors": 14
     },
     {
       "name": "metadata",
       "tests": [
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lower(p.subregion) })",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: upper(p.subregion) })",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: concat(p.region,\" \",p.subregion) })",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lpad(p.region,12,\"_\") })",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rpad(p.region,12,\"_\") })",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: chr(68)})",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: ltrim(\"  a  \")})",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rtrim(\"  a  \")})",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: replace(p.region,\"a\",\"*\")})",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: mask(p.subregion)})",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substr(p.subregion,1,3)})",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substring(p.subregion,1,3)})",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: strCount(p.subregion,\"a\")})",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "number"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: toString(p.latitude)})",
-          "result": {
-            "classtype": "Sentence",
-            "pos": {
-              "ln": 0,
-              "col": 42
-            },
-            "name": "select",
-            "children": [],
-            "type": "any",
-            "entity": "Countries",
-            "columns": [
-              {
-                "name": "result",
-                "type": "string"
-              }
-            ],
-            "parameters": [],
-            "constraints": [],
-            "values": [],
-            "defaults": [],
-            "clause": "select",
-            "alias": "c"
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:74:31)\n    at Orm.metadata (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:172:37)\n    at Object.func (/home/flavio/projects/lambdaOrm/lambdaorm/build/dev/task/UnitBuildTest.js:36:52)\n    at TestSuiteBuilder.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/h3lp/helpers/test.js:51:57)\n    at Generator.next (<anonymous>)"
         }
       ],
-      "errors": 0
+      "errors": 14
     },
     {
       "name": "getInfo",
       "tests": [
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lower(p.subregion) })",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT LOWER(c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: upper(p.subregion) })",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT UPPER(c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: concat(p.region,\" \",p.subregion) })",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT CONCAT(CONCAT(c.region,' '),c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: lpad(p.region,12,\"_\") })",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT LPAD(c.region,12,'_') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rpad(p.region,12,\"_\") })",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT RPAD(c.region,12,'_') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: chr(68)})",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT CHAR(68 USING ASCII) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: ltrim(\"  a  \")})",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT LTRIM('  a  ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: rtrim(\"  a  \")})",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT RTRIM('  a  ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: replace(p.region,\"a\",\"*\")})",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT REPLACE(c.region,'a','*') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: mask(p.subregion)})",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT Concat(LEFT(c.subregion,3),'***',RIGHT(c.subregion,3)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substr(p.subregion,1,3)})",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT SUBSTR(c.subregion,1,3) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: substring(p.subregion,1,3)})",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT SUBSTR(c.subregion,1,3) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: strCount(p.subregion,\"a\")})",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT (LENGTH(c.subregion)-LENGTH(REPLACE(c.subregion,'a',''))) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         },
         {
           "test": "Countries.filter(p=> p.iso3 == \"BRA\").map(p=> {result: toString(p.latitude)})",
-          "result": {
-            "entity": "Countries",
-            "dialect": "MySQL",
-            "source": "dataSource1",
-            "sentence": "SELECT CONVERT(c.latitude, CHAR) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
-          }
+          "error": "SchemaError: entity Countries not found",
+          "stack": "SchemaError: entity Countries not found\n    at ModelConfig.getForcedEntity (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/manager/schema.js:28:19)\n    at SentenceNormalizer.normalizeSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:80:42)\n    at SentenceNormalizer.normalize (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/normalizer.js:30:18)\n    at SentenceManager.toOperand (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:101:44)\n    at SentenceManager.toSentence (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:106:30)\n    at SentenceManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/sentence/manager.js:84:31)\n    at QueryBuilder.build (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/builder.js:14:47)\n    at QueryManager.create (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:18:40)\n    at QueryManager.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/manager.js:27:28)\n    at Orm.getInfo (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/orm.js:177:34)"
         }
       ],
-      "errors": 0
+      "errors": 14
     }
   ],
-  "errors": 0
+  "errors": 84
 }

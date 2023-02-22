@@ -104,7 +104,59 @@ test:
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+            "country", o.CustomerID AS "__customerId" FROM Orders o  WHERE
+            o.OrderID = :id 
+          children:
+            - entity: Customers
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
+                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
+                AS "address", c.City AS "city", c.Region AS "region",
+                c.PostalCode AS "postalCode", c.Country AS "country",
+                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
+                c.CustomerID IN (:LambdaOrmParentId) 
+              children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__customerId":"$CustomerID" }} ]
+          children:
+            - entity: Customers
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                "contact":"$ContactName", "phone":"$ContactTitle",
+                "address":"$Address", "city":"$City", "region":"$Region",
+                "postalCode":"$PostalCode", "country":"$Country",
+                "LambdaOrmParentId":"$_id" }} ]
+              children: []
+    errors: 2
     expression: Orders.filter(p => p.id === id).include(p => p.customer)
     normalizeExpression: >-
       Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))
@@ -290,6 +342,34 @@ test:
               region: null
               postalCode: '51100'
               country: France
+      - stage: Oracle
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -410,7 +490,50 @@ test:
                 AS discount, o1.OrderID AS LambdaOrmParentId FROM [Order
                 Details] o1  WHERE  o1.OrderID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+            "country", o.OrderID AS "__id" FROM Orders o  WHERE o.OrderID = :id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
+                o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId"
+                FROM "Order Details" o1  WHERE  o1.OrderID IN
+                (:LambdaOrmParentId) 
+              children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id" ,"details": { "$map":{ "input": "$\"Order Details\"",
+            "in": { "orderId":"$this.OrderID", "productId":"$this.ProductID",
+            "unitPrice":"$this.UnitPrice", "quantity":"$this.Quantity",
+            "discount":"$this.Discount", "LambdaOrmParentId":"$this.OrderID" }
+            }} }} ]
+          children: []
+    errors: 3
     expression: Orders.filter(p => p.id === id).include(p => p.details)
     normalizeExpression: >-
       Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
@@ -581,6 +704,61 @@ test:
                 unitPrice: 123.79
                 quantity: 20
                 discount: 0
+      - stage: Oracle
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-03T22:00:00.000Z'
+            requiredDate: '1996-07-31T22:00:00.000Z'
+            shippedDate: '1996-07-15T22:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 11
+                unitPrice: 14
+                quantity: 12
+                discount: 0
+              - orderId: 1
+                productId: 42
+                unitPrice: 9.8
+                quantity: 10
+                discount: 0
+              - orderId: 1
+                productId: 72
+                unitPrice: 34.800000000000004
+                quantity: 5
+                discount: 0
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            __id: 1
+            details:
+              - {}
+              - {}
+              - {}
     result:
       - id: 1
         customerId: VINET
@@ -749,7 +927,73 @@ test:
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+            Orders o  WHERE o.OrderID = :id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
+                o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId"
+                FROM "Order Details" o1  WHERE  o1.OrderID IN
+                (:LambdaOrmParentId) 
+              children: []
+            - entity: Customers
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
+                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
+                AS "address", c.City AS "city", c.Region AS "region",
+                c.PostalCode AS "postalCode", c.Country AS "country",
+                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
+                c.CustomerID IN (:LambdaOrmParentId) 
+              children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "orderId":"$this.OrderID",
+            "productId":"$this.ProductID", "unitPrice":"$this.UnitPrice",
+            "quantity":"$this.Quantity", "discount":"$this.Discount",
+            "LambdaOrmParentId":"$this.OrderID" } }} }} ]
+          children:
+            - entity: Customers
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                "contact":"$ContactName", "phone":"$ContactTitle",
+                "address":"$Address", "city":"$City", "region":"$Region",
+                "postalCode":"$PostalCode", "country":"$Country",
+                "LambdaOrmParentId":"$_id" }} ]
+              children: []
+    errors: 3
     expression: Orders.filter(p => p.id === id).include(p => [p.details, p.customer])
     normalizeExpression: >-
       Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
@@ -999,6 +1243,81 @@ test:
               region: null
               postalCode: '51100'
               country: France
+      - stage: Oracle
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-03T22:00:00.000Z'
+            requiredDate: '1996-07-31T22:00:00.000Z'
+            shippedDate: '1996-07-15T22:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 11
+                unitPrice: 14
+                quantity: 12
+                discount: 0
+              - orderId: 1
+                productId: 42
+                unitPrice: 9.8
+                quantity: 10
+                discount: 0
+              - orderId: 1
+                productId: 72
+                unitPrice: 34.800000000000004
+                quantity: 5
+                discount: 0
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            __id: 1
+            details:
+              - {}
+              - {}
+              - {}
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -1229,7 +1548,86 @@ test:
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+            Orders o  WHERE o.OrderID = :id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
+                o1.Discount AS "discount", o1.ProductID AS "__productId",
+                o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
+                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
+              children:
+                - entity: Products
+                  dialect: Oracle
+                  source: Oracle
+                  sentence: >-
+                    SELECT p.ProductID AS "id", p.ProductName AS "name",
+                    p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
+                    p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
+                    p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
+                    p.ReorderLevel AS "reorderLevel", p.Discontinued AS
+                    "discontinued", p.ProductID AS "LambdaOrmParentId" FROM
+                    Products p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
+                  children: []
+            - entity: Customers
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
+                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
+                AS "address", c.City AS "city", c.Region AS "region",
+                c.PostalCode AS "postalCode", c.Country AS "country",
+                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
+                c.CustomerID IN (:LambdaOrmParentId) 
+              children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "orderId":"$this.OrderID",
+            "productId":"$this.ProductID", "unitPrice":"$this.UnitPrice",
+            "quantity":"$this.Quantity", "discount":"$this.Discount",
+            "__productId":"$this.ProductID", "LambdaOrmParentId":"$this.OrderID"
+            } }} }} ]
+          children:
+            - entity: Customers
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                "contact":"$ContactName", "phone":"$ContactTitle",
+                "address":"$Address", "city":"$City", "region":"$Region",
+                "postalCode":"$PostalCode", "country":"$Country",
+                "LambdaOrmParentId":"$_id" }} ]
+              children: []
+    errors: 3
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
       q.product), p.customer])
@@ -1577,6 +1975,114 @@ test:
               region: null
               postalCode: '51100'
               country: France
+      - stage: Oracle
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-03T22:00:00.000Z'
+            requiredDate: '1996-07-31T22:00:00.000Z'
+            shippedDate: '1996-07-15T22:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 11
+                unitPrice: 14
+                quantity: 12
+                discount: 0
+                product:
+                  id: 11
+                  name: Queso Cabrales
+                  supplierId: 5
+                  categoryId: 4
+                  quantity: 1 kg pkg.
+                  price: 21
+                  inStock: 22
+                  onOrder: 30
+                  reorderLevel: 30
+                  discontinued: 'N'
+              - orderId: 1
+                productId: 42
+                unitPrice: 9.8
+                quantity: 10
+                discount: 0
+                product:
+                  id: 42
+                  name: Singaporean Hokkien Fried Mee
+                  supplierId: 20
+                  categoryId: 5
+                  quantity: 32 - 1 kg pkgs.
+                  price: 14
+                  inStock: 26
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: 'Y'
+              - orderId: 1
+                productId: 72
+                unitPrice: 34.800000000000004
+                quantity: 5
+                discount: 0
+                product:
+                  id: 72
+                  name: Mozzarella di Giovanni
+                  supplierId: 14
+                  categoryId: 4
+                  quantity: 24 - 200 g pkgs.
+                  price: 34.800000000000004
+                  inStock: 14
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: 'N'
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            __id: 1
+            details:
+              - {}
+              - {}
+              - {}
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -1883,7 +2389,96 @@ test:
                 LambdaOrmParentId FROM Customers c1  WHERE  c1.CustomerID IN
                 (@LambdaOrmParentId) 
               children: []
-    errors: 1
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+            Orders o  WHERE o.OrderID = :id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT o1.OrderID AS "orderId", o1.ProductID AS "productId",
+                o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
+                o1.Discount AS "discount", o1.ProductID AS "__productId",
+                o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
+                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
+              children:
+                - entity: Products
+                  dialect: Oracle
+                  source: Oracle
+                  sentence: >-
+                    SELECT p.ProductID AS "id", p.ProductName AS "name",
+                    p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
+                    p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
+                    p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
+                    p.ReorderLevel AS "reorderLevel", p.Discontinued AS
+                    "discontinued", p.CategoryID AS "__categoryId", p.ProductID
+                    AS "LambdaOrmParentId" FROM Products p  WHERE  p.ProductID
+                    IN (:LambdaOrmParentId) 
+                  children:
+                    - entity: Categories
+                      dialect: Oracle
+                      source: Oracle
+                      sentence: >-
+                        SELECT c.CategoryID AS "id", c.CategoryName AS "name",
+                        c.Description AS "description", c.CategoryID AS
+                        "LambdaOrmParentId" FROM Categories c  WHERE 
+                        c.CategoryID IN (:LambdaOrmParentId) 
+                      children: []
+            - entity: Customers
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT c1.CustomerID AS "id", c1.CompanyName AS "name",
+                c1.ContactName AS "contact", c1.ContactTitle AS "phone",
+                c1.Address AS "address", c1.City AS "city", c1.Region AS
+                "region", c1.PostalCode AS "postalCode", c1.Country AS
+                "country", c1.CustomerID AS "LambdaOrmParentId" FROM Customers
+                c1  WHERE  c1.CustomerID IN (:LambdaOrmParentId) 
+              children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "orderId":"$this.OrderID",
+            "productId":"$this.ProductID", "unitPrice":"$this.UnitPrice",
+            "quantity":"$this.Quantity", "discount":"$this.Discount",
+            "__productId":"$this.ProductID", "LambdaOrmParentId":"$this.OrderID"
+            } }} }} ]
+          children:
+            - entity: Customers
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                "contact":"$ContactName", "phone":"$ContactTitle",
+                "address":"$Address", "city":"$City", "region":"$Region",
+                "postalCode":"$PostalCode", "country":"$Country",
+                "LambdaOrmParentId":"$_id" }} ]
+              children: []
+    errors: 3
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
       q.product.include(p => p.category)), p.customer])
@@ -2285,6 +2880,126 @@ test:
               region: null
               postalCode: '51100'
               country: France
+      - stage: Oracle
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-03T22:00:00.000Z'
+            requiredDate: '1996-07-31T22:00:00.000Z'
+            shippedDate: '1996-07-15T22:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 11
+                unitPrice: 14
+                quantity: 12
+                discount: 0
+                product:
+                  id: 11
+                  name: Queso Cabrales
+                  supplierId: 5
+                  categoryId: 4
+                  quantity: 1 kg pkg.
+                  price: 21
+                  inStock: 22
+                  onOrder: 30
+                  reorderLevel: 30
+                  discontinued: 'N'
+                  category:
+                    id: 4
+                    name: Dairy Products
+                    description: Cheeses
+              - orderId: 1
+                productId: 42
+                unitPrice: 9.8
+                quantity: 10
+                discount: 0
+                product:
+                  id: 42
+                  name: Singaporean Hokkien Fried Mee
+                  supplierId: 20
+                  categoryId: 5
+                  quantity: 32 - 1 kg pkgs.
+                  price: 14
+                  inStock: 26
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: 'Y'
+                  category:
+                    id: 5
+                    name: Grains/Cereals
+                    description: Breads, crackers, pasta, and cereal
+              - orderId: 1
+                productId: 72
+                unitPrice: 34.800000000000004
+                quantity: 5
+                discount: 0
+                product:
+                  id: 72
+                  name: Mozzarella di Giovanni
+                  supplierId: 14
+                  categoryId: 4
+                  quantity: 24 - 200 g pkgs.
+                  price: 34.800000000000004
+                  inStock: 14
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: 'N'
+                  category:
+                    id: 4
+                    name: Dairy Products
+                    description: Cheeses
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            __id: 1
+            details:
+              - {}
+              - {}
+              - {}
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -2504,7 +3219,71 @@ test:
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+            Orders o  WHERE o.OrderID = :id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+                o1.ProductID AS "productId", o1.OrderID AS "LambdaOrmParentId"
+                FROM "Order Details" o1  WHERE  o1.OrderID IN
+                (:LambdaOrmParentId) 
+              children: []
+            - entity: Customers
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
+                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
+                AS "address", c.City AS "city", c.Region AS "region",
+                c.PostalCode AS "postalCode", c.Country AS "country",
+                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
+                c.CustomerID IN (:LambdaOrmParentId) 
+              children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "quantity":"$this.Quantity",
+            "unitPrice":"$this.UnitPrice", "productId":"$this.ProductID",
+            "LambdaOrmParentId":"$this.OrderID" } }} }} ]
+          children:
+            - entity: Customers
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                "contact":"$ContactName", "phone":"$ContactTitle",
+                "address":"$Address", "city":"$City", "region":"$Region",
+                "postalCode":"$PostalCode", "country":"$Country",
+                "LambdaOrmParentId":"$_id" }} ]
+              children: []
+    errors: 3
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.map(p => ({
       quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })),
@@ -2745,6 +3524,75 @@ test:
               region: null
               postalCode: '51100'
               country: France
+      - stage: Oracle
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-03T22:00:00.000Z'
+            requiredDate: '1996-07-31T22:00:00.000Z'
+            shippedDate: '1996-07-15T22:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - quantity: 12
+                unitPrice: 14
+                productId: 11
+              - quantity: 10
+                unitPrice: 9.8
+                productId: 42
+              - quantity: 5
+                unitPrice: 34.800000000000004
+                productId: 72
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            __id: 1
+            details:
+              - {}
+              - {}
+              - {}
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -2965,7 +3813,84 @@ test:
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
               children: []
-    errors: 1
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+            "country", o.OrderID AS "__id", o.CustomerID AS "__customerId" FROM
+            Orders o  WHERE o.OrderID = :id 
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+                o1.ProductID AS "productId", o1.ProductID AS "__productId",
+                o1.OrderID AS "LambdaOrmParentId" FROM "Order Details" o1 
+                WHERE  o1.OrderID IN (:LambdaOrmParentId) 
+              children:
+                - entity: Products
+                  dialect: Oracle
+                  source: Oracle
+                  sentence: >-
+                    SELECT p.ProductID AS "id", p.ProductName AS "name",
+                    p.SupplierID AS "supplierId", p.CategoryID AS "categoryId",
+                    p.QuantityPerUnit AS "quantity", p.UnitPrice AS "price",
+                    p.UnitsInStock AS "inStock", p.UnitsOnOrder AS "onOrder",
+                    p.ReorderLevel AS "reorderLevel", p.Discontinued AS
+                    "discontinued", p.ProductID AS "LambdaOrmParentId" FROM
+                    Products p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
+                  children: []
+            - entity: Customers
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT c.CustomerID AS "id", c.CompanyName AS "name",
+                c.ContactName AS "contact", c.ContactTitle AS "phone", c.Address
+                AS "address", c.City AS "city", c.Region AS "region",
+                c.PostalCode AS "postalCode", c.Country AS "country",
+                c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
+                c.CustomerID IN (:LambdaOrmParentId) 
+              children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "quantity":"$this.Quantity",
+            "unitPrice":"$this.UnitPrice", "productId":"$this.ProductID",
+            "__productId":"$this.ProductID", "LambdaOrmParentId":"$this.OrderID"
+            } }} }} ]
+          children:
+            - entity: Customers
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                "contact":"$ContactName", "phone":"$ContactTitle",
+                "address":"$Address", "city":"$City", "region":"$Region",
+                "postalCode":"$PostalCode", "country":"$Country",
+                "LambdaOrmParentId":"$_id" }} ]
+              children: []
+    errors: 3
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
       q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice,
@@ -3302,6 +4227,108 @@ test:
               region: null
               postalCode: '51100'
               country: France
+      - stage: Oracle
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-03T22:00:00.000Z'
+            requiredDate: '1996-07-31T22:00:00.000Z'
+            shippedDate: '1996-07-15T22:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - quantity: 12
+                unitPrice: 14
+                productId: 11
+                product:
+                  id: 11
+                  name: Queso Cabrales
+                  supplierId: 5
+                  categoryId: 4
+                  quantity: 1 kg pkg.
+                  price: 21
+                  inStock: 22
+                  onOrder: 30
+                  reorderLevel: 30
+                  discontinued: 'N'
+              - quantity: 10
+                unitPrice: 9.8
+                productId: 42
+                product:
+                  id: 42
+                  name: Singaporean Hokkien Fried Mee
+                  supplierId: 20
+                  categoryId: 5
+                  quantity: 32 - 1 kg pkgs.
+                  price: 14
+                  inStock: 26
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: 'Y'
+              - quantity: 5
+                unitPrice: 34.800000000000004
+                productId: 72
+                product:
+                  id: 72
+                  name: Mozzarella di Giovanni
+                  supplierId: 14
+                  categoryId: 4
+                  quantity: 24 - 200 g pkgs.
+                  price: 34.800000000000004
+                  inStock: 14
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: 'N'
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            __id: 1
+            details:
+              - {}
+              - {}
+              - {}
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
     result:
       - id: 1
         customerId: VINET
@@ -3559,7 +4586,81 @@ test:
                         LambdaOrmParentId FROM Categories c1  WHERE 
                         c1.CategoryID IN (@LambdaOrmParentId) 
                       children: []
-    errors: 1
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            SELECT o.OrderID AS "id", o.CustomerID AS "customerId", o.EmployeeID
+            AS "employeeId", o.OrderDate AS "orderDate", o.RequiredDate AS
+            "requiredDate", o.ShippedDate AS "shippedDate", o.ShipVia AS
+            "shipViaId", o.Freight AS "freight", o.ShipName AS "name",
+            o.ShipAddress AS "address", o.ShipCity AS "city", o.ShipRegion AS
+            "region", o.ShipPostalCode AS "postalCode", o.ShipCountry AS
+            "country", o.CustomerID AS "__customerId", o.OrderID AS "__id" FROM
+            Orders o  WHERE o.OrderID = :id 
+          children:
+            - entity: Customers
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT c.CompanyName AS "name", c.CustomerID AS
+                "LambdaOrmParentId" FROM Customers c  WHERE  c.CustomerID IN
+                (:LambdaOrmParentId) 
+              children: []
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
+                o1.ProductID AS "__productId", o1.OrderID AS "LambdaOrmParentId"
+                FROM "Order Details" o1  WHERE  o1.OrderID IN
+                (:LambdaOrmParentId) 
+              children:
+                - entity: Products
+                  dialect: Oracle
+                  source: Oracle
+                  sentence: >-
+                    SELECT p.ProductName AS "name", p.CategoryID AS
+                    "__categoryId", p.ProductID AS "LambdaOrmParentId" FROM
+                    Products p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
+                  children:
+                    - entity: Categories
+                      dialect: Oracle
+                      source: Oracle
+                      sentence: >-
+                        SELECT c1.CategoryName AS "name", c1.CategoryID AS
+                        "LambdaOrmParentId" FROM Categories c1  WHERE 
+                        c1.CategoryID IN (:LambdaOrmParentId) 
+                      children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
+            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
+            "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
+            "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
+            "city":"$ShipCity", "region":"$ShipRegion",
+            "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
+            "__customerId":"$CustomerID", "__id":"$_id" ,"details": { "$map":{
+            "input": "$\"Order Details\"", "in": { "quantity":"$this.Quantity",
+            "unitPrice":"$this.UnitPrice", "__productId":"$this.ProductID",
+            "LambdaOrmParentId":"$this.OrderID" } }} }} ]
+          children:
+            - entity: Customers
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                "$project" :{ "_id": 0 , "name":"$CompanyName",
+                "LambdaOrmParentId":"$_id" }} ]
+              children: []
+    errors: 3
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name),
       p.details.include(p => p.product.include(p => p.category.map(p =>
@@ -3838,6 +4939,68 @@ test:
                   name: Thringer Rostbratwurst
                   category:
                     name: Meat/Poultry
+      - stage: Oracle
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-03T22:00:00.000Z'
+            requiredDate: '1996-07-31T22:00:00.000Z'
+            shippedDate: '1996-07-15T22:00:00.000Z'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            customer:
+              name: Vins et alcools Chevalier
+            details:
+              - quantity: 12
+                unitPrice: 14
+                product:
+                  name: Queso Cabrales
+                  category:
+                    name: Dairy Products
+              - quantity: 10
+                unitPrice: 9.8
+                product:
+                  name: Singaporean Hokkien Fried Mee
+                  category:
+                    name: Grains/Cereals
+              - quantity: 5
+                unitPrice: 34.800000000000004
+                product:
+                  name: Mozzarella di Giovanni
+                  category:
+                    name: Dairy Products
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            __id: 1
+            details:
+              - {}
+              - {}
+              - {}
+            customer:
+              name: Vins et alcools Chevalier
     result:
       - id: 1
         customerId: VINET
@@ -3874,4 +5037,4 @@ test:
               name: Mozzarella di Giovanni
               category:
                 name: Dairy Products
-errors: 8
+errors: 23

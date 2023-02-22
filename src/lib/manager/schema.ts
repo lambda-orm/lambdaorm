@@ -1,7 +1,7 @@
 import {
 	Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping,
-	source, Schema, AppConfig, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView,
-	PropertyView, QueryOptions, Dependent, ObservableAction, AppPathsConfig
+	source, Schema, AppSchema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView,
+	PropertyView, QueryOptions, Dependent, ObservableAction, AppPathsConfig, ModelSchema, DataSchema
 } from '../contract'
 import path from 'path'
 import { helper } from './'
@@ -490,29 +490,29 @@ class SchemaExtender {
 		this.extendDataSources(schema)
 		this.extendDataStages(schema)
 		// views
-		if (!schema.views || !schema.views.length || schema.views.length === 0) {
-			schema.views = [{ name: 'default', entities: [] }]
+		if (!schema.model.views || !schema.model.views.length || schema.model.views.length === 0) {
+			schema.model.views = [{ name: 'default', entities: [] }]
 		}
 		// exclude entities not used in mapping
-		for (const k in schema.mappings) {
-			schema.mappings[k] = this.clearMapping2(schema, schema.mappings[k])
+		for (const k in schema.data.mappings) {
+			schema.data.mappings[k] = this.clearMapping2(schema, schema.data.mappings[k])
 		}
 		return schema
 	}
 
 	private extendEntities (schema: Schema) {
-		if (schema.entities === undefined) {
-			schema.entities = []
+		if (schema.model.entities === undefined) {
+			schema.model.entities = []
 		}
-		for (const entity of schema.entities) {
+		for (const entity of schema.model.entities) {
 			this.entitySecureArrays(entity)
 		}
-		for (const entity of schema.entities) {
+		for (const entity of schema.model.entities) {
 			if (entity && entity.extends) {
-				this.extendEntity(entity, schema.entities)
+				this.extendEntity(entity, schema.model.entities)
 			}
 		}
-		schema.entities = this.clearEntities(schema.entities)
+		schema.model.entities = this.clearEntities(schema.model.entities)
 		this.complete(schema)
 	}
 
@@ -544,11 +544,11 @@ class SchemaExtender {
 	}
 
 	private extendMappings (schema: Schema) {
-		if (!schema.mappings || !schema.mappings.length || schema.mappings.length === 0) {
-			schema.mappings = [{ name: 'default', entities: [] }]
+		if (!schema.data.mappings || !schema.data.mappings.length || schema.data.mappings.length === 0) {
+			schema.data.mappings = [{ name: 'default', entities: [] }]
 		} else {
 			// extend entities into mapping
-			for (const mapping of schema.mappings) {
+			for (const mapping of schema.data.mappings) {
 				if (mapping.entities === undefined) {
 					mapping.entities = []
 				}
@@ -557,53 +557,53 @@ class SchemaExtender {
 				}
 			}
 			// extends mappings
-			for (const mapping of schema.mappings) {
-				this.extendMapping(mapping, schema.mappings)
+			for (const mapping of schema.data.mappings) {
+				this.extendMapping(mapping, schema.data.mappings)
 			}
 		}
 		// extend mapping for model
-		for (const k in schema.mappings) {
-			schema.mappings[k].entities = helper.obj.extends(schema.mappings[k].entities, schema.entities)
-			schema.mappings[k] = this.clearMapping(schema.mappings[k])
-			const mapping = schema.mappings[k]
+		for (const k in schema.data.mappings) {
+			schema.data.mappings[k].entities = helper.obj.extends(schema.data.mappings[k].entities, schema.model.entities)
+			schema.data.mappings[k] = this.clearMapping(schema.data.mappings[k])
+			const mapping = schema.data.mappings[k]
 			if (mapping && mapping.entities) {
-				this.completeMapping(schema.mappings[k])
+				this.completeMapping(schema.data.mappings[k])
 			}
 		}
 	}
 
 	private extendDataSources (schema: Schema) {
-		if (!schema.sources || !schema.sources.length || schema.sources.length === 0) {
+		if (!schema.data.sources || !schema.data.sources.length || schema.data.sources.length === 0) {
 			console.log('sources not defined')
-			schema.sources = [{ name: 'default', dialect: Dialect.MySQL, mapping: schema.mappings[0].name, connection: null }]
+			schema.data.sources = [{ name: 'default', dialect: Dialect.MySQL, mapping: schema.data.mappings[0].name, connection: null }]
 		}
-		for (const k in schema.sources) {
-			const source = schema.sources[k]
+		for (const k in schema.data.sources) {
+			const source = schema.data.sources[k]
 			if (source.mapping === undefined) {
-				source.mapping = schema.mappings[0].name
+				source.mapping = schema.data.mappings[0].name
 			}
 		}
 	}
 
 	private extendDataStages (schema: Schema) {
 		if (!schema.stages || !schema.stages.length || schema.stages.length === 0) {
-			schema.stages = [{ name: 'default', sources: [{ name: schema.sources[0].name }] }]
+			schema.stages = [{ name: 'default', sources: [{ name: schema.data.sources[0].name }] }]
 		}
 		for (const k in schema.stages) {
 			const stage = schema.stages[k]
 			if (stage.sources === undefined) {
-				stage.sources = [{ name: schema.sources[0].name }]
+				stage.sources = [{ name: schema.data.sources[0].name }]
 			}
 		}
 	}
 
 	public complete (schema: Schema): void {
 		if (schema) {
-			if (schema.entities) {
-				this.completeEntities(schema.entities, schema.views)
-				if (schema.entities && schema.entities.length) {
-					this.completeRelations(schema.entities)
-					this.completeDependents(schema.entities)
+			if (schema.model.entities) {
+				this.completeEntities(schema.model.entities, schema.model.views)
+				if (schema.model.entities && schema.model.entities.length) {
+					this.completeRelations(schema.model.entities)
+					this.completeDependents(schema.model.entities)
 				}
 			}
 		}
@@ -849,7 +849,7 @@ class SchemaExtender {
 
 	private existsInMapping (schema: Schema, mapping: string, entity: string): boolean {
 		const context: ContextInfo = { entity, action: ObservableAction.ddl, read: false, write: true, dml: false, ddl: true }
-		const dataSourcesNames = schema.sources.filter(p => p.mapping === mapping).map(p => p.name)
+		const dataSourcesNames = schema.data.sources.filter(p => p.mapping === mapping).map(p => p.name)
 		for (const stage of schema.stages) {
 			const ruleDataSources = stage.sources.filter(p => dataSourcesNames.includes(p.name))
 			for (const ruleDataSource of ruleDataSources) {
@@ -886,10 +886,18 @@ export class SchemaManager {
 	}
 
 	private newSchema ():Schema {
-		return { app: this.newApp(), enums: [], entities: [], mappings: [], sources: [], stages: [], views: [] }
+		return { app: this.newApp(), model: this.newModel(), data: this.newData(), stages: [] }
 	}
 
-	private newApp ():AppConfig {
+	private newData (): DataSchema {
+		return { mappings: [], sources: [] }
+	}
+
+	private newModel (): ModelSchema {
+		return { enums: [], entities: [], views: [] }
+	}
+
+	private newApp ():AppSchema {
 		return { paths: this.newPathsApp(), start: [], end: [], listeners: [] }
 	}
 
@@ -971,6 +979,32 @@ export class SchemaManager {
 	}
 
 	private completeSchema (schema: Schema) {
+		if (schema.model === undefined) {
+			schema.model = this.newModel()
+		} else {
+			if (schema.model.enums === undefined) {
+				schema.model.enums = []
+			}
+			if (schema.model.entities === undefined) {
+				schema.model.entities = []
+			}
+			if (schema.model.views === undefined) {
+				schema.model.views = []
+			}
+		}
+		if (schema.data === undefined) {
+			schema.data = this.newData()
+		} else {
+			if (schema.data.mappings === undefined) {
+				schema.data.mappings = []
+			}
+			if (schema.data.sources === undefined) {
+				schema.data.sources = []
+			}
+		}
+		if (schema.stages === undefined) {
+			schema.stages = []
+		}
 		if (schema.app === undefined) {
 			schema.app = this.newApp()
 		} else {
@@ -996,7 +1030,6 @@ export class SchemaManager {
 				schema.app.paths.model = 'model'
 			}
 		}
-		if (schema.sources === undefined) schema.sources = []
 	}
 
 	public async getConfigFileName (workspace: string): Promise<string | undefined> {
@@ -1021,21 +1054,21 @@ export class SchemaManager {
 
 	public load (schema: Schema): Schema {
 		this.schema = this.extend(schema)
-		this.model.entities = this.schema.entities || []
-		this.model.enums = this.schema.enums || []
-		if (!this.schema.views) {
-			this.schema.views = [{ name: 'default', entities: [] }]
+		this.model.entities = this.schema.model.entities || []
+		this.model.enums = this.schema.model.enums || []
+		if (!this.schema.model.views) {
+			this.schema.model.views = [{ name: 'default', entities: [] }]
 		}
-		for (const view of this.schema.views) {
+		for (const view of this.schema.model.views) {
 			this.view.load(view)
 		}
-		if (this.schema.mappings) {
-			for (const mapping of this.schema.mappings) {
+		if (this.schema.data.mappings) {
+			for (const mapping of this.schema.data.mappings) {
 				this.mapping.load(mapping)
 			}
 		}
-		if (this.schema.sources) {
-			for (const source of this.schema.sources) {
+		if (this.schema.data.sources) {
+			for (const source of this.schema.data.sources) {
 				if (helper.val.isEmpty(source.connection)) {
 					console.log(`WARNING|source:"${source.name}"|connection is empty`)
 					continue

@@ -1,20 +1,20 @@
-[Lambda ORM](../README.md) / [model](../modules/model.md) / SchemaData
+[Lambda ORM](../README.md) / [model](../modules/model.md) / SchemaConfig
 
-# Interface: SchemaData
+# Interface: SchemaConfig
 
-[model](../modules/model.md).SchemaData
+[model](../modules/model.md).SchemaConfig
 
 ## Table of contents
 
 ### Properties
 
-- [entities](model.SchemaData.md#entities)
+- [entities](model.SchemaConfig.md#entities)
 
 ## Properties
 
 ### entities
 
-• **entities**: [`SchemaDataEntity`](model.SchemaDataEntity.md)[]
+• **entities**: [`SchemaConfigEntity`](model.SchemaConfigEntity.md)[]
 
 #### Defined in
 

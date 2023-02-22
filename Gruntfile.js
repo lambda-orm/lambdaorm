@@ -61,9 +61,25 @@ module.exports = function (grunt) {
 		task.apply(sources, this.async())
 	})
 
-	grunt.registerTask('generate-data-for-test', 'generate data for test', function () {
-		const task = require('./build/dev/northwind/task/generateDataForTest')
+	grunt.registerTask('create-data-for-test', 'create data for test', function () {
+		const task = require('./build/dev/northwind/task/createDataForTest')
 		task.apply(sources, this.async())
+	})
+
+	grunt.registerTask('create-data-for-test-suite', 'create data for test suite', function () {
+		const task = require('./build/dev/northwind/task/createDataForTestSuite')
+		task.apply(sources, this.async())
+	})
+
+	grunt.registerTask('create-test', 'create test', function () {
+		const task = require('./build/dev/northwind/task/createTest')
+		const dataForTestPath = './src/dev/northwind/test/data'
+		task.apply(dataForTestPath, sources, this.async())
+	})
+
+	grunt.registerTask('create-test-suite', 'create test suite', function () {
+		const task = require('./build/dev/northwind/task/createTestSuite')
+		task.apply(this.async())
 	})
 
 	grunt.registerTask('build-config', 'build configuration', function () {
@@ -77,16 +93,11 @@ module.exports = function (grunt) {
 		task.apply(this.async())
 	})
 
-	grunt.registerTask('generate-test', 'generate test', function () {
-		const task = require('./build/dev/northwind/task/generateTest')
-		const dataForTestPath = './src/dev/northwind/test/data'
-		task.apply(dataForTestPath, sources, this.async())
-	})
 	grunt.registerTask('clean-test', ['exec:clean_test'])
 	grunt.registerTask('clean-data', ['exec:clean_data'])
 	grunt.registerTask('db-down', ['exec:db_down', 'clean-data'])
 	grunt.registerTask('db-up', ['db-down', 'exec:db_up', 'populate-source', 'populate-databases'])
-	grunt.registerTask('build-test', ['db-up', 'clean-test', 'generate-data-for-test', 'generate-test', 'db-down'])
+	grunt.registerTask('build-test', ['db-up', 'clean-test', 'create-data-for-test', 'create-data-for-test-suite', 'create-test', 'create-test-suite', 'db-down'])
 	grunt.registerTask('build', ['exec:lint', 'clean:build', 'build-config', 'exec:tsc', 'copy:sintaxis'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])

@@ -74,14 +74,14 @@ export class Orm implements IOrm {
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
 		const schema = await this.schemaManager.init(source || this.schemaManager.workspace)
 		// set connections
-		if (connect && schema.sources) {
-			for (const source of schema.sources.filter(p => helper.val.isNotEmpty(p.connection))) {
+		if (connect && schema.data.sources) {
+			for (const source of schema.data.sources.filter(p => helper.val.isNotEmpty(p.connection))) {
 				this.connectionManager.load(source)
 			}
 		}
 		// add enums
-		if (schema.enums) {
-			for (const _enum of schema.enums) {
+		if (schema.model.enums) {
+			for (const _enum of schema.model.enums) {
 				const values:[string, any][] = []
 				for (const enumValue of _enum.values) {
 					values.push([enumValue.name, enumValue.value])

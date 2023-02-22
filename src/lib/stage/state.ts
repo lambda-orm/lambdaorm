@@ -1,4 +1,4 @@
-import { SchemaModel, SchemaMapping, Query, Dialect } from '../contract'
+import { ModelConfig, MappingConfig, Query, Dialect } from '../contract'
 import { SchemaManager, helper } from '../manager'
 const path = require('path')
 
@@ -36,8 +36,8 @@ abstract class StageState<T> {
 	public abstract getFile (name: string)
 }
 
-export class StageMapping extends StageState<SchemaMapping> {
-	protected override empty ():SchemaMapping {
+export class StageMapping extends StageState<MappingConfig> {
+	protected override empty ():MappingConfig {
 		return { mapping: [], pending: [], inconsistency: [] }
 	}
 
@@ -46,8 +46,8 @@ export class StageMapping extends StageState<SchemaMapping> {
 	}
 }
 
-export class StageModel extends StageState<SchemaModel> {
-	protected override empty ():SchemaModel {
+export class StageModel extends StageState<ModelConfig> {
+	protected override empty ():ModelConfig {
 		return { mappings: [] }
 	}
 

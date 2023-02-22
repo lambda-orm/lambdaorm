@@ -150,37 +150,43 @@ export interface AppPathsConfig {
 	data: string
 	model: string
 }
-export interface AppConfig {
+export interface ModelSchema {
+	entities: Entity[]
+	enums: Enum[]
+	views: View[]
+}
+export interface DataSchema {
+	mappings: Mapping[]
+	sources: source[]
+}
+export interface AppSchema {
 	paths: AppPathsConfig
 	start:TaskConfig[]
 	listeners: ListenerConfig[]
 	end:TaskConfig[]
 }
 export interface Schema {
-	entities: Entity[]
-	enums: Enum[]
-	views: View[]
-	mappings: Mapping[]
-	sources: source[]
+	model: ModelSchema
+	data:DataSchema
 	stages: Stage[]
-	app: AppConfig
+	app: AppSchema
 }
-export interface SchemaModel {
+export interface ModelConfig {
 	mappings: Mapping[]
 }
-export interface SchemaMapping {
+export interface MappingConfig {
 	mapping: any
 	pending: any[]
 	inconsistency: any[]
 }
-export interface SchemaDataEntity
+export interface SchemaConfigEntity
 {
 	entity:string
 	rows:any[]
 }
-export interface SchemaData
+export interface SchemaConfig
 {
-	entities:SchemaDataEntity[]
+	entities:SchemaConfigEntity[]
 }
 export interface Behavior {
 	alias?: string
