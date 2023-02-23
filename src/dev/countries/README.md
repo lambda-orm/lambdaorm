@@ -5,7 +5,8 @@
 Create Databases:
 
 ```sh
-./db/db.sh up
+cd db
+db.sh up
 ```
 
 Load source db:
@@ -24,5 +25,6 @@ npm run countries-create-test-suite
 ## Down
 
 ```sh
-./db/db.sh down
+cd db
+db.sh down
 ```

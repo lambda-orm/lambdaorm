@@ -6,7 +6,7 @@
 wait-dbs(){
 	wait-until-healthy 'northwind-source'
 	wait-until-healthy 'northwind-mysql'
-	wait-until-healthy 'northwind-postgres-10'
+	wait-until-healthy 'northwind-postgres'
 	# wait-until-healthy 'northwind-mariadb'
 	wait-until-healthy 'northwind-oracle' 300
 	# wait-until-healthy 'northwind-sqlserver'	

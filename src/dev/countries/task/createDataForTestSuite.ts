@@ -5,12 +5,12 @@ import {
 import { orm, QueryOptions } from '../../../lib'
 import { h3lp } from 'h3lp'
 
-export async function apply (stage: string, callback: any) {
+export async function apply (callback: any) {
 	try {
 		require('dotenv').config({ path: './config/countries.env' })
 		await orm.init('./config/countries.yaml')
 
-		const options:QueryOptions = { stage }
+		const options:QueryOptions = { stage: 'stage1' }
 		await h3lp.test
 			.createSuiteBuilder()
 			.add(new BitwiseBuildTest(orm, options))
@@ -30,4 +30,4 @@ export async function apply (stage: string, callback: any) {
 	}
 	callback()
 }
-// apply('stage1', function () { console.log('end') })
+// apply(function () { console.log('end') })

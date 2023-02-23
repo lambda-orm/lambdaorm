@@ -48,6 +48,19 @@ module.exports = function (grunt) {
 		fs.writeFileSync('dist/package.json', JSON.stringify(data, null, 2), 'utf8')
 	})
 
+	grunt.registerTask('countries-populate-source', 'countries populate source', function () {
+		const task = require('./build/dev/countries/task/populateSource')
+		task.apply(this.async())
+	})
+	grunt.registerTask('countries-create-data-for-test-suite', 'countries create data for test suite', function () {
+		const task = require('./build/dev/countries/task/createDataForTestSuite')
+		task.apply(this.async())
+	})
+	grunt.registerTask('countries-create-test-suite', 'countries create test suite', function () {
+		const task = require('./build/dev/countries/task/createTestSuite')
+		task.apply(this.async())
+	})
+
 	grunt.registerTask('populate-source', 'populate source db', function () {
 		const task = require('./build/dev/task/mysqlExecute')
 		const sourceFile = './src/dev/northwind/db/northwind-mysql.sql'

@@ -42,24 +42,45 @@
 			],
 			"program": "${workspaceFolder}/src/dev/task/buildWiki.ts"
 		},
-		// countries -------------------------------------------------------------------------- 		
+		// countries --------------------------------------------------------------------------
 		{
-			"name": "countries create test data suite",
+			"name": "countries populate source",
 			"type": "node",
 			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"countries-populate-source"
 			],
-			"program": "${workspaceFolder}/src/dev/countries/task/createDataForTestSuite.ts"
+			"stopOnEntry": false
+		}, 		
+		{
+			"name": "countries create data test suite",
+			"type": "node",
+			"request": "launch",
+			"program": "/usr/bin/grunt",
+			"args": [
+				"countries-create-data-for-test-suite"
+			],
+			"stopOnEntry": false
 		},
 		{
 			"name": "countries cretae test suite",
 			"type": "node",
 			"request": "launch",
+			"program": "/usr/bin/grunt",
+			"args": [
+				"countries-create-test-suite"
+			],
+			"stopOnEntry": false
+		},
+		{
+			"name": "countries lab",
+			"type": "node",
+			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/countries/task/createTestSuite.ts"
+			"program": "${workspaceFolder}/src/dev/countries/lab.ts"
 		},
 		// northwind -------------------------------------------------------------------------- 
 		{
@@ -76,47 +97,51 @@
 			"name": "northwind populate databases",
 			"type": "node",
 			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"populate-databases"
 			],
-			"program": "${workspaceFolder}/src/dev/northwind/task/populateDatabases.ts",
-			"envFile": "${workspaceFolder}/config/northwind.env"
+			"stopOnEntry": false
 		},
 		{
 			"name": "northwind create data test",
 			"type": "node",
 			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"create-data-for-test"
 			],
-			"program": "${workspaceFolder}/src/dev/northwind/task/createDataForTest.ts"
+			"stopOnEntry": false
 		},
 		{
 			"name": "northwind create data test suite",
 			"type": "node",
 			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"reate-data-for-test-suite"
 			],
-			"program": "${workspaceFolder}/src/dev/northwind/task/createDataForTestSuite.ts"
+			"stopOnEntry": false
 		},
 		{
 			"name": "northwind create test",
 			"type": "node",
 			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"create-test"
 			],
-			"program": "${workspaceFolder}/src/dev/northwind/task/cretaeTest.ts"
+			"stopOnEntry": false
 		},
 		{
 			"name": "northwind create test suite",
 			"type": "node",
 			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
+			"program": "/usr/bin/grunt",
+			"args": [
+				"create-test-suite"
 			],
-			"program": "${workspaceFolder}/src/dev/northwind/task/createTestSuite.ts"
+			"stopOnEntry": false
 		},
 		{
 			"name": "northwind drop dbs",
