@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 
-import { Query, QueryOptions } from './index'
+import { Query, QueryOptions, SentenceAction } from './index'
 
 export enum ObservableAction {
 	select = 'select',
@@ -20,14 +22,14 @@ export interface ActionObserverArgs{
 }
 
 export abstract class ActionObserver {
-	public action:ObservableAction
+	public actions:SentenceAction[]
 	public condition?:string
-	constructor (action:ObservableAction, condition?:string) {
-		this.action = action
+	constructor (actions:SentenceAction[], condition?:string) {
+		this.actions = actions
 		this.condition = condition
 	}
 
-	public abstract before (args:ActionObserverArgs):void;
-	public abstract after (args:ActionObserverArgs):void;
-	public abstract error (args:ActionObserverArgs):void;
+	public async before (args:ActionObserverArgs):Promise<void> {}
+	public async after (args:ActionObserverArgs):Promise<void> {}
+	public async error (args:ActionObserverArgs):Promise<void> {}
 }

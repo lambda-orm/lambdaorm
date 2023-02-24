@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- `StageState`<[`SchemaModel`](../interfaces/model.SchemaModel.md)\>
+- `StageState`<[`ModelConfig`](../interfaces/model.ModelConfig.md)\>
 
   ↳ **`StageModel`**
 
@@ -38,7 +38,7 @@
 
 #### Inherited from
 
-StageState<SchemaModel\>.constructor
+StageState<ModelConfig\>.constructor
 
 #### Defined in
 
@@ -70,7 +70,7 @@ ___
 
 ### get
 
-▸ **get**(`name`): `Promise`<[`SchemaModel`](../interfaces/model.SchemaModel.md)\>
+▸ **get**(`name`): `Promise`<[`ModelConfig`](../interfaces/model.ModelConfig.md)\>
 
 #### Parameters
 
@@ -80,7 +80,7 @@ ___
 
 #### Returns
 
-`Promise`<[`SchemaModel`](../interfaces/model.SchemaModel.md)\>
+`Promise`<[`ModelConfig`](../interfaces/model.ModelConfig.md)\>
 
 #### Inherited from
 
@@ -149,7 +149,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `name` | `string` |
-| `data` | [`SchemaModel`](../interfaces/model.SchemaModel.md) |
+| `data` | [`ModelConfig`](../interfaces/model.ModelConfig.md) |
 
 #### Returns
 

@@ -75,6 +75,22 @@
         {
           "test": "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])",
           "result": "Products.map(p=>distinct({quantity:p.quantity,category:p.category.name})).sort(p=>[asc(p.quantity),asc(p.category)])"
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": "Orders.map(p=>{p:p,customer:p.customer,details:p.details}).filter(p=>(p.id==id))"
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": "Orders.map(p=>{p:p,customer:p.customer,employee:p.employee}).filter(p=>(p.id==id))"
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": "Orders.map(p=>{name:p.name,customer:p.customer,employee:p.employee}).filter(p=>(p.id==id))"
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": "Orders.map(p=>{name:p.name,customer:p.customer}).filter(p=>(p.id==id))"
         }
       ],
       "errors": 0
@@ -599,6 +615,422 @@
               "type": "string"
             }
           ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
+              "name": "customer.id",
+              "type": "string"
+            },
+            {
+              "name": "customer.name",
+              "type": "string"
+            },
+            {
+              "name": "customer.contact",
+              "type": "string"
+            },
+            {
+              "name": "customer.phone",
+              "type": "string"
+            },
+            {
+              "name": "customer.address",
+              "type": "string"
+            },
+            {
+              "name": "customer.city",
+              "type": "string"
+            },
+            {
+              "name": "customer.region",
+              "type": "string"
+            },
+            {
+              "name": "customer.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "customer.country",
+              "type": "string"
+            },
+            {
+              "name": "details.orderId",
+              "type": "integer"
+            },
+            {
+              "name": "details.productId",
+              "type": "integer"
+            },
+            {
+              "name": "details.unitPrice",
+              "type": "decimal"
+            },
+            {
+              "name": "details.quantity",
+              "type": "decimal"
+            },
+            {
+              "name": "details.discount",
+              "type": "decimal"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
+              "name": "customer.id",
+              "type": "string"
+            },
+            {
+              "name": "customer.name",
+              "type": "string"
+            },
+            {
+              "name": "customer.contact",
+              "type": "string"
+            },
+            {
+              "name": "customer.phone",
+              "type": "string"
+            },
+            {
+              "name": "customer.address",
+              "type": "string"
+            },
+            {
+              "name": "customer.city",
+              "type": "string"
+            },
+            {
+              "name": "customer.region",
+              "type": "string"
+            },
+            {
+              "name": "customer.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "customer.country",
+              "type": "string"
+            },
+            {
+              "name": "employee.id",
+              "type": "integer"
+            },
+            {
+              "name": "employee.lastName",
+              "type": "string"
+            },
+            {
+              "name": "employee.firstName",
+              "type": "string"
+            },
+            {
+              "name": "employee.title",
+              "type": "string"
+            },
+            {
+              "name": "employee.titleOfCourtesy",
+              "type": "string"
+            },
+            {
+              "name": "employee.birthDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "employee.hireDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "employee.phone",
+              "type": "string"
+            },
+            {
+              "name": "employee.reportsToId",
+              "type": "integer"
+            },
+            {
+              "name": "employee.address",
+              "type": "string"
+            },
+            {
+              "name": "employee.city",
+              "type": "string"
+            },
+            {
+              "name": "employee.region",
+              "type": "string"
+            },
+            {
+              "name": "employee.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "employee.country",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "customer.id",
+              "type": "string"
+            },
+            {
+              "name": "customer.name",
+              "type": "string"
+            },
+            {
+              "name": "customer.contact",
+              "type": "string"
+            },
+            {
+              "name": "customer.phone",
+              "type": "string"
+            },
+            {
+              "name": "customer.address",
+              "type": "string"
+            },
+            {
+              "name": "customer.city",
+              "type": "string"
+            },
+            {
+              "name": "customer.region",
+              "type": "string"
+            },
+            {
+              "name": "customer.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "customer.country",
+              "type": "string"
+            },
+            {
+              "name": "employee.id",
+              "type": "integer"
+            },
+            {
+              "name": "employee.lastName",
+              "type": "string"
+            },
+            {
+              "name": "employee.firstName",
+              "type": "string"
+            },
+            {
+              "name": "employee.title",
+              "type": "string"
+            },
+            {
+              "name": "employee.titleOfCourtesy",
+              "type": "string"
+            },
+            {
+              "name": "employee.birthDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "employee.hireDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "employee.phone",
+              "type": "string"
+            },
+            {
+              "name": "employee.reportsToId",
+              "type": "integer"
+            },
+            {
+              "name": "employee.address",
+              "type": "string"
+            },
+            {
+              "name": "employee.city",
+              "type": "string"
+            },
+            {
+              "name": "employee.region",
+              "type": "string"
+            },
+            {
+              "name": "employee.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "employee.country",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "customer.id",
+              "type": "string"
+            },
+            {
+              "name": "customer.name",
+              "type": "string"
+            },
+            {
+              "name": "customer.contact",
+              "type": "string"
+            },
+            {
+              "name": "customer.phone",
+              "type": "string"
+            },
+            {
+              "name": "customer.address",
+              "type": "string"
+            },
+            {
+              "name": "customer.city",
+              "type": "string"
+            },
+            {
+              "name": "customer.region",
+              "type": "string"
+            },
+            {
+              "name": "customer.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "customer.country",
+              "type": "string"
+            }
+          ]
         }
       ],
       "errors": 0
@@ -713,6 +1145,42 @@
         {
           "test": "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])",
           "result": []
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
         }
       ],
       "errors": 0
@@ -843,6 +1311,34 @@
           "test": "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])",
           "result": {
             "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": {
+            "entity": "Orders",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": {
+            "entity": "Orders",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": {
+            "entity": "Orders",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": {
+            "entity": "Orders",
             "constraints": []
           }
         }
@@ -1711,6 +2207,510 @@
             "clause": "select",
             "alias": "p"
           }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 36
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              },
+              {
+                "name": "customer.id",
+                "type": "string"
+              },
+              {
+                "name": "customer.name",
+                "type": "string"
+              },
+              {
+                "name": "customer.contact",
+                "type": "string"
+              },
+              {
+                "name": "customer.phone",
+                "type": "string"
+              },
+              {
+                "name": "customer.address",
+                "type": "string"
+              },
+              {
+                "name": "customer.city",
+                "type": "string"
+              },
+              {
+                "name": "customer.region",
+                "type": "string"
+              },
+              {
+                "name": "customer.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "customer.country",
+                "type": "string"
+              },
+              {
+                "name": "details.orderId",
+                "type": "integer"
+              },
+              {
+                "name": "details.productId",
+                "type": "integer"
+              },
+              {
+                "name": "details.unitPrice",
+                "type": "decimal"
+              },
+              {
+                "name": "details.quantity",
+                "type": "decimal"
+              },
+              {
+                "name": "details.discount",
+                "type": "decimal"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 36
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              },
+              {
+                "name": "customer.id",
+                "type": "string"
+              },
+              {
+                "name": "customer.name",
+                "type": "string"
+              },
+              {
+                "name": "customer.contact",
+                "type": "string"
+              },
+              {
+                "name": "customer.phone",
+                "type": "string"
+              },
+              {
+                "name": "customer.address",
+                "type": "string"
+              },
+              {
+                "name": "customer.city",
+                "type": "string"
+              },
+              {
+                "name": "customer.region",
+                "type": "string"
+              },
+              {
+                "name": "customer.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "customer.country",
+                "type": "string"
+              },
+              {
+                "name": "employee.id",
+                "type": "integer"
+              },
+              {
+                "name": "employee.lastName",
+                "type": "string"
+              },
+              {
+                "name": "employee.firstName",
+                "type": "string"
+              },
+              {
+                "name": "employee.title",
+                "type": "string"
+              },
+              {
+                "name": "employee.titleOfCourtesy",
+                "type": "string"
+              },
+              {
+                "name": "employee.birthDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "employee.hireDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "employee.phone",
+                "type": "string"
+              },
+              {
+                "name": "employee.reportsToId",
+                "type": "integer"
+              },
+              {
+                "name": "employee.address",
+                "type": "string"
+              },
+              {
+                "name": "employee.city",
+                "type": "string"
+              },
+              {
+                "name": "employee.region",
+                "type": "string"
+              },
+              {
+                "name": "employee.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "employee.country",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 36
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "customer.id",
+                "type": "string"
+              },
+              {
+                "name": "customer.name",
+                "type": "string"
+              },
+              {
+                "name": "customer.contact",
+                "type": "string"
+              },
+              {
+                "name": "customer.phone",
+                "type": "string"
+              },
+              {
+                "name": "customer.address",
+                "type": "string"
+              },
+              {
+                "name": "customer.city",
+                "type": "string"
+              },
+              {
+                "name": "customer.region",
+                "type": "string"
+              },
+              {
+                "name": "customer.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "customer.country",
+                "type": "string"
+              },
+              {
+                "name": "employee.id",
+                "type": "integer"
+              },
+              {
+                "name": "employee.lastName",
+                "type": "string"
+              },
+              {
+                "name": "employee.firstName",
+                "type": "string"
+              },
+              {
+                "name": "employee.title",
+                "type": "string"
+              },
+              {
+                "name": "employee.titleOfCourtesy",
+                "type": "string"
+              },
+              {
+                "name": "employee.birthDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "employee.hireDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "employee.phone",
+                "type": "string"
+              },
+              {
+                "name": "employee.reportsToId",
+                "type": "integer"
+              },
+              {
+                "name": "employee.address",
+                "type": "string"
+              },
+              {
+                "name": "employee.city",
+                "type": "string"
+              },
+              {
+                "name": "employee.region",
+                "type": "string"
+              },
+              {
+                "name": "employee.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "employee.country",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 36
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "customer.id",
+                "type": "string"
+              },
+              {
+                "name": "customer.name",
+                "type": "string"
+              },
+              {
+                "name": "customer.contact",
+                "type": "string"
+              },
+              {
+                "name": "customer.phone",
+                "type": "string"
+              },
+              {
+                "name": "customer.address",
+                "type": "string"
+              },
+              {
+                "name": "customer.city",
+                "type": "string"
+              },
+              {
+                "name": "customer.region",
+                "type": "string"
+              },
+              {
+                "name": "customer.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "customer.country",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
         }
       ],
       "errors": 0
@@ -1895,6 +2895,46 @@
             "dialect": "MySQL",
             "source": "MySQL",
             "sentence": "SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, c.CustomerID AS `customer.id`, c.CompanyName AS `customer.name`, c.ContactName AS `customer.contact`, c.ContactTitle AS `customer.phone`, c.Address AS `customer.address`, c.City AS `customer.city`, c.Region AS `customer.region`, c.PostalCode AS `customer.postalCode`, c.Country AS `customer.country`, d.OrderID AS `details.orderId`, d.ProductID AS `details.productId`, d.UnitPrice AS `details.unitPrice`, d.Quantity AS `details.quantity`, d.Discount AS `details.discount` FROM Orders o INNER JOIN Customers c ON c.CustomerID = o.CustomerID INNER JOIN `Order Details` d ON d.OrderID = o.OrderID WHERE o.OrderID = ? ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, c.CustomerID AS `customer.id`, c.CompanyName AS `customer.name`, c.ContactName AS `customer.contact`, c.ContactTitle AS `customer.phone`, c.Address AS `customer.address`, c.City AS `customer.city`, c.Region AS `customer.region`, c.PostalCode AS `customer.postalCode`, c.Country AS `customer.country`, e.EmployeeID AS `employee.id`, e.LastName AS `employee.lastName`, e.FirstName AS `employee.firstName`, e.Title AS `employee.title`, e.TitleOfCourtesy AS `employee.titleOfCourtesy`, e.BirthDate AS `employee.birthDate`, e.HireDate AS `employee.hireDate`, e.HomePhone AS `employee.phone`, e.ReportsTo AS `employee.reportsToId`, e.Address AS `employee.address`, e.City AS `employee.city`, e.Region AS `employee.region`, e.PostalCode AS `employee.postalCode`, e.Country AS `employee.country` FROM Orders o INNER JOIN Customers c ON c.CustomerID = o.CustomerID INNER JOIN Employees e ON e.EmployeeID = o.EmployeeID WHERE o.OrderID = ? ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT o.ShipName AS name, c.CustomerID AS `customer.id`, c.CompanyName AS `customer.name`, c.ContactName AS `customer.contact`, c.ContactTitle AS `customer.phone`, c.Address AS `customer.address`, c.City AS `customer.city`, c.Region AS `customer.region`, c.PostalCode AS `customer.postalCode`, c.Country AS `customer.country`, e.EmployeeID AS `employee.id`, e.LastName AS `employee.lastName`, e.FirstName AS `employee.firstName`, e.Title AS `employee.title`, e.TitleOfCourtesy AS `employee.titleOfCourtesy`, e.BirthDate AS `employee.birthDate`, e.HireDate AS `employee.hireDate`, e.HomePhone AS `employee.phone`, e.ReportsTo AS `employee.reportsToId`, e.Address AS `employee.address`, e.City AS `employee.city`, e.Region AS `employee.region`, e.PostalCode AS `employee.postalCode`, e.Country AS `employee.country` FROM Orders o INNER JOIN Customers c ON c.CustomerID = o.CustomerID INNER JOIN Employees e ON e.EmployeeID = o.EmployeeID WHERE o.OrderID = ? ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT o.ShipName AS name, c.CustomerID AS `customer.id`, c.CompanyName AS `customer.name`, c.ContactName AS `customer.contact`, c.ContactTitle AS `customer.phone`, c.Address AS `customer.address`, c.City AS `customer.city`, c.Region AS `customer.region`, c.PostalCode AS `customer.postalCode`, c.Country AS `customer.country` FROM Orders o INNER JOIN Customers c ON c.CustomerID = o.CustomerID WHERE o.OrderID = ? ",
             "children": []
           }
         }

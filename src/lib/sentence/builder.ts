@@ -6,6 +6,11 @@ import { Operand, Parameter, OperandType, Type, Kind, IExpressions, Position, IT
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../contract/operands'
 import { SentenceTypeManager, SentenceHelper } from '.'
 
+interface AsteriskField {
+	index:number
+	relation?: string
+	fields:Field[]
+}
 class EntityContext {
 	// eslint-disable-next-line no-use-before-define
 	public parent?: EntityContext
@@ -208,10 +213,8 @@ export class SentenceBuilder {
 	private typeManager: ITypeManager
 	private solveBehaviors: SentenceSolveBehaviors
 	private solveConstraints : SentenceSolveConstraints
-	// private normalizer: SentenceNormalizer
 	private expressions: IExpressions
 	private helper:SentenceHelper
-	// private cache: ICache<string, Sentence>
 
 	constructor (schema: SchemaManager, expressions: IExpressions, sentenceHelper:SentenceHelper) {
 		this.schema = schema
@@ -220,8 +223,6 @@ export class SentenceBuilder {
 		this.typeManager = new SentenceTypeManager(this.schema.model, expressions.model)
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, this.helper, expressions)
-		// this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)
-		// this.cache = new MemoryCache<string, Sentence>()
 	}
 
 	public build (operand: Operand): Sentence {
@@ -229,76 +230,6 @@ export class SentenceBuilder {
 		const cloned = this.expressions.clone(operand)
 		const sentence = this.createSentence(cloned, new ExpressionContext(new EntityContext())) as Sentence
 		return sentence
-	}
-
-	private solveFields (operand: Operand, expressionContext: ExpressionContext): Operand {
-		if (operand.type === OperandType.Var && !(operand instanceof Field)) {
-			const parts = operand.name.split('.')
-			if (parts[0] === expressionContext.current.arrowVar) {
-				if (parts.length === 1) {
-					// TODO: here the array of fields should be returned
-					return new Field(operand.pos, expressionContext.current.entityName, '*', Type.any, expressionContext.current.alias, true)
-				} else if (parts.length === 2) {
-					return this.createSimpleField(operand.pos, parts, expressionContext)
-				} else {
-					return this.createRelationField(operand.pos, parts, expressionContext)
-				}
-			}
-		} else if (operand instanceof Field) {
-			const parts = operand.name.split('.')
-			if (parts.length > 1 && parts[0] === expressionContext.current.arrowVar && expressionContext.current.arrowVar !== expressionContext.current.alias) {
-				operand.alias = expressionContext.current.alias
-				operand.name = `${expressionContext.current.alias}.${parts.slice(1).join('.')}`
-			}
-		} else {
-			for (let i = 0; i < operand.children.length; i++) {
-				operand.children[i] = this.solveFields(operand.children[i], expressionContext)
-			}
-		}
-		return operand
-	}
-
-	private createSimpleField (pos: Position, parts: string[], expressionContext: ExpressionContext): Operand {
-		const _field = expressionContext.current.fields.find(p => p.name === parts[1])
-		if (_field) {
-			return new Field(pos, expressionContext.current.entityName, _field.name, Type.to(_field.type), expressionContext.current.alias, true)
-		} else {
-			if (this.schema.model.existsProperty(expressionContext.current.entityName, parts[1])) {
-				const property = this.schema.model.getProperty(expressionContext.current.entityName, parts[1])
-				return new Field(pos, expressionContext.current.entityName, property.name, Type.to(property.type), expressionContext.current.alias, true)
-			} else {
-				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, parts[1])
-				if (relationInfo) {
-					const relation = this.addJoins(parts, parts.length, expressionContext)
-					const relationAlias = expressionContext.current.joins[relation]
-					// TODO: here the array of fields should be returned
-					return new Field(pos, relation, '*', Type.any, relationAlias + '.*', true)
-				} else {
-					throw new SintaxisError('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entityName)
-				}
-			}
-		}
-	}
-
-	private createRelationField (pos: Position, parts: string[], expressionContext: ExpressionContext): Operand {
-		const propertyName = parts[parts.length - 1]
-		const relation = this.addJoins(parts, parts.length - 1, expressionContext)
-		const info = this.schema.model.getRelation(expressionContext.current.entityName, relation)
-		const relationAlias = expressionContext.current.joins[relation]
-		const property = info.entity.properties.find(p => p.name === propertyName)
-		if (property) {
-			return new Field(pos, info.entity.name, property.name, Type.to(property.type), relationAlias, false)
-		} else {
-			const childRelation = info.entity.relations.find(p => p.name === propertyName)
-			if (childRelation) {
-				const relation2 = this.addJoins(parts, parts.length, expressionContext)
-				const relationAlias2 = expressionContext.current.joins[relation2]
-				// TODO: here the array of fields should be returned
-				return new Field(pos, relation2, '*', Type.any, relationAlias2 + '.*', false)
-			} else {
-				throw new SintaxisError('Property ' + propertyName + ' not fount in ' + relation)
-			}
-		}
 	}
 
 	private createSentence (operand: Operand, expressionContext: ExpressionContext): Sentence {
@@ -349,10 +280,11 @@ export class SentenceBuilder {
 	}
 
 	private createSentenceSelect (pos: Position, clauses: any, expressionContext: ExpressionContext, children: Operand[]): Sentence {
-		const selectOperand = this.createMapClause(clauses.map, expressionContext)
-		expressionContext.current.fields = this.helper.fieldsInSelect(selectOperand)
-		expressionContext.current.groupByFields = this.helper.groupByFields(selectOperand)
-		children.push(selectOperand)
+		const mapOperand = this.createMapClause(clauses.map, expressionContext)
+		this.solveAsteriskFields(mapOperand, expressionContext)
+		expressionContext.current.fields = this.helper.fieldsInSelect(mapOperand)
+		expressionContext.current.groupByFields = this.helper.groupByFields(mapOperand)
+		children.push(mapOperand)
 		const entityName = expressionContext.current.entityName
 		const alias = expressionContext.current.alias
 
@@ -379,14 +311,14 @@ export class SentenceBuilder {
 			if (!clauses.sort) {
 				throw new SintaxisError('Sort clause is required when using Page clause')
 			}
-			const pageChildren = clauses.page.children.filter((p: Operand) => p.type !== OperandType.Arrow).map((q: Operand) => this.solveFields(q, expressionContext)) as Operand[]
+			const pageChildren = clauses.page.children.filter((p: Operand) => p.type !== OperandType.Arrow).map((q: Operand) => this.solveFields(q, expressionContext, false)) as Operand[]
 			children.push(new Page(pos, clauses.page.name, pageChildren, entityName, alias))
 		}
 
 		if (clauses.include) {
 			this.createSentenceAddIncludes(expressionContext, clauses, this.createSelectInclude, children)
 		}
-		this.createSentenceAddJoins(selectOperand.pos, expressionContext, children)
+		this.createSentenceAddJoins(mapOperand.pos, expressionContext, children)
 
 		return new Sentence(
 			pos,
@@ -448,7 +380,7 @@ export class SentenceBuilder {
 		}
 		expressionContext.current.arrowVar = clauses.include.children[1].name
 		const body = clauses.include.children[2]
-		if (Type.isList(body.type as string)) {
+		if (body.type === 'List') {
 			for (const child of body.children) {
 				const include = createInclude.bind(this)(child, expressionContext)
 				children.push(include)
@@ -480,7 +412,7 @@ export class SentenceBuilder {
 
 	private createClause (clause: Operand, expressionContext: ExpressionContext): Operand {
 		expressionContext.current.arrowVar = clause.children[1].name
-		const child = this.solveFields(clause.children[2], expressionContext)
+		const child = this.solveFields(clause.children[2], expressionContext, false)
 		switch (clause.name) {
 		case 'filter': return new Filter(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 		case 'having': return new Having(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
@@ -492,7 +424,7 @@ export class SentenceBuilder {
 	private createMapClause (clause: Operand, expressionContext: ExpressionContext): Operand {
 		if (clause.children.length === 3) {
 			expressionContext.current.arrowVar = clause.children[1].name
-			const child = this.solveFields(clause.children[2], expressionContext)
+			const child = this.solveFields(clause.children[2], expressionContext, true)
 			return new Map(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 		}
 		throw new SintaxisError('Sentence Map incorrect!!!')
@@ -501,7 +433,7 @@ export class SentenceBuilder {
 	private createInsertClause (clause: Operand, expressionContext: ExpressionContext): Operand {
 		if (clause.children.length === 2 && clause.children[1].type === OperandType.Obj) {
 			// Example: Categories.insert({ name: name, description: description })
-			const child = this.solveFields(clause.children[1], expressionContext)
+			const child = this.solveFields(clause.children[1], expressionContext, false)
 			if (clause.name === 'bulkInsert') {
 				return new BulkInsert(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 			} else {
@@ -515,7 +447,7 @@ export class SentenceBuilder {
 		if (clause.children.length === 3 && clause.children[2].type === OperandType.Obj) {
 			// Example: Categories.update(p=>{name:entity.name,description:entity.description})
 			expressionContext.current.arrowVar = clause.children[1].name
-			const child = this.solveFields(clause.children[2], expressionContext)
+			const child = this.solveFields(clause.children[2], expressionContext, false)
 			return new Update(clause.pos, clause.name, [child], expressionContext.current.entityName, expressionContext.current.alias)
 		}
 		throw new SintaxisError('Sentence Update incorrect!!!')
@@ -560,6 +492,126 @@ export class SentenceBuilder {
 			} else { break }
 		}
 		throw new SintaxisError('Error to create SentenceInclude')
+	}
+
+	private solveFields (operand: Operand, expressionContext: ExpressionContext, enableAsteriskField:boolean): Operand {
+		if (operand.type === OperandType.Var && !(operand instanceof Field)) {
+			const parts = operand.name.split('.')
+			if (parts[0] === expressionContext.current.arrowVar) {
+				if (parts.length === 1) {
+					if (!enableAsteriskField) {
+						throw new SintaxisError(`${expressionContext.current.entityName}.* fields are not allowed`)
+					}
+					return new Field(operand.pos, expressionContext.current.entityName, '*', Type.any, expressionContext.current.alias, true)
+				} else if (parts.length === 2) {
+					return this.createSimpleField(operand.pos, parts, expressionContext, enableAsteriskField)
+				} else {
+					return this.createRelationField(operand.pos, parts, expressionContext, enableAsteriskField)
+				}
+			}
+		} else if (operand instanceof Field) {
+			const parts = operand.name.split('.')
+			if (parts.length > 1 && parts[0] === expressionContext.current.arrowVar && expressionContext.current.arrowVar !== expressionContext.current.alias) {
+				operand.alias = expressionContext.current.alias
+				operand.name = `${expressionContext.current.alias}.${parts.slice(1).join('.')}`
+			}
+		} else {
+			for (let i = 0; i < operand.children.length; i++) {
+				operand.children[i] = this.solveFields(operand.children[i], expressionContext, enableAsteriskField)
+			}
+		}
+		return operand
+	}
+
+	private createSimpleField (pos: Position, parts: string[], expressionContext: ExpressionContext, enableAsteriskField:boolean): Operand {
+		const _field = expressionContext.current.fields.find(p => p.name === parts[1])
+		if (_field) {
+			return new Field(pos, expressionContext.current.entityName, _field.name, Type.to(_field.type), expressionContext.current.alias, true)
+		} else {
+			if (this.schema.model.existsProperty(expressionContext.current.entityName, parts[1])) {
+				const property = this.schema.model.getProperty(expressionContext.current.entityName, parts[1])
+				return new Field(pos, expressionContext.current.entityName, property.name, Type.to(property.type), expressionContext.current.alias, true)
+			} else {
+				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, parts[1])
+				if (relationInfo) {
+					const relation = this.addJoins(parts, parts.length, expressionContext)
+					const relationAlias = expressionContext.current.joins[relation]
+					if (!enableAsteriskField) {
+						throw new SintaxisError(`${relation}.* fields are not allowed`)
+					}
+					return new Field(pos, relation, '*', Type.any, relationAlias, true)
+				} else {
+					throw new SintaxisError('Property ' + parts[1] + ' not fount in ' + expressionContext.current.entityName)
+				}
+			}
+		}
+	}
+
+	private createRelationField (pos: Position, parts: string[], expressionContext: ExpressionContext, enableAsteriskField:boolean): Operand {
+		const propertyName = parts[parts.length - 1]
+		const relation = this.addJoins(parts, parts.length - 1, expressionContext)
+		const info = this.schema.model.getRelation(expressionContext.current.entityName, relation)
+		const relationAlias = expressionContext.current.joins[relation]
+		const property = info.entity.properties.find(p => p.name === propertyName)
+		if (property) {
+			return new Field(pos, info.entity.name, property.name, Type.to(property.type), relationAlias, false)
+		} else {
+			const childRelation = info.entity.relations.find(p => p.name === propertyName)
+			if (childRelation) {
+				const relation2 = this.addJoins(parts, parts.length, expressionContext)
+				const relationAlias2 = expressionContext.current.joins[relation2]
+				if (!enableAsteriskField) {
+					throw new SintaxisError(`${relation2}.* fields are not allowed`)
+				}
+				return new Field(pos, relation2, '*', Type.any, relationAlias2, false)
+			} else {
+				throw new SintaxisError('Property ' + propertyName + ' not fount in ' + relation)
+			}
+		}
+	}
+
+	private solveAsteriskFields (mapOperand:Operand, expressionContext: ExpressionContext) {
+		if (mapOperand.children[0].type === OperandType.Obj) {
+			const obj = mapOperand.children[0]
+			const asteriskFields:AsteriskField[] = []
+			for (let i = 0; i < obj.children.length; i++) {
+				const keyVal = obj.children[i]
+				if (keyVal.children[0] instanceof Field && keyVal.children[0].name === '*') {
+					const field = keyVal.children[0]
+					if (expressionContext.current.alias === field.alias) {
+						const asteriskField:AsteriskField = { index: i, fields: [] }
+						const entity = this.schema.model.getEntity(expressionContext.current.entityName)
+						if (entity === undefined) {
+							throw new SintaxisError(`entity ${expressionContext.current.entityName} not found`)
+						}
+						for (const property of entity.properties) {
+							const newField = new Field(field.pos, entity.name, property.name, Type.to(property.type), field.alias, false)
+							asteriskField.fields.push(newField)
+						}
+						asteriskFields.push(asteriskField)
+					} else {
+						const asteriskField:AsteriskField = { index: i, relation: field.entity, fields: [] }
+						const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, field.entity)
+						for (const relationProperty of relationInfo.entity.properties) {
+							const newField = new Field(field.pos, relationInfo.entity.name, relationProperty.name, Type.to(relationProperty.type), field.alias, false)
+							asteriskField.fields.push(newField)
+						}
+						asteriskFields.push(asteriskField)
+					}
+				}
+			}
+			if (asteriskFields.length > 0) {
+				for (const asteriskField of asteriskFields.sort(p => p.index).reverse()) {
+					obj.children.splice(asteriskField.index, 1)
+					for (let i = 0; i < asteriskField.fields.length; i++) {
+						const newField = asteriskField.fields[i]
+						const name = (asteriskField.relation !== undefined ? asteriskField.relation + '.' : '') + newField.name
+						const keyVal = new Operand(newField.pos, name, OperandType.KeyVal, [newField], newField.returnType)
+						obj.children.splice(asteriskField.index + i, 0, keyVal)
+					}
+				}
+			}
+		}
 	}
 
 	private addJoins (parts: string[], to: number, expressionContext: ExpressionContext): string {

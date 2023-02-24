@@ -302,7 +302,7 @@ export class OracleConnection extends Connection {
 		case Kind.boolean:
 			return value ? 'Y' : 'N'
 		case Kind.string:
-			return typeof value === Kind.string || value === null ? value : value.toString()
+			return typeof value === 'string' || value === null || value === undefined ? value : value.toString()
 		case Kind.dateTime:
 		case Kind.date:
 		case Kind.time:

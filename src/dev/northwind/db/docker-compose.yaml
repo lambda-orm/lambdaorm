@@ -1,11 +1,11 @@
 version: '3'
 
 networks:
-  lambdaORM:
+  northwind:
     driver: bridge
 services:
   Source:
-    container_name: lambdaORM-Source
+    container_name: northwind-source
     image: mysql:5.7
     restart: always
     environment:
@@ -20,7 +20,7 @@ services:
     ports:
       - 3306:3306
     networks:
-      - lambdaORM
+      - northwind
     # command: >
     #   mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"   
     healthcheck:
@@ -29,7 +29,7 @@ services:
       timeout: 1s
       retries: 10
   MySQL:
-    container_name: lambdaORM-MySQL-57
+    container_name: northwind-mysql
     image: mysql:5.7
     restart: always
     environment:
@@ -44,7 +44,7 @@ services:
     ports:
       - '3307:3306'
     networks:
-      - lambdaORM
+      - northwind
     # command: >
     #   mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"  
     healthcheck:
@@ -53,7 +53,7 @@ services:
       timeout: 1s
       retries: 10
   Postgres:
-    container_name: lambdaORM-Postgres-10
+    container_name: northwind-postgres
     image: postgres:10
     restart: always
     environment:
@@ -65,7 +65,7 @@ services:
     ports:
       - '5432:5432'
     networks:
-      - lambdaORM
+      - northwind
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "test" ]
       interval: 3s
@@ -73,18 +73,18 @@ services:
       retries: 10
   SqlServer:
     image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
-    container_name: lambdaORM-SqlServer
+    container_name: northwind-sqlserver
     environment:
       SA_PASSWORD: "Lambda1234!"
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
     networks:
-      - lambdaORM
+      - northwind
     volumes:
       - ./volume/SqlServer:/var/opt/mssql
   Oracle:
-    container_name: lambdaORM-Oracle-19
+    container_name: northwind-oracle
     # image: oracledb19c/oracle.19.3.0-ee:oracle19.3.0-ee
     image: akaronte/oracle:19.3.0.0
     environment:
@@ -101,21 +101,21 @@ services:
       #  al usar el volume ./volume/oradata da error de permisos y no crea la instancia dentro del container
       #  por este motivo se crea el volume oradata:
       # info: https://github.com/oracle/docker-images/issues/439
-      - oradata:/opt/oracle/oradata # persistent oracle database data      
+      - northwind_oradata:/opt/oracle/oradata # persistent oracle database data      
       - ./oracle:/home/oracle/setup/custom_scripts
     ports:
       - 1521:1521
       - 5500:5500
       # - 8080:8080
     networks:
-      - lambdaORM
+      - northwind
   MongoDB:
     image: mongo:5.0
-    container_name: lambdaORM-MongoDB
+    container_name: northwind-mongo
     ports:
       - '27017:27017'
     networks:
-      - lambdaORM
+      - northwind
     environment:
       - MONGO_INITDB_DATABASE=northwind
       - MONGO_INITDB_ROOT_USERNAME=test
@@ -124,7 +124,7 @@ services:
     volumes:
       - ./volume/MongoDB:/data/db
   MariaDB:
-    container_name: lambdaORM-MariaDB-103
+    container_name: northwind-mariadb
     image: mariadb:10.3
     restart: always
     environment:
@@ -138,6 +138,6 @@ services:
     ports:
       - 3308:3306
     networks:
-      - lambdaORM
+      - northwind
 volumes:
-  oradata: null
+  northwind_oradata: null

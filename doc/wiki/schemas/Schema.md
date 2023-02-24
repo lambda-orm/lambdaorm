@@ -13,79 +13,98 @@ Certain configurations use expressions based on the expression engine [js-expres
 ## Schema Structure
 
 ``` yaml
-app:
-  src: string
-  data: string
-  model: string
-enums:
- - name: string
-   values:
-    - name: string
-      value: any
-entities:	
- - name: string
-  abstract: boolean
-  extends: string[]
-  view: boolean
-  mapping: string
-  primaryKey: string[]
-  uniqueKey: string[]
-  properties:
-  	- name: string		
-      mapping: string
-      type: string | integer | decimal | boolean | dateTime | date | time
-      length: number 
-      required: boolean
-      autoIncrement: boolean
-      view: boolean
-      key: string
-      default: expression
-      readExp: expression
-      readValue: expression
-      writeValue: expression      
-  indexes:
-  	- name: string
-      fields: string[]
-  relations:    
-    - name: string
-      type: oneToMany | manyToOne | oneToOne  
-      from: string
-      entity: string
-      to: string
-      composite: boolean
-  constraints:
-    - message: string
-      condition: expression
-views:
+model:
+  enums:
   - name: string
-    entities:
+    values:
       - name: string
-        exclude: boolean
-        properties:
-          - name: string
-            exclude: boolean
-            readExp: expression        
-mappings:
+        value: any
+  entities:	
   - name: string
-    entities:
-      - name: string
-        mapping: string
-        abstract: boolean
-        filter: expression
-        properties:
-          - name: string
-            mapping: string
-            readMappingExp: expression
-sources:
-  - name: string
-    dialect: MariaDb | MongoDB | MySQL | Oracle | PostgreSQL | SQLjs | SqlServer
+    abstract: boolean
+    extends: string[]
+    view: boolean
     mapping: string
-    connection: object | EnvironmentVariable
+    primaryKey: string[]
+    uniqueKey: string[]
+    properties:
+      - name: string		
+        mapping: string
+        type: string | integer | decimal | boolean | dateTime | date | time
+        length: number 
+        required: boolean
+        autoIncrement: boolean
+        view: boolean
+        key: string
+        default: expression
+        readExp: expression
+        readValue: expression
+        writeValue: expression      
+    indexes:
+      - name: string
+        fields: string[]
+    relations:    
+      - name: string
+        type: oneToMany | manyToOne | oneToOne  
+        from: string
+        entity: string
+        to: string
+        composite: boolean
+    constraints:
+      - message: string
+        condition: expression
+  views:
+    - name: string
+      entities:
+        - name: string
+          exclude: boolean
+          properties:
+            - name: string
+              exclude: boolean
+              readExp: expression        
+data:
+  mappings:
+    - name: string
+      entities:
+        - name: string
+          mapping: string
+          abstract: boolean
+          filter: expression
+          properties:
+            - name: string
+              mapping: string
+              readMappingExp: expression
+  sources:
+    - name: string
+      dialect: MariaDb | MongoDB | MySQL | Oracle | PostgreSQL | SQLjs | SqlServer
+      mapping: string
+      connection: object | EnvironmentVariable
 stages:
   - name: string
     sources:
       - name: string
-        condition: expression									  		 
+        condition: expression
+app:
+  paths:
+    src: string
+    data: string
+    model: string
+  start:
+    - name: string
+      condition: expression
+      expression: expression
+  end:
+    - name: string
+      condition: expression
+      expression: expression
+  listeners:
+    - name: string
+      actions: [select|insert|bulkInsert|update|delete]
+      condition: expression
+      before:  expression
+      after:  expression
+      error:  expression       
+              								  		 
 ```
 
 ## Schema Definition

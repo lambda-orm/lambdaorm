@@ -15,7 +15,6 @@ export interface QueryArgs{
 	// eslint-disable-next-line no-use-before-define
 	includes?: Include[]
 }
-
 export class Query {
 	public action: SentenceAction
 	// eslint-disable-next-line no-use-before-define
@@ -53,19 +52,17 @@ export class Include {
 		this.relation = relation
 	}
 }
-
 export interface ExecuteResult {
 	result?: any
 	error?: Error
 }
-
 export interface QueryOptions {
 	view?: string
 	stage?: string
 	chunkSize?:number
 	tryAllCan?:boolean
+	headers?:any
 }
-
 export interface QueryInfo {
 	entity: string
 	dialect: string

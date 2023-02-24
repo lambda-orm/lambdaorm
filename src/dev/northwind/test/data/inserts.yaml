@@ -3,21 +3,21 @@ data:
   a:
     name: Beverages20
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 9
+    id: 10
   b:
     name: Beverages21
     description: Soft drinks, coffees, teas, beers, and ales
-    id: 10
+    id: 12
   c:
     entity:
       name: Beverages22
       description: Soft drinks, coffees, teas, beers, and ales
-    id: 11
+    id: 14
   d:
     entity:
       name: Beverages23
       description: Soft drinks, coffees, teas, beers, and ales
-    id: 12
+    id: 16
   order:
     customerId: VINET
     employeeId: 5
@@ -37,18 +37,18 @@ data:
         unitPrice: 14
         quantity: 12
         discount: 10
-        orderId: 833
+        orderId: 835
       - productId: 42
         unitPrice: 9.8
         quantity: 10
         discount: 10
-        orderId: 833
+        orderId: 835
       - productId: 72
         unitPrice: 34.8
         quantity: 5
         discount: 10
-        orderId: 833
-    id: 833
+        orderId: 835
+    id: 836
 test:
   - name: insert 1
     data: a
@@ -84,6 +84,22 @@ test:
           sentence: >-
             INSERT INTO Categories(CategoryName,Description) OUTPUT
             INSERTED.CategoryID VALUES(@name,@description)
+          children: []
+      - stage: Oracle
+        info:
+          entity: Categories
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:name,:description)
+          children: []
+      - stage: MongoDB
+        info:
+          entity: Categories
+          dialect: MongoDB
+          source: MongoDB
+          sentence: '{ "CategoryName":{{name}},"Description":{{description}} }'
           children: []
     errors: 0
     expression: Categories.insert()
@@ -140,11 +156,13 @@ test:
       - stage: MariaDB
       - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         name: Beverages20
         description: Soft drinks, coffees, teas, beers, and ales
-        id: 9
+        id: 10
   - name: insert 2
     data: b
     sentences:
@@ -179,6 +197,22 @@ test:
           sentence: >-
             INSERT INTO Categories(CategoryName,Description) OUTPUT
             INSERTED.CategoryID VALUES(@name,@description)
+          children: []
+      - stage: Oracle
+        info:
+          entity: Categories
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:name,:description)
+          children: []
+      - stage: MongoDB
+        info:
+          entity: Categories
+          dialect: MongoDB
+          source: MongoDB
+          sentence: '{ "CategoryName":{{name}},"Description":{{description}} }'
           children: []
     errors: 0
     expression: Categories.insert(() => [name, description])
@@ -235,11 +269,13 @@ test:
       - stage: MariaDB
       - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         name: Beverages21
         description: Soft drinks, coffees, teas, beers, and ales
-        id: 10
+        id: 12
   - name: insert 3
     data: c
     sentences:
@@ -275,6 +311,25 @@ test:
             INSERT INTO Categories(CategoryName,Description) OUTPUT
             INSERTED.CategoryID VALUES(@entity_name,@entity_description)
           children: []
+      - stage: Oracle
+        info:
+          entity: Categories
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:entity_name,:entity_description)
+          children: []
+      - stage: MongoDB
+        info:
+          entity: Categories
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {
+            "CategoryName":{{entity_name}},"Description":{{entity_description}}
+            }
+          children: []
     errors: 0
     expression: Categories.insert(entity)
     normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
@@ -326,12 +381,14 @@ test:
       - stage: MariaDB
       - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         entity:
           name: Beverages22
           description: Soft drinks, coffees, teas, beers, and ales
-        id: 11
+        id: 14
   - name: insert 4
     data: d
     sentences:
@@ -367,6 +424,25 @@ test:
             INSERT INTO Categories(CategoryName,Description) OUTPUT
             INSERTED.CategoryID VALUES(@entity_name,@entity_description)
           children: []
+      - stage: Oracle
+        info:
+          entity: Categories
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            INSERT INTO Categories(CategoryID,CategoryName,Description)
+            VALUES(SQ_CATEGORIES.nextval,:entity_name,:entity_description)
+          children: []
+      - stage: MongoDB
+        info:
+          entity: Categories
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {
+            "CategoryName":{{entity_name}},"Description":{{entity_description}}
+            }
+          children: []
     errors: 0
     expression: Categories.insert(entity)
     normalizeExpression: Categories.insert({name:entity.name,description:entity.description})
@@ -418,12 +494,14 @@ test:
       - stage: MariaDB
       - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         entity:
           name: Beverages23
           description: Soft drinks, coffees, teas, beers, and ales
-        id: 12
+        id: 16
   - name: insert 5
     data: order
     sentences:
@@ -468,6 +546,26 @@ test:
             Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
             OUTPUT INSERTED.OrderID
             VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)
+          children: []
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            INSERT INTO
+            Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
+          children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {
+            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+            }
           children: []
     errors: 0
     expression: Orders.insert()
@@ -617,6 +715,8 @@ test:
       - stage: MariaDB
       - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         customerId: VINET
@@ -637,18 +737,18 @@ test:
             unitPrice: 14
             quantity: 12
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 42
             unitPrice: 9.8
             quantity: 10
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 72
             unitPrice: 34.8
             quantity: 5
             discount: 10
-            orderId: 833
-        id: 833
+            orderId: 835
+        id: 836
   - name: insert 6
     data: order
     sentences:
@@ -726,6 +826,42 @@ test:
                 Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
                 INSERTED.0
                 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
+              children: []
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            INSERT INTO
+            Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                INSERT INTO "Order
+                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+                VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
+              children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {
+            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+            }
+          children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                {
+                "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                }
               children: []
     errors: 0
     expression: Orders.insert().include(p => p.details)
@@ -947,6 +1083,8 @@ test:
       - stage: MariaDB
       - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         customerId: VINET
@@ -967,18 +1105,18 @@ test:
             unitPrice: 14
             quantity: 12
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 42
             unitPrice: 9.8
             quantity: 10
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 72
             unitPrice: 34.8
             quantity: 5
             discount: 10
-            orderId: 833
-        id: 833
+            orderId: 835
+        id: 836
   - name: insert 7
     data: order
     sentences:
@@ -1000,6 +1138,14 @@ test:
                 Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES(?,?,?,?,?)
               children: []
+            - entity: Customers
+              dialect: MySQL
+              source: MySQL
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                VALUES(?,?,?,?,?,?,?,?,?)
+              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -1017,6 +1163,14 @@ test:
                 INSERT INTO `Order
                 Details`(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES(?,?,?,?,?)
+              children: []
+            - entity: Customers
+              dialect: MariaDB
+              source: MariaDB
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                VALUES(?,?,?,?,?,?,?,?,?)
               children: []
       - stage: PostgreSQL
         info:
@@ -1037,6 +1191,14 @@ test:
                 Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
                 VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id
               children: []
+            - entity: Customers
+              dialect: PostgreSQL
+              source: PostgreSQL
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id
+              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -1056,6 +1218,67 @@ test:
                 Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT
                 INSERTED.0
                 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)
+              children: []
+            - entity: Customers
+              dialect: SqlServer
+              source: SqlServer
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                OUTPUT INSERTED.0
+                VALUES(@id,@name,@contact,@phone,@address,@city,@region,@postalCode,@country)
+              children: []
+      - stage: Oracle
+        info:
+          entity: Orders
+          dialect: Oracle
+          source: Oracle
+          sentence: >-
+            INSERT INTO
+            Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry)
+            VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)
+          children:
+            - entity: Orders.details
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                INSERT INTO "Order
+                Details"(OrderID,ProductID,UnitPrice,Quantity,Discount)
+                VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)
+              children: []
+            - entity: Customers
+              dialect: Oracle
+              source: Oracle
+              sentence: >-
+                INSERT INTO
+                Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country)
+                VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country)
+              children: []
+      - stage: MongoDB
+        info:
+          entity: Orders
+          dialect: MongoDB
+          source: MongoDB
+          sentence: >-
+            {
+            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
+            }
+          children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                {
+                "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
+                }
+              children: []
+            - entity: Customers
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                {
+                "_id":{{id}},"CompanyName":{{name}},"ContactName":{{contact}},"ContactTitle":{{phone}},"Address":{{address}},"City":{{city}},"Region":{{region}},"PostalCode":{{postalCode}},"Country":{{country}}
+                }
               children: []
     errors: 0
     expression: Orders.insert().include(p => [p.details, p.customer])
@@ -1103,6 +1326,27 @@ test:
             type: decimal
           - name: discount
             type: decimal
+      - name: customer
+        type: Customers
+        children:
+          - name: id
+            type: string
+          - name: name
+            type: string
+          - name: contact
+            type: string
+          - name: phone
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
     parameters:
       - name: customerId
         type: string
@@ -1143,6 +1387,27 @@ test:
             type: decimal
           - name: discount
             type: decimal
+      - name: customer
+        type: Customers
+        children:
+          - name: id
+            type: string
+          - name: name
+            type: string
+          - name: contact
+            type: string
+          - name: phone
+            type: string
+          - name: address
+            type: string
+          - name: city
+            type: string
+          - name: region
+            type: string
+          - name: postalCode
+            type: string
+          - name: country
+            type: string
     constraints:
       entity: Orders
       constraints:
@@ -1157,6 +1422,12 @@ test:
               condition: isNotNull(orderId)
             - message: Cannot be null property productId in entity Orders.details
               condition: isNotNull(productId)
+        - entity: Customers
+          constraints:
+            - message: Cannot be null property id in entity Customers
+              condition: isNotNull(id)
+            - message: Cannot be null property name in entity Customers
+              condition: isNotNull(name)
     metadata:
       classtype: Sentence
       pos:
@@ -1167,7 +1438,7 @@ test:
         - classtype: Sentence
           pos:
             ln: 0
-            col: 29
+            col: 30
           name: insert
           children: []
           type: any
@@ -1203,6 +1474,61 @@ test:
           defaults: []
           clause: insert
           alias: o1
+        - classtype: Sentence
+          pos:
+            ln: 0
+            col: 41
+          name: insert
+          children: []
+          type: any
+          entity: Customers
+          columns:
+            - name: id
+              type: string
+            - name: name
+              type: string
+            - name: contact
+              type: string
+            - name: phone
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+          parameters:
+            - name: id
+              type: string
+            - name: name
+              type: string
+            - name: contact
+              type: string
+            - name: phone
+              type: string
+            - name: address
+              type: string
+            - name: city
+              type: string
+            - name: region
+              type: string
+            - name: postalCode
+              type: string
+            - name: country
+              type: string
+          constraints:
+            - message: Cannot be null property id in entity Customers
+              condition: isNotNull(id)
+            - message: Cannot be null property name in entity Customers
+              condition: isNotNull(name)
+          values: []
+          defaults: []
+          clause: insert
+          alias: c
       type: any
       entity: Orders
       columns:
@@ -1277,6 +1603,8 @@ test:
       - stage: MariaDB
       - stage: PostgreSQL
       - stage: SqlServer
+      - stage: Oracle
+      - stage: MongoDB
     result:
       data:
         customerId: VINET
@@ -1297,16 +1625,16 @@ test:
             unitPrice: 14
             quantity: 12
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 42
             unitPrice: 9.8
             quantity: 10
             discount: 10
-            orderId: 833
+            orderId: 835
           - productId: 72
             unitPrice: 34.8
             quantity: 5
             discount: 10
-            orderId: 833
-        id: 833
+            orderId: 835
+        id: 836
 errors: 0

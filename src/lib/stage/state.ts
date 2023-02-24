@@ -1,4 +1,4 @@
-import { SchemaModel, SchemaMapping, Query, Dialect } from '../contract'
+import { ModelConfig, MappingConfig, Query, Dialect } from '../contract'
 import { SchemaManager, helper } from '../manager'
 const path = require('path')
 
@@ -36,23 +36,23 @@ abstract class StageState<T> {
 	public abstract getFile (name: string)
 }
 
-export class StageMapping extends StageState<SchemaMapping> {
-	protected override empty ():SchemaMapping {
+export class StageMapping extends StageState<MappingConfig> {
+	protected override empty ():MappingConfig {
 		return { mapping: [], pending: [], inconsistency: [] }
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.schema.workspace, this.schema.schema.app.data, `${name}-data.json`)
+		return path.join(this.schema.workspace, this.schema.schema.app.paths.data, `${name}-data.json`)
 	}
 }
 
-export class StageModel extends StageState<SchemaModel> {
-	protected override empty ():SchemaModel {
+export class StageModel extends StageState<ModelConfig> {
+	protected override empty ():ModelConfig {
 		return { mappings: [] }
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.schema.workspace, this.schema.schema.app.data, `${name}-model.json`)
+		return path.join(this.schema.workspace, this.schema.schema.app.paths.data, `${name}-model.json`)
 	}
 
 	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
@@ -80,6 +80,6 @@ export class StageModel extends StageState<SchemaModel> {
 		date = helper.str.replace(date, ':', '')
 		date = helper.str.replace(date, '.', '')
 		date = helper.str.replace(date, '-', '')
-		return path.join(this.schema.workspace, this.schema.schema.app.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
+		return path.join(this.schema.workspace, this.schema.schema.app.paths.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
 	}
 }

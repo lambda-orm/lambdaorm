@@ -1,78 +1,80 @@
-entities:
-  - name: Positions
-    abstract: true
-    properties:
-      - name: latitude
-        type: decimal
-      - name: longitude
-        type: decimal
-  - name: Countries
-    extends: Positions
-    primaryKey: ["iso3"]
-    uniqueKey: ["name"]
-    properties:
-      - name: name
-        required: true
-      - name: iso3
-        length: 3
-        required: true
-      - name: native  
-      - name: region
-      - name: subregion
-    relations:
-      - name: states
-        type: manyToOne
-        composite: true
-        from: iso3
-        entity: States
-        to: countryCode
-  - name: States
-    extends: Positions
-    primaryKey: ["id"]
-    uniqueKey: ["countryCode", "name"]
-    properties:
-      - name: id
-        type: integer
-        required: true
-        autoIncrement: true
-      - name: name
-        required: true
-      - name: countryCode
-        required: true
-        length: 3
-    relations:
-      - name: country
-        from: countryCode
-        entity: Countries
-        to: iso3
-sources:
-  - name: dataSource1
-    dialect: MySQL
-    mapping: mapping1
-    connection: ${CNX_MYSQL}
-  - name: dataSource2
-    dialect: PostgreSQL
-    mapping: mapping2
-    connection: ${CNX_POSTGRES}
-views:
-  - name: default    
-mappings:
-  - name: mapping1
-  - name: mapping2
-    entities:
-      - name: States
-        mapping: TBL_STATES
-        properties:
-          - name: id
-            mapping: ID
-          - name: name
-            mapping: NAME
-          - name: countryCode
-            mapping: COUNTRY_CODE
-          - name: latitude
-            mapping: LATITUDE
-          - name: longitude
-            mapping: LONGITUDE
+model:
+  entities:
+    - name: Positions
+      abstract: true
+      properties:
+        - name: latitude
+          type: decimal
+        - name: longitude
+          type: decimal
+    - name: Countries
+      extends: Positions
+      primaryKey: ["iso3"]
+      uniqueKey: ["name"]
+      properties:
+        - name: name
+          required: true
+        - name: iso3
+          length: 3
+          required: true
+        - name: native  
+        - name: region
+        - name: subregion
+      relations:
+        - name: states
+          type: manyToOne
+          composite: true
+          from: iso3
+          entity: States
+          to: countryCode
+    - name: States
+      extends: Positions
+      primaryKey: ["id"]
+      uniqueKey: ["countryCode", "name"]
+      properties:
+        - name: id
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: name
+          required: true
+        - name: countryCode
+          required: true
+          length: 3
+      relations:
+        - name: country
+          from: countryCode
+          entity: Countries
+          to: iso3
+  views:
+    - name: default
+data:
+  mappings:
+    - name: mapping1
+    - name: mapping2
+      entities:
+        - name: States
+          mapping: TBL_STATES
+          properties:
+            - name: id
+              mapping: ID
+            - name: name
+              mapping: NAME
+            - name: countryCode
+              mapping: COUNTRY_CODE
+            - name: latitude
+              mapping: LATITUDE
+            - name: longitude
+              mapping: LONGITUDE
+  sources:
+    - name: dataSource1
+      dialect: MySQL
+      mapping: mapping1
+      connection: ${CNX_MYSQL}
+    - name: dataSource2
+      dialect: PostgreSQL
+      mapping: mapping2
+      connection: ${CNX_POSTGRES}
 stages:
   - name: stage1
     sources:

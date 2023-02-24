@@ -56,7 +56,7 @@ StageActionDML.constructor
 
 | Name | Type |
 | :------ | :------ |
-| `data` | [`SchemaData`](../interfaces/model.SchemaData.md) |
+| `data` | [`SchemaConfig`](../interfaces/model.SchemaConfig.md) |
 
 #### Returns
 

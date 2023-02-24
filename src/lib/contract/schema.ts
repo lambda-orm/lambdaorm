@@ -1,3 +1,4 @@
+import { SentenceAction } from './operands'
 
 export enum RelationType {
 	oneToMany = 'oneToMany',
@@ -131,36 +132,61 @@ export interface Stage {
 	name: string
 	sources: RuleDataSource[]
 }
-export interface App {
+export interface ListenerConfig {
+	name: string
+	actions: SentenceAction[]
+	condition?: string
+	before?:string
+	after?:string
+	error?:string
+}
+export interface TaskConfig {
+	name:string
+	condition?: string
+	expression: string
+}
+export interface AppPathsConfig {
 	src: string
 	data: string
 	model: string
 }
-export interface Schema {
-	app: App
+export interface ModelSchema {
 	entities: Entity[]
 	enums: Enum[]
 	views: View[]
+}
+export interface DataSchema {
 	mappings: Mapping[]
 	sources: source[]
-	stages: Stage[]
 }
-export interface SchemaModel {
+export interface AppSchema {
+	paths: AppPathsConfig
+	start:TaskConfig[]
+	listeners: ListenerConfig[]
+	end:TaskConfig[]
+}
+export interface Schema {
+	model: ModelSchema
+	data:DataSchema
+	stages: Stage[]
+	app: AppSchema
+}
+export interface ModelConfig {
 	mappings: Mapping[]
 }
-export interface SchemaMapping {
+export interface MappingConfig {
 	mapping: any
 	pending: any[]
 	inconsistency: any[]
 }
-export interface SchemaDataEntity
+export interface SchemaConfigEntity
 {
 	entity:string
 	rows:any[]
 }
-export interface SchemaData
+export interface SchemaConfig
 {
-	entities:SchemaDataEntity[]
+	entities:SchemaConfigEntity[]
 }
 export interface Behavior {
 	alias?: string

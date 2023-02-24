@@ -101,7 +101,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -124,7 +123,18 @@
                   "quantity": 5,
                   "discount": 0
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -146,7 +156,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -205,7 +214,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -227,7 +247,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -301,7 +320,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -323,7 +353,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -340,7 +369,18 @@
                   "unitPrice": 34.8,
                   "productId": 72
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -362,7 +402,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -415,7 +454,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -437,10 +487,290 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__id": 1,
               "customer": {
                 "name": "Alfreds Futterkiste"
-              }
+              },
+              "details": [
+                {
+                  "quantity": 12,
+                  "unitPrice": 14,
+                  "product": {
+                    "name": "Queso Cabrales",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                },
+                {
+                  "quantity": 10,
+                  "unitPrice": 9.8,
+                  "product": {
+                    "name": "Singaporean Hokkien Fried Mee",
+                    "category": {
+                      "name": "Grains/Cereals"
+                    }
+                  }
+                },
+                {
+                  "quantity": 5,
+                  "unitPrice": 34.8,
+                  "product": {
+                    "name": "Mozzarella di Giovanni",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "customer.id": "ALFKI",
+              "customer.name": "Alfreds Futterkiste",
+              "customer.contact": "Maria Anders",
+              "customer.phone": "Sales Representative",
+              "customer.address": "Obere Str. 57",
+              "customer.city": "Berlin",
+              "customer.region": null,
+              "customer.postalCode": "12209",
+              "customer.country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true,
+                  "product.category.id": 5,
+                  "product.category.name": "Grains/Cereals",
+                  "product.category.description": "Breads, crackers, pasta, and cereal"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.8,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.8,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category]))",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true,
+                  "product.category.id": 5,
+                  "product.category.name": "Grains/Cereals",
+                  "product.category.description": "Breads, crackers, pasta, and cereal"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.8,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.8,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product]))",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": false
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.8,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.8,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": false
+                }
+              ]
             }
           ]
         }
@@ -544,7 +874,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -567,7 +896,18 @@
                   "quantity": 5,
                   "discount": 0
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -589,7 +929,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -648,7 +987,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -670,7 +1020,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -744,7 +1093,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -766,7 +1126,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -783,7 +1142,18 @@
                   "unitPrice": 34.8,
                   "productId": 72
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -805,7 +1175,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -858,7 +1227,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -880,10 +1260,290 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__id": 1,
               "customer": {
                 "name": "Alfreds Futterkiste"
-              }
+              },
+              "details": [
+                {
+                  "quantity": 12,
+                  "unitPrice": 14,
+                  "product": {
+                    "name": "Queso Cabrales",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                },
+                {
+                  "quantity": 10,
+                  "unitPrice": 9.8,
+                  "product": {
+                    "name": "Singaporean Hokkien Fried Mee",
+                    "category": {
+                      "name": "Grains/Cereals"
+                    }
+                  }
+                },
+                {
+                  "quantity": 5,
+                  "unitPrice": 34.8,
+                  "product": {
+                    "name": "Mozzarella di Giovanni",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "customer.id": "ALFKI",
+              "customer.name": "Alfreds Futterkiste",
+              "customer.contact": "Maria Anders",
+              "customer.phone": "Sales Representative",
+              "customer.address": "Obere Str. 57",
+              "customer.city": "Berlin",
+              "customer.region": null,
+              "customer.postalCode": "12209",
+              "customer.country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true,
+                  "product.category.id": 5,
+                  "product.category.name": "Grains/Cereals",
+                  "product.category.description": "Breads, crackers, pasta, and cereal"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.8,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.8,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category]))",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true,
+                  "product.category.id": 5,
+                  "product.category.name": "Grains/Cereals",
+                  "product.category.description": "Breads, crackers, pasta, and cereal"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.8,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.8,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product]))",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": false
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.8,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.8,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": false
+                }
+              ]
             }
           ]
         }
@@ -987,7 +1647,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1010,7 +1669,18 @@
                   "quantity": 5,
                   "discount": 0
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1032,7 +1702,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1091,7 +1760,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1113,7 +1793,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1187,7 +1866,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1209,7 +1899,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -1226,7 +1915,18 @@
                   "unitPrice": 34.8,
                   "productId": 72
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1248,7 +1948,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 12,
@@ -1301,7 +2000,18 @@
                     "discontinued": false
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1323,10 +2033,290 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__id": 1,
               "customer": {
                 "name": "Alfreds Futterkiste"
-              }
+              },
+              "details": [
+                {
+                  "quantity": 12,
+                  "unitPrice": 14,
+                  "product": {
+                    "name": "Queso Cabrales",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                },
+                {
+                  "quantity": 10,
+                  "unitPrice": 9.8,
+                  "product": {
+                    "name": "Singaporean Hokkien Fried Mee",
+                    "category": {
+                      "name": "Grains/Cereals"
+                    }
+                  }
+                },
+                {
+                  "quantity": 5,
+                  "unitPrice": 34.8,
+                  "product": {
+                    "name": "Mozzarella di Giovanni",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "customer.id": "ALFKI",
+              "customer.name": "Alfreds Futterkiste",
+              "customer.contact": "Maria Anders",
+              "customer.phone": "Sales Representative",
+              "customer.address": "Obere Str. 57",
+              "customer.city": "Berlin",
+              "customer.region": null,
+              "customer.postalCode": "12209",
+              "customer.country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true,
+                  "product.category.id": 5,
+                  "product.category.name": "Grains/Cereals",
+                  "product.category.description": "Breads, crackers, pasta, and cereal"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.8,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.8,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category]))",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true,
+                  "product.category.id": 5,
+                  "product.category.name": "Grains/Cereals",
+                  "product.category.description": "Breads, crackers, pasta, and cereal"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.8,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.8,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": false,
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product]))",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-21T22:00:00.000Z",
+              "shippedDate": "1997-09-01T22:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": false
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.8,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.8,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": false
+                }
+              ]
             }
           ]
         }
@@ -1423,7 +2413,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1439,7 +2428,18 @@
                   "quantity": 20,
                   "discount": 0
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1461,7 +2461,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1501,7 +2500,18 @@
                     "discontinued": true
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1523,7 +2533,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "orderId": 1,
@@ -1573,7 +2582,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1595,7 +2615,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 15,
@@ -1607,7 +2626,18 @@
                   "unitPrice": 123.79,
                   "productId": 29
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1629,7 +2659,6 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__customerId": "ALFKI",
               "details": [
                 {
                   "quantity": 15,
@@ -1665,7 +2694,18 @@
                     "discontinued": true
                   }
                 }
-              ]
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
             }
           ]
         },
@@ -1687,16 +2727,1302 @@
               "region": null,
               "postalCode": "12209",
               "country": "Germany",
-              "__id": 1,
               "customer": {
                 "name": "Alfreds Futterkiste"
-              }
+              },
+              "details": [
+                {
+                  "quantity": 15,
+                  "unitPrice": 19,
+                  "product": {
+                    "name": "Chang",
+                    "category": {
+                      "name": "Beverages"
+                    }
+                  }
+                },
+                {
+                  "quantity": 20,
+                  "unitPrice": 123.79,
+                  "product": {
+                    "name": "Thringer Rostbratwurst",
+                    "category": {
+                      "name": "Meat/Poultry"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "customer.id": "ALFKI",
+              "customer.name": "Alfreds Futterkiste",
+              "customer.contact": "Maria Anders",
+              "customer.phone": "Sales Representative",
+              "customer.address": "Obere Str. 57",
+              "customer.city": "Berlin",
+              "customer.region": null,
+              "customer.postalCode": "12209",
+              "customer.country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 2,
+                  "unitPrice": 19,
+                  "quantity": 15,
+                  "discount": 0,
+                  "product.id": 2,
+                  "product.name": "Chang",
+                  "product.supplierId": 1,
+                  "product.categoryId": 1,
+                  "product.quantity": "24 - 12 oz bottles",
+                  "product.price": 19,
+                  "product.inStock": 17,
+                  "product.onOrder": 40,
+                  "product.reorderLevel": 25,
+                  "product.discontinued": false,
+                  "product.category.id": 1,
+                  "product.category.name": "Beverages",
+                  "product.category.description": "Soft drinks, coffees, teas, beers, and ales"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 29,
+                  "unitPrice": 123.79,
+                  "quantity": 20,
+                  "discount": 0,
+                  "product.id": 29,
+                  "product.name": "Thringer Rostbratwurst",
+                  "product.supplierId": 12,
+                  "product.categoryId": 6,
+                  "product.quantity": "50 bags x 30 sausgs.",
+                  "product.price": 123.79,
+                  "product.inStock": 0,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true,
+                  "product.category.id": 6,
+                  "product.category.name": "Meat/Poultry",
+                  "product.category.description": "Prepared meats"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category]))",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 2,
+                  "unitPrice": 19,
+                  "quantity": 15,
+                  "discount": 0,
+                  "product.id": 2,
+                  "product.name": "Chang",
+                  "product.supplierId": 1,
+                  "product.categoryId": 1,
+                  "product.quantity": "24 - 12 oz bottles",
+                  "product.price": 19,
+                  "product.inStock": 17,
+                  "product.onOrder": 40,
+                  "product.reorderLevel": 25,
+                  "product.discontinued": false,
+                  "product.category.id": 1,
+                  "product.category.name": "Beverages",
+                  "product.category.description": "Soft drinks, coffees, teas, beers, and ales"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 29,
+                  "unitPrice": 123.79,
+                  "quantity": 20,
+                  "discount": 0,
+                  "product.id": 29,
+                  "product.name": "Thringer Rostbratwurst",
+                  "product.supplierId": 12,
+                  "product.categoryId": 6,
+                  "product.quantity": "50 bags x 30 sausgs.",
+                  "product.price": 123.79,
+                  "product.inStock": 0,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true,
+                  "product.category.id": 6,
+                  "product.category.name": "Meat/Poultry",
+                  "product.category.description": "Prepared meats"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product]))",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 2,
+                  "unitPrice": 19,
+                  "quantity": 15,
+                  "discount": 0,
+                  "product.id": 2,
+                  "product.name": "Chang",
+                  "product.supplierId": 1,
+                  "product.categoryId": 1,
+                  "product.quantity": "24 - 12 oz bottles",
+                  "product.price": 19,
+                  "product.inStock": 17,
+                  "product.onOrder": 40,
+                  "product.reorderLevel": 25,
+                  "product.discontinued": false
+                },
+                {
+                  "orderId": 1,
+                  "productId": 29,
+                  "unitPrice": 123.79,
+                  "quantity": 20,
+                  "discount": 0,
+                  "product.id": 29,
+                  "product.name": "Thringer Rostbratwurst",
+                  "product.supplierId": 12,
+                  "product.categoryId": 6,
+                  "product.quantity": "50 bags x 30 sausgs.",
+                  "product.price": 123.79,
+                  "product.inStock": 0,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": true
+                }
+              ]
             }
           ]
         }
       ],
       "errors": 0
+    },
+    {
+      "name": "Oracle",
+      "tests": [
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => p.customer)",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => p.details)",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.800000000000004,
+                  "quantity": 5,
+                  "discount": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.details, p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.800000000000004,
+                  "quantity": 5,
+                  "discount": 0
+                }
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product), p.customer]) ",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product": {
+                    "id": 11,
+                    "name": "Queso Cabrales",
+                    "supplierId": 5,
+                    "categoryId": 4,
+                    "quantity": "1 kg pkg.",
+                    "price": 21,
+                    "inStock": 22,
+                    "onOrder": 30,
+                    "reorderLevel": 30,
+                    "discontinued": "N"
+                  }
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product": {
+                    "id": 42,
+                    "name": "Singaporean Hokkien Fried Mee",
+                    "supplierId": 20,
+                    "categoryId": 5,
+                    "quantity": "32 - 1 kg pkgs.",
+                    "price": 14,
+                    "inStock": 26,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": "Y"
+                  }
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.800000000000004,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product": {
+                    "id": 72,
+                    "name": "Mozzarella di Giovanni",
+                    "supplierId": 14,
+                    "categoryId": 4,
+                    "quantity": "24 - 200 g pkgs.",
+                    "price": 34.800000000000004,
+                    "inStock": 14,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": "N"
+                  }
+                }
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product.include(p => p.category)), p.customer]) ",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product": {
+                    "id": 11,
+                    "name": "Queso Cabrales",
+                    "supplierId": 5,
+                    "categoryId": 4,
+                    "quantity": "1 kg pkg.",
+                    "price": 21,
+                    "inStock": 22,
+                    "onOrder": 30,
+                    "reorderLevel": 30,
+                    "discontinued": "N",
+                    "category": {
+                      "id": 4,
+                      "name": "Dairy Products",
+                      "description": "Cheeses"
+                    }
+                  }
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product": {
+                    "id": 42,
+                    "name": "Singaporean Hokkien Fried Mee",
+                    "supplierId": 20,
+                    "categoryId": 5,
+                    "quantity": "32 - 1 kg pkgs.",
+                    "price": 14,
+                    "inStock": 26,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": "Y",
+                    "category": {
+                      "id": 5,
+                      "name": "Grains/Cereals",
+                      "description": "Breads, crackers, pasta, and cereal"
+                    }
+                  }
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.800000000000004,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product": {
+                    "id": 72,
+                    "name": "Mozzarella di Giovanni",
+                    "supplierId": 14,
+                    "categoryId": 4,
+                    "quantity": "24 - 200 g pkgs.",
+                    "price": 34.800000000000004,
+                    "inStock": 14,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": "N",
+                    "category": {
+                      "id": 4,
+                      "name": "Dairy Products",
+                      "description": "Cheeses"
+                    }
+                  }
+                }
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.details.map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "quantity": 12,
+                  "unitPrice": 14,
+                  "productId": 11
+                },
+                {
+                  "quantity": 10,
+                  "unitPrice": 9.8,
+                  "productId": 42
+                },
+                {
+                  "quantity": 5,
+                  "unitPrice": 34.800000000000004,
+                  "productId": 72
+                }
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "quantity": 12,
+                  "unitPrice": 14,
+                  "productId": 11,
+                  "product": {
+                    "id": 11,
+                    "name": "Queso Cabrales",
+                    "supplierId": 5,
+                    "categoryId": 4,
+                    "quantity": "1 kg pkg.",
+                    "price": 21,
+                    "inStock": 22,
+                    "onOrder": 30,
+                    "reorderLevel": 30,
+                    "discontinued": "N"
+                  }
+                },
+                {
+                  "quantity": 10,
+                  "unitPrice": 9.8,
+                  "productId": 42,
+                  "product": {
+                    "id": 42,
+                    "name": "Singaporean Hokkien Fried Mee",
+                    "supplierId": 20,
+                    "categoryId": 5,
+                    "quantity": "32 - 1 kg pkgs.",
+                    "price": 14,
+                    "inStock": 26,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": "Y"
+                  }
+                },
+                {
+                  "quantity": 5,
+                  "unitPrice": 34.800000000000004,
+                  "productId": 72,
+                  "product": {
+                    "id": 72,
+                    "name": "Mozzarella di Giovanni",
+                    "supplierId": 14,
+                    "categoryId": 4,
+                    "quantity": "24 - 200 g pkgs.",
+                    "price": 34.800000000000004,
+                    "inStock": 14,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": "N"
+                  }
+                }
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "customer": {
+                "name": "Alfreds Futterkiste"
+              },
+              "details": [
+                {
+                  "quantity": 12,
+                  "unitPrice": 14,
+                  "product": {
+                    "name": "Queso Cabrales",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                },
+                {
+                  "quantity": 10,
+                  "unitPrice": 9.8,
+                  "product": {
+                    "name": "Singaporean Hokkien Fried Mee",
+                    "category": {
+                      "name": "Grains/Cereals"
+                    }
+                  }
+                },
+                {
+                  "quantity": 5,
+                  "unitPrice": 34.800000000000004,
+                  "product": {
+                    "name": "Mozzarella di Giovanni",
+                    "category": {
+                      "name": "Dairy Products"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "customer.id": "ALFKI",
+              "customer.name": "Alfreds Futterkiste",
+              "customer.contact": "Maria Anders",
+              "customer.phone": "Sales Representative",
+              "customer.address": "Obere Str. 57",
+              "customer.city": "Berlin",
+              "customer.region": null,
+              "customer.postalCode": "12209",
+              "customer.country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": "N",
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": "Y",
+                  "product.category.id": 5,
+                  "product.category.name": "Grains/Cereals",
+                  "product.category.description": "Breads, crackers, pasta, and cereal"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.800000000000004,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.800000000000004,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": "N",
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category]))",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": "N",
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": "Y",
+                  "product.category.id": 5,
+                  "product.category.name": "Grains/Cereals",
+                  "product.category.description": "Breads, crackers, pasta, and cereal"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.800000000000004,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.800000000000004,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": "N",
+                  "product.category.id": 4,
+                  "product.category.name": "Dairy Products",
+                  "product.category.description": "Cheeses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product]))",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-24T22:00:00.000Z",
+              "requiredDate": "1997-09-22T00:00:00.000Z",
+              "shippedDate": "1997-09-02T00:00:00.000Z",
+              "shipViaId": 1,
+              "freight": 29.46,
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 11,
+                  "unitPrice": 14,
+                  "quantity": 12,
+                  "discount": 0,
+                  "product.id": 11,
+                  "product.name": "Queso Cabrales",
+                  "product.supplierId": 5,
+                  "product.categoryId": 4,
+                  "product.quantity": "1 kg pkg.",
+                  "product.price": 21,
+                  "product.inStock": 22,
+                  "product.onOrder": 30,
+                  "product.reorderLevel": 30,
+                  "product.discontinued": "N"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 42,
+                  "unitPrice": 9.8,
+                  "quantity": 10,
+                  "discount": 0,
+                  "product.id": 42,
+                  "product.name": "Singaporean Hokkien Fried Mee",
+                  "product.supplierId": 20,
+                  "product.categoryId": 5,
+                  "product.quantity": "32 - 1 kg pkgs.",
+                  "product.price": 14,
+                  "product.inStock": 26,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": "Y"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 72,
+                  "unitPrice": 34.800000000000004,
+                  "quantity": 5,
+                  "discount": 0,
+                  "product.id": 72,
+                  "product.name": "Mozzarella di Giovanni",
+                  "product.supplierId": 14,
+                  "product.categoryId": 4,
+                  "product.quantity": "24 - 200 g pkgs.",
+                  "product.price": 34.800000000000004,
+                  "product.inStock": 14,
+                  "product.onOrder": 0,
+                  "product.reorderLevel": 0,
+                  "product.discontinued": "N"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "MongoDB",
+      "tests": [
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => p.customer)",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => p.details)",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "__id": 1,
+              "details": [
+                {},
+                {},
+                {}
+              ]
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.details, p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "__id": 1,
+              "details": [
+                {},
+                {},
+                {}
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product), p.customer]) ",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "__id": 1,
+              "details": [
+                {},
+                {},
+                {}
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product.include(p => p.category)), p.customer]) ",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "__id": 1,
+              "details": [
+                {},
+                {},
+                {}
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.details.map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "__id": 1,
+              "details": [
+                {},
+                {},
+                {}
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "__id": 1,
+              "details": [
+                {},
+                {},
+                {}
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])",
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "__id": 1,
+              "details": [
+                {},
+                {},
+                {}
+              ],
+              "customer": {
+                "name": "Alfreds Futterkiste"
+              }
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])",
+          "error": "MongoServerError: Invalid $project :: caused by :: FieldPath field names may not contain '.'. Consider using $getField or $setField.",
+          "stack": "MongoServerError: Invalid $project :: caused by :: FieldPath field names may not contain '.'. Consider using $getField or $setField.\n    at Connection.onMessage (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:227:30)\n    at MessageStream.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:60:60)\n    at MessageStream.emit (events.js:400:28)\n    at processIncomingData (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:125:16)\n    at MessageStream._write (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:33:9)\n    at writeOrBuffer (internal/streams/writable.js:358:12)\n    at MessageStream.Writable.write (internal/streams/writable.js:303:10)\n    at Socket.ondata (internal/streams/readable.js:731:22)\n    at Socket.emit (events.js:400:28)\n    at addChunk (internal/streams/readable.js:293:12)"
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category]))",
+          "error": "MongoServerError: Invalid $project :: caused by :: FieldPath field names may not contain '.'. Consider using $getField or $setField.",
+          "stack": "MongoServerError: Invalid $project :: caused by :: FieldPath field names may not contain '.'. Consider using $getField or $setField.\n    at Connection.onMessage (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:227:30)\n    at MessageStream.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:60:60)\n    at MessageStream.emit (events.js:400:28)\n    at processIncomingData (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:125:16)\n    at MessageStream._write (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:33:9)\n    at writeOrBuffer (internal/streams/writable.js:358:12)\n    at MessageStream.Writable.write (internal/streams/writable.js:303:10)\n    at Socket.ondata (internal/streams/readable.js:731:22)\n    at Socket.emit (events.js:400:28)\n    at addChunk (internal/streams/readable.js:293:12)"
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product]))",
+          "error": "MongoServerError: Invalid $project :: caused by :: FieldPath field names may not contain '.'. Consider using $getField or $setField.",
+          "stack": "MongoServerError: Invalid $project :: caused by :: FieldPath field names may not contain '.'. Consider using $getField or $setField.\n    at Connection.onMessage (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:227:30)\n    at MessageStream.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:60:60)\n    at MessageStream.emit (events.js:400:28)\n    at processIncomingData (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:125:16)\n    at MessageStream._write (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:33:9)\n    at writeOrBuffer (internal/streams/writable.js:358:12)\n    at MessageStream.Writable.write (internal/streams/writable.js:303:10)\n    at Socket.ondata (internal/streams/readable.js:731:22)\n    at Socket.emit (events.js:400:28)\n    at addChunk (internal/streams/readable.js:293:12)"
+        }
+      ],
+      "errors": 3
     }
   ],
-  "errors": 0
+  "errors": 3
 }

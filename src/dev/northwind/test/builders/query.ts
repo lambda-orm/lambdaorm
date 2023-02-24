@@ -22,7 +22,15 @@ export class QueryBuildTest extends UnitBuildTest{
 			'Products.filter(p => p.discontinued !== false).last(p => p.id)',
 			'Products.distinct(p => p).sort(p => p.id)',
 			'Products.distinct(p => ({ category: p.category.name })).sort(p => p.category)',
-			'Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])'		
+			'Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])',
+			'Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])',
+			'Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])',
+			'Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])', 
+			'Orders.filter(p => p.id === id).map(p => [p.name,p.customer])'  
 		]
 	}
 }
+
+
+
+

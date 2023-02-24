@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { ActionObserver, Dialect, IOrm, QueryOptions, Schema, Stage, MetadataParameter, MetadataConstraint, QueryInfo, MetadataModel, Metadata, Query } from './contract'
-import { SchemaManager, Routing, helper, Executor, Transaction } from './manager'
+import { SchemaManager, Routing, helper, Executor, Transaction, ExpressionActionObserver } from './manager'
 import { QueryManager } from './query'
 import { Languages } from './language'
 import { SentenceManager } from './sentence'
@@ -28,7 +28,7 @@ export class Orm implements IOrm {
 	private static _instance: Orm
 	private schemaManager: SchemaManager
 	private _expressions: IExpressions
-	private observers:any = {}
+	private observers:ActionObserver[] = []
 
 	/**
  * Singleton
@@ -42,12 +42,9 @@ export class Orm implements IOrm {
 
 	constructor (workspace: string = process.cwd()) {
 		this._expressions = expressions
-		new SentenceLibrary(expressions.model).load()
-
+		new SentenceLibrary(this._expressions.model).load()
 		this.schemaManager = new SchemaManager(workspace, this._expressions)
-		// this._cache = new MemoryCache()
 		this.connectionManager = new ConnectionManager()
-
 		this.languages = new Languages()
 		this.languages.add(new SqlLanguage(this._expressions))
 		this.languages.add(new NoSqlLanguage(this._expressions))
@@ -58,7 +55,6 @@ export class Orm implements IOrm {
 		this.connectionManager.addType(Dialect.SQLjs, SQLjsConnectionPool)
 		this.connectionManager.addType(Dialect.Oracle, OracleConnectionPool)
 		this.connectionManager.addType(Dialect.MongoDB, MongoDBConnectionPool)
-
 		this.routing = new Routing(this.schemaManager, this._expressions)
 		this.sentenceManager = new SentenceManager(this.schemaManager, this.expressions, this.routing)
 		this.queryManager = new QueryManager(this.sentenceManager, this.schemaManager, this.languages, this._expressions)
@@ -78,19 +74,34 @@ export class Orm implements IOrm {
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
 		const schema = await this.schemaManager.init(source || this.schemaManager.workspace)
 		// set connections
-		if (connect && schema.sources) {
-			for (const source of schema.sources.filter(p => helper.val.isNotEmpty(p.connection))) {
+		if (connect && schema.data.sources) {
+			for (const source of schema.data.sources.filter(p => helper.val.isNotEmpty(p.connection))) {
 				this.connectionManager.load(source)
 			}
 		}
 		// add enums
-		if (schema.enums) {
-			for (const _enum of schema.enums) {
+		if (schema.model.enums) {
+			for (const _enum of schema.model.enums) {
 				const values:[string, any][] = []
 				for (const enumValue of _enum.values) {
 					values.push([enumValue.name, enumValue.value])
 				}
-				expressions.addEnum(_enum.name, values)
+				this._expressions.addEnum(_enum.name, values)
+			}
+		}
+		// start
+		if (schema.app.start) {
+			for (const task of schema.app.start) {
+				if (task.condition === undefined || this._expressions.eval(task.condition)) {
+					this._expressions.eval(task.expression)
+				}
+			}
+		}
+		// add listeners
+		if (schema.app.listeners) {
+			for (const listener of schema.app.listeners) {
+				const observer = new ExpressionActionObserver(listener, this._expressions)
+				this.subscribe(observer)
 			}
 		}
 		return schema
@@ -100,6 +111,15 @@ export class Orm implements IOrm {
   * Frees the resources used, for example the connection pools
   */
 	public async end (): Promise<void> {
+		// ends task
+		const schema = this.schema.schema
+		if (schema.app.end) {
+			for (const task of schema.app.end) {
+				if (task.condition === undefined || this._expressions.eval(task.condition)) {
+					this._expressions.eval(task.expression)
+				}
+			}
+		}
 		await this.connectionManager.end()
 	}
 
@@ -227,12 +247,12 @@ export class Orm implements IOrm {
 		const _options = this.schemaManager.solveOptions(options)
 		const query = this.queryManager.create(_expression, _options)
 		try {
-			this.beforeExecutionNotify(_expression, query, data, _options)
+			await this.beforeExecutionNotify(_expression, query, data, _options)
 			const result = await this.executor.execute(query, data, _options)
-			this.afterExecutionNotify(_expression, query, data, _options, result)
+			await this.afterExecutionNotify(_expression, query, data, _options, result)
 			return result
 		} catch (error) {
-			this.errorExecutionNotify(_expression, query, data, _options, error)
+			await this.errorExecutionNotify(_expression, query, data, _options, error)
 			throw error
 		}
 	}
@@ -260,73 +280,54 @@ export class Orm implements IOrm {
 	// Listeners and subscribers
 
 	public subscribe (observer:ActionObserver):void {
-		if (!this.observers[observer.action]) {
-			this.observers[observer.action] = []
-		}
-		this.observers[observer.action].push(observer)
+		this.observers.push(observer)
 	}
 
 	public unsubscribe (observer:ActionObserver): void {
-		const observers = this.observers[observer.action]
-		if (!observers) {
-			return
-		}
-		const index = observers.indexOf(observer)
+		const index = this.observers.indexOf(observer)
 		if (index === -1) {
 			throw new Error('Subject: Nonexistent observer.')
 		}
-		observers.splice(index, 1)
+		this.observers.splice(index, 1)
 	}
 
-	private beforeExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions) {
-		const observers = this.observers[query.action]
-		if (!observers) {
-			return
-		}
+	private async beforeExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions):Promise<void> {
 		const args = { expression, query, data, options }
-		observers.forEach((observer:ActionObserver) => {
+		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.before(args)
 			} else {
 				const context = { query, options }
-				if (this.expressions.eval(observer.condition, context)) {
-					observer.before(args)
+				if (this._expressions.eval(observer.condition, context)) {
+					await observer.before(args)
 				}
 			}
 		})
 	}
 
-	private afterExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, result:any) {
-		const observers = this.observers[query.action]
-		if (!observers) {
-			return
-		}
+	private async afterExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, result:any):Promise<void> {
 		const args = { expression, query, data, options, result }
-		observers.forEach((observer:ActionObserver) => {
+		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.after(args)
 			} else {
 				const context = { query, options }
-				if (this.expressions.eval(observer.condition, context)) {
-					observer.after(args)
+				if (this._expressions.eval(observer.condition, context)) {
+					await observer.after(args)
 				}
 			}
 		})
 	}
 
-	private errorExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, error:any) {
-		const observers = this.observers[query.action]
-		if (!observers) {
-			return
-		}
+	private async errorExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, error:any):Promise<void> {
 		const args = { expression, query, data, options, error }
-		observers.forEach((observer:ActionObserver) => {
+		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.error(args)
 			} else {
 				const context = { query, options }
-				if (this.expressions.eval(observer.condition, context)) {
-					observer.error(args)
+				if (this._expressions.eval(observer.condition, context)) {
+					await observer.error(args)
 				}
 			}
 		})

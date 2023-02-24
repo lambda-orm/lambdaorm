@@ -298,3 +298,8 @@ npm install -g gulp-cli
 - [TypeOrm Doc](https://orkhan.gitbook.io/typeorm/docs/listeners-and-subscribers)
 - [TypeOrm Example](https://medium.com/@Semyonic/subscribers-a-k-a-entity-listeners-of-typeorm-on-nestjs-a97ac75acc2d)
 - [TypeOrm Example](https://betterprogramming.pub/typeorm-listeners-exploring-best-practices-and-caveats-5397f4bb8c11)
+
+## Package evaluator
+
+- [socket.dev](https://socket.dev/npm/package/lambdaorm)
+- [snyk.io](https://snyk.io/advisor/npm-package/lambdaorm)

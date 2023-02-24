@@ -4,13 +4,13 @@
 #    ./db.sh down
 
 wait-dbs(){
-	wait-until-healthy 'lambdaORM-Source'
-	wait-until-healthy 'lambdaORM-MySQL-57'
-	wait-until-healthy 'lambdaORM-Postgres-10'
-	# wait-until-healthy 'lambdaORM-MariaDB-103'
-	wait-until-healthy 'lambdaORM-Oracle-19' 300
-	# wait-until-healthy 'lambdaORM-SqlServer'	
-	# wait-until-healthy 'lambdaORM-MongoDB'			
+	wait-until-healthy 'northwind-source'
+	wait-until-healthy 'northwind-mysql'
+	wait-until-healthy 'northwind-postgres'
+	# wait-until-healthy 'northwind-mariadb'
+	wait-until-healthy 'northwind-oracle' 300
+	# wait-until-healthy 'northwind-sqlserver'	
+	# wait-until-healthy 'northwind-mongodb'			
 }
 
 wait-until-healthy(){
@@ -44,24 +44,24 @@ wait-until-healthy(){
 }
 
 create_db_users(){
-	docker exec lambdaORM-Source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
-	docker exec lambdaORM-Source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+	docker exec northwind-source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
+	docker exec northwind-source  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 
-	docker exec lambdaORM-MySQL-57  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
-	docker exec lambdaORM-MySQL-57  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+	docker exec northwind-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
+	docker exec northwind-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 
-	docker exec lambdaORM-MariaDB-103  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
-	docker exec lambdaORM-MariaDB-103  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+	docker exec northwind-mariadb mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';"
+	docker exec northwind-mariadb mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 
-	docker exec lambdaORM-SqlServer /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Lambda1234!" -Q "CREATE DATABASE northwind; ALTER DATABASE northwind SET READ_COMMITTED_SNAPSHOT ON;"
+	docker exec northwind-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Lambda1234!" -Q "CREATE DATABASE northwind; ALTER DATABASE northwind SET READ_COMMITTED_SNAPSHOT ON;"
 
   # https://community.bmc.com/s/article/Remedy-Server-Error-ORA-65096-invalid-common-user-or-role-name-installing-ARS-9-1-on-Oracle-12c#:~:text=The%20error%20ORA%2D65096%3A%20invalid,name%20is%20a%20Oracle%20error.&text=Cause%3A%20An%20attempt%20was%20made,for%20common%20users%20or%20roles.
   # TODO: solve "Error executing child process: Error: Process exited with code 127"
 
-	docker exec -it lambdaORM-Oracle-19 sqlplus system/ORACLE123 @/home/oracle/setup/custom_scripts/startup.sql
+	docker exec -it northwind-oracle sqlplus system/ORACLE123 @/home/oracle/setup/custom_scripts/startup.sql
 	# Error ORA-12637
-	docker exec lambdaORM-Oracle-19 "/bin/sh" -c "echo DISABLE_OOB=ON>>/opt/oracle/oradata/dbconfig/ORCLCDB/sqlnet.ora"
-	docker restart lambdaORM-Oracle-19  
+	docker exec northwind-oracle "/bin/sh" -c "echo DISABLE_OOB=ON>>/opt/oracle/oradata/dbconfig/ORCLCDB/sqlnet.ora"
+	docker restart northwind-oracle  
 }
 
 up(){
@@ -73,10 +73,10 @@ up(){
 
 
 down(){	
-	docker-compose down --remove-orphans
+	docker-compose -p "northwind" down --remove-orphans
 	sudo chmod 755 ./volume/*
 	sudo rm -fR ./volume/*
-	docker volume rm db_oradata	
+	docker volume rm northwind_northwind_oradata	
 	echo "INFO: stopped Databases (if it was running)."
 }
 

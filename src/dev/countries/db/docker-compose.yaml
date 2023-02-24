@@ -1,7 +1,7 @@
 version: '3'
 services:
   mysql:
-    container_name: lambdaorm-mysql
+    container_name: countries-mysql
     image: mysql:5.7
     restart: always
     environment:
@@ -12,7 +12,7 @@ services:
     ports:
       - 3309:3306
   postgres:
-    container_name: lambdaorm-postgres
+    container_name: countries-postgres
     image: postgres:10
     restart: always
     environment:

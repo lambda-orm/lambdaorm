@@ -14,7 +14,8 @@ async function stageImport (source: string, target: string) {
 
 export async function apply (stages: string[], callback: any) {
 	try {
-		await orm.init()
+		require('dotenv').config({ path: './config/northwind.env' })
+		await orm.init('./config/northwind.yaml')
 		await orm.stage.sync({ stage: 'Source', tryAllCan: true }).execute()
 		await stageExport('Source')
 		for (const p in stages) {

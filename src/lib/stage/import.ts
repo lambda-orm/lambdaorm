@@ -1,10 +1,10 @@
 
 import { StageActionDML } from './actionDML'
-import { Query, SchemaData, SchemaMapping, Entity, SchemaError, Relation } from '../contract'
+import { Query, SchemaConfig, MappingConfig, Entity, SchemaError, Relation } from '../contract'
 import { Transaction } from 'lib/manager'
 
 export class StageImport extends StageActionDML {
-	public async execute (data: SchemaData): Promise<void> {
+	public async execute (data: SchemaConfig): Promise<void> {
 		const state = await this.state.get(this.options.stage as string)
 		const _queries = this.queries()
 		const queries = this.sort(_queries)
@@ -39,7 +39,7 @@ export class StageImport extends StageActionDML {
 		await this.state.update(this.options.stage as string, state)
 	}
 
-	private async executePendingRows (state:SchemaMapping, entity:Entity, relation:Relation, tr:Transaction, rows:any[]):Promise<any[]> {
+	private async executePendingRows (state:MappingConfig, entity:Entity, relation:Relation, tr:Transaction, rows:any[]):Promise<any[]> {
 		const stillPending:any[] = []
 		let filter = ''
 		for (const p in entity.uniqueKey) {
@@ -62,7 +62,7 @@ export class StageImport extends StageActionDML {
 		return stillPending
 	}
 
-	protected solveInternalsIds (entityName:string, rows:any[], state:SchemaMapping, parentEntity?:string):void {
+	protected solveInternalsIds (entityName:string, rows:any[], state:MappingConfig, parentEntity?:string):void {
 		const entity = this.model.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
@@ -76,7 +76,7 @@ export class StageImport extends StageActionDML {
 		}
 	}
 
-	private solveInternalsIdsMany (entityName:string, relation:Relation, state:SchemaMapping, rows:any[]) {
+	private solveInternalsIdsMany (entityName:string, relation:Relation, state:MappingConfig, rows:any[]) {
 		for (const row of rows) {
 			const children = row[relation.name]
 			if (children && children.length > 1) {
@@ -85,7 +85,7 @@ export class StageImport extends StageActionDML {
 		}
 	}
 
-	private solveInternalsIdsOne (entity:Entity, relation:Relation, state:SchemaMapping, rows:any[]) {
+	private solveInternalsIdsOne (entity:Entity, relation:Relation, state:MappingConfig, rows:any[]) {
 		const relationEntity = this.model.getEntity(relation.entity)
 		if (relationEntity === undefined) {
 			throw new SchemaError(`Relation Entity ${relation.entity} not found`)
@@ -102,7 +102,7 @@ export class StageImport extends StageActionDML {
 		}
 	}
 
-	private solveInternalsIdsRow (entity:Entity, relation:Relation, state:SchemaMapping, pendingRows:any[], row:any) {
+	private solveInternalsIdsRow (entity:Entity, relation:Relation, state:MappingConfig, pendingRows:any[], row:any) {
 		const externalId = row[relation.from]
 		if (state.mapping[relation.entity] && state.mapping[relation.entity][relation.to] && state.mapping[relation.entity][relation.to][externalId]) {
 			row[relation.from] = state.mapping[relation.entity][relation.to][externalId]
@@ -151,7 +151,7 @@ export class StageImport extends StageActionDML {
 		}
 	}
 
-	protected completeMapping (entityName:string, rows:any[], aux:any, state:SchemaMapping):void {
+	protected completeMapping (entityName:string, rows:any[], aux:any, state:MappingConfig):void {
 		if (state.mapping[entityName] === undefined) {
 			state.mapping[entityName] = {}
 		}
