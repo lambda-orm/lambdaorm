@@ -75,10 +75,11 @@ data:
       dialect: PostgreSQL
       mapping: mapping2
       connection: ${CNX_POSTGRES}
-stages:
+  stages:
   - name: stage1
     sources:
       - name: dataSource1
         condition: entity == "Countries"
       - name: dataSource2
-        condition: entity == "States"
+        condition: entity == "States"    
+

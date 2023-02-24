@@ -477,6 +477,7 @@ export class StageConfig {
 		return stage
 	}
 }
+
 class SchemaExtender {
 	private expressions: IExpressions
 	constructor (expressions: IExpressions) {
@@ -586,11 +587,11 @@ class SchemaExtender {
 	}
 
 	private extendDataStages (schema: Schema) {
-		if (!schema.stages || !schema.stages.length || schema.stages.length === 0) {
-			schema.stages = [{ name: 'default', sources: [{ name: schema.data.sources[0].name }] }]
+		if (!schema.data.stages || !schema.data.stages.length || schema.data.stages.length === 0) {
+			schema.data.stages = [{ name: 'default', sources: [{ name: schema.data.sources[0].name }] }]
 		}
-		for (const k in schema.stages) {
-			const stage = schema.stages[k]
+		for (const k in schema.data.stages) {
+			const stage = schema.data.stages[k]
 			if (stage.sources === undefined) {
 				stage.sources = [{ name: schema.data.sources[0].name }]
 			}
@@ -850,7 +851,7 @@ class SchemaExtender {
 	private existsInMapping (schema: Schema, mapping: string, entity: string): boolean {
 		const context: ContextInfo = { entity, action: ObservableAction.ddl, read: false, write: true, dml: false, ddl: true }
 		const dataSourcesNames = schema.data.sources.filter(p => p.mapping === mapping).map(p => p.name)
-		for (const stage of schema.stages) {
+		for (const stage of schema.data.stages) {
 			const ruleDataSources = stage.sources.filter(p => dataSourcesNames.includes(p.name))
 			for (const ruleDataSource of ruleDataSources) {
 				if (ruleDataSource.condition === undefined || this.expressions.eval(ruleDataSource.condition, context)) {
@@ -886,11 +887,11 @@ export class SchemaManager {
 	}
 
 	private newSchema ():Schema {
-		return { app: this.newApp(), model: this.newModel(), data: this.newData(), stages: [] }
+		return { app: this.newApp(), model: this.newModel(), data: this.newData() }
 	}
 
 	private newData (): DataSchema {
-		return { mappings: [], sources: [] }
+		return { mappings: [], sources: [], stages: [] }
 	}
 
 	private newModel (): ModelSchema {
@@ -1001,9 +1002,9 @@ export class SchemaManager {
 			if (schema.data.sources === undefined) {
 				schema.data.sources = []
 			}
-		}
-		if (schema.stages === undefined) {
-			schema.stages = []
+			if (schema.data.stages === undefined) {
+				schema.data.stages = []
+			}
 		}
 		if (schema.app === undefined) {
 			schema.app = this.newApp()
@@ -1090,8 +1091,8 @@ export class SchemaManager {
 				this.source.load(source)
 			}
 		}
-		if (this.schema.stages) {
-			for (const stage of this.schema.stages) {
+		if (this.schema.data.stages) {
+			for (const stage of this.schema.data.stages) {
 				this.stage.load(stage)
 			}
 		}

@@ -453,7 +453,7 @@ data:
       mapping: MongoDB
       dialect: MongoDB
       connection: ${ORM_CNN_MONGODB}
-stages:
+  stages:
   - name: Source
     sources:
       - name: Source
@@ -474,7 +474,7 @@ stages:
       - name: Oracle
   - name: MongoDB
     sources:
-      - name: MongoDB
+      - name: MongoDB    
 app:
   paths:
     src: src
