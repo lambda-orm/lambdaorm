@@ -8,7 +8,7 @@ By means of rules the corresponding Data Source is determined and by definition 
 What differentiates λORM from other ORMs:
 
 - Obtain or modify records from different Databases in the same query. \
-  These Databases may be from different engines (Example: MySQL, PostgreSQL and MongoDB)
+  These Databases may be from different engines (Example: MySQL, PostgreSQL, MongoDB, etc.)
 
 - Abstraction of the physical model, being the same to work with a single database than with multiple ones.
 
