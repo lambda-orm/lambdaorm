@@ -158,6 +158,7 @@ export interface ModelSchema {
 export interface DataSchema {
 	mappings: Mapping[]
 	sources: source[]
+	stages: Stage[]
 }
 export interface AppSchema {
 	paths: AppPathsConfig
@@ -168,7 +169,6 @@ export interface AppSchema {
 export interface Schema {
 	model: ModelSchema
 	data:DataSchema
-	stages: Stage[]
 	app: AppSchema
 }
 export interface ModelConfig {
