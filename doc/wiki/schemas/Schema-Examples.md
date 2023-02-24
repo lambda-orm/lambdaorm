@@ -207,13 +207,13 @@ data:
         user: test
         password: test
         database: test
-stages:
-  - name: stage1
-    sources:
-      - name: dataSource1
-  - name: stage2
-    sources:
-      - name: dataSource2
+  stages:
+    - name: stage1
+      sources:
+        - name: dataSource1
+    - name: stage2
+      sources:
+        - name: dataSource2
 ```
 
 [example lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
@@ -280,12 +280,12 @@ data:
         user: test
         password: test
         database: test
-stages:
-  - name: stage1
-    sources:
-      - name: dataSource2
-        condition: entity == "States"
-      - name: dataSource1
+  stages:
+    - name: stage1
+      sources:
+        - name: dataSource2
+          condition: entity == "States"
+        - name: dataSource1
 ```
 
 Environment Variables:
@@ -382,12 +382,12 @@ data:
       dialect: Postgres
       mapping: mapping2
       connection: $CNN_MYDB2
-stages:
-  - name: stage1
-    sources:
-      - name: dataSource2
-        condition: entity == "States"
-      - name: dataSource1
+  stages:
+    - name: stage1
+      sources:
+        - name: dataSource2
+          condition: entity == "States"
+        - name: dataSource1
 ```
 
 Environment Variables:
