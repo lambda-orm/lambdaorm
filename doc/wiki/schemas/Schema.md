@@ -79,11 +79,11 @@ data:
       dialect: MariaDb | MongoDB | MySQL | Oracle | PostgreSQL | SQLjs | SqlServer
       mapping: string
       connection: object | EnvironmentVariable
-stages:
-  - name: string
-    sources:
-      - name: string
-        condition: expression
+  stages:
+    - name: string
+      sources:
+        - name: string
+          condition: expression
 app:
   paths:
     src: string

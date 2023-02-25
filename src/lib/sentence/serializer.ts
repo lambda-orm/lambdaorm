@@ -53,6 +53,7 @@ export class SentenceSerializer {
 			sentence.constraints = value.constraints || []
 			sentence.values = value.values || []
 			sentence.defaults = value.defaults || []
+			sentence.columns = value.columns || []
 			return sentence
 		case 'SentenceInclude':
 			return new SentenceInclude(value.pos, value.name, children, value.relation as Relation)
