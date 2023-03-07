@@ -2,7 +2,7 @@ import { orm ,ActionObserver ,SentenceAction, ActionObserverArgs } from '../../l
 
 class EmployeeUpdateObserver extends ActionObserver {
 	constructor() {
-		super([SentenceAction.update],'query.entity=="Employees"')
+		super([SentenceAction.update],'query.entity=="Employees"',true)
 	}
 
 	public async before(args:ActionObserverArgs): Promise<void> {

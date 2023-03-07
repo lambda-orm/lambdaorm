@@ -136,6 +136,7 @@ export interface ListenerConfig {
 	name: string
 	actions: SentenceAction[]
 	condition?: string
+	transactional?:boolean
 	before?:string
 	after?:string
 	error?:string
