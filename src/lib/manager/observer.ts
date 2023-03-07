@@ -3,7 +3,7 @@ import { ActionObserver, ActionObserverArgs, ListenerConfig } from '../contract'
 
 export class ExpressionActionObserver extends ActionObserver {
 	constructor (private readonly config:ListenerConfig, private readonly expressions:IExpressions) {
-		super(config.actions, config.condition)
+		super(config.actions, config.condition, config.transactional)
 	}
 
 	public override async before (args: ActionObserverArgs): Promise<void> {

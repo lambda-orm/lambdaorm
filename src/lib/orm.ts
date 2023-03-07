@@ -247,8 +247,18 @@ export class Orm implements IOrm {
 		const _options = this.schemaManager.solveOptions(options)
 		const query = this.queryManager.create(_expression, _options)
 		try {
+			let result = null
 			await this.beforeExecutionNotify(_expression, query, data, _options)
-			const result = await this.executor.execute(query, data, _options)
+			if (this.observers.find(p => p.transactional === true) !== undefined) {
+				// execute before and after listeners transactional
+				this.executor.transaction(_options, async (tr:Transaction) => {
+					await this.beforeExecutionNotify(_expression, query, data, _options, true)
+					result = await tr.execute(_expression, data)
+					await this.afterExecutionNotify(_expression, query, data, _options, result, true)
+				})
+			} else {
+				result = await this.executor.execute(query, data, _options)
+			}
 			await this.afterExecutionNotify(_expression, query, data, _options, result)
 			return result
 		} catch (error) {
@@ -291,9 +301,9 @@ export class Orm implements IOrm {
 		this.observers.splice(index, 1)
 	}
 
-	private async beforeExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions):Promise<void> {
+	private async beforeExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, transactional = false):Promise<void> {
 		const args = { expression, query, data, options }
-		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.actions.includes(query.action) && helper.utils.nvl(p.transactional, false) === transactional).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.before(args)
 			} else {
@@ -305,9 +315,9 @@ export class Orm implements IOrm {
 		})
 	}
 
-	private async afterExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, result:any):Promise<void> {
+	private async afterExecutionNotify (expression:string, query: Query, data: any, options: QueryOptions, result:any, transactional = false):Promise<void> {
 		const args = { expression, query, data, options, result }
-		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.actions.includes(query.action) && helper.utils.nvl(p.transactional, false) === transactional).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.after(args)
 			} else {
