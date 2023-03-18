@@ -5,7 +5,7 @@ export async function apply (callback: any) {
 	try {
 		await orm.init('./config/northwind.yaml')
 		const options = {stage:'MySQL'}	
-		const query = (id:number) => Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])
+		const query = 'Orders.filter(p => in(p.id,[id])).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])'
 		// Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])
 		// Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])) 
 		// Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product])) 
@@ -22,7 +22,7 @@ export async function apply (callback: any) {
 		// console.log(JSON.stringify(orm.parameters(query)))
 		// console.log(JSON.stringify(orm.metadata(query)))
 		console.log(JSON.stringify(orm.getInfo(query,options),null,2))
-		console.log(JSON.stringify( await orm.execute(query,context,options),null, 2))
+		// console.log(JSON.stringify( await orm.execute(query,context,options),null, 2))
 
 	} catch (error:any) {
 		console.error(error.stack)

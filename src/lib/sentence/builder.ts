@@ -107,7 +107,7 @@ class SentenceSolveConstraints {
 					const values = _enum.values.map(p => typeof p.value === Kind.number ? p.value : '"' + p.value + '"').join(',')
 					const constraint: Constraint = {
 						message: `invalid value for property ${property.name} in entity ${entityName}`,
-						condition: `in([${values}],${property.name})`
+						condition: `${property.name}.in(${values})`
 					}
 					constraints.push(constraint)
 				}

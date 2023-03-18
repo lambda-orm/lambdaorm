@@ -1002,7 +1002,7 @@
         {
           "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
           "error": "MongoServerError: The $round accumulator is a unary operator",
-          "stack": "MongoServerError: The $round accumulator is a unary operator\n    at Connection.onMessage (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:227:30)\n    at MessageStream.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:60:60)\n    at MessageStream.emit (events.js:400:28)\n    at processIncomingData (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:125:16)\n    at MessageStream._write (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:33:9)\n    at writeOrBuffer (internal/streams/writable.js:358:12)\n    at MessageStream.Writable.write (internal/streams/writable.js:303:10)\n    at Socket.ondata (internal/streams/readable.js:731:22)\n    at Socket.emit (events.js:400:28)\n    at addChunk (internal/streams/readable.js:293:12)"
+          "stack": "MongoServerError: The $round accumulator is a unary operator\n    at Connection.onMessage (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:230:30)\n    at MessageStream.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:61:60)\n    at MessageStream.emit (events.js:400:28)\n    at processIncomingData (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:125:16)\n    at MessageStream._write (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:33:9)\n    at writeOrBuffer (internal/streams/writable.js:358:12)\n    at MessageStream.Writable.write (internal/streams/writable.js:303:10)\n    at Socket.ondata (internal/streams/readable.js:731:22)\n    at Socket.emit (events.js:400:28)\n    at addChunk (internal/streams/readable.js:293:12)"
         },
         {
           "test": "Products.map(p => ({ count: count(1) }))",
@@ -1017,8 +1017,8 @@
           "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
           "result": [
             {
-              "category": 1,
-              "largestPrice": 263.5
+              "category": 3,
+              "largestPrice": 81
             },
             {
               "category": 4,
@@ -1029,6 +1029,10 @@
               "largestPrice": 123.79
             },
             {
+              "category": 1,
+              "largestPrice": 263.5
+            },
+            {
               "category": 2,
               "largestPrice": 43.9
             },
@@ -1037,16 +1041,12 @@
               "largestPrice": 38
             },
             {
-              "category": 3,
-              "largestPrice": 81
+              "category": 8,
+              "largestPrice": 62.5
             },
             {
               "category": 7,
               "largestPrice": 53
-            },
-            {
-              "category": 8,
-              "largestPrice": 62.5
             }
           ]
         },
@@ -1054,36 +1054,36 @@
           "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
           "result": [
             {
-              "category": "Dairy Products",
-              "largestPrice": 55
-            },
-            {
-              "category": "Beverages",
-              "largestPrice": 263.5
+              "category": "Condiments",
+              "largestPrice": 43.9
             },
             {
               "category": "Seafood",
               "largestPrice": 62.5
             },
             {
-              "category": "Grains/Cereals",
-              "largestPrice": 38
-            },
-            {
-              "category": "Condiments",
-              "largestPrice": 43.9
+              "category": "Dairy Products",
+              "largestPrice": 55
             },
             {
               "category": "Meat/Poultry",
               "largestPrice": 123.79
             },
             {
-              "category": "Confections",
-              "largestPrice": 81
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Grains/Cereals",
+              "largestPrice": 38
             },
             {
               "category": "Produce",
               "largestPrice": 53
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
             }
           ]
         },
@@ -1105,7 +1105,7 @@
         {
           "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
           "error": "MongoServerError: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string",
-          "stack": "MongoServerError: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string\n    at Connection.onMessage (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:227:30)\n    at MessageStream.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:60:60)\n    at MessageStream.emit (events.js:400:28)\n    at processIncomingData (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:125:16)\n    at MessageStream._write (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:33:9)\n    at writeOrBuffer (internal/streams/writable.js:358:12)\n    at MessageStream.Writable.write (internal/streams/writable.js:303:10)\n    at Socket.ondata (internal/streams/readable.js:731:22)\n    at Socket.emit (events.js:400:28)\n    at addChunk (internal/streams/readable.js:293:12)"
+          "stack": "MongoServerError: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string\n    at Connection.onMessage (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:230:30)\n    at MessageStream.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:61:60)\n    at MessageStream.emit (events.js:400:28)\n    at processIncomingData (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:125:16)\n    at MessageStream._write (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:33:9)\n    at writeOrBuffer (internal/streams/writable.js:358:12)\n    at MessageStream.Writable.write (internal/streams/writable.js:303:10)\n    at Socket.ondata (internal/streams/readable.js:731:22)\n    at Socket.emit (events.js:400:28)\n    at addChunk (internal/streams/readable.js:293:12)"
         },
         {
           "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",

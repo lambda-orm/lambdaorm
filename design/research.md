@@ -67,7 +67,7 @@ JEXP:
 		Hello good day.
 		I have read your blog about "Guide to Linux jq Command for JSON Processing"
 		and I wanted to ask you if you could take a look at this CLI application that I have developed and it is similar.
-		https://www.npmjs.com/package/jexp
+		[jexp](https://www.npmjs.com/package/jexp)
 
 		Thank you very much
 
@@ -276,6 +276,10 @@ npm install -g gulp-cli
 
 - [site](https://typedoc.org/)
 - [installation](https://typedoc.org/guides/installation/)
+
+### Blog
+
+- [best blogging](https://www.freecodecamp.org/news/best-blogging-platforms-for-developers/)
 
 ## Data of test
 

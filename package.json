@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.4.21-beta",
+	"version": "0.4.22-beta",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@gmail.com>",
 	"license": "MIT",
@@ -27,11 +27,11 @@
 		"countries-create-data-for-test-suite": "grunt countries-create-data-for-test-suite",
 		"countries-create-test-suite": "grunt countries-create-test-suite",
 		"populate-source": "grunt populate-source",
-		"populate-databases": "grunt populate-databases",		
+		"populate-databases": "grunt populate-databases",
 		"create-data-for-test": "grunt create-data-for-test",
 		"create-data-for-test-suite": "grunt create-data-for-test-suite",
 		"create-test": "grunt create-test",
-		"create-test-suite":"grunt create-test-suite",		
+		"create-test-suite": "grunt create-test-suite",
 		"build-test": "grunt build-test",
 		"dist": "grunt dist",
 		"to_develop": "grunt to_develop",
@@ -39,9 +39,9 @@
 		"doc": "grunt doc"
 	},
 	"dependencies": {
-		"3xpr": "1.6.12",
-		"crypto-js": "^4.1.1",
+		"3xpr": "1.7.2",
 		"h3lp": "1.2.4",
+		"crypto-js": "^4.1.1",
 		"js-yaml": "^4.1.0",
 		"luxon": "^3.2.1",
 		"sqlstring": "^2.3.3"
