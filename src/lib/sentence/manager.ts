@@ -157,15 +157,19 @@ export class SentenceManager {
 	private complete (sentence: Sentence, view: ViewConfig, stage: string): Sentence {
 		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter
 		const cloned = this.serializer.clone(sentence)
-		const sentenceIncludes = cloned.getIncludes()
+		this._complete(cloned, view, stage)
+		return cloned
+	}
+
+	private _complete (sentence: Sentence, view: ViewConfig, stage: string): void {
+		const sentenceIncludes = sentence.getIncludes()
 		for (const p in sentenceIncludes) {
 			const sentenceInclude = sentenceIncludes[p]
-			this.complete(sentenceInclude.children[0] as Sentence, view, stage)
+			this._complete(sentenceInclude.children[0] as Sentence, view, stage)
 		}
-		const source = this.getDataSource(cloned, stage)
+		const source = this.getDataSource(sentence, stage)
 		const mapping = this.schema.mapping.getInstance(source.mapping)
-		this.completer.complete(mapping, view, cloned)
-		return cloned
+		this.completer.complete(mapping, view, sentence)
 	}
 
 	private modelFromSentence (sentence: Sentence): MetadataModel[] {

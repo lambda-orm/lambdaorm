@@ -6,3 +6,4 @@ exports.apply = async function apply(callback) {
 	callback()
 }
 // apply(path.join(function () { console.log('end')})
+// config-extends apply -s 'src/dev/config/SQL' -t 'src/lib/language/NoSQL/config.json'

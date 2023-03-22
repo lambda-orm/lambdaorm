@@ -216,6 +216,10 @@ JEXP:
 	- [run-command-from-string](https://stackoverflow.com/questions/54597922/MongoDB-run-command-from-string)
 	- [run command](https://www.MongoDB.com/docs/manual/reference/method/db.runCommand/)
 
+### ksqlDB
+
+- [ksqlDB](https://www.confluent.io/product/ksqldb/?utm_medium=sem&utm_source=google&utm_campaign=ch.sem_br.nonbrand_tp.prs_tgt.kafka_mt.xct_rgn.emea_lng.eng_dv.all_con.kafka-ksql&utm_term=ksql&creative=&device=c&placement=&gclid=CjwKCAjwzuqgBhAcEiwAdj5dRqau7RJbWidaC-sXxVNDYpmavOmoGNzG3h105M8Ugqxw2BM6SpIyABoCoGAQAvD_BwE)
+
 ### Neo4J
 
 - [neo4j](https://neo4j.com/)

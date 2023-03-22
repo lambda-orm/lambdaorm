@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"3xpr": "1.7.2",
-		"h3lp": "1.2.4",
+		"h3lp": "1.2.6",
 		"crypto-js": "^4.1.1",
 		"js-yaml": "^4.1.0",
 		"luxon": "^3.2.1",
@@ -55,7 +55,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.49.0",
 		"@typescript-eslint/parser": "^5.49.0",
 		"concurrently": "^7.6.0",
-		"config-extends": "^1.0.8",
+		"config-extends": "^2.0.2",
 		"dotenv": "^16.0.3",
 		"eslint": "^8.32.0",
 		"eslint-config-standard": "^17.0.0",
