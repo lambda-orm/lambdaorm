@@ -1,5 +1,6 @@
 import { Orm } from '../../../lib'
 import { h3lp } from 'h3lp'
+import path  from 'path'
 import { DbDebtors } from './beesion/src/model'
 const lab = async () => {
 	const orm = new Orm('./config/cclp.yaml')
@@ -14,8 +15,7 @@ const lab = async () => {
 		const sentence = orm.getInfo(query, options)
 		console.log(JSON.stringify(sentence, null, 2))
 		const result = await orm.execute(query, {}, options)
-		await h3lp.fs.write('result.json',JSON.stringify(result, null, 2))
-		console.log()
+		await h3lp.fs.write(path.join(__dirname,'result.json'),JSON.stringify(result, null, 2))
 	} catch (e:any) {
 		console.log(e.message)
 	} finally {
