@@ -96,8 +96,7 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('build-config', 'build configuration', function () {
-		// this task needs to be js since it must be executed before executing npx tsc
-		const task = require('./src/dev/task/buildConfig')
+		const task = require('./build/dev/task/buildConfig')
 		task.apply(this.async())
 	})
 
