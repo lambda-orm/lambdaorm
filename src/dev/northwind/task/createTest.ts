@@ -3,7 +3,7 @@ import { helper } from '../../../lib'
 import { CategoryTest, ExpressionTest } from './testModel'
 import path from 'path'
 import { h3lp } from 'h3lp'
-const ConfigExtends = require('config-extends')
+import { configExtends } from 'config-extends'
 
 async function writeUnitTest (stages: string[], category: CategoryTest): Promise<void> {
 	const lines: string[] = []
@@ -111,7 +111,7 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 }
 
 export async function apply (dataForTestPath: string, stages: string[], callback: any) {
-	const testData = await ConfigExtends.apply(dataForTestPath)
+	const testData = await configExtends.apply(dataForTestPath)
 	for (const k in testData) {
 		await writeUnitTest(stages, testData[k])
 		await writeIntegrationTest(stages, testData[k])
