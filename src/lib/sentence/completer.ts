@@ -187,7 +187,9 @@ export class SentenceCompleter {
 	private replaceField (entity:EntityMapping, alias:string, operand:Operand, sourceName?:string, source?:Operand):Operand {
 		for (const i in operand.children) {
 			const child = operand.children[i]
-			if (child.type === OperandType.Var) {
+			if (child instanceof Field) {
+				continue
+			} else if (child.type === OperandType.Var) {
 				const property = entity.properties.find(p => p.name === child.name)
 				if (property) {
 					if (sourceName && source && property.name === sourceName) {

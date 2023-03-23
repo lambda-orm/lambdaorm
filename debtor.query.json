@@ -8,7 +8,7 @@
       "entity": "DbPartyRoleReferences",
       "dialect": "Oracle",
       "source": "cclpDebtors",
-      "sentence": "SELECT d1.REF_TYPE AS \"refType\", CAST(d1.REF_ID AS NUMBER) AS \"refId\", d1.REFERENCE_ID AS \"id\", d1.NAME AS \"name\", CAST(d1.REF_ID AS NUMBER) AS \"__refId\", d1.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE d1  WHERE ( d1.REFERENCE_ID IN (:LambdaOrmParentId) AND d1.REF_TYPE = 'Party Role') ",
+      "sentence": "SELECT d1.REF_TYPE AS \"refType\", CAST(p1.REF_ID AS NUMBER) AS \"refId\", d1.REFERENCE_ID AS \"id\", d1.NAME AS \"name\", CAST(p1.REF_ID AS NUMBER) AS \"__refId\", d1.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE d1  WHERE ( d1.REFERENCE_ID IN (:LambdaOrmParentId) AND d1.REF_TYPE = 'Party Role') ",
       "children": [
         {
           "entity": "PrPartyRoles",
@@ -20,7 +20,7 @@
               "entity": "PrIndividualReferences",
               "dialect": "Oracle",
               "source": "cclpPartyRoles",
-              "sentence": "SELECT p1.REF_TYPE AS \"refType\", CAST(d1.REF_ID AS NUMBER) AS \"refId\", p1.REFERENCE_ID AS \"id\", p1.NAME AS \"name\", p1.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE p1  WHERE ( p1.REFERENCE_ID IN (:LambdaOrmParentId) AND p1.REF_TYPE = 'Individual') ",
+              "sentence": "SELECT p1.REF_TYPE AS \"refType\", CAST(p1.REF_ID AS NUMBER) AS \"refId\", p1.REFERENCE_ID AS \"id\", p1.NAME AS \"name\", p1.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE p1  WHERE ( p1.REFERENCE_ID IN (:LambdaOrmParentId) AND p1.REF_TYPE = 'Individual') ",
               "children": []
             }
           ]
