@@ -1,0 +1,31 @@
+{
+  "entity": "DbDebtors",
+  "dialect": "Oracle",
+  "source": "cclpDebtors",
+  "sentence": "SELECT d.DEBTOR_ID AS \"id\", d.DEBTOR_NUMBER AS \"debtorNumber\", d.NAME AS \"name\", d.PARTY_ROLE_REF_ID AS \"partyRoleRefId\", d.DEBTOR_STATUS_ID AS \"debtorStatusId\", d.PARTY_REF_ID AS \"partyRefId\", d.MAIN_ACCOUNT_REF_ID AS \"mainAccountRefId\", d.STAGE_ID AS \"stageId\", d.DEBTOR_TYPE_ID AS \"debtorTypeId\", d.REFERENCE_NUMBER AS \"referenceNumber\", d.LAST_MODIFICATION_DATE AS \"lastModificationDate\", d.REGISTRATION_DATE AS \"registrationDate\", d.IDENTIFICATION_VALUE AS \"identificationValue\", d.IDENTIFICATION_TYPE AS \"identificationType\", d.ADDITIONAL_INFO_1 AS \"additionalInfo1\", d.ADDITIONAL_INFO_2 AS \"additionalInfo2\", d.ADDITIONAL_INFO_3 AS \"additionalInfo3\", d.PARTY_ROLE_REF_ID AS \"__partyRoleRefId\" FROM TBL_DB_DEBTOR d  ",
+  "children": [
+    {
+      "entity": "DbPartyRoleReferences",
+      "dialect": "Oracle",
+      "source": "cclpDebtors",
+      "sentence": "SELECT d1.REF_TYPE AS \"refType\", CAST(d1.REF_ID AS NUMBER) AS \"refId\", d1.REFERENCE_ID AS \"id\", d1.NAME AS \"name\", CAST(d1.REF_ID AS NUMBER) AS \"__refId\", d1.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE d1  WHERE ( d1.REFERENCE_ID IN (:LambdaOrmParentId) AND d1.REF_TYPE = 'Party Role') ",
+      "children": [
+        {
+          "entity": "PrPartyRoles",
+          "dialect": "Oracle",
+          "source": "cclpPartyRoles",
+          "sentence": "SELECT p.PARTY_ROLE_ID AS \"id\", p.STATUS_ID AS \"statusId\", p.NAME AS \"name\", p.PARTY_ID AS \"partyId\", p.VALID_FROM AS \"validFrom\", p.PARTY_ROLE_SPEC_ID AS \"partyRoleSpecId\", p.PARTY_ID AS \"__partyId\", p.PARTY_ROLE_ID AS \"LambdaOrmParentId\" FROM TBL_PR_PARTY_ROLE p  WHERE  p.PARTY_ROLE_ID IN (:LambdaOrmParentId) ",
+          "children": [
+            {
+              "entity": "PrIndividualReferences",
+              "dialect": "Oracle",
+              "source": "cclpPartyRoles",
+              "sentence": "SELECT p1.REF_TYPE AS \"refType\", CAST(d1.REF_ID AS NUMBER) AS \"refId\", p1.REFERENCE_ID AS \"id\", p1.NAME AS \"name\", p1.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE p1  WHERE ( p1.REFERENCE_ID IN (:LambdaOrmParentId) AND p1.REF_TYPE = 'Individual') ",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

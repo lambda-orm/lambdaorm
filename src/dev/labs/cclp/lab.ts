@@ -1,5 +1,4 @@
-import { Orm } from '../../../lib'
-import { h3lp } from 'h3lp'
+import { Orm, helper } from '../../../lib'
 import path  from 'path'
 import { DbDebtors } from './beesion/src/model'
 const lab = async () => {
@@ -7,15 +6,15 @@ const lab = async () => {
 	try {
 		await orm.init()
 		const options = { stage: 'cclp' }
-		// const query = () => DbLedgerAccountReferences
 		const query = () => DbDebtors
-			.include(p => p.accounts
-				.include(p => p.accountLedgerRef)
-			)
-		const sentence = orm.getInfo(query, options)
-		console.log(JSON.stringify(sentence, null, 2))
-		const result = await orm.execute(query, {}, options)
-		await h3lp.fs.write(path.join(__dirname,'result.json'),JSON.stringify(result, null, 2))
+			.include(p => p.partyRoleRef
+				.include(p => p.partyRole
+					.include(p => p.individualReference	)))	
+			const sentence = orm.getInfo(query, options)
+			await helper.fs.write('debtor.query.json', JSON.stringify(sentence, null, 2))		
+			console.log(JSON.stringify(sentence, null, 2))
+			// const result = await orm.execute(query, {}, options)
+			// await helper.fs.write(path.join(__dirname,'result.json'),JSON.stringify(result, null, 2))
 	} catch (e:any) {
 		console.log(e.message)
 	} finally {
