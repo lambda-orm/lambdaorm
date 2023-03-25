@@ -1,0 +1,250 @@
+{
+  "entity": "DbDebtors",
+  "dialect": "Oracle",
+  "source": "cclpDebtors",
+  "sentence": "SELECT d.DEBTOR_ID AS \"id\", d.DEBTOR_NUMBER AS \"debtorNumber\", d.NAME AS \"name\", d.PARTY_ROLE_REF_ID AS \"partyRoleRefId\", d.DEBTOR_STATUS_ID AS \"debtorStatusId\", d.PARTY_REF_ID AS \"partyRefId\", d.MAIN_ACCOUNT_REF_ID AS \"mainAccountRefId\", d.STAGE_ID AS \"stageId\", d.DEBTOR_TYPE_ID AS \"debtorTypeId\", d.REFERENCE_NUMBER AS \"referenceNumber\", d.LAST_MODIFICATION_DATE AS \"lastModificationDate\", d.REGISTRATION_DATE AS \"registrationDate\", d.IDENTIFICATION_VALUE AS \"identificationValue\", d.IDENTIFICATION_TYPE AS \"identificationType\", d.ADDITIONAL_INFO_1 AS \"additionalInfo1\", d.ADDITIONAL_INFO_2 AS \"additionalInfo2\", d.ADDITIONAL_INFO_3 AS \"additionalInfo3\", d.PARTY_ROLE_REF_ID AS \"__partyRoleRefId\", d.DEBTOR_ID AS \"__id\", d.DEBTOR_ID AS \"__id\" FROM TBL_DB_DEBTOR d  ",
+  "children": [
+    {
+      "entity": "DbPartyRoleReferences",
+      "dialect": "Oracle",
+      "source": "cclpDebtors",
+      "sentence": "SELECT d1.REF_TYPE AS \"refType\", CAST(d1.REF_ID AS NUMBER) AS \"refId\", d1.REFERENCE_ID AS \"id\", d1.NAME AS \"name\", CAST(d1.REF_ID AS NUMBER) AS \"__refId\", d1.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE d1  WHERE ( d1.REFERENCE_ID IN (:LambdaOrmParentId) AND d1.REF_TYPE = 'Party Role') ",
+      "children": [
+        {
+          "entity": "PrPartyRoles",
+          "dialect": "Oracle",
+          "source": "cclpPartyRoles",
+          "sentence": "SELECT p.PARTY_ROLE_ID AS \"id\", p.STATUS_ID AS \"statusId\", p.NAME AS \"name\", p.PARTY_ID AS \"partyId\", p.VALID_FROM AS \"validFrom\", p.PARTY_ROLE_SPEC_ID AS \"partyRoleSpecId\", p.PARTY_ID AS \"__partyId\", p.PARTY_ID AS \"__partyId\", p.PARTY_ROLE_ID AS \"__id\", p.PARTY_ROLE_ID AS \"LambdaOrmParentId\" FROM TBL_PR_PARTY_ROLE p  WHERE  p.PARTY_ROLE_ID IN (:LambdaOrmParentId) ",
+          "children": [
+            {
+              "entity": "PrIndividualReferences",
+              "dialect": "Oracle",
+              "source": "cclpPartyRoles",
+              "sentence": "SELECT p1.REF_TYPE AS \"refType\", CAST(p1.REF_ID AS NUMBER) AS \"refId\", p1.REFERENCE_ID AS \"id\", p1.NAME AS \"name\", CAST(p1.REF_ID AS NUMBER) AS \"__refId\", p1.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE p1  WHERE ( p1.REFERENCE_ID IN (:LambdaOrmParentId) AND p1.REF_TYPE = 'Individual') ",
+              "children": [
+                {
+                  "entity": "PmIndividuals",
+                  "dialect": "Oracle",
+                  "source": "cclpParties",
+                  "sentence": "SELECT p12.INDIVIDUAL_ID AS \"id\", p12.PARTY_ID AS \"partyId\", p12.GENDER_ID AS \"genderId\", p12.BIRTH_DATE AS \"birthDate\", p12.DEATH_DATE AS \"deathDate\", p12.NATIONALITY_REF_ID AS \"nationalityRefId\", p12.CURRENT_NAME_ID AS \"currentNameId\", p12.PARTY_ID AS \"__partyId\", p12.INDIVIDUAL_ID AS \"__id\", p12.INDIVIDUAL_ID AS \"LambdaOrmParentId\" FROM TBL_PM_INDIVIDUAL p12  WHERE  p12.INDIVIDUAL_ID IN (:LambdaOrmParentId) ",
+                  "children": [
+                    {
+                      "entity": "PmParties",
+                      "dialect": "Oracle",
+                      "source": "cclpParties",
+                      "sentence": "SELECT p123.PARTY_ID AS \"id\", p123.INDIVIDUAL_ID AS \"individualId\", p123.ORGANIZATION_ID AS \"organizationId\", p123.STATUS_ID AS \"statusId\", p123.REGISTER_DATE AS \"registredDate\", p123.PARTY_ID AS \"__id\", p123.PARTY_ID AS \"__id\", p123.PARTY_ID AS \"LambdaOrmParentId\" FROM TBL_PM_PARTY p123  WHERE  p123.PARTY_ID IN (:LambdaOrmParentId) ",
+                      "children": [
+                        {
+                          "entity": "PmIdentifications",
+                          "dialect": "Oracle",
+                          "source": "cclpParties",
+                          "sentence": "SELECT p1234.IDENTIFICATION_ID AS \"id\", p1234.IDENTIFICATION_TYPE_ID AS \"identificationTypeId\", p1234.PARTY_ID AS \"partyId\", p1234.IDENTIFICATION_VALUE AS \"indentificationValue\", p1234.SOURCE AS \"source\", p1234.PARTY_ID AS \"LambdaOrmParentId\" FROM TBL_PM_IDENTIFICATION p1234  WHERE  p1234.PARTY_ID IN (:LambdaOrmParentId) ",
+                          "children": []
+                        },
+                        {
+                          "entity": "PmPartyContactMediums",
+                          "dialect": "Oracle",
+                          "source": "cclpParties",
+                          "sentence": "SELECT p12345.PARTY_CONTACT_MEDIUM_ID AS \"id\", p12345.CONTACT_MEDIUM_TYPE_ID AS \"contactMediumTypeId\", p12345.PARTY_ID AS \"partyId\", p12345.MEDIUM_VALUE AS \"mediumValue\", p12345.VALID_FROM AS \"validFrom\", p12345.VALID_TO AS \"validTo\", p12345.IS_MAIN AS \"isMain\", p12345.IS_FAVORITE AS \"isFavorite\", p12345.SOURCE AS \"source\", p12345.CREATED_BY AS \"createdBy\", p12345.PARTY_ID AS \"LambdaOrmParentId\" FROM TBL_PM_PARTY_CONTACT_MEDIUM p12345  WHERE  p12345.PARTY_ID IN (:LambdaOrmParentId) ",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "entity": "PmIndividualNames",
+                      "dialect": "Oracle",
+                      "source": "cclpParties",
+                      "sentence": "SELECT p123456.INDIVIDUAL_NAME_ID AS \"id\", p123456.INDIVIDUAL_ID AS \"individualId\", p123456.GIVEN_NAMES AS \"givenNames\", p123456.MIDDLE_NAMES AS \"middleNames\", p123456.FAMILY_NAMES AS \"familyNames\", p123456.LEGAL_NAME AS \"legalName\", p123456.INDIVIDUAL_ID AS \"LambdaOrmParentId\" FROM TBL_PM_INDIVIDUAL_NAME p123456  WHERE  p123456.INDIVIDUAL_ID IN (:LambdaOrmParentId) ",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "entity": "PrOrganizationReferences",
+              "dialect": "Oracle",
+              "source": "cclpPartyRoles",
+              "sentence": "SELECT p1234567.REF_TYPE AS \"refType\", CAST(p1234567.REF_ID AS NUMBER) AS \"refId\", p1234567.REFERENCE_ID AS \"id\", p1234567.NAME AS \"name\", CAST(p1234567.REF_ID AS NUMBER) AS \"__refId\", p1234567.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE p1234567  WHERE ( p1234567.REFERENCE_ID IN (:LambdaOrmParentId) AND p1234567.REF_TYPE = 'Organization') ",
+              "children": [
+                {
+                  "entity": "PmOrganizations",
+                  "dialect": "Oracle",
+                  "source": "cclpParties",
+                  "sentence": "SELECT p12345678.ORGANIZATION_ID AS \"id\", p12345678.PARTY_ID AS \"partyId\", p12345678.LEGAL_PERIOD_FROM AS \"legalPeriodFrom\", p12345678.CURRENT_NAME_ID AS \"currentNameId\", p12345678.INDUSTRY_TYPE_ID AS \"industyTypeId\", p12345678.COMMERCIAL_DESCRIPTION AS \"commercialDescription\", p12345678.PARTY_ID AS \"__partyId\", p12345678.ORGANIZATION_ID AS \"__id\", p12345678.ORGANIZATION_ID AS \"LambdaOrmParentId\" FROM TBL_PM_ORGANIZATION p12345678  WHERE  p12345678.ORGANIZATION_ID IN (:LambdaOrmParentId) ",
+                  "children": [
+                    {
+                      "entity": "PmParties",
+                      "dialect": "Oracle",
+                      "source": "cclpParties",
+                      "sentence": "SELECT p123456789.PARTY_ID AS \"id\", p123456789.INDIVIDUAL_ID AS \"individualId\", p123456789.ORGANIZATION_ID AS \"organizationId\", p123456789.STATUS_ID AS \"statusId\", p123456789.REGISTER_DATE AS \"registredDate\", p123456789.PARTY_ID AS \"__id\", p123456789.PARTY_ID AS \"__id\", p123456789.PARTY_ID AS \"LambdaOrmParentId\" FROM TBL_PM_PARTY p123456789  WHERE  p123456789.PARTY_ID IN (:LambdaOrmParentId) ",
+                      "children": [
+                        {
+                          "entity": "PmIdentifications",
+                          "dialect": "Oracle",
+                          "source": "cclpParties",
+                          "sentence": "SELECT p12345678910.IDENTIFICATION_ID AS \"id\", p12345678910.IDENTIFICATION_TYPE_ID AS \"identificationTypeId\", p12345678910.PARTY_ID AS \"partyId\", p12345678910.IDENTIFICATION_VALUE AS \"indentificationValue\", p12345678910.SOURCE AS \"source\", p12345678910.PARTY_ID AS \"LambdaOrmParentId\" FROM TBL_PM_IDENTIFICATION p12345678910  WHERE  p12345678910.PARTY_ID IN (:LambdaOrmParentId) ",
+                          "children": []
+                        },
+                        {
+                          "entity": "PmPartyContactMediums",
+                          "dialect": "Oracle",
+                          "source": "cclpParties",
+                          "sentence": "SELECT p1234567891011.PARTY_CONTACT_MEDIUM_ID AS \"id\", p1234567891011.CONTACT_MEDIUM_TYPE_ID AS \"contactMediumTypeId\", p1234567891011.PARTY_ID AS \"partyId\", p1234567891011.MEDIUM_VALUE AS \"mediumValue\", p1234567891011.VALID_FROM AS \"validFrom\", p1234567891011.VALID_TO AS \"validTo\", p1234567891011.IS_MAIN AS \"isMain\", p1234567891011.IS_FAVORITE AS \"isFavorite\", p1234567891011.SOURCE AS \"source\", p1234567891011.CREATED_BY AS \"createdBy\", p1234567891011.PARTY_ID AS \"LambdaOrmParentId\" FROM TBL_PM_PARTY_CONTACT_MEDIUM p1234567891011  WHERE  p1234567891011.PARTY_ID IN (:LambdaOrmParentId) ",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "entity": "PmOrganizationNames",
+                      "dialect": "Oracle",
+                      "source": "cclpParties",
+                      "sentence": "SELECT p123456789101112.ORGANIZATION_NAME_ID AS \"id\", p123456789101112.ORGANIZATION_ID AS \"organizationId\", p123456789101112.TRADING_NAME AS \"tradingName\", p123456789101112.ORGANIZATION_ID AS \"LambdaOrmParentId\" FROM TBL_PM_ORGANIZATION_NAME p123456789101112  WHERE  p123456789101112.ORGANIZATION_ID IN (:LambdaOrmParentId) ",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "entity": "PrPartyRolePlaces",
+              "dialect": "Oracle",
+              "source": "cclpPartyRoles",
+              "sentence": "SELECT p12345678910111213.PARTY_ROLE_PLACE_ID AS \"id\", p12345678910111213.PARTY_ROLE_ID AS \"partyRoleId\", p12345678910111213.PLACE_REF_ID AS \"placeRefId\", p12345678910111213.PLACE_REF_ID AS \"__placeRefId\", p12345678910111213.PARTY_ROLE_ID AS \"LambdaOrmParentId\" FROM TBL_PR_PARTY_ROLE_PLACE p12345678910111213  WHERE  p12345678910111213.PARTY_ROLE_ID IN (:LambdaOrmParentId) ",
+              "children": [
+                {
+                  "entity": "PrAddressReferences",
+                  "dialect": "Oracle",
+                  "source": "cclpPartyRoles",
+                  "sentence": "SELECT p1234567891011121314.REF_TYPE AS \"refType\", CAST(p1234567891011121314.REF_ID AS NUMBER) AS \"refId\", p1234567891011121314.REFERENCE_ID AS \"id\", p1234567891011121314.NAME AS \"name\", CAST(p1234567891011121314.REF_ID AS NUMBER) AS \"__refId\", p1234567891011121314.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE p1234567891011121314  WHERE ( p1234567891011121314.REFERENCE_ID IN (:LambdaOrmParentId) AND p1234567891011121314.REF_TYPE = 'Address') ",
+                  "children": [
+                    {
+                      "entity": "LocAddresses",
+                      "dialect": "Oracle",
+                      "source": "cclpLocations",
+                      "sentence": "SELECT l.ADDRESS_ID AS \"id\", l.COUNTRY_ID AS \"countryId\", l.STREET_NAME AS \"streetName\", l.STREET_NR_FIRST AS \"streetNrFirst\", l.POSTAL_CODE AS \"postalCode\", l.ADDRESS_LINE_1 AS \"city\", l.ADDITIONAL_DATA_1 AS \"additionalData\", l.ADDRESS_ID AS \"__id\", l.ADDRESS_ID AS \"LambdaOrmParentId\" FROM TBL_LOC_ADDRESS l  WHERE  l.ADDRESS_ID IN (:LambdaOrmParentId) ",
+                      "children": [
+                        {
+                          "entity": "LocAddressAreas",
+                          "dialect": "Oracle",
+                          "source": "cclpLocations",
+                          "sentence": "SELECT l1.ADDRESS_AREA_ID AS \"id\", l1.ADDRESS_ID AS \"addressId\", l1.AREA_ID AS \"areaId\", l1.ADDRESS_ID AS \"LambdaOrmParentId\" FROM TBL_LOC_ADDRESS_AREA l1  WHERE  l1.ADDRESS_ID IN (:LambdaOrmParentId) ",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "DbDebtorAccounts",
+      "dialect": "Oracle",
+      "source": "cclpDebtors",
+      "sentence": "SELECT d12.DEBTOR_ACCOUNT_ID AS \"id\", d12.ACCOUNT_NUMBER AS \"accountNumber\", d12.NAME AS \"name\", d12.DEBTOR_ID AS \"debtorId\", d12.PROVIDER_ID AS \"providerId\", d12.ACCOUNT_LEDGER_REF_ID AS \"accountLedgerRefId\", d12.LAST_MODIFICATION_DATE AS \"lastModificationDate\", d12.REFERENCE_NUMBER AS \"referenceNumber\", d12.ACCOUNT_STATUS_ID AS \"accountStatusId\", d12.REGISTRATION_DATE AS \"registrationDate\", d12.CURRENCY_REF_ID AS \"currencyRefId\", d12.ACTIVE_SEGMENT_ID AS \"activeSegmentId\", d12.ACCOUNT_LEDGER_REF_ID AS \"__accountLedgerRefId\", d12.DEBTOR_ACCOUNT_ID AS \"__id\", d12.DEBTOR_ACCOUNT_ID AS \"__id\", d12.DEBTOR_ACCOUNT_ID AS \"__id\", d12.DEBTOR_ID AS \"LambdaOrmParentId\" FROM TBL_DB_DEBTOR_ACCOUNT d12  WHERE  d12.DEBTOR_ID IN (:LambdaOrmParentId) ",
+      "children": [
+        {
+          "entity": "DbLedgerAccountReferences",
+          "dialect": "Oracle",
+          "source": "cclpDebtors",
+          "sentence": "SELECT d123.REF_TYPE AS \"refType\", CAST(d123.REF_ID AS NUMBER) AS \"refId\", d123.REFERENCE_ID AS \"id\", d123.NAME AS \"name\", CAST(d123.REF_ID AS NUMBER) AS \"__refId\", d123.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE d123  WHERE ( d123.REFERENCE_ID IN (:LambdaOrmParentId) AND d123.REF_TYPE = 'LedgerAccount') ",
+          "children": [
+            {
+              "entity": "LamAccounts",
+              "dialect": "Oracle",
+              "source": "cclpLedgerAccounts",
+              "sentence": "SELECT l12.ACCOUNT_ID AS \"id\", l12.ACCOUNT_NUMBER AS \"accountNumber\", l12.NAME AS \"name\", l12.CURRENCY_REF_ID AS \"currencyRefId\", l12.ACCOUNT_TYPE_ID AS \"accountTypeId\", l12.ACCOUNT_STATUS_ID AS \"accountStatusId\", l12.BALANCE AS \"balance\", l12.STATEMENT_CYCLE_ID AS \"statementCycleId\", l12.REGISTRATION_DATE AS \"registrationDate\", l12.CREDITOR_ID AS \"creditorId\", l12.ACCOUNT_ID AS \"__id\", l12.ACCOUNT_ID AS \"LambdaOrmParentId\" FROM TBL_LAM_ACCOUNT l12  WHERE  l12.ACCOUNT_ID IN (:LambdaOrmParentId) ",
+              "children": [
+                {
+                  "entity": "LamAccountStatusHistories",
+                  "dialect": "Oracle",
+                  "source": "cclpLedgerAccounts",
+                  "sentence": "SELECT l123.ACCOUNT_STATUS_HISTORY_ID AS \"id\", l123.ACCOUNT_STATUS AS \"accountStatus\", l123.REGISTER_DATE AS \"registerDate\", l123.USER_REF_ID AS \"userRefId\", l123.REASON AS \"reason\", l123.REMARKS AS \"remarks\", l123.ACCOUNT_ID AS \"accountId\", l123.ACCOUNT_ID AS \"LambdaOrmParentId\" FROM TBL_LAM_ACCOUNT_STATUS_HISTORY l123  WHERE  l123.ACCOUNT_ID IN (:LambdaOrmParentId) ",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "entity": "DbAccountServices",
+          "dialect": "Oracle",
+          "source": "cclpDebtors",
+          "sentence": "SELECT d1234.ACCOUNT_SERVICE_ID AS \"id\", d1234.NAME AS \"name\", d1234.REFERENCE_NUMBER AS \"referenceNumber\", d1234.ACCOUNT_ID AS \"accountId\", d1234.SERIAL_NUMBER AS \"serialNumber\", d1234.REGISTRATION_DATE AS \"registrationDate\", d1234.ACTIVATION_DATE AS \"activationDate\", d1234.DEACTIVATION_DATE AS \"deactivationDate\", d1234.CONTRACT_NUMBER AS \"contractNumber\", d1234.SERVICE_EXTERNAL_CODE AS \"serviceExternalCode\", d1234.PRODUCT_LINE AS \"productLine\", d1234.SUB_TYPE AS \"subType\", d1234.ACCOUNT_ID AS \"LambdaOrmParentId\" FROM TBL_DB_ACCOUNT_SERVICE d1234  WHERE  d1234.ACCOUNT_ID IN (:LambdaOrmParentId) ",
+          "children": []
+        },
+        {
+          "entity": "DbAccountPaymentResps",
+          "dialect": "Oracle",
+          "source": "cclpDebtors",
+          "sentence": "SELECT d12345.ACCOUNT_PAYMENT_RESP_ID AS \"id\", d12345.DEBTOR_ACCOUNT_ID AS \"debtorAccountId\", d12345.PAYMENT_RESPONSIBLE_ID AS \"paymentResponsibleId\", d12345.LOC_ADDRESS_REF_ID AS \"locAddressRefId\", d12345.IS_MAIN AS \"isMain\", d12345.PAYMENT_METHOD_REF_ID AS \"paymentMethodRefId\", d12345.LOC_ADDRESS_REF_ID AS \"__locAddressRefId\", d12345.PAYMENT_RESPONSIBLE_ID AS \"__paymentResponsibleId\", d12345.PAYMENT_METHOD_REF_ID AS \"__paymentMethodRefId\", d12345.DEBTOR_ACCOUNT_ID AS \"LambdaOrmParentId\" FROM TBL_DB_ACCOUNT_PAYMENT_RESP d12345  WHERE  d12345.DEBTOR_ACCOUNT_ID IN (:LambdaOrmParentId) ",
+          "children": [
+            {
+              "entity": "DbAddressReferences",
+              "dialect": "Oracle",
+              "source": "cclpDebtors",
+              "sentence": "SELECT d123456.REF_TYPE AS \"refType\", CAST(d123456.REF_ID AS NUMBER) AS \"refId\", d123456.REFERENCE_ID AS \"id\", d123456.NAME AS \"name\", CAST(d123456.REF_ID AS NUMBER) AS \"__refId\", d123456.REFERENCE_ID AS \"LambdaOrmParentId\" FROM TBL_SRB_REFERENCE d123456  WHERE ((d123456.NAME IS NOT NULL) AND d123456.REF_TYPE = 'Address') ",
+              "children": [
+                {
+                  "entity": "LocAddresses",
+                  "dialect": "Oracle",
+                  "source": "cclpLocations",
+                  "sentence": "SELECT l1234.ADDRESS_ID AS \"id\", l1234.COUNTRY_ID AS \"countryId\", l1234.STREET_NAME AS \"streetName\", l1234.STREET_NR_FIRST AS \"streetNrFirst\", l1234.POSTAL_CODE AS \"postalCode\", l1234.ADDRESS_LINE_1 AS \"city\", l1234.ADDITIONAL_DATA_1 AS \"additionalData\", l1234.ADDRESS_ID AS \"__id\", l1234.ADDRESS_ID AS \"LambdaOrmParentId\" FROM TBL_LOC_ADDRESS l1234  WHERE  l1234.ADDRESS_ID IN (:LambdaOrmParentId) ",
+                  "children": [
+                    {
+                      "entity": "LocAddressAreas",
+                      "dialect": "Oracle",
+                      "source": "cclpLocations",
+                      "sentence": "SELECT l12345.ADDRESS_AREA_ID AS \"id\", l12345.ADDRESS_ID AS \"addressId\", l12345.AREA_ID AS \"areaId\", l12345.ADDRESS_ID AS \"LambdaOrmParentId\" FROM TBL_LOC_ADDRESS_AREA l12345  WHERE  l12345.ADDRESS_ID IN (:LambdaOrmParentId) ",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "entity": "DbPaymentResponsibles",
+              "dialect": "Oracle",
+              "source": "cclpDebtors",
+              "sentence": "SELECT d1234567.PAYMENT_RESPONSIBLE_ID AS \"id\", d1234567.NAME AS \"name\", d1234567.REFERENCE_NUMBER AS \"referenceNumber\", d1234567.PAYMENT_RESPONSIBLE_ID AS \"__id\", d1234567.PAYMENT_RESPONSIBLE_ID AS \"LambdaOrmParentId\" FROM TBL_DB_PAYMENT_RESPONSIBLE d1234567  WHERE  d1234567.PAYMENT_RESPONSIBLE_ID IN (:LambdaOrmParentId) ",
+              "children": [
+                {
+                  "entity": "DbPaymentResponsibleMethods",
+                  "dialect": "Oracle",
+                  "source": "cclpDebtors",
+                  "sentence": "SELECT d12345678.PMT_RESP_PAYMENT_METHOD_ID AS \"id\", d12345678.PMT_METHOD_STATUS AS \"methodStatus\", d12345678.PAYMENT_METHOD_TYPE_ID AS \"paymentMethodTypeId\", d12345678.PAYMENT_RESPONSIBLE_ID AS \"paymentResponsibleId\", d12345678.BANK_ID AS \"bankId\", d12345678.CARD_NUMBER AS \"cardNumber\", d12345678.CARD_NAME AS \"cardName\", d12345678.CARD_EXP_YEAR AS \"cardExpirationYear\", d12345678.CARD_EXP_MONTH AS \"cardExpirationMonth\", d12345678.PAYMENT_RESPONSIBLE_ID AS \"LambdaOrmParentId\" FROM TBL_DB_PMT_RESP_PAYMENT_METHOD d12345678  WHERE  d12345678.PAYMENT_RESPONSIBLE_ID IN (:LambdaOrmParentId) ",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "entity": "DbPaymentResponsibleMethods",
+              "dialect": "Oracle",
+              "source": "cclpDebtors",
+              "sentence": "SELECT d123456789.PMT_RESP_PAYMENT_METHOD_ID AS \"id\", d123456789.PMT_METHOD_STATUS AS \"methodStatus\", d123456789.PAYMENT_METHOD_TYPE_ID AS \"paymentMethodTypeId\", d123456789.PAYMENT_RESPONSIBLE_ID AS \"paymentResponsibleId\", d123456789.BANK_ID AS \"bankId\", d123456789.CARD_NUMBER AS \"cardNumber\", d123456789.CARD_NAME AS \"cardName\", d123456789.CARD_EXP_YEAR AS \"cardExpirationYear\", d123456789.CARD_EXP_MONTH AS \"cardExpirationMonth\", d123456789.PMT_RESP_PAYMENT_METHOD_ID AS \"LambdaOrmParentId\" FROM TBL_DB_PMT_RESP_PAYMENT_METHOD d123456789  WHERE  d123456789.PMT_RESP_PAYMENT_METHOD_ID IN (:LambdaOrmParentId) ",
+              "children": []
+            }
+          ]
+        },
+        {
+          "entity": "DbAccountStatusHistories",
+          "dialect": "Oracle",
+          "source": "cclpDebtors",
+          "sentence": "SELECT d12345678910.ACCOUNT_STATUS_HISTORY_ID AS \"id\", d12345678910.ACCOUNT_STATUS AS \"accountStatus\", d12345678910.REGISTRATION_DATE AS \"registrationDate\", d12345678910.USER_REF_ID AS \"userRefId\", d12345678910.IS_ACTIVE AS \"isActive\", d12345678910.REASON AS \"reason\", d12345678910.REMARKS AS \"remarks\", d12345678910.ACCOUNT_ID AS \"accountId\", d12345678910.ACCOUNT_ID AS \"LambdaOrmParentId\" FROM TBL_DB_ACCOUNT_STATUS_HISTORY d12345678910  WHERE  d12345678910.ACCOUNT_ID IN (:LambdaOrmParentId) ",
+          "children": []
+        }
+      ]
+    },
+    {
+      "entity": "DbDebtorStatusHistories",
+      "dialect": "Oracle",
+      "source": "cclpDebtors",
+      "sentence": "SELECT d1234567891011.DEBTOR_STATUS_HISTORY_ID AS \"id\", d1234567891011.DEBTOR_STATUS AS \"debtorStatus\", d1234567891011.REGISTRATION_DATE AS \"registrationDate\", d1234567891011.USER_REF_ID AS \"userRefId\", d1234567891011.REASON AS \"reason\", d1234567891011.REMARKS AS \"remarks\", d1234567891011.DEBTOR_ID AS \"debtorId\", d1234567891011.DEBTOR_ID AS \"LambdaOrmParentId\" FROM TBL_DB_DEBTOR_STATUS_HISTORY d1234567891011  WHERE  d1234567891011.DEBTOR_ID IN (:LambdaOrmParentId) ",
+      "children": []
+    }
+  ]
+}

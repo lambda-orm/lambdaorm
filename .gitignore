@@ -15,7 +15,7 @@ volume
 node_modules/
 
 # Confidentional data
-confidential_data/
+confidential/
 
 # TypeScript v1 declaration files
 typings/

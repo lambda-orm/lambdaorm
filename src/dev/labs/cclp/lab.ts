@@ -6,10 +6,6 @@ const lab = async () => {
 	try {
 		await orm.init()
 		const options = { stage: 'cclp' }
-		// const query = () => DbDebtors
-		// 	.include(p => p.partyRoleRef
-		// 		.include(p => p.partyRole
-		// 			.include(p => p.individualReference)))
 		const query = () => DbDebtors
 			.include(p => [p.partyRoleRef
 				.include(p => p.partyRole
@@ -34,7 +30,7 @@ const lab = async () => {
 					.include(p => p.ledgerAccount
 						.include(p => [p.statusHistories])
 					), p.services, p.accountPaymentResps
-					.include(p => [p.locAddressRef
+					.include(p => [p.locAddressRef.filter(p=> isNotNull(p.name))
 						.include(p => p.address
 							.include(p => p.areas)),
 					p.paymentResponsible.include(p => p.paymentMethods),
@@ -51,6 +47,7 @@ const lab = async () => {
 			await helper.fs.write(path.join(__dirname,'debtors.json'),JSON.stringify(result))
 	} catch (e:any) {
 		console.log(e.message)
+		await helper.fs.write(path.join(__dirname,'error.txt'),e.message)
 	} finally {
 		await orm.end()
 	}
