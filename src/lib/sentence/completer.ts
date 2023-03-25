@@ -34,7 +34,7 @@ export class SentenceCompleter {
 		let newFilter: Operand | undefined
 		// add filter for filter in entity
 		if (entity.filter) {
-			const filterOperand = this.expressions.build(entity.filter)
+			const filterOperand = this.expressions.build(entity.filter, false)
 			newFilter = this.replaceField(entity, sentence.alias, filterOperand)
 		}
 		// add filter for keys in properties
@@ -109,7 +109,7 @@ export class SentenceCompleter {
 			}
 		}
 		if (expression) {
-			const operand = this.expressions.build(expression)
+			const operand = this.expressions.build(expression, false)
 			return this.replaceField(entity, sentence.alias, operand)
 		} else {
 			return undefined
@@ -127,7 +127,7 @@ export class SentenceCompleter {
 			let newFilter: Operand | undefined
 			// add filter for filter in entity
 			if (entity.filter) {
-				const operand = this.expressions.build(entity.filter)
+				const operand = this.expressions.build(entity.filter, false)
 				newFilter = this.replaceField(entity, parts[1], operand)
 			}
 			// add filter for keys in properties
@@ -170,15 +170,15 @@ export class SentenceCompleter {
 		const alias = child.alias as string
 		let sourceOperand = child as Operand
 		if (property.readMappingExp) {
-			const operand = this.expressions.build(property.readMappingExp)
+			const operand = this.expressions.build(property.readMappingExp, false)
 			sourceOperand = this.replaceField(entity, alias, operand, child.name, sourceOperand)
 		}
 		if (property.readExp) {
-			const operand = this.expressions.build(property.readExp)
+			const operand = this.expressions.build(property.readExp, false)
 			sourceOperand = this.replaceField(entity, alias, operand, child.name, sourceOperand)
 		}
 		if (viewProperty && viewProperty.readExp) {
-			const operand = this.expressions.build(viewProperty.readExp)
+			const operand = this.expressions.build(viewProperty.readExp, false)
 			sourceOperand = this.replaceField(entity, alias, operand, child.name, sourceOperand)
 		}
 		return sourceOperand
@@ -187,9 +187,7 @@ export class SentenceCompleter {
 	private replaceField (entity:EntityMapping, alias:string, operand:Operand, sourceName?:string, source?:Operand):Operand {
 		for (const i in operand.children) {
 			const child = operand.children[i]
-			if (child instanceof Field) {
-				continue
-			} else if (child.type === OperandType.Var) {
+			if (child.type === OperandType.Var) {
 				const property = entity.properties.find(p => p.name === child.name)
 				if (property) {
 					if (sourceName && source && property.name === sourceName) {

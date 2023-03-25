@@ -700,32 +700,36 @@ export class QueryExecutor implements IQueryInternalExecutor {
 		const mapping = this.schemaManager.mapping.getInstance(source.mapping)
 		const connection = await this.getConnection(source.name)
 		const dialect = this.languages.getDialect(query.dialect)
-		switch (query.action) {
-		case SentenceAction.select: result = await this.selectExecutor.select(query, data, mapping, dialect, connection); break
-		case SentenceAction.insert: result = await this.insertExecutor.insert(query, data, mapping, dialect, connection); break
-		case SentenceAction.bulkInsert: result = await this.bulkInsertExecutor.bulkInsert(query, data, mapping, dialect, connection); break
-		case SentenceAction.update: result = await this.updateExecutor.update(query, data, mapping, dialect, connection); break
-		case SentenceAction.delete: result = await this.deleteExecutor.delete(query, data, mapping, dialect, connection); break
-		case SentenceAction.truncateEntity: result = await connection.truncateEntity(mapping, query); break
-		case SentenceAction.createEntity: result = await connection.createEntity(mapping, query); break
-		case SentenceAction.createSequence: result = await connection.createSequence(mapping, query); break
-		case SentenceAction.createFk: result = await connection.createFk(mapping, query); break
-		case SentenceAction.createIndex: result = await connection.createIndex(mapping, query); break
-		case SentenceAction.alterProperty: result = await connection.alterProperty(mapping, query); break
-		case SentenceAction.addProperty: result = await connection.addProperty(mapping, query); break
-		case SentenceAction.addPk: result = await connection.addPk(mapping, query); break
-		case SentenceAction.addUk: result = await connection.addUk(mapping, query); break
-		case SentenceAction.addFk: result = await connection.addFk(mapping, query); break
-		case SentenceAction.dropSequence: result = await connection.dropSequence(mapping, query); break
-		case SentenceAction.dropEntity: result = await connection.dropEntity(mapping, query); break
-		case SentenceAction.dropProperty: result = await connection.dropProperty(mapping, query); break
-		case SentenceAction.dropPk: result = await connection.dropPk(mapping, query); break
-		case SentenceAction.dropUk: result = await connection.dropUk(mapping, query); break
-		case SentenceAction.dropFk: result = await connection.dropFk(mapping, query); break
-		case SentenceAction.dropIndex: result = await connection.dropIndex(mapping, query); break
-		default:
-			throw new ExecutionError(query.source, query.entity, JSON.stringify(query.sentence), `query action ${query.action} undefined`)
+		try {
+			switch (query.action) {
+			case SentenceAction.select: result = await this.selectExecutor.select(query, data, mapping, dialect, connection); break
+			case SentenceAction.insert: result = await this.insertExecutor.insert(query, data, mapping, dialect, connection); break
+			case SentenceAction.bulkInsert: result = await this.bulkInsertExecutor.bulkInsert(query, data, mapping, dialect, connection); break
+			case SentenceAction.update: result = await this.updateExecutor.update(query, data, mapping, dialect, connection); break
+			case SentenceAction.delete: result = await this.deleteExecutor.delete(query, data, mapping, dialect, connection); break
+			case SentenceAction.truncateEntity: result = await connection.truncateEntity(mapping, query); break
+			case SentenceAction.createEntity: result = await connection.createEntity(mapping, query); break
+			case SentenceAction.createSequence: result = await connection.createSequence(mapping, query); break
+			case SentenceAction.createFk: result = await connection.createFk(mapping, query); break
+			case SentenceAction.createIndex: result = await connection.createIndex(mapping, query); break
+			case SentenceAction.alterProperty: result = await connection.alterProperty(mapping, query); break
+			case SentenceAction.addProperty: result = await connection.addProperty(mapping, query); break
+			case SentenceAction.addPk: result = await connection.addPk(mapping, query); break
+			case SentenceAction.addUk: result = await connection.addUk(mapping, query); break
+			case SentenceAction.addFk: result = await connection.addFk(mapping, query); break
+			case SentenceAction.dropSequence: result = await connection.dropSequence(mapping, query); break
+			case SentenceAction.dropEntity: result = await connection.dropEntity(mapping, query); break
+			case SentenceAction.dropProperty: result = await connection.dropProperty(mapping, query); break
+			case SentenceAction.dropPk: result = await connection.dropPk(mapping, query); break
+			case SentenceAction.dropUk: result = await connection.dropUk(mapping, query); break
+			case SentenceAction.dropFk: result = await connection.dropFk(mapping, query); break
+			case SentenceAction.dropIndex: result = await connection.dropIndex(mapping, query); break
+			default:
+				throw new Error(`query action ${query.action} undefined`)
+			}
+			return result
+		} catch (error:any) {
+			throw new ExecutionError(query.source, query.entity, JSON.stringify(query.sentence), error.message, data)
 		}
-		return result
 	}
 }

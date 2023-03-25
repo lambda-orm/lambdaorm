@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { ActionObserver, Dialect, IOrm, QueryOptions, Schema, Stage, MetadataParameter, MetadataConstraint, QueryInfo, MetadataModel, Metadata, Query } from './contract'
-import { SchemaManager, Routing, helper, Executor, Transaction, ExpressionActionObserver } from './manager'
+import { SchemaManager, Routing, helper, Executor, Transaction, ExpressionActionObserver, ExpressionsWrapper } from './manager'
 import { QueryManager } from './query'
 import { Languages } from './language'
 import { SentenceManager } from './sentence'
@@ -41,7 +41,7 @@ export class Orm implements IOrm {
 	}
 
 	constructor (workspace: string = process.cwd()) {
-		this._expressions = expressions
+		this._expressions = new ExpressionsWrapper(expressions)
 		new SentenceLibrary(this._expressions.model).load()
 		this.schemaManager = new SchemaManager(workspace, this._expressions)
 		this.connectionManager = new ConnectionManager()
@@ -245,7 +245,7 @@ export class Orm implements IOrm {
 	public async execute (expression: string|Function, data: any = {}, options: QueryOptions|undefined = undefined): Promise<any> {
 		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
 		const _options = this.schemaManager.solveOptions(options)
-		const query = this.queryManager.create(_expression, _options)
+		const query = this.queryManager.create(_expression, _options, true)
 		try {
 			let result = null
 			await this.beforeExecutionNotify(_expression, query, data, _options)

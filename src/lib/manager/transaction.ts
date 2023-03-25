@@ -19,7 +19,7 @@ export class Transaction {
 		if (typeof expression !== 'string') {
 			expression = this.sentenceManager.toExpression(expression)
 		}
-		const query = this.queryManager.create(expression, this.queryExecutor.options)
+		const query = this.queryManager.create(expression, this.queryExecutor.options, true)
 		return this.queryExecutor.execute(query, data)
 	}
 
