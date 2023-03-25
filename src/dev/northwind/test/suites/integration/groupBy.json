@@ -437,16 +437,8 @@
           "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
           "result": [
             {
-              "category": 8,
-              "largestPrice": 62.5
-            },
-            {
-              "category": 7,
-              "largestPrice": 53
-            },
-            {
-              "category": 1,
-              "largestPrice": 263.5
+              "category": 3,
+              "largestPrice": 81
             },
             {
               "category": 5,
@@ -457,16 +449,24 @@
               "largestPrice": 55
             },
             {
-              "category": 2,
-              "largestPrice": 43.9
-            },
-            {
               "category": 6,
               "largestPrice": 123.79
             },
             {
-              "category": 3,
-              "largestPrice": 81
+              "category": 2,
+              "largestPrice": 43.9
+            },
+            {
+              "category": 7,
+              "largestPrice": 53
+            },
+            {
+              "category": 1,
+              "largestPrice": 263.5
+            },
+            {
+              "category": 8,
+              "largestPrice": 62.5
             }
           ]
         },
@@ -1001,8 +1001,8 @@
         },
         {
           "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
-          "error": "MongoServerError: The $round accumulator is a unary operator",
-          "stack": "MongoServerError: The $round accumulator is a unary operator\n    at Connection.onMessage (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:230:30)\n    at MessageStream.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:61:60)\n    at MessageStream.emit (events.js:400:28)\n    at processIncomingData (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:125:16)\n    at MessageStream._write (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:33:9)\n    at writeOrBuffer (internal/streams/writable.js:358:12)\n    at MessageStream.Writable.write (internal/streams/writable.js:303:10)\n    at Socket.ondata (internal/streams/readable.js:731:22)\n    at Socket.emit (events.js:400:28)\n    at addChunk (internal/streams/readable.js:293:12)"
+          "error": "ExecutionError: ERROR: The $round accumulator is a unary operator SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"average\\\":{ \\\"$round\\\" :[{ \\\"$avg\\\" :\\\"$UnitPrice\\\" },4] } }} ]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: The $round accumulator is a unary operator SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"average\\\":{ \\\"$round\\\" :[{ \\\"$avg\\\" :\\\"$UnitPrice\\\" },4] } }} ]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/projects/lambdaorm/lambdaorm/build/lib/query/executor.js:743:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/projects/lambdaorm/lambdaorm/build/lib/query/executor.js:6:65)\n    at runMicrotasks (<anonymous>)\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)"
         },
         {
           "test": "Products.map(p => ({ count: count(1) }))",
@@ -1021,28 +1021,28 @@
               "largestPrice": 81
             },
             {
-              "category": 4,
-              "largestPrice": 55
-            },
-            {
-              "category": 6,
-              "largestPrice": 123.79
-            },
-            {
-              "category": 1,
-              "largestPrice": 263.5
-            },
-            {
               "category": 2,
               "largestPrice": 43.9
+            },
+            {
+              "category": 8,
+              "largestPrice": 62.5
             },
             {
               "category": 5,
               "largestPrice": 38
             },
             {
-              "category": 8,
-              "largestPrice": 62.5
+              "category": 6,
+              "largestPrice": 123.79
+            },
+            {
+              "category": 4,
+              "largestPrice": 55
+            },
+            {
+              "category": 1,
+              "largestPrice": 263.5
             },
             {
               "category": 7,
@@ -1054,8 +1054,24 @@
           "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
           "result": [
             {
+              "category": "Grains/Cereals",
+              "largestPrice": 38
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
               "category": "Condiments",
               "largestPrice": 43.9
+            },
+            {
+              "category": "Produce",
+              "largestPrice": 53
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
             },
             {
               "category": "Seafood",
@@ -1066,24 +1082,8 @@
               "largestPrice": 55
             },
             {
-              "category": "Meat/Poultry",
-              "largestPrice": 123.79
-            },
-            {
               "category": "Beverages",
               "largestPrice": 263.5
-            },
-            {
-              "category": "Grains/Cereals",
-              "largestPrice": 38
-            },
-            {
-              "category": "Produce",
-              "largestPrice": 53
-            },
-            {
-              "category": "Confections",
-              "largestPrice": 81
             }
           ]
         },
@@ -1099,23 +1099,23 @@
         },
         {
           "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
-          "error": "SyntaxError: Unexpected token { in JSON at position 335",
-          "stack": "SyntaxError: Unexpected token { in JSON at position 335\n    at JSON.parse (<anonymous>)\n    at MongodbConnection.parseTemplate (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:307:30)\n    at MongodbConnection.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:60:36)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:10:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:6:12)\n    at MongodbConnection.select (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:54:16)\n    at QuerySelectExecutor.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/executor.js:116:49)\n    at Generator.next (<anonymous>)"
+          "error": "ExecutionError: ERROR: Unexpected token { in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: Unexpected token { in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/projects/lambdaorm/lambdaorm/build/lib/query/executor.js:743:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/projects/lambdaorm/lambdaorm/build/lib/query/executor.js:6:65)\n    at runMicrotasks (<anonymous>)\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)"
         },
         {
           "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
-          "error": "MongoServerError: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string",
-          "stack": "MongoServerError: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string\n    at Connection.onMessage (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:230:30)\n    at MessageStream.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/connection.js:61:60)\n    at MessageStream.emit (events.js:400:28)\n    at processIncomingData (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:125:16)\n    at MessageStream._write (/home/flavio/projects/lambdaOrm/lambdaorm/node_modules/mongodb/lib/cmap/message_stream.js:33:9)\n    at writeOrBuffer (internal/streams/writable.js:358:12)\n    at MessageStream.Writable.write (internal/streams/writable.js:303:10)\n    at Socket.ondata (internal/streams/readable.js:731:22)\n    at Socket.emit (events.js:400:28)\n    at addChunk (internal/streams/readable.js:293:12)"
+          "error": "ExecutionError: ERROR: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string SOURCE: MongoDB ENTITY: Orders.details QUERY: \"[{ \\\"$unwind\\\" : \\\"$\\\\\\\"Order Details\\\\\\\"\\\" }, { \\\"$replaceRoot\\\": { \\\"newRoot\\\": \\\"$\\\\\\\"Order Details\\\\\\\"\\\" } }, { \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"subTotal\\\":{ \\\"$sum\\\" :{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[\\\"$UnitPrice\\\",\\\"$Quantity\\\"] },{ \\\"$subtract\\\" :[1,{ \\\"$divide\\\" :[\\\"$Discount\\\",100] }] }] },100] } } }} , { \\\"$sort\\\" :{ \\\"subTotal\\\":1 } }]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string SOURCE: MongoDB ENTITY: Orders.details QUERY: \"[{ \\\"$unwind\\\" : \\\"$\\\\\\\"Order Details\\\\\\\"\\\" }, { \\\"$replaceRoot\\\": { \\\"newRoot\\\": \\\"$\\\\\\\"Order Details\\\\\\\"\\\" } }, { \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"subTotal\\\":{ \\\"$sum\\\" :{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[\\\"$UnitPrice\\\",\\\"$Quantity\\\"] },{ \\\"$subtract\\\" :[1,{ \\\"$divide\\\" :[\\\"$Discount\\\",100] }] }] },100] } } }} , { \\\"$sort\\\" :{ \\\"subTotal\\\":1 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/projects/lambdaorm/lambdaorm/build/lib/query/executor.js:743:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/projects/lambdaorm/lambdaorm/build/lib/query/executor.js:6:65)\n    at runMicrotasks (<anonymous>)\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)"
         },
         {
           "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
-          "error": "SyntaxError: Unexpected token { in JSON at position 335",
-          "stack": "SyntaxError: Unexpected token { in JSON at position 335\n    at JSON.parse (<anonymous>)\n    at MongodbConnection.parseTemplate (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:307:30)\n    at MongodbConnection.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:60:36)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:10:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:6:12)\n    at MongodbConnection.select (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:54:16)\n    at QuerySelectExecutor.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/executor.js:116:49)\n    at Generator.next (<anonymous>)"
+          "error": "ExecutionError: ERROR: Unexpected token { in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: Unexpected token { in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/projects/lambdaorm/lambdaorm/build/lib/query/executor.js:743:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/projects/lambdaorm/lambdaorm/build/lib/query/executor.js:6:65)\n    at runMicrotasks (<anonymous>)\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)"
         },
         {
           "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
-          "error": "SyntaxError: Unexpected token { in JSON at position 381",
-          "stack": "SyntaxError: Unexpected token { in JSON at position 381\n    at JSON.parse (<anonymous>)\n    at MongodbConnection.parseTemplate (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:307:30)\n    at MongodbConnection.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:60:36)\n    at Generator.next (<anonymous>)\n    at /home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:10:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:6:12)\n    at MongodbConnection.select (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/connection/dialects/MongoDB.js:54:16)\n    at QuerySelectExecutor.<anonymous> (/home/flavio/projects/lambdaOrm/lambdaorm/build/lib/query/executor.js:116:49)\n    at Generator.next (<anonymous>)"
+          "error": "ExecutionError: ERROR: Unexpected token { in JSON at position 381 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$match\\\" : { \\\"UnitPrice\\\": { \\\"$gt\\\": 5 } } }, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 50 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: Unexpected token { in JSON at position 381 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$match\\\" : { \\\"UnitPrice\\\": { \\\"$gt\\\": 5 } } }, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 50 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/projects/lambdaorm/lambdaorm/build/lib/query/executor.js:743:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/projects/lambdaorm/lambdaorm/build/lib/query/executor.js:6:65)\n    at runMicrotasks (<anonymous>)\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)"
         }
       ],
       "errors": 5

@@ -174,8 +174,8 @@ describe('Metadata', () => {
 	test('groupBy 8', async () => {
 		const expression = 'Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))'
 		const modelExpected :any= [{"name":"name","type":"string"},{"name":"source","type":"decimal"},{"name":"result","type":"number"}]
-		const parametersExpected:any = [{"name":"id","type":"integer"}]
-		const metadataExpected :any= {"classtype":"Sentence","pos":{"ln":0,"col":38},"name":"select","children":[],"type":"any","entity":"Products","columns":[{"name":"name","type":"string"},{"name":"source","type":"decimal"},{"name":"result","type":"number"}],"parameters":[{"name":"id","type":"integer"}],"constraints":[],"values":[],"defaults":[],"clause":"select","alias":"p"}
+		const parametersExpected:any = [{"name":"id","type":"any"}]
+		const metadataExpected :any= {"classtype":"Sentence","pos":{"ln":0,"col":38},"name":"select","children":[],"type":"any","entity":"Products","columns":[{"name":"name","type":"string"},{"name":"source","type":"decimal"},{"name":"result","type":"number"}],"parameters":[{"name":"id","type":"any"}],"constraints":[],"values":[],"defaults":[],"clause":"select","alias":"p"}
 		const constraintsExpected :any= {"entity":"Products","constraints":[]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)
