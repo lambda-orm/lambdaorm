@@ -486,7 +486,9 @@ class SchemaExtender {
 
 	public extend (source: Schema): Schema {
 		const schema = helper.obj.clone(source)
+		this.extendEnums(schema)
 		this.extendEntities(schema)
+		this.complete(schema)
 		this.extendMappings(schema)
 		this.extendDataSources(schema)
 		this.extendDataStages(schema)
@@ -499,6 +501,18 @@ class SchemaExtender {
 			schema.data.mappings[k] = this.clearMapping2(schema, schema.data.mappings[k])
 		}
 		return schema
+	}
+
+	private extendEnums (schema: Schema) {
+		if (schema.model.enums === undefined) {
+			schema.model.enums = []
+		}
+		for (const _enum of schema.model.enums) {
+			if (_enum && _enum.extends) {
+				this.extendEnum(_enum, schema.model.enums)
+			}
+		}
+		schema.model.enums = this.clearEnums(schema.model.enums)
 	}
 
 	private extendEntities (schema: Schema) {
@@ -514,7 +528,6 @@ class SchemaExtender {
 			}
 		}
 		schema.model.entities = this.clearEntities(schema.model.entities)
-		this.complete(schema)
 	}
 
 	private entitySecureArrays (entity:Entity) {
@@ -600,6 +613,9 @@ class SchemaExtender {
 
 	public complete (schema: Schema): void {
 		if (schema) {
+			if (schema.model.enums) {
+				this.completeEnums(schema.model.enums)
+			}
 			if (schema.model.entities) {
 				this.completeEntities(schema.model.entities, schema.model.views)
 				if (schema.model.entities && schema.model.entities.length) {
@@ -616,6 +632,17 @@ class SchemaExtender {
 		return parentRoot === childRoot
 	}
 
+	private clearEnums (source: Enum[]): Enum[] {
+		const target: Enum[] = []
+		if (source && source.length) {
+			for (const sourceEnum of source) {
+				if (sourceEnum.abstract === true) continue
+				target.push(sourceEnum)
+			}
+		}
+		return target
+	}
+
 	private clearEntities (source: Entity[]): Entity[] {
 		const target: Entity[] = []
 		if (source && source.length) {
@@ -625,6 +652,22 @@ class SchemaExtender {
 			}
 		}
 		return target
+	}
+
+	private completeEnums (enums: Enum[]): void {
+		if (enums && enums.length) {
+			for (const _enum of enums) {
+				if (_enum.values === undefined) {
+					_enum.values = []
+				} else {
+					for (const value of _enum.values) {
+						if (value.value === undefined) {
+							value.value = value.name
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private completeEntities (entities: Entity[], views: View[]): void {
@@ -730,6 +773,26 @@ class SchemaExtender {
 				}
 			}
 		}
+	}
+
+	private extendEnum (_enum: Enum, enums: Enum[]): void {
+		const base = enums.find(p => p.name === _enum.extends)
+		if (base === undefined) {
+			throw new SchemaError(`${_enum.extends} not found`)
+		}
+		if (base.extends) {
+			this.extendEnum(base, enums)
+		}
+		// extend values
+		if (base.values !== undefined && base.values.length > 0) {
+			if (_enum.values === undefined) {
+				_enum.values = []
+			}
+			_enum.values = helper.obj.extends(_enum.values, base.values)
+		}
+
+		// elimina dado que ya fue extendido
+		delete _enum.extends
 	}
 
 	private extendEntity (entity: Entity, entities: Entity[]): void {
