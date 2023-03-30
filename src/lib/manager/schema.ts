@@ -507,12 +507,14 @@ class SchemaExtender {
 		if (schema.model.enums === undefined) {
 			schema.model.enums = []
 		}
-		for (const _enum of schema.model.enums) {
-			if (_enum && _enum.extends) {
-				this.extendEnum(_enum, schema.model.enums)
+		if (Array.isArray(schema.model.enums)) {
+			for (const _enum of schema.model.enums) {
+				if (_enum && _enum.extends) {
+					this.extendEnum(_enum, schema.model.enums)
+				}
 			}
+			schema.model.enums = this.clearEnums(schema.model.enums)
 		}
-		schema.model.enums = this.clearEnums(schema.model.enums)
 	}
 
 	private extendEntities (schema: Schema) {
