@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.4.26-beta",
+	"version": "0.4.27-beta",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@gmail.com>",
 	"license": "MIT",
@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"3xpr": "1.7.10",
-		"h3lp": "1.2.7",
+		"h3lp": "1.2.8",
 		"crypto-js": "^4.1.1",
 		"js-yaml": "^4.1.0",
 		"luxon": "^3.2.1",
@@ -55,7 +55,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.49.0",
 		"@typescript-eslint/parser": "^5.49.0",
 		"concurrently": "^7.6.0",
-		"config-extends": "^2.0.3",
+		"config-extends": "2.0.4",
 		"dotenv": "^16.0.3",
 		"eslint": "^8.32.0",
 		"eslint-config-standard": "^17.0.0",
