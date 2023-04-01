@@ -659,7 +659,7 @@ class SchemaExtender {
 	private completeEnums (enums: Enum[]): void {
 		if (enums && enums.length) {
 			for (const _enum of enums) {
-				if (_enum.values === undefined) {
+				if (_enum.values === undefined || _enum.values === null) {
 					_enum.values = []
 				} else {
 					for (const value of _enum.values) {
@@ -787,7 +787,7 @@ class SchemaExtender {
 		}
 		// extend values
 		if (base.values !== undefined && base.values.length > 0) {
-			if (_enum.values === undefined) {
+			if (_enum.values === undefined || _enum.values === null) {
 				_enum.values = []
 			}
 			_enum.values = helper.obj.extends(_enum.values, base.values)

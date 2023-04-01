@@ -83,8 +83,10 @@ export class Orm implements IOrm {
 		if (schema.model.enums) {
 			for (const _enum of schema.model.enums) {
 				const values:[string, any][] = []
-				for (const enumValue of _enum.values) {
-					values.push([enumValue.name, enumValue.value])
+				if (_enum.values) {
+					for (const enumValue of _enum.values) {
+						values.push([enumValue.name, enumValue.value])
+					}
 				}
 				this._expressions.addEnum(_enum.name, values)
 			}
