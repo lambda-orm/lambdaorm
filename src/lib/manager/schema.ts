@@ -6,7 +6,6 @@ import {
 import path from 'path'
 import { helper } from './'
 import { IExpressions, Kind } from '3xpr'
-
 const yaml = require('js-yaml')
 
 abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Property> {
@@ -109,7 +108,13 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 	public sortByDependencies (entities: string[] = []): string[] {
 		if (entities.length < 2) return entities
 		const sorted: string[] = []
+		let tries = 0
+		let solved = true
 		while (sorted.length < entities.length) {
+			if (tries >= 1000) {
+				solved = false
+				break
+			}
 			for (const entityName of entities) {
 				if (sorted.includes(entityName)) {
 					continue
@@ -123,8 +128,36 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 					break
 				}
 			}
+			tries++
 		}
-		return sorted
+		if (solved) {
+			return sorted
+		}
+		const info:string[] = []
+		for (const entityName of entities) {
+			if (!sorted.includes(entityName)) {
+				const entity = this.getEntity(entityName)
+				if (entity === undefined) {
+					throw new SchemaError('Not exists entity:' + entityName)
+				}
+				info.push(`{ ${entity.name} depend: `)
+				for (const dependent of entity.dependents) {
+					if (dependent.entity !== entity.name && entities.includes(dependent.entity)) {
+						if (entity.dependents && entity.dependents.length > 0) {
+							for (const dependent of entity.dependents) {
+								if (dependent.entity !== entity.name && entities.includes(dependent.entity)) {
+									if (this.hadDependents(entity, sorted, dependent)) {
+										info.push(`${dependent.entity}.${dependent.relation.name} `)
+									}
+								}
+							}
+						}
+					}
+				}
+				info.push('}, ')
+			}
+		}
+		throw new SchemaError(`Task cannot be completed because the following entities cannot be sorted by their dependencies ${info.join('')}`)
 	}
 
 	/**
