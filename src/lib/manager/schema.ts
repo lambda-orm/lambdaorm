@@ -972,6 +972,9 @@ export class SchemaManager {
 	}
 
 	public async init (source?: string | Schema): Promise<Schema> {
+		if (source && typeof source === 'string') {
+			this.workspace = path.resolve(source)
+		}
 		let schema: string | Schema
 		if (!source || typeof source === 'string') {
 			schema = await this.get(source)

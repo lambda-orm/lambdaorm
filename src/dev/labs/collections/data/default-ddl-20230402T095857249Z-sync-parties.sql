@@ -1,0 +1,17 @@
+CREATE TABLE tbl_pm_industry_types (code VARCHAR(30) NOT NULL ,name VARCHAR(255) NOT NULL ,CONSTRAINT tbl_pm_industry_types_PK PRIMARY KEY (code));
+CREATE TABLE tbl_pm_parties (registered_date DATETIME  ,created_by VARCHAR(50)  ,id INTEGER  AUTO_INCREMENT,type VARCHAR(3)  ,status VARCHAR(12) NOT NULL ,created DATETIME  ,CONSTRAINT tbl_pm_parties_PK PRIMARY KEY (id));
+CREATE TABLE tbl_pm_party_roles (party_id INTEGER NOT NULL ,valid_from DATETIME  ,valid_to DATETIME  ,created_by VARCHAR(50)  ,id INTEGER  AUTO_INCREMENT,type VARCHAR(16) NOT NULL ,status VARCHAR(16) NOT NULL ,description VARCHAR(100)  ,created DATETIME  ,CONSTRAINT tbl_pm_party_roles_PK PRIMARY KEY (id));
+CREATE TABLE tbl_pm_identifications (party_id INTEGER NOT NULL ,created_by VARCHAR(50)  ,id INTEGER  AUTO_INCREMENT,type VARCHAR(16) NOT NULL ,value VARCHAR(100) NOT NULL ,source VARCHAR(30)  ,created DATETIME  ,CONSTRAINT tbl_pm_identifications_PK PRIMARY KEY (id));
+CREATE TABLE tbl_pm_contract_mediums (party_id INTEGER NOT NULL ,is_main BOOLEAN  ,is_favorite BOOLEAN  ,source VARCHAR(30)  ,created_by VARCHAR(50)  ,id INTEGER  AUTO_INCREMENT,type VARCHAR(16) NOT NULL ,value VARCHAR(100)  ,created DATETIME  ,CONSTRAINT tbl_pm_contract_mediums_PK PRIMARY KEY (id));
+CREATE TABLE tbl_pm_individuals (party_id INTEGER NOT NULL ,birth_date DATETIME  ,death_date DATETIME  ,nationality VARCHAR(3)  ,given_names VARCHAR(200)  ,middle_names VARCHAR(100)  ,family_names VARCHAR(100)  ,legal_name VARCHAR(500)  ,created_by VARCHAR(50)  ,gender VARCHAR(16)  ,created DATETIME  ,CONSTRAINT tbl_pm_individuals_PK PRIMARY KEY (party_id));
+CREATE TABLE tbl_pm_organizations (party_id INTEGER NOT NULL ,legal_period_from DATETIME  ,trading_name VARCHAR(100)  ,industry_type VARCHAR(30)  ,commercial_description VARCHAR(400)  ,created_by VARCHAR(50)  ,rootId INTEGER  ,parentId INTEGER  ,created DATETIME  ,CONSTRAINT tbl_pm_organizations_PK PRIMARY KEY (party_id));
+ALTER TABLE tbl_pm_party_roles ADD CONSTRAINT tbl_pm_party_roles_party_FK FOREIGN KEY (party_id) REFERENCES tbl_pm_parties (id);
+ALTER TABLE tbl_pm_party_roles ADD CONSTRAINT tbl_pm_party_roles_individual_FK FOREIGN KEY (party_id) REFERENCES tbl_pm_individuals (party_id);
+ALTER TABLE tbl_pm_party_roles ADD CONSTRAINT tbl_pm_party_roles_organization_FK FOREIGN KEY (party_id) REFERENCES tbl_pm_organizations (party_id);
+ALTER TABLE tbl_pm_identifications ADD CONSTRAINT tbl_pm_identifications_party_FK FOREIGN KEY (party_id) REFERENCES tbl_pm_parties (id);
+ALTER TABLE tbl_pm_contract_mediums ADD CONSTRAINT tbl_pm_contract_mediums_party_FK FOREIGN KEY (party_id) REFERENCES tbl_pm_parties (id);
+ALTER TABLE tbl_pm_individuals ADD CONSTRAINT tbl_pm_individuals_party_FK FOREIGN KEY (party_id) REFERENCES tbl_pm_parties (id);
+ALTER TABLE tbl_pm_organizations ADD CONSTRAINT tbl_pm_organizations_party_FK FOREIGN KEY (party_id) REFERENCES tbl_pm_parties (id);
+ALTER TABLE tbl_pm_organizations ADD CONSTRAINT tbl_pm_organizations_parent_FK FOREIGN KEY (parentId) REFERENCES tbl_pm_organizations (party_id);
+ALTER TABLE tbl_pm_organizations ADD CONSTRAINT tbl_pm_organizations_root_FK FOREIGN KEY (rootId) REFERENCES tbl_pm_organizations (party_id);
+ALTER TABLE tbl_pm_organizations ADD CONSTRAINT tbl_pm_organizations_industryType_FK FOREIGN KEY (industry_type) REFERENCES tbl_pm_industry_types (code);

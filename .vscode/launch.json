@@ -300,7 +300,19 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/performance/cclp/migration.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"
+			"envFile": "${workspaceFolder}/src/dev/labs/performance/cclp/.env"			
+		},
+		//collections
+		{
+			"name": "collections",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/collections/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/collections/.env"			
 		}
+
 	]
 }
