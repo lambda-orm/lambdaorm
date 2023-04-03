@@ -11,6 +11,8 @@ export interface EnumValue {
 }
 export interface Enum {
 	name: string
+	extends?: string
+	abstract?: boolean
 	values: EnumValue[]
 }
 export interface Constraint {

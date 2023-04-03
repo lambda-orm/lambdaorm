@@ -180,7 +180,7 @@
           "result": [
             {
               "name": "result",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -189,7 +189,7 @@
           "result": [
             {
               "name": "result",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -198,7 +198,7 @@
           "result": [
             {
               "name": "result",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -893,7 +893,7 @@
             "columns": [
               {
                 "name": "result",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "parameters": [],
@@ -919,7 +919,7 @@
             "columns": [
               {
                 "name": "result",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "parameters": [],
@@ -945,7 +945,7 @@
             "columns": [
               {
                 "name": "result",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "parameters": [],

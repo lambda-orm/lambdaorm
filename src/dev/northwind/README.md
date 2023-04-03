@@ -5,7 +5,8 @@
 Create Databases:
 
 ```sh
-./db/db.sh up
+cd db
+./db.sh up
 ```
 
 Load source db:

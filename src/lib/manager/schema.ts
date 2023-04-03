@@ -6,7 +6,6 @@ import {
 import path from 'path'
 import { helper } from './'
 import { IExpressions, Kind } from '3xpr'
-
 const yaml = require('js-yaml')
 
 abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Property> {
@@ -87,7 +86,13 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 	public sortByRelations (mainEntities: string[], allEntities: string[]): string[] {
 		if (mainEntities.length < 2) return mainEntities
 		const sorted: string[] = []
+		let tries = 0
+		let solved = true
 		while (sorted.length < mainEntities.length) {
+			if (tries >= 1000) {
+				solved = false
+				break
+			}
 			for (const entityName of mainEntities) {
 				if (sorted.includes(entityName)) {
 					continue
@@ -97,8 +102,34 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 					break
 				}
 			}
+			tries++
 		}
-		return sorted
+		if (solved) {
+			return sorted
+		}
+		const info:string[] = []
+		for (const entityName of mainEntities) {
+			if (!sorted.includes(entityName)) {
+				const entity = this.getEntity(entityName)
+				if (entity === undefined) {
+					throw new SchemaError('Not exists entity:' + entityName)
+				}
+				info.push(`{ ${entity.name} relations: `)
+				if (entity.dependents && entity.dependents.length > 0) {
+					for (const relation of entity.relations) {
+						if (relation.entity !== entity.name && mainEntities.includes(relation.entity)) {
+							for (const relation of entity.relations) {
+								if (this.unsolvedRelation(entityName, mainEntities, allEntities, sorted, relation)) {
+									info.push(`${relation.entity}.${relation.name} `)
+								}
+							}
+						}
+					}
+				}
+				info.push('}, ')
+			}
+		}
+		throw new SchemaError(`Task cannot be completed because the following entities cannot be sorted by their relations ${info.join('')}`)
 	}
 
 	/**
@@ -109,7 +140,13 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 	public sortByDependencies (entities: string[] = []): string[] {
 		if (entities.length < 2) return entities
 		const sorted: string[] = []
+		let tries = 0
+		let solved = true
 		while (sorted.length < entities.length) {
+			if (tries >= 1000) {
+				solved = false
+				break
+			}
 			for (const entityName of entities) {
 				if (sorted.includes(entityName)) {
 					continue
@@ -123,8 +160,36 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 					break
 				}
 			}
+			tries++
 		}
-		return sorted
+		if (solved) {
+			return sorted
+		}
+		const info:string[] = []
+		for (const entityName of entities) {
+			if (!sorted.includes(entityName)) {
+				const entity = this.getEntity(entityName)
+				if (entity === undefined) {
+					throw new SchemaError('Not exists entity:' + entityName)
+				}
+				info.push(`{ ${entity.name} depend: `)
+				if (entity.dependents && entity.dependents.length > 0) {
+					for (const dependent of entity.dependents) {
+						if (dependent.entity !== entity.name && entities.includes(dependent.entity)) {
+							for (const dependent of entity.dependents) {
+								if (dependent.entity !== entity.name && entities.includes(dependent.entity)) {
+									if (this.hadDependents(entity, sorted, dependent)) {
+										info.push(`${dependent.entity}.${dependent.relation.name} `)
+									}
+								}
+							}
+						}
+					}
+				}
+				info.push('}, ')
+			}
+		}
+		throw new SchemaError(`Task cannot be completed because the following entities cannot be sorted by their dependencies ${info.join('')}`)
 	}
 
 	/**
@@ -486,7 +551,9 @@ class SchemaExtender {
 
 	public extend (source: Schema): Schema {
 		const schema = helper.obj.clone(source)
+		this.extendEnums(schema)
 		this.extendEntities(schema)
+		this.complete(schema)
 		this.extendMappings(schema)
 		this.extendDataSources(schema)
 		this.extendDataStages(schema)
@@ -499,6 +566,20 @@ class SchemaExtender {
 			schema.data.mappings[k] = this.clearMapping2(schema, schema.data.mappings[k])
 		}
 		return schema
+	}
+
+	private extendEnums (schema: Schema) {
+		if (schema.model.enums === undefined) {
+			schema.model.enums = []
+		}
+		if (Array.isArray(schema.model.enums)) {
+			for (const _enum of schema.model.enums) {
+				if (_enum && _enum.extends) {
+					this.extendEnum(_enum, schema.model.enums)
+				}
+			}
+			schema.model.enums = this.clearEnums(schema.model.enums)
+		}
 	}
 
 	private extendEntities (schema: Schema) {
@@ -514,7 +595,6 @@ class SchemaExtender {
 			}
 		}
 		schema.model.entities = this.clearEntities(schema.model.entities)
-		this.complete(schema)
 	}
 
 	private entitySecureArrays (entity:Entity) {
@@ -600,6 +680,9 @@ class SchemaExtender {
 
 	public complete (schema: Schema): void {
 		if (schema) {
+			if (schema.model.enums) {
+				this.completeEnums(schema.model.enums)
+			}
 			if (schema.model.entities) {
 				this.completeEntities(schema.model.entities, schema.model.views)
 				if (schema.model.entities && schema.model.entities.length) {
@@ -616,6 +699,17 @@ class SchemaExtender {
 		return parentRoot === childRoot
 	}
 
+	private clearEnums (source: Enum[]): Enum[] {
+		const target: Enum[] = []
+		if (source && source.length) {
+			for (const sourceEnum of source) {
+				if (sourceEnum.abstract === true) continue
+				target.push(sourceEnum)
+			}
+		}
+		return target
+	}
+
 	private clearEntities (source: Entity[]): Entity[] {
 		const target: Entity[] = []
 		if (source && source.length) {
@@ -625,6 +719,22 @@ class SchemaExtender {
 			}
 		}
 		return target
+	}
+
+	private completeEnums (enums: Enum[]): void {
+		if (enums && enums.length) {
+			for (const _enum of enums) {
+				if (_enum.values === undefined || _enum.values === null) {
+					_enum.values = []
+				} else {
+					for (const value of _enum.values) {
+						if (value.value === undefined) {
+							value.value = value.name
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private completeEntities (entities: Entity[], views: View[]): void {
@@ -730,6 +840,26 @@ class SchemaExtender {
 				}
 			}
 		}
+	}
+
+	private extendEnum (_enum: Enum, enums: Enum[]): void {
+		const base = enums.find(p => p.name === _enum.extends)
+		if (base === undefined) {
+			throw new SchemaError(`${_enum.extends} not found`)
+		}
+		if (base.extends) {
+			this.extendEnum(base, enums)
+		}
+		// extend values
+		if (base.values !== undefined && base.values.length > 0) {
+			if (_enum.values === undefined || _enum.values === null) {
+				_enum.values = []
+			}
+			_enum.values = helper.obj.extends(_enum.values, base.values)
+		}
+
+		// elimina dado que ya fue extendido
+		delete _enum.extends
 	}
 
 	private extendEntity (entity: Entity, entities: Entity[]): void {
@@ -907,6 +1037,9 @@ export class SchemaManager {
 	}
 
 	public async init (source?: string | Schema): Promise<Schema> {
+		if (source && typeof source === 'string') {
+			this.workspace = path.resolve(source)
+		}
 		let schema: string | Schema
 		if (!source || typeof source === 'string') {
 			schema = await this.get(source)

@@ -201,7 +201,7 @@
           "result": [
             {
               "name": "id",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -210,7 +210,7 @@
           "result": [
             {
               "name": "entity.id",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -227,7 +227,7 @@
           "result": [
             {
               "name": "id",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -259,7 +259,7 @@
           "result": [
             {
               "name": "id",
-              "type": "integer"
+              "type": "any"
             },
             {
               "name": "details",
@@ -637,7 +637,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "constraints": [],
@@ -663,7 +663,7 @@
             "parameters": [
               {
                 "name": "entity.id",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "constraints": [],
@@ -731,7 +731,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "constraints": [],
@@ -857,7 +857,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "constraints": [],

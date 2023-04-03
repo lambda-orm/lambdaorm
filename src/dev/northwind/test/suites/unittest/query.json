@@ -1055,7 +1055,7 @@
           "result": [
             {
               "name": "id",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -1064,7 +1064,7 @@
           "result": [
             {
               "name": "id",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -1089,15 +1089,15 @@
           "result": [
             {
               "name": "fromDate",
-              "type": "date"
+              "type": "any"
             },
             {
               "name": "toDate",
-              "type": "date"
+              "type": "any"
             },
             {
               "name": "minValue",
-              "type": "decimal"
+              "type": "any"
             }
           ]
         },
@@ -1106,15 +1106,15 @@
           "result": [
             {
               "name": "fromDate",
-              "type": "date"
+              "type": "any"
             },
             {
               "name": "toDate",
-              "type": "date"
+              "type": "any"
             },
             {
               "name": "minValue",
-              "type": "decimal"
+              "type": "any"
             }
           ]
         },
@@ -1151,7 +1151,7 @@
           "result": [
             {
               "name": "id",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -1160,7 +1160,7 @@
           "result": [
             {
               "name": "id",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -1169,7 +1169,7 @@
           "result": [
             {
               "name": "id",
-              "type": "integer"
+              "type": "any"
             }
           ]
         },
@@ -1178,7 +1178,7 @@
           "result": [
             {
               "name": "id",
-              "type": "integer"
+              "type": "any"
             }
           ]
         }
@@ -1591,7 +1591,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "constraints": [],
@@ -1658,7 +1658,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "constraints": [],
@@ -1833,15 +1833,15 @@
             "parameters": [
               {
                 "name": "fromDate",
-                "type": "date"
+                "type": "any"
               },
               {
                 "name": "toDate",
-                "type": "date"
+                "type": "any"
               },
               {
                 "name": "minValue",
-                "type": "decimal"
+                "type": "any"
               }
             ],
             "constraints": [],
@@ -1884,15 +1884,15 @@
             "parameters": [
               {
                 "name": "fromDate",
-                "type": "date"
+                "type": "any"
               },
               {
                 "name": "toDate",
-                "type": "date"
+                "type": "any"
               },
               {
                 "name": "minValue",
-                "type": "decimal"
+                "type": "any"
               }
             ],
             "constraints": [],
@@ -2337,7 +2337,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "constraints": [],
@@ -2512,7 +2512,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "constraints": [],
@@ -2635,7 +2635,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "constraints": [],
@@ -2702,7 +2702,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "integer"
+                "type": "any"
               }
             ],
             "constraints": [],

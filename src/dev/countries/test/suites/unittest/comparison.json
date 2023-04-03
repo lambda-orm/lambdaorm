@@ -22,7 +22,7 @@
         },
         {
           "test": "Countries.filter(p=> in(p.iso3,[\"BRA\",\"ARG\"])).map(p=> p.name)",
-          "result": "Countries.map(p=>{name:p.name}).filter(p=>includes(p.iso3,[BRA,ARG]))"
+          "result": "Countries.map(p=>{name:p.name}).filter(p=>in(p.iso3,[BRA,ARG]))"
         }
       ],
       "errors": 0
@@ -330,7 +330,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.name AS name FROM Countries c  WHERE  'BRA', 'ARG' IN (c.iso3) ",
+            "sentence": "SELECT c.name AS name FROM Countries c  WHERE  c.iso3 IN ('BRA', 'ARG') ",
             "children": []
           }
         }

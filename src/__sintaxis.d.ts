@@ -93,6 +93,8 @@ interface Queryable<T> extends MapClauses<T> {
 interface RelationMapClauses<T> {
 	/**  */
 	sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any): void
+
+	filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterClauses<T>
 }
 interface RelationIncludeClauses<T> {
 	/**  */
@@ -122,6 +124,7 @@ interface Relation<T> {
 	insert(predicate?:(value:T) => unknown): void
 	// insert(predicate: (value: T, item: T, index: number, array: T[]) => T|Object, hisArg?:T|Object):void
 	// update(value:T|Object):void
+	filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterClauses<T>
 
 }
 type OneToMany<T> = Relation<T>

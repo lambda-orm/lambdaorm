@@ -17,7 +17,7 @@ export class QueryBuilder {
 	public build (expression: string, options: QueryOptions): Query {
 		const _view = this.schema.view.get(options.view)
 		const view = this.schema.view.getInstance(_view.name)
-		const sentence = this.sentenceManager.create(expression, view, options.stage as string)
+		const sentence = this.sentenceManager.create(expression, view, options.stage as string, true)
 		return this.dmlBuild(sentence, view, options.stage as string)
 	}
 

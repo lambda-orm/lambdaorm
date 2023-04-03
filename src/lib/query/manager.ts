@@ -17,7 +17,10 @@ export class QueryManager {
 		this.expressions = expressions
 	}
 
-	public create (expression: string, options: QueryOptions): Query {
+	public create (expression: string, options: QueryOptions, useCache:boolean): Query {
+		if (!useCache) {
+			return this.builder.build(expression, options)
+		}
 		const expressionKey = helper.utils.hashCode(expression)
 		const key = `${expressionKey}-${options.stage}-${options.view || 'default'}`
 		const value = this.cache.get(key)
@@ -31,7 +34,7 @@ export class QueryManager {
 	}
 
 	public getInfo (expression: string, options: QueryOptions): QueryInfo {
-		const query = this.create(expression, options)
+		const query = this.create(expression, options, true)
 		return this._getInfo(query)
 	}
 

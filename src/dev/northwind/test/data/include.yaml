@@ -149,7 +149,7 @@ test:
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                [{ "$match" : { {{LambdaOrmParentId}}:{ "$in" :["_id"]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
@@ -159,7 +159,7 @@ test:
     errors: 2
     expression: Orders.filter(p => p.id === id).include(p => p.customer)
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}).filter(p=>in(p.id,LambdaOrmParentId)))
     model:
       - name: id
         type: integer
@@ -214,12 +214,12 @@ test:
             type: string
     parameters:
       - name: id
-        type: integer
+        type: any
       - name: customer
         type: Customers
         children:
           - name: LambdaOrmParentId
-            type: '[string]'
+            type: any
     constraints:
       entity: Orders
       constraints: []
@@ -264,7 +264,7 @@ test:
               type: string
           parameters:
             - name: LambdaOrmParentId
-              type: '[string]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -305,7 +305,7 @@ test:
           type: string
       parameters:
         - name: id
-          type: integer
+          type: any
       constraints: []
       values: []
       defaults: []
@@ -360,16 +360,7 @@ test:
             region: null
             postalCode: '51100'
             country: France
-            customer:
-              id: VINET
-              name: Vins et alcools Chevalier
-              contact: Paul Henriot
-              phone: Accounting Manager
-              address: 59 rue de l'Abbaye
-              city: Reims
-              region: null
-              postalCode: '51100'
-              country: France
+            customer: null
     result:
       - id: 1
         customerId: VINET
@@ -536,7 +527,7 @@ test:
     errors: 3
     expression: Orders.filter(p => p.id === id).include(p => p.details)
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(p.orderId,LambdaOrmParentId)))
     model:
       - name: id
         type: integer
@@ -583,12 +574,12 @@ test:
             type: integer
     parameters:
       - name: id
-        type: integer
+        type: any
       - name: details
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: '[integer]'
+            type: any
     constraints:
       entity: Orders
       constraints: []
@@ -625,7 +616,7 @@ test:
               type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: '[integer]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -666,7 +657,7 @@ test:
           type: integer
       parameters:
         - name: id
-          type: integer
+          type: any
       constraints: []
       values: []
       defaults: []
@@ -986,7 +977,7 @@ test:
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                [{ "$match" : { {{LambdaOrmParentId}}:{ "$in" :["_id"]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
@@ -996,7 +987,7 @@ test:
     errors: 3
     expression: Orders.filter(p => p.id === id).include(p => [p.details, p.customer])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,LambdaOrmParentId:p.orderId}).filter(p=>in(p.orderId,LambdaOrmParentId)))
     model:
       - name: id
         type: integer
@@ -1066,17 +1057,17 @@ test:
             type: string
     parameters:
       - name: id
-        type: integer
+        type: any
       - name: details
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: '[integer]'
+            type: any
       - name: customer
         type: Customers
         children:
           - name: LambdaOrmParentId
-            type: '[string]'
+            type: any
     constraints:
       entity: Orders
       constraints: []
@@ -1115,7 +1106,7 @@ test:
               type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: '[integer]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -1152,7 +1143,7 @@ test:
               type: string
           parameters:
             - name: LambdaOrmParentId
-              type: '[string]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -1195,7 +1186,7 @@ test:
           type: string
       parameters:
         - name: id
-          type: integer
+          type: any
       constraints: []
       values: []
       defaults: []
@@ -1308,16 +1299,7 @@ test:
               - {}
               - {}
               - {}
-            customer:
-              id: VINET
-              name: Vins et alcools Chevalier
-              contact: Paul Henriot
-              phone: Accounting Manager
-              address: 59 rue de l'Abbaye
-              city: Reims
-              region: null
-              postalCode: '51100'
-              country: France
+            customer: null
     result:
       - id: 1
         customerId: VINET
@@ -1620,7 +1602,7 @@ test:
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                [{ "$match" : { {{LambdaOrmParentId}}:{ "$in" :["_id"]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
@@ -1632,7 +1614,7 @@ test:
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
       q.product), p.customer])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id))))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(p.orderId,LambdaOrmParentId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id}).filter(p=>in(p.id,LambdaOrmParentId))))
     model:
       - name: id
         type: integer
@@ -1727,22 +1709,22 @@ test:
             type: string
     parameters:
       - name: id
-        type: integer
+        type: any
       - name: details
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: '[integer]'
+            type: any
           - name: product
             type: Products
             children:
               - name: LambdaOrmParentId
-                type: '[integer]'
+                type: any
       - name: customer
         type: Customers
         children:
           - name: LambdaOrmParentId
-            type: '[string]'
+            type: any
     constraints:
       entity: Orders
       constraints: []
@@ -1800,7 +1782,7 @@ test:
                   type: integer
               parameters:
                 - name: LambdaOrmParentId
-                  type: '[integer]'
+                  type: any
               constraints: []
               values: []
               defaults: []
@@ -1825,7 +1807,7 @@ test:
               type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: '[integer]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -1862,7 +1844,7 @@ test:
               type: string
           parameters:
             - name: LambdaOrmParentId
-              type: '[string]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -1905,7 +1887,7 @@ test:
           type: string
       parameters:
         - name: id
-          type: integer
+          type: any
       constraints: []
       values: []
       defaults: []
@@ -2008,7 +1990,7 @@ test:
                   inStock: 22
                   onOrder: 30
                   reorderLevel: 30
-                  discontinued: 'N'
+                  discontinued: false
               - orderId: 1
                 productId: 42
                 unitPrice: 9.8
@@ -2024,7 +2006,7 @@ test:
                   inStock: 26
                   onOrder: 0
                   reorderLevel: 0
-                  discontinued: 'Y'
+                  discontinued: true
               - orderId: 1
                 productId: 72
                 unitPrice: 34.800000000000004
@@ -2040,7 +2022,7 @@ test:
                   inStock: 14
                   onOrder: 0
                   reorderLevel: 0
-                  discontinued: 'N'
+                  discontinued: false
             customer:
               id: VINET
               name: Vins et alcools Chevalier
@@ -2073,16 +2055,7 @@ test:
               - {}
               - {}
               - {}
-            customer:
-              id: VINET
-              name: Vins et alcools Chevalier
-              contact: Paul Henriot
-              phone: Accounting Manager
-              address: 59 rue de l'Abbaye
-              city: Reims
-              region: null
-              postalCode: '51100'
-              country: France
+            customer: null
     result:
       - id: 1
         customerId: VINET
@@ -2471,7 +2444,7 @@ test:
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                [{ "$match" : { {{LambdaOrmParentId}}:{ "$in" :["_id"]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
@@ -2483,7 +2456,7 @@ test:
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
       q.product.include(p => p.category)), p.customer])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)).include(p=>p.category.map(p=>{id:p.id,name:p.name,description:p.description,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{orderId:p.orderId,productId:p.productId,unitPrice:p.unitPrice,quantity:p.quantity,discount:p.discount,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(p.orderId,LambdaOrmParentId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,__categoryId:p.categoryId,LambdaOrmParentId:p.id}).filter(p=>in(p.id,LambdaOrmParentId)).include(p=>p.category.map(p=>{id:p.id,name:p.name,description:p.description,LambdaOrmParentId:p.id}).filter(p=>in(p.id,LambdaOrmParentId)))))
     model:
       - name: id
         type: integer
@@ -2589,27 +2562,27 @@ test:
             type: string
     parameters:
       - name: id
-        type: integer
+        type: any
       - name: details
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: '[integer]'
+            type: any
           - name: product
             type: Products
             children:
               - name: LambdaOrmParentId
-                type: '[integer]'
+                type: any
               - name: category
                 type: Categories
                 children:
                   - name: LambdaOrmParentId
-                    type: '[integer]'
+                    type: any
       - name: customer
         type: Customers
         children:
           - name: LambdaOrmParentId
-            type: '[string]'
+            type: any
     constraints:
       entity: Orders
       constraints: []
@@ -2662,7 +2635,7 @@ test:
                       type: integer
                   parameters:
                     - name: LambdaOrmParentId
-                      type: '[integer]'
+                      type: any
                   constraints: []
                   values: []
                   defaults: []
@@ -2697,7 +2670,7 @@ test:
                   type: integer
               parameters:
                 - name: LambdaOrmParentId
-                  type: '[integer]'
+                  type: any
               constraints: []
               values: []
               defaults: []
@@ -2722,7 +2695,7 @@ test:
               type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: '[integer]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -2759,7 +2732,7 @@ test:
               type: string
           parameters:
             - name: LambdaOrmParentId
-              type: '[string]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -2802,7 +2775,7 @@ test:
           type: string
       parameters:
         - name: id
-          type: integer
+          type: any
       constraints: []
       values: []
       defaults: []
@@ -2913,7 +2886,7 @@ test:
                   inStock: 22
                   onOrder: 30
                   reorderLevel: 30
-                  discontinued: 'N'
+                  discontinued: false
                   category:
                     id: 4
                     name: Dairy Products
@@ -2933,7 +2906,7 @@ test:
                   inStock: 26
                   onOrder: 0
                   reorderLevel: 0
-                  discontinued: 'Y'
+                  discontinued: true
                   category:
                     id: 5
                     name: Grains/Cereals
@@ -2953,7 +2926,7 @@ test:
                   inStock: 14
                   onOrder: 0
                   reorderLevel: 0
-                  discontinued: 'N'
+                  discontinued: false
                   category:
                     id: 4
                     name: Dairy Products
@@ -2990,16 +2963,7 @@ test:
               - {}
               - {}
               - {}
-            customer:
-              id: VINET
-              name: Vins et alcools Chevalier
-              contact: Paul Henriot
-              phone: Accounting Manager
-              address: 59 rue de l'Abbaye
-              city: Reims
-              region: null
-              postalCode: '51100'
-              country: France
+            customer: null
     result:
       - id: 1
         customerId: VINET
@@ -3276,7 +3240,7 @@ test:
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                [{ "$match" : { {{LambdaOrmParentId}}:{ "$in" :["_id"]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
@@ -3289,7 +3253,7 @@ test:
       quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })),
       p.customer])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(p.orderId,LambdaOrmParentId)))
     model:
       - name: id
         type: integer
@@ -3355,17 +3319,17 @@ test:
             type: string
     parameters:
       - name: id
-        type: integer
+        type: any
       - name: details
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: '[integer]'
+            type: any
       - name: customer
         type: Customers
         children:
           - name: LambdaOrmParentId
-            type: '[string]'
+            type: any
     constraints:
       entity: Orders
       constraints: []
@@ -3400,7 +3364,7 @@ test:
               type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: '[integer]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -3437,7 +3401,7 @@ test:
               type: string
           parameters:
             - name: LambdaOrmParentId
-              type: '[string]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -3480,7 +3444,7 @@ test:
           type: string
       parameters:
         - name: id
-          type: integer
+          type: any
       constraints: []
       values: []
       defaults: []
@@ -3583,16 +3547,7 @@ test:
               - {}
               - {}
               - {}
-            customer:
-              id: VINET
-              name: Vins et alcools Chevalier
-              contact: Paul Henriot
-              phone: Accounting Manager
-              address: 59 rue de l'Abbaye
-              city: Reims
-              region: null
-              postalCode: '51100'
-              country: France
+            customer: null
     result:
       - id: 1
         customerId: VINET
@@ -3883,7 +3838,7 @@ test:
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                [{ "$match" : { {{LambdaOrmParentId}}:{ "$in" :["_id"]} } }, {
                 "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
@@ -3896,7 +3851,7 @@ test:
       q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice,
       productId: p.productId })), p.customer])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(LambdaOrmParentId,p.orderId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id))))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__id:p.id,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.details.map(p=>{quantity:p.quantity,unitPrice:p.unitPrice,productId:p.productId,__productId:p.productId,LambdaOrmParentId:p.orderId}).filter(p=>in(p.orderId,LambdaOrmParentId)).include(q=>q.product.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued,LambdaOrmParentId:p.id}).filter(p=>in(p.id,LambdaOrmParentId))))
     model:
       - name: id
         type: integer
@@ -3987,22 +3942,22 @@ test:
             type: string
     parameters:
       - name: id
-        type: integer
+        type: any
       - name: details
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: '[integer]'
+            type: any
           - name: product
             type: Products
             children:
               - name: LambdaOrmParentId
-                type: '[integer]'
+                type: any
       - name: customer
         type: Customers
         children:
           - name: LambdaOrmParentId
-            type: '[string]'
+            type: any
     constraints:
       entity: Orders
       constraints: []
@@ -4060,7 +4015,7 @@ test:
                   type: integer
               parameters:
                 - name: LambdaOrmParentId
-                  type: '[integer]'
+                  type: any
               constraints: []
               values: []
               defaults: []
@@ -4081,7 +4036,7 @@ test:
               type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: '[integer]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -4118,7 +4073,7 @@ test:
               type: string
           parameters:
             - name: LambdaOrmParentId
-              type: '[string]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -4161,7 +4116,7 @@ test:
           type: string
       parameters:
         - name: id
-          type: integer
+          type: any
       constraints: []
       values: []
       defaults: []
@@ -4258,7 +4213,7 @@ test:
                   inStock: 22
                   onOrder: 30
                   reorderLevel: 30
-                  discontinued: 'N'
+                  discontinued: false
               - quantity: 10
                 unitPrice: 9.8
                 productId: 42
@@ -4272,7 +4227,7 @@ test:
                   inStock: 26
                   onOrder: 0
                   reorderLevel: 0
-                  discontinued: 'Y'
+                  discontinued: true
               - quantity: 5
                 unitPrice: 34.800000000000004
                 productId: 72
@@ -4286,7 +4241,7 @@ test:
                   inStock: 14
                   onOrder: 0
                   reorderLevel: 0
-                  discontinued: 'N'
+                  discontinued: false
             customer:
               id: VINET
               name: Vins et alcools Chevalier
@@ -4319,16 +4274,7 @@ test:
               - {}
               - {}
               - {}
-            customer:
-              id: VINET
-              name: Vins et alcools Chevalier
-              contact: Paul Henriot
-              phone: Accounting Manager
-              address: 59 rue de l'Abbaye
-              city: Reims
-              region: null
-              postalCode: '51100'
-              country: France
+            customer: null
     result:
       - id: 1
         customerId: VINET
@@ -4656,7 +4602,7 @@ test:
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
+                [{ "$match" : { {{LambdaOrmParentId}}:{ "$in" :["_id"]} } }, {
                 "$project" :{ "_id": 0 , "name":"$CompanyName",
                 "LambdaOrmParentId":"$_id" }} ]
               children: []
@@ -4666,7 +4612,7 @@ test:
       p.details.include(p => p.product.include(p => p.category.map(p =>
       p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
     normalizeExpression: >-
-      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{name:p.name,LambdaOrmParentId:p.id}).filter(p=>in(LambdaOrmParentId,p.id)))
+      Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId,__id:p.id}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{name:p.name,LambdaOrmParentId:p.id}).filter(p=>in(p.id,LambdaOrmParentId)))
     model:
       - name: id
         type: integer
@@ -4728,27 +4674,27 @@ test:
                     type: integer
     parameters:
       - name: id
-        type: integer
+        type: any
       - name: customer
         type: Customers
         children:
           - name: LambdaOrmParentId
-            type: '[string]'
+            type: any
       - name: details
         type: Orders.details
         children:
           - name: LambdaOrmParentId
-            type: '[integer]'
+            type: any
           - name: product
             type: Products
             children:
               - name: LambdaOrmParentId
-                type: '[integer]'
+                type: any
               - name: category
                 type: Categories
                 children:
                   - name: LambdaOrmParentId
-                    type: '[integer]'
+                    type: any
     constraints:
       entity: Orders
       constraints: []
@@ -4785,7 +4731,7 @@ test:
               type: string
           parameters:
             - name: LambdaOrmParentId
-              type: '[string]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -4818,7 +4764,7 @@ test:
                       type: integer
                   parameters:
                     - name: LambdaOrmParentId
-                      type: '[integer]'
+                      type: any
                   constraints: []
                   values: []
                   defaults: []
@@ -4835,7 +4781,7 @@ test:
                   type: integer
               parameters:
                 - name: LambdaOrmParentId
-                  type: '[integer]'
+                  type: any
               constraints: []
               values: []
               defaults: []
@@ -4854,7 +4800,7 @@ test:
               type: integer
           parameters:
             - name: LambdaOrmParentId
-              type: '[integer]'
+              type: any
           constraints: []
           values: []
           defaults: []
@@ -4897,7 +4843,7 @@ test:
           type: integer
       parameters:
         - name: id
-          type: integer
+          type: any
       constraints: []
       values: []
       defaults: []
@@ -4999,8 +4945,7 @@ test:
               - {}
               - {}
               - {}
-            customer:
-              name: Vins et alcools Chevalier
+            customer: null
     result:
       - id: 1
         customerId: VINET

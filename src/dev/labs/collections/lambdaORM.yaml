@@ -1,64 +1,59 @@
 model:
+  views:
+    - name: default
   enums:
+    - name: Role
+      values:
+        - name: Admin
+        - name: Auditor
+        - name: Operator
+        - name: Guest
     - name: AreaType
       values:
         - name: Country
-          value: Country
         - name: Region
-          value: Region
         - name: State
-          value: State
         - name: Department
-          value: Department
         - name: City
-          value: City
     - name: StreetType
-    # https://www.gimme-shelter.com/steet-types-designations-abbreviations-50006/
       values:
         - name: Street
           value: ST
         - name: Avenue
-          value: AV               
+          value: AV
     - name: PartyType
       values:
         - name: Individual
-          value: IND
         - name: Organization
-          value: ORG
+    - name: PartyRoleType
+      values:
+        - name: Employee
+        - name: Customer
+        - name: Creditor
     - name: PartyStatus
       values:
         - name: Created
-          value: CREATED
         - name: Active
-          value: ACTIVE  
         - name: InProgress
-          value: IN_PROGRESS  
         - name: Inactive
-          value: INACTIVE
+    - name: PartyRoleStatus
+      values:
+        - name: Initial
+        - name: Active
+        - name: Inactive
     - name: IdentificationType
       values:
         - name: NotAvailable
-          value: "NO DISPONIBLE"
         - name: DNI
-          value: DNI  
         - name: RUC
-          value: RUC  
         - name: Passport
-          value: PASAPORTE
         - name: CIP
-          value: CIP
         - name: CE
-          value: CE
         - name: CDI
-          value: CDI
         - name: CTM
-          value: CTM
         - name: CPP
-          value: CPP
         - name: CIE
-          value: CIE
         - name: CIRE
-          value: CIRE                          
     - name: Gender
       values:
         - name: Male
@@ -70,49 +65,73 @@ model:
     - name: MaritalStatus
       values:
         - name: Married
-          value: CASADO
         - name: Divorced
-          value: DIVORCIADO  
         - name: Single
-          value: SOLTERO  
         - name: Widower
-          value: VIUDO
         - name: Concubinage
-          value: CONCUBINATO
         - name: Separation
-          value: SEPARACION
         - name: Undefined
-          value: UNDEFINED
     - name: ContactMediumType
       values:
+        - name: Landline
         - name: Phone
-          value: Phone
-        - name: CellPhone
-          value: CellPhone  
-        - name: SecondaryPhone
-          value: SecondaryPhone  
-        - name: WorkPhone
-          value: WorkPhone
         - name: Email
-          value: Email
-        - name: WorkEmail
-          value: WorkEmail
         - name: Twitter
-          value: Twitter 
         - name: Instagram
-          value: Instagram
         - name: Facebook
-          value: Facebook
         - name: Skype
-          value: Skype
-        - name: MainMobile
-          value: MainMobile
-        - name: MainPhone
-          value: MainPhone
-        - name: SecPhone
-          value: SecPhone                                     
+    - name: AccountStatus
+      values:
+        - name: Active
+        - name: Suspended
+        - name: Cancelled
+        - name: Closed
+    - name: AccountStatusReason
+      values: null
+    - name: FinancialEntityType
+      values:
+        - name: Bank
+        - name: Other
+    - name: FinancialEntityStatus
+      values:
+        - name: Pending
+        - name: Active
+        - name: Suspended
+        - name: Cancelled
+    - name: PaymentMethodType
+      values:
+        - name: Cash
+        - name: Check
+        - name: Credit card
+          value: CreditCard
+        - name: Debit card
+          value: DebitCard
+        - name: Virtual card
+          value: VirtualCard
+        - name: Charge to Account
+          value: ChargeToAccount
+        - name: Other
+        - name: Debit
+        - name: Transference
+    - name: PaymentMethodStatus
+      values:
+        - name: Pending
+        - name: Active
+        - name: Suspended
+        - name: Cancelled
+    - name: DebtorType
+      values:
+        - name: Natural
+        - name: Legal
+    - name: DebtorStatus
+      values:
+        - name: Active
+        - name: Suspended
+        - name: Cancelled
+        - name: Closed
+    - name: DebtorStatusReason
+      values: null
   entities:
-    # Abstracts
     - name: Basics
       abstract: true
       properties:
@@ -120,10 +139,83 @@ model:
           type: dateTime
           default: now()
         - name: createdBy
-          length: 50  
-    # Location settings
+          length: 50
+    - name: ComCurrencies
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          length: 16
+          required: true
+        - name: name
+          length: 60
+          required: true
+        - name: symbol
+          length: 3
+          required: true
+    - name: IamGroups
+      extends: Basics
+      primaryKey:
+        - id
+      uniqueKey:
+        - name
+      properties:
+        - name: id
+          length: 32
+          default: lower(substring(replace(name," ","-"),0,32))
+          nullable: false
+        - name: name
+          length: 32
+          nullable: false
+    - name: IamUsers
+      view: true
+      extends: Basics
+      primaryKey:
+        - username
+      uniqueKey:
+        - email
+      properties:
+        - name: username
+          length: 32
+          nullable: false
+        - name: firstname
+          nullable: false
+        - name: lastname
+          nullable: false
+        - name: fullmane
+          view: true
+          readExp: concat(lastname,", ",firstname)
+        - name: email
+          nullable: false
+          length: 255
+          readExp: mask(email)
+      constraints:
+        - message: invalid email
+          condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
+    - name: IamGroupUsers
+      primaryKey:
+        - id
+      uniqueKey:
+        - groupId
+        - username
+      properties:
+        - name: id
+          default: '`${groupId}-${username}`'
+          length: 64
+          nullable: false
+        - name: username
+          length: 32
+          nullable: false
+        - name: groupId
+          length: 32
+          nullable: false
+        - name: role
+          length: 32
+          nullable: false
+          enum: Role
     - name: LocCountries
-      primaryKey: ["iso3"]
+      primaryKey:
+        - iso3
       properties:
         - name: iso3
           length: 3
@@ -138,20 +230,21 @@ model:
           length: 5
           required: true
     - name: LocAreas
-      primaryKey: ["code"]
+      primaryKey:
+        - code
       properties:
         - name: code
           length: 16
           required: true
         - name: parentCode
-          length: 16  
+          length: 16
         - name: countryCode
           length: 3
-          required: true  
+          required: true
         - name: type
           enum: AreaType
-          length: 16 
-          required: true             
+          length: 16
+          required: true
         - name: name
           length: 200
           required: true
@@ -165,10 +258,10 @@ model:
           from: parentCode
           entity: LocAreas
           to: code
-          target: children  
-    # Location business
+          target: children
     - name: LocAddresses
-      primaryKey: ["id"]
+      primaryKey:
+        - id
       properties:
         - name: id
           type: integer
@@ -179,12 +272,12 @@ model:
           required: true
         - name: areaCode
           length: 16
-          required: true  
+          required: true
         - name: streetName
           length: 250
         - name: streetType
           enum: StreetType
-          length: 3 
+          length: 3
         - name: streetNrFirst
           length: 20
         - name: zipCode
@@ -201,10 +294,10 @@ model:
         - name: area
           from: areaCode
           entity: LocAreas
-          to: code   
-    # Party settings
+          to: code
     - name: PmIndustryTypes
-      primaryKey: ["code"]
+      primaryKey:
+        - code
       properties:
         - name: code
           length: 30
@@ -212,10 +305,10 @@ model:
         - name: name
           length: 255
           required: true
-    # Party business
     - name: PmParties
       extends: Basics
-      primaryKey: [id]
+      primaryKey:
+        - id
       properties:
         - name: id
           type: integer
@@ -230,10 +323,10 @@ model:
         - name: registeredDate
           type: dateTime
           default: now()
-    - name: PmIdentifications
+    - name: PmPartyRoles
       extends: Basics
-      primaryKey: [id]
-      # uniqueKey: [partyId,type]
+      primaryKey:
+        - id
       properties:
         - name: id
           type: integer
@@ -241,7 +334,49 @@ model:
           autoIncrement: true
         - name: partyId
           type: integer
-          required: true  
+          required: true
+        - name: type
+          length: 16
+          required: true
+          enum: PartyRoleType
+        - name: status
+          length: 16
+          required: true
+          enum: PartyRoleStatus
+        - name: description
+          length: 100
+        - name: validFrom
+          type: dateTime
+        - name: validTo
+          type: dateTime
+      relations:
+        - name: party
+          from: partyId
+          entity: PmParties
+          to: id
+          type: oneToOne
+        - name: individual
+          from: partyId
+          entity: PmIndividuals
+          to: partyId
+          type: oneToOne
+        - name: organization
+          from: partyId
+          entity: PmOrganizations
+          to: partyId
+          type: oneToOne
+    - name: PmIdentifications
+      extends: Basics
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: partyId
+          type: integer
+          required: true
         - name: type
           enum: IdentificationType
           length: 16
@@ -256,10 +391,11 @@ model:
           from: partyId
           entity: PmParties
           to: id
-          target: identifications       
+          target: identifications
     - name: PmContactMediums
       extends: Basics
-      primaryKey: [id]
+      primaryKey:
+        - id
       properties:
         - name: id
           type: integer
@@ -267,22 +403,19 @@ model:
           autoIncrement: true
         - name: partyId
           type: integer
-          required: true  
+          required: true
         - name: type
           enum: ContactMediumType
           length: 16
-          required: true    
+          required: true
         - name: value
           length: 100
-          # required: true
         - name: isMain
-          type: boolean        
+          type: boolean
         - name: isFavorite
           type: boolean
         - name: source
           length: 30
-        - name: createdBy
-          length: 50
       relations:
         - name: party
           from: partyId
@@ -291,7 +424,8 @@ model:
           target: contactMediums
     - name: PmIndividuals
       extends: Basics
-      primaryKey: [partyId]
+      primaryKey:
+        - partyId
       properties:
         - name: partyId
           type: integer
@@ -299,9 +433,6 @@ model:
         - name: gender
           enum: Gender
           length: 16
-        # - name: maritalStatus
-        #   enum: MaritalStatus
-        #   length: 16 
         - name: birthDate
           type: dateTime
         - name: deathDate
@@ -309,7 +440,6 @@ model:
         - name: nationalityCode
           type: string
           length: 3
-          # use ISO3
         - name: givenNames
           length: 200
         - name: middleNames
@@ -324,20 +454,11 @@ model:
           from: partyId
           entity: PmParties
           to: id
-          target: individual 
-        # - name: identifications
-        #   type: manyToOne
-        #   from: partyId
-        #   entity: PmIdentifications
-        #   to: partyId
-        # - name: contactMediums
-        #   type: manyToOne
-        #   from: partyId
-        #   entity: PmContactMediums
-        #   to: partyId         
+          target: individual
     - name: PmOrganizations
       extends: Basics
-      primaryKey: [partyId]
+      primaryKey:
+        - partyId
       properties:
         - name: partyId
           type: integer
@@ -345,7 +466,7 @@ model:
         - name: rootId
           type: integer
         - name: parentId
-          type: integer     
+          type: integer
         - name: legalPeriodFrom
           type: dateTime
         - name: industryTypeCode
@@ -353,7 +474,7 @@ model:
         - name: commercialDescription
           length: 400
         - name: tradingName
-          length: 100  
+          length: 100
       relations:
         - name: party
           type: oneToOne
@@ -364,198 +485,445 @@ model:
         - name: parent
           from: parentId
           entity: PmOrganizations
-          to: partyId        
+          to: partyId
           target: children
         - name: root
           from: rootId
           entity: PmOrganizations
-          to: partyId        
-          target: descendants  
+          to: partyId
+          target: descendants
         - name: industryType
           from: industryTypeCode
           entity: PmIndustryTypes
           to: code
-        # - name: identifications
-        #   type: manyToOne
-        #   from: partyId
-        #   entity: PmIdentifications
-        #   to: partyId
-        # - name: contactMediums
-        #   type: manyToOne
-        #   from: partyId
-        #   entity: PmContactMediums
-        #   to: partyId   
-  views:
-    - name: default
+    - name: AccFinancialEntities
+      extends: Basics
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          length: 16
+          required: true
+        - name: name
+          required: true
+        - name: type
+          length: 16
+          required: true
+          enum: FinancialEntityType
+        - name: status
+          length: 16
+          required: true
+          enum: FinancialEntityStatus
+    - name: AccPaymentMethods
+      extends: Basics
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          length: 16
+          required: true
+        - name: name
+          required: true
+        - name: type
+          length: 16
+          required: true
+          enum: PaymentMethodType
+        - name: status
+          length: 16
+          required: true
+          enum: PaymentMethodStatus
+    - name: AccAccountTypes
+      extends: Basics
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          length: 32
+          required: true
+        - name: name
+          length: 100
+          required: true
+        - name: description
+          length: 150
+        - name: disabled
+          type: boolean
+          required: true
+        - name: balanceType
+          type: integer
+          required: true
+        - name: increasedBy
+          type: integer
+          required: true
+    - name: AccCreditors
+      extends: Basics
+      primaryKey:
+        - code
+      properties:
+        - name: code
+          length: 50
+          required: true
+        - name: name
+          length: 100
+          required: true
+        - name: partyId
+          type: integer
+          required: true
+        - name: mainAddressId
+          type: integer
+        - name: mainContactId
+          type: integer
+      relations:
+        - name: party
+          from: partyId
+          entity: PmParties
+          to: id
+          type: oneToOne
+          target: creditor
+        - name: mainAddress
+          from: mainAddressId
+          entity: LocAddresses
+          type: oneToOne
+          to: id
+        - name: mainContact
+          from: mainContactId
+          entity: PmContactMediums
+          type: oneToOne
+          to: id
+    - name: AccAccountHolders
+      extends: Basics
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: name
+          length: 100
+          required: true
+    - name: AccAccounts
+      extends: Basics
+      primaryKey:
+        - number
+      properties:
+        - name: number
+          length: 16
+          required: true
+        - name: holderId
+          type: integer
+          required: true
+        - name: responsibleNumber
+          length: 16
+          required: true
+        - name: name
+          length: 100
+          required: true
+        - name: currencyId
+          length: 16
+          required: true
+        - name: accountTypeId
+          length: 32
+          required: true
+        - name: status
+          length: 16
+          required: true
+          enum: AccountStatus
+        - name: reason
+          length: 50
+          required: true
+          enum: AccountStatusReason
+        - name: lastStatusId
+          type: integer
+          required: true
+        - name: balance
+          type: decimal
+          required: true
+        - name: registrationDate
+          type: dateTime
+          required: true
+        - name: creditorId
+          type: integer
+        - name: cycleId
+          length: 32
+          required: true
+        - name: debtorNumber
+          length: 16
+          required: true
+      relations:
+        - name: holder
+          from: holderId
+          entity: AccAccountHolders
+          to: id
+          target: accounts
+        - name: responsible
+          from: responsibleNumber
+          entity: AccPaymentResponsibles
+          to: number
+          target: accounts
+        - name: accountType
+          from: accountTypeId
+          entity: AccAccountTypes
+          to: id
+        - name: currency
+          from: currencyId
+          entity: ComCurrencies
+          to: id
+        - name: lastStatus
+          from: lastStatusId
+          entity: AccAccountStatusHistories
+          to: id
+          type: oneToOne
+        - name: creditor
+          from: creditorId
+          entity: LamCreditors
+          to: id
+        - name: cycle
+          from: cycleId
+          entity: BillCycles
+          to: id
+        - name: debtor
+          from: debtorNumber
+          entity: DbDebtors
+          to: number
+          target: accounts
+    - name: AccAccountStatusHistories
+      extends: Basics
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: number
+          length: 16
+          required: true
+        - name: status
+          length: 16
+          required: true
+          enum: AccountStatus
+        - name: reason
+          length: 50
+          required: true
+          enum: AccountStatusReason
+        - name: remarks
+          length: 250
+      relations:
+        - name: account
+          from: number
+          entity: AccAccounts
+          to: number
+          target: statusHistories
+    - name: AccPaymentResponsibles
+      extends: Basics
+      primaryKey:
+        - number
+      properties:
+        - name: number
+          length: 16
+          required: true
+        - name: debtorNumber
+          length: 16
+          required: true
+        - name: isMain
+          type: boolean
+        - name: mainPaymentMethodId
+          type: integer
+      relations:
+        - name: partyRole
+          from: partyRoleId
+          entity: PrPartyRoles
+          to: id
+          target: paymentResponsible
+          type: oneToOne
+        - name: mainPaymentMethod
+          from: mainPaymentMethodId
+          entity: AccPaymentResponsibleMethods
+          to: id
+    - name: AccPaymentResponsibleMethods
+      extends: Basics
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: responsibleNumber
+          length: 16
+          required: true
+        - name: paymentMethodId
+          length: 16
+          required: true
+        - name: status
+          length: 16
+          required: true
+          enum: PaymentMethodStatus
+        - name: financialEntityId
+          length: 16
+        - name: financialEntityAccountNro
+          length: 20
+        - name: cardNumber
+          length: 20
+        - name: cardName
+          length: 100
+        - name: expirationYear
+          type: integer
+        - name: expirationMonth
+          type: integer
+      relations:
+        - name: responsible
+          from: responsibleNumber
+          entity: AccPaymentResponsibles
+          to: number
+          target: paymentMethods
+    - name: BillCycles
+      extends: Basics
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          length: 32
+          required: true
+        - name: name
+          length: 100
+          required: true
+        - name: cycleDay
+          type: integer
+          required: true
+        - name: description
+          length: 150
+        - name: disabled
+          type: boolean
+    - name: DbStages
+      extends: Basics
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          length: 16
+          required: true
+        - name: name
+          required: true
+        - name: description
+          length: 500
+        - name: color
+          length: 6
+        - name: position
+          type: integer
+        - name: disabled
+          type: boolean
+          required: true
+    - name: DbDebtors
+      extends: Basics
+      primaryKey:
+        - number
+      properties:
+        - name: number
+          length: 16
+          required: true
+        - name: referenceNumber
+          length: 32
+          required: true
+        - name: name
+          length: 200
+          required: true
+        - name: partyRoleId
+          type: integer
+        - name: partyId
+          type: integer
+        - name: mainAccountNumber
+          length: 16
+        - name: mainPaymentResponsibleNumber
+          length: 16
+        - name: stageId
+          length: 16
+        - name: debtorType
+          length: 16
+          enum: DebtorType
+        - name: status
+          length: 16
+          required: true
+          enum: DebtorStatus
+        - name: reason
+          length: 50
+          required: true
+          enum: DebtorStatusReason
+        - name: lastStatusId
+          type: integer
+          required: true
+        - name: identificationValue
+          length: 80
+        - name: identificationType
+          length: 30
+        - name: additionalInfo1
+          length: 150
+        - name: additionalInfo2
+          length: 150
+        - name: additionalInfo3
+          length: 150
+      relations:
+        - name: partyRole
+          from: partyRoleId
+          entity: PrPartyRoles
+          to: id
+          target: debtor
+          type: oneToOne
+        - name: party
+          from: partyId
+          entity: PrParties
+          to: id
+          target: debtors
+        - name: stage
+          from: stageId
+          entity: DbStages
+          to: id
+        - name: lastStatus
+          from: lastStatusId
+          entity: DbDebtorStatusHistories
+          to: id
+        - name: mainAccount
+          from: mainAccountNumber
+          entity: AccAccounts
+          to: number
+        - name: mainPaymentResponsible
+          from: mainPaymentResponsibleNumber
+          entity: AccPaymentResponsibles
+          to: number
+    - name: DbDebtorStatusHistories
+      extends: Basics
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: number
+          length: 16
+          required: true
+        - name: status
+          length: 16
+          required: true
+          enum: DebtorStatus
+        - name: reason
+          length: 50
+          required: true
+          enum: DebtorStatusReason
+        - name: remarks
+          length: 250
+      relations:
+        - name: account
+          from: number
+          entity: DbDebtors
+          to: number
+          target: statusHistories
 data:
-  mappings:
-    - name: default
-      entities:
-        # Abstracts 
-        - name: Basics
-          abstract: true
-          properties:
-            - name: created
-              mapping: CREATED
-            - name: createdBy
-              mapping: CREATED_BY
-        # Loc
-        - name: LocCountries
-          mapping: TBL_LOC_COUNTRIES
-          properties:
-            - name: iso3
-              mapping: ISO3
-            - name: name
-              mapping: NAME
-            - name: iso
-              mapping: ISO
-            - name: numericCode
-              mapping: NUMERIC_CODE
-        - name: LocAreas
-          mapping: TBL_LOC_AREAS
-          properties:
-            - name: code
-              mapping: CODE
-            - name: parentCode
-              mapping: PARENT 
-            - name: countryCode
-              mapping: COUNTRY  
-            - name: type
-              mapping: TYPE             
-            - name: name
-              mapping: NAME
-        - name: LocAddresses
-          mapping: TBL_LOC_ADDRESSES
-          properties:
-            - name: id
-              mapping: ID
-            - name: countryCode
-              mapping: COUNTRY
-            - name: areaCode
-              mapping: AREA 
-            - name: streetName
-              mapping: STREET
-            - name: streetType
-              enum: StreetType
-              mapping: STREET_TYPE
-            - name: streetNrFirst
-              mapping: NRO
-            - name: zipCode
-              mapping: ZIP_CODE
-            - name: city
-              mapping: CITY
-            - name: additionalData
-              mapping: ADDITIONAL_DATA
-        # Party
-        - name: PmIndustryTypes
-          mapping: TBL_PM_INDUSTRY_TYPE
-          properties:
-            - name: code
-              mapping: CODE
-            - name: name
-              mapping: NAME
-        - name: PmParties
-          extends: Basics
-          mapping: TBL_PM_PARTY
-          properties:
-            - name: id
-              mapping: ID
-            - name: type
-              mapping: TYPE
-            - name: status
-              mapping: STATUS
-            - name: registeredDate
-              mapping: REGISTERED_DATE
-        - name: PmIdentifications
-          extends: Basics
-          mapping: TBL_PM_IDENTIFICATION
-          properties:
-            - name: id
-              mapping: ID
-            - name: type
-              mapping: TYPE
-            - name: value
-              mapping: VALUE  
-            - name: partyId
-              mapping: PARTY_ID         
-            - name: source
-              mapping: SOURCE
-        - name: PmContactMediums
-          extends: Basics
-          mapping: TBL_PM_CONTACT_MEDIUM
-          properties:
-            - name: id
-              mapping: ID
-            - name: partyId
-              mapping: PARTY_ID  
-            - name: type
-              mapping: TYPE         
-            - name: value
-              mapping: VALUE
-            - name: isMain
-              mapping: IS_MAIN  
-            - name: isFavorite
-              mapping: IS_FAVORITE
-            - name: source
-              mapping: SOURCE
-            - name: createdBy
-              mapping: CREATED_BY
-        - name: PmIndividuals
-          extends: Basics
-          mapping: TBL_PM_INDIVIDUAL
-          properties:
-            - name: partyId
-              mapping: PARTY_ID
-            - name: gender
-              mapping: GENDER
-            # - name: maritalStatus
-            #   mapping: MARITAL_STATUS  
-            - name: birthDate
-              mapping: BIRTH_DATE
-            - name: deathDate
-              mapping: DEATH_DATE
-            - name: nationalityCode
-              mapping: NATIONALITY
-            - name: givenNames
-              mapping: GIVEN_NAMES
-            - name: middleNames
-              mapping: MIDDLE_NAMES
-            - name: familyNames
-              mapping: FAMILY_NAMES
-            - name: legalName
-              mapping: LEGAL_NAME     
-        - name: PmOrganizations
-          extends: Basics
-          mapping: TBL_PM_ORGANIZATION
-          properties:
-            - name: partyId
-              mapping: PARTY_ID
-            - name: legalPeriodFrom
-              mapping: LEGAL_PERIOD_FROM
-            - name: tradingName
-              mapping: TRADING_NAME
-            - name: industryTypeCode
-              mapping: INDUSTRY_TYPE
-            - name: commercialDescription
-              mapping: COMMERCIAL_DESCRIPTION
-    - name: oracle
-      extends: default
-      entities:
-        #  Party
-        - name: PmIndustryTypes
-          sequence: SQ_PM_INDUSTRY_TYPE
-        - name: PmParties
-          sequence: SQ_PM_PARTY
-        - name: PmIdentifications
-          sequence: SQ_PM_IDENTIFICATION
-        - name: PmContactMediums
-          sequence: SQ_PM_PARTY_CONTACT_MEDIUM
-        - name: PmIndividuals
-          mapping: TBL_PM_INDIVIDUAL
-          sequence: SQ_PM_INDIVIDUAL  
-        - name: PmOrganizations
-          sequence: SQ_PM_ORGANIZATION
   sources:
+    - name: commons
+      mapping: default
+      dialect: MySQL
+      connection: ${CNX_COMMONS}
     - name: locations
       mapping: default
       dialect: MySQL
@@ -564,14 +932,22 @@ data:
       mapping: default
       dialect: MySQL
       connection: ${CNX_PARTIES}
-    - name: ledgerAccounts
+    - name: accounting
       mapping: default
       dialect: MySQL
-      connection: ${CNX_LEDGER_ACCOUNTS}
+      connection: ${CNX_ACCOUNTING}
+    - name: billing
+      mapping: default
+      dialect: MySQL
+      connection: ${CNX_BILLING}
     - name: debtors
       mapping: default
       dialect: MySQL
       connection: ${CNX_DEBTORS}
+    - name: keycloak
+      mapping: keycloak
+      dialect: PostgreSQL
+      connection: ${CNX_KEYCLOAK}
     - name: insights
       mapping: default
       dialect: PostgreSQL
@@ -579,33 +955,316 @@ data:
   stages:
     - name: default
       sources:
+        - name: keycloak
+          condition: entity == "IamUsers"
+        - name: commons
+          condition: entity.startWith("Com") || entity.startWith("Iam")
         - name: locations
-          condition: substring(entity,0,3)=="Loc"
+          condition: entity.startWith("Loc")
         - name: parties
-          condition: substring(entity,0,2)=="Pm"
-        - name: ledgerAccounts
-          condition: substring(entity,0,3)=="Lam"
+          condition: entity.startWith("Pm")
+        - name: accounting
+          condition: entity.startWith("Acc")
+        - name: billing
+          condition: entity.startWith("Bill")
         - name: debtors
-          condition: substring(entity,0,2)=="Db"
+          condition: entity.startWith("Db")
     - name: insights
       sources:
         - name: insights
     - name: cqrs
       sources:
+        - name: keycloak
+          condition: entity == "IamUsers"
         - name: insights
           condition: action == "select"
+        - name: commons
+          condition: entity.startWith("Com") || entity.startWith("Iam")
         - name: locations
-          condition: action != "select" && substring(entity,0,3)=="Loc"
+          condition: entity.startWith("Loc")
         - name: parties
-          condition: action != "select" && substring(entity,0,2)=="Pm"
-        - name: ledgerAccounts
-          condition: action != "select" && substring(entity,0,3)=="Lam"
+          condition: entity.startWith("Pm")
+        - name: accounting
+          condition: entity.startWith("Acc")
+        - name: billing
+          condition: entity.startWith("Bill")
         - name: debtors
-          condition: action != "select" && substring(entity,0,2)=="Db"    
+          condition: entity.startWith("Db")
+  mappings:
+    - name: default
+      entities:
+        - name: Basics
+          abstract: true
+          properties:
+            - name: createdBy
+              mapping: created_by
+        - name: ComCurrencies
+          mapping: tbl_com_currencies
+        - name: IamGroups
+          extends: Basics
+          mapping: tbl_iam_groups
+        - name: IamUsers
+          mapping: tbl_iam_users
+          extends: Basics
+          properties:
+            - name: firstname
+              mapping: first_name
+            - name: lastname
+              mapping: last_name
+        - name: IamGroupUsers
+          mapping: tbl_iam_group_users
+          properties:
+            - name: groupId
+              mapping: group_id
+        - name: LocCountries
+          mapping: tbl_loc_countries
+          properties:
+            - name: numericCode
+              mapping: numeric_code
+        - name: LocAreas
+          mapping: tbl_loc_areas
+          properties:
+            - name: parentCode
+              mapping: parent
+            - name: countryCode
+              mapping: country
+        - name: LocAddresses
+          mapping: tbl_loc_addresses
+          properties:
+            - name: countryCode
+              mapping: country
+            - name: areaCode
+              mapping: area
+            - name: streetName
+              mapping: street
+            - name: streetType
+              mapping: street_type
+            - name: streetNrFirst
+              mapping: nro
+            - name: zipCode
+              mapping: zip_code
+            - name: additionalData
+              mapping: additional_data
+        - name: PmIndustryTypes
+          mapping: tbl_pm_industry_types
+        - name: PmParties
+          extends: Basics
+          mapping: tbl_pm_parties
+          properties:
+            - name: registeredDate
+              mapping: registered_date
+        - name: PmPartyRoles
+          extends: Basics
+          mapping: tbl_pm_party_roles
+          properties:
+            - name: partyId
+              mapping: party_id
+            - name: validFrom
+              mapping: valid_from
+            - name: validTo
+              mapping: valid_to
+        - name: PmIdentifications
+          extends: Basics
+          mapping: tbl_pm_identifications
+          properties:
+            - name: partyId
+              mapping: party_id
+        - name: PmContactMediums
+          extends: Basics
+          mapping: tbl_pm_contract_mediums
+          properties:
+            - name: partyId
+              mapping: party_id
+            - name: isMain
+              mapping: is_main
+            - name: isFavorite
+              mapping: is_favorite
+            - name: source
+              mapping: source
+        - name: PmIndividuals
+          extends: Basics
+          mapping: tbl_pm_individuals
+          properties:
+            - name: partyId
+              mapping: party_id
+            - name: birthDate
+              mapping: birth_date
+            - name: deathDate
+              mapping: death_date
+            - name: nationalityCode
+              mapping: nationality
+            - name: givenNames
+              mapping: given_names
+            - name: middleNames
+              mapping: middle_names
+            - name: familyNames
+              mapping: family_names
+            - name: legalName
+              mapping: legal_name
+        - name: PmOrganizations
+          extends: Basics
+          mapping: tbl_pm_organizations
+          properties:
+            - name: partyId
+              mapping: party_id
+            - name: legalPeriodFrom
+              mapping: legal_period_from
+            - name: tradingName
+              mapping: trading_name
+            - name: industryTypeCode
+              mapping: industry_type
+            - name: commercialDescription
+              mapping: commercial_description
+        - name: AccFinancialEntities
+          extends: Basics
+          mapping: tbl_acc_financial_entities
+        - name: AccPaymentMethods
+          extends: Basics
+          mapping: tbl_acc_payment_methods
+        - name: AccAccountTypes
+          extends: Basics
+          mapping: tbl_acc_account_types
+          properties:
+            - name: balanceType
+              mapping: balance_type
+            - name: increasedBy
+              mapping: increased_by
+        - name: AccCreditors
+          extends: Basics
+          mapping: tbl_acc_creditors
+          properties:
+            - name: partyId
+              mapping: party
+            - name: mainAddressId
+              mapping: main_address
+            - name: mainContactId
+              mapping: main_contact
+        - name: AccAccountHolders
+          extends: Basics
+          mapping: tbl_acc_account_holders
+        - name: AccAccounts
+          extends: Basics
+          mapping: tbl_acc_accounts
+          properties:
+            - name: holderId
+              mapping: holder_id
+            - name: responsibleNumber
+              mapping: responsible_number
+            - name: currencyId
+              mapping: currency
+            - name: accountTypeId
+              mapping: account_type
+            - name: lastStatusId
+              mapping: last_status
+            - name: registrationDate
+              mapping: registration_date
+            - name: creditorId
+              mapping: creditor
+            - name: cycleId
+              mapping: cycle_id
+        - name: AccAccountStatusHistories
+          extends: Basics
+          mapping: tbl_acc_account_status_histories
+        - name: AccPaymentResponsibles
+          extends: Basics
+          mapping: tbl_acc_payment_responsibles
+          properties:
+            - name: debtorNumber
+              mapping: debtor
+            - name: isMain
+              mapping: main
+            - name: mainPaymentMethodId
+              mapping: main_payment_method
+        - name: AccPaymentResponsibleMethods
+          extends: Basics
+          mapping: tbl_acc_payment_responsible_methods
+          properties:
+            - name: responsibleNumber
+              mapping: responsible
+            - name: paymentMethodId
+              mapping: payment_method
+            - name: financialEntityId
+              mapping: financial_entity
+            - name: financialEntityAccountNro
+              mapping: account_number
+            - name: cardNumber
+              mapping: card_number
+            - name: cardName
+              mapping: card_name
+            - name: expirationYear
+              mapping: expiration_year
+            - name: expirationMonth
+              mapping: expiration_month
+        - name: BillCycles
+          mapping: tbl_bill_cycles
+          properties:
+            - name: cycleDay
+              mapping: cycle_day
+    - name: keycloak
+      extends: default
+      entities:
+        - name: IamUsers
+          mapping: user_entity
+          filter: realmId == "${REALM_ID}"
+          properties:
+            - name: created
+              mapping: created_timestamp
+              readMappingExp: millisecondToDate(created/1000)
+            - name: realmId
+              length: 255
+              mapping: realm_id
+    - name: oracle
+      extends: default
+      entities:
+        - name: ComCurrencies
+          sequence: sq_com_currencies
+        - name: IamGroups
+          mapping: sq_iam_groups
+        - name: IamUsers
+          sequence: sq_iam_users
+        - name: IamGroupUsers
+          sequence: sq_iam_group_users
+        - name: LocCountries
+          sequence: sq_loc_countries
+        - name: LocAreas
+          sequence: sq_loc_areas
+        - name: LocAddresses
+          sequence: sq_loc_addresses
+        - name: PmIndustryTypes
+          sequence: sq_pm_industry_types
+        - name: PmParties
+          sequence: sq_pm_parties
+        - name: PmPartyRoles
+          sequence: sq_pm_party_roles
+        - name: PmIdentifications
+          sequence: sq_pm_identifications
+        - name: PmContactMediums
+          sequence: sq_pm_contact_mediums
+        - name: PmIndividuals
+          sequence: sq_pm_individuals
+        - name: PmOrganizations
+          sequence: sq_pm_organizations
+        - name: AccFinancialEntities
+          sequence: sq_acc_financial_entities
+        - name: AccPaymentMethods
+          sequence: sq_acc_payment_methods
+        - name: AccAccountTypes
+          sequence: sq_acc_account_types
+        - name: AccCreditors
+          sequence: sq_acc_creditors
+        - name: AccAccountHolders
+          sequence: sq_acc_account_holders
+        - name: AccAccounts
+          sequence: sq_acc_accounts
+        - name: AccAccountStatusHistories
+          sequence: sq_acc_account_status_histories
+        - name: AccPaymentResponsibles
+          sequence: sq_acc_payment_responsibles
+        - name: AccPaymentResponsibleMethods
+          sequence: sq_acc_payment_responsible_methods
+        - name: BillCycles
+          sequence: sq_bill_cycles
+  list: []
 app:
-  listeners:
-    - name: syncInsights
-      actions: [insert, bulkInsert, update, delete]
-      condition: 'options.stage === "default"'
-      after: sendMessage("sync-insights",[{expression:expression,data:data}])
-    
+  paths:
+    data: data

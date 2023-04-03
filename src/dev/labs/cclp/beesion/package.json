@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "lambdaorm": "0.4.22-beta",
+    "oracledb": "^5.5.0",
+    "pg": "^8.9.0"
+  }
+}

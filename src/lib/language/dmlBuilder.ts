@@ -251,7 +251,7 @@ export abstract class DmlBuilder {
 			return this.buildSentence(operand)
 		} else if (operand.type === OperandType.Arrow) {
 			return this.buildArrowFunction(operand)
-		} else if (operand.type === OperandType.CallFunc) {
+		} else if (operand.type === OperandType.CallFunc || operand.type === OperandType.ChildFunc) {
 			return this.buildFunctionRef(operand)
 		} else if (operand.type === OperandType.Operator) {
 			return this.buildOperator(operand)

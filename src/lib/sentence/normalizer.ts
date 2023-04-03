@@ -484,7 +484,7 @@ export class SentenceNormalizer implements IOperandNormalizer {
 		const fieldRelation = new Field(operand.pos, relation.entity, arrowFilterVar + '.' + relation.to, Type.to(propertyTo.type))
 		// new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping)
 		const varRelation = new Operand(operand.pos, 'LambdaOrmParentId', OperandType.Var, [], Type.List(Type.to(propertyTo.type)))
-		const filterInclude = new Operand(operand.pos, 'in', OperandType.CallFunc, [varRelation, fieldRelation])
+		const filterInclude = new Operand(operand.pos, 'in', OperandType.CallFunc, [fieldRelation, varRelation])
 		if (!childFilter) {
 			const varFilterArrowNode = new Operand(operand.pos, arrowFilterVar, OperandType.Var, [])
 			map.children[0] = new Operand(operand.pos, 'filter', OperandType.Arrow, [map.children[0], varFilterArrowNode, filterInclude])
