@@ -86,7 +86,13 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 	public sortByRelations (mainEntities: string[], allEntities: string[]): string[] {
 		if (mainEntities.length < 2) return mainEntities
 		const sorted: string[] = []
+		let tries = 0
+		let solved = true
 		while (sorted.length < mainEntities.length) {
+			if (tries >= 1000) {
+				solved = false
+				break
+			}
 			for (const entityName of mainEntities) {
 				if (sorted.includes(entityName)) {
 					continue
@@ -96,8 +102,34 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 					break
 				}
 			}
+			tries++
 		}
-		return sorted
+		if (solved) {
+			return sorted
+		}
+		const info:string[] = []
+		for (const entityName of mainEntities) {
+			if (!sorted.includes(entityName)) {
+				const entity = this.getEntity(entityName)
+				if (entity === undefined) {
+					throw new SchemaError('Not exists entity:' + entityName)
+				}
+				info.push(`{ ${entity.name} relations: `)
+				if (entity.dependents && entity.dependents.length > 0) {
+					for (const relation of entity.relations) {
+						if (relation.entity !== entity.name && mainEntities.includes(relation.entity)) {
+							for (const relation of entity.relations) {
+								if (this.unsolvedRelation(entityName, mainEntities, allEntities, sorted, relation)) {
+									info.push(`${relation.entity}.${relation.name} `)
+								}
+							}
+						}
+					}
+				}
+				info.push('}, ')
+			}
+		}
+		throw new SchemaError(`Task cannot be completed because the following entities cannot be sorted by their relations ${info.join('')}`)
 	}
 
 	/**
@@ -141,9 +173,9 @@ abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Propert
 					throw new SchemaError('Not exists entity:' + entityName)
 				}
 				info.push(`{ ${entity.name} depend: `)
-				for (const dependent of entity.dependents) {
-					if (dependent.entity !== entity.name && entities.includes(dependent.entity)) {
-						if (entity.dependents && entity.dependents.length > 0) {
+				if (entity.dependents && entity.dependents.length > 0) {
+					for (const dependent of entity.dependents) {
+						if (dependent.entity !== entity.name && entities.includes(dependent.entity)) {
 							for (const dependent of entity.dependents) {
 								if (dependent.entity !== entity.name && entities.includes(dependent.entity)) {
 									if (this.hadDependents(entity, sorted, dependent)) {
