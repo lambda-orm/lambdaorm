@@ -98,14 +98,10 @@ export class SentenceCompleter {
 		for (const i in entity.properties) {
 			const property = entity.properties[i]
 			if (property.key) {
-				if (!expression) {
-					expression = ''
-				}
-				if (typeof property.key === 'string') {
-					expression = expression + `${property.name} == '${property.key}' `
-				} else {
-					expression = expression + `${property.name} == ${property.key} `
-				}
+				const condition = (typeof property.key === 'string')
+					? `${property.name} == '${property.key}' `
+					: `${property.name} == ${property.key} `
+				expression = expression ? expression + '&&' + condition : condition
 			}
 		}
 		if (expression) {
