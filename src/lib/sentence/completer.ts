@@ -1,6 +1,7 @@
 import { MappingConfig, ViewConfig } from '../manager'
 import { Sentence, EntityMapping, Field, Filter, Join, SchemaError, SentenceInclude, Insert, Update, PropertyMapping, PropertyView, SentenceAction } from '../contract'
-import { IExpressions, Operand, OperandType, Type } from '3xpr'
+import { IExpressions, Operand, OperandType } from '3xpr'
+import { Type } from 'json-light'
 
 export class SentenceCompleter {
 	protected expressions: IExpressions

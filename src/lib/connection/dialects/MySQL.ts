@@ -5,7 +5,7 @@ import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data } from '../../contract'
 import { MappingConfig } from '../../manager'
 import { Dialect } from '../../language'
-import { Type, Kind } from '3xpr'
+import { Type, Kind } from 'json-light'
 
 const DECIMAL = 0
 const TINY = 1

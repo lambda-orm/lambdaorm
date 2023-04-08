@@ -5,7 +5,8 @@ import {
 } from '../contract'
 import path from 'path'
 import { helper } from './'
-import { IExpressions, Kind } from '3xpr'
+import { IExpressions } from '3xpr'
+import { Kind } from 'json-light'
 const yaml = require('js-yaml')
 
 abstract class ModelConfigBase<TEntity extends Entity, TProperty extends Property> {

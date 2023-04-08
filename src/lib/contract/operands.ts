@@ -1,6 +1,7 @@
 
 import { Property, Relation, Behavior, Constraint } from '.'
-import { Parameter, Operand, OperandType, Position, Type } from '3xpr'
+import { Parameter, Operand, OperandType, Position } from '3xpr'
+import { Type } from 'json-light'
 const SqlString = require('sqlstring')
 
 export class Constant extends Operand {

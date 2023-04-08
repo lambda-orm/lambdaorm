@@ -2,7 +2,8 @@
 
 import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity } from '../contract'
 import { ModelConfig, SchemaManager } from '../manager'
-import { Operand, Parameter, OperandType, Type, Kind, IExpressions, Position, ITypeManager } from '3xpr'
+import { Operand, Parameter, OperandType, IExpressions, Position, ITypeManager } from '3xpr'
+import { Type, Kind } from 'json-light'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../contract/operands'
 import { SentenceTypeManager, SentenceHelper } from '.'
 

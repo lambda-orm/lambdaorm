@@ -1,5 +1,6 @@
 import { ModelConfig } from '../manager'
-import { Operand, OperandType, Kind, Type, IModelManager, TypeManager } from '3xpr'
+import { Operand, OperandType, IModelManager, TypeManager } from '3xpr'
+import { Type, Kind } from 'json-light'
 import { SintaxisError, SentenceCrudAction, Sentence, SentenceInclude, Field, Map, From, Join, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update } from '../contract'
 
 export class SentenceTypeManager extends TypeManager {

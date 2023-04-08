@@ -4,7 +4,7 @@ import { Connection, ConnectionPool } from '..'
 import { SchemaError, Query, Data, ExecutionError, PropertyMapping } from '../../contract'
 import { MappingConfig, helper } from '../../manager'
 import { Dialect } from '../../language'
-import { Type, Kind } from '3xpr'
+import { Type, Kind } from 'json-light'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples

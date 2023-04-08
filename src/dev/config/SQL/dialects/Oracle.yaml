@@ -31,5 +31,9 @@ operators:
     '|=': '{0} = BITOR({0},{1})'
     '^=': '{0} = BITXOR({0},{1})'  
 functions:
+  numeric:
+    toNumber: 'TO_NUMBER(TO_CHAR({0}))'
+  string:
+    toString: 'TO_CHAR({0})'  
   dateTime:
     dateTime: TO_CHAR({0},'YYYY-MM-DD"T"hh24:mi:ss')

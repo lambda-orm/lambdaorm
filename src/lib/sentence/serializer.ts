@@ -1,6 +1,7 @@
 
 import { Relation, Metadata, Sentence, SentenceInclude, Map, BulkInsert, Insert, Update, Delete, Field, From, Join, Filter, GroupBy, Having, Sort, Page } from '../contract'
-import { Operand, OperandType, Type } from '3xpr'
+import { Operand, OperandType } from '3xpr'
+import { Type } from 'json-light'
 
 export class SentenceSerializer {
 	public clone (sentence: Sentence): Sentence {
@@ -23,17 +24,17 @@ export class SentenceSerializer {
 			children.push(this._serialize(child))
 		}
 		if (operand instanceof Sentence) {
-			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.toString(operand.returnType), columns: operand.columns, parameters: operand.parameters, entity: operand.entity, alias: operand.alias, constraints: operand.constraints }
+			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.stringify(operand.returnType), columns: operand.columns, parameters: operand.parameters, entity: operand.entity, alias: operand.alias, constraints: operand.constraints }
 		} else if (operand instanceof SentenceInclude) {
-			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.toString(operand.returnType), relation: operand.relation }
+			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.stringify(operand.returnType), relation: operand.relation }
 		} else if (operand instanceof Map || operand instanceof From || operand instanceof Filter || operand instanceof Join ||
 				operand instanceof Update || operand instanceof Insert || operand instanceof BulkInsert || operand instanceof Delete ||
 				operand instanceof GroupBy || operand instanceof Having || operand instanceof Sort || operand instanceof Page) {
-			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.toString(operand.returnType), entity: operand.entity, alias: operand.alias }
+			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.stringify(operand.returnType), entity: operand.entity, alias: operand.alias }
 		} else if (operand instanceof Field) {
-			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.toString(operand.returnType), entity: operand.entity, alias: operand.alias, isRoot: operand.isRoot }
+			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, type: operand.type, returnType: Type.stringify(operand.returnType), entity: operand.entity, alias: operand.alias, isRoot: operand.isRoot }
 		} else {
-			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, number: operand.number, type: operand.type, returnType: Type.toString(operand.returnType) }
+			return { classtype: operand.constructor.name, pos: operand.pos, name: operand.name, children, number: operand.number, type: operand.type, returnType: Type.stringify(operand.returnType) }
 		}
 	}
 

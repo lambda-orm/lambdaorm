@@ -1,4 +1,5 @@
-import { Operand, OperandType, Kind, IExpressions } from '3xpr'
+import { Operand, OperandType, IExpressions } from '3xpr'
+import { Kind } from 'json-light'
 import { SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, Query, SintaxisError, SchemaError, source, BulkInsert } from '../contract'
 import { MappingConfig, helper } from '../manager'
 import { Dialect } from '../language'

@@ -4,7 +4,8 @@ import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data } from '../../contract'
 import { MappingConfig, helper } from '../../manager'
 import { Dialect } from '../../language'
-import { Parameter, Type, Kind } from '3xpr'
+import { Parameter } from '3xpr'
+import { Type, Kind } from 'json-light'
 
 export class SqlServerConnectionPool extends ConnectionPool {
 	public static lib: any

@@ -1,7 +1,8 @@
 
 import { MetadataParameter, SintaxisError, MetadataConstraint, MetadataModel, Metadata, source, Sentence, SentenceInfo, ObservableAction } from '../contract'
 import { SchemaManager, Routing, ViewConfig, helper } from '../manager'
-import { IExpressions, Type, Kind, Operand, OperandSerializer } from '3xpr'
+import { IExpressions, Operand, OperandSerializer } from '3xpr'
+import { Type, Kind } from 'json-light'
 import { MemoryCache, ICache } from 'h3lp'
 import { SentenceCompleter, SentenceBuilder, SentenceSerializer, SentenceNormalizer, SentenceHelper } from '.'
 
@@ -150,7 +151,7 @@ export class SentenceManager {
 			pos: sentence.pos,
 			name: sentence.name,
 			children,
-			type: Type.toString(sentence.returnType),
+			type: Type.stringify(sentence.returnType),
 			entity: sentence.entity,
 			columns: sentence.columns,
 			// property: sentence.p

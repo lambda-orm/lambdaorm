@@ -1,6 +1,7 @@
 import { Property, SintaxisError, SentenceCrudAction } from '../contract'
 import { ModelConfig } from '../manager'
-import { Operand, Parameter, OperandType, Type, helper, Kind } from '3xpr'
+import { Operand, Parameter, OperandType, helper } from '3xpr'
+import { Type, Kind } from 'json-light'
 import { Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete } from '../contract/operands'
 
 export class SentenceHelper {
@@ -131,7 +132,7 @@ export class SentenceHelper {
 					if (keyVal.returnType !== undefined && keyVal.returnType.kind !== Kind.any) {
 						fields.push({ name: keyVal.name, type: keyVal.returnType.kind })
 					} else {
-						fields.push({ name: keyVal.name, type: Type.toString(keyVal.children[0].returnType) })
+						fields.push({ name: keyVal.name, type: Type.stringify(keyVal.children[0].returnType) })
 					}
 				}
 			}
@@ -212,7 +213,7 @@ export class SentenceHelper {
 		for (let i = 0; i < variables.length; i++) {
 			const variable = variables[i]
 			variable.number = i + 1
-			parameters.push({ name: variable.name, type: Type.toString(variable.returnType) })
+			parameters.push({ name: variable.name, type: Type.stringify(variable.returnType) })
 		}
 		return parameters
 	}

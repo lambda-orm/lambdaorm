@@ -1,8 +1,8 @@
 
 import { helper, SchemaManager } from '../manager'
 import { Entity, Field, Relation, SchemaError, SintaxisError } from '../contract'
-import { IExpressions, Operand, OperandType, Position, IModelManager, IOperandNormalizer, Type, Kind } from '3xpr'
-
+import { IExpressions, Operand, OperandType, Position, IModelManager, IOperandNormalizer } from '3xpr'
+import { Type, Kind } from 'json-light'
 /**
  *  Expression completer
  */

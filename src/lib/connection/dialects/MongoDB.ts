@@ -3,7 +3,8 @@
 
 import { Connection, ConnectionConfig, ConnectionPool } from '..'
 import { Query, Data, MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include } from '../../contract'
-import { Parameter, Type, Kind } from '3xpr'
+import { Parameter } from '3xpr'
+import { Type, Kind } from 'json-light'
 import { MappingConfig, helper } from '../../manager'
 import { Dialect } from '../../language'
 

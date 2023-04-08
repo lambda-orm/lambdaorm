@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Query, Data, MethodNotImplemented } from '../contract'
-import { Parameter, Kind } from '3xpr'
+import { Parameter } from '3xpr'
+import { Kind } from 'json-light'
 import { ConnectionConfig } from './connectionConfig'
 import { MappingConfig, helper } from '../manager'
 import { Dialect } from '../language'
