@@ -28,7 +28,7 @@ export class Routing {
 		}
 	}
 
-	public getDataSource (sentenceInfo: SentenceInfo, stage?: string):string {
+	public getSource (sentenceInfo: SentenceInfo, stage?: string):string {
 		const contextInfo = this.getContextInfo(sentenceInfo)
 		const _stage = this.schema.stage.get(stage)
 		for (const i in _stage.sources) {

@@ -117,8 +117,8 @@ export class SentenceService {
 
 	public getDataSource (sentence: Sentence, stage: string): Source {
 		const sentenceInfo: SentenceInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
-		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
-		return this.schema.source.get(dataSourceName)
+		const sourceName = this.routing.getSource(sentenceInfo, stage)
+		return this.schema.source.get(sourceName)
 	}
 
 	private toOperand (expression: string, useCache:boolean): Operand {
