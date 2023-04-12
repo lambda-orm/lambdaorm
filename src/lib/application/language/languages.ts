@@ -1,17 +1,16 @@
 
-import { NotImplemented, IDialectService } from '../../domain'
-import { LanguageService } from './language'
+import { NotImplemented, IDialectService, LanguagePort } from '../../domain'
 
 export class LanguagesService {
 	public dialects: any
-	private languages: LanguageService[]
+	private languages: LanguagePort[]
 
 	constructor () {
 		this.languages = []
 		this.dialects = {}
 	}
 
-	public add (language: LanguageService) {
+	public add (language: LanguagePort) {
 		const index = this.languages.findIndex(p => p.name === language.name)
 		if (index !== -1) {
 			this.languages[index] = language
@@ -20,7 +19,7 @@ export class LanguagesService {
 		}
 	}
 
-	public get (name: string): LanguageService {
+	public get (name: string): LanguagePort {
 		const language = this.languages.find(p => p.name === name)
 		if (!language) {
 			throw new NotImplemented(`language ${name} not implemented`)
@@ -28,7 +27,7 @@ export class LanguagesService {
 		return language
 	}
 
-	public getByDialect (dialect: string): LanguageService {
+	public getByDialect (dialect: string): LanguagePort {
 		for (const i in this.languages) {
 			for (const j in this.languages[i].dialects) {
 				if (this.languages[i].dialects[j].name === dialect) {

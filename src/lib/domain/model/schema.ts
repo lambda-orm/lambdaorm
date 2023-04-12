@@ -120,7 +120,7 @@ export interface View {
 	name: string
 	entities: EntityView[]
 }
-export interface source {
+export interface Source {
 	name: string
 	dialect: string
 	mapping: string
@@ -160,7 +160,7 @@ export interface ModelSchema {
 }
 export interface DataSchema {
 	mappings: Mapping[]
-	sources: source[]
+	sources: Source[]
 	stages: Stage[]
 }
 export interface AppSchema {

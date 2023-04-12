@@ -1,7 +1,7 @@
-import { Query, Entity, SchemaError } from '../../domain/model'
+import { Query, Entity, SchemaError, IStageDelete } from '../../domain'
 import { StageActionDML } from './actionDML'
 
-export class StageDelete extends StageActionDML {
+export class StageDelete extends StageActionDML implements IStageDelete {
 	public async execute (): Promise<void> {
 		const queries = this.build()
 		await this.executor.executeList(queries, this.options)

@@ -1,7 +1,7 @@
 import { StageActionDML } from './actionDML'
-import { Query, SchemaConfig, Entity } from '../../domain/model'
+import { Query, SchemaConfig, Entity, IStageExport } from '../../domain'
 
-export class StageExport extends StageActionDML {
+export class StageExport extends StageActionDML implements IStageExport {
 	public async execute (): Promise<SchemaConfig> {
 		const queries = this.queries()
 		const data = {}

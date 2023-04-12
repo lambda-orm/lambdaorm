@@ -1,6 +1,6 @@
 import {
 	Enum, Entity, Property, FormatMapping, EntityMapping, PropertyMapping,
-	source, Schema, Mapping, RelationInfo, Stage, View, EntityView,
+	Source, Schema, Mapping, RelationInfo, Stage, View, EntityView,
 	PropertyView, QueryOptions
 } from '../model'
 
@@ -73,10 +73,10 @@ export interface IViewsConfigService {
 }
 
 export interface IDataSourceConfigService {
-	sources: source[]
+	sources: Source[]
 	default?: string
-	load (value: source): void
-	get (name?: string): source
+	load (value: Source): void
+	get (name?: string): Source
 }
 
 export interface IStageConfigService {

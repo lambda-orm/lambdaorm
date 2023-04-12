@@ -1,17 +1,17 @@
-import { Query, QueryOptions, QueryInfo } from '../domain'
-import { SchemaManager, helper } from '../application'
+import { Query, QueryOptions, QueryInfo, ISchemaService } from '../../domain'
 import { QueryBuilder } from './index'
-import { Languages } from '../language'
-import { SentenceManager } from '../sentence'
+import { LanguagesService } from '../language'
+import { SentenceService } from '../sentence'
 import { MemoryCache, ICache } from 'h3lp'
 import { IExpressions } from '3xpr'
+import { helper } from '../../helper'
 
 export class QueryManager {
 	private cache: ICache<string, string>
 	private builder: QueryBuilder
 	private expressions: IExpressions
 
-	constructor (sentenceManager: SentenceManager, schema: SchemaManager, languages: Languages, expressions: IExpressions) {
+	constructor (sentenceManager: SentenceService, schema: ISchemaService, languages: LanguagesService, expressions: IExpressions) {
 		this.cache = new MemoryCache<string, string>()
 		this.builder = new QueryBuilder(sentenceManager, schema, languages)
 		this.expressions = expressions

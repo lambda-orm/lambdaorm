@@ -1,9 +1,9 @@
 import { Routing } from '../'
 import { LanguagesService } from '../language'
 import {
-	ObservableAction, Mapping, RuleDataSource, Query, Index, source, Relation,
+	ObservableAction, Mapping, RuleDataSource, Query, Index, Source, Relation,
 	EntityMapping, PropertyMapping, SentenceInfo, SchemaError,
-	IModelConfigService, IMappingConfigService, IDialectService, ISchemaService
+	IModelConfigService, IMappingConfigService, IDialectService, ISchemaService, ILanguageDDLBuilder
 } from '../../domain'
 import { helper } from '../../helper'
 import { Delta, ChangedValue } from 'h3lp'
@@ -72,7 +72,7 @@ export class DDLBuilder {
 		return queries
 	}
 
-	private _drop (source: source, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
+	private _drop (source: Source, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
 		const dialect = this.languages.getDialect(source.dialect)
 		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortByDependencies(entities)
@@ -101,7 +101,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _dropRelations (source: source, ruleDataSource: RuleDataSource, entity:EntityMapping, entitiesMapping: EntityMapping[], dialect:IDialectService, queries: Query[]) {
+	private _dropRelations (source: Source, ruleDataSource: RuleDataSource, entity:EntityMapping, entitiesMapping: EntityMapping[], dialect:IDialectService, queries: Query[]) {
 		if (entity.relations && !entity.view && (!entity.composite || !dialect.solveComposite)) {
 			for (const relation of entity.relations) {
 				const relationEntity = entitiesMapping.find(r => r.name === relation.entity)
@@ -113,7 +113,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _dropRelation (source: source, entity:EntityMapping, relation:Relation, queries: Query[]) {
+	private _dropRelation (source: Source, entity:EntityMapping, relation:Relation, queries: Query[]) {
 		if (!relation.weak) {
 			// look for the related property to see if the relation is not required
 			const fromProperty = entity.properties.find(r => r.name === relation.from)
@@ -128,7 +128,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _dropEntity (source: source, entity:EntityMapping, dialect:IDialectService, queries: Query[]) {
+	private _dropEntity (source: Source, entity:EntityMapping, dialect:IDialectService, queries: Query[]) {
 		if (!entity.view && (!entity.composite || !dialect.solveComposite)) {
 			this._dropIndexes(source, entity, queries)
 			if (entity.sequence) {
@@ -138,7 +138,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _dropIndexes (source: source, entity:EntityMapping, queries: Query[]) {
+	private _dropIndexes (source: Source, entity:EntityMapping, queries: Query[]) {
 		if (entity.indexes) {
 			for (const index of entity.indexes) {
 				this.addQuery(queries, this.builder(source).dropIndex(entity, index))
@@ -146,7 +146,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _truncate (source: source, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
+	private _truncate (source: Source, ruleDataSource: RuleDataSource, entitiesMapping: EntityMapping[], queries: Query[]): void {
 		const dialect = this.languages.getDialect(source.dialect)
 		const entities = entitiesMapping.map(p => p.name)
 		const sortedEntities = this.model.sortByDependencies(entities)
@@ -165,7 +165,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncRemoveForEntitiesChanges (source: source, ruleDataSource: RuleDataSource, oldMapping: EntityMapping[], delta: Delta, queries: Query[]): void {
+	private _syncRemoveForEntitiesChanges (source: Source, ruleDataSource: RuleDataSource, oldMapping: EntityMapping[], delta: Delta, queries: Query[]): void {
 		for (const entityChanged of delta.changed) {
 			// if entity is view is excluded
 			// evaluate if entity apply in source
@@ -190,7 +190,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncRemovePrimaryKey (source: source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+	private _syncRemovePrimaryKey (source: Source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
 		if (delta.remove && delta.remove.length > 0) {
 			this.addQuery(queries, this.builder(source).dropPk(entityChanged.old))
 		}
@@ -199,7 +199,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncRemoveUniqueKey (source: source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+	private _syncRemoveUniqueKey (source: Source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
 		if (delta.remove && delta.remove.length > 0) {
 			this.addQuery(queries, this.builder(source).dropUk(entityChanged.old))
 		}
@@ -208,7 +208,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncRemoveIndexForChanges (source: source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+	private _syncRemoveIndexForChanges (source: Source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
 		for (const oldIndex of delta.changed) {
 			this.addQuery(queries, this.builder(source).dropIndex(entityChanged.new, oldIndex.old as Index))
 		}
@@ -217,7 +217,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncRemoveFkForChanges (source: source, ruleDataSource: RuleDataSource, oldMapping: EntityMapping[], entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+	private _syncRemoveFkForChanges (source: Source, ruleDataSource: RuleDataSource, oldMapping: EntityMapping[], entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
 		for (const changedItem of delta.changed) {
 			const newRelation = changedItem.new as Relation
 			const oldRelation = changedItem.old as Relation
@@ -237,7 +237,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncRemoveForRemovedEntities (source: source, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
+	private _syncRemoveForRemovedEntities (source: Source, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
 		for (const removeItem of delta.remove) {
 			const removeEntity = removeItem.old as EntityMapping
 			// if entity is view is excluded
@@ -257,7 +257,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncCreateEntities (source: source, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
+	private _syncCreateEntities (source: Source, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
 		const dialect = this.languages.getDialect(source.dialect)
 		for (const newItem of delta.new) {
 			const newEntity = newItem.new as EntityMapping
@@ -274,7 +274,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncCreateForEntitiesChanges (source: source, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
+	private _syncCreateForEntitiesChanges (source: Source, ruleDataSource: RuleDataSource, delta: Delta, queries: Query[]): void {
 		for (const entityChanged of delta.changed) {
 			// if entity is view is excluded
 			// evaluate if entity apply in source
@@ -310,7 +310,7 @@ export class DDLBuilder {
 		// en ambos casos se debe resolver que se hará con los datos para que estos no se pierdan
 	}
 
-	private _syncAddPropertyForEntitiesChanges (source: source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+	private _syncAddPropertyForEntitiesChanges (source: Source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
 		for (const n in delta.new) {
 			const newProperty = delta.new[n].new as PropertyMapping
 			this.addQuery(queries, this.builder(source).addProperty(entityChanged.new, newProperty))
@@ -324,7 +324,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncRemovePropertyForEntityChanges (source: source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+	private _syncRemovePropertyForEntityChanges (source: Source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
 		for (const removeItem of delta.remove) {
 			const oldProperty = removeItem.old as PropertyMapping
 			if (!oldProperty.view) {
@@ -333,7 +333,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncCreatePkForChangesInEntity (source: source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+	private _syncCreatePkForChangesInEntity (source: Source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
 		for (const newItem of delta.new) {
 			const newPrimaryKey = newItem.new as string[]
 			this.addQuery(queries, this.builder(source).addPk(entityChanged.new, newPrimaryKey))
@@ -344,7 +344,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncCreateUkForChangesInEntity (source: source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+	private _syncCreateUkForChangesInEntity (source: Source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
 		for (const newItem of delta.new) {
 			const newUniqueKey = newItem.new as string[]
 			this.addQuery(queries, this.builder(source).addUk(entityChanged.new, newUniqueKey))
@@ -355,7 +355,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncCreateIndexesForChangesInEntity (source: source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+	private _syncCreateIndexesForChangesInEntity (source: Source, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
 		for (const newItem of delta.new) {
 			const newIndex = newItem.new as Index
 			this.addQuery(queries, this.builder(source).createIndex(entityChanged.new, newIndex))
@@ -366,7 +366,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncCreateFksForChangesInEntity (source: source, ruleDataSource: RuleDataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
+	private _syncCreateFksForChangesInEntity (source: Source, ruleDataSource: RuleDataSource, entityChanged:ChangedValue, delta: Delta, queries: Query[]): void {
 		for (const newItem of delta.new) {
 			const newRelation = newItem.new as Relation
 			// evaluate if entity relation apply in source
@@ -384,11 +384,11 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncCreateSequencesForChangesInEntity (source: source, entityChanged:ChangedValue, queries: Query[]): void {
+	private _syncCreateSequencesForChangesInEntity (source: Source, entityChanged:ChangedValue, queries: Query[]): void {
 		this.addQuery(queries, this.builder(source).createSequence(entityChanged.new))
 	}
 
-	private _syncCreateForNewEntities (source: source, ruleDataSource: RuleDataSource, newMapping: EntityMapping[], delta: Delta, queries: Query[]): void {
+	private _syncCreateForNewEntities (source: Source, ruleDataSource: RuleDataSource, newMapping: EntityMapping[], delta: Delta, queries: Query[]): void {
 		for (const newItem of delta.new) {
 			const newEntity = newItem.new as EntityMapping
 			// if entity is view is excluded
@@ -399,7 +399,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncCreateFksForNewEntity (source: source, ruleDataSource: RuleDataSource, newMapping: EntityMapping[], newEntity: EntityMapping, queries: Query[]): void {
+	private _syncCreateFksForNewEntity (source: Source, ruleDataSource: RuleDataSource, newMapping: EntityMapping[], newEntity: EntityMapping, queries: Query[]): void {
 		if (newEntity.relations) {
 			for (const relation of newEntity.relations) {
 				const relationEntity = newMapping.find(q => q.name === relation.entity)
@@ -410,7 +410,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _syncCreateIndexesForNewEntity (source: source, newEntity: EntityMapping, queries: Query[]): void {
+	private _syncCreateIndexesForNewEntity (source: Source, newEntity: EntityMapping, queries: Query[]): void {
 		if (newEntity.indexes) {
 			for (const index of newEntity.indexes) {
 				this.addQuery(queries, this.builder(source).createIndex(newEntity, index))
@@ -423,7 +423,7 @@ export class DDLBuilder {
 		return this.routing.eval(source, sentenceInfo)
 	}
 
-	private builder (source: source): LanguageDDLBuilder {
+	private builder (source: Source): ILanguageDDLBuilder {
 		const language = this.languages.getByDialect(source.dialect)
 		const mapping = this.schema.mapping.getInstance(source.mapping)
 		return language.ddlBuilder(source, mapping)
@@ -438,12 +438,12 @@ export class DDLBuilder {
 	}
 }
 
-export abstract class LanguageDDLBuilder {
-	protected source: source
+export abstract class LanguageDDLBuilder implements ILanguageDDLBuilder {
+	protected source: Source
 	protected mapping: IMappingConfigService
 	protected dialect: IDialectService
 
-	constructor (source: source, mapping: IMappingConfigService, dialect: IDialectService) {
+	constructor (source: Source, mapping: IMappingConfigService, dialect: IDialectService) {
 		this.source = source
 		this.mapping = mapping
 		this.dialect = dialect

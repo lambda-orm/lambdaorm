@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Query } from '../domain/model'
+import { Query, ITransaction } from '../domain'
 import { SentenceService } from './sentence'
 import { QueryManager, QueryExecutor } from './query'
 
-export class Transaction {
+export class Transaction implements ITransaction {
 	private sentenceService:SentenceService
 	private queryManager:QueryManager
 	private queryExecutor: QueryExecutor

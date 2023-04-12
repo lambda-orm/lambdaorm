@@ -1,11 +1,11 @@
-import { Query, ExecuteResult, QueryOptions, ISchemaService } from '../../domain'
+import { Query, ExecuteResult, QueryOptions, ISchemaService, IStageActionDDL } from '../../domain'
 import { StageActionDDL } from './actionDDL'
 import { DDLBuilder } from '../query/ddlBuilder'
 import { Routing, Executor } from '..'
 import { LanguagesService } from '../language'
 import { StageModel, StageMapping } from './state'
 
-export class StageClean extends StageActionDDL {
+export class StageClean extends StageActionDDL implements IStageActionDDL {
 	private mapping: StageMapping
 	constructor (state:StageModel, mapping:StageMapping, schema: ISchemaService, routing: Routing, languages: LanguagesService, executor: Executor, options:QueryOptions) {
 		super(state, schema, routing, languages, executor, options)

@@ -1,8 +1,8 @@
 /* eslint-disable space-before-function-paren */
 const { configExtends } = require('config-extends')
 exports.apply = async function apply(callback) {
-	await configExtends.apply('src/dev/config/SQL', 'src/lib/language/SQL/config.json')
-	await configExtends.apply('src/dev/config/NoSQL', 'src/lib/language/NoSQL/config.json')
+	await configExtends.apply('src/dev/config/SQL', 'src/lib/infrastructure/language/adapters/SQL/config.json')
+	await configExtends.apply('src/dev/config/NoSQL', 'src/lib/infrastructure/language/adapters/NoSQL/config.json')
 	callback()
 }
 // apply(path.join(function () { console.log('end')})

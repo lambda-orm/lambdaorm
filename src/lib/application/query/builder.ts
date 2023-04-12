@@ -1,29 +1,28 @@
-import { Query, QueryOptions, Include, Sentence } from '../domain'
-import { SchemaManager, ViewConfig } from '../application'
-import { Languages } from '../language'
-import { SentenceManager } from '../sentence'
+import { Query, QueryOptions, Include, Sentence, ISchemaService, IViewConfigService } from '../../domain'
+import { LanguagesService } from '../language'
+import { SentenceService } from '../sentence'
 
 export class QueryBuilder {
-	private schema: SchemaManager
-	private languages: Languages
-	private sentenceManager: SentenceManager
+	private schema: ISchemaService
+	private languages: LanguagesService
+	private sentenceService: SentenceService
 
-	constructor (sentenceManager: SentenceManager, schema: SchemaManager, languages: Languages) {
+	constructor (sentenceService: SentenceService, schema: ISchemaService, languages: LanguagesService) {
 		this.schema = schema
 		this.languages = languages
-		this.sentenceManager = sentenceManager
+		this.sentenceService = sentenceService
 	}
 
 	public build (expression: string, options: QueryOptions): Query {
 		const _view = this.schema.view.get(options.view)
 		const view = this.schema.view.getInstance(_view.name)
-		const sentence = this.sentenceManager.create(expression, view, options.stage as string, true)
+		const sentence = this.sentenceService.create(expression, view, options.stage as string, true)
 		return this.dmlBuild(sentence, view, options.stage as string)
 	}
 
-	private dmlBuild (sentence: Sentence, view: ViewConfig, stage: string): Query {
+	private dmlBuild (sentence: Sentence, view: IViewConfigService, stage: string): Query {
 		const includes:Include[] = []
-		const source = this.sentenceManager.getDataSource(sentence, stage)
+		const source = this.sentenceService.getDataSource(sentence, stage)
 		const language = this.languages.getByDialect(source.dialect)
 		const dialect = this.languages.getDialect(source.dialect)
 		const mapping = this.schema.mapping.getInstance(source.mapping)

@@ -1,8 +1,8 @@
-import { Query, ExecuteResult } from '../../domain/model'
+import { Query, ExecuteResult, IStageActionDDL } from '../../domain'
 import { StageActionDDL } from './actionDDL'
 import { DDLBuilder } from '../query'
 
-export class StageTruncate extends StageActionDDL {
+export class StageTruncate extends StageActionDDL implements IStageActionDDL {
 	public async queries (): Promise<Query[]> {
 		const state = await this.state.get(this.options.stage as string)
 		if (state && state.mappings) {

@@ -1,6 +1,6 @@
 import {
 	Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping,
-	source, Schema, AppSchema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView,
+	Source, Schema, AppSchema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView,
 	PropertyView, QueryOptions, Dependent, ObservableAction, AppPathsConfig, ModelSchema, DataSchema
 } from '../domain/model'
 import {
@@ -8,7 +8,7 @@ import {
 	IViewsConfigService, IDataSourceConfigService, IStageConfigService, ISchemaService
 } from '../domain/services'
 import path from 'path'
-import { helper } from '.'
+import { helper } from '../helper'
 import { IExpressions } from '3xpr'
 import { Kind } from 'json-light'
 const yaml = require('js-yaml')
@@ -483,14 +483,14 @@ export class ViewsConfigService implements IViewsConfigService {
 }
 
 export class DataSourceConfigService implements IDataSourceConfigService {
-	public sources: source[]
+	public sources: Source[]
 	public default?: string
 
 	constructor () {
 		this.sources = []
 	}
 
-	public load (value: source): void {
+	public load (value: Source): void {
 		if (value && value.name) {
 			const index = this.sources.findIndex(p => p.name === value.name)
 			if (index === -1) {
@@ -501,7 +501,7 @@ export class DataSourceConfigService implements IDataSourceConfigService {
 		}
 	}
 
-	public get (name?: string): source {
+	public get (name?: string): Source {
 		const _name = name === undefined ? this.default : name
 		if (_name === undefined) {
 			if (this.sources.length === 1) {

@@ -1,6 +1,6 @@
 
 import {
-	MetadataParameter, SintaxisError, MetadataConstraint, MetadataModel, Metadata, source, Sentence,
+	MetadataParameter, SintaxisError, MetadataConstraint, MetadataModel, Metadata, Source, Sentence,
 	SentenceInfo, ObservableAction, ISchemaService, IViewConfigService
 } from '../../domain'
 import { Routing } from '..'
@@ -115,7 +115,7 @@ export class SentenceService {
 		return sentence
 	}
 
-	public getDataSource (sentence: Sentence, stage: string): source {
+	public getDataSource (sentence: Sentence, stage: string): Source {
 		const sentenceInfo: SentenceInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
 		const dataSourceName = this.routing.getDataSource(sentenceInfo, stage)
 		return this.schema.source.get(dataSourceName)
