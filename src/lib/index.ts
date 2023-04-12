@@ -1,6 +1,6 @@
 import { Orm } from './orm'
-export * from './contract'
-export * from './repository'
-export { helper } from './manager'
+export * from './domain/model'
+export * from './infrastructure'
 export { Orm } from './orm'
 export const orm = Orm.instance
+export { helper } from './helper'

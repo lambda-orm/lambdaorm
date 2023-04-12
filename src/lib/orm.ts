@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { ActionObserver, Dialect, IOrm, QueryOptions, Schema, Stage, MetadataParameter, MetadataConstraint, QueryInfo, MetadataModel, Metadata, Query } from './contract'
-import { SchemaManager, Routing, helper, Executor, Transaction, ExpressionActionObserver, ExpressionsWrapper } from './manager'
-import { QueryManager } from './query'
-import { Languages } from './language'
-import { SentenceManager } from './sentence'
-import { StageFacade } from './stage'
-import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './connection'
-import { SqlLanguage } from './language/SQL'
-import { NoSqlLanguage } from './language/NoSQL'
+import { ActionObserver, Dialect, IOrm, QueryOptions, Schema, Stage, MetadataParameter, MetadataConstraint, QueryInfo, MetadataModel, Metadata, Query } from './domain/model'
+import { SchemaManager, Routing, helper, Executor, Transaction, ExpressionActionObserver, ExpressionsWrapper } from './application'
+import { QueryManager } from '../query'
+import { Languages } from '../language'
+import { SentenceManager } from '../sentence'
+import { StageFacade } from '../stage'
+import { ConnectionManager, MySQLConnectionPool, MariaDBConnectionPool, SqlServerConnectionPool, PostgreSQLConnectionPool, SQLjsConnectionPool, OracleConnectionPool, MongoDBConnectionPool } from './infrastructure/adapters/connection'
+import { SqlLanguage } from '../language/SQL'
+import { NoSqlLanguage } from '../language/NoSQL'
 import { expressions, IExpressions } from '3xpr'
-import { SentenceLibrary } from './sentence/library'
+import { SentenceLibrary } from '../sentence/library'
 /**
  * Facade through which you can access all the functionalities of the library.
  */
