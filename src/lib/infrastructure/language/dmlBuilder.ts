@@ -5,7 +5,7 @@ import {
 	, Insert, Update, Delete, Query, SintaxisError, SchemaError, Source, BulkInsert, IMappingConfigService,
 	IDialectService, DmlBuilderPort
 } from '../../domain'
-import { helper } from '../../helper'
+import { helper } from '../../application/helper'
 const SqlString = require('sqlstring')
 
 export abstract class DmlBuilderAdapter implements DmlBuilderPort {

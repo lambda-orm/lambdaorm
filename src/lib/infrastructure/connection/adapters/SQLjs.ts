@@ -3,7 +3,7 @@
 
 import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
 import { Query, Data, ConnectionConfig, ConnectionPort, IMappingConfigService, IDialectService } from '../../../domain'
-import { helper } from '../../../helper'
+import { helper } from '../../../application/helper'
 
 export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any

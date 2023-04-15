@@ -4,7 +4,7 @@ import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
 import { Query, Data, ConnectionPort, ConnectionConfig, IMappingConfigService, IDialectService } from '../../../domain'
 import { Type, Kind } from 'json-light'
 import { Parameter } from '3xpr'
-import { helper } from '../../../helper'
+import { helper } from '../../../application/helper'
 
 export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 	public static lib: any

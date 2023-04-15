@@ -3,7 +3,7 @@
 import { Query, Data, MethodNotImplemented, ConnectionConfig, ConnectionPort, IMappingConfigService, IDialectService } from '../../domain'
 import { Parameter } from '3xpr'
 import { Kind } from 'json-light'
-import { helper } from '../../helper'
+import { helper } from '../../application/helper'
 
 export abstract class ConnectionAdapter implements ConnectionPort {
 	public cnx: any

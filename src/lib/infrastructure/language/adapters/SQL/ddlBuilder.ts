@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { SentenceAction, PropertyMapping, Property, Relation, Index, Query, EntityMapping, SchemaError } from '../../../../domain'
-import { helper } from '../../../../helper'
+import { helper } from '../../../../application/helper'
 import { LanguageDDLBuilder } from '../../../../application'
 
 export class SqlDDLBuilder extends LanguageDDLBuilder {

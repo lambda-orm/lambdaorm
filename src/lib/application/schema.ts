@@ -8,7 +8,7 @@ import {
 	IViewsConfigService, IDataSourceConfigService, IStageConfigService, ISchemaService
 } from '../domain/services'
 import path from 'path'
-import { helper } from '../helper'
+import { helper } from './helper'
 import { IExpressions } from '3xpr'
 import { Kind } from 'json-light'
 const yaml = require('js-yaml')

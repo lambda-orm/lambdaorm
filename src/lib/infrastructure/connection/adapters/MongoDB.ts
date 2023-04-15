@@ -7,7 +7,7 @@ import {
 } from '../../../domain'
 import { Parameter } from '3xpr'
 import { Type, Kind } from 'json-light'
-import { helper } from '../../../helper'
+import { helper } from '../../../application/helper'
 
 export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any

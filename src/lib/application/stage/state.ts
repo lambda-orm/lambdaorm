@@ -1,5 +1,5 @@
 import { ModelConfig, MappingConfig, Query, Dialect, ISchemaService } from '../../domain'
-import { helper } from '../../helper'
+import { helper } from '../helper'
 const path = require('path')
 
 abstract class StageState<T> {

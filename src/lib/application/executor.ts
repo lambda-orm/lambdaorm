@@ -4,23 +4,23 @@ import { ConnectionService } from './connection'
 import { Transaction } from '.'
 import { SentenceService } from './sentence'
 import { LanguagesService } from './language'
-import { QueryManager, QueryExecutor } from './query'
+import { QueryService, QueryExecutor } from './query'
 import { IExpressions } from '3xpr'
 
 export class Executor {
 	private languages: LanguagesService
 	private connectionService: ConnectionService
 	private schemaService: ISchemaService
-	private queryManager: QueryManager
+	private queryService: QueryService
 	private expressions: IExpressions
 	private sentenceService:SentenceService
 
-	constructor (connectionService: ConnectionService, languages: LanguagesService, schemaService: ISchemaService, sentenceService:SentenceService, queryManager: QueryManager, expressions: IExpressions) {
+	constructor (connectionService: ConnectionService, languages: LanguagesService, schemaService: ISchemaService, sentenceService:SentenceService, queryService: QueryService, expressions: IExpressions) {
 		this.connectionService = connectionService
 		this.languages = languages
 		this.schemaService = schemaService
 		this.sentenceService = sentenceService
-		this.queryManager = queryManager
+		this.queryService = queryService
 		this.expressions = expressions
 	}
 
@@ -82,7 +82,7 @@ export class Executor {
 		const queryExecutor = new QueryExecutor(this.connectionService, this.languages, this.schemaService, this.expressions, options, true)
 		let error: any
 		try {
-			const transaction = new Transaction(this.sentenceService, this.queryManager, queryExecutor)
+			const transaction = new Transaction(this.sentenceService, this.queryService, queryExecutor)
 			await callback(transaction)
 			await queryExecutor.commit()
 		} catch (_error) {

@@ -1,5 +1,5 @@
 import { Routing, Executor } from '..'
-import { QueryManager } from '../query'
+import { QueryService } from '../query'
 import { LanguagesService } from '../language'
 import { StageMapping, StageModel } from './state'
 import { StageSync } from './sync'
@@ -8,7 +8,7 @@ import { StageExport } from './export'
 import { StageTruncate } from './truncate'
 import { StageImport } from './import'
 import { StageDelete } from './delete'
-import { helper } from '../../helper'
+import { helper } from '../helper'
 import {
 	SchemaError, Stage, View, QueryOptions, ISchemaService, IStageService,
 	IStageActionDDL, IStageDelete, IStageImport, IStageExport
@@ -20,14 +20,14 @@ export class StageService implements IStageService {
 	private schemaService: ISchemaService
 	private routing: Routing
 	protected languages: LanguagesService
-	private queryManager: QueryManager
+	private queryService: QueryService
 	private executor: Executor
 
-	constructor (schemaService: ISchemaService, routing: Routing, queryManager: QueryManager, languages: LanguagesService, executor: Executor) {
+	constructor (schemaService: ISchemaService, routing: Routing, queryService: QueryService, languages: LanguagesService, executor: Executor) {
 		this.schemaService = schemaService
 		this.routing = routing
 		this.languages = languages
-		this.queryManager = queryManager
+		this.queryService = queryService
 		this.executor = executor
 		this.stageMapping = new StageMapping(schemaService)
 		this.stageModel = new StageModel(schemaService)
@@ -71,16 +71,16 @@ export class StageService implements IStageService {
 
 	public delete (options?:QueryOptions):IStageDelete {
 		const _options = this.schemaService.solveOptions(options)
-		return new StageDelete(this.stageMapping, this.schemaService.model, this.queryManager, this.executor, _options)
+		return new StageDelete(this.stageMapping, this.schemaService.model, this.queryService, this.executor, _options)
 	}
 
 	public export (options?:QueryOptions):IStageExport {
 		const _options = this.schemaService.solveOptions(options)
-		return new StageExport(this.stageMapping, this.schemaService.model, this.queryManager, this.executor, _options)
+		return new StageExport(this.stageMapping, this.schemaService.model, this.queryService, this.executor, _options)
 	}
 
 	public import (options?:QueryOptions):IStageImport {
 		const _options = this.schemaService.solveOptions(options)
-		return new StageImport(this.stageMapping, this.schemaService.model, this.queryManager, this.executor, _options)
+		return new StageImport(this.stageMapping, this.schemaService.model, this.queryService, this.executor, _options)
 	}
 }

@@ -6,7 +6,7 @@ import {
 	SentenceCrudAction, SentenceAction, Include, Query, SchemaError, SintaxisError, EntityMapping, RelationType
 } from '../../../../domain'
 import { DmlBuilderAdapter } from '../../dmlBuilder'
-import { helper } from '../../../../helper'
+import { helper } from '../../../../application/helper'
 
 export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 	public override build (sentence: Sentence): Query {

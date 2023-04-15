@@ -5,21 +5,17 @@ import {
 	EntityMapping, PropertyMapping, SentenceInfo, SchemaError,
 	IModelConfigService, IMappingConfigService, IDialectService, ISchemaService, ILanguageDDLBuilder
 } from '../../domain'
-import { helper } from '../../helper'
+import { helper } from '../helper'
 import { Delta, ChangedValue } from 'h3lp'
 
 export class DDLBuilder {
-	private languages: LanguagesService
-	private schema: ISchemaService
 	private model: IModelConfigService
-	private routing: Routing
-	public stage: string
-	constructor (schema: ISchemaService, routing: Routing, languages: LanguagesService, stage: string) {
-		this.schema = schema
+	constructor (private readonly schema: ISchemaService,
+	private readonly routing: Routing,
+	private readonly languages: LanguagesService,
+	public readonly stage: string
+	) {
 		this.model = schema.model
-		this.routing = routing
-		this.languages = languages
-		this.stage = stage
 	}
 
 	public drop (mappings: Mapping[]): Query[] {

@@ -1,17 +1,11 @@
+import { orm as _orm } from '../orm'
 import { IOrm } from '../../domain'
-import { orm } from '../orm'
 import { Queryable } from './query'
 import { ExpressionActions } from './actions'
 
 export class Repository<TEntity, TQuery> {
-	public name
-	public stage
-	private orm
-	constructor (name: string, stage?:string, Orm?:IOrm) {
-		this.name = name
-		this.stage = stage
-		this.orm = Orm !== undefined ? Orm : orm
-	}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (public readonly name: string, public stage?:string, private readonly orm:IOrm = _orm) {}
 
 	protected async _execute (
 		head: string,
@@ -26,11 +20,11 @@ export class Repository<TEntity, TQuery> {
 		if (include !== undefined) {
 			expression = `${expression}.include(${include.toString()})`
 		}
-		return this.orm.execute(expression, data, this.stage)
+		return this.orm.execute(expression, data, { stage: this.stage })
 	}
 
 	public async execute (expression: string, data?: any): Promise<any> {
-		return this.orm.execute(`${this.name}${expression}`, data, this.stage)
+		return this.orm.execute(`${this.name}${expression}`, data, { stage: this.stage })
 	}
 
 	/**  */

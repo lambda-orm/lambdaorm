@@ -5,7 +5,7 @@ import {
 	PropertyMapping, ExecutionError, SchemaError
 } from '../../../domain'
 import { Type, Kind } from 'json-light'
-import { helper } from '../../../helper'
+import { helper } from '../../../application/helper'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples

@@ -6,15 +6,13 @@ import {
 } from '../domain'
 import {
 	SchemaService, Routing, Executor, Transaction, ExpressionActionObserver, ExpressionsWrapper, ConnectionService, SentenceLibrary, StageService,
-	LanguagesService, QueryManager, SentenceService
+	LanguagesService, QueryService, SentenceService, helper
 } from '../application'
 import {
 	MySQLConnectionPoolAdapter, MariaDBConnectionPoolAdapter, SqlServerConnectionPoolAdapter, PostgreSQLConnectionPoolAdapter,
 	SQLjsConnectionPoolAdapter, OracleConnectionPoolAdapter, MongoDBConnectionPoolAdapter
 } from './connection/adapters'
 import { SqlLanguageAdapter, NoSqlLanguageAdapter } from './language/adapters'
-
-import { helper } from '../helper'
 import { expressions, IExpressions } from '3xpr'
 
 /**
@@ -27,7 +25,7 @@ export class Orm implements IOrm {
 	private languages: LanguagesService
 	// private libManager: LibManager
 	private sentenceService: SentenceService
-	private queryManager: QueryManager
+	private queryService: QueryService
 	private routing: Routing
 	private executor:Executor
 	// eslint-disable-next-line no-use-before-define
@@ -63,9 +61,9 @@ export class Orm implements IOrm {
 		this.connectionService.addType(Dialect.MongoDB, MongoDBConnectionPoolAdapter)
 		this.routing = new Routing(this.schemaService, this._expressions)
 		this.sentenceService = new SentenceService(this.schemaService, this.expressions, this.routing)
-		this.queryManager = new QueryManager(this.sentenceService, this.schemaService, this.languages, this._expressions)
-		this.executor = new Executor(this.connectionService, this.languages, this.schemaService, this.sentenceService, this.queryManager, this._expressions)
-		this.stageService = new StageService(this.schemaService, this.routing, this.queryManager, this.languages, this.executor)
+		this.queryService = new QueryService(this.sentenceService, this.schemaService, this.languages)
+		this.executor = new Executor(this.connectionService, this.languages, this.schemaService, this.sentenceService, this.queryService, this._expressions)
+		this.stageService = new StageService(this.schemaService, this.routing, this.queryService, this.languages, this.executor)
 	}
 
 	public get defaultStage ():Stage {
@@ -238,7 +236,7 @@ export class Orm implements IOrm {
 	public getInfo (expression: string|Function, options: QueryOptions|undefined): QueryInfo {
 		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
 		const _options = this.schemaService.solveOptions(options)
-		return this.queryManager.getInfo(_expression, _options)
+		return this.queryService.getInfo(_expression, _options)
 	}
 
 	/**
@@ -253,7 +251,7 @@ export class Orm implements IOrm {
 	public async execute (expression: string|Function, data: any = {}, options: QueryOptions|undefined = undefined): Promise<any> {
 		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
 		const _options = this.schemaService.solveOptions(options)
-		const query = this.queryManager.create(_expression, _options, true)
+		const query = this.queryService.create(_expression, _options, true)
 		try {
 			let result = null
 			await this.beforeExecutionNotify(_expression, query, data, _options)

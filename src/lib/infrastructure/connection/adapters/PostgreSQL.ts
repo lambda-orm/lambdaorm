@@ -3,7 +3,7 @@ import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
 import { Query, Data, ConnectionConfig, ConnectionPort, IMappingConfigService, IDialectService } from '../../../domain'
 import { Type, Kind } from 'json-light'
 import { Parameter } from '3xpr'
-import { helper } from '../../../helper'
+import { helper } from '../../../application/helper'
 // https://node-postgres.com/features/connecting
 
 export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {

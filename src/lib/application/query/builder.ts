@@ -2,16 +2,11 @@ import { Query, QueryOptions, Include, Sentence, ISchemaService, IViewConfigServ
 import { LanguagesService } from '../language'
 import { SentenceService } from '../sentence'
 
+// eslint-disable-next-line padded-blocks
 export class QueryBuilder {
-	private schema: ISchemaService
-	private languages: LanguagesService
-	private sentenceService: SentenceService
 
-	constructor (sentenceService: SentenceService, schema: ISchemaService, languages: LanguagesService) {
-		this.schema = schema
-		this.languages = languages
-		this.sentenceService = sentenceService
-	}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly sentenceService: SentenceService, private readonly schema: ISchemaService, private readonly languages: LanguagesService) {}
 
 	public build (expression: string, options: QueryOptions): Query {
 		const _view = this.schema.view.get(options.view)

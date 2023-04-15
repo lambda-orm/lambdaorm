@@ -4,7 +4,7 @@ import {
 	Constraint, Behavior, ConnectionPort, IMappingConfigService, ISchemaService, IDialectService
 } from '../../domain'
 import { ConnectionService } from '../connection'
-import { helper } from '../../helper'
+import { helper } from '../helper'
 import { LanguagesService } from '../language'
 import { IExpressions } from '3xpr'
 
@@ -627,30 +627,25 @@ class QueryDeleteExecutor {
 }
 
 export class QueryExecutor implements IQueryInternalExecutor {
-	public options: QueryOptions
-	private languages: LanguagesService
-	private connectionService: ConnectionService
 	private connections: any
-	private transactional: boolean
-	private schemaService: ISchemaService
 	private selectExecutor: QuerySelectExecutor
 	private insertExecutor: QueryInsertExecutor
 	private bulkInsertExecutor: QueryBulkInsertExecutor
 	private updateExecutor: QueryUpdateExecutor
 	private deleteExecutor: QueryDeleteExecutor
 
-	constructor (connectionService: ConnectionService, languages: LanguagesService, schemaService: ISchemaService, expressions: IExpressions, options: QueryOptions, transactional = false) {
-		this.connectionService = connectionService
-		this.languages = languages
-		this.options = options
-		this.schemaService = schemaService
-		this.transactional = transactional
+	constructor (private readonly connectionService: ConnectionService,
+	private readonly languages: LanguagesService,
+  private readonly schemaService: ISchemaService,
+	private readonly expressions: IExpressions,
+	public readonly options: QueryOptions,
+	private transactional = false) {
 		this.connections = {}
-		this.selectExecutor = new QuerySelectExecutor(this, expressions, options)
-		this.insertExecutor = new QueryInsertExecutor(this, expressions, options)
-		this.bulkInsertExecutor = new QueryBulkInsertExecutor(this, expressions, options)
-		this.updateExecutor = new QueryUpdateExecutor(this, expressions, options)
-		this.deleteExecutor = new QueryDeleteExecutor(this, options)
+		this.selectExecutor = new QuerySelectExecutor(this, this.expressions, this.options)
+		this.insertExecutor = new QueryInsertExecutor(this, this.expressions, this.options)
+		this.bulkInsertExecutor = new QueryBulkInsertExecutor(this, this.expressions, this.options)
+		this.updateExecutor = new QueryUpdateExecutor(this, this.expressions, this.options)
+		this.deleteExecutor = new QueryDeleteExecutor(this, this.options)
 	}
 
 	private async getConnection (source: string): Promise<ConnectionPort> {

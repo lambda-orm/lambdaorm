@@ -4,7 +4,7 @@ import {
 	SentenceInfo, ObservableAction, ISchemaService, IViewConfigService
 } from '../../domain'
 import { Routing } from '..'
-import { helper } from '../../helper'
+import { helper } from '../helper'
 import { IExpressions, Operand, OperandSerializer } from '3xpr'
 import { Type, Kind } from 'json-light'
 import { MemoryCache, ICache } from 'h3lp'

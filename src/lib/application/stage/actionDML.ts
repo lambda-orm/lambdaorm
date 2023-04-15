@@ -1,19 +1,19 @@
 import { Query, Entity, QueryOptions, IModelConfigService } from '../../domain'
 import { Executor } from '../'
-import { QueryManager } from '../query'
+import { QueryService } from '../query'
 import { StageMapping } from './state'
 
 export abstract class StageActionDML {
 	protected state: StageMapping
 	protected model: IModelConfigService
-	protected queryManager: QueryManager
+	protected queryService: QueryService
 	protected executor: Executor
 	protected options: QueryOptions
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (state: StageMapping, model: IModelConfigService, queryManager: QueryManager, executor: Executor, options: QueryOptions) {
+	constructor (state: StageMapping, model: IModelConfigService, queryService: QueryService, executor: Executor, options: QueryOptions) {
 		this.state = state
 		this.model = model
-		this.queryManager = queryManager
+		this.queryService = queryService
 		this.executor = executor
 		this.options = options
 	}

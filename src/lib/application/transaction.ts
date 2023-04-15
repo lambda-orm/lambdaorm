@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Query, ITransaction } from '../domain'
 import { SentenceService } from './sentence'
-import { QueryManager, QueryExecutor } from './query'
+import { QueryService, QueryExecutor } from './query'
 
 export class Transaction implements ITransaction {
 	private sentenceService:SentenceService
-	private queryManager:QueryManager
+	private queryService:QueryService
 	private queryExecutor: QueryExecutor
-	constructor (sentenceService:SentenceService, queryManager: QueryManager, queryExecutor: QueryExecutor) {
+	constructor (sentenceService:SentenceService, queryService: QueryService, queryExecutor: QueryExecutor) {
 		this.sentenceService = sentenceService
-		this.queryManager = queryManager
+		this.queryService = queryService
 		this.queryExecutor = queryExecutor
 	}
 
@@ -19,7 +19,7 @@ export class Transaction implements ITransaction {
 		if (typeof expression !== 'string') {
 			expression = this.sentenceService.toExpression(expression)
 		}
-		const query = this.queryManager.create(expression, this.queryExecutor.options, true)
+		const query = this.queryService.create(expression, this.queryExecutor.options, true)
 		return this.queryExecutor.execute(query, data)
 	}
 
