@@ -1,14 +1,17 @@
 
 import { helper } from '../../helper'
 import { Entity, Field, Relation, SchemaError, SintaxisError, ISchemaService } from '../../domain'
-import { IExpressions, Operand, OperandType, Position, IModelManager, IOperandNormalizer } from '3xpr'
+import { IExpressions, Operand, OperandType, Position, IModelService, IOperandNormalizer } from '3xpr'
 import { Type, Kind } from 'json-light'
 /**
  *  Expression completer
  */
 export class SentenceNormalizer implements IOperandNormalizer {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (private readonly model: IModelManager, private readonly schema: ISchemaService, private readonly expressions: IExpressions) {}
+	public constructor (private readonly model: IModelService,
+		private readonly schema: ISchemaService,
+		private readonly expressions: IExpressions
+	) {}
 
 	public normalize (operand: Operand): Operand {
 		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter

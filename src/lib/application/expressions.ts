@@ -1,5 +1,5 @@
 import {
-	IExpressions, IModelManager, Format, OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo,
+	IExpressions, IModelService, Format, OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo,
 	Operand, Parameter, ActionObserver,
 	IOperandBuilder, IOperandNormalizer, IOperandReducer, Parser,
 	OperandNormalizer, OperandReducer, OperandSerializer
@@ -8,7 +8,7 @@ import { MemoryCache, ICache, h3lp } from 'h3lp'
 
 export class OperandBuilderWithoutEvaluatorFactory implements IOperandBuilder {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (protected readonly model: IModelManager, protected readonly normalizer:IOperandNormalizer, protected readonly reducer:IOperandReducer) {}
+	public constructor (protected readonly model: IModelService, protected readonly normalizer:IOperandNormalizer, protected readonly reducer:IOperandReducer) {}
 
 	public build (expression: string): Operand {
 		const operand = new Parser(this.model, expression).parse()
@@ -51,7 +51,11 @@ export class ExpressionsWrapper implements IExpressions {
 		this.cache = new MemoryCache<number, string>()
 	}
 
-	public get model (): IModelManager {
+	public graphqlToExpression (graphql: string): string {
+		return this._expressions.graphqlToExpression(graphql)
+	}
+
+	public get model (): IModelService {
 		return this._expressions.model
 	}
 

@@ -1,9 +1,9 @@
-import { IModelManager } from '3xpr'
+import { IModelService } from '3xpr'
 const CryptoJS = require('crypto-js')
 
 export class SentenceLibrary {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (private readonly model:IModelManager) {}
+	public constructor (private readonly model:IModelService) {}
 
 	public load ():void {
 		this.functions()

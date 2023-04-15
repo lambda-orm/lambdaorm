@@ -12,21 +12,18 @@ import { SentenceCompleter, SentenceBuilder, SentenceSerializer, SentenceNormali
 
 export class SentenceService {
 	private builder: SentenceBuilder
-	private schema: ISchemaService
-	private routing: Routing
 	private completer: SentenceCompleter
 	private operandCache: ICache<number, string>
 	private sentenceCache: ICache<string, string>
-	private expressions: IExpressions
 	private serializer:SentenceSerializer
 	private operandSerializer:OperandSerializer
 	private normalizer: SentenceNormalizer
 	private helper:SentenceHelper
 
-	constructor (schema: ISchemaService, expressions: IExpressions, routing: Routing) {
-		this.schema = schema
-		this.routing = routing
-		this.expressions = expressions
+	constructor (private readonly schema: ISchemaService,
+		private readonly expressions: IExpressions,
+		private readonly routing: Routing
+	) {
 		this.helper = new SentenceHelper(this.schema.model)
 		this.builder = new SentenceBuilder(schema, expressions, this.helper)
 		this.completer = new SentenceCompleter(expressions)

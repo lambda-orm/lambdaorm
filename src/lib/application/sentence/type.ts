@@ -1,13 +1,13 @@
-import { Operand, OperandType, IModelManager, TypeManager } from '3xpr'
+import { Operand, OperandType, IModelService, TypeService } from '3xpr'
 import { Type, Kind } from 'json-light'
 import {
 	SintaxisError, SentenceCrudAction, Sentence, SentenceInclude, Field, Map
 	, From, Join, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, IModelConfigService
 } from '../../domain'
 
-export class SentenceTypeService extends TypeManager {
+export class SentenceTypeService extends TypeService {
 	private config: IModelConfigService
-	constructor (config: IModelConfigService, model: IModelManager) {
+	constructor (config: IModelConfigService, model: IModelService) {
 		super(model)
 		this.config = config
 	}

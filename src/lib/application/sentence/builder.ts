@@ -4,7 +4,7 @@ import {
 	IModelConfigService, ISchemaService
 } from '../../domain'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../../domain/model/operands'
-import { Operand, Parameter, OperandType, IExpressions, Position, ITypeManager } from '3xpr'
+import { Operand, Parameter, OperandType, IExpressions, Position, ITypeService } from '3xpr'
 import { Type, Kind } from 'json-light'
 import { SentenceTypeService, SentenceHelper } from '.'
 
@@ -211,18 +211,12 @@ class SentenceSolveBehaviors {
 	}
 }
 export class SentenceBuilder {
-	private schema: ISchemaService
-	private typeManager: ITypeManager
+	private typeService: ITypeService
 	private solveBehaviors: SentenceSolveBehaviors
 	private solveConstraints : SentenceSolveConstraints
-	private expressions: IExpressions
-	private helper:SentenceHelper
 
-	constructor (schema: ISchemaService, expressions: IExpressions, sentenceHelper:SentenceHelper) {
-		this.schema = schema
-		this.expressions = expressions
-		this.helper = sentenceHelper
-		this.typeManager = new SentenceTypeService(this.schema.model, expressions.model)
+	constructor (private readonly schema: ISchemaService, private readonly expressions: IExpressions, private readonly helper:SentenceHelper) {
+		this.typeService = new SentenceTypeService(this.schema.model, this.expressions.model)
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, this.helper, expressions)
 	}
@@ -272,7 +266,7 @@ export class SentenceBuilder {
 		if (!sentence) {
 			throw new SintaxisError('Sentence incomplete')
 		}
-		this.typeManager.type(sentence)
+		this.typeService.type(sentence)
 		// Solve columns
 		sentence.columns = this.helper.getColumns(sentence)
 		sentence.parameters = this.helper.getParameters(sentence)
