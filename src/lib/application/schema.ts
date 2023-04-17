@@ -10,7 +10,7 @@ import {
 import path from 'path'
 import { helper } from './helper'
 import { IExpressions } from '3xpr'
-import { Kind } from 'json-light'
+import { Kind } from 'typ3s'
 const yaml = require('js-yaml')
 
 abstract class ModelConfigServiceBase<TEntity extends Entity, TProperty extends Property> {

@@ -6,7 +6,7 @@ import {
 	MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include
 } from '../../../domain'
 import { Parameter } from '3xpr'
-import { Type, Kind } from 'json-light'
+import { Type, Kind } from 'typ3s'
 import { helper } from '../../../application/helper'
 
 export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {

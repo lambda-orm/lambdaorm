@@ -3,7 +3,7 @@ import {
 	PropertyView, SentenceAction, IMappingConfigService, IViewConfigService
 } from '../../domain'
 import { IExpressions, Operand, OperandType } from '3xpr'
-import { Type } from 'json-light'
+import { Type } from 'typ3s'
 
 export class SentenceCompleter {
 	protected expressions: IExpressions

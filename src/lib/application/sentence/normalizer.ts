@@ -2,7 +2,7 @@
 import { helper } from '../helper'
 import { Entity, Field, Relation, SchemaError, SintaxisError, ISchemaService } from '../../domain'
 import { IExpressions, Operand, OperandType, Position, IModelService, IOperandNormalizer } from '3xpr'
-import { Type, Kind } from 'json-light'
+import { Type, Kind } from 'typ3s'
 /**
  *  Expression completer
  */

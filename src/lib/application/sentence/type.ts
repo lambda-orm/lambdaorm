@@ -1,5 +1,5 @@
 import { Operand, OperandType, IModelService, TypeService } from '3xpr'
-import { Type, Kind } from 'json-light'
+import { Type, Kind } from 'typ3s'
 import {
 	SintaxisError, SentenceCrudAction, Sentence, SentenceInclude, Field, Map
 	, From, Join, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, IModelConfigService

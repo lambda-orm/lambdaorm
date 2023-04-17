@@ -5,7 +5,7 @@ import {
 } from '../../domain'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../../domain/model/operands'
 import { Operand, Parameter, OperandType, IExpressions, Position, ITypeService } from '3xpr'
-import { Type, Kind } from 'json-light'
+import { Type, Kind } from 'typ3s'
 import { SentenceTypeService, SentenceHelper } from '.'
 
 interface AsteriskField {

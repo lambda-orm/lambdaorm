@@ -4,7 +4,7 @@ import {
 	Query, Data, ConnectionPort, IMappingConfigService, IDialectService,
 	PropertyMapping, ExecutionError, SchemaError
 } from '../../../domain'
-import { Type, Kind } from 'json-light'
+import { Type, Kind } from 'typ3s'
 import { helper } from '../../../application/helper'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted

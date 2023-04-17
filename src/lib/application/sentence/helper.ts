@@ -1,7 +1,7 @@
 import { Property, SintaxisError, SentenceCrudAction, IModelConfigService } from '../../domain'
 import { Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete } from '../../domain/model/operands'
 import { Operand, Parameter, OperandType, helper } from '3xpr'
-import { Type, Kind } from 'json-light'
+import { Type, Kind } from 'typ3s'
 
 export class SentenceHelper {
 	private model: IModelConfigService

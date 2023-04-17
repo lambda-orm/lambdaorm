@@ -1,5 +1,5 @@
 import { Operand, OperandType, IExpressions } from '3xpr'
-import { Kind } from 'json-light'
+import { Kind } from 'typ3s'
 import {
 	SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page
 	, Insert, Update, Delete, Query, SintaxisError, SchemaError, Source, BulkInsert, IMappingConfigService,

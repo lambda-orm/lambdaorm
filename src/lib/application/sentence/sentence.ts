@@ -6,7 +6,7 @@ import {
 import { Routing } from '..'
 import { helper } from '../helper'
 import { IExpressions, Operand, OperandSerializer } from '3xpr'
-import { Type, Kind } from 'json-light'
+import { Type, Kind } from 'typ3s'
 import { MemoryCache, ICache } from 'h3lp'
 import { SentenceCompleter, SentenceBuilder, SentenceSerializer, SentenceNormalizer, SentenceHelper } from '.'
 

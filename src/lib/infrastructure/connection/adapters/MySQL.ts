@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
 import { Query, Data, ConnectionConfig, ConnectionPort, IMappingConfigService, IDialectService } from '../../../domain'
-import { Type, Kind } from 'json-light'
+import { Type, Kind } from 'typ3s'
 
 const DECIMAL = 0
 const TINY = 1

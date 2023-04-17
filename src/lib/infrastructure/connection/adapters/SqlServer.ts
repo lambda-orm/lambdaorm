@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
 import { Query, Data, ConnectionPort, ConnectionConfig, IMappingConfigService, IDialectService } from '../../../domain'
-import { Type, Kind } from 'json-light'
+import { Type, Kind } from 'typ3s'
 import { Parameter } from '3xpr'
 import { helper } from '../../../application/helper'
 

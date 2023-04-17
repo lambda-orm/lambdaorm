@@ -2,7 +2,7 @@
 
 import { Query, Data, MethodNotImplemented, ConnectionConfig, ConnectionPort, IMappingConfigService, IDialectService } from '../../domain'
 import { Parameter } from '3xpr'
-import { Kind } from 'json-light'
+import { Kind } from 'typ3s'
 import { helper } from '../../application/helper'
 
 export abstract class ConnectionAdapter implements ConnectionPort {

@@ -1,7 +1,7 @@
 
 import { Relation, Metadata, Sentence, SentenceInclude, Map, BulkInsert, Insert, Update, Delete, Field, From, Join, Filter, GroupBy, Having, Sort, Page } from '../../domain/model'
 import { Operand, OperandType } from '3xpr'
-import { Type } from 'json-light'
+import { Type } from 'typ3s'
 
 export class SentenceSerializer {
 	public clone (sentence: Sentence): Sentence {
