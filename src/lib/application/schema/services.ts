@@ -2,7 +2,7 @@ import {
 	Dialect, Enum, Entity, Property, Relation, FormatMapping, EntityMapping, PropertyMapping,
 	Source, Schema, AppSchema, Mapping, RelationInfo, Stage, ContextInfo, SchemaError, RelationType, View, EntityView,
 	PropertyView, QueryOptions, Dependent, ObservableAction, AppPathsConfig, ModelSchema, DataSchema
-} from '../../domain/model'
+} from '../../domain'
 import path from 'path'
 import { helper } from '../helper'
 import { IExpressions } from '3xpr'

@@ -1,5 +1,5 @@
 import { Property, SintaxisError, SentenceCrudAction } from '../../../domain'
-import { Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete } from '../../../domain/model/operands'
+import { Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete } from '../../../domain/operands'
 import { Operand, Parameter, OperandType, helper } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { ModelConfigService } from '../../../'

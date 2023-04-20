@@ -1,5 +1,5 @@
 import { IExpressions } from '3xpr'
-import { ActionObserver, ActionObserverArgs, ListenerConfig } from '../../domain/model'
+import { ActionObserver, ActionObserverArgs, ListenerConfig } from '../../domain'
 
 export class ExpressionActionObserver extends ActionObserver {
 	constructor (private readonly config:ListenerConfig, private readonly expressions:IExpressions) {

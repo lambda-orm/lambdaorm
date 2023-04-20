@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { SentenceAction, Property, Behavior, Constraint, SintaxisError, Entity } from '../../../../domain'
-import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../../../../domain/model/operands'
+import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../../../../domain/operands'
 import { Operand, Parameter, OperandType, IExpressions, Position, ITypeService } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { SentenceTypeService, SentenceHelper,ModelConfigService, SchemaService } from '../../..'
