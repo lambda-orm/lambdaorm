@@ -2,10 +2,9 @@ import { SentenceRoute } from '../../..'
 import { LanguagesService } from '../../../language'
 import {
 	ObservableAction, Mapping, RuleDataSource, Query, Index, Source, Relation,
-	EntityMapping, PropertyMapping, SentenceInfo, SchemaError,
-	 IDialectService, ILanguageDDLBuilder
+	EntityMapping, PropertyMapping, SentenceInfo, SchemaError	
 } from '../../../../domain'
-import { helper,ModelConfigService, MappingConfigService,SchemaService } from '../../..'
+import { helper,ModelConfigService, MappingConfigService,SchemaService, DialectService} from '../../..'
 import { Delta, ChangedValue } from 'h3lp'
 
 export class DDLBuilder {
@@ -97,7 +96,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _dropRelations (source: Source, ruleDataSource: RuleDataSource, entity:EntityMapping, entitiesMapping: EntityMapping[], dialect:IDialectService, queries: Query[]) {
+	private _dropRelations (source: Source, ruleDataSource: RuleDataSource, entity:EntityMapping, entitiesMapping: EntityMapping[], dialect:DialectService, queries: Query[]) {
 		if (entity.relations && !entity.view && (!entity.composite || !dialect.solveComposite)) {
 			for (const relation of entity.relations) {
 				const relationEntity = entitiesMapping.find(r => r.name === relation.entity)
@@ -124,7 +123,7 @@ export class DDLBuilder {
 		}
 	}
 
-	private _dropEntity (source: Source, entity:EntityMapping, dialect:IDialectService, queries: Query[]) {
+	private _dropEntity (source: Source, entity:EntityMapping, dialect:DialectService, queries: Query[]) {
 		if (!entity.view && (!entity.composite || !dialect.solveComposite)) {
 			this._dropIndexes(source, entity, queries)
 			if (entity.sequence) {
@@ -419,7 +418,7 @@ export class DDLBuilder {
 		return this.sentenceRoute.eval(source, sentenceInfo)
 	}
 
-	private builder (source: Source): ILanguageDDLBuilder {
+	private builder (source: Source): LanguageDDLBuilder {
 		const language = this.languages.getByDialect(source.dialect)
 		const mapping = this.schema.mapping.getInstance(source.mapping)
 		return language.ddlBuilder(source, mapping)
@@ -434,12 +433,12 @@ export class DDLBuilder {
 	}
 }
 
-export abstract class LanguageDDLBuilder implements ILanguageDDLBuilder {
+export abstract class LanguageDDLBuilder  {
 	protected source: Source
 	protected mapping: MappingConfigService
-	protected dialect: IDialectService
+	protected dialect: DialectService
 
-	constructor (source: Source, mapping: MappingConfigService, dialect: IDialectService) {
+	constructor (source: Source, mapping: MappingConfigService, dialect: DialectService) {
 		this.source = source
 		this.mapping = mapping
 		this.dialect = dialect

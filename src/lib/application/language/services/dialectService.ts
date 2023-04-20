@@ -1,6 +1,6 @@
-import { SintaxisError, DialectFormat, IDialectService } from '../../../domain'
+import { SintaxisError, DialectFormat } from '../../../domain'
 
-export class DialectService implements IDialectService {
+export class DialectService {
 	public name: string
 	public format: DialectFormat
 	private _operators?: any = {}

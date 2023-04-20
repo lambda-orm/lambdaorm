@@ -2,19 +2,18 @@ import { Operand, OperandType, IExpressions } from '3xpr'
 import { Primitive } from 'typ3s'
 import {
 	SentenceCrudAction, EntityMapping, Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page
-	, Insert, Update, Delete, Query, SintaxisError, SchemaError, Source, BulkInsert,
-	IDialectService
+	, Insert, Update, Delete, Query, SintaxisError, SchemaError, Source, BulkInsert
 } from '../../../../domain'
-import { helper, DmlBuilderPort, MappingConfigService } from '../../../../application'
+import { helper, DmlBuilderPort, MappingConfigService, DialectService } from '../../../../application'
 const SqlString = require('sqlstring')
 
 export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 	protected source: Source
 	protected mapping: MappingConfigService
-	protected dialect: IDialectService
+	protected dialect: DialectService
 	protected expressions: IExpressions
 
-	constructor (source: Source, mapping: MappingConfigService, dialect: IDialectService, expressions: IExpressions) {
+	constructor (source: Source, mapping: MappingConfigService, dialect: DialectService, expressions: IExpressions) {
 		this.source = source
 		this.mapping = mapping
 		this.expressions = expressions
