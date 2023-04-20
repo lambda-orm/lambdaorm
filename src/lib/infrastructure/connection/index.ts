@@ -1,3 +1,3 @@
 
-export * from './connection'
-export * from './connectionPool'
+export * from './adapters/base/connection'
+export * from './adapters/base/connectionPool'

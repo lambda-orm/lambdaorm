@@ -1,9 +1,9 @@
 
 import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
-import { Query, Data, ConnectionConfig, ConnectionPort, IMappingConfigService, IDialectService } from '../../../domain'
-import { Type, Kind } from 'typ3s'
+import { Query, Data, ConnectionConfig } from '../../../domain'
+import { Type, Primitive } from 'typ3s'
 import { Parameter } from '3xpr'
-import { helper } from '../../../application/helper'
+import { helper, ConnectionPort, MappingConfigService, DialectService } from '../../../application'
 // https://node-postgres.com/features/connecting
 
 export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {
@@ -59,12 +59,12 @@ export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 }
 export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
-	public async select (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<any> {
+	public async select (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		const result = await this._execute(mapping, dialect, query, data)
 		return result.rows
 	}
 
-	public async insert (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		try {
 			const result = await this._execute(mapping, dialect, query, data)
 			return result.rows.length > 0 ? result.rows[0].id : null
@@ -74,7 +74,7 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 		}
 	}
 
-	public async bulkInsert (mapping: IMappingConfigService, dialect: IDialectService, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]> {
 		const fieldIds = mapping.getFieldIds(query.entity)
 		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
 		const sql = query.sentence
@@ -99,7 +99,7 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 		}
 	}
 
-	protected override arrayToRows (mapping: IMappingConfigService, dialect: IDialectService, query: Query, array: any[]): any[] {
+	protected override arrayToRows (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): any[] {
 		const rows: any[] = []
 		for (const item of array) {
 			const row: any[] = []
@@ -112,15 +112,15 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 		return rows
 	}
 
-	private getItemValue (mapping: IMappingConfigService, dialect: IDialectService, item:any, parameter:Parameter):any {
+	private getItemValue (mapping: MappingConfigService, dialect: DialectService, item:any, parameter:Parameter):any {
 		let value = item[parameter.name]
 		if (value == null || value === undefined) {
 			value = 'null'
 		} else {
 			switch (parameter.type) {
-			case Kind.boolean:
+			case Primitive.boolean:
 				value = value ? 'true' : 'false'; break
-			case Kind.string:
+			case Primitive.string:
 				if (value.includes('\'')) {
 					// value = helper.escape(value)
 					value = `'${helper.str.replace(value, '\'', '\'\'')}'`
@@ -129,13 +129,13 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 					value = `'${value}'`
 				}
 				break
-			case Kind.dateTime:
+			case Primitive.dateTime:
 				value = helper.query.escape(this.writeDateTime(value, mapping, dialect))
 				break
-			case Kind.date:
+			case Primitive.date:
 				value = helper.query.escape(this.writeDate(value, mapping, dialect))
 				break
-			case Kind.time:
+			case Primitive.time:
 				value = helper.query.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
@@ -143,12 +143,12 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 		return value
 	}
 
-	public async update (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async update (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, dialect, query, data)
 		return result.rowCount
 	}
 
-	public async delete (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, dialect, query, data)
 		return result.rowCount
 	}
@@ -180,14 +180,14 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 		this.inTransaction = false
 	}
 
-	protected async _execute (mapping: IMappingConfigService, dialect:IDialectService, query: Query, data: Data): Promise<any> {
+	protected async _execute (mapping: MappingConfigService, dialect:DialectService, query: Query, data: Data): Promise<any> {
 		const values: any[] = []
 		let sql = query.sentence
 		const params = this.dataToParameters(mapping, dialect, query, data)
 
 		for (let i = 0; i < params.length; i++) {
 			const param = params[i]
-			if (Type.isList(param.type as string) || (param.type === Kind.any && Array.isArray(param.value))) {
+			if (Type.isList(param.type as string) || (param.type === Primitive.any && Array.isArray(param.value))) {
 				// https://stackoverflow.com/questions/10720420/node-postgres-how-to-execute-where-col-in-dynamic-value-list-query
 				// https://www.it-swarm-es.com/es/node.js/node-postgres-como-ejecutar-la-consulta-where-col-lista-de-valores-dinamicos/1066948040/
 				// https://www.postgresql.org/docs/9.2/functions-array.html
@@ -202,12 +202,12 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 				}
 				const type = typeof param.value[0]
 				switch (type) {
-				case Kind.string:
+				case Primitive.string:
 					sql = helper.str.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
 					values.push(param.value)
 					break
 				case 'bigint':
-				case Kind.number:
+				case Primitive.number:
 					sql = helper.str.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
 					values.push(param.value)
 					break

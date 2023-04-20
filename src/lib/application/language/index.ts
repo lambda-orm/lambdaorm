@@ -1,4 +1,3 @@
-export * from '../../infrastructure/language/dmlBuilder'
-export * from '../../infrastructure/language/language'
-export * from './languages'
-export * from './dialect'
+export * from './services/languagesService'
+export * from './services/dialectService'
+export * from './ports/languagePort'

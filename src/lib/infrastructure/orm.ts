@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import {
-	ActionObserver, Dialect, IOrm, QueryOptions, Schema, Stage, MetadataParameter, MetadataConstraint, QueryInfo,
-	MetadataModel, Metadata, Query, ISchemaService, IStageService
+	ActionObserver, Dialect, QueryOptions, Schema, Stage, MetadataParameter, MetadataConstraint, QueryInfo,
+	MetadataModel, Metadata, Query
 } from '../domain'
 import {
-	SchemaService, Routing, Executor, Transaction, ExpressionActionObserver, ExpressionsWrapper, ConnectionService, SentenceLibrary, StageService,
-	LanguagesService, QueryService, SentenceService, helper
+	SchemaService, SentenceRoute, Executor, Transaction, ExpressionActionObserver, ExpressionsWrapper, ConnectionService, SentenceLibrary, StageService,
+	LanguagesService, QueryService, SentenceService, helper, IOrm
 } from '../application'
 import {
 	MySQLConnectionPoolAdapter, MariaDBConnectionPoolAdapter, SqlServerConnectionPoolAdapter, PostgreSQLConnectionPoolAdapter,
 	SQLjsConnectionPoolAdapter, OracleConnectionPoolAdapter, MongoDBConnectionPoolAdapter
 } from './connection/adapters'
-import { SqlLanguageAdapter, NoSqlLanguageAdapter } from './language/adapters'
+import { SqlLanguageAdapter, NoSqlLanguageAdapter } from './language'
 import { expressions, IExpressions } from '3xpr'
 
 /**
@@ -20,17 +20,17 @@ import { expressions, IExpressions } from '3xpr'
  */
 export class Orm implements IOrm {
 	// private _cache: Cache
-	private stageService: IStageService
+	private stageService: StageService
 	private connectionService: ConnectionService
 	private languages: LanguagesService
 	// private libManager: LibManager
 	private sentenceService: SentenceService
 	private queryService: QueryService
-	private routing: Routing
+	private sentenceRoute: SentenceRoute
 	private executor:Executor
 	// eslint-disable-next-line no-use-before-define
 	private static _instance: Orm
-	private schemaService: ISchemaService
+	private schemaService: SchemaService
 	private _expressions: IExpressions
 	private observers:ActionObserver[] = []
 
@@ -59,11 +59,11 @@ export class Orm implements IOrm {
 		this.connectionService.addType(Dialect.SQLjs, SQLjsConnectionPoolAdapter)
 		this.connectionService.addType(Dialect.Oracle, OracleConnectionPoolAdapter)
 		this.connectionService.addType(Dialect.MongoDB, MongoDBConnectionPoolAdapter)
-		this.routing = new Routing(this.schemaService, this._expressions)
-		this.sentenceService = new SentenceService(this.schemaService, this.expressions, this.routing)
+		this.sentenceRoute = new SentenceRoute(this.schemaService, this._expressions)
+		this.sentenceService = new SentenceService(this.schemaService, this.expressions, this.sentenceRoute)
 		this.queryService = new QueryService(this.sentenceService, this.schemaService, this.languages)
 		this.executor = new Executor(this.connectionService, this.languages, this.schemaService, this.sentenceService, this.queryService, this._expressions)
-		this.stageService = new StageService(this.schemaService, this.routing, this.queryService, this.languages, this.executor)
+		this.stageService = new StageService(this.schemaService, this.sentenceRoute, this.queryService, this.languages, this.executor)
 	}
 
 	public get defaultStage ():Stage {
@@ -148,14 +148,14 @@ export class Orm implements IOrm {
 	/**
 	* Get reference to stage manager
 	*/
-	public get stage (): IStageService {
+	public get stage (): StageService {
 		return this.stageService
 	}
 
 	/**
 	 * Get reference to SchemaConfig
 	 */
-	public get schema (): ISchemaService {
+	public get schema (): SchemaService {
 		return this.schemaService
 	}
 

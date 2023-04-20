@@ -2,12 +2,12 @@
 /* eslint-disable no-tabs */
 import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
 import {
-	Query, Data, ConnectionConfig, ConnectionPort, IMappingConfigService, IDialectService,
+	Query, Data, ConnectionConfig,
 	MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include
 } from '../../../domain'
 import { Parameter } from '3xpr'
-import { Type, Kind } from 'typ3s'
-import { helper } from '../../../application/helper'
+import { Type, Primitive } from 'typ3s'
+import { helper, ConnectionPort, MappingConfigService, DialectService } from '../../../application'
 
 export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any
@@ -42,7 +42,7 @@ export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 export class MongodbConnectionAdapter extends ConnectionAdapter {
 	private session?: any
 
-	public async select (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<any> {
+	public async select (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		// https://medium.com/@tomas.knezek/handle-pagination-with-nodejs-and-MongoDB-2910ff5e272b
 		// https://www.MongoDB.com/docs/manual/reference/operator/aggregation-pipeline/
 
@@ -64,7 +64,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		}
 	}
 
-	public async insert (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		const entity = mapping.getEntity(query.entity)
 		if (entity === undefined) {
 			throw new SchemaError(`EntityMapping not found for entity ${query.entity}`)
@@ -86,7 +86,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		return typeof result.insertedId === 'object' ? result.insertedId.toString() : result.insertedId
 	}
 
-	public async bulkInsert (mapping: IMappingConfigService, dialect: IDialectService, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]> {
 		const entity = mapping.getEntity(query.entity)
 		if (entity === undefined) {
 			throw new SchemaError(`EntityMapping ${query.entity} not found`)
@@ -104,7 +104,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		return ids
 	}
 
-	private async getInsertList (mapping: IMappingConfigService, dialect: IDialectService, query: Query, entity:EntityMapping, array: any[]): Promise<any[]> {
+	private async getInsertList (mapping: MappingConfigService, dialect: DialectService, query: Query, entity:EntityMapping, array: any[]): Promise<any[]> {
 		const list = this.arrayToList(mapping, dialect, query, query.sentence, array)
 		if (entity.sequence && entity.primaryKey.length === 1) {
 			const propertyPk = entity.primaryKey[0]
@@ -121,7 +121,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		return list
 	}
 
-	private async getInsertListIncludes (mapping: IMappingConfigService, dialect: IDialectService, query: Query, array: any[], list:any[]):Promise<void> {
+	private async getInsertListIncludes (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[], list:any[]):Promise<void> {
 		for (const include of query.includes) {
 			if (include.relation.composite) {
 				const relationEntity = mapping.getEntity(include.relation.entity)
@@ -133,7 +133,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		}
 	}
 
-	private async getInsertListInclude (mapping: IMappingConfigService, dialect: IDialectService, query: Query, include:Include, relationEntity:EntityMapping, array: any[], list:any[]):Promise<void> {
+	private async getInsertListInclude (mapping: MappingConfigService, dialect: DialectService, query: Query, include:Include, relationEntity:EntityMapping, array: any[], list:any[]):Promise<void> {
 		const relationEntityMapping = dialect.delimiter(relationEntity.mapping)
 		for (let i = 0; i < array.length; i++) {
 			const source = array[i]
@@ -158,7 +158,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		}
 	}
 
-	public async update (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async update (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = JSON.parse(query.sentence)
 		const params = this.dataToParameters(mapping, dialect, query, data)
@@ -171,11 +171,11 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		return result.modifiedCount as number
 	}
 
-	public async bulkUpdate (_mapping: IMappingConfigService, _dialect: IDialectService, _query: Query, _array: any[]): Promise<number> {
+	public async bulkUpdate (_mapping: MappingConfigService, _dialect: DialectService, _query: Query, _array: any[]): Promise<number> {
 		throw new MethodNotImplemented('MongodbConnection', 'bulkUpdate')
 	}
 
-	private getObject (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): any {
+	private getObject (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): any {
 		const sentence = JSON.parse(query.sentence)
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		const obj = this.parseTemplate(mapping, dialect, sentence.set, params)
@@ -206,7 +206,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		return obj
 	}
 
-	public async delete (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		const collection = mapping.entityMapping(query.entity)
 		const sentence = JSON.parse(query.sentence)
 		const params = this.dataToParameters(mapping, dialect, query, data)
@@ -254,7 +254,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		this.session = null
 	}
 
-	private arrayToList (mapping: IMappingConfigService, dialect: IDialectService, query: Query, template: string, array: any[]): any[] {
+	private arrayToList (mapping: MappingConfigService, dialect: DialectService, query: Query, template: string, array: any[]): any[] {
 		const list: any[] = []
 		for (const item of array) {
 			let strObj: string | undefined
@@ -262,7 +262,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 				for (const param of query.parameters) {
 					const paramName = helper.query.transformParameter(param.name)
 					const itemValue = helper.obj.getValue(item, param.name)
-					const value = this.getValue(mapping, dialect, itemValue, param.type ? param.type : Kind.any)
+					const value = this.getValue(mapping, dialect, itemValue, param.type ? param.type : Primitive.any)
 					strObj = helper.str.replace(strObj || template, `{{${paramName}}}`, value)
 				}
 			} else {
@@ -274,13 +274,13 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		return list
 	}
 
-	private parseTemplate (mapping: IMappingConfigService, dialect: IDialectService, template: string, params: Parameter[]): any | undefined {
+	private parseTemplate (mapping: MappingConfigService, dialect: DialectService, template: string, params: Parameter[]): any | undefined {
 		let result: string | undefined
 		const row: any = {}
 		if (params.length && params.length > 0) {
 			for (const param of params) {
 				const paramName = helper.query.transformParameter(param.name)
-				const value = this.getValue(mapping, dialect, param.value, param.type ? param.type : Kind.any)
+				const value = this.getValue(mapping, dialect, param.value, param.type ? param.type : Primitive.any)
 				result = helper.str.replace(result || template, `{{${paramName}}}`, value)
 			}
 		} else {
@@ -289,7 +289,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		return result ? JSON.parse(result) : undefined
 	}
 
-	private getValue (mapping: IMappingConfigService, dialect: IDialectService, source: any, type: string) {
+	private getValue (mapping: MappingConfigService, dialect: DialectService, source: any, type: string) {
 		let value: any
 		if (source === undefined || source === null) {
 			return 'null'
@@ -298,28 +298,28 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 			if (source.length === 0) {
 				return ''
 			}
-			if (typeof source[0] === Kind.string) {
+			if (typeof source[0] === Primitive.string) {
 				return source.map((p:string) => `"${p}"`).join(',')
 			} else {
 				return source.join(',')
 			}
 		} else {
 			switch (type) {
-			case Kind.boolean:
+			case Primitive.boolean:
 				return source ? 'true' : 'false'
-			case Kind.string:
-				value = typeof source === Kind.string ? source : source.toString()
+			case Primitive.string:
+				value = typeof source === Primitive.string ? source : source.toString()
 				value = helper.str.replace(value, '\n', '\\n')
 				value = helper.str.replace(value, '"', '\\"')
 				return `"${value}"`
-			case Kind.dateTime:
+			case Primitive.dateTime:
 				return `"${this.writeDateTime(source, mapping, dialect)}"`
-			case Kind.date:
+			case Primitive.date:
 				return `"${this.writeDate(source, mapping, dialect)}"`
-			case Kind.time:
+			case Primitive.time:
 				return `"${this.writeTime(source, mapping, dialect)}"`
 			default:
-				if (typeof source === Kind.string) {
+				if (typeof source === Primitive.string) {
 					value = helper.str.replace(source, '\n', '\\n')
 					value = helper.str.replace(value, '"', '\\"')
 					return `"${value}"`
@@ -340,56 +340,56 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		return sequenceDocument.value.sequence_value
 	}
 
-	public async truncateEntity (mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async truncateEntity (mapping: MappingConfigService, query: Query): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
 		await this.cnx.db.collection(collection).delete_many({})
 	}
 
-	public async createEntity (mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async createEntity (mapping: MappingConfigService, query: Query): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
 		await this.cnx.db.createCollection(collection)
 	}
 
-	public async createSequence (_mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async createSequence (_mapping: MappingConfigService, query: Query): Promise<any> {
 		await this.cnx.db.collection('__sequences').insertOne(JSON.parse(query.sentence))
 	}
 
-	public async createIndex (mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async createIndex (mapping: MappingConfigService, query: Query): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
 		const data = JSON.parse(query.sentence)
 		await this.cnx.db.collection(collection).createIndex(data.properties, data.options)
 	}
 
-	public async addPk (mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async addPk (mapping: MappingConfigService, query: Query): Promise<any> {
 		await this.createIndex(mapping, query)
 	}
 
-	public async addUk (mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async addUk (mapping: MappingConfigService, query: Query): Promise<any> {
 		await this.createIndex(mapping, query)
 	}
 
-	public async dropSequence (_mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async dropSequence (_mapping: MappingConfigService, query: Query): Promise<any> {
 		const filter = JSON.parse(query.sentence)
 		await this.cnx.db.collection('__sequences').deleteOne(filter)
 	}
 
-	public async dropEntity (mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async dropEntity (mapping: MappingConfigService, query: Query): Promise<any> {
 		// https://www.w3schools.com/nodejs/nodejs_mongodb_drop.asp
 		const collection = mapping.entityMapping(query.entity)
 		await this.cnx.db.collection(collection).drop()
 	}
 
-	public async dropPk (mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async dropPk (mapping: MappingConfigService, query: Query): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
 		await this.cnx.db.collection(collection).dropIndex(query.sentence)
 	}
 
-	public async dropUk (mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async dropUk (mapping: MappingConfigService, query: Query): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
 		await this.cnx.db.collection(collection).dropIndex(query.sentence)
 	}
 
-	public async dropIndex (mapping: IMappingConfigService, query: Query): Promise<any> {
+	public async dropIndex (mapping: MappingConfigService, query: Query): Promise<any> {
 		const collection = mapping.entityMapping(query.entity)
 		await this.cnx.db.collection(collection).dropIndex(query.sentence)
 	}

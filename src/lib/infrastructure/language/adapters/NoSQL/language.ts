@@ -1,7 +1,7 @@
-import { LanguageDDLBuilder } from '../../../../application'
-import { Source, Sentence, Query, IMappingConfigService } from '../../../../domain'
+import { LanguageDDLBuilder, MappingConfigService } from '../../../../application'
+import { Source, Sentence, Query } from '../../../../domain'
 import { NoSqlDMLBuilderAdapter } from './dmlBuilder'
-import { LanguageAdapter } from '../../language'
+import { LanguageAdapter } from '../base/language'
 import { NoSqlDDLBuilder } from './ddlBuilder'
 import config from './config.json'
 import { IExpressions } from '3xpr'
@@ -12,11 +12,11 @@ export class NoSqlLanguageAdapter extends LanguageAdapter {
 		this.solveComposite = true
 	}
 
-	public ddlBuilder (source: Source, mapping: IMappingConfigService): LanguageDDLBuilder {
+	public ddlBuilder (source: Source, mapping: MappingConfigService): LanguageDDLBuilder {
 		return new NoSqlDDLBuilder(source, mapping, this.getDialect(source.dialect))
 	}
 
-	public dmlBuild (source: Source, mapping: IMappingConfigService, sentence: Sentence): Query {
+	public dmlBuild (source: Source, mapping: MappingConfigService, sentence: Sentence): Query {
 		return new NoSqlDMLBuilderAdapter(source, mapping, this.getDialect(source.dialect), this.expressions).build(sentence)
 	}
 }

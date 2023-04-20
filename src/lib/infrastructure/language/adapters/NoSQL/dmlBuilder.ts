@@ -5,7 +5,7 @@ import {
 	Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update,
 	SentenceCrudAction, SentenceAction, Include, Query, SchemaError, SintaxisError, EntityMapping, RelationType
 } from '../../../../domain'
-import { DmlBuilderAdapter } from '../../dmlBuilder'
+import { DmlBuilderAdapter } from '../base/dmlBuilder'
 import { helper } from '../../../../application/helper'
 
 export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {

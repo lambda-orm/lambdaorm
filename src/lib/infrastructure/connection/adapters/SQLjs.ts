@@ -2,8 +2,8 @@
 /* eslint-disable no-tabs */
 
 import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
-import { Query, Data, ConnectionConfig, ConnectionPort, IMappingConfigService, IDialectService } from '../../../domain'
-import { helper } from '../../../application/helper'
+import { Query, Data, ConnectionConfig } from '../../../domain'
+import { helper, ConnectionPort, MappingConfigService, DialectService } from '../../../application'
 
 export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any
@@ -46,17 +46,17 @@ export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 }
 
 export class SQLjsConnectionAdapter extends ConnectionAdapter {
-	public async select (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<any> {
+	public async select (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		return this._execute(mapping, dialect, query, data)
 	}
 
-	public async insert (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async insert (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		const result = await this._execute(mapping, dialect, query, data)
 		return result as number
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async bulkInsert (mapping: IMappingConfigService, dialect: IDialectService, query: Query, array: any[]): Promise<number[]> {
+	public async bulkInsert (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<number[]> {
 		const sql = query.sentence
 		try {
 			if (!array || array.length === 0) {
@@ -77,11 +77,11 @@ export class SQLjsConnectionAdapter extends ConnectionAdapter {
 		}
 	}
 
-	public async update (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async update (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		return this._execute(mapping, dialect, query, data)
 	}
 
-	public async delete (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		return this._execute(mapping, dialect, query, data)
 	}
 
@@ -109,7 +109,7 @@ export class SQLjsConnectionAdapter extends ConnectionAdapter {
 		this.inTransaction = false
 	}
 
-	protected async _execute (mapping: IMappingConfigService, dialect:IDialectService, query: Query, data: Data): Promise<any> {
+	protected async _execute (mapping: MappingConfigService, dialect:DialectService, query: Query, data: Data): Promise<any> {
 		const sql = query.sentence
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		const values: any[] = []
@@ -119,7 +119,7 @@ export class SQLjsConnectionAdapter extends ConnectionAdapter {
 		return this.cnx.db.run(sql, values)
 	}
 
-	protected async _query (mapping: IMappingConfigService, dialect:IDialectService, query: Query, data: Data): Promise<any[]> {
+	protected async _query (mapping: MappingConfigService, dialect:DialectService, query: Query, data: Data): Promise<any[]> {
 		const sql = query.sentence
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		const values: any[] = []

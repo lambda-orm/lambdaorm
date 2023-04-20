@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
-import { Query, Data, ConnectionPort, ConnectionConfig, IMappingConfigService, IDialectService } from '../../../domain'
-import { Type, Kind } from 'typ3s'
+import { Query, Data, ConnectionConfig } from '../../../domain'
+import { Type, Primitive } from 'typ3s'
 import { Parameter } from '3xpr'
-import { helper } from '../../../application/helper'
+import { helper, ConnectionPort, MappingConfigService, DialectService } from '../../../application'
 
 export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 	public static lib: any
@@ -56,11 +56,11 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 		this.maxChunkSizeOnBulkInsert = 1000
 	}
 
-	public async select (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<any> {
+	public async select (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		return this._query(mapping, dialect, query, query.sentence, data)
 	}
 
-	public async insert (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		const autoIncrement = mapping.getAutoIncrement(query.entity)
 		const fieldId: string | undefined = autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : undefined
 		const sentence = fieldId
@@ -74,7 +74,7 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 		}
 	}
 
-	public async bulkInsert (mapping: IMappingConfigService, dialect: IDialectService, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]> {
 		// https://www.sqlservertutorial.net/sql-server-basics/sql-server-insert-multiple-rows/
 		try {
 			const autoIncrement = mapping.getAutoIncrement(query.entity)
@@ -100,11 +100,11 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 		}
 	}
 
-	public async update (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async update (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		return this._execute(mapping, dialect, query, data)
 	}
 
-	public async delete (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		return this._execute(mapping, dialect, query, data)
 	}
 
@@ -163,7 +163,7 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 		}
 	}
 
-	private async _query (mapping: IMappingConfigService, dialect: IDialectService, query: Query, sentence: string, data: Data|undefined): Promise<any> {
+	private async _query (mapping: MappingConfigService, dialect: DialectService, query: Query, sentence: string, data: Data|undefined): Promise<any> {
 		const me = this
 		return new Promise<any[]>((resolve, reject) => {
 			try {
@@ -197,7 +197,7 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 		})
 	}
 
-	private async _execute (mapping: IMappingConfigService, dialect:IDialectService, query: Query, data: Data) {
+	private async _execute (mapping: MappingConfigService, dialect:DialectService, query: Query, data: Data) {
 		const me = this
 		return new Promise<any>((resolve, reject) => {
 			const request = this.createNonQueryRequest(query.sentence, reject, resolve)
@@ -231,11 +231,11 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 		for (const parameter of query.parameters) {
 			const value = data.get(parameter.name)
 			const type = parameter.type as string
-			if (Type.isList(type) || (type === Kind.any && Array.isArray(value))) {
+			if (Type.isList(type) || (type === Primitive.any && Array.isArray(value))) {
 				let list:any
 				if (value.length > 0) {
 					const type = typeof value[0]
-					if (type === Kind.string) {
+					if (type === Primitive.string) {
 						const values: string[] = []
 						for (const item of value) {
 							let _item = item
@@ -262,21 +262,21 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 				continue
 			}
 			switch (param.type) {
-			case Kind.string: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.NVarChar, param.value); break
-			case Kind.number: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Numeric, param.value); break
-			case Kind.integer: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Int, param.value); break
-			case Kind.decimal: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Decimal, param.value); break
-			case Kind.boolean: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Bit, param.value); break
-			case Kind.dateTime: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.DateTime, param.value); break
-			case Kind.date: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Date, param.value); break
-			case Kind.time: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Time, param.value); break
-			case Kind.any:
+			case Primitive.string: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.NVarChar, param.value); break
+			case Primitive.number: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Numeric, param.value); break
+			case Primitive.integer: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Int, param.value); break
+			case Primitive.decimal: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Decimal, param.value); break
+			case Primitive.boolean: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Bit, param.value); break
+			case Primitive.dateTime: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.DateTime, param.value); break
+			case Primitive.date: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Date, param.value); break
+			case Primitive.time: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Time, param.value); break
+			case Primitive.any:
 				throw new Error(`Param: ${param.name} is any type in sentence: ${sentence}`)
 			}
 		}
 	}
 
-	protected override arrayToRows (mapping: IMappingConfigService, dialect: IDialectService, query: Query, array: any[]): any[] {
+	protected override arrayToRows (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): any[] {
 		const rows: any[] = []
 		for (const item of array) {
 			const row: any[] = []
@@ -289,15 +289,15 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 		return rows
 	}
 
-	private getItemValue (mapping: IMappingConfigService, dialect: IDialectService, item:any, parameter:Parameter):any {
+	private getItemValue (mapping: MappingConfigService, dialect: DialectService, item:any, parameter:Parameter):any {
 		let value = item[parameter.name]
 		if (value == null || value === undefined) {
 			value = 'null'
 		} else {
 			switch (parameter.type) {
-			case Kind.boolean:
+			case Primitive.boolean:
 				value = value ? 1 : 0; break
-			case Kind.string:
+			case Primitive.string:
 				if (value.includes('\'')) {
 					value = `'${helper.str.replace(value, '\'', '\'\'')}'`
 				} else {
@@ -306,13 +306,13 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 				// value = helper.escape(value)
 				// value = helper.str.replace(value, '\\\'', '\\\'\'')
 				break
-			case Kind.dateTime:
+			case Primitive.dateTime:
 				value = helper.query.escape(this.writeDateTime(value, mapping, dialect))
 				break
-			case Kind.date:
+			case Primitive.date:
 				value = helper.query.escape(this.writeDate(value, mapping, dialect))
 				break
-			case Kind.time:
+			case Primitive.time:
 				value = helper.query.escape(this.writeTime(value, mapping, dialect))
 				break
 			}

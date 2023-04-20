@@ -1,5 +1,5 @@
 import { orm as _orm } from '../orm'
-import { IOrm } from '../../domain'
+import { IOrm } from '../../application'
 import { Queryable } from './query'
 import { ExpressionActions } from './actions'
 

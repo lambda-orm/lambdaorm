@@ -17,6 +17,7 @@
 		"CQRS",
 		"CREATEDB",
 		"CREATEROLE",
+		"Cypher",
 		"DATEDIFF",
 		"dateTime",
 		"DATETIME",

@@ -1,4 +1,5 @@
-import { IOrm, QueryInfo, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../../domain'
+import { QueryInfo, MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../../domain'
+import { IOrm } from '../../application'
 export class ExpressionActions {
 	private orm:IOrm
 	private name:string

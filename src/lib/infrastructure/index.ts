@@ -1,5 +1,5 @@
 
-export * from './connection/adapters'
-export * from './language/adapters'
+export * from './connection'
+export * from './language'
 export * from './repository'
 export * from './orm'

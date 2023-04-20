@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
-import {
-	Query, Data, ConnectionPort, IMappingConfigService, IDialectService,
-	PropertyMapping, ExecutionError, SchemaError
-} from '../../../domain'
-import { Type, Kind } from 'typ3s'
-import { helper } from '../../../application/helper'
+import { Query, Data, PropertyMapping, ExecutionError, SchemaError } from '../../../domain'
+import { Type, Primitive } from 'typ3s'
+import { helper, ConnectionPort, MappingConfigService, DialectService } from '../../../application'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples
@@ -67,7 +64,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		this.maxChunkSizeIdsOnSelect = 999
 	}
 
-	public async select (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<any> {
+	public async select (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
 		const result = await this.cnx.execute(qryInfo.sql, qryInfo.values, { autoCommit: !this.inTransaction })
 		const list: any[] = []
@@ -77,7 +74,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 			for (const j in result.metaData) {
 				const col = result.metaData[j]
 				const colInfo = query.columns.find(p => p.name === col.name)
-				if (colInfo && colInfo.type === Kind.boolean) {
+				if (colInfo && colInfo.type === Primitive.boolean) {
 					item[col.name] = row[j] === 'Y'
 				} else {
 					item[col.name] = row[j]
@@ -88,7 +85,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		return list
 	}
 
-	public async insert (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<any> {
+	public async insert (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		let sql:string
 		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
 		const autoIncrementInfo = this.getAutoIncrementInfo(mapping, query)
@@ -106,13 +103,13 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		// https://oracle.github.io/node-oracledb/doc/api.html#dmlreturn
 	}
 
-	public async bulkInsert (mapping: IMappingConfigService, dialect: IDialectService, query: Query, array: any[]): Promise<any[]> {
+	public async bulkInsert (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]> {
 		let sql = ''
 		const autoIncrementInfo = this.getAutoIncrementInfo(mapping, query)
 		const bindDefs: any = {}
 		for (const param of query.parameters) {
 			const property = mapping.getProperty(query.entity, param.name)
-			bindDefs[param.name] = this.getOracleType(param.type ? Kind[param.type] : Kind.any, property)
+			bindDefs[param.name] = this.getOracleType(param.type ? Primitive[param.type] : Primitive.any, property)
 		}
 		if (autoIncrementInfo) {
 			bindDefs[autoIncrementInfo.key] = autoIncrementInfo.bindDef
@@ -148,13 +145,13 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		// [returning](https://cx-oracle.readthedocs.io/en/latest/user_guide/batch_statement.html)
 	}
 
-	public async update (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async update (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
 		const result = await this.cnx.execute(qryInfo.sql, qryInfo.values, { autoCommit: !this.inTransaction })
 		return result.rowsAffected
 	}
 
-	public async delete (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): Promise<number> {
+	public async delete (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
 		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
 		const result = await this.cnx.execute(qryInfo.sql, qryInfo.values, { autoCommit: !this.inTransaction })
 		return result.rowsAffected
@@ -188,26 +185,26 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		this.inTransaction = false
 	}
 
-	protected override arrayToRows (_mapping: IMappingConfigService, _dialect: IDialectService, query: Query, array: any[]): any[] {
+	protected override arrayToRows (_mapping: MappingConfigService, _dialect: DialectService, query: Query, array: any[]): any[] {
 		const rows: any[] = []
 		for (const item of array) {
 			const row: any = {}
 			for (const parameter of query.parameters) {
 				const value = item[parameter.name]
-				row[parameter.name] = this.getItemValue(parameter.type ? Kind[parameter.type] : Kind.any, value)
+				row[parameter.name] = this.getItemValue(parameter.type ? Primitive[parameter.type] : Primitive.any, value)
 			}
 			rows.push(row)
 		}
 		return rows
 	}
 
-	private getQueryInfo (mapping: IMappingConfigService, dialect: IDialectService, query: Query, data: Data): OracleQueryInfo {
+	private getQueryInfo (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): OracleQueryInfo {
 		const values: any = {}
 		let sql = query.sentence
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		for (const param of params) {
-			if (!Type.isList(param.type as string) && !(param.type === Kind.any && Array.isArray(param.value))) {
-				if (param.type === Kind.dateTime || param.type === Kind.date || param.type === Kind.time) {
+			if (!Type.isList(param.type as string) && !(param.type === Primitive.any && Array.isArray(param.value))) {
+				if (param.type === Primitive.dateTime || param.type === Primitive.date || param.type === Primitive.time) {
 					values[param.name] = new Date(param.value)
 				} else {
 					values[param.name] = param.value
@@ -217,7 +214,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 			// if array
 			if (param.value.length > 0) {
 				const type = typeof param.value[0]
-				if (type === Kind.string) {
+				if (type === Primitive.string) {
 					const list:string[] = []
 					for (const _item of param.value) {
 						let item = _item
@@ -237,7 +234,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		return { sql, values }
 	}
 
-	private getAutoIncrementInfo (mapping: IMappingConfigService, query: Query): OracleAutoIncrementInfo|undefined {
+	private getAutoIncrementInfo (mapping: MappingConfigService, query: Query): OracleAutoIncrementInfo|undefined {
 		const fieldIds = mapping.getFieldIds(query.entity)
 		const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
 		if (!fieldId) {
@@ -246,8 +243,8 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		const key = 'lbdOrm_' + fieldId.name
 		// oracledb.BIND_OUT 3003
 		let bindDef:any
-		const oracleType = this.oracleType(Kind[fieldId.type])
-		if (fieldId.type === Kind.string) {
+		const oracleType = this.oracleType(Primitive[fieldId.type])
+		if (fieldId.type === Primitive.string) {
 			const property = mapping.getProperty(query.entity, fieldId.name)
 			bindDef = { dir: 3003, type: oracleType, maxSize: property.length }
 		} else {
@@ -257,22 +254,22 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		return { key, bindDef, returning }
 	}
 
-	private oracleType (type: Kind): number {
+	private oracleType (type: Primitive): number {
 		switch (type) {
-		case Kind.boolean:
+		case Primitive.boolean:
 			return 2003
 			// oracledb.DB_TYPE_CHAR 2003
-		case Kind.string:
+		case Primitive.string:
 			// eslint-disable-next-line no-case-declarations
 			return 2001
 			// oracledb.STRING 2001
-		case Kind.integer:
-		case Kind.decimal:
+		case Primitive.integer:
+		case Primitive.decimal:
 			return 2010
 			// oracledb.NUMBER 2010
-		case Kind.dateTime:
-		case Kind.date:
-		case Kind.time:
+		case Primitive.dateTime:
+		case Primitive.date:
+		case Primitive.time:
 			return 2014
 			// oracledb.DATE 2014
 		default:
@@ -280,33 +277,33 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		}
 	}
 
-	private getOracleType (type:Kind, property:PropertyMapping):any {
+	private getOracleType (type:Primitive, property:PropertyMapping):any {
 		const oracleType = this.oracleType(type)
 		switch (type) {
-		case Kind.boolean:
+		case Primitive.boolean:
 			return { type: oracleType, maxSize: 1 }
-		case Kind.string:
+		case Primitive.string:
 			return { type: oracleType, maxSize: property.length }
-		case Kind.number:
-		case Kind.integer:
-		case Kind.decimal:
+		case Primitive.number:
+		case Primitive.integer:
+		case Primitive.decimal:
 			return { type: oracleType }
-		case Kind.dateTime:
-		case Kind.date:
-		case Kind.time:
+		case Primitive.dateTime:
+		case Primitive.date:
+		case Primitive.time:
 			return { type: oracleType }
 		}
 	}
 
-	private getItemValue (type:Kind, value:any):any {
+	private getItemValue (type:Primitive, value:any):any {
 		switch (type) {
-		case Kind.boolean:
+		case Primitive.boolean:
 			return value ? 'Y' : 'N'
-		case Kind.string:
+		case Primitive.string:
 			return typeof value === 'string' || value === null || value === undefined ? value : value.toString()
-		case Kind.dateTime:
-		case Kind.date:
-		case Kind.time:
+		case Primitive.dateTime:
+		case Primitive.date:
+		case Primitive.time:
 			return value ? new Date(value) : null
 		default:
 			return value

@@ -1,7 +1,7 @@
-import { Source, Sentence, Query, IMappingConfigService } from '../../../../domain'
-import { LanguageDDLBuilder } from '../../../../application'
+import { Source, Sentence, Query } from '../../../../domain'
+import { LanguageDDLBuilder, MappingConfigService } from '../../../../application'
 import { SqlDMLBuilderAdapter } from './dmlBuilder'
-import { LanguageAdapter } from '../../language'
+import { LanguageAdapter } from '../base/language'
 import { SqlDDLBuilder } from './ddlBuilder'
 import config from './config.json'
 import { IExpressions } from '3xpr'
@@ -12,11 +12,11 @@ export class SqlLanguageAdapter extends LanguageAdapter {
 		this.solveComposite = false
 	}
 
-	public ddlBuilder (source: Source, mapping: IMappingConfigService): LanguageDDLBuilder {
+	public ddlBuilder (source: Source, mapping: MappingConfigService): LanguageDDLBuilder {
 		return new SqlDDLBuilder(source, mapping, this.getDialect(source.dialect))
 	}
 
-	public dmlBuild (source: Source, mapping: IMappingConfigService, sentence: Sentence): Query {
+	public dmlBuild (source: Source, mapping: MappingConfigService, sentence: Sentence): Query {
 		return new SqlDMLBuilderAdapter(source, mapping, this.getDialect(source.dialect), this.expressions).build(sentence)
 	}
 }
