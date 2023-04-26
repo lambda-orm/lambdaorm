@@ -2,7 +2,7 @@ import { IExpressions } from '3xpr'
 import { NotImplemented } from '../../../../commons/domain'
 import { Source } from '../../../../schema/domain'
 import { MappingConfigService } from '../../../../schema/application'
-import { DialectService, LanguagePort, DDLBuilderPort } from '../../../application'
+import { DialectService, LanguagePort, DDLBuilderPort, DMLBuilderPort } from '../../../application'
 
 export abstract class LanguageAdapter implements LanguagePort {
 	public dialects: DialectService[]
@@ -31,6 +31,6 @@ export abstract class LanguageAdapter implements LanguagePort {
 	}
 
 	public abstract ddlBuilder(source: Source, mapping: MappingConfigService): DDLBuilderPort
-	// public abstract dmlBuilder(source: Source, mapping: MappingConfigService): ILanguageDMLBuilder
+	public abstract dmlBuilder(source: Source, mapping: MappingConfigService): DMLBuilderPort
 	// public abstract dmlBuild(source: Source, mapping: MappingConfigService, sentence: Sentence): Query
 }

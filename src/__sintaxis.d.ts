@@ -93,8 +93,10 @@ interface Queryable<T> extends MapClauses<T> {
 interface RelationMapClauses<T> {
 	/**  */
 	sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any): void
-
+	/**  */
 	filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterClauses<T>
+	/**  */
+	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
 }
 interface RelationIncludeClauses<T> {
 	/**  */

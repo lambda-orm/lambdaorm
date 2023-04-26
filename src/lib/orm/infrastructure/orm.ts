@@ -19,7 +19,7 @@ import {
 	MySQLConnectionPoolAdapter, MariaDBConnectionPoolAdapter, SqlServerConnectionPoolAdapter, PostgreSQLConnectionPoolAdapter,
 	SQLjsConnectionPoolAdapter, OracleConnectionPoolAdapter, MongoDBConnectionPoolAdapter
 } from '../../connection/infrastructure'
-import { SqlLanguageAdapter, NoSqlLanguageAdapter } from '../../language/infrastructure'
+import { SqlLanguageAdapter, NoSqlLanguageAdapter } from '../../sentence/infrastructure'
 import { expressions, IExpressions } from '3xpr'
 
 /**

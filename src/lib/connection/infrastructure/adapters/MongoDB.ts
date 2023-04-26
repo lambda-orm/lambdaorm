@@ -1,13 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-tabs */
-import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
-import {
-	Query, Data, ConnectionConfig,
-	MethodNotImplemented, SchemaError, RelationType, EntityMapping, Include
-} from '../../../domain'
+import { ConnectionPoolAdapter } from './base/connectionPool'
+import { ConnectionAdapter } from './base/connection'
+import { Query, Data, Include } from '../../../query/domain'
+import { ConnectionConfig } from '../../domain'
+import { MethodNotImplemented } from '../../../commons/domain'
+import { helper } from '../../../commons/application'
+import { SchemaError, RelationType, EntityMapping } from '../../../schema/domain'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
-import { helper, ConnectionPort, MappingConfigService, DialectService } from '../../../application'
+import { ConnectionPort } from '../../application'
+import { MappingConfigService } from '../../../schema/application'
+import { DialectService } from '../../../language/application'
 
 export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any

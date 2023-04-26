@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
-import { Query, Data, MethodNotImplemented, ConnectionConfig } from '../../../../domain'
+import { Query, Data } from '../../../../query/domain'
+import { ConnectionConfig } from '../../../domain'
+import { MethodNotImplemented } from '../../../../commons/domain'
+import { helper } from '../../../../commons/application'
 import { Parameter } from '3xpr'
 import { Primitive } from 'typ3s'
-import { helper, ConnectionPort, MappingConfigService, DialectService } from '../../../../application'
+import { ConnectionPort } from '../../../application'
+import { MappingConfigService } from '../../../../schema/application'
+import { DialectService } from '../../../../language/application'
 
 export abstract class ConnectionAdapter implements ConnectionPort {
 	public cnx: any

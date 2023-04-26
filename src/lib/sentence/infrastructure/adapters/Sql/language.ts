@@ -1,8 +1,8 @@
-import { DDLBuilderPort } from '../../../application'
+import { DDLBuilderPort, DMLBuilderPort } from '../../../../language/application'
 import { MappingConfigService } from '../../../../schema/application'
 import { Source } from '../../../../schema/domain'
-import { LanguageAdapter } from '../base/languageAdapter'
-import { SqlDDLBuilderAdapter } from './ddlBuilder'
+import { LanguageAdapter, SqlDDLBuilderAdapter } from '../../../../language/infrastructure'
+import { SqlDMLBuilderAdapter } from './SqlDmlBuilder'
 import config from './config.json'
 import { IExpressions } from '3xpr'
 
@@ -16,7 +16,7 @@ export class SqlLanguageAdapter extends LanguageAdapter {
 		return new SqlDDLBuilderAdapter(source, mapping, this.getDialect(source.dialect))
 	}
 
-// public override dmlBuilder (source: Source, mapping: MappingConfigService): ILanguageDMLBuilder {
-// return new SqlDMLBuilderAdapter(source, mapping, this.getDialect(source.dialect), this.expressions)
-// }
+	public override dmlBuilder (source: Source, mapping: MappingConfigService): DMLBuilderPort {
+		return new SqlDMLBuilderAdapter(source, mapping, this.getDialect(source.dialect), this.expressions)
+	}
 }

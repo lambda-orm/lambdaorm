@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-this-alias */
-import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
-import { Query, Data, ConnectionConfig } from '../../../domain'
-import { Type, Primitive } from 'typ3s'
+import { ConnectionPoolAdapter } from './base/connectionPool'
+import { ConnectionAdapter } from './base/connection'
+import { Query, Data } from '../../../query/domain'
+import { ConnectionConfig } from '../../domain'
+import { helper } from '../../../commons/application'
 import { Parameter } from '3xpr'
-import { helper, ConnectionPort, MappingConfigService, DialectService } from '../../../application'
+import { Type, Primitive } from 'typ3s'
+import { ConnectionPort } from '../../application'
+import { MappingConfigService } from '../../../schema/application'
+import { DialectService } from '../../../language/application'
 
 export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 	public static lib: any

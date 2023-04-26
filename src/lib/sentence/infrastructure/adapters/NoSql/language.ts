@@ -1,10 +1,10 @@
-import { DDLBuilderPort } from '../../../application'
+import { DDLBuilderPort, DMLBuilderPort } from '../../../../language/application'
 import { MappingConfigService } from '../../../../schema/application'
 import { Source } from '../../../../schema/domain'
-import { LanguageAdapter } from '../base/languageAdapter'
-import { NoSqlDDLBuilderAdapter } from './ddlBuilder'
+import { LanguageAdapter, NoSqlDDLBuilderAdapter } from '../../../../language/infrastructure'
 import config from './config.json'
 import { IExpressions } from '3xpr'
+import { NoSqlDMLBuilderAdapter } from './NoSqlDmlBuilder'
 
 export class NoSqlLanguageAdapter extends LanguageAdapter {
 	constructor (expressions: IExpressions) {
@@ -16,7 +16,7 @@ export class NoSqlLanguageAdapter extends LanguageAdapter {
 		return new NoSqlDDLBuilderAdapter(source, mapping, this.getDialect(source.dialect))
 	}
 
-	// public dmlBuild (source: Source, mapping: MappingConfigService, sentence: Sentence): Query {
-	// return new NoSqlDMLBuilderAdapter(source, mapping, this.getDialect(source.dialect), this.expressions).build(sentence)
-	// }
+	public override dmlBuilder (source: Source, mapping: MappingConfigService): DMLBuilderPort {
+		return new NoSqlDMLBuilderAdapter(source, mapping, this.getDialect(source.dialect), this.expressions)
+	}
 }

@@ -6,7 +6,7 @@ import { Query, Include } from '../../../../query/domain'
 import { Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update } from '../../../domain'
 import { helper } from '../../../../commons/application'
 
-import { DmlBuilderAdapter } from './dmlBuilder'
+import { DmlBuilderAdapter } from '../base/dmlBuilder'
 
 export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 	public override build (sentence: Sentence): Query {

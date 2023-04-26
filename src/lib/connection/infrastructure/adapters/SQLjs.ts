@@ -1,9 +1,14 @@
 
 /* eslint-disable no-tabs */
 
-import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
-import { Query, Data, ConnectionConfig } from '../../../domain'
-import { helper, ConnectionPort, MappingConfigService, DialectService } from '../../../application'
+import { ConnectionPoolAdapter } from './base/connectionPool'
+import { ConnectionAdapter } from './base/connection'
+import { Query, Data } from '../../../query/domain'
+import { ConnectionConfig } from '../../domain'
+import { helper } from '../../../commons/application'
+import { ConnectionPort } from '../../application'
+import { MappingConfigService } from '../../../schema/application'
+import { DialectService } from '../../../language/application'
 
 export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any

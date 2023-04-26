@@ -19,7 +19,7 @@ const lab = async () => {
 											.include(p => p.areas))))),
 						p.names])),
 				p.organizationRef
-					.include(p => p.organization
+					.include(p => p.organization.map(p=> p.currentName)
 						.include(p => [p.party
 							.include(p => [p.indentifications, p.contactMediums]),p.partyRoleRef
 								.include(p => p.partyRole

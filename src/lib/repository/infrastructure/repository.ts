@@ -1,9 +1,9 @@
 import { orm as _orm } from '../../orm/infrastructure'
 import { IOrm } from '../../orm/application'
-import { Queryable } from '../domain/queryable'
-import { ExpressionActions } from '../domain/actions'
+import { Queryable, ExpressionActions } from '../domain'
+import { IRepository } from '../application'
 
-export class Repository<TEntity, TQuery> {
+export class Repository<TEntity, TQuery> implements IRepository<TEntity, TQuery> {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (public readonly name: string, public stage?:string, private readonly orm:IOrm = _orm) {}
 

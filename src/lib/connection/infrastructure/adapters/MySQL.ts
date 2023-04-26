@@ -1,9 +1,13 @@
 
 /* eslint-disable no-tabs */
-import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
-import { Query, Data, ConnectionConfig } from '../../../domain'
 import { Type, Primitive } from 'typ3s'
-import { ConnectionPort, MappingConfigService, DialectService } from '../../../application'
+import { ConnectionPoolAdapter } from './base/connectionPool'
+import { ConnectionAdapter } from './base/connection'
+import { Query, Data } from '../../../query/domain'
+import { ConnectionConfig } from '../../domain'
+import { ConnectionPort } from '../../application'
+import { MappingConfigService } from '../../../schema/application'
+import { DialectService } from '../../../language/application'
 
 const DECIMAL = 0
 const TINY = 1

@@ -2,6 +2,7 @@ import { Source } from '../../../schema/domain'
 import { DialectService } from '../services/dialectService'
 import { MappingConfigService } from '../../../schema/application'
 import { DDLBuilderPort } from './ddlBuilderPort'
+import { DMLBuilderPort } from './dmlBuilderPort'
 
 export interface LanguagePort {
 	dialects: DialectService[]
@@ -9,6 +10,5 @@ export interface LanguagePort {
 	solveComposite?: boolean
 	getDialect (name: string): DialectService
 	ddlBuilder(source: Source, mapping: MappingConfigService): DDLBuilderPort
-	// dmlBuilder(source: Source, mapping: MappingConfigService): ILanguageDMLBuilder
-	// dmlBuild(source: Source, mapping: MappingConfigService, sentence: Sentence): Query
+	dmlBuilder(source: Source, mapping: MappingConfigService): DMLBuilderPort
 }

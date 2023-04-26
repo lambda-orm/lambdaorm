@@ -1,6 +1,6 @@
 
-import { ConnectionConfig } from '../../../../domain'
-import { ConnectionPoolPort, ConnectionPort } from '../../../../application'
+import { ConnectionConfig } from '../../../domain'
+import { ConnectionPort, ConnectionPoolPort } from '../../../application'
 export abstract class ConnectionPoolAdapter implements ConnectionPoolPort {
 	public config:ConnectionConfig
 	constructor (config:ConnectionConfig) {

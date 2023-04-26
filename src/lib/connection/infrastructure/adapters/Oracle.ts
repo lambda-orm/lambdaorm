@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ConnectionAdapter, ConnectionPoolAdapter } from '../'
-import { Query, Data, PropertyMapping, ExecutionError, SchemaError } from '../../../domain'
+import { ConnectionPoolAdapter } from './base/connectionPool'
+import { ConnectionAdapter } from './base/connection'
+import { Query, Data } from '../../../query/domain'
+import { helper } from '../../../commons/application'
+import { SchemaError, PropertyMapping } from '../../../schema/domain'
 import { Type, Primitive } from 'typ3s'
-import { helper, ConnectionPort, MappingConfigService, DialectService } from '../../../application'
+import { ConnectionPort } from '../../application'
+import { MappingConfigService } from '../../../schema/application'
+import { DialectService } from '../../../language/application'
+import { ExecutionError } from '../../domain'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples

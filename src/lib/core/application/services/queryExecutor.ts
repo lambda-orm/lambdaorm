@@ -1,9 +1,10 @@
 
 import { SentenceAction, RelationType, EntityMapping, Constraint, Behavior } from '../../../schema/domain'
 import { MappingConfigService, SchemaService } from '../../../schema/application'
-import { ExecutionError, ValidationError } from '../../domain'
+import { ValidationError } from '../../domain'
 import { Query, Include, Data, QueryOptions } from '../../../query/domain'
 import { helper } from '../../../commons/application'
+import { ExecutionError } from '../../../connection/domain'
 import { ConnectionService, ConnectionPort } from '../../../connection/application'
 import { LanguagesService, DialectService } from '../../../language/application'
 import { IExpressions } from '3xpr'

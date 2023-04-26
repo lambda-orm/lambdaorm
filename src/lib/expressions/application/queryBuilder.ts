@@ -32,7 +32,7 @@ export class QueryBuilder {
 				includes.push(include)
 			}
 		}
-		const query = language.dmlBuilder(source, mapping).dmlBuild(sentence)
+		const query = language.dmlBuilder(source, mapping).build(sentence)
 		query.includes = query.includes.concat(includes)
 		return query
 	}
