@@ -4,9 +4,10 @@ import {
 	PropertyView, Dependent, AppPathsConfig, ModelSchema, DataSchema, DIALECT_DEFAULT, ObservableAction, SchemaError
 } from '../../domain'
 import path from 'path'
-import { helper } from '../../../commons/application/helper'
-import { IExpressions } from '3xpr'
+import { helper } from '../../../shared/application/helper'
 import { Primitive } from 'typ3s'
+import { IOrmExpressions } from '../../../shared/domain'
+import { Autowired, IObjectHelper } from 'h3lp'
 const yaml = require('js-yaml')
 
 abstract class ModelConfigServiceBase<TEntity extends Entity, TProperty extends Property> {
@@ -545,13 +546,14 @@ export class StageConfigService {
 }
 
 export class SchemaExtender {
-	private expressions: IExpressions
-	constructor (expressions: IExpressions) {
-		this.expressions = expressions
-	}
+	@Autowired('h3lp.obj')
+	private objectHelper!:IObjectHelper
+
+	@Autowired('expressions')
+	private expressions!: IOrmExpressions
 
 	public extend (source: Schema): Schema {
-		const schema = helper.obj.clone(source)
+		const schema = this.objectHelper.clone(source)
 		this.extendEnums(schema)
 		this.extendEntities(schema)
 		this.complete(schema)
@@ -645,7 +647,7 @@ export class SchemaExtender {
 		}
 		// extend mapping for model
 		for (const k in schema.data.mappings) {
-			schema.data.mappings[k].entities = helper.obj.extends(schema.data.mappings[k].entities, schema.model.entities)
+			schema.data.mappings[k].entities = this.objectHelper.extends(schema.data.mappings[k].entities, schema.model.entities)
 			schema.data.mappings[k] = this.clearMapping(schema.data.mappings[k])
 			const mapping = schema.data.mappings[k]
 			if (mapping && mapping.entities) {
@@ -856,7 +858,7 @@ export class SchemaExtender {
 			if (_enum.values === undefined || _enum.values === null) {
 				_enum.values = []
 			}
-			_enum.values = helper.obj.extends(_enum.values, base.values)
+			_enum.values = this.objectHelper.extends(_enum.values, base.values)
 		}
 
 		// elimina dado que ya fue extendido
@@ -877,11 +879,11 @@ export class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			entity.properties = helper.obj.extends(entity.properties, base.properties)
+			entity.properties = this.objectHelper.extends(entity.properties, base.properties)
 		}
 		// extend relations
 		if (base.relations.length > 0) {
-			entity.relations = helper.obj.extends(entity.relations, base.relations)
+			entity.relations = this.objectHelper.extends(entity.relations, base.relations)
 		}
 		// elimina dado que ya fue extendido
 		delete entity.extends
@@ -894,7 +896,7 @@ export class SchemaExtender {
 				throw new SchemaError(`${mapping.extends} not found`)
 			}
 			this.extendMapping(base, mappings)
-			mapping.entities = helper.obj.extends(mapping.entities, base.entities)
+			mapping.entities = this.objectHelper.extends(mapping.entities, base.entities)
 			// elimina dado que ya fue extendido
 			delete mapping.extends
 		}
@@ -925,7 +927,7 @@ export class SchemaExtender {
 			if (entity.indexes === undefined) {
 				entity.indexes = []
 			}
-			entity.indexes = helper.obj.extends(entity.indexes, base.indexes)
+			entity.indexes = this.objectHelper.extends(entity.indexes, base.indexes)
 		}
 	}
 
@@ -934,7 +936,7 @@ export class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			entity.properties = helper.obj.extends(entity.properties, base.properties)
+			entity.properties = this.objectHelper.extends(entity.properties, base.properties)
 		}
 	}
 
@@ -995,25 +997,14 @@ export class SchemaExtender {
 }
 
 export class SchemaService {
-	public source: DataSourceConfigService
-	public model: ModelConfigService
-	public mapping: MappingsConfigService
-	public stage: StageConfigService
-	public view: ViewsConfigService
+	public source = new DataSourceConfigService()
+	public model = new ModelConfigService()
+	public mapping = new MappingsConfigService()
+	public stage = new StageConfigService()
+	public view = new ViewsConfigService()
+	private extender = new SchemaExtender()
 	public schema: Schema
-	public workspace: string
-	private extender: SchemaExtender
-	private expressions: IExpressions
-
-	constructor (workspace: string, expressions: IExpressions) {
-		this.expressions = expressions
-		this.workspace = workspace
-		this.source = new DataSourceConfigService()
-		this.model = new ModelConfigService()
-		this.mapping = new MappingsConfigService()
-		this.stage = new StageConfigService()
-		this.view = new ViewsConfigService()
-		this.extender = new SchemaExtender(this.expressions)
+	constructor (public workspace: string) {
 		this.schema = this.newSchema()
 	}
 
@@ -1071,6 +1062,10 @@ export class SchemaService {
 		}
 		this.completeSchema(schema)
 		return schema
+	}
+
+	public complete (schema: Schema): void {
+		this.extender.complete(schema)
 	}
 
 	private async readConfig (path:string):Promise<string|null> {
@@ -1226,37 +1221,36 @@ export class SchemaService {
 	}
 }
 
-export class SchemaFacade {
-	// eslint-disable-next-line no-useless-constructor
-	constructor (
-		private readonly service: SchemaService,
-		private readonly extender: SchemaExtender) {}
+// export class SchemaFacade {
+// // eslint-disable-next-line no-useless-constructor
+// constructor (
+// private readonly service: SchemaService) {}
 
-	public get schema ():Schema {
-		return this.service.schema
-	}
+// public get schema ():Schema {
+// return this.service.schema
+// }
 
-	public async init (source?: string | Schema): Promise<Schema> {
-		return this.service.init(source)
-	}
+// public async init (source?: string | Schema): Promise<Schema> {
+// return this.service.init(source)
+// }
 
-	public async get (source?: string): Promise<Schema> {
-		return this.service.get(source)
-	}
+// public async get (source?: string): Promise<Schema> {
+// return this.service.get(source)
+// }
 
-	public async getConfigFileName (workspace: string): Promise<string | undefined> {
-		return this.service.getConfigFileName(workspace)
-	}
+// public async getConfigFileName (workspace: string): Promise<string | undefined> {
+// return this.service.getConfigFileName(workspace)
+// }
 
-	public complete (schema: Schema): void {
-		this.extender.complete(schema)
-	}
+// public complete (schema: Schema): void {
+// this.service.extender.complete(schema)
+// }
 
-	public extend (schema: Schema): Schema {
-		return this.extender.extend(schema)
-	}
+// public extend (schema: Schema): Schema {
+// return this.service.extender.extend(schema)
+// }
 
-	public load (schema: Schema): Schema {
-		return this.service.load(schema)
-	}
-}
+// public load (schema: Schema): Schema {
+// return this.service.load(schema)
+// }
+// }

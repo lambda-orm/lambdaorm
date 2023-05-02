@@ -3,7 +3,7 @@ const CryptoJS = require('crypto-js')
 
 export class SentenceLibrary {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (private readonly model:IModelService) {}
+	constructor (private readonly model:IModelService) {}
 
 	public load ():void {
 		this.functions()

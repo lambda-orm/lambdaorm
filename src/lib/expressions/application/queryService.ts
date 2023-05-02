@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Query, QueryOptions, QueryInfo, ExecuteResult } from '../../query/domain'
 import { QueryBuilder } from './queryBuilder'
+import { IOrmExpressions } from '../../shared/domain'
 import { SchemaService } from '../../schema/application'
 import { LanguagesService } from '../../language/application'
 import { SentenceService } from '../../sentence/application'
-import { MemoryCache, ICache } from 'h3lp'
-import { helper } from '../../commons/application/helper'
-import { Executor } from '../../core/application'
+import { MemoryCache, ICache, Autowired } from 'h3lp'
+import { helper } from '../../shared/application/helper'
+import { Executor } from '../../execution/application'
 import { ExpressionTransaction } from '../domain'
 
 export class QueryService {
@@ -14,12 +15,15 @@ export class QueryService {
 	private builder: QueryBuilder
 
 	constructor (private readonly executor:Executor,
-		private readonly sentenceService: SentenceService,
+		sentenceService: SentenceService,
 		private readonly schemaService: SchemaService,
 		languages: LanguagesService) {
 		this.cache = new MemoryCache<string, string>()
 		this.builder = new QueryBuilder(sentenceService, schemaService, languages)
 	}
+
+	@Autowired('orm.expressions')
+	private expressions!: IOrmExpressions
 
 	public create (expression: string, options: QueryOptions, useCache:boolean): Query {
 		if (!useCache) {
@@ -68,7 +72,7 @@ export class QueryService {
 	}
 
 	public async execute (expression: string|Function, data: any = {}, options: QueryOptions|undefined = undefined): Promise<any> {
-		const _expression = typeof expression !== 'string' ? this.sentenceService.toExpression(expression) : expression
+		const _expression = typeof expression !== 'string' ? this.expressions.toExpression(expression) : expression
 		const _options = this.solveOptions(options)
 		const query = this.create(_expression, _options, true)
 		this.executeQuery(query, data, _options)
@@ -89,7 +93,7 @@ export class QueryService {
  */
 	public async transaction (options: QueryOptions, callback: { (tr: ExpressionTransaction): Promise<void> }): Promise<void> {
 		this.executor.transaction(options, async (transaction) => {
-			const tr = new ExpressionTransaction(transaction, this.sentenceService, this)
+			const tr = new ExpressionTransaction(transaction, this)
 			await callback(tr)
 		})
 	}

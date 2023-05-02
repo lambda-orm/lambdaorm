@@ -2,7 +2,7 @@ import { LanguagesService } from '../../../../language/application'
 import { StageModelService } from '../../services/stateService'
 import { Query, QueryOptions, ExecuteResult } from '../../../../query/domain'
 import { SchemaService } from '../../../../schema/application'
-import { RouteService } from '../../../../core/application'
+import { RouteService } from '../../../../execution/application'
 import { QueryService } from '../../../../expressions/application'
 
 export abstract class StageActionDDL {

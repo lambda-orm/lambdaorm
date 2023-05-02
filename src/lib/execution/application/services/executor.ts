@@ -5,14 +5,14 @@ import { SchemaService } from '../../../schema/application'
 import { LanguagesService } from '../../../language/application'
 import { QueryExecutor } from './queryExecutor'
 import { Transaction } from '../../domain'
-import { IExpressions } from '3xpr'
+import { IOrmExpressions } from '../../../shared/domain'
 
 export class Executor {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly connectionService: ConnectionService,
 		private readonly languages: LanguagesService,
 		private readonly schemaService: SchemaService,
-		private readonly expressions: IExpressions) {}
+		private readonly expressions: IOrmExpressions) {}
 
 	public async execute (query: Query, data: any, options: QueryOptions): Promise<any> {
 		let error: any

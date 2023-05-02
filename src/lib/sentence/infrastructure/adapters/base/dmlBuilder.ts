@@ -1,10 +1,10 @@
-import { Operand, OperandType, IExpressions } from '3xpr'
+import { Operand, OperandType } from '3xpr'
 import { Primitive } from 'typ3s'
 import { SentenceCrudAction, Source, SchemaError, EntityMapping } from '../../../../schema/domain'
-import { SintaxisError } from '../../../../commons/domain'
+import { SintaxisError } from '../../../../shared/domain'
 import { Query } from '../../../../query/domain'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, BulkInsert } from '../../../domain'
-import { helper } from '../../../../commons/application'
+import { helper } from '../../../../shared/application'
 import { MappingConfigService } from '../../../../schema/application'
 import { DialectService } from '../../../../language/application'
 import { DmlBuilderPort } from '../../../application'
@@ -15,12 +15,10 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 	protected source: Source
 	protected mapping: MappingConfigService
 	protected dialect: DialectService
-	protected expressions: IExpressions
 
-	constructor (source: Source, mapping: MappingConfigService, dialect: DialectService, expressions: IExpressions) {
+	constructor (source: Source, mapping: MappingConfigService, dialect: DialectService) {
 		this.source = source
 		this.mapping = mapping
-		this.expressions = expressions
 		this.dialect = dialect
 	}
 

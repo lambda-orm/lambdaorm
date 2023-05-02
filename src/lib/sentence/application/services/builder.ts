@@ -1,8 +1,8 @@
 /* eslint-disable no-case-declarations */
-import { SintaxisError } from '../../../commons/domain'
+import { SintaxisError, IOrmExpressions } from '../../../shared/domain'
 import { SentenceAction, Property, Behavior, Constraint, Entity } from '../../../schema/domain'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../../domain/operands'
-import { Operand, Parameter, OperandType, IExpressions, Position, ITypeService } from '3xpr'
+import { Operand, Parameter, OperandType, Position, ITypeService } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { SentenceTypeService } from './typeService'
 import { SentenceHelper } from './helper'
@@ -48,9 +48,9 @@ class ExpressionContext {
 class SentenceSolveConstraints {
 	private helper: SentenceHelper
 	private modelConfig: ModelConfigService
-	private expressions: IExpressions
+	private expressions: IOrmExpressions
 
-	constructor (modelConfig: ModelConfigService, helper: SentenceHelper, expressions: IExpressions) {
+	constructor (modelConfig: ModelConfigService, helper: SentenceHelper, expressions: IOrmExpressions) {
 		this.modelConfig = modelConfig
 		this.helper = helper
 		this.expressions = expressions
@@ -215,8 +215,8 @@ export class SentenceBuilder {
 	private solveBehaviors: SentenceSolveBehaviors
 	private solveConstraints : SentenceSolveConstraints
 
-	constructor (private readonly schema: SchemaService, private readonly expressions: IExpressions, private readonly helper:SentenceHelper) {
-		this.typeService = new SentenceTypeService(this.schema.model, this.expressions.model)
+	constructor (private readonly schema: SchemaService, private readonly expressions: IOrmExpressions, private readonly helper:SentenceHelper) {
+		this.typeService = new SentenceTypeService(this.schema.model)
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, this.helper, expressions)
 	}

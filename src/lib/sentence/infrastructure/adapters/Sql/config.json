@@ -7,7 +7,8 @@
       "string": "VARCHAR({0})",
       "dateTime": "DATETIME",
       "date": "DATE",
-      "time": "TIME"
+      "time": "TIME",
+      "text": "TEXT"
     },
     "format": {
       "dateTime": "yyyy-LL-dd HH:mm:ss",
@@ -236,6 +237,16 @@
   },
   "dialects": {
     "MariaDB": {
+      "types": {
+        "text": "LONGTEXT",
+        "boolean": "BOOLEAN",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "dateTime": "DATETIME",
+        "date": "DATE",
+        "time": "TIME"
+      },
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -415,15 +426,6 @@
           "min": "MIN({0})",
           "sum": "SUM({0})"
         }
-      },
-      "types": {
-        "boolean": "BOOLEAN",
-        "integer": "INTEGER",
-        "decimal": "DECIMAL(10,4)",
-        "string": "VARCHAR({0})",
-        "dateTime": "DATETIME",
-        "date": "DATE",
-        "time": "TIME"
       },
       "format": {
         "dateTime": "yyyy-LL-dd HH:mm:ss",
@@ -480,6 +482,16 @@
       }
     },
     "MySQL": {
+      "types": {
+        "text": "LONGTEXT",
+        "boolean": "BOOLEAN",
+        "integer": "INTEGER",
+        "decimal": "DECIMAL(10,4)",
+        "string": "VARCHAR({0})",
+        "dateTime": "DATETIME",
+        "date": "DATE",
+        "time": "TIME"
+      },
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -659,15 +671,6 @@
           "min": "MIN({0})",
           "sum": "SUM({0})"
         }
-      },
-      "types": {
-        "boolean": "BOOLEAN",
-        "integer": "INTEGER",
-        "decimal": "DECIMAL(10,4)",
-        "string": "VARCHAR({0})",
-        "dateTime": "DATETIME",
-        "date": "DATE",
-        "time": "TIME"
       },
       "format": {
         "dateTime": "yyyy-LL-dd HH:mm:ss",
@@ -731,7 +734,8 @@
         "string": "VARCHAR2({0})",
         "dateTime": "DATE",
         "date": "DATE",
-        "time": "DATE"
+        "time": "DATE",
+        "text": "TEXT"
       },
       "others": {
         "false": "'N'",
@@ -966,7 +970,8 @@
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
         "date": "DATE",
-        "time": "TIME"
+        "time": "TIME",
+        "text": "TEXT"
       },
       "ddl": {
         "incrementalColumDefine": "{name} serial",
@@ -1201,7 +1206,8 @@
         "string": "VARCHAR({0})",
         "dateTime": "DATETIME",
         "date": "DATE",
-        "time": "TIME"
+        "time": "TIME",
+        "text": "TEXT"
       },
       "format": {
         "dateTime": "yyyy-LL-dd HH:mm:ss",
@@ -1436,7 +1442,8 @@
         "string": "VARCHAR({0})",
         "dateTime": "DATETIME",
         "date": "DATE",
-        "time": "TIME"
+        "time": "TIME",
+        "text": "TEXT"
       },
       "ddl": {
         "createPk": "PRIMARY KEY ({columns})",

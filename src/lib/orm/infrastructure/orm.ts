@@ -1,34 +1,37 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { helper } from '../../commons/application'
+import { helper } from '../../shared/application'
 import { QueryOptions, QueryInfo, Query } from '../../query/domain'
 import { Dialect, Schema, Stage } from '../../schema/domain'
 import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata } from '../../sentence/domain'
 import { ActionObserver } from '../domain'
-import { SchemaService, SchemaFacade, SchemaExtender } from '../../schema/application'
+import { SchemaService } from '../../schema/application'
 import { ConnectionService } from '../../connection/application'
 import { LanguagesService } from '../../language/application'
 import { StageFacade } from '../../stage/application'
-import { RouteService, Executor } from '../../core/application'
+import { RouteService, Executor } from '../../execution/application'
 import { ExpressionTransaction } from '../../expressions/domain'
-import { QueryService, ExpressionsWrapper } from '../../expressions/application'
+import { QueryService } from '../../expressions/application'
 import { SentenceLibrary, SentenceService } from '../../sentence/application'
 import { IOrm, ExpressionActionObserver } from '../application'
-
 import {
 	MySQLConnectionPoolAdapter, MariaDBConnectionPoolAdapter, SqlServerConnectionPoolAdapter, PostgreSQLConnectionPoolAdapter,
 	SQLjsConnectionPoolAdapter, OracleConnectionPoolAdapter, MongoDBConnectionPoolAdapter
 } from '../../connection/infrastructure'
 import { SqlLanguageAdapter, NoSqlLanguageAdapter } from '../../sentence/infrastructure'
-import { expressions, IExpressions } from '3xpr'
+import { IOrmExpressions } from '../../shared/domain'
+import { OrmExpressions } from '../../shared/infrastructure'
+import { Factory } from 'h3lp'
+import { expressions } from '3xpr'
 
+const ormExpressions = new OrmExpressions(expressions)
+Factory.add('orm.expressions', ormExpressions)
 /**
  * Facade through which you can access all the functionalities of the library.
  */
 export class Orm implements IOrm {
 	// private _cache: Cache
 	private stageFacade: StageFacade
-	private schemaFacade: SchemaFacade
 	private connectionService: ConnectionService
 	private languages: LanguagesService
 	// private libManager: LibManager
@@ -39,7 +42,7 @@ export class Orm implements IOrm {
 	// eslint-disable-next-line no-use-before-define
 	private static _instance: Orm
 	private schemaService: SchemaService
-	private _expressions: IExpressions
+	private _expressions:IOrmExpressions
 	private observers:ActionObserver[] = []
 
 	/**
@@ -53,14 +56,15 @@ export class Orm implements IOrm {
 	}
 
 	constructor (workspace: string = process.cwd()) {
-		this._expressions = new ExpressionsWrapper(expressions)
+		// this.expressions = new ExpressionsWrapper(expressions)
+		this._expressions = ormExpressions
 		new SentenceLibrary(this._expressions.model).load()
-		this.schemaService = new SchemaService(workspace, this._expressions)
-		this.schemaFacade = new SchemaFacade(this.schemaService, new SchemaExtender(this._expressions))
+		this.schemaService = new SchemaService(workspace)
+		// this.schemaFacade = new SchemaFacade(this.schemaService)
 		this.connectionService = new ConnectionService()
 		this.languages = new LanguagesService()
-		this.languages.add(new SqlLanguageAdapter(this._expressions))
-		this.languages.add(new NoSqlLanguageAdapter(this._expressions))
+		this.languages.add(new SqlLanguageAdapter())
+		this.languages.add(new NoSqlLanguageAdapter())
 		this.connectionService.addType(Dialect.MySQL, MySQLConnectionPoolAdapter)
 		this.connectionService.addType(Dialect.MariaDB, MariaDBConnectionPoolAdapter)
 		this.connectionService.addType(Dialect.PostgreSQL, PostgreSQLConnectionPoolAdapter)
@@ -70,9 +74,13 @@ export class Orm implements IOrm {
 		this.connectionService.addType(Dialect.MongoDB, MongoDBConnectionPoolAdapter)
 		this.sentenceRoute = new RouteService(this.schemaService, this._expressions)
 		const executor = new Executor(this.connectionService, this.languages, this.schemaService, this._expressions)
-		this.sentenceService = new SentenceService(this.schemaService, this.expressions, this.sentenceRoute)
+		this.sentenceService = new SentenceService(this.schemaService, this._expressions, this.sentenceRoute)
 		this.queryService = new QueryService(executor, this.sentenceService, this.schemaService, this.languages)
 		this.stageFacade = new StageFacade(this.schemaService, this.sentenceRoute, this.queryService, this.languages, this.sentenceService)
+	}
+
+	public get expressions (): IOrmExpressions {
+		return this._expressions
 	}
 
 	public get defaultStage ():Stage {
@@ -127,7 +135,7 @@ export class Orm implements IOrm {
   */
 	public async end (): Promise<void> {
 		// ends task
-		const schema = this.schemaFacade.schema
+		const schema = this.schemaService.schema
 		if (schema.app.end) {
 			for (const task of schema.app.end) {
 				if (task.condition === undefined || this._expressions.eval(task.condition)) {
@@ -164,15 +172,8 @@ export class Orm implements IOrm {
 	/**
 	 * Get reference to SchemaConfig
 	 */
-	public get schema (): SchemaFacade {
-		return this.schemaFacade
-	}
-
-	/**
-	 * Get reference to SchemaConfig
-	 */
-	public get expressions (): IExpressions {
-		return this._expressions
+	public get schema (): SchemaService {
+		return this.schemaService
 	}
 
 	/**
@@ -183,7 +184,7 @@ export class Orm implements IOrm {
 	public normalize(expression:Function): string
 	public normalize(expression:string): string
 	public normalize (expression: string|Function): string {
-		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
 		return this.sentenceService.normalize(_expression)
 	}
 
@@ -195,7 +196,7 @@ export class Orm implements IOrm {
 	public model(expression:Function): MetadataModel[]
 	public model(expression:string): MetadataModel[]
 	public model (expression: string|Function): MetadataModel[] {
-		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
 		return this.sentenceService.model(_expression)
 	}
 
@@ -207,7 +208,7 @@ export class Orm implements IOrm {
 	public parameters(expression:Function): MetadataParameter[];
 	public parameters(expression:string): MetadataParameter[];
 	public parameters (expression: string|Function): MetadataParameter[] {
-		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
 		return this.sentenceService.parameters(_expression)
 	}
 
@@ -219,7 +220,7 @@ export class Orm implements IOrm {
 	public constraints(expression:Function): MetadataConstraint;
 	public constraints(expression:string): MetadataConstraint;
 	public constraints (expression: string|Function): MetadataConstraint {
-		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
 		return this.sentenceService.constraints(_expression)
 	}
 
@@ -231,7 +232,7 @@ export class Orm implements IOrm {
 	public metadata(expression: Function): Metadata
 	public metadata (expression:string):Metadata
 	public metadata (expression: string|Function): Metadata {
-		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
 		return this.sentenceService.metadata(_expression)
 	}
 
@@ -243,7 +244,7 @@ export class Orm implements IOrm {
 	public getInfo(expression: Function, options?: QueryOptions): QueryInfo;
 	public getInfo(expression: string, options?: QueryOptions): QueryInfo;
 	public getInfo (expression: string|Function, options: QueryOptions|undefined): QueryInfo {
-		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
 		const _options = this.queryService.solveOptions(options)
 		return this.queryService.getInfo(_expression, _options)
 	}
@@ -258,7 +259,7 @@ export class Orm implements IOrm {
 	public async execute(expression: Function, data?: any, options?: QueryOptions):Promise<any>;
 	public async execute(expression: string, data?: any, options?: QueryOptions):Promise<any>;
 	public async execute (expression: string|Function, data: any = {}, options: QueryOptions|undefined = undefined): Promise<any> {
-		const _expression = typeof expression !== 'string' ? this.toExpression(expression) : expression
+		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
 		const _options = this.queryService.solveOptions(options)
 		const query = this.queryService.create(_expression, _options, true)
 		try {
@@ -290,16 +291,6 @@ export class Orm implements IOrm {
 	public async transaction (options: QueryOptions|undefined, callback: { (tr: ExpressionTransaction): Promise<void> }): Promise<void> {
 		const _options = this.queryService.solveOptions(options)
 		return this.queryService.transaction(_options, callback)
-	}
-
-	/**
-	 * Convert a lambda expression to a query expression
-	 * @param lambda lambda expression
-	 * @returns Expression manager
-	 */
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	public toExpression (func: Function): string {
-		return this.sentenceService.toExpression(func)
 	}
 
 	// Listeners and subscribers

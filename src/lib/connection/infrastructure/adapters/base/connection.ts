@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Query, Data } from '../../../../query/domain'
 import { ConnectionConfig } from '../../../domain'
-import { MethodNotImplemented } from '../../../../commons/domain'
-import { helper } from '../../../../commons/application'
+import { MethodNotImplemented } from '../../../../shared/domain'
+import { helper } from '../../../../shared/application'
 import { Parameter } from '3xpr'
 import { Primitive } from 'typ3s'
 import { ConnectionPort } from '../../../application'

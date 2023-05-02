@@ -1,4 +1,4 @@
-import { SintaxisError } from '../../../commons/domain'
+import { SintaxisError } from '../../../shared/domain'
 import { Property, SentenceCrudAction } from '../../../schema/domain'
 import { Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete } from '../../domain'
 import { Operand, Parameter, OperandType, helper } from '3xpr'

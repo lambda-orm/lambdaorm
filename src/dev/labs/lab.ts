@@ -3,6 +3,9 @@ import { Orders } from '../northwind/model/__model'
 
 export async function apply (callback: any) {
 	try {
+
+		// const a = test2(['a', 1])('dds')
+
 		await orm.init('./config/northwind.yaml')
 		const options = {stage:'MySQL'}	
 		// expect(orm.parameters('Products.filter(p => p.id === id).map(p => p).sort(p => p.id)')).toStrictEqual([{'name':'id','type':'integer'}])

@@ -1,10 +1,10 @@
 /* eslint-disable no-tabs */
 import { Operand, OperandType } from '3xpr'
-import { SintaxisError } from '../../../../commons/domain'
+import { SintaxisError } from '../../../../shared/domain'
 import { SentenceCrudAction, SentenceAction, SchemaError, EntityMapping, RelationType } from '../../../../schema/domain'
 import { Query, Include } from '../../../../query/domain'
 import { Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update } from '../../../domain'
-import { helper } from '../../../../commons/application'
+import { helper } from '../../../../shared/application'
 
 import { DmlBuilderAdapter } from '../base/dmlBuilder'
 

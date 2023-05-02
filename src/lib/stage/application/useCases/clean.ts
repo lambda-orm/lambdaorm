@@ -3,7 +3,7 @@ import { SchemaService } from '../../../schema/application'
 import { LanguagesService, DDLBuilderService } from '../../../language/application'
 import { StageMappingService, StageModelService } from '../services/stateService'
 import { StageActionDDL } from './base/actionDDL'
-import { RouteService } from '../../../core/application'
+import { RouteService } from '../../../execution/application'
 import { QueryService } from '../../../expressions/application'
 
 export class StageClean extends StageActionDDL {

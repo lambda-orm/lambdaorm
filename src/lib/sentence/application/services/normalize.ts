@@ -1,10 +1,10 @@
 
-import { helper } from '../../../commons/application'
-import { SintaxisError } from '../../../commons/domain'
+import { helper } from '../../../shared/application'
+import { SintaxisError, IOrmExpressions } from '../../../shared/domain'
 import { Relation, SchemaError, Entity } from '../../../schema/domain'
 import { SchemaService } from '../../../schema/application'
 import { Field } from '../../domain'
-import { IExpressions, Operand, OperandType, Position, IModelService } from '3xpr'
+import { Operand, OperandType, Position, IModelService } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 /**
  *  Expression completer
@@ -13,7 +13,7 @@ export class SentenceNormalizer {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (private readonly model: IModelService,
 		private readonly schema: SchemaService,
-		private readonly expressions: IExpressions
+		private readonly expressions: IOrmExpressions
 	) {}
 
 	public normalize (operand: Operand): Operand {

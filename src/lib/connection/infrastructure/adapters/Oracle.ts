@@ -2,7 +2,7 @@
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query, Data } from '../../../query/domain'
-import { helper } from '../../../commons/application'
+import { helper } from '../../../shared/application'
 import { SchemaError, PropertyMapping } from '../../../schema/domain'
 import { Type, Primitive } from 'typ3s'
 import { ConnectionPort } from '../../application'

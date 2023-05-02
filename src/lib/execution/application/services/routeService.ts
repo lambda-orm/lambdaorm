@@ -1,14 +1,14 @@
 
-import { IExpressions } from '3xpr'
 import { ObservableAction, RuleDataSource, SchemaError } from '../../../schema/domain'
 import { SchemaService } from '../../../schema/application'
 import { ClauseInfo, ContextInfo, IRouteService } from '../../../query/domain'
+import { IOrmExpressions } from '../../../shared/domain'
 
 export class RouteService implements IRouteService {
 	private schema: SchemaService
-	private expressions: IExpressions
+	private expressions: IOrmExpressions
 
-	constructor (schema: SchemaService, expressions: IExpressions) {
+	constructor (schema: SchemaService, expressions: IOrmExpressions) {
 		this.schema = schema
 		this.expressions = expressions
 	}

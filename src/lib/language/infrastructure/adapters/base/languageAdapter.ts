@@ -1,5 +1,4 @@
-import { IExpressions } from '3xpr'
-import { NotImplemented } from '../../../../commons/domain'
+import { NotImplemented } from '../../../../shared/domain'
 import { Source } from '../../../../schema/domain'
 import { MappingConfigService } from '../../../../schema/application'
 import { DialectService, LanguagePort, DDLBuilderPort, DMLBuilderPort } from '../../../application'
@@ -8,11 +7,9 @@ export abstract class LanguageAdapter implements LanguagePort {
 	public dialects: DialectService[]
 	public name: string
 	public solveComposite?: boolean
-	protected expressions: IExpressions
 
-	constructor (name: string, dialects: any, expressions: IExpressions) {
+	constructor (name: string, dialects: any) {
 		this.name = name
-		this.expressions = expressions
 
 		this.dialects = []
 		for (const p in dialects) {

@@ -307,3 +307,6 @@ declare function max(value:any):any
 declare function min(value:any):any
 /**  */
 declare function sum(value:any):any
+
+// declare function test2(fn:(a:string)=>string):(a:string)=>string
+// declare function test2(arr:[string, number]):(a:string)=>string

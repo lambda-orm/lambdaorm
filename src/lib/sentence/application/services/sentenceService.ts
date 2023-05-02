@@ -1,18 +1,18 @@
-import { SintaxisError } from '../../../commons/domain'
-import { helper } from '../../../commons/application'
+import { SintaxisError, IOrmExpressions } from '../../../shared/domain'
+import { helper } from '../../../shared/application'
 import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Sentence } from '../../domain'
 import { ClauseInfo } from '../../../query/domain'
 import { Source, ObservableAction } from '../../../schema/domain'
-import { IExpressions, Operand, OperandSerializer } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { MemoryCache, ICache } from 'h3lp'
 import { SchemaService, ViewConfigService } from '../../../schema/application'
-import { RouteService } from '../../../core/application'
+import { RouteService } from '../../../execution/application'
 import { SentenceCompleter } from './complete'
 import { SentenceHelper } from './helper'
 import { SentenceNormalizer } from './normalize'
 import { SentenceSerializer } from './serialize'
 import { SentenceBuilder } from './builder'
+import { Operand, OperandSerializer } from '3xpr'
 
 export class SentenceService {
 	private builder: SentenceBuilder
@@ -25,7 +25,7 @@ export class SentenceService {
 	private helper:SentenceHelper
 
 	constructor (private readonly schema: SchemaService,
-		private readonly expressions: IExpressions,
+		private readonly expressions: IOrmExpressions,
 		private readonly sentenceRoute: RouteService
 	) {
 		this.helper = new SentenceHelper(this.schema.model)
@@ -44,9 +44,9 @@ export class SentenceService {
 	 * @returns Expression manager
 	 */
 	// eslint-disable-next-line @typescript-eslint/ban-types
-	public toExpression (func: Function): string {
-		return this.expressions.toExpression(func)
-	}
+	// public toExpression (func: Function): string {
+	// return this.expressions.convert(func, 'function')[0]
+	// }
 
 	public normalize (expression: string): string {
 		try {

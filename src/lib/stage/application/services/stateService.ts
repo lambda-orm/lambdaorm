@@ -1,6 +1,6 @@
 import { ModelConfig, MappingConfig, Dialect } from '../../../schema/domain'
 import { Query } from '../../../query/domain'
-import { helper } from '../../../commons/application'
+import { helper } from '../../../shared/application'
 import { SchemaService } from '../../../schema/application'
 const path = require('path')
 

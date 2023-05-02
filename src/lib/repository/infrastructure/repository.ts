@@ -1,4 +1,6 @@
-import { orm as _orm } from '../../orm/infrastructure'
+// TODO: solve
+import { orm as _orm } from '../../'
+
 import { IOrm } from '../../orm/application'
 import { Queryable, ExpressionActions } from '../domain'
 import { IRepository } from '../application'

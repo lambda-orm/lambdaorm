@@ -6,7 +6,7 @@ import {
 import { Query, ClauseInfo, IRouteService } from '../../../query/domain'
 import { Delta, ChangedValue } from 'h3lp'
 import { DDLBuilderPort } from '../ports/ddlBuilderPort'
-import { helper } from '../../../commons/application'
+import { helper } from '../../../shared/application'
 import { ModelConfigService, SchemaService } from '../../../schema/application'
 import { LanguagesService } from './languagesService'
 import { DialectService } from './dialectService'

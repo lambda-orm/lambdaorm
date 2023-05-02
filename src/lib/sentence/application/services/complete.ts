@@ -1,13 +1,14 @@
 import { Sentence, Field, Filter, Join, SentenceInclude, Insert, Update } from '../../domain'
 import { EntityMapping, SchemaError, PropertyMapping, PropertyView, SentenceAction } from '../../../schema/domain'
-import { IExpressions, Operand, OperandType } from '3xpr'
+import { Operand, OperandType } from '3xpr'
+import { IOrmExpressions } from '../../../shared/domain'
 import { Type } from 'typ3s'
 import { MappingConfigService, ViewConfigService } from '../../../schema/application'
 
 export class SentenceCompleter {
-	protected expressions: IExpressions
+	protected expressions: IOrmExpressions
 
-	constructor (expressions:IExpressions) {
+	constructor (expressions:IOrmExpressions) {
 		this.expressions = expressions
 	}
 

@@ -3,15 +3,15 @@ import { SentenceAction, RelationType, EntityMapping, Constraint, Behavior } fro
 import { MappingConfigService, SchemaService } from '../../../schema/application'
 import { ValidationError } from '../../domain'
 import { Query, Include, Data, QueryOptions } from '../../../query/domain'
-import { helper } from '../../../commons/application'
+import { helper } from '../../../shared/application'
 import { ExecutionError } from '../../../connection/domain'
 import { ConnectionService, ConnectionPort } from '../../../connection/application'
 import { LanguagesService, DialectService } from '../../../language/application'
-import { IExpressions } from '3xpr'
+import { IOrmExpressions } from '../../../shared/domain'
 
 class QuerySolveDefaults {
-	private expressions: IExpressions
-	constructor (expressions: IExpressions) {
+	private expressions: IOrmExpressions
+	constructor (expressions: IOrmExpressions) {
 		this.expressions = expressions
 	}
 
@@ -45,8 +45,8 @@ class QuerySolveDefaults {
 }
 
 class QuerySolveWriteValues {
-	private expressions: IExpressions
-	constructor (expressions: IExpressions) {
+	private expressions: IOrmExpressions
+	constructor (expressions: IOrmExpressions) {
 		this.expressions = expressions
 	}
 
@@ -68,8 +68,8 @@ class QuerySolveWriteValues {
 }
 
 class QuerySolveReadValues {
-	private expressions: IExpressions
-	constructor (expressions: IExpressions) {
+	private expressions: IOrmExpressions
+	constructor (expressions: IOrmExpressions) {
 		this.expressions = expressions
 	}
 
@@ -95,8 +95,8 @@ class QuerySolveReadValues {
 }
 
 class QueryEvalConstraints {
-	private expressions: IExpressions
-	constructor (expressions: IExpressions) {
+	private expressions: IOrmExpressions
+	constructor (expressions: IOrmExpressions) {
 		this.expressions = expressions
 	}
 
@@ -131,7 +131,7 @@ class QuerySelectExecutor {
 	public options: QueryOptions
 	private solveReadValues: QuerySolveReadValues
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: IExpressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: IOrmExpressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveReadValues = new QuerySolveReadValues(expressions)
@@ -310,7 +310,7 @@ class QueryInsertExecutor {
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: IExpressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: IOrmExpressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -382,7 +382,7 @@ class QueryBulkInsertExecutor {
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: IExpressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: IOrmExpressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -550,7 +550,7 @@ class QueryUpdateExecutor {
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: IExpressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: IOrmExpressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -638,7 +638,7 @@ export class QueryExecutor implements IQueryInternalExecutor {
 	constructor (private readonly connectionService: ConnectionService,
 	private readonly languages: LanguagesService,
   private readonly schemaService: SchemaService,
-	private readonly expressions: IExpressions,
+	private readonly expressions: IOrmExpressions,
 	public readonly options: QueryOptions,
 	private transactional = false) {
 		this.connections = {}
