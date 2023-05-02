@@ -20,11 +20,10 @@ import {
 } from '../../connection/infrastructure'
 import { SqlLanguageAdapter, NoSqlLanguageAdapter } from '../../sentence/infrastructure'
 import { IOrmExpressions } from '../../shared/domain'
-import { OrmExpressions } from '../../shared/infrastructure'
 import { Factory } from 'h3lp'
-import { expressions } from '3xpr'
+import { OrmExpressions } from '../../shared/infrastructure'
 
-const ormExpressions = new OrmExpressions(expressions)
+const ormExpressions = new OrmExpressions()
 Factory.add('orm.expressions', ormExpressions)
 /**
  * Facade through which you can access all the functionalities of the library.

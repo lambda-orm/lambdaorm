@@ -1,9 +1,10 @@
 import { FunctionAdditionalInfo, IExpressions, IModelService, Operand, OperatorAdditionalInfo, Parameter } from '3xpr'
 import { IOrmExpressions } from '../domain/expressions'
+import { Autowired } from 'h3lp'
 
 export class OrmExpressions implements IOrmExpressions {
-	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly _expressions:IExpressions) {}
+	@Autowired('expressions')
+	private readonly _expressions!:IExpressions
 
 	public get model (): IModelService {
 		return this._expressions.model
