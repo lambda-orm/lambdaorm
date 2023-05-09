@@ -2,7 +2,7 @@ import { Query, Data } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
 import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
-export interface ConnectionPort {
+export interface Connection {
 	cnx: any
 	pool: any
 	inTransaction: boolean

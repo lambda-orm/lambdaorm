@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Transaction } from '../../execution/domain'
-import { QueryService } from '../../expressions/application'
-import { Query } from '../../query/domain'
+import { Transaction } from '../../../execution/domain'
+import { Query } from '../../../query/domain'
 import { Autowired } from 'h3lp'
-import { IOrmExpressions } from '../../shared/domain'
+import { IOrmExpressions } from '../../../shared/domain'
+import { IQueryBuilder } from '../../domain'
 
 export class ExpressionTransaction {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly transaction:Transaction, private readonly queryService:QueryService) {}
+	constructor (private readonly transaction:Transaction, private readonly builder:IQueryBuilder) {}
 
 	@Autowired('orm.expressions')
 	private expressions!: IOrmExpressions
@@ -18,7 +18,7 @@ export class ExpressionTransaction {
 		if (typeof expression !== 'string') {
 			expression = this.expressions.toExpression(expression)
 		}
-		const query = this.queryService.create(expression, this.transaction.options, true)
+		const query = this.builder.build(expression, this.transaction.options)
 		return this.transaction.execute(query, data)
 	}
 

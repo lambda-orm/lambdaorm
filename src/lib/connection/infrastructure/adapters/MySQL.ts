@@ -5,7 +5,7 @@ import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query, Data } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
-import { ConnectionPort } from '../../application'
+import { Connection } from '../../application'
 import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
 
@@ -49,7 +49,7 @@ export class MySQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 		this.pool = MySQLConnectionPoolAdapter.lib.createPool({ ...this.config.connection, ...casts })
 	}
 
-	public async acquire (): Promise<ConnectionPort> {
+	public async acquire (): Promise<Connection> {
 		if (this.pool === undefined) {
 			await this.init()
 		}
@@ -57,7 +57,7 @@ export class MySQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 		return new MySqlConnectionAdapter(cnx, this)
 	}
 
-	public async release (connection: ConnectionPort): Promise<void> {
+	public async release (connection: Connection): Promise<void> {
 		await connection.cnx.release()
 	}
 

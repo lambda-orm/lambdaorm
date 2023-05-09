@@ -4,7 +4,7 @@ import { StageActionDDL } from './base/actionDDL'
 
 export class StageTruncate extends StageActionDDL {
 	public override async queries (): Promise<Query[]> {
-		const state = await this.stateService.get(this.options.stage as string)
+		const state = await this.stageModelService.get(this.options.stage as string)
 		if (state && state.mappings) {
 			return new DDLBuilderService(this.schemaService, this.sentenceRoute, this.languages, this.options.stage as string).truncate(state.mappings)
 		}
@@ -14,7 +14,7 @@ export class StageTruncate extends StageActionDDL {
 	public override async execute (): Promise<ExecuteResult[]> {
 		const queries = await this.queries()
 		const result = await this.queryService.executeList(queries, this.options)
-		await this.stateService.ddl(this.options.stage as string, 'truncate', queries)
+		await this.stageModelService.ddl(this.options.stage as string, 'truncate', queries)
 		return result
 	}
 }

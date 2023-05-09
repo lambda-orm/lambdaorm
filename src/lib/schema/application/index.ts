@@ -1,1 +1,2 @@
-export * from './services/config'
+export * from './ports/fileSchemaReader'
+export * from './facade'

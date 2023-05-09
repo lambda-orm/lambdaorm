@@ -1,4 +1,4 @@
-import { ObservableAction } from '../../schema/domain'
+import { ObservableAction } from '.'
 export interface ClauseInfo {
 	entity: string
 	action: ObservableAction

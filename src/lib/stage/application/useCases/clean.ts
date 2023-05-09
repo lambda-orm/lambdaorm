@@ -14,7 +14,7 @@ export class StageClean extends StageActionDDL {
 	}
 
 	public override async queries (): Promise<Query[]> {
-		const state = await this.stateService.get(this.options.stage as string)
+		const state = await this.stageModelService.get(this.options.stage as string)
 		if (state && state.mappings) {
 			return new DDLBuilderService(this.schemaService, this.sentenceRoute, this.languages, this.options.stage as string).drop(state.mappings)
 		}
@@ -24,9 +24,9 @@ export class StageClean extends StageActionDDL {
 	public override async execute (): Promise<ExecuteResult[]> {
 		const queries = await this.queries()
 		const result = await this.queryService.executeList(queries, this.options)
-		await this.stateService.remove(this.options.stage as string)
+		await this.stageModelService.remove(this.options.stage as string)
 		await this.mappingService.remove(this.options.stage as string)
-		await this.stateService.ddl(this.options.stage as string, 'clean', queries)
+		await this.stageModelService.ddl(this.options.stage as string, 'clean', queries)
 		return result
 	}
 }

@@ -4,13 +4,11 @@ import { Operand, OperandType } from '3xpr'
 import { IOrmExpressions } from '../../../shared/domain'
 import { Type } from 'typ3s'
 import { MappingConfigService, ViewConfigService } from '../../../schema/application'
+import { Autowired } from 'h3lp'
 
 export class SentenceCompleter {
-	protected expressions: IOrmExpressions
-
-	constructor (expressions:IOrmExpressions) {
-		this.expressions = expressions
-	}
+	@Autowired('orm.expressions')
+	private expressions!:IOrmExpressions
 
 	public complete (mapping: MappingConfigService, view: ViewConfigService, sentence: Sentence) {
 		const entity = mapping.getEntity(sentence.entity) as EntityMapping

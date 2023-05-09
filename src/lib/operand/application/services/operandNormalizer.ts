@@ -2,19 +2,20 @@
 import { helper } from '../../../shared/application'
 import { SintaxisError, IOrmExpressions } from '../../../shared/domain'
 import { Relation, SchemaError, Entity } from '../../../schema/domain'
-import { SchemaService } from '../../../schema/application'
-import { Field } from '../../domain'
-import { Operand, OperandType, Position, IModelService } from '3xpr'
+import { ModelConfigService } from '../../../schema/application'
+import { Field } from '../../../sentence/domain'
+import { Operand, OperandType, Position } from '3xpr'
 import { Type, Primitive } from 'typ3s'
+import { Autowired } from 'h3lp'
 /**
  *  Expression completer
  */
-export class SentenceNormalizer {
+export class OrmOperandNormalizer {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (private readonly model: IModelService,
-		private readonly schema: SchemaService,
-		private readonly expressions: IOrmExpressions
-	) {}
+	public constructor (private readonly modelConfigService: ModelConfigService) {}
+
+	@Autowired('orm.expressions')
+	private expressions!:IOrmExpressions
 
 	public normalize (operand: Operand): Operand {
 		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter
@@ -35,12 +36,12 @@ export class SentenceNormalizer {
 
 	private normalizeOperand (operand: Operand): void {
 		if (operand.type === OperandType.Arrow || operand.type === OperandType.ChildFunc || operand.type === OperandType.CallFunc) {
-			const alias = this.model.functionAlias.find(p => p[0] === operand.name)
+			const alias = this.expressions.model.functionAlias.find(p => p[0] === operand.name)
 			if (alias) {
 				operand.name = alias[1]
 			}
 		} else if (operand.type === OperandType.Operator) {
-			const alias = this.model.operatorAlias.find(p => p[0] === operand.name)
+			const alias = this.expressions.model.operatorAlias.find(p => p[0] === operand.name)
 			if (alias) {
 				operand.name = alias[1]
 			}
@@ -74,7 +75,7 @@ export class SentenceNormalizer {
 	private normalizeSentence (mainOperand: Operand, entityName?: string): void {
 		let compeleInclude: any
 		const clauses: any = this.getClauses(mainOperand)
-		const entity = this.schema.model.getForcedEntity(entityName || clauses.from.name)
+		const entity = this.modelConfigService.getForcedEntity(entityName || clauses.from.name)
 		if (clauses.insert) {
 			compeleInclude = this.completeInsertInclude
 			this.normalizeInsert(entity, clauses.insert)
@@ -486,7 +487,7 @@ export class SentenceNormalizer {
 		const clauses: any = this.getClauses(map)
 		const childFilter = clauses.filter
 		const arrowFilterVar = childFilter ? childFilter.children[1].name : 'p'
-		const propertyTo = this.schema.model.getProperty(relation.entity, relation.to)
+		const propertyTo = this.modelConfigService.getProperty(relation.entity, relation.to)
 		const fieldRelation = new Field(operand.pos, relation.entity, arrowFilterVar + '.' + relation.to, Type.to(propertyTo.type))
 		// new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping)
 		const varRelation = new Operand(operand.pos, 'LambdaOrmParentId', OperandType.Var, [], Type.List(Type.to(propertyTo.type)))

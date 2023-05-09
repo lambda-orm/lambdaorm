@@ -128,13 +128,13 @@ export interface Source {
 	mapping: string
 	connection: any
 }
-export interface RuleDataSource {
+export interface DataSourceRule {
 	name: string
 	condition?: string
 }
 export interface Stage {
 	name: string
-	sources: RuleDataSource[]
+	sources: DataSourceRule[]
 }
 export interface ListenerConfig {
 	name: string

@@ -5,7 +5,7 @@ import { ValidationError } from '../../domain'
 import { Query, Include, Data, QueryOptions } from '../../../query/domain'
 import { helper } from '../../../shared/application'
 import { ExecutionError } from '../../../connection/domain'
-import { ConnectionService, ConnectionPort } from '../../../connection/application'
+import { ConnectionFacade, Connection } from '../../../connection/application'
 import { LanguagesService, DialectService } from '../../../language/application'
 import { IOrmExpressions } from '../../../shared/domain'
 
@@ -137,7 +137,7 @@ class QuerySelectExecutor {
 		this.solveReadValues = new QuerySolveReadValues(expressions)
 	}
 
-	public async select (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: ConnectionPort): Promise<any> {
+	public async select (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<any> {
 		const mainResult = await connection.select(mapping, dialect, query, data)
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
@@ -154,7 +154,7 @@ class QuerySelectExecutor {
 		return mainResult
 	}
 
-	private async selectIncludes (query: Query, data: Data, mainResult: any, dialect: DialectService, connection: ConnectionPort): Promise<any> {
+	private async selectIncludes (query: Query, data: Data, mainResult: any, dialect: DialectService, connection: Connection): Promise<any> {
 		const idsChunkSize = this.options.chunkSize ? Math.min(connection.maxChunkSizeIdsOnSelect, this.options.chunkSize) : connection.maxChunkSizeIdsOnSelect
 		const chunkSize = this.options.chunkSize ? Math.min(connection.maxChunkSizeOnSelect, this.options.chunkSize) : connection.maxChunkSizeOnSelect
 		for (const include of query.includes) {
@@ -319,7 +319,7 @@ class QueryInsertExecutor {
 		this.constraints = new QueryEvalConstraints(expressions)
 	}
 
-	public async insert (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: ConnectionPort): Promise<any> {
+	public async insert (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<any> {
 		// before insert the relationships of the type oneToOne and oneToMany
 		const autoIncrement = mapping.getAutoIncrement(query.entity)
 		const entity = mapping.getEntity(query.entity) as EntityMapping
@@ -391,7 +391,7 @@ class QueryBulkInsertExecutor {
 		this.constraints = new QueryEvalConstraints(expressions)
 	}
 
-	public async bulkInsert (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: ConnectionPort): Promise<any[]> {
+	public async bulkInsert (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<any[]> {
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
 		// before insert the relationships of the type oneToMany and oneToOne with relation required
@@ -530,7 +530,7 @@ class QueryBulkInsertExecutor {
 		}
 	}
 
-	private async _chunkInsert (query: Query, entity: EntityMapping, chunk: any[], mapping: MappingConfigService, dialect: DialectService, connection: ConnectionPort): Promise<any[]> {
+	private async _chunkInsert (query: Query, entity: EntityMapping, chunk: any[], mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<any[]> {
 		// solve default properties
 		if (entity.hadDefaults) {
 			this.solveDefaults.solve(query, chunk)
@@ -558,7 +558,7 @@ class QueryUpdateExecutor {
 		this.constraints = new QueryEvalConstraints(expressions)
 	}
 
-	public async update (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: ConnectionPort): Promise<number> {
+	public async update (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<number> {
 		const entity = mapping.getEntity(query.entity)
 		// solve default properties
 		if (entity && entity.hadWriteValues) {
@@ -600,7 +600,7 @@ class QueryDeleteExecutor {
 		this.executor = executor
 	}
 
-	public async delete (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: ConnectionPort): Promise<number> {
+	public async delete (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<number> {
 		// before remove relations entities
 		for (const include of query.includes) {
 			if (!include.relation.composite || !dialect.solveComposite) {
@@ -635,7 +635,7 @@ export class QueryExecutor implements IQueryInternalExecutor {
 	private updateExecutor: QueryUpdateExecutor
 	private deleteExecutor: QueryDeleteExecutor
 
-	constructor (private readonly connectionService: ConnectionService,
+	constructor (private readonly connectionFacade: ConnectionFacade,
 	private readonly languages: LanguagesService,
   private readonly schemaService: SchemaService,
 	private readonly expressions: IOrmExpressions,
@@ -649,10 +649,10 @@ export class QueryExecutor implements IQueryInternalExecutor {
 		this.deleteExecutor = new QueryDeleteExecutor(this, this.options)
 	}
 
-	private async getConnection (source: string): Promise<ConnectionPort> {
+	private async getConnection (source: string): Promise<Connection> {
 		let connection = this.connections[source]
 		if (connection === undefined) {
-			connection = await this.connectionService.acquire(source)
+			connection = await this.connectionFacade.acquire(source)
 			if (this.transactional) {
 				await connection.beginTransaction()
 			}
@@ -678,7 +678,7 @@ export class QueryExecutor implements IQueryInternalExecutor {
 	public async release (): Promise<void> {
 		for (const p in this.connections) {
 			const connection = this.connections[p]
-			await this.connectionService.release(connection)
+			await this.connectionFacade.release(connection)
 		}
 		this.connections = {}
 	}

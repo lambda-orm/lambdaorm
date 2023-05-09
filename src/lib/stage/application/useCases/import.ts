@@ -1,12 +1,12 @@
 
 import { StageActionDML } from './base/actionDML'
 import { SchemaConfig, MappingConfig, Entity, SchemaError, Relation } from '../../../schema/domain'
-import { ExpressionTransaction } from '../../../expressions/domain'
+import { ExpressionTransaction } from '../../../expressions/application'
 import { Query } from '../../../query/domain'
 
 export class StageImport extends StageActionDML {
 	public async execute (data: SchemaConfig): Promise<void> {
-		const state = await this.stateService.get(this.options.stage as string)
+		const state = await this.stageMappingService.get(this.options.stage as string)
 		const _queries = this.queries()
 		const queries = this.sort(_queries)
 
@@ -37,7 +37,7 @@ export class StageImport extends StageActionDML {
 				pending.rows = await this.executePendingRows(state, entity, relation, tr, pending.rows)
 			}
 		})
-		await this.stateService.update(this.options.stage as string, state)
+		await this.stageMappingService.update(this.options.stage as string, state)
 	}
 
 	private async executePendingRows (state:MappingConfig, entity:Entity, relation:Relation, tr:ExpressionTransaction, rows:any[]):Promise<any[]> {

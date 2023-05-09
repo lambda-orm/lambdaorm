@@ -9,7 +9,7 @@ import { helper } from '../../../shared/application'
 import { SchemaError, RelationType, EntityMapping } from '../../../schema/domain'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
-import { ConnectionPort } from '../../application'
+import { Connection } from '../../application'
 import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
 
@@ -26,7 +26,7 @@ export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 		console.log(`connection MongoDB: ${this.config.name} initialized`)
 	}
 
-	public async acquire (): Promise<ConnectionPort> {
+	public async acquire (): Promise<Connection> {
 		const client = await MongoDBConnectionPoolAdapter.lib.MongoClient.connect(this.config.connection.url)
 		const db = client.db(this.config.connection.database)
 		const cnx = { client, db }
@@ -34,7 +34,7 @@ export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async release (connection: ConnectionPort): Promise<void> {
+	public async release (connection: Connection): Promise<void> {
 		connection.cnx.client.close()
 	}
 

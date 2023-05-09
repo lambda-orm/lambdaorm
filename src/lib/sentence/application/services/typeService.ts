@@ -12,7 +12,7 @@ export class SentenceTypeService extends TypeService {
 		this.config = config
 	}
 
-	public override getType (operand: Operand) {
+	public override getType (operand: Operand):Type {
 		if (operand instanceof Sentence) {
 			const sentence = operand as Sentence
 			this.solveSentence(sentence)

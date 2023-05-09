@@ -1,242 +1,165 @@
-import { SintaxisError, IOrmExpressions } from '../../../shared/domain'
-import { helper } from '../../../shared/application'
-import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Sentence } from '../../domain'
-import { ClauseInfo } from '../../../query/domain'
-import { Source, ObservableAction } from '../../../schema/domain'
-import { Type, Primitive } from 'typ3s'
-import { MemoryCache, ICache } from 'h3lp'
-import { SchemaService, ViewConfigService } from '../../../schema/application'
-import { RouteService } from '../../../execution/application'
-import { SentenceCompleter } from './complete'
-import { SentenceHelper } from './helper'
-import { SentenceNormalizer } from './normalize'
-import { SentenceSerializer } from './serialize'
-import { SentenceBuilder } from './builder'
-import { Operand, OperandSerializer } from '3xpr'
+// import { ObservableAction, Source } from '../../../schema/domain'
+// import { RouteService } from '../../../execution/application/services/routeService'
+// import { ClauseInfo, IRouteService } from '../../../query/domain'
+// import { SchemaService } from '../../../schema/application'
+// import { Sentence } from '../../domain'
+// export class SentenceService {
+// private routeService: IRouteService
+// constructor (private readonly schemaService: SchemaService) {
+// this.routeService = new RouteService(this.schemaService.stage)
+// }
 
-export class SentenceService {
-	private builder: SentenceBuilder
-	private completer: SentenceCompleter
-	private operandCache: ICache<number, string>
-	private sentenceCache: ICache<string, string>
-	private serializer:SentenceSerializer
-	private operandSerializer:OperandSerializer
-	private normalizer: SentenceNormalizer
-	private helper:SentenceHelper
+// public getSource (sentence: Sentence, stage: string): Source {
+// const sentenceInfo: ClauseInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
+// const sourceName = this.routeService.getSource(sentenceInfo, stage)
+// return this.schemaService.source.get(sourceName)
+// }
+// }
 
-	constructor (private readonly schema: SchemaService,
-		private readonly expressions: IOrmExpressions,
-		private readonly sentenceRoute: RouteService
-	) {
-		this.helper = new SentenceHelper(this.schema.model)
-		this.builder = new SentenceBuilder(schema, expressions, this.helper)
-		this.completer = new SentenceCompleter(expressions)
-		this.operandCache = new MemoryCache<number, string>()
-		this.sentenceCache = new MemoryCache<string, string>()
-		this.serializer = new SentenceSerializer()
-		this.operandSerializer = new OperandSerializer()
-		this.normalizer = new SentenceNormalizer(expressions.model, schema, expressions)
-	}
+// import { SintaxisError, IOrmExpressions } from '../../../shared/domain'
+// import { helper } from '../../../shared/application'
+// import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Sentence } from '../../domain'
+// import { ClauseInfo } from '../../../query/domain'
+// import { Source, ObservableAction } from '../../../schema/domain'
+// import { Type, Primitive } from 'typ3s'
+// import { MemoryCache, ICache } from 'h3lp'
+// import { SchemaService, ViewConfigService } from '../../../schema/application'
+// import { RouteService } from '../../../execution/application'
+// import { SentenceCompleter } from './sentenceCompleter'
+// import { SentenceHelper } from './helper'
+// import { OrmOperandNormalizer } from './normalizer'
+// import { SentenceSerializer } from './serialize'
+// import { SentenceBuilder } from './sentenceBuilder'
+// import { Operand, OperandSerializer } from '3xpr'
 
-	/**
-	 * Convert a lambda expression to a query expression
-	 * @param lambda lambda expression
-	 * @returns Expression manager
-	 */
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	// public toExpression (func: Function): string {
-	// return this.expressions.convert(func, 'function')[0]
-	// }
+// export class SentenceService {
+// private builder: SentenceBuilder
+// private completer: SentenceCompleter
+// private operandCache: ICache<number, string>
+// private sentenceCache: ICache<string, string>
+// private serializer:SentenceSerializer
+// private operandSerializer:OperandSerializer
+// private normalizer: OrmOperandNormalizer
+// private helper:SentenceHelper
 
-	public normalize (expression: string): string {
-		try {
-			const operand = this.toOperand(expression, true)
-			const result = this.helper.toExpression(operand)
-			return result
-		} catch (error: any) {
-			throw new SintaxisError('complete expression: ' + expression + ' error: ' + error.toString())
-		}
-	}
+// constructor (private readonly schema: SchemaService,
+// private readonly expressions: IOrmExpressions,
+// private readonly sentenceRoute: RouteService
+// ) {
+// this.helper = new SentenceHelper(this.schema.model)
+// this.builder = new SentenceBuilder(this.schema.model)
+// this.completer = new SentenceCompleter(expressions)
+// this.operandCache = new MemoryCache<number, string>()
+// this.sentenceCache = new MemoryCache<string, string>()
+// this.serializer = new SentenceSerializer()
+// this.operandSerializer = new OperandSerializer()
+// this.normalizer = new OrmOperandNormalizer(this.schema.model)
+// }
 
-	/**
-	 * Get model of expression
-	 * @param expression expression
-	 * @returns Model of expression
-	 */
-	public model (expression: string): MetadataModel[] {
-		const sentence = this.toSentence(expression, true)
-		return this.modelFromSentence(sentence)
-	}
+// /**
+//  * Convert a lambda expression to a query expression
+//  * @param lambda lambda expression
+//  * @returns Expression manager
+//  */
+// // eslint-disable-next-line @typescript-eslint/ban-types
+// // public toExpression (func: Function): string {
+// // return this.expressions.convert(func, 'function')[0]
+// // }
 
-	/**
-	 * Get constraints of expression
-	 * @param expression expression
-	 * @returns constraints
-	 */
-	public constraints (expression: string): MetadataConstraint {
-		const sentence = this.toSentence(expression, true)
-		return this.constraintsFromSentence(sentence)
-	}
+// // public normalize (expression: string): string {
+// // try {
+// // const operand = this.toOperand(expression, true)
+// // const result = this.helper.toExpression(operand)
+// // return result
+// // } catch (error: any) {
+// // throw new SintaxisError('normalize expression: ' + expression + ' error: ' + error.toString())
+// // }
+// // }
 
-	/**
-	 * Get parameters of expression
-	 * @param expression  expression
-	 * @returns Parameters of expression
-	 */
-	public parameters (expression: string): MetadataParameter[] {
-		const sentence = this.toSentence(expression, true)
-		return this.parametersFromSentence(sentence)
-	}
+// /**
+//  * Get model of expression
+//  * @param expression expression
+//  * @returns Model of expression
+//  */
+// // public model (expression: string): MetadataModel[] {
+// // const sentence = this.toSentence(expression, true)
+// // return this.modelFromSentence(sentence)
+// // }
 
-	/**
-	 * Get metadata of expression
-	 * @param expression expression
-	 * @returns metadata of expression
-	 */
-	public metadata (expression: string): Metadata {
-		const sentence = this.toSentence(expression, true)
-		return this.metadataFromSentence(sentence)
-	}
+// /**
+//  * Get constraints of expression
+//  * @param expression expression
+//  * @returns constraints
+//  */
+// // public constraints (expression: string): MetadataConstraint {
+// // const sentence = this.toSentence(expression, true)
+// // return this.constraintsFromSentence(sentence)
+// // }
 
-	public create (expression: string, view: ViewConfigService, stage:string, useCache:boolean): Sentence {
-		if (!useCache) {
-			const sentence = this.toSentence(expression, false)
-			this.complete(sentence, view, stage)
-			return sentence
-		}
-		const expressionKey = helper.utils.hashCode(expression)
-		const key = `${expressionKey}-${stage}-${view.name}`
-		const value = this.sentenceCache.get(key)
-		if (value) {
-			return this.serializer.deserialize(value)
-		}
-		const sentence = this.toSentence(expression, false)
-		this.complete(sentence, view, stage)
-		this.sentenceCache.set(key, this.serializer.serialize(sentence))
-		return sentence
-	}
+// /**
+//  * Get parameters of expression
+//  * @param expression  expression
+//  * @returns Parameters of expression
+//  */
+// // public parameters (expression: string): MetadataParameter[] {
+// // const sentence = this.toSentence(expression, true)
+// // return this.parametersFromSentence(sentence)
+// // }
 
-	public getDataSource (sentence: Sentence, stage: string): Source {
-		const sentenceInfo: ClauseInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
-		const sourceName = this.sentenceRoute.getSource(sentenceInfo, stage)
-		return this.schema.source.get(sourceName)
-	}
+// /**
+//  * Get metadata of expression
+//  * @param expression expression
+//  * @returns metadata of expression
+//  */
+// // public metadata (expression: string): Metadata {
+// // const sentence = this.toSentence(expression, true)
+// // return this.metadataFromSentence(sentence)
+// // }
 
-	private toOperand (expression: string, useCache:boolean): Operand {
-		if (!useCache) {
-			const operand = this.expressions.build(expression, false)
-			const normalized = this.normalizer.normalize(operand)
-			return normalized
-		}
-		const key = helper.utils.hashCode(expression)
-		const value = this.operandCache.get(key)
-		if (value) {
-			return this.operandSerializer.deserialize(value)
-		}
-		const operand = this.expressions.build(expression, false)
-		const normalized = this.normalizer.normalize(operand)
-		this.operandCache.set(key, this.operandSerializer.serialize(normalized))
-		return normalized
-	}
+// public create (expression: string, view: ViewConfigService, stage:string, useCache:boolean): Sentence {
+// if (!useCache) {
+// const sentence = this.toSentence(expression, false)
+// this.complete(sentence, view, stage)
+// return sentence
+// }
+// const expressionKey = helper.utils.hashCode(expression)
+// const key = `${expressionKey}-${stage}-${view.name}`
+// const value = this.sentenceCache.get(key)
+// if (value) {
+// return this.serializer.deserialize(value)
+// }
+// const sentence = this.toSentence(expression, false)
+// this.complete(sentence, view, stage)
+// this.sentenceCache.set(key, this.serializer.serialize(sentence))
+// return sentence
+// }
 
-	private toSentence (expression: string, useCache:boolean): Sentence {
-		const operand = this.toOperand(expression, useCache)
-		const sentence = this.builder.build(operand)
-		return sentence
-	}
+// public getDataSource (sentence: Sentence, stage: string): Source {
+// const sentenceInfo: ClauseInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
+// const sourceName = this.sentenceRoute.getSource(sentenceInfo, stage)
+// return this.schema.source.get(sourceName)
+// }
 
-	private metadataFromSentence (sentence: Sentence): Metadata {
-		const children: Metadata[] = []
-		for (const sentenceInclude of sentence.getIncludes()) {
-			const child = this.metadataFromSentence(sentenceInclude.children[0] as Sentence)
-			children.push(child)
-		}
-		return {
-			classtype: sentence.constructor.name,
-			pos: sentence.pos,
-			name: sentence.name,
-			children,
-			type: Type.stringify(sentence.returnType),
-			entity: sentence.entity,
-			columns: sentence.columns,
-			// property: sentence.p
-			parameters: sentence.parameters,
-			constraints: sentence.constraints,
-			values: sentence.values,
-			defaults: sentence.defaults,
-			// relation: sentence.rel,
-			clause: sentence.action,
-			alias: sentence.alias,
-			// isRoot: sentence.
-			number: sentence.number
-		}
-	}
+// private toOperand (expression: string, useCache:boolean): Operand {
+// if (!useCache) {
+// const operand = this.expressions.build(expression, false)
+// const normalized = this.normalizer.normalize(operand)
+// return normalized
+// }
+// const key = helper.utils.hashCode(expression)
+// const value = this.operandCache.get(key)
+// if (value) {
+// return this.operandSerializer.deserialize(value)
+// }
+// const operand = this.expressions.build(expression, false)
+// const normalized = this.normalizer.normalize(operand)
+// this.operandCache.set(key, this.operandSerializer.serialize(normalized))
+// return normalized
+// }
 
-	private complete (sentence: Sentence, view: ViewConfigService, stage: string): void {
-		const sentenceIncludes = sentence.getIncludes()
-		for (const p in sentenceIncludes) {
-			const sentenceInclude = sentenceIncludes[p]
-			this.complete(sentenceInclude.children[0] as Sentence, view, stage)
-		}
-		const source = this.getDataSource(sentence, stage)
-		const mapping = this.schema.mapping.getInstance(source.mapping)
-		this.completer.complete(mapping, view, sentence)
-	}
-
-	private modelFromSentence (sentence: Sentence): MetadataModel[] {
-		const result: MetadataModel[] = []
-		for (const column of sentence.columns) {
-			if (!column.name.startsWith('__')) {
-				result.push({ name: column.name, type: column.type })
-			}
-		}
-		const includes = sentence.getIncludes()
-		for (const p in includes) {
-			const include = includes[p]
-			const childType = include.relation.entity + (include.relation.type === 'manyToOne' ? '[]' : '')
-			const child: MetadataModel = { name: include.relation.name, type: childType, children: [] }
-			child.children = this.modelFromSentence(include.children[0] as Sentence)
-			result.push(child)
-		}
-		return result
-	}
-
-	private parametersFromSentence (sentence: Sentence): MetadataParameter[] {
-		const parameters: MetadataParameter[] = []
-		for (const parameter of sentence.parameters) {
-			if (parameters.find(p => p.name === parameter.name) === undefined) {
-				parameters.push({ name: parameter.name, type: parameter.type ? parameter.type : Primitive.any })
-			}
-		}
-		const includes = sentence.getIncludes()
-		for (const p in includes) {
-			const include = includes[p]
-			const relationParameter: MetadataParameter = {
-				name: include.relation.name,
-				type: include.relation.entity,
-				children: []
-			}
-			const children = this.parametersFromSentence(include.children[0] as Sentence)
-			for (const q in children) {
-				const child = children[q]
-				relationParameter.children?.push(child)
-			}
-			parameters.push(relationParameter)
-		}
-		return parameters
-	}
-
-	private constraintsFromSentence (sentence: Sentence): MetadataConstraint {
-		const result: MetadataConstraint = { entity: sentence.entity, constraints: sentence.constraints }
-		const includes = sentence.getIncludes()
-		for (const p in includes) {
-			const include = includes[p]
-			const child = this.constraintsFromSentence(include.children[0] as Sentence)
-			if (!result.children) {
-				result.children = []
-			}
-			result.children.push(child)
-		}
-		return result
-	}
-}
+// private toSentence (expression: string, useCache:boolean): Sentence {
+// const operand = this.toOperand(expression, useCache)
+// const sentence = this.builder.build(operand)
+// return sentence
+// }
+// }

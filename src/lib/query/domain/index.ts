@@ -1,4 +1,3 @@
 export * from './data'
 export * from './query'
-export * from './info'
-export * from './services'
+export * from '../../schema/domain/services'

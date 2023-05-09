@@ -3,20 +3,20 @@ import { Query, QueryOptions } from '../../../../query/domain'
 import { ModelConfigService } from '../../../../schema/application'
 import { QueryService } from '../../../../expressions/application'
 import { StageMappingService } from '../../services/stateService'
-import { SentenceService } from '../../../../sentence/application'
+// import { SentenceService } from '../../../../sentence/application'
 export abstract class StageActionDML {
-	protected stateService: StageMappingService
+	protected stageMappingService: StageMappingService
 	protected model: ModelConfigService
 	protected queryService: QueryService
 	protected options: QueryOptions
-	protected sentenceService: SentenceService
+	// protected sentenceService: SentenceService
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (stateService: StageMappingService, model: ModelConfigService, queryService: QueryService, sentenceService: SentenceService, options: QueryOptions) {
-		this.stateService = stateService
+	constructor (stageMappingService: StageMappingService, model: ModelConfigService, queryService: QueryService, options: QueryOptions) {
+		this.stageMappingService = stageMappingService
 		this.model = model
 		this.queryService = queryService
 		this.options = options
-		this.sentenceService = sentenceService
+		// this.sentenceService = sentenceService
 	}
 
 	public async sentence (): Promise<any> {

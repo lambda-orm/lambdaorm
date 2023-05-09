@@ -1,12 +1,15 @@
 /* eslint-disable no-case-declarations */
 import { SintaxisError, IOrmExpressions } from '../../../shared/domain'
 import { SentenceAction, Property, Behavior, Constraint, Entity } from '../../../schema/domain'
-import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../../domain/operands'
+import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../../domain/sentence'
 import { Operand, Parameter, OperandType, Position, ITypeService } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { SentenceTypeService } from './typeService'
-import { SentenceHelper } from './helper'
+import { SentenceHelper } from './sentenceHelper'
 import { ModelConfigService, SchemaService } from '../../../schema/application'
+import { Autowired } from 'h3lp'
+import { ISentenceBuilder } from '../../domain'
+import { OperandFacade } from '../../../operand/application'
 
 interface AsteriskField {
 	index:number
@@ -46,15 +49,11 @@ class ExpressionContext {
 	}
 }
 class SentenceSolveConstraints {
-	private helper: SentenceHelper
-	private modelConfig: ModelConfigService
-	private expressions: IOrmExpressions
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly modelConfig: ModelConfigService, private readonly helper: SentenceHelper) {}
 
-	constructor (modelConfig: ModelConfigService, helper: SentenceHelper, expressions: IOrmExpressions) {
-		this.modelConfig = modelConfig
-		this.helper = helper
-		this.expressions = expressions
-	}
+	@Autowired('orm.expressions')
+	private expressions!:IOrmExpressions
 
 	public solve (sentence:Sentence): void {
 		if (sentence.name === SentenceAction.update ||
@@ -210,18 +209,26 @@ class SentenceSolveBehaviors {
 		return behaviors
 	}
 }
-export class SentenceBuilder {
+export class SentenceBuilder implements ISentenceBuilder {
 	private typeService: ITypeService
+	private helper:SentenceHelper
 	private solveBehaviors: SentenceSolveBehaviors
 	private solveConstraints : SentenceSolveConstraints
+	private modelConfigService: ModelConfigService
 
-	constructor (private readonly schema: SchemaService, private readonly expressions: IOrmExpressions, private readonly helper:SentenceHelper) {
-		this.typeService = new SentenceTypeService(this.schema.model)
-		this.solveBehaviors = new SentenceSolveBehaviors(this.schema.model, this.helper)
-		this.solveConstraints = new SentenceSolveConstraints(this.schema.model, this.helper, expressions)
+	constructor (private readonly schemaService: SchemaService, private readonly operandFacade:OperandFacade) {
+		this.modelConfigService = this.schemaService.model
+		this.typeService = new SentenceTypeService(this.schemaService.model)
+		this.helper = new SentenceHelper(this.schemaService)
+		this.solveBehaviors = new SentenceSolveBehaviors(this.schemaService.model, this.helper)
+		this.solveConstraints = new SentenceSolveConstraints(this.modelConfigService, this.helper)
 	}
 
-	public build (operand: Operand): Sentence {
+	@Autowired('orm.expressions')
+	private expressions!:IOrmExpressions
+
+	public build (expression: string): Sentence {
+		const operand = this.operandFacade.build(expression)
 		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter
 		const cloned = this.expressions.clone(operand)
 		const sentence = this.createSentence(cloned, new ExpressionContext(new EntityContext())) as Sentence
@@ -230,7 +237,7 @@ export class SentenceBuilder {
 
 	private createSentence (operand: Operand, expressionContext: ExpressionContext): Sentence {
 		expressionContext.current = new EntityContext(expressionContext.current)
-		const clauses: any = this.helper.getClauses(operand)
+		const clauses: any = this.operandFacade.getClauses(operand)
 		expressionContext.current.entityName = clauses.from.name
 		// expressionContext.curreOrders.bulkInsert().include(p => [p.details, p.customer])nt.metadata = this.modelConfig.getEntity(expressionContext.current.entityName)
 		expressionContext.current.alias = this.createAlias(expressionContext, expressionContext.current.entityName)
@@ -389,7 +396,7 @@ export class SentenceBuilder {
 
 	private createSentenceAddJoins (pos:Position, expressionContext: ExpressionContext, children: Operand[]):void {
 		for (const key in expressionContext.current.joins) {
-			const info = this.schema.model.getRelation(expressionContext.current.entityName, key)
+			const info = this.modelConfigService.getRelation(expressionContext.current.entityName, key)
 			const relatedEntity = info.previousEntity.name
 			const relatedAlias = info.previousRelation !== '' ? expressionContext.current.joins[info.previousRelation] : expressionContext.current.alias
 			const relatedProperty = info.previousEntity.properties.find(p => p.name === info.relation.from) as Property
@@ -456,7 +463,7 @@ export class SentenceBuilder {
 				// p.details
 				const parts = current.name.split('.')
 				const relationName = parts[1]
-				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, relationName)
+				const relationInfo = this.modelConfigService.getRelation(expressionContext.current.entityName, relationName)
 				current.name = relationInfo.entity.name
 				const child = this.createSentence(operand, expressionContext)
 				return new SentenceInclude(current.pos, relationInfo.relation.name, [child], relationInfo.relation)
@@ -478,7 +485,7 @@ export class SentenceBuilder {
 				// p.details
 				const parts = current.name.split('.')
 				const relationName = parts[1]
-				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, relationName)
+				const relationInfo = this.modelConfigService.getRelation(expressionContext.current.entityName, relationName)
 				current.name = relationInfo.entity.name
 				const child = this.createSentence(operand, expressionContext)
 				return new SentenceInclude(current.pos, relationName, [child], relationInfo.relation)
@@ -524,11 +531,11 @@ export class SentenceBuilder {
 		if (_field) {
 			return new Field(pos, expressionContext.current.entityName, _field.name, Type.to(_field.type), expressionContext.current.alias, true)
 		} else {
-			if (this.schema.model.existsProperty(expressionContext.current.entityName, parts[1])) {
-				const property = this.schema.model.getProperty(expressionContext.current.entityName, parts[1])
+			if (this.modelConfigService.existsProperty(expressionContext.current.entityName, parts[1])) {
+				const property = this.modelConfigService.getProperty(expressionContext.current.entityName, parts[1])
 				return new Field(pos, expressionContext.current.entityName, property.name, Type.to(property.type), expressionContext.current.alias, true)
 			} else {
-				const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, parts[1])
+				const relationInfo = this.modelConfigService.getRelation(expressionContext.current.entityName, parts[1])
 				if (relationInfo) {
 					const relation = this.addJoins(parts, parts.length, expressionContext)
 					const relationAlias = expressionContext.current.joins[relation]
@@ -546,7 +553,7 @@ export class SentenceBuilder {
 	private createRelationField (pos: Position, parts: string[], expressionContext: ExpressionContext, enableAsteriskField:boolean): Operand {
 		const propertyName = parts[parts.length - 1]
 		const relation = this.addJoins(parts, parts.length - 1, expressionContext)
-		const info = this.schema.model.getRelation(expressionContext.current.entityName, relation)
+		const info = this.modelConfigService.getRelation(expressionContext.current.entityName, relation)
 		const relationAlias = expressionContext.current.joins[relation]
 		const property = info.entity.properties.find(p => p.name === propertyName)
 		if (property) {
@@ -576,7 +583,7 @@ export class SentenceBuilder {
 					const field = keyVal.children[0]
 					if (expressionContext.current.alias === field.alias) {
 						const asteriskField:AsteriskField = { index: i, fields: [] }
-						const entity = this.schema.model.getEntity(expressionContext.current.entityName)
+						const entity = this.modelConfigService.getEntity(expressionContext.current.entityName)
 						if (entity === undefined) {
 							throw new SintaxisError(`entity ${expressionContext.current.entityName} not found`)
 						}
@@ -587,7 +594,7 @@ export class SentenceBuilder {
 						asteriskFields.push(asteriskField)
 					} else {
 						const asteriskField:AsteriskField = { index: i, relation: field.entity, fields: [] }
-						const relationInfo = this.schema.model.getRelation(expressionContext.current.entityName, field.entity)
+						const relationInfo = this.modelConfigService.getRelation(expressionContext.current.entityName, field.entity)
 						for (const relationProperty of relationInfo.entity.properties) {
 							const newField = new Field(field.pos, relationInfo.entity.name, relationProperty.name, Type.to(relationProperty.type), field.alias, false)
 							asteriskField.fields.push(newField)
@@ -631,5 +638,19 @@ export class SentenceBuilder {
 		}
 		expressionContext.aliases[alias] = relation || name
 		return alias
+	}
+
+	public getPropertiesFromParameters (entityName: string, parameters: Parameter[]): Property[] {
+		const entity = this.modelConfigService.getEntity(entityName)
+		const properties: Property[] = []
+		if (entity && entity.properties && parameters) {
+			for (const parameter of parameters) {
+				const property = entity.properties.find(p => p.name === parameter.name)
+				if (property) {
+					properties.push(property)
+				}
+			}
+		}
+		return properties
 	}
 }

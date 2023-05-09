@@ -7,7 +7,7 @@ import { ConnectionConfig } from '../../domain'
 import { helper } from '../../../shared/application'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
-import { ConnectionPort } from '../../application'
+import { Connection } from '../../application'
 import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
 
@@ -24,9 +24,9 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 		console.log('init')
 	}
 
-	public async acquire (): Promise<ConnectionPort> {
+	public async acquire (): Promise<Connection> {
 		try {
-			const cnx = await new Promise<ConnectionPort>((resolve, reject) => {
+			const cnx = await new Promise<Connection>((resolve, reject) => {
 				const connection = new SqlServerConnectionPoolAdapter.lib.Connection(this.config.connection)
 				connection.connect()
 				connection.on('connect', (err: any) => {
@@ -43,7 +43,7 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 		}
 	}
 
-	public async release (connection: ConnectionPort): Promise<void> {
+	public async release (connection: Connection): Promise<void> {
 		if (connection.cnx.closed) {
 			return
 		}

@@ -1,15 +1,15 @@
 
 import { Query, ExecuteResult, QueryOptions } from '../../../query/domain'
-import { ConnectionService } from '../../../connection/application/services/connectionService'
 import { SchemaService } from '../../../schema/application'
 import { LanguagesService } from '../../../language/application'
 import { QueryExecutor } from './queryExecutor'
 import { Transaction } from '../../domain'
 import { IOrmExpressions } from '../../../shared/domain'
+import { ConnectionFacade } from '../../../connection/application'
 
 export class Executor {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly connectionService: ConnectionService,
+	constructor (private readonly connectionFacade: ConnectionFacade,
 		private readonly languages: LanguagesService,
 		private readonly schemaService: SchemaService,
 		private readonly expressions: IOrmExpressions) {}
@@ -22,7 +22,7 @@ export class Executor {
 				result = await tr.execute(query, data)
 			})
 		} else {
-			const queryExecutor = new QueryExecutor(this.connectionService, this.languages, this.schemaService, this.expressions, options, false)
+			const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaService, this.expressions, options, false)
 			try {
 				result = await queryExecutor.execute(query, data)
 			} catch (_error) {
@@ -42,7 +42,7 @@ export class Executor {
 
 		if (options.tryAllCan) {
 			for (const query of queries) {
-				const queryExecutor = new QueryExecutor(this.connectionService, this.languages, this.schemaService, this.expressions, options, false)
+				const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaService, this.expressions, options, false)
 				try {
 					const result = await queryExecutor.execute(query, {})
 					results.push(result)
@@ -69,7 +69,7 @@ export class Executor {
  * @param callback Code to be executed in transaction
  */
 	public async transaction (options: QueryOptions, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const queryExecutor = new QueryExecutor(this.connectionService, this.languages, this.schemaService, this.expressions, options, true)
+		const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaService, this.expressions, options, true)
 		let error: any
 		try {
 			const transaction = new Transaction(queryExecutor)

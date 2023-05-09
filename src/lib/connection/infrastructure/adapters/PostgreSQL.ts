@@ -6,7 +6,7 @@ import { ConnectionConfig } from '../../domain'
 import { helper } from '../../../shared/application'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
-import { ConnectionPort } from '../../application'
+import { Connection } from '../../application'
 import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
 // https://node-postgres.com/features/connecting
@@ -49,13 +49,13 @@ export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 		// console.info('PostgreSQL init pool not Implemented')
 	}
 
-	public async acquire (): Promise<ConnectionPort> {
+	public async acquire (): Promise<Connection> {
 		const cnx = new PostgreSQLConnectionPoolAdapter.lib.Client(this.config.connection)
 		cnx.connect()
 		return new PostgreSQLConnectionAdapter(cnx, this)
 	}
 
-	public async release (connection: ConnectionPort): Promise<void> {
+	public async release (connection: Connection): Promise<void> {
 		await connection.cnx.end()
 	}
 

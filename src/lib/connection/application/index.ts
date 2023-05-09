@@ -1,3 +1,3 @@
-export * from './ports/connectionPoolPort'
-export * from './ports/connectionPort'
-export * from './services/connectionService'
+export * from './ports/connectionPool'
+export * from './ports/connection'
+export * from './facade'

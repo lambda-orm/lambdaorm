@@ -5,11 +5,11 @@ import { MethodNotImplemented } from '../../../../shared/domain'
 import { helper } from '../../../../shared/application'
 import { Parameter } from '3xpr'
 import { Primitive } from 'typ3s'
-import { ConnectionPort } from '../../../application'
+import { Connection } from '../../../application'
 import { MappingConfigService } from '../../../../schema/application'
 import { DialectService } from '../../../../language/application'
 
-export abstract class ConnectionAdapter implements ConnectionPort {
+export abstract class ConnectionAdapter implements Connection {
 	public cnx: any
 	public pool: any
 	public inTransaction: boolean

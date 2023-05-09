@@ -5,7 +5,7 @@ import { Query, Data } from '../../../query/domain'
 import { helper } from '../../../shared/application'
 import { SchemaError, PropertyMapping } from '../../../schema/domain'
 import { Type, Primitive } from 'typ3s'
-import { ConnectionPort } from '../../application'
+import { Connection } from '../../application'
 import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
 import { ExecutionError } from '../../domain'
@@ -45,7 +45,7 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 		}
 	}
 
-	public async acquire (): Promise<ConnectionPort> {
+	public async acquire (): Promise<Connection> {
 		if (!this.pool) {
 			if (!OracleConnectionPoolAdapter.lib) {
 				await this.init()
@@ -56,7 +56,7 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 		return new OracleConnectionAdapter(cnx, this)
 	}
 
-	public async release (connection: ConnectionPort): Promise<void> {
+	public async release (connection: Connection): Promise<void> {
 		await connection.cnx.close()
 	}
 

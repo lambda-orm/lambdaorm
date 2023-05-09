@@ -7,8 +7,8 @@ import { QueryService } from '../../../../expressions/application'
 
 export abstract class StageActionDDL {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (protected readonly queryService:QueryService,
-		protected readonly stateService:StageModelService,
+	constructor (protected readonly queryService:ExecuteQuery,
+		protected readonly stageModelService:StageModelService,
 		protected readonly schemaService: SchemaService,
 		protected readonly sentenceRoute: RouteService,
 		protected readonly languages: LanguagesService,

@@ -6,7 +6,7 @@ import { Dialect, Schema, Stage } from '../../schema/domain'
 import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata } from '../../sentence/domain'
 import { ActionObserver } from '../domain'
 import { SchemaService } from '../../schema/application'
-import { ConnectionService } from '../../connection/application'
+import { ConnectionFacade } from '../../connection/application'
 import { LanguagesService } from '../../language/application'
 import { StageFacade } from '../../stage/application'
 import { RouteService, Executor } from '../../execution/application'
@@ -31,7 +31,7 @@ Factory.add('orm.expressions', ormExpressions)
 export class Orm implements IOrm {
 	// private _cache: Cache
 	private stageFacade: StageFacade
-	private connectionService: ConnectionService
+	private connection: ConnectionFacade
 	private languages: LanguagesService
 	// private libManager: LibManager
 	private sentenceService: SentenceService
@@ -60,19 +60,19 @@ export class Orm implements IOrm {
 		new SentenceLibrary(this._expressions.model).load()
 		this.schemaService = new SchemaService(workspace)
 		// this.schemaFacade = new SchemaFacade(this.schemaService)
-		this.connectionService = new ConnectionService()
+		this.connection = new ConnectionFacade()
 		this.languages = new LanguagesService()
 		this.languages.add(new SqlLanguageAdapter())
 		this.languages.add(new NoSqlLanguageAdapter())
-		this.connectionService.addType(Dialect.MySQL, MySQLConnectionPoolAdapter)
-		this.connectionService.addType(Dialect.MariaDB, MariaDBConnectionPoolAdapter)
-		this.connectionService.addType(Dialect.PostgreSQL, PostgreSQLConnectionPoolAdapter)
-		this.connectionService.addType(Dialect.SqlServer, SqlServerConnectionPoolAdapter)
-		this.connectionService.addType(Dialect.SQLjs, SQLjsConnectionPoolAdapter)
-		this.connectionService.addType(Dialect.Oracle, OracleConnectionPoolAdapter)
-		this.connectionService.addType(Dialect.MongoDB, MongoDBConnectionPoolAdapter)
+		this.connection.addDialect(Dialect.MySQL, MySQLConnectionPoolAdapter)
+		this.connection.addDialect(Dialect.MariaDB, MariaDBConnectionPoolAdapter)
+		this.connection.addDialect(Dialect.PostgreSQL, PostgreSQLConnectionPoolAdapter)
+		this.connection.addDialect(Dialect.SqlServer, SqlServerConnectionPoolAdapter)
+		this.connection.addDialect(Dialect.SQLjs, SQLjsConnectionPoolAdapter)
+		this.connection.addDialect(Dialect.Oracle, OracleConnectionPoolAdapter)
+		this.connection.addDialect(Dialect.MongoDB, MongoDBConnectionPoolAdapter)
 		this.sentenceRoute = new RouteService(this.schemaService, this._expressions)
-		const executor = new Executor(this.connectionService, this.languages, this.schemaService, this._expressions)
+		const executor = new Executor(this.connection, this.languages, this.schemaService, this._expressions)
 		this.sentenceService = new SentenceService(this.schemaService, this._expressions, this.sentenceRoute)
 		this.queryService = new QueryService(executor, this.sentenceService, this.schemaService, this.languages)
 		this.stageFacade = new StageFacade(this.schemaService, this.sentenceRoute, this.queryService, this.languages, this.sentenceService)

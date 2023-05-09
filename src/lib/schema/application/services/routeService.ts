@@ -1,19 +1,14 @@
 
-import { ObservableAction, RuleDataSource, SchemaError } from '../../../schema/domain'
-import { SchemaService } from '../../../schema/application'
-import { ClauseInfo, ContextInfo, IRouteService } from '../../../query/domain'
+import { ObservableAction, DataSourceRule, SchemaError, ClauseInfo, ContextInfo, IRouteService } from '../../domain'
 import { IOrmExpressions } from '../../../shared/domain'
+import { StageConfigService } from './config/stageConfigService'
 
 export class RouteService implements IRouteService {
-	private schema: SchemaService
-	private expressions: IOrmExpressions
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly stageConfigService: StageConfigService,
+		private readonly expressions:IOrmExpressions) {}
 
-	constructor (schema: SchemaService, expressions: IOrmExpressions) {
-		this.schema = schema
-		this.expressions = expressions
-	}
-
-	public eval (source:RuleDataSource, clauseInfo: ClauseInfo):boolean {
+	public eval (source:DataSourceRule, clauseInfo: ClauseInfo):boolean {
 		const contextInfo = this.getContextInfo(clauseInfo)
 		if (source.condition === undefined) return true
 		return this.expressions.eval(source.condition, contextInfo)
@@ -32,7 +27,7 @@ export class RouteService implements IRouteService {
 
 	public getSource (clauseInfo: ClauseInfo, stage?: string):string {
 		const contextInfo = this.getContextInfo(clauseInfo)
-		const _stage = this.schema.stage.get(stage)
+		const _stage = this.stageConfigService.get(stage)
 		for (const i in _stage.sources) {
 			const source = _stage.sources[i]
 			if (source.condition === undefined) {

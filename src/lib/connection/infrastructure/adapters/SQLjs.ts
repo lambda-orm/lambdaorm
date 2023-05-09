@@ -6,7 +6,7 @@ import { ConnectionAdapter } from './base/connection'
 import { Query, Data } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
 import { helper } from '../../../shared/application'
-import { ConnectionPort } from '../../application'
+import { Connection } from '../../application'
 import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
 
@@ -35,12 +35,12 @@ export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 		})
 	}
 
-	public async acquire (): Promise<ConnectionPort> {
+	public async acquire (): Promise<Connection> {
 		return new SQLjsConnectionAdapter(this.db, this)
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async release (_connection: ConnectionPort): Promise<void> {
+	public async release (_connection: Connection): Promise<void> {
 		console.info('SQLjs release pool not Implemented')
 	}
 
