@@ -1,6 +1,6 @@
 import { ExpressionNormalizer, ExpressionParse, IOperandBuilder, Operand, OperandComplete, OperandNormalize, OperandReduce } from '3xpr'
 import { ModelConfigService } from '../../../schema/application'
-import { OrmOperandNormalizer } from '../../../sentence/application'
+import { OrmOperandNormalizer } from './operandNormalizer'
 
 export class OrmOperandBuilder implements IOperandBuilder {
 	private parse = new ExpressionParse()

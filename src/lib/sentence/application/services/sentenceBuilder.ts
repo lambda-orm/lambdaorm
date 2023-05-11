@@ -6,7 +6,7 @@ import { Operand, Parameter, OperandType, Position, ITypeService } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { SentenceTypeService } from './typeService'
 import { SentenceHelper } from './sentenceHelper'
-import { ModelConfigService, SchemaService } from '../../../schema/application'
+import { ModelConfigService, SchemaFacade } from '../../../schema/application'
 import { Autowired } from 'h3lp'
 import { ISentenceBuilder } from '../../domain'
 import { OperandFacade } from '../../../operand/application'
@@ -216,16 +216,16 @@ export class SentenceBuilder implements ISentenceBuilder {
 	private solveConstraints : SentenceSolveConstraints
 	private modelConfigService: ModelConfigService
 
-	constructor (private readonly schemaService: SchemaService, private readonly operandFacade:OperandFacade) {
-		this.modelConfigService = this.schemaService.model
-		this.typeService = new SentenceTypeService(this.schemaService.model)
-		this.helper = new SentenceHelper(this.schemaService)
-		this.solveBehaviors = new SentenceSolveBehaviors(this.schemaService.model, this.helper)
+	constructor (private readonly schemaFacade: SchemaFacade,
+		private readonly operandFacade:OperandFacade,
+		private readonly expressions:IOrmExpressions
+	) {
+		this.modelConfigService = this.schemaFacade.model
+		this.typeService = new SentenceTypeService(this.schemaFacade.model)
+		this.helper = new SentenceHelper(this.schemaFacade)
+		this.solveBehaviors = new SentenceSolveBehaviors(this.schemaFacade.model, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.modelConfigService, this.helper)
 	}
-
-	@Autowired('orm.expressions')
-	private expressions!:IOrmExpressions
 
 	public build (expression: string): Sentence {
 		const operand = this.operandFacade.build(expression)

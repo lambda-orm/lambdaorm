@@ -7,7 +7,7 @@ export class StageExport extends StageActionDML {
 		const queries = this.queries()
 		const data = {}
 		const schemaExport: SchemaConfig = { entities: [] }
-		await this.queryService.transaction(this.options, async (tr) => {
+		await this.queryFacade.transaction(this.options, async (tr) => {
 			for (const query of queries) {
 				const rows = await tr.executeQuery(query, data)
 				schemaExport.entities.push({ entity: query.entity, rows })
@@ -25,6 +25,6 @@ export class StageExport extends StageActionDML {
 			first = false
 		}
 		expression = expression + '})' + this.createInclude(entity)
-		return this.queryService.create(expression, this.options, true)
+		return this.queryFacade.build(expression, this.options)
 	}
 }

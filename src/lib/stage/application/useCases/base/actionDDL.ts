@@ -1,16 +1,14 @@
 import { LanguagesService } from '../../../../language/application'
 import { StageModelService } from '../../services/stateService'
 import { Query, QueryOptions, ExecuteResult } from '../../../../query/domain'
-import { SchemaService } from '../../../../schema/application'
-import { RouteService } from '../../../../execution/application'
-import { QueryService } from '../../../../expressions/application'
+import { SchemaFacade } from '../../../../schema/application'
+import { QueryFacade } from '../../../../expressions/application'
 
 export abstract class StageActionDDL {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (protected readonly queryService:ExecuteQuery,
+	constructor (protected readonly queryFacade:QueryFacade,
 		protected readonly stageModelService:StageModelService,
-		protected readonly schemaService: SchemaService,
-		protected readonly sentenceRoute: RouteService,
+		protected readonly schemaFacade: SchemaFacade,
 		protected readonly languages: LanguagesService,
 		protected readonly options:QueryOptions) {}
 

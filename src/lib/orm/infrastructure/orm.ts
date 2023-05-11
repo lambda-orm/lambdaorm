@@ -5,14 +5,13 @@ import { QueryOptions, QueryInfo, Query } from '../../query/domain'
 import { Dialect, Schema, Stage } from '../../schema/domain'
 import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata } from '../../sentence/domain'
 import { ActionObserver } from '../domain'
-import { SchemaService } from '../../schema/application'
+import { SchemaFacade } from '../../schema/application'
 import { ConnectionFacade } from '../../connection/application'
 import { LanguagesService } from '../../language/application'
 import { StageFacade } from '../../stage/application'
-import { RouteService, Executor } from '../../execution/application'
-import { ExpressionTransaction } from '../../expressions/domain'
-import { QueryService } from '../../expressions/application'
-import { SentenceLibrary, SentenceService } from '../../sentence/application'
+import { ExecutionFacade } from '../../execution/application'
+import { ExpressionTransaction, QueryFacade } from '../../expressions/application'
+import { SentenceFacade } from '../../sentence/application'
 import { IOrm, ExpressionActionObserver } from '../application'
 import {
 	MySQLConnectionPoolAdapter, MariaDBConnectionPoolAdapter, SqlServerConnectionPoolAdapter, PostgreSQLConnectionPoolAdapter,
@@ -20,11 +19,11 @@ import {
 } from '../../connection/infrastructure'
 import { SqlLanguageAdapter, NoSqlLanguageAdapter } from '../../sentence/infrastructure'
 import { IOrmExpressions } from '../../shared/domain'
-import { Factory } from 'h3lp'
+import { MemoryCache } from 'h3lp'
 import { OrmExpressions } from '../../shared/infrastructure'
+import { OperandFacade } from '../../operand/application'
+import { SentenceLibrary } from '../../sentence/application/services/library'
 
-const ormExpressions = new OrmExpressions()
-Factory.add('orm.expressions', ormExpressions)
 /**
  * Facade through which you can access all the functionalities of the library.
  */
@@ -34,32 +33,16 @@ export class Orm implements IOrm {
 	private connection: ConnectionFacade
 	private languages: LanguagesService
 	// private libManager: LibManager
-	private sentenceService: SentenceService
-	private queryService: QueryService
-	private sentenceRoute: RouteService
-	// private executor:Executor
-	// eslint-disable-next-line no-use-before-define
-	private static _instance: Orm
-	private schemaService: SchemaService
+	private operandFacade: OperandFacade
+	private sentenceFacade: SentenceFacade
+	private queryFacade: QueryFacade
+	private execution:ExecutionFacade
+
+	private schemaFacade: SchemaFacade
 	private _expressions:IOrmExpressions
 	private observers:ActionObserver[] = []
 
-	/**
- * Singleton
- */
-	public static get instance (): Orm {
-		if (!this._instance) {
-			this._instance = new Orm()
-		}
-		return this._instance
-	}
-
 	constructor (workspace: string = process.cwd()) {
-		// this.expressions = new ExpressionsWrapper(expressions)
-		this._expressions = ormExpressions
-		new SentenceLibrary(this._expressions.model).load()
-		this.schemaService = new SchemaService(workspace)
-		// this.schemaFacade = new SchemaFacade(this.schemaService)
 		this.connection = new ConnectionFacade()
 		this.languages = new LanguagesService()
 		this.languages.add(new SqlLanguageAdapter())
@@ -71,11 +54,29 @@ export class Orm implements IOrm {
 		this.connection.addDialect(Dialect.SQLjs, SQLjsConnectionPoolAdapter)
 		this.connection.addDialect(Dialect.Oracle, OracleConnectionPoolAdapter)
 		this.connection.addDialect(Dialect.MongoDB, MongoDBConnectionPoolAdapter)
-		this.sentenceRoute = new RouteService(this.schemaService, this._expressions)
-		const executor = new Executor(this.connection, this.languages, this.schemaService, this._expressions)
-		this.sentenceService = new SentenceService(this.schemaService, this._expressions, this.sentenceRoute)
-		this.queryService = new QueryService(executor, this.sentenceService, this.schemaService, this.languages)
-		this.stageFacade = new StageFacade(this.schemaService, this.sentenceRoute, this.queryService, this.languages, this.sentenceService)
+		this._expressions = new OrmExpressions()
+		new SentenceLibrary(this._expressions.model).load()
+		this.schemaFacade = new SchemaFacade(workspace, this._expressions)
+		this.execution = new ExecutionFacade(this.connection, this.languages, this.schemaFacade, this._expressions)
+		const operandCache = new MemoryCache<string, string>()
+		this.operandFacade = new OperandFacade(this.schemaFacade, operandCache)
+		const sentenceCache = new MemoryCache<string, string>()
+		this.sentenceFacade = new SentenceFacade(this.schemaFacade, this.operandFacade, this._expressions, sentenceCache)
+		const queryCache = new MemoryCache<string, string>()
+		this.queryFacade = new QueryFacade(this.sentenceFacade, this.schemaFacade, this.languages, this.execution, queryCache, this._expressions)
+		this.stageFacade = new StageFacade(this.schemaFacade, this.queryFacade, this.languages, this.sentenceFacade)
+	}
+
+	// eslint-disable-next-line no-use-before-define
+	private static _instance: Orm
+	/**
+  * Singleton
+  */
+	public static get instance (): Orm {
+		if (!this._instance) {
+			this._instance = new Orm()
+		}
+		return this._instance
 	}
 
 	public get expressions (): IOrmExpressions {
@@ -83,7 +84,7 @@ export class Orm implements IOrm {
 	}
 
 	public get defaultStage ():Stage {
-		return this.schemaService.stage.get()
+		return this.schemaFacade.stage.get()
 	}
 
 	/**
@@ -92,11 +93,11 @@ export class Orm implements IOrm {
  * @returns promise void
  */
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
-		const schema = await this.schemaService.init(source || this.schemaService.workspace)
+		const schema = await this.schemaFacade.initialize(source || this.schemaFacade.workspace)
 		// set connections
 		if (connect && schema.data.sources) {
 			for (const source of schema.data.sources.filter(p => helper.val.isNotEmpty(p.connection))) {
-				this.connectionService.load(source)
+				this.connection.load(source)
 			}
 		}
 		// add enums
@@ -134,7 +135,7 @@ export class Orm implements IOrm {
   */
 	public async end (): Promise<void> {
 		// ends task
-		const schema = this.schemaService.schema
+		const schema = this.schemaFacade.schema
 		if (schema.app.end) {
 			for (const task of schema.app.end) {
 				if (task.condition === undefined || this._expressions.eval(task.condition)) {
@@ -142,14 +143,14 @@ export class Orm implements IOrm {
 				}
 			}
 		}
-		await this.connectionService.end()
+		await this.connection.end()
 	}
 
 	/**
 	 * Get workspace path
 	 */
 	public get workspace (): string {
-		return this.schemaService.workspace
+		return this.schemaFacade.workspace
 	}
 
 	/**
@@ -158,7 +159,7 @@ export class Orm implements IOrm {
 	 * @returns
 	 */
 	public dialect (source:string): Dialect {
-		return this.schemaService.source.get(source).dialect
+		return this.schemaFacade.source.get(source).dialect
 	}
 
 	/**
@@ -171,8 +172,8 @@ export class Orm implements IOrm {
 	/**
 	 * Get reference to SchemaConfig
 	 */
-	public get schema (): SchemaService {
-		return this.schemaService
+	public get schema (): SchemaFacade {
+		return this.schemaFacade
 	}
 
 	/**
@@ -184,7 +185,7 @@ export class Orm implements IOrm {
 	public normalize(expression:string): string
 	public normalize (expression: string|Function): string {
 		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
-		return this.sentenceService.normalize(_expression)
+		return this.operandFacade.normalize(_expression)
 	}
 
 	/**
@@ -196,7 +197,7 @@ export class Orm implements IOrm {
 	public model(expression:string): MetadataModel[]
 	public model (expression: string|Function): MetadataModel[] {
 		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
-		return this.sentenceService.model(_expression)
+		return this.sentenceFacade.model(_expression)
 	}
 
 	/**
@@ -208,7 +209,7 @@ export class Orm implements IOrm {
 	public parameters(expression:string): MetadataParameter[];
 	public parameters (expression: string|Function): MetadataParameter[] {
 		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
-		return this.sentenceService.parameters(_expression)
+		return this.sentenceFacade.parameters(_expression)
 	}
 
 	/**
@@ -220,7 +221,7 @@ export class Orm implements IOrm {
 	public constraints(expression:string): MetadataConstraint;
 	public constraints (expression: string|Function): MetadataConstraint {
 		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
-		return this.sentenceService.constraints(_expression)
+		return this.sentenceFacade.constraints(_expression)
 	}
 
 	/**
@@ -232,7 +233,7 @@ export class Orm implements IOrm {
 	public metadata (expression:string):Metadata
 	public metadata (expression: string|Function): Metadata {
 		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
-		return this.sentenceService.metadata(_expression)
+		return this.sentenceFacade.metadata(_expression)
 	}
 
 	/**
@@ -244,8 +245,8 @@ export class Orm implements IOrm {
 	public getInfo(expression: string, options?: QueryOptions): QueryInfo;
 	public getInfo (expression: string|Function, options: QueryOptions|undefined): QueryInfo {
 		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
-		const _options = this.queryService.solveOptions(options)
-		return this.queryService.getInfo(_expression, _options)
+		const _options = this.queryFacade.solveOptions(options)
+		return this.queryFacade.getInfo(_expression, _options)
 	}
 
 	/**
@@ -259,20 +260,20 @@ export class Orm implements IOrm {
 	public async execute(expression: string, data?: any, options?: QueryOptions):Promise<any>;
 	public async execute (expression: string|Function, data: any = {}, options: QueryOptions|undefined = undefined): Promise<any> {
 		const _expression = typeof expression !== 'string' ? this._expressions.toExpression(expression) : expression
-		const _options = this.queryService.solveOptions(options)
-		const query = this.queryService.create(_expression, _options, true)
+		const _options = this.queryFacade.solveOptions(options)
+		const query = this.queryFacade.build(_expression, _options)
 		try {
 			let result = null
 			await this.beforeExecutionNotify(_expression, query, data, _options)
 			if (this.observers.find(p => p.transactional === true) !== undefined) {
 				// execute before and after listeners transactional
-				this.queryService.transaction(_options, async (tr:ExpressionTransaction) => {
+				this.queryFacade.transaction(_options, async (tr:ExpressionTransaction) => {
 					await this.beforeExecutionNotify(_expression, query, data, _options, true)
 					result = await tr.execute(_expression, data)
 					await this.afterExecutionNotify(_expression, query, data, _options, result, true)
 				})
 			} else {
-				result = await this.queryService.executeQuery(query, data, _options)
+				result = await this.queryFacade.executeQuery(query, data, _options)
 			}
 			await this.afterExecutionNotify(_expression, query, data, _options, result)
 			return result
@@ -288,8 +289,8 @@ export class Orm implements IOrm {
 	 * @param callback Code to be executed in transaction
 	 */
 	public async transaction (options: QueryOptions|undefined, callback: { (tr: ExpressionTransaction): Promise<void> }): Promise<void> {
-		const _options = this.queryService.solveOptions(options)
-		return this.queryService.transaction(_options, callback)
+		const _options = this.queryFacade.solveOptions(options)
+		return this.queryFacade.transaction(_options, callback)
 	}
 
 	// Listeners and subscribers

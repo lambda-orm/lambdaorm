@@ -3,29 +3,28 @@ import {
 	ObservableAction, Mapping, DataSourceRule, Index, Source, Relation,
 	EntityMapping, PropertyMapping, SchemaError
 } from '../../../schema/domain'
-import { Query, ClauseInfo, IRouteService } from '../../../query/domain'
+import { Query } from '../../../query/domain'
 import { Delta, ChangedValue } from 'h3lp'
 import { DDLBuilderPort } from '../ports/ddlBuilderPort'
 import { helper } from '../../../shared/application'
-import { ModelConfigService, SchemaService } from '../../../schema/application'
+import { ModelConfigService, SchemaFacade } from '../../../schema/application'
 import { LanguagesService } from './languagesService'
 import { DialectService } from './dialectService'
 
 export class DDLBuilderService {
 	private model: ModelConfigService
-	constructor (private readonly schema: SchemaService,
-	private readonly routeService: IRouteService,
+	constructor (private readonly schemaFacade: SchemaFacade,
 	private readonly languages: LanguagesService,
 	public readonly stage: string
 	) {
-		this.model = schema.model
+		this.model = schemaFacade.model
 	}
 
 	public drop (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
-		const stage = this.schema.stage.get(this.stage)
+		const stage = this.schemaFacade.stage.get(this.stage)
 		for (const ruleDataSource of stage.sources) {
-			const source = this.schema.source.get(ruleDataSource.name)
+			const source = this.schemaFacade.source.get(ruleDataSource.name)
 			const mapping = mappings.find(p => p.name === source.mapping)
 			if (mapping !== undefined) {
 				this._drop(source, ruleDataSource, mapping.entities, queries)
@@ -36,9 +35,9 @@ export class DDLBuilderService {
 
 	public truncate (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
-		const stage = this.schema.stage.get(this.stage)
+		const stage = this.schemaFacade.stage.get(this.stage)
 		for (const ruleDataSource of stage.sources) {
-			const source = this.schema.source.get(ruleDataSource.name)
+			const source = this.schemaFacade.source.get(ruleDataSource.name)
 			const mapping = mappings.find(p => p.name === source.mapping)
 			if (mapping !== undefined) {
 				this._truncate(source, ruleDataSource, mapping.entities, queries)
@@ -49,12 +48,12 @@ export class DDLBuilderService {
 
 	public sync (mappings: Mapping[]): Query[] {
 		const queries: Query[] = []
-		const stage = this.schema.stage.get(this.stage)
+		const stage = this.schemaFacade.stage.get(this.stage)
 		for (const ruleDataSource of stage.sources) {
-			const source = this.schema.source.get(ruleDataSource.name)
+			const source = this.schemaFacade.source.get(ruleDataSource.name)
 			const oldMapping = mappings.find(p => p.name === source.mapping)
 			const oldEntities = oldMapping !== undefined && oldMapping.entities !== undefined ? oldMapping.entities : null
-			const currentMapping = this.schema.mapping.mappings.find(p => p.name === source.mapping)
+			const currentMapping = this.schemaFacade.mapping.mappings.find(p => p.name === source.mapping)
 			const currentEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
 			const delta = helper.obj.delta(currentEntities, oldEntities)
 			// remove for entities changes
@@ -418,13 +417,12 @@ export class DDLBuilderService {
 	}
 
 	private evalDataSource (source: DataSourceRule, entity: string): boolean {
-		const info: ClauseInfo = { entity, action: ObservableAction.ddl }
-		return this.routeService.eval(source, info)
+		return this.schemaFacade.evalDataSourceRule(source, { entity, action: ObservableAction.ddl })
 	}
 
 	private builder (source: Source): DDLBuilderPort {
 		const language = this.languages.getByDialect(source.dialect)
-		const mapping = this.schema.mapping.getInstance(source.mapping)
+		const mapping = this.schemaFacade.mapping.getInstance(source.mapping)
 		return language.ddlBuilder(source, mapping)
 	}
 

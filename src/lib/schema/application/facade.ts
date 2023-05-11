@@ -47,6 +47,10 @@ export class SchemaFacade {
 		return this.routeService.getSource(clauseInfo, stage)
 	}
 
+	public get (source: string): Promise<Schema|null> {
+		return this.getSchema.get(source)
+	}
+
 	public async initialize (source: string | Schema): Promise<Schema> {
 		const schema = await this.getSchema.get(source)
 		if (schema === null) {

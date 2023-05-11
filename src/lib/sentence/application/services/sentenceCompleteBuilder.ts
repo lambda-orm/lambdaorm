@@ -1,5 +1,5 @@
 
-import { SchemaService, ViewConfigService } from '../../../schema/application'
+import { SchemaFacade, ViewConfigService } from '../../../schema/application'
 import { ISentenceBuilder, ISentenceCompleteBuilder, Sentence } from '../../domain'
 import { SentenceCompleter } from './sentenceCompleter'
 import { SentenceHelper } from './sentenceHelper'
@@ -8,7 +8,7 @@ export class SentenceCompleteBuilder implements ISentenceCompleteBuilder {
 	private completer: SentenceCompleter
 	constructor (
 		private readonly sentenceBuilder:ISentenceBuilder,
-		private readonly schemaService: SchemaService,
+		private readonly schemaFacade: SchemaFacade,
 		private readonly sentenceHelper: SentenceHelper
 	) {
 		this.completer = new SentenceCompleter()
@@ -27,7 +27,7 @@ export class SentenceCompleteBuilder implements ISentenceCompleteBuilder {
 			this.completeSentence(sentenceInclude.children[0] as Sentence, view, stage)
 		}
 		const source = this.sentenceHelper.getSource(sentence, stage)
-		const mapping = this.schemaService.mapping.getInstance(source.mapping)
+		const mapping = this.schemaFacade.mapping.getInstance(source.mapping)
 		this.completer.complete(mapping, view, sentence)
 	}
 }

@@ -5,10 +5,7 @@ import { ICache, Autowired, IUtils } from 'h3lp'
 export class OperandBuilderCacheDecorator implements IOperandBuilder {
 	private serializer = new OperandSerializer()
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly operandBuilder: IOperandBuilder) {}
-
-	@Autowired('orm.operand.cache')
-	private cache!: ICache<string, string>
+	constructor (private readonly operandBuilder: IOperandBuilder, private readonly cache: ICache<string, string>) {}
 
 	@Autowired('h3lp.utils')
 	public utils!: IUtils

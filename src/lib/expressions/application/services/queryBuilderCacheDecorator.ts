@@ -5,10 +5,7 @@ import { IQueryBuilder } from '../../domain/services'
 
 export class QueryBuilderCacheDecorator implements IQueryBuilder {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly builder: IQueryBuilder) {}
-
-	@Autowired('orm.query.cache')
-	private cache!: ICache<string, string>
+	constructor (private readonly builder: IQueryBuilder, private readonly cache: ICache<string, string>) {}
 
 	@Autowired('h3lp.utils')
 	public utils!: IUtils

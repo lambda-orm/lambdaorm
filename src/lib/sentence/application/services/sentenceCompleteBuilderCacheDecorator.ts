@@ -6,12 +6,11 @@ import { SentenceSerializer } from './sentenceSerializer'
 
 export class SentenceCompleteBuilderCacheDecorator implements ISentenceCompleteBuilder {
 	private serializer:SentenceSerializer
-	constructor (private readonly builder: ISentenceCompleteBuilder) {
+	constructor (private readonly builder: ISentenceCompleteBuilder,
+	private readonly cache: ICache<string, string>
+	) {
 		this.serializer = new SentenceSerializer()
 	}
-
-	@Autowired('orm.sentence.cache')
-	private cache!: ICache<string, string>
 
 	@Autowired('h3lp.utils')
 	public utils!: IUtils

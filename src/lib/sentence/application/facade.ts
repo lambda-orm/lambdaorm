@@ -1,5 +1,6 @@
+import { Source } from '../../schema/domain'
 import { OperandFacade } from '../../operand/application'
-import { SchemaService, ViewConfigService } from '../../schema/application'
+import { SchemaFacade, ViewConfigService } from '../../schema/application'
 import { ISentenceBuilder, ISentenceCompleteBuilder, Metadata, MetadataConstraint, MetadataModel, MetadataParameter, Sentence } from '../domain'
 import { SentenceBuilder } from './services/sentenceBuilder'
 import { SentenceCompleteBuilder } from './services/sentenceCompleteBuilder'
@@ -9,6 +10,8 @@ import { GetConstraints } from './useCases/getConstraints'
 import { GetMetadata } from './useCases/getMetadata'
 import { GetModel } from './useCases/getModel'
 import { GetParameters } from './useCases/getParameters'
+import { IOrmExpressions } from '../../shared/domain'
+import { ICache } from 'h3lp'
 
 export class SentenceFacade {
 	private getConstraints: GetConstraints
@@ -17,14 +20,17 @@ export class SentenceFacade {
 	private getMetadata:GetMetadata
 	private getModel:GetModel
 	private getParameters:GetParameters
+	private sentenceHelper:SentenceHelper
 
-	constructor (private readonly schemaService: SchemaService, private readonly operandFacade:OperandFacade) {
-		this.builder = new SentenceBuilder(this.schemaService, this.operandFacade)
+	constructor (private readonly schemaFacade: SchemaFacade,
+		private readonly operandFacade:OperandFacade,
+		private readonly expressions:IOrmExpressions,
+		private readonly cache: ICache<string, string>
+	) {
+		this.sentenceHelper = new SentenceHelper(this.schemaFacade)
+		this.builder = new SentenceBuilder(this.schemaFacade, this.operandFacade, this.expressions)
 		this.builderComplete = new SentenceCompleteBuilderCacheDecorator(
-			new SentenceCompleteBuilder(this.builder,
-				this.schemaService,
-				new SentenceHelper(this.schemaService)
-			)
+			new SentenceCompleteBuilder(this.builder, this.schemaFacade, this.sentenceHelper), cache
 		)
 		this.getConstraints = new GetConstraints(this.builder)
 		this.getMetadata = new GetMetadata(this.builder)
@@ -50,5 +56,9 @@ export class SentenceFacade {
 
 	public parameters (expression: string): MetadataParameter[] {
 		return this.getParameters.parameters(expression)
+	}
+
+	public getSource (sentence: Sentence, stage: string): Source {
+		return this.sentenceHelper.getSource(sentence, stage)
 	}
 }

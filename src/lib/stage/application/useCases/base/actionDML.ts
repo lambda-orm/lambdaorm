@@ -1,20 +1,20 @@
 import { Entity } from '../../../../schema/domain'
 import { Query, QueryOptions } from '../../../../query/domain'
 import { ModelConfigService } from '../../../../schema/application'
-import { QueryService } from '../../../../expressions/application'
+import { QueryFacade } from '../../../../expressions/application'
 import { StageMappingService } from '../../services/stateService'
 // import { SentenceService } from '../../../../sentence/application'
 export abstract class StageActionDML {
 	protected stageMappingService: StageMappingService
 	protected model: ModelConfigService
-	protected queryService: QueryService
+	protected queryFacade: QueryFacade
 	protected options: QueryOptions
 	// protected sentenceService: SentenceService
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (stageMappingService: StageMappingService, model: ModelConfigService, queryService: QueryService, options: QueryOptions) {
+	constructor (stageMappingService: StageMappingService, model: ModelConfigService, queryFacade: QueryFacade, options: QueryOptions) {
 		this.stageMappingService = stageMappingService
 		this.model = model
-		this.queryService = queryService
+		this.queryFacade = queryFacade
 		this.options = options
 		// this.sentenceService = sentenceService
 	}

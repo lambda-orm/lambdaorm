@@ -2,17 +2,16 @@
 import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../../sentence/domain'
 import { QueryInfo, QueryOptions } from '../../query/domain'
 import { Schema, Dialect } from '../../schema/domain'
-// import { IOrmExpressions } from '3xpr'
-import { SchemaService } from '../../schema/application'
+import { SchemaFacade } from '../../schema/application'
 import { StageFacade } from '../../stage/application'
-import { ExpressionTransaction } from '../../expressions/domain'
 import { IOrmExpressions } from '../../shared/domain'
+import { ExpressionTransaction } from '../../expressions/application'
 export interface IOrm
 {
 	get workspace(): string
 	dialect (source:string): Dialect
 	get stage(): StageFacade
-	get schema(): SchemaService
+	get schema(): SchemaFacade
 	get expressions(): IOrmExpressions
 
 	// setCache (value: Cache):void

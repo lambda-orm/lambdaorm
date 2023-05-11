@@ -10,7 +10,7 @@ export class StageImport extends StageActionDML {
 		const _queries = this.queries()
 		const queries = this.sort(_queries)
 
-		await this.queryService.transaction(this.options, async (tr) => {
+		await this.queryFacade.transaction(this.options, async (tr) => {
 			for (const query of queries) {
 				const entityData = data.entities.find(p => p.entity === query.entity)
 				if (entityData) {
@@ -202,6 +202,6 @@ export class StageImport extends StageActionDML {
 
 	protected createQuery (entity:Entity):Query {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(entity)}`
-		return this.queryService.create(expression, this.options, true)
+		return this.queryFacade.build(expression, this.options)
 	}
 }

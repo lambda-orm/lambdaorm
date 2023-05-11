@@ -1,14 +1,14 @@
 import { ModelConfig, MappingConfig, Dialect } from '../../../schema/domain'
 import { Query } from '../../../query/domain'
 import { helper } from '../../../shared/application'
-import { SchemaService } from '../../../schema/application'
+import { SchemaFacade } from '../../../schema/application'
 const path = require('path')
 
 abstract class StageStateService<T> {
-	protected schema: SchemaService
+	protected schemaFacade: SchemaFacade
 
-	constructor (schema:SchemaService) {
-		this.schema = schema
+	constructor (schemaFacade:SchemaFacade) {
+		this.schemaFacade = schemaFacade
 	}
 
 	public async get (name:string):Promise<T> {
@@ -44,7 +44,7 @@ export class StageMappingService extends StageStateService<MappingConfig> {
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.schema.workspace, this.schema.schema.app.paths.data, `${name}-data.json`)
+		return path.join(this.schemaFacade.workspace, this.schemaFacade.schema.app.paths.data, `${name}-data.json`)
 	}
 }
 
@@ -54,7 +54,7 @@ export class StageModelService extends StageStateService<ModelConfig> {
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.schema.workspace, this.schema.schema.app.paths.data, `${name}-model.json`)
+		return path.join(this.schemaFacade.workspace, this.schemaFacade.schema.app.paths.data, `${name}-model.json`)
 	}
 
 	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
@@ -82,6 +82,6 @@ export class StageModelService extends StageStateService<ModelConfig> {
 		date = helper.str.replace(date, ':', '')
 		date = helper.str.replace(date, '.', '')
 		date = helper.str.replace(date, '-', '')
-		return path.join(this.schema.workspace, this.schema.schema.app.paths.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
+		return path.join(this.schemaFacade.workspace, this.schemaFacade.schema.app.paths.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
 	}
 }

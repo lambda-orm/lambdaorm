@@ -12,7 +12,7 @@ export class LanguagesService {
 		this.dialects = {}
 	}
 
-	public add (language: LanguagePort) {
+	public add (language: LanguagePort):void {
 		const index = this.languages.findIndex(p => p.name === language.name)
 		if (index !== -1) {
 			this.languages[index] = language

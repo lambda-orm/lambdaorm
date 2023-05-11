@@ -8,9 +8,6 @@ export class OperandNormalize {
 	constructor (private readonly operandBuilder:IOperandBuilder,
 		private readonly operandHelper:OrmOperandHelper) {}
 
-	// @Autowired('orm.operand.helper')
-	// private helper!:OrmOperandHelper
-
 	public normalize (expression: string): string {
 		try {
 			const operand = this.operandBuilder.build(expression)

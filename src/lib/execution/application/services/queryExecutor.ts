@@ -1,6 +1,6 @@
 
 import { SentenceAction, RelationType, EntityMapping, Constraint, Behavior } from '../../../schema/domain'
-import { MappingConfigService, SchemaService } from '../../../schema/application'
+import { SchemaFacade } from '../../../schema/application'
 import { ValidationError } from '../../domain'
 import { Query, Include, Data, QueryOptions } from '../../../query/domain'
 import { helper } from '../../../shared/application'
@@ -8,6 +8,7 @@ import { ExecutionError } from '../../../connection/domain'
 import { ConnectionFacade, Connection } from '../../../connection/application'
 import { LanguagesService, DialectService } from '../../../language/application'
 import { IOrmExpressions } from '../../../shared/domain'
+import { MappingConfigService } from '../../../schema/application/services/config/mappingConfigService'
 
 class QuerySolveDefaults {
 	private expressions: IOrmExpressions
@@ -637,7 +638,7 @@ export class QueryExecutor implements IQueryInternalExecutor {
 
 	constructor (private readonly connectionFacade: ConnectionFacade,
 	private readonly languages: LanguagesService,
-  private readonly schemaService: SchemaService,
+  private readonly schemaFacade: SchemaFacade,
 	private readonly expressions: IOrmExpressions,
 	public readonly options: QueryOptions,
 	private transactional = false) {
@@ -695,8 +696,8 @@ export class QueryExecutor implements IQueryInternalExecutor {
 
 	public async _execute (query: Query, data: Data): Promise<any> {
 		let result: any
-		const source = this.schemaService.source.get(query.source)
-		const mapping = this.schemaService.mapping.getInstance(source.mapping)
+		const source = this.schemaFacade.source.get(query.source)
+		const mapping = this.schemaFacade.mapping.getInstance(source.mapping)
 		const connection = await this.getConnection(source.name)
 		const dialect = this.languages.getDialect(query.dialect)
 		try {

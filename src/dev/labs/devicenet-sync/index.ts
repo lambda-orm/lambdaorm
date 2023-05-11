@@ -67,8 +67,7 @@ function getDevices () {
 	const workspace = path.join(process.cwd(), '/src/dev/labs/devicenet-sync')
 	const orm = new Orm(workspace)
 	try {
-		const schema = await orm.schema.get(workspace)
-		await orm.init(schema)
+		await orm.init(workspace)
 		// await orm.stage.clean(orm.defaultStage.name).execute(true)
 		// await orm.stage.sync(orm.defaultStage.name).execute()
 		// // //console.log(JSON.stringify(await orm.execute('Users.bulkInsert()', getUsers())))

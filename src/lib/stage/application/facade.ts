@@ -1,6 +1,5 @@
-import { RouteService } from '../../execution/application'
-import { SchemaService } from '../../schema/application'
-import { QueryService } from '../../expressions/application'
+import { SchemaFacade } from '../../schema/application'
+import { QueryFacade } from '../../expressions/application'
 import { LanguagesService } from '../../language/application'
 import { StageMappingService, StageModelService } from './services/stateService'
 import { helper } from '../../shared/application'
@@ -13,27 +12,25 @@ import { StageExport } from './useCases/export'
 import { StageImport } from './useCases/import'
 import { StageTruncate } from './useCases/truncate'
 import { StageSync } from './useCases/sync'
-import { SentenceService } from '../../sentence/application'
+import { SentenceFacade } from '../../sentence/application'
 
 export class StageFacade {
 	private stageModelService: StageModelService
 	private stageMappingService: StageMappingService
-	private schemaService: SchemaService
-	private sentenceRoute: RouteService
+	private schemaFacade: SchemaFacade
 	protected languages: LanguagesService
-	private queryService: QueryService
+	private queryFacade: QueryFacade
 	// private executor: Executor
-	private sentenceService: SentenceService
+	private sentenceFacade: SentenceFacade
 
-	constructor (schemaService: SchemaService, sentenceRoute: RouteService, queryService: QueryService, languages: LanguagesService, sentenceService: SentenceService) {
-		this.schemaService = schemaService
-		this.sentenceRoute = sentenceRoute
+	constructor (schemaFacade: SchemaFacade, queryFacade: QueryFacade, languages: LanguagesService, sentenceFacade: SentenceFacade) {
+		this.schemaFacade = schemaFacade
 		this.languages = languages
-		this.queryService = queryService
+		this.queryFacade = queryFacade
 		// this.executor = executor
-		this.sentenceService = sentenceService
-		this.stageMappingService = new StageMappingService(schemaService)
-		this.stageModelService = new StageModelService(schemaService)
+		this.sentenceFacade = sentenceFacade
+		this.stageMappingService = new StageMappingService(schemaFacade)
+		this.stageModelService = new StageModelService(schemaFacade)
 	}
 
 	// private getStage (name?: string): Stage {
@@ -58,32 +55,32 @@ export class StageFacade {
 	}
 
 	public sync (options?:QueryOptions):StageActionDDL {
-		const _options = this.queryService.solveOptions(options)
-		return new StageSync(this.queryService, this.stageModelService, this.schemaService, this.sentenceRoute, this.languages, _options)
+		const _options = this.queryFacade.solveOptions(options)
+		return new StageSync(this.queryFacade, this.stageModelService, this.schemaFacade, this.languages, _options)
 	}
 
 	public clean (options?:QueryOptions):StageActionDDL {
-		const _options = this.queryService.solveOptions(options)
-		return new StageClean(this.queryService, this.stageModelService, this.stageMappingService, this.schemaService, this.sentenceRoute, this.languages, _options)
+		const _options = this.queryFacade.solveOptions(options)
+		return new StageClean(this.queryFacade, this.stageModelService, this.stageMappingService, this.schemaFacade, this.languages, _options)
 	}
 
 	public truncate (options?:QueryOptions):StageActionDDL {
-		const _options = this.queryService.solveOptions(options)
-		return new StageTruncate(this.queryService, this.stageModelService, this.schemaService, this.sentenceRoute, this.languages, _options)
+		const _options = this.queryFacade.solveOptions(options)
+		return new StageTruncate(this.queryFacade, this.stageModelService, this.schemaFacade, this.languages, _options)
 	}
 
 	public delete (options?:QueryOptions):StageDelete {
-		const _options = this.queryService.solveOptions(options)
-		return new StageDelete(this.stageMappingService, this.schemaService.model, this.queryService, this.sentenceService, _options)
+		const _options = this.queryFacade.solveOptions(options)
+		return new StageDelete(this.stageMappingService, this.schemaFacade.model, this.queryFacade, _options)
 	}
 
 	public export (options?:QueryOptions):StageExport {
-		const _options = this.queryService.solveOptions(options)
-		return new StageExport(this.stageMappingService, this.schemaService.model, this.queryService, this.sentenceService, _options)
+		const _options = this.queryFacade.solveOptions(options)
+		return new StageExport(this.stageMappingService, this.schemaFacade.model, this.queryFacade, _options)
 	}
 
 	public import (options?:QueryOptions):StageImport {
-		const _options = this.queryService.solveOptions(options)
-		return new StageImport(this.stageMappingService, this.schemaService.model, this.queryService, this.sentenceService, _options)
+		const _options = this.queryFacade.solveOptions(options)
+		return new StageImport(this.stageMappingService, this.schemaFacade.model, this.queryFacade, _options)
 	}
 }
