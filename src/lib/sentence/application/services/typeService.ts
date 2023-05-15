@@ -1,15 +1,13 @@
 import { SintaxisError } from '../../../shared/domain'
-import { Operand, OperandType, TypeService } from '3xpr'
+import { ModelService, Operand, OperandType, TypeServiceImpl } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { SentenceCrudAction } from '../../../schema/domain'
 import { Sentence, SentenceInclude, Field, Map, From, Join, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update } from '../../domain'
 import { ModelConfigService } from '../../../schema/application'
 
-export class SentenceTypeService extends TypeService {
-	private config: ModelConfigService
-	constructor (config: ModelConfigService) {
-		super()
-		this.config = config
+export class SentenceTypeService extends TypeServiceImpl {
+	constructor (model: ModelService, private readonly config: ModelConfigService) {
+		super(model)
 	}
 
 	public override getType (operand: Operand):Type {

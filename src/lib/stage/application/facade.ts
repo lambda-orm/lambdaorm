@@ -3,7 +3,6 @@ import { QueryFacade } from '../../expressions/application'
 import { LanguagesService } from '../../language/application'
 import { StageMappingService, StageModelService } from './services/stateService'
 import { helper } from '../../shared/application'
-// import { SchemaError, Stage, View } from '../../../schema/domain'
 import { QueryOptions } from '../../query/domain'
 import { StageActionDDL } from './useCases/base/actionDDL'
 import { StageClean } from './useCases/clean'
@@ -12,23 +11,14 @@ import { StageExport } from './useCases/export'
 import { StageImport } from './useCases/import'
 import { StageTruncate } from './useCases/truncate'
 import { StageSync } from './useCases/sync'
-import { SentenceFacade } from '../../sentence/application'
 
 export class StageFacade {
 	private stageModelService: StageModelService
 	private stageMappingService: StageMappingService
-	private schemaFacade: SchemaFacade
-	protected languages: LanguagesService
-	private queryFacade: QueryFacade
-	// private executor: Executor
-	private sentenceFacade: SentenceFacade
 
-	constructor (schemaFacade: SchemaFacade, queryFacade: QueryFacade, languages: LanguagesService, sentenceFacade: SentenceFacade) {
-		this.schemaFacade = schemaFacade
-		this.languages = languages
-		this.queryFacade = queryFacade
-		// this.executor = executor
-		this.sentenceFacade = sentenceFacade
+	constructor (private readonly schemaFacade: SchemaFacade,
+		private readonly queryFacade: QueryFacade,
+		private readonly languages: LanguagesService) {
 		this.stageMappingService = new StageMappingService(schemaFacade)
 		this.stageModelService = new StageModelService(schemaFacade)
 	}

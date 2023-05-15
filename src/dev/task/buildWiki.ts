@@ -74,14 +74,14 @@ async function writeOperators (category:string, list: any): Promise<void> {
 
 export async function apply (callback: any) {
 	const functions:OperatorMetadata[] = []
-	for (const duple of orm.expressions.model.functions) {
+	for (const duple of orm.expressions.functions) {
 		const metadata = duple[1]
 		functions.push(metadata)
 	}
 	await writeFunctions('functions', functions)
 
 	const operators:OperatorMetadata[] = []
-	for (const duple of orm.expressions.model.operators) {
+	for (const duple of orm.expressions.operators) {
 		const metadata = duple[1]
 		operators.push(metadata)
 	}

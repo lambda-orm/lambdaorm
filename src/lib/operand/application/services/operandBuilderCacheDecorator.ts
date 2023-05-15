@@ -1,14 +1,19 @@
 
-import { IOperandBuilder, Operand, OperandSerializer } from '3xpr'
+import { OperandBuilder, Operand, OperandSerializer, EvaluatorFactory } from '3xpr'
 import { ICache, Autowired, IUtils } from 'h3lp'
 
-export class OperandBuilderCacheDecorator implements IOperandBuilder {
-	private serializer = new OperandSerializer()
+export class OperandBuilderCacheDecorator implements OperandBuilder {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly operandBuilder: IOperandBuilder, private readonly cache: ICache<string, string>) {}
+	constructor (private readonly operandBuilder: OperandBuilder,
+		private readonly cache: ICache<string, string>,
+		private readonly serializer :OperandSerializer) {}
 
 	@Autowired('h3lp.utils')
 	public utils!: IUtils
+
+	public get evaluatorFactory (): EvaluatorFactory {
+		return this.operandBuilder.evaluatorFactory
+	}
 
 	public build (expression: string): Operand {
 		try {

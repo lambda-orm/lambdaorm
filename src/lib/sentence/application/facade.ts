@@ -1,7 +1,7 @@
 import { Source } from '../../schema/domain'
 import { OperandFacade } from '../../operand/application'
 import { SchemaFacade, ViewConfigService } from '../../schema/application'
-import { ISentenceBuilder, ISentenceCompleteBuilder, Metadata, MetadataConstraint, MetadataModel, MetadataParameter, Sentence } from '../domain'
+import { ISentenceBuilder, ISentenceCompleteBuilder, Metadata, MetadataConstraint, MetadataModel, MetadataParameter, Sentence, SentenceSerializer } from '../domain'
 import { SentenceBuilder } from './services/sentenceBuilder'
 import { SentenceCompleteBuilder } from './services/sentenceCompleteBuilder'
 import { SentenceCompleteBuilderCacheDecorator } from './services/sentenceCompleteBuilderCacheDecorator'
@@ -10,8 +10,8 @@ import { GetConstraints } from './useCases/getConstraints'
 import { GetMetadata } from './useCases/getMetadata'
 import { GetModel } from './useCases/getModel'
 import { GetParameters } from './useCases/getParameters'
-import { IOrmExpressions } from '../../shared/domain'
 import { ICache } from 'h3lp'
+import { Expressions } from '3xpr'
 
 export class SentenceFacade {
 	private getConstraints: GetConstraints
@@ -24,14 +24,14 @@ export class SentenceFacade {
 
 	constructor (private readonly schemaFacade: SchemaFacade,
 		private readonly operandFacade:OperandFacade,
-		private readonly expressions:IOrmExpressions,
-		private readonly cache: ICache<string, string>
+		private readonly expressions:Expressions,
+		cache: ICache<string, string>,
+		serializer:SentenceSerializer
 	) {
 		this.sentenceHelper = new SentenceHelper(this.schemaFacade)
 		this.builder = new SentenceBuilder(this.schemaFacade, this.operandFacade, this.expressions)
 		this.builderComplete = new SentenceCompleteBuilderCacheDecorator(
-			new SentenceCompleteBuilder(this.builder, this.schemaFacade, this.sentenceHelper), cache
-		)
+			new SentenceCompleteBuilder(this.builder, this.schemaFacade, this.sentenceHelper, this.expressions), cache, serializer)
 		this.getConstraints = new GetConstraints(this.builder)
 		this.getMetadata = new GetMetadata(this.builder)
 		this.getModel = new GetModel(this.builder)

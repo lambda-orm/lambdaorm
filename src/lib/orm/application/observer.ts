@@ -1,9 +1,9 @@
 import { ActionObserver, ActionObserverArgs } from '../domain'
 import { ListenerConfig } from '../../schema/domain'
-import { IOrmExpressions } from '../../shared/domain'
+import { Expressions } from '3xpr'
 
 export class ExpressionActionObserver extends ActionObserver {
-	constructor (private readonly config:ListenerConfig, private readonly expressions:IOrmExpressions) {
+	constructor (private readonly config:ListenerConfig, private readonly expressions:Expressions) {
 		super(config.actions, config.condition, config.transactional)
 	}
 

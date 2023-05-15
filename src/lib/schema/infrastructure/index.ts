@@ -1,1 +1,1 @@
-export * from './fileSchemaReader'
+export * from './facadeBuilder'

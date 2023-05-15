@@ -7,14 +7,12 @@ import { helper } from '../../../shared/application'
 import { ExecutionError } from '../../../connection/domain'
 import { ConnectionFacade, Connection } from '../../../connection/application'
 import { LanguagesService, DialectService } from '../../../language/application'
-import { IOrmExpressions } from '../../../shared/domain'
 import { MappingConfigService } from '../../../schema/application/services/config/mappingConfigService'
+import { Expressions } from '3xpr'
 
 class QuerySolveDefaults {
-	private expressions: IOrmExpressions
-	constructor (expressions: IOrmExpressions) {
-		this.expressions = expressions
-	}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly expressions: Expressions) {}
 
 	/**
 	 * solve default properties
@@ -46,10 +44,8 @@ class QuerySolveDefaults {
 }
 
 class QuerySolveWriteValues {
-	private expressions: IOrmExpressions
-	constructor (expressions: IOrmExpressions) {
-		this.expressions = expressions
-	}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly expressions: Expressions) {}
 
 	public solve(query: Query, data: any[]): void
 	public solve(query: Query, data: any): void
@@ -69,10 +65,8 @@ class QuerySolveWriteValues {
 }
 
 class QuerySolveReadValues {
-	private expressions: IOrmExpressions
-	constructor (expressions: IOrmExpressions) {
-		this.expressions = expressions
-	}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly expressions: Expressions) {}
 
 	public solve (query: Query, data: any[]): void {
 		for (const valueBehavior of query.values) {
@@ -96,10 +90,8 @@ class QuerySolveReadValues {
 }
 
 class QueryEvalConstraints {
-	private expressions: IOrmExpressions
-	constructor (expressions: IOrmExpressions) {
-		this.expressions = expressions
-	}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly expressions: Expressions) {}
 
 	public eval(query: Query, data: any[]): void
 	public eval(query: Query, data: any): void
@@ -132,7 +124,7 @@ class QuerySelectExecutor {
 	public options: QueryOptions
 	private solveReadValues: QuerySolveReadValues
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: IOrmExpressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveReadValues = new QuerySolveReadValues(expressions)
@@ -311,7 +303,7 @@ class QueryInsertExecutor {
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: IOrmExpressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -383,7 +375,7 @@ class QueryBulkInsertExecutor {
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: IOrmExpressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -551,7 +543,7 @@ class QueryUpdateExecutor {
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
 	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: IOrmExpressions, options: QueryOptions) {
+	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)
@@ -639,7 +631,7 @@ export class QueryExecutor implements IQueryInternalExecutor {
 	constructor (private readonly connectionFacade: ConnectionFacade,
 	private readonly languages: LanguagesService,
   private readonly schemaFacade: SchemaFacade,
-	private readonly expressions: IOrmExpressions,
+	private readonly expressions: Expressions,
 	public readonly options: QueryOptions,
 	private transactional = false) {
 		this.connections = {}

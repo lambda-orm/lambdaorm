@@ -1,10 +1,10 @@
 
 import { Relation } from '../../../schema/domain'
-import { Metadata, Sentence, SentenceInclude, Map, BulkInsert, Insert, Update, Delete, Field, From, Join, Filter, GroupBy, Having, Sort, Page } from '../../domain'
+import { Metadata, Sentence, SentenceInclude, Map, BulkInsert, Insert, Update, Delete, Field, From, Join, Filter, GroupBy, Having, Sort, Page, SentenceSerializer } from '../../domain'
 import { Operand, OperandType } from '3xpr'
 import { Type } from 'typ3s'
 
-export class SentenceSerializer {
+export class SentenceSerializerImp implements SentenceSerializer {
 	public clone (sentence: Sentence): Sentence {
 		const serialized = this.serialize(sentence)
 		const deserialized = this.deserialize(serialized)

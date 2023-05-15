@@ -1,14 +1,12 @@
 import { Sentence, Field, Filter, Join, SentenceInclude, Insert, Update } from '../../domain'
 import { EntityMapping, SchemaError, PropertyMapping, PropertyView, SentenceAction } from '../../../schema/domain'
-import { Operand, OperandType } from '3xpr'
-import { IOrmExpressions } from '../../../shared/domain'
+import { Expressions, Operand, OperandType } from '3xpr'
 import { Type } from 'typ3s'
 import { MappingConfigService, ViewConfigService } from '../../../schema/application'
-import { Autowired } from 'h3lp'
 
 export class SentenceCompleter {
-	@Autowired('orm.expressions')
-	private expressions!:IOrmExpressions
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly expressions:Expressions) {}
 
 	public complete (mapping: MappingConfigService, view: ViewConfigService, sentence: Sentence) {
 		const entity = mapping.getEntity(sentence.entity) as EntityMapping
@@ -35,7 +33,7 @@ export class SentenceCompleter {
 		let newFilter: Operand | undefined
 		// add filter for filter in entity
 		if (entity.filter) {
-			const filterOperand = this.expressions.build(entity.filter, false)
+			const filterOperand = this.expressions.build(entity.filter)
 			newFilter = this.replaceField(entity, sentence.alias, filterOperand)
 		}
 		// add filter for keys in properties
@@ -106,7 +104,7 @@ export class SentenceCompleter {
 			}
 		}
 		if (expression) {
-			const operand = this.expressions.build(expression, false)
+			const operand = this.expressions.build(expression)
 			return this.replaceField(entity, sentence.alias, operand)
 		} else {
 			return undefined
@@ -124,7 +122,7 @@ export class SentenceCompleter {
 			let newFilter: Operand | undefined
 			// add filter for filter in entity
 			if (entity.filter) {
-				const operand = this.expressions.build(entity.filter, false)
+				const operand = this.expressions.build(entity.filter)
 				newFilter = this.replaceField(entity, parts[1], operand)
 			}
 			// add filter for keys in properties
@@ -167,15 +165,15 @@ export class SentenceCompleter {
 		const alias = child.alias as string
 		let sourceOperand = child as Operand
 		if (property.readMappingExp) {
-			const operand = this.expressions.build(property.readMappingExp, false)
+			const operand = this.expressions.build(property.readMappingExp)
 			sourceOperand = this.replaceField(entity, alias, operand, child.name, sourceOperand)
 		}
 		if (property.readExp) {
-			const operand = this.expressions.build(property.readExp, false)
+			const operand = this.expressions.build(property.readExp)
 			sourceOperand = this.replaceField(entity, alias, operand, child.name, sourceOperand)
 		}
 		if (viewProperty && viewProperty.readExp) {
-			const operand = this.expressions.build(viewProperty.readExp, false)
+			const operand = this.expressions.build(viewProperty.readExp)
 			sourceOperand = this.replaceField(entity, alias, operand, child.name, sourceOperand)
 		}
 		return sourceOperand

@@ -1,7 +1,4 @@
-import { IOrmExpressions } from '../../shared/domain'
 import { ClauseInfo, DataSourceRule, Schema, SchemaError } from '../domain'
-import { FileSchemaReader } from '../infrastructure'
-import { SchemaFileHelper } from '../infrastructure/schemaFileHelper'
 import { DataSourceConfigService } from './services/config/dataSourceConfigService'
 import { MappingsConfigService } from './services/config/mappingsConfigService'
 import { ModelConfigService } from './services/config/modelConfigService'
@@ -15,27 +12,20 @@ import { GetSchema } from './useCases/get'
 import { LoadSchema } from './useCases/load'
 
 export class SchemaFacade {
-	public source = new DataSourceConfigService()
-	public model = new ModelConfigService()
-	public mapping = new MappingsConfigService()
-	public stage = new StageConfigService()
-	public view = new ViewsConfigService()
-	private schemaService:SchemaService
-	private routeService:RouteService
-	private extender:SchemaExtender
-	private loadSchema: LoadSchema
-	private getSchema: GetSchema
-	private completeSchema:CompleteSchema
 	public schema: Schema
-
-	constructor (public workspace:string, private readonly expressions: IOrmExpressions) {
-		this.schemaService = new SchemaService()
-		this.routeService = new RouteService(this.stage, this.expressions)
-		this.extender = new SchemaExtender(this.expressions)
-		this.loadSchema = new LoadSchema(this.source, this.model, this.mapping, this.stage, this.view, this.extender)
-		// TODO: hay que pasarlo a Infraestructura como un Adapter
-		this.getSchema = new GetSchema(new FileSchemaReader(new SchemaFileHelper()))
-		this.completeSchema = new CompleteSchema(this.schemaService)
+	constructor (public workspace:string,
+		public readonly source:DataSourceConfigService,
+		public readonly model:ModelConfigService,
+		public readonly mapping:MappingsConfigService,
+		public readonly stage:StageConfigService,
+		public readonly view:ViewsConfigService,
+		private readonly schemaService:SchemaService,
+		private readonly routeService:RouteService,
+		private readonly extender:SchemaExtender,
+		private readonly loadSchema: LoadSchema,
+		private readonly getSchema: GetSchema,
+		private readonly completeSchema:CompleteSchema
+	) {
 		this.schema = this.schemaService.newSchema()
 	}
 

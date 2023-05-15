@@ -1,12 +1,12 @@
 
+import { Expressions } from '3xpr'
 import { ObservableAction, DataSourceRule, SchemaError, ClauseInfo, ContextInfo, IRouteService } from '../../domain'
-import { IOrmExpressions } from '../../../shared/domain'
 import { StageConfigService } from './config/stageConfigService'
 
 export class RouteService implements IRouteService {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly stageConfigService: StageConfigService,
-		private readonly expressions:IOrmExpressions) {}
+		private readonly expressions:Expressions) {}
 
 	public eval (source:DataSourceRule, clauseInfo: ClauseInfo):boolean {
 		const contextInfo = this.getContextInfo(clauseInfo)

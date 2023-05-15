@@ -1,4 +1,4 @@
-import { IOperandBuilder, Operand } from '3xpr'
+import { OperandBuilder, Operand, OperandSerializer, Expressions } from '3xpr'
 import { SchemaFacade } from '../../schema/application'
 import { OperandBuilderCacheDecorator } from './services/operandBuilderCacheDecorator'
 import { OrmOperandBuilder } from './services/operandBuilder'
@@ -8,11 +8,18 @@ import { ICache } from 'h3lp'
 
 export class OperandFacade {
 	private helper:OrmOperandHelper
-	private builder:IOperandBuilder
+	private builder:OperandBuilder
 	private operandNormalize:OperandNormalize
-	constructor (private readonly schema:SchemaFacade, private readonly cache: ICache<string, string>) {
+	constructor (private readonly expressions: Expressions,
+		private readonly schema:SchemaFacade,
+		private readonly cache: ICache<string, string>,
+		private readonly operandSerializer:OperandSerializer
+	) {
 		this.helper = new OrmOperandHelper()
-		this.builder = new OperandBuilderCacheDecorator(new OrmOperandBuilder(this.schema.model), cache)
+		this.builder = new OperandBuilderCacheDecorator(
+			new OrmOperandBuilder(this.expressions, this.schema.model),
+			cache,
+			operandSerializer)
 		this.operandNormalize = new OperandNormalize(this.builder, this.helper)
 	}
 

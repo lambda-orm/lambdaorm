@@ -4,15 +4,15 @@ import { SchemaFacade } from '../../../schema/application'
 import { LanguagesService } from '../../../language/application'
 import { QueryExecutor } from './queryExecutor'
 import { Transaction } from '../../domain'
-import { IOrmExpressions } from '../../../shared/domain'
 import { ConnectionFacade } from '../../../connection/application'
+import { Expressions } from '3xpr'
 
 export class Executor {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly connectionFacade: ConnectionFacade,
 		private readonly languages: LanguagesService,
 		private readonly schemaFacade: SchemaFacade,
-		private readonly expressions: IOrmExpressions) {}
+		private readonly expressions: Expressions) {}
 
 	public async execute (query: Query, data: any, options: QueryOptions): Promise<any> {
 		let error: any

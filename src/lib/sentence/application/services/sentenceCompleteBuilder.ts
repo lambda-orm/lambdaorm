@@ -1,4 +1,5 @@
 
+import { Expressions } from '3xpr'
 import { SchemaFacade, ViewConfigService } from '../../../schema/application'
 import { ISentenceBuilder, ISentenceCompleteBuilder, Sentence } from '../../domain'
 import { SentenceCompleter } from './sentenceCompleter'
@@ -9,9 +10,10 @@ export class SentenceCompleteBuilder implements ISentenceCompleteBuilder {
 	constructor (
 		private readonly sentenceBuilder:ISentenceBuilder,
 		private readonly schemaFacade: SchemaFacade,
-		private readonly sentenceHelper: SentenceHelper
+		private readonly sentenceHelper: SentenceHelper,
+		private readonly expressions: Expressions
 	) {
-		this.completer = new SentenceCompleter()
+		this.completer = new SentenceCompleter(this.expressions)
 	}
 
 	public build (expression: string, view: ViewConfigService, stage:string): Sentence {

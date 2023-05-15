@@ -1,9 +1,10 @@
+import { LanguageAdapter } from 'lib/language/infrastructure/adapters/base/languageAdapter'
 import { DDLBuilderPort, DMLBuilderPort } from '../../../../language/application'
 import { MappingConfigService } from '../../../../schema/application'
 import { Source } from '../../../../schema/domain'
-import { LanguageAdapter, SqlDDLBuilderAdapter } from '../../../../language/infrastructure'
 import { SqlDMLBuilderAdapter } from './SqlDmlBuilder'
 import config from './config.json'
+import { SqlDDLBuilderAdapter } from 'lib/language/infrastructure/adapters/SQL/ddlBuilder'
 
 export class SqlLanguageAdapter extends LanguageAdapter {
 	constructor () {

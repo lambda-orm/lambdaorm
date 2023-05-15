@@ -1,10 +1,10 @@
 
 import { helper } from '../../../shared/application'
-import { SintaxisError, IOrmExpressions } from '../../../shared/domain'
+import { SintaxisError } from '../../../shared/domain'
 import { Relation, SchemaError, Entity } from '../../../schema/domain'
 import { ModelConfigService } from '../../../schema/application'
 import { Field } from '../../../sentence/domain'
-import { Operand, OperandType, Position } from '3xpr'
+import { Expressions, Operand, OperandType, Position } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Autowired } from 'h3lp'
 /**
@@ -15,7 +15,7 @@ export class OrmOperandNormalizer {
 	public constructor (private readonly modelConfigService: ModelConfigService) {}
 
 	@Autowired('orm.expressions')
-	private expressions!:IOrmExpressions
+	private expressions!:Expressions
 
 	public normalize (operand: Operand): Operand {
 		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter
@@ -36,12 +36,12 @@ export class OrmOperandNormalizer {
 
 	private normalizeOperand (operand: Operand): void {
 		if (operand.type === OperandType.Arrow || operand.type === OperandType.ChildFunc || operand.type === OperandType.CallFunc) {
-			const alias = this.expressions.model.functionAlias.find(p => p[0] === operand.name)
+			const alias = this.expressions.functionAlias.find(p => p[0] === operand.name)
 			if (alias) {
 				operand.name = alias[1]
 			}
 		} else if (operand.type === OperandType.Operator) {
-			const alias = this.expressions.model.operatorAlias.find(p => p[0] === operand.name)
+			const alias = this.expressions.operatorAlias.find(p => p[0] === operand.name)
 			if (alias) {
 				operand.name = alias[1]
 			}

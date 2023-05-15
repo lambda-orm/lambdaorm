@@ -10,10 +10,10 @@ import { LanguagesService } from '../../language/application'
 import { IQueryBuilder } from '../domain'
 import { QueryBuilder } from './services/queryBuilder'
 import { QueryBuilderCacheDecorator } from './services/queryBuilderCacheDecorator'
-import { IOrmExpressions } from '../../shared/domain'
 import { ExecuteQuery } from './useCases/execute'
 import { ExpressionTransaction } from './useCases/transaction'
 import { ICache } from 'h3lp'
+import { Expressions } from '3xpr'
 
 export class QueryFacade {
 	private queryHelper:QueryHelper
@@ -25,8 +25,8 @@ export class QueryFacade {
 		private readonly schemaFacade: SchemaFacade,
 		private readonly languages: LanguagesService,
 		private readonly executionFacade:ExecutionFacade,
-		private readonly cache: ICache<string, string>,
-		expressions: IOrmExpressions) {
+		expressions: Expressions,
+		cache: ICache<string, string>) {
 		this.builder = new QueryBuilderCacheDecorator(new QueryBuilder(this.sentenceFacade, this.schemaFacade, this.languages), cache)
 		this.getInfoQuery = new GetInfoQuery(this.builder)
 		this.queryHelper = new QueryHelper(this.schemaFacade.stage)

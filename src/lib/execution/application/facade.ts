@@ -2,9 +2,9 @@ import { Query, ExecuteResult, QueryOptions } from '../../query/domain'
 import { SchemaFacade } from '../../schema/application'
 import { LanguagesService } from '../../language/application'
 import { Transaction } from '../domain'
-import { IOrmExpressions } from '../../shared/domain'
 import { ConnectionFacade } from '../../connection/application'
 import { Executor } from './services/executor'
+import { Expressions } from '3xpr'
 
 export class ExecutionFacade {
 	private executor:Executor
@@ -12,7 +12,7 @@ export class ExecutionFacade {
 	constructor (private readonly connectionFacade: ConnectionFacade,
 	private readonly languages: LanguagesService,
 	private readonly schemaFacade: SchemaFacade,
-	private readonly expressions: IOrmExpressions) {
+	private readonly expressions: Expressions) {
 		this.executor = new Executor(this.connectionFacade, this.languages, this.schemaFacade, this.expressions)
 	}
 

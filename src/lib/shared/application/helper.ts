@@ -1,5 +1,5 @@
 import { H3lp, IStringHelper } from 'h3lp'
-import { OperandHelper } from '3xpr'
+import { expressions, OperandHelper } from '3xpr'
 // import { QueryInfo } from './domain'
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
@@ -71,7 +71,7 @@ class Helper extends H3lp {
 
 	constructor () {
 		super()
-		this.operand = new OperandHelper()
+		this.operand = new OperandHelper(expressions.constBuilder)
 		this.query = new QueryHelper(this.str)
 		// this.expression = new ExpressionHelper(this.str)
 	}

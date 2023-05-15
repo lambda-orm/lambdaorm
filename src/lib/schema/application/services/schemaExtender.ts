@@ -5,12 +5,12 @@ import {
 } from '../../domain'
 import { helper } from '../../../shared/application/helper'
 import { Primitive } from 'typ3s'
-import { IOrmExpressions } from '../../../shared/domain'
 import { Autowired, IObjectHelper } from 'h3lp'
+import { Expressions } from '3xpr'
 
 export class SchemaExtender {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly expressions: IOrmExpressions) {}
+	constructor (private readonly expressions: Expressions) {}
 
 	@Autowired('h3lp.obj')
 	private objectHelper!:IObjectHelper

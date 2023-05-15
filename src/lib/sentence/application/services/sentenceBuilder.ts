@@ -1,8 +1,8 @@
 /* eslint-disable no-case-declarations */
-import { SintaxisError, IOrmExpressions } from '../../../shared/domain'
+import { SintaxisError } from '../../../shared/domain'
 import { SentenceAction, Property, Behavior, Constraint, Entity } from '../../../schema/domain'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../../domain/sentence'
-import { Operand, Parameter, OperandType, Position, ITypeService } from '3xpr'
+import { Operand, Parameter, OperandType, Position, TypeService, Expressions } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { SentenceTypeService } from './typeService'
 import { SentenceHelper } from './sentenceHelper'
@@ -53,7 +53,7 @@ class SentenceSolveConstraints {
 	constructor (private readonly modelConfig: ModelConfigService, private readonly helper: SentenceHelper) {}
 
 	@Autowired('orm.expressions')
-	private expressions!:IOrmExpressions
+	private expressions!:Expressions
 
 	public solve (sentence:Sentence): void {
 		if (sentence.name === SentenceAction.update ||
@@ -210,7 +210,7 @@ class SentenceSolveBehaviors {
 	}
 }
 export class SentenceBuilder implements ISentenceBuilder {
-	private typeService: ITypeService
+	private typeService: TypeService
 	private helper:SentenceHelper
 	private solveBehaviors: SentenceSolveBehaviors
 	private solveConstraints : SentenceSolveConstraints
@@ -218,10 +218,10 @@ export class SentenceBuilder implements ISentenceBuilder {
 
 	constructor (private readonly schemaFacade: SchemaFacade,
 		private readonly operandFacade:OperandFacade,
-		private readonly expressions:IOrmExpressions
+		private readonly expressions:Expressions
 	) {
 		this.modelConfigService = this.schemaFacade.model
-		this.typeService = new SentenceTypeService(this.schemaFacade.model)
+		this.typeService = new SentenceTypeService(expressions, this.schemaFacade.model)
 		this.helper = new SentenceHelper(this.schemaFacade)
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schemaFacade.model, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.modelConfigService, this.helper)

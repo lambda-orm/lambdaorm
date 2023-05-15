@@ -4,15 +4,16 @@ import { QueryInfo, QueryOptions } from '../../query/domain'
 import { Schema, Dialect } from '../../schema/domain'
 import { SchemaFacade } from '../../schema/application'
 import { StageFacade } from '../../stage/application'
-import { IOrmExpressions } from '../../shared/domain'
 import { ExpressionTransaction } from '../../expressions/application'
+import { Expressions } from '3xpr'
 export interface IOrm
 {
 	get workspace(): string
+	stage: StageFacade
+	schema: SchemaFacade
+	expressions: Expressions
+
 	dialect (source:string): Dialect
-	get stage(): StageFacade
-	get schema(): SchemaFacade
-	get expressions(): IOrmExpressions
 
 	// setCache (value: Cache):void
 	init(configPath?: string, connect?: boolean): Promise<Schema>

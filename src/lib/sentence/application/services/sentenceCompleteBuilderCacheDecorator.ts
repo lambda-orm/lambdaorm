@@ -1,16 +1,13 @@
 
 import { ICache, Autowired, IUtils } from 'h3lp'
-import { ISentenceCompleteBuilder, Sentence } from '../../domain'
+import { ISentenceCompleteBuilder, Sentence, SentenceSerializer } from '../../domain'
 import { ViewConfigService } from 'lib/schema/application'
-import { SentenceSerializer } from './sentenceSerializer'
 
 export class SentenceCompleteBuilderCacheDecorator implements ISentenceCompleteBuilder {
-	private serializer:SentenceSerializer
+	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly builder: ISentenceCompleteBuilder,
-	private readonly cache: ICache<string, string>
-	) {
-		this.serializer = new SentenceSerializer()
-	}
+	private readonly cache: ICache<string, string>,
+	private readonly serializer:SentenceSerializer) {}
 
 	@Autowired('h3lp.utils')
 	public utils!: IUtils

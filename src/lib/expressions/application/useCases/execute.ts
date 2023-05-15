@@ -1,20 +1,20 @@
-import { IOrmExpressions } from '../../../shared/domain'
 import { Query, QueryOptions } from '../../../query/domain'
 import { IQueryBuilder } from '../../domain/services'
 import { ExecutionFacade } from '../../../execution/application'
 import { QueryHelper } from '../services/queryHelper'
 import { ExpressionTransaction } from './transaction'
+import { Expressions } from '3xpr'
 
 export class ExecuteQuery {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly builder:IQueryBuilder,
 		private readonly queryHelper:QueryHelper,
 		private readonly executionFacade:ExecutionFacade,
-		private readonly expressions: IOrmExpressions) {}
+		private readonly expressions: Expressions) {}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public async execute (expression: string|Function, data: any = {}, options: QueryOptions|undefined = undefined): Promise<any> {
-		const _expression = typeof expression !== 'string' ? this.expressions.toExpression(expression) : expression
+		const _expression = typeof expression !== 'string' ? this.expressions.convert(expression, 'function')[0] : expression
 		const _options = this.queryHelper.solveOptions(options)
 		const query = this.builder.build(_expression, _options)
 		return this.executionFacade.execute(query, data, _options)
@@ -26,7 +26,7 @@ export class ExecuteQuery {
 
 	public async transaction (options: QueryOptions, callback: { (tr: ExpressionTransaction): Promise<void> }): Promise<void> {
 		this.executionFacade.transaction(options, async (transaction) => {
-			const tr = new ExpressionTransaction(transaction, this.builder)
+			const tr = new ExpressionTransaction(transaction, this.builder, this.expressions)
 			await callback(tr)
 		})
 	}

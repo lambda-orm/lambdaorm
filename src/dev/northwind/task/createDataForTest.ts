@@ -27,7 +27,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 		expressionTest.sentences = []
 		expressionTest.errors = 0
 		try {
-			expressionTest.expression = orm.expressions.toExpression(expressionTest.lambda)
+			expressionTest.expression = orm.expressions.convert(expressionTest.lambda, 'function')[0]
 			// expressionTest.lambda = expressionTest.lambda.toString()
 			expressionTest.normalizeExpression = orm.normalize(expressionTest.expression as string)
 			expressionTest.model = orm.model(expressionTest.expression as string)

@@ -7,19 +7,16 @@ import { AcquireConnection } from './useCases/acquire'
 import { ReleaseConnection } from './useCases/release'
 
 export class ConnectionFacade {
-	private dialectService:DialectPoolService
-	private poolService:ConnectionPoolService
-	private acquireConnection:AcquireConnection
-	private releaseConnection:ReleaseConnection
-	constructor () {
-		this.dialectService = new DialectPoolService()
-		this.poolService = new ConnectionPoolService(this.dialectService)
-		this.acquireConnection = new AcquireConnection(this.poolService)
-		this.releaseConnection = new ReleaseConnection(this.poolService)
-	}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly dialectService:DialectPoolService,
+	private readonly poolService:ConnectionPoolService,
+	private readonly acquireConnection:AcquireConnection,
+	private readonly releaseConnection:ReleaseConnection
+	) {}
 
-	public addDialect (dialect:string, classConnectionPool:any):void {
+	public addDialect (dialect:string, classConnectionPool:any):ConnectionFacade {
 		this.dialectService.add(dialect, classConnectionPool)
+		return this
 	}
 
 	public load (config:ConnectionConfig):void {
