@@ -3,24 +3,25 @@ import { SchemaFacade } from '../../schema/application'
 import { OperandBuilderCacheDecorator } from './services/operandBuilderCacheDecorator'
 import { OrmOperandBuilder } from './services/operandBuilder'
 import { OperandNormalize } from './usesCases/normalize'
-import { OrmOperandHelper } from './services/operandHelper'
 import { ICache } from 'h3lp'
+import { OrmOperandHelper } from './services/operandHelper'
+import { Helper } from '../../shared/application'
 
 export class OperandFacade {
-	private helper:OrmOperandHelper
 	private builder:OperandBuilder
 	private operandNormalize:OperandNormalize
 	constructor (private readonly expressions: Expressions,
 		private readonly schema:SchemaFacade,
-		private readonly cache: ICache<string, string>,
-		private readonly operandSerializer:OperandSerializer
+		cache: ICache<string, string>,
+		operandSerializer:OperandSerializer,
+		operandHelper:OrmOperandHelper,
+		private readonly helper:Helper
 	) {
-		this.helper = new OrmOperandHelper()
 		this.builder = new OperandBuilderCacheDecorator(
-			new OrmOperandBuilder(this.expressions, this.schema.model),
+			new OrmOperandBuilder(this.expressions, this.schema.model, this.helper),
 			cache,
-			operandSerializer)
-		this.operandNormalize = new OperandNormalize(this.builder, this.helper)
+			operandSerializer, this.helper)
+		this.operandNormalize = new OperandNormalize(this.builder, operandHelper)
 	}
 
 	public build (expression: string): Operand {

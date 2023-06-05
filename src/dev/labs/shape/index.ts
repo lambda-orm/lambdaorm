@@ -1,4 +1,5 @@
-import { orm, helper } from '../../../lib'
+import { orm } from '../../../lib'
+import { h3lp } from 'h3lp'
 const sourcePath = 'src/dev/labs/performance/shape'
 
 async function execute () {
@@ -12,7 +13,7 @@ async function execute () {
 		await orm.stage.sync({stage:stage}).execute()
 		let sync = new Date().getTime()
 		console.log(`sync: ${sync - clean}`)
-		const content = await helper.fs.read(`${sourcePath}/shapes.json`) as string
+		const content = await h3lp.fs.read(`${sourcePath}/shapes.json`) as string
 		const data = JSON.parse(content)
 		const readFile = new Date().getTime()
 		console.log(`readFile: ${readFile - sync}`)

@@ -84,6 +84,7 @@
 		"typedoc",
 		"uadmin",
 		"UNIXTIME",
+		"UNNEST",
 		"upsert",
 		"uroot",
 		"USERENV",

@@ -1,20 +1,23 @@
 import { Entity } from '../../../../schema/domain'
 import { Query, QueryOptions } from '../../../../query/domain'
 import { ModelConfigService } from '../../../../schema/application'
-import { QueryFacade } from '../../../../expressions/application'
 import { StageMappingService } from '../../services/stateService'
-// import { SentenceService } from '../../../../sentence/application'
+import { Executor } from '../../../../execution/domain'
+import { ExpressionFacade } from '../../../../expressions/application'
+
 export abstract class StageActionDML {
 	protected stageMappingService: StageMappingService
 	protected model: ModelConfigService
-	protected queryFacade: QueryFacade
+	protected expressionFacade: ExpressionFacade
+	protected executor: Executor
 	protected options: QueryOptions
 	// protected sentenceService: SentenceService
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (stageMappingService: StageMappingService, model: ModelConfigService, queryFacade: QueryFacade, options: QueryOptions) {
+	constructor (stageMappingService: StageMappingService, model: ModelConfigService, expressionFacade: ExpressionFacade, executor: Executor, options: QueryOptions) {
 		this.stageMappingService = stageMappingService
 		this.model = model
-		this.queryFacade = queryFacade
+		this.expressionFacade = expressionFacade
+		this.executor = executor
 		this.options = options
 		// this.sentenceService = sentenceService
 	}

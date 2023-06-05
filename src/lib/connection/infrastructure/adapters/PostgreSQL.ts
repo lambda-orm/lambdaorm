@@ -3,7 +3,7 @@ import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query, Data } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
-import { helper } from '../../../shared/application'
+import { Helper } from '../../../shared/application'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
@@ -13,8 +13,8 @@ import { DialectService } from '../../../language/application'
 
 export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any
-	constructor (config: ConnectionConfig) {
-		super(config)
+	constructor (config: ConnectionConfig, helper:Helper) {
+		super(config, helper)
 		if (!PostgreSQLConnectionPoolAdapter.lib) {
 			const pg = require('pg')
 			// Solve error number as string in queries
@@ -52,7 +52,7 @@ export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 	public async acquire (): Promise<Connection> {
 		const cnx = new PostgreSQLConnectionPoolAdapter.lib.Client(this.config.connection)
 		cnx.connect()
-		return new PostgreSQLConnectionAdapter(cnx, this)
+		return new PostgreSQLConnectionAdapter(cnx, this, this.helper)
 	}
 
 	public async release (connection: Connection): Promise<void> {
@@ -128,20 +128,20 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 			case Primitive.string:
 				if (value.includes('\'')) {
 					// value = helper.escape(value)
-					value = `'${helper.str.replace(value, '\'', '\'\'')}'`
+					value = `'${this.helper.str.replace(value, '\'', '\'\'')}'`
 				} else {
 				// value = helper.escape(value)
 					value = `'${value}'`
 				}
 				break
 			case Primitive.dateTime:
-				value = helper.query.escape(this.writeDateTime(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case Primitive.date:
-				value = helper.query.escape(this.writeDate(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeDate(value, mapping, dialect))
 				break
 			case Primitive.time:
-				value = helper.query.escape(this.writeTime(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}
@@ -208,12 +208,12 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 				const type = typeof param.value[0]
 				switch (type) {
 				case Primitive.string:
-					sql = helper.str.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
+					sql = this.helper.str.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::VARCHAR[])))')
 					values.push(param.value)
 					break
 				case 'bigint':
 				case Primitive.number:
-					sql = helper.str.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
+					sql = this.helper.str.replace(sql, '($' + (i + 1) + ')', '(SELECT(UNNEST($' + (i + 1) + '::INTEGER[])))')
 					values.push(param.value)
 					break
 				default:

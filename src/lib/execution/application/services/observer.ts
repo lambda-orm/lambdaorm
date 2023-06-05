@@ -1,8 +1,8 @@
-import { ActionObserver, ActionObserverArgs } from '../domain'
-import { ListenerConfig } from '../../schema/domain'
+import { ActionObserver, ActionObserverArgs } from '../../domain'
+import { ListenerConfig } from '../../../schema/domain'
 import { Expressions } from '3xpr'
 
-export class ExpressionActionObserver extends ActionObserver {
+export class ExecutionActionObserver extends ActionObserver {
 	constructor (private readonly config:ListenerConfig, private readonly expressions:Expressions) {
 		super(config.actions, config.condition, config.transactional)
 	}

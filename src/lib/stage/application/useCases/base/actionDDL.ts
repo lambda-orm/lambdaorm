@@ -2,15 +2,17 @@ import { LanguagesService } from '../../../../language/application'
 import { StageModelService } from '../../services/stateService'
 import { Query, QueryOptions, ExecuteResult } from '../../../../query/domain'
 import { SchemaFacade } from '../../../../schema/application'
-import { QueryFacade } from '../../../../expressions/application'
+import { Executor } from '../../../../execution/domain'
+import { Helper } from '../../../../shared/application'
 
 export abstract class StageActionDDL {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (protected readonly queryFacade:QueryFacade,
+	constructor (protected readonly executor: Executor,
 		protected readonly stageModelService:StageModelService,
 		protected readonly schemaFacade: SchemaFacade,
 		protected readonly languages: LanguagesService,
-		protected readonly options:QueryOptions) {}
+		protected readonly options:QueryOptions,
+		protected readonly helper:Helper) {}
 
 	public abstract execute(): Promise<ExecuteResult[]>
 	public abstract queries(): Promise<Query[]>

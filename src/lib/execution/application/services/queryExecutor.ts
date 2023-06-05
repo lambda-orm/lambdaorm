@@ -3,7 +3,7 @@ import { SentenceAction, RelationType, EntityMapping, Constraint, Behavior } fro
 import { SchemaFacade } from '../../../schema/application'
 import { ValidationError } from '../../domain'
 import { Query, Include, Data, QueryOptions } from '../../../query/domain'
-import { helper } from '../../../shared/application'
+import { Helper } from '../../../shared/application'
 import { ExecutionError } from '../../../connection/domain'
 import { ConnectionFacade, Connection } from '../../../connection/application'
 import { LanguagesService, DialectService } from '../../../language/application'
@@ -66,7 +66,7 @@ class QuerySolveWriteValues {
 
 class QuerySolveReadValues {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly expressions: Expressions) {}
+	constructor (private readonly expressions: Expressions, private readonly helper:Helper) {}
 
 	public solve (query: Query, data: any[]): void {
 		for (const valueBehavior of query.values) {
@@ -80,7 +80,7 @@ class QuerySolveReadValues {
 				// since the expression contains the name of the property and not the alias
 				// the property must be added with the alias value.
 				for (const item of data) {
-					const context = helper.obj.clone(item)
+					const context = this.helper.obj.clone(item)
 					context[valueBehavior.property] = item[valueBehavior.alias]
 					item[valueBehavior.alias] = this.expressions.eval(valueBehavior.expression, context)
 				}
@@ -121,13 +121,16 @@ interface IQueryInternalExecutor {
 }
 
 class QuerySelectExecutor {
-	public options: QueryOptions
 	private solveReadValues: QuerySolveReadValues
-	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
+
+	constructor (
+		private readonly executor: IQueryInternalExecutor,
+		expressions: Expressions,
+		public readonly options: QueryOptions,
+		private readonly helper:Helper) {
 		this.options = options
 		this.executor = executor
-		this.solveReadValues = new QuerySolveReadValues(expressions)
+		this.solveReadValues = new QuerySolveReadValues(expressions, this.helper)
 	}
 
 	public async select (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<any> {
@@ -633,9 +636,10 @@ export class QueryExecutor implements IQueryInternalExecutor {
   private readonly schemaFacade: SchemaFacade,
 	private readonly expressions: Expressions,
 	public readonly options: QueryOptions,
+	private readonly helper: Helper,
 	private transactional = false) {
 		this.connections = {}
-		this.selectExecutor = new QuerySelectExecutor(this, this.expressions, this.options)
+		this.selectExecutor = new QuerySelectExecutor(this, this.expressions, this.options, this.helper)
 		this.insertExecutor = new QueryInsertExecutor(this, this.expressions, this.options)
 		this.bulkInsertExecutor = new QueryBulkInsertExecutor(this, this.expressions, this.options)
 		this.updateExecutor = new QueryUpdateExecutor(this, this.expressions, this.options)

@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import { orm, helper } from '../../lib'
+import { orm } from '../../lib'
+import { h3lp } from 'h3lp'
 import { OperatorMetadata } from '3xpr'
 
 async function writeFunctions (category:string, list: any): Promise<void> {
@@ -32,7 +33,7 @@ async function writeFunctions (category:string, list: any): Promise<void> {
 
 	const content = lines.join('\n')
 	const targetFolder = 'doc/wiki'
-	if (!await helper.fs.exists(targetFolder)) {
+	if (!await h3lp.fs.exists(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(targetFolder, 'function_' + category.replace(' ', '_') + '.md'), content)
@@ -66,7 +67,7 @@ async function writeOperators (category:string, list: any): Promise<void> {
 
 	const content = lines.join('\n')
 	const targetFolder = 'doc/wiki'
-	if (!await helper.fs.exists(targetFolder)) {
+	if (!await h3lp.fs.exists(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(targetFolder, 'operator_' + category.replace(' ', '_') + '.md'), content)

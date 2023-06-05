@@ -3,20 +3,19 @@ import {
 	Schema, Mapping, RelationType, View,
 	DIALECT_DEFAULT, ObservableAction, SchemaError
 } from '../../domain'
-import { helper } from '../../../shared/application/helper'
+import { Helper } from '../../../shared/application/helper'
 import { Primitive } from 'typ3s'
-import { Autowired, IObjectHelper } from 'h3lp'
 import { Expressions } from '3xpr'
 
 export class SchemaExtender {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly expressions: Expressions) {}
-
-	@Autowired('h3lp.obj')
-	private objectHelper!:IObjectHelper
+	constructor (
+		private readonly expressions: Expressions,
+		private readonly helper: Helper
+	) {}
 
 	public extend (source: Schema): Schema {
-		const schema = this.objectHelper.clone(source)
+		const schema = this.helper.obj.clone(source)
 		this.extendEnums(schema)
 		this.extendEntities(schema)
 		this.complete(schema)
@@ -110,7 +109,7 @@ export class SchemaExtender {
 		}
 		// extend mapping for model
 		for (const k in schema.data.mappings) {
-			schema.data.mappings[k].entities = this.objectHelper.extends(schema.data.mappings[k].entities, schema.model.entities)
+			schema.data.mappings[k].entities = this.helper.obj.extends(schema.data.mappings[k].entities, schema.model.entities)
 			schema.data.mappings[k] = this.clearMapping(schema.data.mappings[k])
 			const mapping = schema.data.mappings[k]
 			if (mapping && mapping.entities) {
@@ -321,7 +320,7 @@ export class SchemaExtender {
 			if (_enum.values === undefined || _enum.values === null) {
 				_enum.values = []
 			}
-			_enum.values = this.objectHelper.extends(_enum.values, base.values)
+			_enum.values = this.helper.obj.extends(_enum.values, base.values)
 		}
 
 		// elimina dado que ya fue extendido
@@ -342,11 +341,11 @@ export class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			entity.properties = this.objectHelper.extends(entity.properties, base.properties)
+			entity.properties = this.helper.obj.extends(entity.properties, base.properties)
 		}
 		// extend relations
 		if (base.relations.length > 0) {
-			entity.relations = this.objectHelper.extends(entity.relations, base.relations)
+			entity.relations = this.helper.obj.extends(entity.relations, base.relations)
 		}
 		// elimina dado que ya fue extendido
 		delete entity.extends
@@ -359,7 +358,7 @@ export class SchemaExtender {
 				throw new SchemaError(`${mapping.extends} not found`)
 			}
 			this.extendMapping(base, mappings)
-			mapping.entities = this.objectHelper.extends(mapping.entities, base.entities)
+			mapping.entities = this.helper.obj.extends(mapping.entities, base.entities)
 			// elimina dado que ya fue extendido
 			delete mapping.extends
 		}
@@ -390,7 +389,7 @@ export class SchemaExtender {
 			if (entity.indexes === undefined) {
 				entity.indexes = []
 			}
-			entity.indexes = this.objectHelper.extends(entity.indexes, base.indexes)
+			entity.indexes = this.helper.obj.extends(entity.indexes, base.indexes)
 		}
 	}
 
@@ -399,13 +398,13 @@ export class SchemaExtender {
 			if (entity.properties === undefined) {
 				entity.properties = []
 			}
-			entity.properties = this.objectHelper.extends(entity.properties, base.properties)
+			entity.properties = this.helper.obj.extends(entity.properties, base.properties)
 		}
 	}
 
 	private completeMapping (mapping: Mapping): void {
 		for (const entity of mapping.entities) {
-			if (helper.val.isEmpty(entity.mapping)) {
+			if (this.helper.val.isEmpty(entity.mapping)) {
 				entity.mapping = entity.name
 			}
 			if (entity.properties === undefined || entity.properties.length === 0) {
@@ -413,7 +412,7 @@ export class SchemaExtender {
 				continue
 			}
 			for (const property of entity.properties) {
-				if (helper.val.isEmpty(property.mapping)) {
+				if (this.helper.val.isEmpty(property.mapping)) {
 					property.mapping = property.name
 				}
 			}

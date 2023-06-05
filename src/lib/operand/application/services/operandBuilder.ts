@@ -1,6 +1,7 @@
-import { ConstBuilder, EvaluatorFactory, ExpressionNormalizer, ExpressionParse, OperandBuilder, ModelService, Operand, OperandComplete, OperandNormalize, OperandReduce, Expressions } from '3xpr'
+import { EvaluatorFactory, ExpressionNormalizer, ExpressionParse, OperandBuilder, Operand, OperandComplete, OperandNormalize, OperandReduce, Expressions } from '3xpr'
 import { ModelConfigService } from '../../../schema/application'
 import { OrmOperandNormalizer } from './operandNormalizer'
+import { Helper } from '../../../shared/application'
 
 export class OrmOperandBuilder implements OperandBuilder {
 	private parse:ExpressionParse
@@ -12,9 +13,10 @@ export class OrmOperandBuilder implements OperandBuilder {
 
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly expressions: Expressions,
-		private readonly modelConfigService: ModelConfigService
+		private readonly modelConfigService: ModelConfigService,
+		private readonly helper:Helper
 	) {
-		this.ormOperandNormalizer = new OrmOperandNormalizer(this.modelConfigService)
+		this.ormOperandNormalizer = new OrmOperandNormalizer(this.modelConfigService, this.expressions, this.helper)
 		this.parse = new ExpressionParse(this.expressions)
 		this.normalizer = new ExpressionNormalizer()
 		this.operandNormalize = new OperandNormalize(this.expressions)

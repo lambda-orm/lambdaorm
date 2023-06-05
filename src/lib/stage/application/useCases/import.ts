@@ -1,8 +1,8 @@
 
 import { StageActionDML } from './base/actionDML'
 import { SchemaConfig, MappingConfig, Entity, SchemaError, Relation } from '../../../schema/domain'
-import { ExpressionTransaction } from '../../../expressions/application'
-import { Query } from '../../../query/domain'
+import { Query, QueryOptions } from '../../../query/domain'
+import { Transaction } from '../../../execution/domain'
 
 export class StageImport extends StageActionDML {
 	public async execute (data: SchemaConfig): Promise<void> {
@@ -10,14 +10,14 @@ export class StageImport extends StageActionDML {
 		const _queries = this.queries()
 		const queries = this.sort(_queries)
 
-		await this.queryFacade.transaction(this.options, async (tr) => {
+		await this.executor.transaction(this.options, async (tr) => {
 			for (const query of queries) {
 				const entityData = data.entities.find(p => p.entity === query.entity)
 				if (entityData) {
 					const aux:any = {}
 					this.loadExternalIds(entityData.entity, entityData.rows || [], aux)
 					this.solveInternalsIds(entityData.entity, entityData.rows, state)
-					await tr.executeQuery(query, entityData.rows)
+					await tr.execute(query, entityData.rows)
 					this.completeMapping(entityData.entity, entityData.rows || [], aux, state)
 				}
 			}
@@ -34,13 +34,13 @@ export class StageImport extends StageActionDML {
 					state.inconsistency.push(`${entity.name} had not unique Key`)
 					continue
 				}
-				pending.rows = await this.executePendingRows(state, entity, relation, tr, pending.rows)
+				pending.rows = await this.executePendingRows(state, entity, relation, tr, pending.rows, this.options)
 			}
 		})
 		await this.stageMappingService.update(this.options.stage as string, state)
 	}
 
-	private async executePendingRows (state:MappingConfig, entity:Entity, relation:Relation, tr:ExpressionTransaction, rows:any[]):Promise<any[]> {
+	private async executePendingRows (state:MappingConfig, entity:Entity, relation:Relation, tr:Transaction, rows:any[], options:QueryOptions):Promise<any[]> {
 		const stillPending:any[] = []
 		let filter = ''
 		for (const p in entity.uniqueKey) {
@@ -55,7 +55,8 @@ export class StageImport extends StageActionDML {
 				for (const p in entity.uniqueKey) {
 					values[entity.uniqueKey[p]] = row.keys[p]
 				}
-				await tr.execute(expression, values)
+				const query = this.expressionFacade.build(expression, options)
+				await tr.execute(query, values)
 			} else {
 				stillPending.push(row)
 			}
@@ -202,6 +203,6 @@ export class StageImport extends StageActionDML {
 
 	protected createQuery (entity:Entity):Query {
 		const expression = `${entity.name}.bulkInsert()${this.createInclude(entity)}`
-		return this.queryFacade.build(expression, this.options)
+		return this.expressionFacade.build(expression, this.options)
 	}
 }

@@ -3,16 +3,19 @@ import { Query, ExecuteResult, QueryOptions } from '../../../query/domain'
 import { SchemaFacade } from '../../../schema/application'
 import { LanguagesService } from '../../../language/application'
 import { QueryExecutor } from './queryExecutor'
-import { Transaction } from '../../domain'
+import { Transaction, Executor } from '../../domain'
 import { ConnectionFacade } from '../../../connection/application'
 import { Expressions } from '3xpr'
+import { Helper } from '../../../shared/application/helper'
 
-export class Executor {
+export class ExecutorImpl implements Executor {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly connectionFacade: ConnectionFacade,
 		private readonly languages: LanguagesService,
 		private readonly schemaFacade: SchemaFacade,
-		private readonly expressions: Expressions) {}
+		private readonly expressions: Expressions,
+		private readonly helper: Helper
+	) {}
 
 	public async execute (query: Query, data: any, options: QueryOptions): Promise<any> {
 		let error: any
@@ -22,7 +25,7 @@ export class Executor {
 				result = await tr.execute(query, data)
 			})
 		} else {
-			const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, false)
+			const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, this.helper, false)
 			try {
 				result = await queryExecutor.execute(query, data)
 			} catch (_error) {
@@ -42,7 +45,7 @@ export class Executor {
 
 		if (options.tryAllCan) {
 			for (const query of queries) {
-				const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, false)
+				const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, this.helper, false)
 				try {
 					const result = await queryExecutor.execute(query, {})
 					results.push(result)
@@ -69,7 +72,7 @@ export class Executor {
  * @param callback Code to be executed in transaction
  */
 	public async transaction (options: QueryOptions, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, true)
+		const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, this.helper, true)
 		let error: any
 		try {
 			const transaction = new Transaction(queryExecutor)

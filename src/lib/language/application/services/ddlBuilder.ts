@@ -6,7 +6,7 @@ import {
 import { Query } from '../../../query/domain'
 import { Delta, ChangedValue } from 'h3lp'
 import { DDLBuilderPort } from '../ports/ddlBuilderPort'
-import { helper } from '../../../shared/application'
+import { Helper } from '../../../shared/application'
 import { ModelConfigService, SchemaFacade } from '../../../schema/application'
 import { LanguagesService } from './languagesService'
 import { DialectService } from './dialectService'
@@ -15,7 +15,8 @@ export class DDLBuilderService {
 	private model: ModelConfigService
 	constructor (private readonly schemaFacade: SchemaFacade,
 	private readonly languages: LanguagesService,
-	public readonly stage: string
+	public readonly stage: string,
+	private readonly helper:Helper
 	) {
 		this.model = schemaFacade.model
 	}
@@ -55,7 +56,7 @@ export class DDLBuilderService {
 			const oldEntities = oldMapping !== undefined && oldMapping.entities !== undefined ? oldMapping.entities : null
 			const currentMapping = this.schemaFacade.mapping.mappings.find(p => p.name === source.mapping)
 			const currentEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
-			const delta = helper.obj.delta(currentEntities, oldEntities)
+			const delta = this.helper.obj.delta(currentEntities, oldEntities)
 			// remove for entities changes
 			this._syncRemoveForEntitiesChanges(source, ruleDataSource, oldEntities || [], delta, queries)
 			// remove for entities removed

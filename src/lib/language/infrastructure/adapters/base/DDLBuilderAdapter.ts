@@ -2,17 +2,15 @@ import { MappingConfigService } from '../../../../schema/application'
 import { Query } from '../../../../query/domain'
 import { Index, Source, Relation, EntityMapping, PropertyMapping } from '../../../../schema/domain'
 import { DialectService, DDLBuilderPort } from '../../../application'
+import { Helper } from '../../../../shared/application'
 
 export abstract class DDLBuilderAdapter implements DDLBuilderPort {
-	protected source: Source
-	protected mapping: MappingConfigService
-	protected dialect: DialectService
-
-	constructor (source: Source, mapping: MappingConfigService, dialect: DialectService) {
-		this.source = source
-		this.mapping = mapping
-		this.dialect = dialect
-	}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (
+		protected readonly source: Source,
+		protected readonly mapping: MappingConfigService,
+		protected readonly dialect: DialectService,
+		protected readonly helper:Helper) {}
 
 	abstract truncateEntity(entity: EntityMapping): Query | undefined
 	abstract setNull(entity: EntityMapping, relation: Relation): Query | undefined

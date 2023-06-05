@@ -1,4 +1,5 @@
-import { Orm, helper } from '../../../lib'
+import { Orm} from '../../../lib'
+import { h3lp } from 'h3lp'
 import { DbDebtors } from './src/model'
 const lab = async () => {
 	require('dotenv').config({ path: './src/dev/labs/collections/.env' })
@@ -39,9 +40,9 @@ const lab = async () => {
 		])
 		// .filter(p => p.id === id)
 		const sentence = orm.getInfo(query, options)
-		await helper.fs.write('./src/dev/labs/collections/sentence.json', JSON.stringify(sentence, null, 2))
+		await h3lp.fs.write('./src/dev/labs/collections/sentence.json', JSON.stringify(sentence, null, 2))
 		const result = await orm.execute(query, {}, options)
-		await helper.fs.write('./src/dev/labs/collections/result.json', JSON.stringify(result, null, 2))
+		await h3lp.fs.write('./src/dev/labs/collections/result.json', JSON.stringify(result, null, 2))
 	} catch (e:any) {
 		console.log(e.message)
 	} finally {

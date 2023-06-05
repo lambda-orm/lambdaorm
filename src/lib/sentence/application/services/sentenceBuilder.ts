@@ -7,7 +7,6 @@ import { Type, Primitive } from 'typ3s'
 import { SentenceTypeService } from './typeService'
 import { SentenceHelper } from './sentenceHelper'
 import { ModelConfigService, SchemaFacade } from '../../../schema/application'
-import { Autowired } from 'h3lp'
 import { ISentenceBuilder } from '../../domain'
 import { OperandFacade } from '../../../operand/application'
 
@@ -50,10 +49,11 @@ class ExpressionContext {
 }
 class SentenceSolveConstraints {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly modelConfig: ModelConfigService, private readonly helper: SentenceHelper) {}
-
-	@Autowired('orm.expressions')
-	private expressions!:Expressions
+	constructor (
+		private readonly modelConfig: ModelConfigService,
+		private readonly helper: SentenceHelper,
+		private readonly expressions:Expressions
+	) {}
 
 	public solve (sentence:Sentence): void {
 		if (sentence.name === SentenceAction.update ||
@@ -224,7 +224,7 @@ export class SentenceBuilder implements ISentenceBuilder {
 		this.typeService = new SentenceTypeService(expressions, this.schemaFacade.model)
 		this.helper = new SentenceHelper(this.schemaFacade)
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schemaFacade.model, this.helper)
-		this.solveConstraints = new SentenceSolveConstraints(this.modelConfigService, this.helper)
+		this.solveConstraints = new SentenceSolveConstraints(this.modelConfigService, this.helper, this.expressions)
 	}
 
 	public build (expression: string): Sentence {

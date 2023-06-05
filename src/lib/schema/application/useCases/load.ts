@@ -1,4 +1,4 @@
-import { Autowired, IUtils, IValidator } from 'h3lp'
+import { Helper } from '../../../shared/application'
 import { Schema, SchemaError } from '../../domain'
 import { Primitive } from 'typ3s'
 import { DataSourceConfigService } from '../services/config/dataSourceConfigService'
@@ -15,16 +15,11 @@ export class LoadSchema {
 		private readonly mapping:MappingsConfigService,
 		private readonly stage:StageConfigService,
 		private readonly view:ViewsConfigService,
-		private readonly extender:SchemaExtender) {}
-
-	@Autowired('h3lp.utils')
-	private utils!: IUtils
-
-	@Autowired('h3lp.val')
-	private val!: IValidator
+		private readonly extender:SchemaExtender,
+		private readonly helper:Helper) {}
 
 	public load (_schema: Schema): Schema {
-		let schema = this.utils.solveEnvironmentVars(_schema) as Schema
+		let schema = this.helper.utils.solveEnvironmentVars(_schema) as Schema
 		schema = this.extender.extend(schema)
 		this.model.entities = schema.model.entities || []
 		this.model.enums = schema.model.enums || []
@@ -41,7 +36,7 @@ export class LoadSchema {
 		}
 		if (schema.data.sources) {
 			for (const source of schema.data.sources) {
-				if (this.val.isEmpty(source.connection)) {
+				if (this.helper.val.isEmpty(source.connection)) {
 					console.log(`WARNING|source:"${source.name}"|connection is empty`)
 					continue
 				}
@@ -50,7 +45,7 @@ export class LoadSchema {
 						console.log(`WARNING|source:"${source.name}"|had environment variables unsolved`)
 						continue
 					}
-					const connection = this.utils.tryParse(source.connection)
+					const connection = this.helper.utils.tryParse(source.connection)
 					if (connection) {
 						source.connection = connection
 					} else {

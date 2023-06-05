@@ -1,16 +1,19 @@
 import { Schema, SchemaError } from '../domain'
 import path from 'path'
-import { helper } from '../../shared/application/helper'
+import { Helper } from '../../shared/application/helper'
 import { IFileSchemaReader } from '../application'
 import { SchemaFileHelper } from './schemaFileHelper'
 const yaml = require('js-yaml')
 
 export class FileSchemaReader implements IFileSchemaReader {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private helper: SchemaFileHelper) {}
+	constructor (
+		private schemaFileHelper: SchemaFileHelper,
+		private helper: Helper
+	) {}
 
 	public async read (source:string): Promise<Schema|null> {
-		const configPath = await this.helper.getConfigPath(source)
+		const configPath = await this.schemaFileHelper.getConfigPath(source)
 		if (!configPath) {
 			return null
 		}
@@ -28,8 +31,8 @@ export class FileSchemaReader implements IFileSchemaReader {
 
 	private async readConfig (path:string):Promise<string|null> {
 		if (path.startsWith('http')) {
-			return await helper.http.get(path)
+			return await this.helper.http.get(path)
 		}
-		return await helper.fs.read(path)
+		return await this.helper.fs.read(path)
 	}
 }

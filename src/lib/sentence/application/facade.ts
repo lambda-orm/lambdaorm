@@ -12,6 +12,7 @@ import { GetModel } from './useCases/getModel'
 import { GetParameters } from './useCases/getParameters'
 import { ICache } from 'h3lp'
 import { Expressions } from '3xpr'
+import { Helper } from '../../shared/application'
 
 export class SentenceFacade {
 	private getConstraints: GetConstraints
@@ -26,12 +27,13 @@ export class SentenceFacade {
 		private readonly operandFacade:OperandFacade,
 		private readonly expressions:Expressions,
 		cache: ICache<string, string>,
-		serializer:SentenceSerializer
+		serializer:SentenceSerializer,
+		helper:Helper
 	) {
 		this.sentenceHelper = new SentenceHelper(this.schemaFacade)
 		this.builder = new SentenceBuilder(this.schemaFacade, this.operandFacade, this.expressions)
 		this.builderComplete = new SentenceCompleteBuilderCacheDecorator(
-			new SentenceCompleteBuilder(this.builder, this.schemaFacade, this.sentenceHelper, this.expressions), cache, serializer)
+			new SentenceCompleteBuilder(this.builder, this.schemaFacade, this.sentenceHelper, this.expressions), cache, serializer, helper)
 		this.getConstraints = new GetConstraints(this.builder)
 		this.getMetadata = new GetMetadata(this.builder)
 		this.getModel = new GetModel(this.builder)

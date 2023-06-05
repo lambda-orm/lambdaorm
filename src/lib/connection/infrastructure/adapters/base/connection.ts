@@ -2,7 +2,7 @@
 import { Query, Data } from '../../../../query/domain'
 import { ConnectionConfig } from '../../../domain'
 import { MethodNotImplemented } from '../../../../shared/domain'
-import { helper } from '../../../../shared/application'
+import { Helper } from '../../../../shared/application'
 import { Parameter } from '3xpr'
 import { Primitive } from 'typ3s'
 import { Connection } from '../../../application'
@@ -18,7 +18,7 @@ export abstract class ConnectionAdapter implements Connection {
 	public maxChunkSizeIdsOnSelect: number
 	public maxChunkSizeOnBulkInsert: number
 
-	constructor (cnx: any, pool: any) {
+	constructor (cnx: any, pool: any, protected readonly helper:Helper) {
 		this.cnx = cnx
 		this.pool = pool
 		this.inTransaction = false
@@ -49,13 +49,13 @@ export abstract class ConnectionAdapter implements Connection {
 						value = this.writeTime(value, mapping, dialect)
 						break
 					case Primitive.any:
-						if (helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)) {
+						if (this.helper.val.isDateTime(value) || this.helper.val.isDateTimeFormat(value)) {
 							value = this.writeDateTime(value, mapping, dialect)
 							break
-						} else if (helper.val.isDate(value) || helper.val.isDateFormat(value)) {
+						} else if (this.helper.val.isDate(value) || this.helper.val.isDateFormat(value)) {
 							value = this.writeDate(value, mapping, dialect)
 							break
-						} else if (helper.val.isTime(value) || helper.val.isTimeFormat(value)) {
+						} else if (this.helper.val.isTime(value) || this.helper.val.isTimeFormat(value)) {
 							value = this.writeTime(value, mapping, dialect)
 							break
 						}
@@ -84,13 +84,13 @@ export abstract class ConnectionAdapter implements Connection {
 					value = this.writeTime(value, mapping, dialect)
 					break
 				case Primitive.any:
-					if (helper.val.isDateTime(value) || helper.val.isDateTimeFormat(value)) {
+					if (this.helper.val.isDateTime(value) || this.helper.val.isDateTimeFormat(value)) {
 						value = this.writeDateTime(value, mapping, dialect)
 						break
-					} else if (helper.val.isDate(value) || helper.val.isDateFormat(value)) {
+					} else if (this.helper.val.isDate(value) || this.helper.val.isDateFormat(value)) {
 						value = this.writeDate(value, mapping, dialect)
 						break
-					} else if (helper.val.isTime(value) || helper.val.isTimeFormat(value)) {
+					} else if (this.helper.val.isTime(value) || this.helper.val.isTimeFormat(value)) {
 						value = this.writeTime(value, mapping, dialect)
 						break
 					}
@@ -98,24 +98,24 @@ export abstract class ConnectionAdapter implements Connection {
 			} else {
 				value = null
 			}
-			parameters.push({ name: helper.query.transformParameter(parameter.name), type: parameter.type, value })
+			parameters.push({ name: this.helper.query.transformParameter(parameter.name), type: parameter.type, value })
 		}
 		return parameters
 	}
 
 	protected writeDateTime (value: any, mapping: MappingConfigService, dialect: DialectService): any {
 		const format = mapping.format?.dateTime || dialect.format.dateTime
-		return format ? helper.query.dateFormat(value, format) : value
+		return format ? this.helper.query.dateFormat(value, format) : value
 	}
 
 	public writeDate (value: any, mapping: MappingConfigService, dialect: DialectService): any {
 		const format = mapping.format?.date || dialect.format.date
-		return format ? helper.query.dateFormat(value, format) : value
+		return format ? this.helper.query.dateFormat(value, format) : value
 	}
 
 	public writeTime (value: any, mapping: MappingConfigService, dialect: DialectService): any {
 		const format = mapping.format?.time || dialect.format.time
-		return format ? helper.query.dateFormat(value, format) : value
+		return format ? this.helper.query.dateFormat(value, format) : value
 	}
 
 	public abstract select(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>

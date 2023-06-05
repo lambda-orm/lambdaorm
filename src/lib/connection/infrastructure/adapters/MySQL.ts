@@ -8,6 +8,7 @@ import { ConnectionConfig } from '../../domain'
 import { Connection } from '../../application'
 import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
+import { Helper } from '../../../shared/application'
 
 const DECIMAL = 0
 const TINY = 1
@@ -27,8 +28,8 @@ const NEWDECIMAL = 246
 export class MySQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 	protected static lib: any
 	protected pool: any
-	constructor (config: ConnectionConfig) {
-		super(config)
+	constructor (config: ConnectionConfig, helper:Helper) {
+		super(config, helper)
 		if (!MySQLConnectionPoolAdapter.lib) {
 			MySQLConnectionPoolAdapter.lib = require('mysql2/promise')
 		}
@@ -54,7 +55,7 @@ export class MySQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 			await this.init()
 		}
 		const cnx = await this.pool.getConnection()
-		return new MySqlConnectionAdapter(cnx, this)
+		return new MySqlConnectionAdapter(cnx, this, this.helper)
 	}
 
 	public async release (connection: Connection): Promise<void> {

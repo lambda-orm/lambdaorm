@@ -4,7 +4,7 @@ import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query, Data } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
-import { helper } from '../../../shared/application'
+import { Helper } from '../../../shared/application'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
@@ -13,8 +13,8 @@ import { DialectService } from '../../../language/application'
 
 export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 	public static lib: any
-	constructor (config: ConnectionConfig) {
-		super(config)
+	constructor (config: ConnectionConfig, helper:Helper) {
+		super(config, helper)
 		if (!SqlServerConnectionPoolAdapter.lib) {
 			SqlServerConnectionPoolAdapter.lib = require('tedious')
 		}
@@ -36,7 +36,7 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 					resolve(connection)
 				})
 			})
-			return new SqlServerConnectionAdapter(cnx, this)
+			return new SqlServerConnectionAdapter(cnx, this, this.helper)
 		} catch (error) {
 			console.error(error)
 			throw error
@@ -56,8 +56,8 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 }
 
 export class SqlServerConnectionAdapter extends ConnectionAdapter {
-	constructor (cnx: any, pool: any) {
-		super(cnx, pool)
+	constructor (cnx: any, pool: any, helper:Helper) {
+		super(cnx, pool, helper)
 		this.maxChunkSizeOnBulkInsert = 1000
 	}
 
@@ -244,8 +244,8 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 						const values: string[] = []
 						for (const item of value) {
 							let _item = item
-							_item = helper.query.escape(_item)
-							_item = helper.str.replace(_item, '\\\'', '\\\'\'')
+							_item = this.helper.query.escape(_item)
+							_item = this.helper.str.replace(_item, '\\\'', '\\\'\'')
 							values.push(_item)
 						}
 						list = values.join(',')
@@ -255,7 +255,7 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 				} else {
 					list = ''
 				}
-				_sentence = helper.str.replace(_sentence, '@' + parameter.name, list)
+				_sentence = this.helper.str.replace(_sentence, '@' + parameter.name, list)
 			}
 		}
 		return _sentence
@@ -304,21 +304,21 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 				value = value ? 1 : 0; break
 			case Primitive.string:
 				if (value.includes('\'')) {
-					value = `'${helper.str.replace(value, '\'', '\'\'')}'`
+					value = `'${this.helper.str.replace(value, '\'', '\'\'')}'`
 				} else {
 					value = `'${value}'`
 				}
-				// value = helper.escape(value)
-				// value = helper.str.replace(value, '\\\'', '\\\'\'')
+				// value = this.helper.escape(value)
+				// value = this.helper.str.replace(value, '\\\'', '\\\'\'')
 				break
 			case Primitive.dateTime:
-				value = helper.query.escape(this.writeDateTime(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case Primitive.date:
-				value = helper.query.escape(this.writeDate(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeDate(value, mapping, dialect))
 				break
 			case Primitive.time:
-				value = helper.query.escape(this.writeTime(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}

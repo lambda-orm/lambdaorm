@@ -1,19 +1,23 @@
 import { MemoryCache } from 'h3lp'
-import { ExecutionFacade } from '../../execution/application'
 import { LanguagesService } from '../../language/application'
 import { SchemaFacade } from '../../schema/application'
 import { SentenceFacade } from '../../sentence/application'
-import { QueryFacade } from '../application'
 import { Expressions } from '3xpr'
+import { ExpressionFacade } from '../application'
+import { Executor } from '../../execution/domain'
+import { Helper } from '../../shared/application'
 
-export class QueryFacadeBuilder {
+export class ExpressionFacadeBuilder {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly languages: LanguagesService,
-		private readonly execution:ExecutionFacade,
-		private readonly expressions:Expressions) {}
+	constructor (
+		private readonly languages: LanguagesService,
+		private readonly executor:Executor,
+		private readonly expressions:Expressions,
+		private readonly helper:Helper
+	) {}
 
-	public build (sentence: SentenceFacade, schema: SchemaFacade):QueryFacade {
+	public build (sentence: SentenceFacade, schema: SchemaFacade):ExpressionFacade {
 		const queryCache = new MemoryCache<string, string>()
-		return new QueryFacade(sentence, schema, this.languages, this.execution, this.expressions, queryCache)
+		return new ExpressionFacade(sentence, schema, this.languages, this.executor, this.expressions, queryCache, this.helper)
 	}
 }

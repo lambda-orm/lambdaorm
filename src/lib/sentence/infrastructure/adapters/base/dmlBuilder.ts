@@ -4,7 +4,7 @@ import { SentenceCrudAction, Source, SchemaError, EntityMapping } from '../../..
 import { SintaxisError } from '../../../../shared/domain'
 import { Query } from '../../../../query/domain'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, BulkInsert } from '../../../domain'
-import { helper } from '../../../../shared/application'
+import { Helper } from '../../../../shared/application'
 import { MappingConfigService } from '../../../../schema/application'
 import { DialectService } from '../../../../language/application'
 import { DmlBuilderPort } from '../../../application'
@@ -12,15 +12,12 @@ import { DmlBuilderPort } from '../../../application'
 const SqlString = require('sqlstring')
 
 export abstract class DmlBuilderAdapter implements DmlBuilderPort {
-	protected source: Source
-	protected mapping: MappingConfigService
-	protected dialect: DialectService
-
-	constructor (source: Source, mapping: MappingConfigService, dialect: DialectService) {
-		this.source = source
-		this.mapping = mapping
-		this.dialect = dialect
-	}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (
+		protected readonly source: Source,
+		protected readonly mapping: MappingConfigService,
+		protected readonly dialect: DialectService,
+		protected readonly helper:Helper) {}
 
 	public build (sentence: Sentence): Query {
 		return new Query({
@@ -158,7 +155,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 			throw new SchemaError(`not found mapping for ${from.entity}`)
 		}
 		template = template.replace('{name}', this.dialect.delimiter(entityMapping))
-		template = helper.str.replace(template, '{alias}', from.alias)
+		template = this.helper.str.replace(template, '{alias}', from.alias)
 		return template.trim()
 	}
 
@@ -220,16 +217,16 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 				assigns.push(assign)
 			}
 		}
-		template = helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
-		template = helper.str.replace(template, '{alias}', operand.alias)
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
+		template = this.helper.str.replace(template, '{alias}', operand.alias)
 		template = template.replace('{assigns}', assigns.join(','))
 		return template.trim() + ' '
 	}
 
 	protected buildDelete (operand: Delete, entity: EntityMapping): string {
 		let template = this.dialect.dml('delete')
-		template = helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
-		template = helper.str.replace(template, '{alias}', operand.alias)
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
+		template = this.helper.str.replace(template, '{alias}', operand.alias)
 		return template.trim() + ' '
 	}
 
@@ -247,7 +244,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 		if (page < 1) page = 1
 		template = template.replace('{sentence}', sentence)
 		template = template.replace('{offset}', ((page - 1) * records).toString())
-		template = helper.str.replace(template, '{records}', records.toString())
+		template = this.helper.str.replace(template, '{records}', records.toString())
 		return template.trim() + ' '
 	}
 
@@ -283,7 +280,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 		let template = this.dialect.dml(operand.name)
 		for (let i = 0; i < operand.children.length; i++) {
 			const text = this.buildOperand(operand.children[i])
-			template = helper.str.replace(template, '{' + i + '}', text)
+			template = this.helper.str.replace(template, '{' + i + '}', text)
 		}
 		return template.trim()
 	}
@@ -296,13 +293,13 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 			const template = funcData.template
 			text = this.buildOperand(operand.children[0])
 			for (let i = 1; i < operand.children.length; i++) {
-				text = helper.str.replace(template, '{accumulated}', text)
-				text = helper.str.replace(text, '{value}', this.buildOperand(operand.children[i]))
+				text = this.helper.str.replace(template, '{accumulated}', text)
+				text = this.helper.str.replace(text, '{value}', this.buildOperand(operand.children[i]))
 			}
 		} else {
 			text = funcData.template
 			for (let i = 0; i < operand.children.length; i++) {
-				text = helper.str.replace(text, '{' + i + '}', this.buildOperand(operand.children[i]))
+				text = this.helper.str.replace(text, '{' + i + '}', this.buildOperand(operand.children[i]))
 			}
 		}
 		return text
@@ -370,7 +367,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 	protected buildVariable (operand: Operand): string {
 		const number = operand.number ? operand.number : 0
 		let text = this.dialect.other('variable')
-		text = text.replace('{name}', helper.query.transformParameter(operand.name))
+		text = text.replace('{name}', this.helper.query.transformParameter(operand.name))
 		text = text.replace('{number}', number.toString())
 		return text
 	}

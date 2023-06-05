@@ -4,8 +4,6 @@ import { SintaxisError } from '../../../../shared/domain'
 import { SentenceCrudAction, SentenceAction, SchemaError, EntityMapping, RelationType } from '../../../../schema/domain'
 import { Query, Include } from '../../../../query/domain'
 import { Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update } from '../../../domain'
-import { helper } from '../../../../shared/application'
-
 import { DmlBuilderAdapter } from '../base/dmlBuilder'
 
 export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
@@ -108,7 +106,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			throw new SchemaError(`relation ${relationName} not found in ${parentEntityName}`)
 		}
 		let newRoot = `$${mappings.join('.')}`
-		newRoot = helper.str.replace(newRoot, '"', '\\"')
+		newRoot = this.helper.str.replace(newRoot, '"', '\\"')
 		let text = ''
 		if (relation.type === RelationType.manyToOne) {
 			text = this.dialect.dml('unwind').replace('{0}', newRoot)
@@ -168,7 +166,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		text = text.replace('{1}', groupColumnsText)
 		text = text + ', ' + templateProject.replace('{0}', projectColumns)
 		// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
-		return helper.str.replace(text, '"$this.', '"$$this.')
+		return this.helper.str.replace(text, '"$this.', '"$$this.')
 	}
 
 	protected getMap (map:Map, sentence: Sentence): any {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { SentenceAction, PropertyMapping, Property, Relation, Index, EntityMapping, SchemaError } from '../../../../schema/domain'
 import { Query } from '../../../../query/domain'
-import { helper } from '../../../../shared/application'
+import { Helper } from '../../../../shared/application'
 import { DDLBuilderAdapter } from '../base/DDLBuilderAdapter'
 
 export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
@@ -210,7 +210,7 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		assign = assign.replace('{1}', _null)
 		let text = this.dialect.dml(SentenceAction.update)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping))
-		text = helper.str.replace(text, '{alias}', alias)
+		text = this.helper.str.replace(text, '{alias}', alias)
 		text = text.replace('{assigns}', assign)
 		return new Query({ action: SentenceAction.update, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
 	}

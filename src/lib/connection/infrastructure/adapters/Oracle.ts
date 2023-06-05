@@ -2,7 +2,7 @@
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query, Data } from '../../../query/domain'
-import { helper } from '../../../shared/application'
+import { Helper } from '../../../shared/application'
 import { SchemaError, PropertyMapping } from '../../../schema/domain'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
@@ -38,7 +38,7 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 				} else if (process.platform === 'darwin') { // macOS
 					libPath = process.env.HOME + '/Downloads/instantclient_21_3'
 				}
-				if (libPath && await helper.fs.exists(libPath)) {
+				if (libPath && await this.helper.fs.exists(libPath)) {
 					await OracleConnectionPoolAdapter.lib.initOracleClient({ libDir: libPath })
 				}
 			}
@@ -53,7 +53,7 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 			this.pool = await OracleConnectionPoolAdapter.lib.createPool(this.config.connection)
 		}
 		const cnx = await this.pool.getConnection()
-		return new OracleConnectionAdapter(cnx, this)
+		return new OracleConnectionAdapter(cnx, this, this.helper)
 	}
 
 	public async release (connection: Connection): Promise<void> {
@@ -65,8 +65,8 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 }
 export class OracleConnectionAdapter extends ConnectionAdapter {
-	constructor (cnx: any, pool: any) {
-		super(cnx, pool)
+	constructor (cnx: any, pool: any, helper:Helper) {
+		super(cnx, pool, helper)
 		this.maxChunkSizeIdsOnSelect = 999
 	}
 
@@ -224,17 +224,17 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 					const list:string[] = []
 					for (const _item of param.value) {
 						let item = _item
-						item = helper.query.escape(item)
-						item = helper.str.replace(item, '\\\'', '\\\'\'')
+						item = this.helper.query.escape(item)
+						item = this.helper.str.replace(item, '\\\'', '\\\'\'')
 						list.push(item)
 					}
-					sql = helper.str.replace(sql, `:${param.name}`, list.join(','))
+					sql = this.helper.str.replace(sql, `:${param.name}`, list.join(','))
 				} else {
-					sql = helper.str.replace(sql, `:${param.name}`, param.value.join(','))
+					sql = this.helper.str.replace(sql, `:${param.name}`, param.value.join(','))
 				}
 			} else {
 				// if empty array
-				sql = helper.str.replace(sql, `:${param.name}`, '')
+				sql = this.helper.str.replace(sql, `:${param.name}`, '')
 			}
 		}
 		return { sql, values }

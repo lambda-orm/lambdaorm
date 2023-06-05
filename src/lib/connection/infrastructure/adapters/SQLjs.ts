@@ -5,7 +5,7 @@ import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query, Data } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
-import { helper } from '../../../shared/application'
+import { Helper } from '../../../shared/application'
 import { Connection } from '../../application'
 import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
@@ -13,15 +13,15 @@ import { DialectService } from '../../../language/application'
 export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any
 	private db: any
-	constructor (config: ConnectionConfig) {
-		super(config)
+	constructor (config: ConnectionConfig, helper:Helper) {
+		super(config, helper)
 		if (!SQLjsConnectionPoolAdapter.lib) { SQLjsConnectionPoolAdapter.lib = require('sql.js') }
 	}
 
 	public async init (): Promise<void> {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const me = this
-		const fileBuffer = await helper.fs.read(me.config.connection)
+		const fileBuffer = await this.helper.fs.read(me.config.connection)
 		this.db = await new Promise<void>((resolve, reject) => {
 			SQLjsConnectionPoolAdapter.lib.then(function (SQL: any) {
 				// Load the db
@@ -36,7 +36,7 @@ export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 
 	public async acquire (): Promise<Connection> {
-		return new SQLjsConnectionAdapter(this.db, this)
+		return new SQLjsConnectionAdapter(this.db, this, this.helper)
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -46,7 +46,7 @@ export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 
 	public async end (): Promise<void> {
 		const data = this.db.export()
-		await helper.fs.write(this.config.connection, data)
+		await this.helper.fs.write(this.config.connection, data)
 	}
 }
 

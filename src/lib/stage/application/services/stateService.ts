@@ -1,21 +1,18 @@
 import { ModelConfig, MappingConfig, Dialect } from '../../../schema/domain'
 import { Query } from '../../../query/domain'
-import { helper } from '../../../shared/application'
+import { Helper } from '../../../shared/application'
 import { SchemaFacade } from '../../../schema/application'
 const path = require('path')
 
 abstract class StageStateService<T> {
-	protected schemaFacade: SchemaFacade
-
-	constructor (schemaFacade:SchemaFacade) {
-		this.schemaFacade = schemaFacade
-	}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (protected readonly schemaFacade:SchemaFacade, protected readonly helper:Helper) {}
 
 	public async get (name:string):Promise<T> {
 		const file = this.getFile(name)
-		const exists = await helper.fs.exists(file)
+		const exists = await this.helper.fs.exists(file)
 		if (exists) {
-			const content = await helper.fs.read(file)
+			const content = await this.helper.fs.read(file)
 			if (content) {
 				return JSON.parse(content)
 			}
@@ -25,12 +22,12 @@ abstract class StageStateService<T> {
 
 	public async update (name:string, data:T):Promise<void> {
 		const file = this.getFile(name)
-		await helper.fs.write(file, JSON.stringify(data))
+		await this.helper.fs.write(file, JSON.stringify(data))
 	}
 
 	public async remove (name:string):Promise<any> {
 		const file = this.getFile(name)
-		await helper.fs.remove(file)
+		await this.helper.fs.remove(file)
 	}
 
 	protected abstract empty():T
@@ -72,16 +69,16 @@ export class StageModelService extends StageStateService<ModelConfig> {
 			const source = sources[i]
 			const logFile = this.ddlFile(stage, action, source)
 			const data = source.queries.map((p: Query) => p.sentence).join(';\n') + ';'
-			await helper.fs.write(logFile, data)
+			await this.helper.fs.write(logFile, data)
 		}
 	}
 
 	private ddlFile (stage: string, action:string, source:any) {
 		let date = new Date().toISOString()
 		const extension = [Dialect.MongoDB].includes(source.dialect) ? 'json' : 'sql'
-		date = helper.str.replace(date, ':', '')
-		date = helper.str.replace(date, '.', '')
-		date = helper.str.replace(date, '-', '')
+		date = this.helper.str.replace(date, ':', '')
+		date = this.helper.str.replace(date, '.', '')
+		date = this.helper.str.replace(date, '-', '')
 		return path.join(this.schemaFacade.workspace, this.schemaFacade.schema.app.paths.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
 	}
 }

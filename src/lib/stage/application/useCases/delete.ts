@@ -5,7 +5,7 @@ import { StageActionDML } from './base/actionDML'
 export class StageDelete extends StageActionDML {
 	public async execute (): Promise<void> {
 		const queries = this.build()
-		await this.queryFacade.executeList(queries, this.options)
+		await this.executor.executeList(queries, this.options)
 	}
 
 	protected sort (entities: Entity[]): Entity[] {
@@ -46,7 +46,7 @@ export class StageDelete extends StageActionDML {
 					throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
 				}
 				if (!fromProperty.required) {
-					const query = this.queryFacade.build(`${entity.name}.updateAll({${relation.from}:null})`, this.options)
+					const query = this.expressionFacade.build(`${entity.name}.updateAll({${relation.from}:null})`, this.options)
 					queries.push(query)
 				}
 			}
@@ -55,6 +55,6 @@ export class StageDelete extends StageActionDML {
 	}
 
 	protected createQuery (entity:Entity):Query {
-		return this.queryFacade.build(`${entity.name}.deleteAll()`, this.options)
+		return this.expressionFacade.build(`${entity.name}.deleteAll()`, this.options)
 	}
 }

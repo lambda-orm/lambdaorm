@@ -1,21 +1,21 @@
 
-import { helper } from '../../../shared/application'
+import { Helper } from '../../../shared/application'
 import { SintaxisError } from '../../../shared/domain'
 import { Relation, SchemaError, Entity } from '../../../schema/domain'
 import { ModelConfigService } from '../../../schema/application'
 import { Field } from '../../../sentence/domain'
 import { Expressions, Operand, OperandType, Position } from '3xpr'
 import { Type, Primitive } from 'typ3s'
-import { Autowired } from 'h3lp'
 /**
  *  Expression completer
  */
 export class OrmOperandNormalizer {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (private readonly modelConfigService: ModelConfigService) {}
-
-	@Autowired('orm.expressions')
-	private expressions!:Expressions
+	public constructor (
+		private readonly modelConfigService: ModelConfigService,
+		private readonly expressions:Expressions,
+		private readonly helper:Helper
+	) {}
 
 	public normalize (operand: Operand): Operand {
 		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter
@@ -265,7 +265,7 @@ export class OrmOperandNormalizer {
 		if (field.name.startsWith(arrowVar + '.')) {
 			key = field.name.replace(arrowVar + '.', '')
 			if (key.includes('.')) {
-				key = helper.str.replace(key, '.', '_')
+				key = this.helper.str.replace(key, '.', '_')
 			}
 		} else {
 			key = field.name

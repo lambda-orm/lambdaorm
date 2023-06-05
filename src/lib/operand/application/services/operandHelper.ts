@@ -1,10 +1,8 @@
 import { IOperandHelper, Operand, OperandType } from '3xpr'
-import { Autowired } from 'h3lp'
 import { Type } from 'typ3s'
-
 export class OrmOperandHelper {
-	@Autowired('exp.helper.operand')
-	private operandHelper!:IOperandHelper
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly operandHelper:IOperandHelper) {}
 
 	public toExpression (operand: Operand): string {
 		const clauses: any = this.getClauses(operand)

@@ -6,7 +6,7 @@ class EmployeeUpdateObserver extends ActionObserver {
 	}
 
 	public async before(args:ActionObserverArgs): Promise<void> {
-		console.log(`before expression: ${args.expression}`)
+		console.log(`before expression: ${args.query}`)
 	}
 
 	public async after(args:ActionObserverArgs): Promise<void>  {

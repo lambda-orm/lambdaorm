@@ -1,6 +1,4 @@
-import { orm, helper } from '../../lib'
-import path from 'path'
-
+import { orm } from '../../lib'
 (async () => {
 	
 	try {

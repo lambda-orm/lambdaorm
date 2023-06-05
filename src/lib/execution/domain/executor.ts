@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SentenceAction } from '../../schema/domain'
-import { Query, QueryOptions } from '../../query/domain'
+import { ExecuteResult, Query, QueryOptions } from '../../query/domain'
+import { Transaction } from '.'
 
 export interface ActionObserverArgs{
-	expression:string
+	// expression:string
 	query: Query
 	data: any
 	options: QueryOptions
@@ -26,4 +26,15 @@ export abstract class ActionObserver {
 	public async before (args:ActionObserverArgs):Promise<void> {}
 	public async after (args:ActionObserverArgs):Promise<void> {}
 	public async error (args:ActionObserverArgs):Promise<void> {}
+}
+
+export interface Executor {
+	execute (query: Query, data: any, options: QueryOptions): Promise<any>
+	executeList (queries: Query[], options: QueryOptions): Promise<ExecuteResult[]>
+	transaction (options: QueryOptions, callback: { (tr: Transaction): Promise<void> }): Promise<void>
+}
+
+export interface ObservableExecutor {
+	subscribe (observer:ActionObserver):void
+	unsubscribe (observer:ActionObserver): void
 }

@@ -5,18 +5,18 @@ import { ConnectionAdapter } from './base/connection'
 import { Query, Data, Include } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
 import { MethodNotImplemented } from '../../../shared/domain'
-import { helper } from '../../../shared/application'
 import { SchemaError, RelationType, EntityMapping } from '../../../schema/domain'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
 import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
+import { Helper } from '../../../shared/application'
 
 export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any
-	constructor (config: ConnectionConfig) {
-		super(config)
+	constructor (config: ConnectionConfig, helper:Helper) {
+		super(config, helper)
 		if (!MongoDBConnectionPoolAdapter.lib) {
 			MongoDBConnectionPoolAdapter.lib = require('mongodb')
 		}
@@ -30,7 +30,7 @@ export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 		const client = await MongoDBConnectionPoolAdapter.lib.MongoClient.connect(this.config.connection.url)
 		const db = client.db(this.config.connection.database)
 		const cnx = { client, db }
-		return new MongodbConnectionAdapter(cnx, this)
+		return new MongodbConnectionAdapter(cnx, this, this.helper)
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -264,10 +264,10 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 			let strObj: string | undefined
 			if (query.parameters && query.parameters.length > 0) {
 				for (const param of query.parameters) {
-					const paramName = helper.query.transformParameter(param.name)
-					const itemValue = helper.obj.getValue(item, param.name)
+					const paramName = this.helper.query.transformParameter(param.name)
+					const itemValue = this.helper.obj.getValue(item, param.name)
 					const value = this.getValue(mapping, dialect, itemValue, param.type ? param.type : Primitive.any)
-					strObj = helper.str.replace(strObj || template, `{{${paramName}}}`, value)
+					strObj = this.helper.str.replace(strObj || template, `{{${paramName}}}`, value)
 				}
 			} else {
 				strObj = template
@@ -283,9 +283,9 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		const row: any = {}
 		if (params.length && params.length > 0) {
 			for (const param of params) {
-				const paramName = helper.query.transformParameter(param.name)
+				const paramName = this.helper.query.transformParameter(param.name)
 				const value = this.getValue(mapping, dialect, param.value, param.type ? param.type : Primitive.any)
-				result = helper.str.replace(result || template, `{{${paramName}}}`, value)
+				result = this.helper.str.replace(result || template, `{{${paramName}}}`, value)
 			}
 		} else {
 			result = template
@@ -313,8 +313,8 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 				return source ? 'true' : 'false'
 			case Primitive.string:
 				value = typeof source === Primitive.string ? source : source.toString()
-				value = helper.str.replace(value, '\n', '\\n')
-				value = helper.str.replace(value, '"', '\\"')
+				value = this.helper.str.replace(value, '\n', '\\n')
+				value = this.helper.str.replace(value, '"', '\\"')
 				return `"${value}"`
 			case Primitive.dateTime:
 				return `"${this.writeDateTime(source, mapping, dialect)}"`
@@ -324,8 +324,8 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 				return `"${this.writeTime(source, mapping, dialect)}"`
 			default:
 				if (typeof source === Primitive.string) {
-					value = helper.str.replace(source, '\n', '\\n')
-					value = helper.str.replace(value, '"', '\\"')
+					value = this.helper.str.replace(source, '\n', '\\n')
+					value = this.helper.str.replace(value, '"', '\\"')
 					return `"${value}"`
 				} else {
 					return source
