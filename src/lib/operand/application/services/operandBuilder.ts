@@ -1,13 +1,15 @@
-import { EvaluatorFactory, ExpressionNormalizer, ExpressionParse, OperandBuilder, Operand, OperandComplete, OperandNormalize, OperandReduce, Expressions } from '3xpr'
+import { EvaluatorFactory, ExpressionNormalizer, ExpressionParse, OperandBuilder, Operand, OperandNormalize, OperandReduce, Expressions } from '3xpr'
 import { ModelConfigService } from '../../../schema/application'
 import { OrmOperandNormalizer } from './operandNormalizer'
 import { Helper } from '../../../shared/application'
+import { OrmOperandComplete } from '../usesCases/complete'
+import { OrmOperandClone } from '../usesCases/clone'
 
 export class OrmOperandBuilder implements OperandBuilder {
 	private parse:ExpressionParse
 	private normalizer:ExpressionNormalizer
 	private operandNormalize:OperandNormalize
-	private operandComplete:OperandComplete
+	private operandComplete:OrmOperandComplete
 	private operandReduce:OperandReduce
 	private ormOperandNormalizer:OrmOperandNormalizer
 
@@ -16,11 +18,12 @@ export class OrmOperandBuilder implements OperandBuilder {
 		private readonly modelConfigService: ModelConfigService,
 		private readonly helper:Helper
 	) {
-		this.ormOperandNormalizer = new OrmOperandNormalizer(this.modelConfigService, this.expressions, this.helper)
+		const cloner = new OrmOperandClone()
+		this.ormOperandNormalizer = new OrmOperandNormalizer(this.modelConfigService, this.expressions, cloner, this.helper)
 		this.parse = new ExpressionParse(this.expressions)
 		this.normalizer = new ExpressionNormalizer()
 		this.operandNormalize = new OperandNormalize(this.expressions)
-		this.operandComplete = new OperandComplete(this.expressions.getBuilder('sync').evaluatorFactory)
+		this.operandComplete = new OrmOperandComplete()
 		this.operandReduce = new OperandReduce(this.expressions, this.expressions.constBuilder)
 	}
 

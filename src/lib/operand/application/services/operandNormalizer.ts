@@ -4,7 +4,7 @@ import { SintaxisError } from '../../../shared/domain'
 import { Relation, SchemaError, Entity } from '../../../schema/domain'
 import { ModelConfigService } from '../../../schema/application'
 import { Field } from '../../../sentence/domain'
-import { Expressions, Operand, OperandType, Position } from '3xpr'
+import { Expressions, Operand, OperandCloner, OperandType, Position } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 /**
  *  Expression completer
@@ -14,12 +14,13 @@ export class OrmOperandNormalizer {
 	public constructor (
 		private readonly modelConfigService: ModelConfigService,
 		private readonly expressions:Expressions,
+		private readonly cloner:OperandCloner,
 		private readonly helper:Helper
 	) {}
 
 	public normalize (operand: Operand): Operand {
 		// it clones the operand because it is going to modify it and it should not alter the operand passed by parameter
-		const cloned = this.expressions.clone(operand)
+		const cloned = this.cloner.clone(operand)
 		this.normalizeOperand(cloned)
 		if (cloned.type === OperandType.Var && cloned.children.length === 0) {
 			// Example: Products => Products.map(p=>p)

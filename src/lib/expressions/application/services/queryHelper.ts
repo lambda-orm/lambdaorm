@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { QueryOptions } from '../../../query/domain'
-import { StageConfigService } from '../../../schema/application'
+import { StageConfigService, ViewsConfigService } from '../../../schema/application'
 
 export class QueryHelper {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly stageConfigService:StageConfigService) {}
+	constructor (
+		private readonly stageConfigService:StageConfigService,
+		private readonly viewsConfigService:ViewsConfigService
+	) {}
 
 	public solveOptions (options?: QueryOptions):QueryOptions {
 		if (!options) {
@@ -15,7 +18,7 @@ export class QueryHelper {
 			options.stage = _stage.name
 		}
 		if (!options.view) {
-			const _view = this.stageConfigService.get()
+			const _view = this.viewsConfigService.get()
 			options.view = _view.name
 		}
 		return options

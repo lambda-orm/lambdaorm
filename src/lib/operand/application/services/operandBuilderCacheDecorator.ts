@@ -21,7 +21,8 @@ export class OperandBuilderCacheDecorator implements OperandBuilder {
 			const value = this.cache.get(key)
 			if (!value) {
 				const operand = this.operandBuilder.build(expression)
-				this.cache.set(key, this.serializer.serialize(operand))
+				const serialized = this.serializer.serialize(operand)
+				this.cache.set(key, serialized)
 				return operand
 			} else {
 				return this.serializer.deserialize(value)

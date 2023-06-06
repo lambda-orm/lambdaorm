@@ -31,7 +31,7 @@ export class ExpressionFacade {
 		helper:Helper) {
 		this.builder = new QueryBuilderCacheDecorator(new QueryBuilder(this.sentenceFacade, this.schemaFacade, this.languages), cache, helper)
 		this.getInfoQuery = new GetInfoQuery(this.builder)
-		this.queryHelper = new QueryHelper(this.schemaFacade.stage)
+		this.queryHelper = new QueryHelper(this.schemaFacade.stage, this.schemaFacade.view)
 		this.expressionExecute = new ExpressionExecute(this.builder, executor, expressions)
 	}
 

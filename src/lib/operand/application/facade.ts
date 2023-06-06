@@ -14,7 +14,7 @@ export class OperandFacade {
 		private readonly schema:SchemaFacade,
 		cache: ICache<string, string>,
 		operandSerializer:OperandSerializer,
-		operandHelper:OrmOperandHelper,
+		private readonly operandHelper:OrmOperandHelper,
 		private readonly helper:Helper
 	) {
 		this.builder = new OperandBuilderCacheDecorator(
@@ -33,6 +33,6 @@ export class OperandFacade {
 	}
 
 	public getClauses (operand: Operand): any {
-		return this.getClauses(operand)
+		return this.operandHelper.getClauses(operand)
 	}
 }
