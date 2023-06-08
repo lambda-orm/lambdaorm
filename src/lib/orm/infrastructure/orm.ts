@@ -46,8 +46,7 @@ export class Orm implements IOrm {
 		// TODO: resolver en  HelperBuilder
 		this.helper = new Helper(new OperandHelper(this.expressions.constBuilder), h3lp)
 		this.language = new SentenceLanguageServiceBuilder(this.helper).build()
-		this.connection = new ConnectionFacadeBuilder().build()
-
+		this.connection = new ConnectionFacadeBuilder(this.helper).build()
 		this.schema = new SchemaFacadeBuilder(this.expressions, this.helper).build(workspace)
 		this.executor = new ExecutorBuilder(this.connection, this.language, this.expressions, this.helper).build(this.schema)
 		this.operand = new OperandFacadeBuilder(this.expressions, this.helper).build(this.schema)

@@ -11,10 +11,13 @@ import { SQLjsConnectionPoolAdapter } from './adapters/SQLjs'
 import { SqlServerConnectionPoolAdapter } from './adapters/SqlServer'
 import { OracleConnectionPoolAdapter } from './adapters/Oracle'
 import { MongoDBConnectionPoolAdapter } from './adapters/MongoDB'
+import { Helper } from '../../shared/application'
 
 export class ConnectionFacadeBuilder {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly helper:Helper) {}
 	public build ():ConnectionFacade {
-		const dialectService = new DialectPoolService()
+		const dialectService = new DialectPoolService(this.helper)
 		const poolService = new ConnectionPoolService(dialectService)
 		const acquireConnection = new AcquireConnection(poolService)
 		const releaseConnection = new ReleaseConnection(poolService)

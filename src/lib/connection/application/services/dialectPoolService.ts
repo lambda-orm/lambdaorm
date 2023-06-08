@@ -1,11 +1,14 @@
 
+import { Helper } from '../../../shared/application'
 import { ConnectionConfig, ConnectionError } from '../../domain'
 import { ConnectionPool } from '../ports/connectionPool'
 
 export class DialectPoolService {
-	private dialectsPool:any = {}
+	private dialectsPool:any
+	constructor (private readonly helper:Helper) {
+		this.dialectsPool = {}
+	}
 
-	// public addDialect (dialect:string, classConnectionPool:new () => ConnectionPool) {
 	public add (dialect:string, classConnectionPool:any):void {
 		this.dialectsPool[dialect] = classConnectionPool
 	}
@@ -15,6 +18,6 @@ export class DialectPoolService {
 		if (DialectPool === undefined) {
 			throw new ConnectionError(`Connection to ${config.name} whit dialect ${config.dialect} not supported`)
 		}
-		return new DialectPool(config) as ConnectionPool
+		return new DialectPool(config, this.helper) as ConnectionPool
 	}
 }

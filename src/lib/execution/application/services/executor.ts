@@ -2,7 +2,7 @@
 import { Query, ExecuteResult, QueryOptions } from '../../../query/domain'
 import { SchemaFacade } from '../../../schema/application'
 import { LanguagesService } from '../../../language/application'
-import { QueryExecutor } from './queryExecutor'
+import { QueryExecutor } from './queryExecutor/queryExecutor'
 import { Transaction, Executor } from '../../domain'
 import { ConnectionFacade } from '../../../connection/application'
 import { Expressions } from '3xpr'
