@@ -1,4 +1,3 @@
-
 import {
 	ObservableAction, Mapping, DataSourceRule, Index, Source, Relation,
 	EntityMapping, PropertyMapping, SchemaError

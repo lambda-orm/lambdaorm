@@ -1,4 +1,3 @@
-
 import { ICache } from 'h3lp'
 import { ISentenceCompleteBuilder, Sentence, SentenceSerializer } from '../../domain'
 import { ViewConfigService } from '../../../schema/application'

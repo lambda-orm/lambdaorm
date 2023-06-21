@@ -1,4 +1,3 @@
-
 import { Expressions } from '3xpr'
 import { SchemaFacade, ViewConfigService } from '../../../schema/application'
 import { ISentenceBuilder, ISentenceCompleteBuilder, Sentence } from '../../domain'

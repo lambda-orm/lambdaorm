@@ -1,4 +1,3 @@
-
 import { Helper } from '../../../shared/application'
 import { SintaxisError } from '../../../shared/domain'
 import { Relation, SchemaError, Entity } from '../../../schema/domain'

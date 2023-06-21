@@ -1,4 +1,3 @@
-
 import { Enum, FormatMapping, EntityMapping, PropertyMapping, Mapping } from '../../../domain'
 import { ModelConfigServiceBase } from './modelConfigServiceBase'
 

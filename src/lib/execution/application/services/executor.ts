@@ -1,4 +1,3 @@
-
 import { Query, ExecuteResult, QueryOptions } from '../../../query/domain'
 import { SchemaFacade } from '../../../schema/application'
 import { LanguagesService } from '../../../language/application'

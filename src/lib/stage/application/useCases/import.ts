@@ -1,4 +1,3 @@
-
 import { StageActionDML } from './base/actionDML'
 import { SchemaConfig, MappingConfig, Entity, SchemaError, Relation } from '../../../schema/domain'
 import { Query, QueryOptions } from '../../../query/domain'

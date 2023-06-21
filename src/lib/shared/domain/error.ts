@@ -1,4 +1,3 @@
-
 export class SintaxisError extends Error {
 	constructor (message:string) {
 		super(message)

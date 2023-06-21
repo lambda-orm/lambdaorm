@@ -1,4 +1,3 @@
-
 import { RelationType } from '../../../../schema/domain'
 import { Query, Include, Data, QueryOptions } from '../../../../query/domain'
 import { Connection } from '../../../../connection/application'

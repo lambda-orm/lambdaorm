@@ -1,7 +1,7 @@
 const fs = require('fs')
 require('dotenv').config({ path: './config/northwind.env' })
 
-const sources = ['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB']
+const sources = ['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'MongoDB', 'Oracle']
 
 module.exports = function (grunt) {
 	// Load the plugins

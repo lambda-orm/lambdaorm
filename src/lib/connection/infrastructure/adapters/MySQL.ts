@@ -1,4 +1,3 @@
-
 /* eslint-disable no-tabs */
 import { Type, Primitive } from 'typ3s'
 import { ConnectionPoolAdapter } from './base/connectionPool'

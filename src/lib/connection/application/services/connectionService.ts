@@ -1,4 +1,3 @@
-
 // import { ConnectionConfig, ConnectionError } from '../../domain'
 // import { Connection } from '../ports/connection'
 // import { ConnectionPool } from '../ports/connectionPool'

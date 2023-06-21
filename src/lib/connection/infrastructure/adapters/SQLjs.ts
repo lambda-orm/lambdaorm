@@ -1,4 +1,3 @@
-
 /* eslint-disable no-tabs */
 
 import { ConnectionPoolAdapter } from './base/connectionPool'

@@ -1,4 +1,3 @@
-
 export enum ObservableAction {
 	select = 'select',
 	insert = 'insert',

@@ -1,4 +1,3 @@
-
 import { ISentenceBuilder, MetadataModel, Sentence } from '../../domain'
 
 export class GetModel {

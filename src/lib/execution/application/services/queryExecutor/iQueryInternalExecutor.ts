@@ -1,4 +1,3 @@
-
 import { Query, Data } from '../../../../query/domain'
 
 export interface IQueryInternalExecutor {
