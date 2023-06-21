@@ -1,4 +1,5 @@
-import { orm, helper } from '../../../lib'
+import { orm } from '../../../lib'
+import { h3lp } from 'h3lp'
 
 export async function apply (callback: any) {
 	try {
@@ -7,7 +8,7 @@ export async function apply (callback: any) {
 
 		await orm.stage.clean().execute()
 		await orm.stage.sync().execute()
-		const content = await helper.fs.read('./src/dev/countries/db/data.json')
+		const content = await h3lp.fs.read('./src/dev/countries/db/data.json')
 		const data = JSON.parse(content as string)
 		await orm.execute('Countries.bulkInsert().include(p => p.states)', data)
 	} catch (error:any) {

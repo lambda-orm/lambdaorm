@@ -867,9 +867,9 @@ test:
         type: string
     parameters:
       - name: entity.name
-        type: any
+        type: string
       - name: entity.id
-        type: any
+        type: integer
     constraints:
       entity: Orders
       constraints: []
@@ -887,9 +887,9 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: any
+          type: string
         - name: entity.id
-          type: any
+          type: integer
       constraints: []
       values: []
       defaults: []
@@ -1061,9 +1061,9 @@ test:
             type: decimal
     parameters:
       - name: entity.name
-        type: any
+        type: string
       - name: entity.id
-        type: any
+        type: integer
       - name: details
         type: Orders.details
         children:
@@ -1152,9 +1152,9 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: any
+          type: string
         - name: entity.id
-          type: any
+          type: integer
       constraints: []
       values: []
       defaults: []
@@ -1317,9 +1317,9 @@ test:
             type: decimal
     parameters:
       - name: entity.name
-        type: any
+        type: string
       - name: entity.id
-        type: any
+        type: integer
       - name: details
         type: Orders.details
         children:
@@ -1392,9 +1392,9 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: any
+          type: string
         - name: entity.id
-          type: any
+          type: integer
       constraints: []
       values: []
       defaults: []
@@ -1556,9 +1556,9 @@ test:
             type: integer
     parameters:
       - name: entity.name
-        type: any
+        type: string
       - name: entity.id
-        type: any
+        type: integer
       - name: details
         type: Orders.details
         children:
@@ -1617,9 +1617,9 @@ test:
           type: string
       parameters:
         - name: entity.name
-          type: any
+          type: string
         - name: entity.id
-          type: any
+          type: integer
       constraints: []
       values: []
       defaults: []

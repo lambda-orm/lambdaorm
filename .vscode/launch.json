@@ -12,7 +12,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab.ts",
-			"envFile": "${workspaceFolder}/config/northwind.env"
+			"envFile": "${workspaceFolder}/config/countries.env"
 		},
 		{
 			"name": "cclp lab",
@@ -129,7 +129,7 @@
 			"request": "launch",
 			"program": "/usr/bin/grunt",
 			"args": [
-				"reate-data-for-test-suite"
+				"create-data-for-test-suite"
 			],
 			"stopOnEntry": false
 		},

@@ -1,0 +1,124 @@
+
+import { SentenceAction } from '../../../../schema/domain'
+import { SchemaFacade } from '../../../../schema/application'
+import { Query, Data, QueryOptions } from '../../../../query/domain'
+import { Helper } from '../../../../shared/application'
+import { ExecutionError } from '../../../../connection/domain'
+import { ConnectionFacade, Connection } from '../../../../connection/application'
+import { LanguagesService } from '../../../../language/application'
+import { Expressions } from '3xpr'
+import { IQueryInternalExecutor } from './iQueryInternalExecutor'
+import { QueryBulkInsertExecutor } from './queryBulkInsertExecutor'
+import { QueryDeleteExecutor } from './queryDeleteExecutor'
+import { QueryInsertExecutor } from './queryInsertExecutor'
+import { QuerySelectExecutor } from './querySelectExecutor'
+import { QueryUpdateExecutor } from './queryUpdateExecutor'
+
+export class QueryExecutor implements IQueryInternalExecutor {
+	private connections: any
+	private selectExecutor: QuerySelectExecutor
+	private insertExecutor: QueryInsertExecutor
+	private bulkInsertExecutor: QueryBulkInsertExecutor
+	private updateExecutor: QueryUpdateExecutor
+	private deleteExecutor: QueryDeleteExecutor
+
+	constructor (
+		private readonly connectionFacade: ConnectionFacade,
+		private readonly languages: LanguagesService,
+		private readonly schemaFacade: SchemaFacade,
+		private readonly expressions: Expressions,
+		public readonly options: QueryOptions,
+		private readonly helper: Helper,
+		private transactional = false
+	) {
+		this.connections = {}
+		this.selectExecutor = new QuerySelectExecutor(this, this.expressions, this.options, this.helper)
+		this.insertExecutor = new QueryInsertExecutor(this, this.expressions, this.options)
+		this.bulkInsertExecutor = new QueryBulkInsertExecutor(this, this.expressions, this.options)
+		this.updateExecutor = new QueryUpdateExecutor(this, this.expressions, this.options)
+		this.deleteExecutor = new QueryDeleteExecutor(this, this.options)
+	}
+
+	private async getConnection (source: string): Promise<Connection> {
+		let connection = this.connections[source]
+		if (connection === undefined) {
+			connection = await this.connectionFacade.acquire(source)
+			if (this.transactional) {
+				await connection.beginTransaction()
+			}
+			this.connections[source] = connection
+		}
+		return connection
+	}
+
+	public async commit (): Promise<void> {
+		for (const p in this.connections) {
+			const connection = this.connections[p]
+			await connection.commit()
+		}
+	}
+
+	public async rollback (): Promise<void> {
+		for (const p in this.connections) {
+			const connection = this.connections[p]
+			await connection.rollback()
+		}
+	}
+
+	public async release (): Promise<void> {
+		for (const p in this.connections) {
+			const connection = this.connections[p]
+			await this.connectionFacade.release(connection)
+		}
+		this.connections = {}
+	}
+
+	public async execute (query: Query, data: any): Promise<any> {
+		const _data = new Data(data)
+		if ([SentenceAction.insert, SentenceAction.update, SentenceAction.bulkInsert].includes(query.action)) {
+			await this._execute(query, _data)
+			return _data
+		} else {
+			return this._execute(query, _data)
+		}
+	}
+
+	public async _execute (query: Query, data: Data): Promise<any> {
+		let result: any
+		const source = this.schemaFacade.source.get(query.source)
+		const mapping = this.schemaFacade.mapping.getInstance(source.mapping)
+		const connection = await this.getConnection(source.name)
+		const dialect = this.languages.getDialect(query.dialect)
+		try {
+			switch (query.action) {
+			case SentenceAction.select: result = await this.selectExecutor.select(query, data, mapping, dialect, connection); break
+			case SentenceAction.insert: result = await this.insertExecutor.insert(query, data, mapping, dialect, connection); break
+			case SentenceAction.bulkInsert: result = await this.bulkInsertExecutor.bulkInsert(query, data, mapping, dialect, connection); break
+			case SentenceAction.update: result = await this.updateExecutor.update(query, data, mapping, dialect, connection); break
+			case SentenceAction.delete: result = await this.deleteExecutor.delete(query, data, mapping, dialect, connection); break
+			case SentenceAction.truncateEntity: result = await connection.truncateEntity(mapping, query); break
+			case SentenceAction.createEntity: result = await connection.createEntity(mapping, query); break
+			case SentenceAction.createSequence: result = await connection.createSequence(mapping, query); break
+			case SentenceAction.createFk: result = await connection.createFk(mapping, query); break
+			case SentenceAction.createIndex: result = await connection.createIndex(mapping, query); break
+			case SentenceAction.alterProperty: result = await connection.alterProperty(mapping, query); break
+			case SentenceAction.addProperty: result = await connection.addProperty(mapping, query); break
+			case SentenceAction.addPk: result = await connection.addPk(mapping, query); break
+			case SentenceAction.addUk: result = await connection.addUk(mapping, query); break
+			case SentenceAction.addFk: result = await connection.addFk(mapping, query); break
+			case SentenceAction.dropSequence: result = await connection.dropSequence(mapping, query); break
+			case SentenceAction.dropEntity: result = await connection.dropEntity(mapping, query); break
+			case SentenceAction.dropProperty: result = await connection.dropProperty(mapping, query); break
+			case SentenceAction.dropPk: result = await connection.dropPk(mapping, query); break
+			case SentenceAction.dropUk: result = await connection.dropUk(mapping, query); break
+			case SentenceAction.dropFk: result = await connection.dropFk(mapping, query); break
+			case SentenceAction.dropIndex: result = await connection.dropIndex(mapping, query); break
+			default:
+				throw new Error(`query action ${query.action} undefined`)
+			}
+			return result
+		} catch (error:any) {
+			throw new ExecutionError(query.source, query.entity, JSON.stringify(query.sentence), error.message, data)
+		}
+	}
+}

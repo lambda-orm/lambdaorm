@@ -1,4 +1,6 @@
 _extends: [SQL]
+types:
+  text: LONGTEXT
 ddl:
   dropIndex: "DROP INDEX {name} ON {table}"
 dml:

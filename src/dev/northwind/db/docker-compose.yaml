@@ -63,7 +63,7 @@ services:
     volumes:
       - ./volume/Postgres-data:/var/lib/postgresql/data
     ports:
-      - '5432:5432'
+      - '5433:5432'
     networks:
       - northwind
     healthcheck:
