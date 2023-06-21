@@ -192,7 +192,7 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 				if (data) {
 					const params = this.dataToParameters(mapping, dialect, query, data)
 					if (params.length > 0) {
-						me.addParameters(query.sentence, request, params)
+						me.addParameters(query.sentence, request, data, params)
 					}
 				}
 				return me.cnx.execSql(request)
@@ -208,7 +208,7 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 			const request = this.createNonQueryRequest(query.sentence, reject, resolve)
 			const params = this.dataToParameters(mapping, dialect, query, data)
 			if (params.length > 0) {
-				me.addParameters(query.sentence, request, params)
+				me.addParameters(query.sentence, request, data, params)
 			}
 			return me.cnx.execSql(request)
 		})
@@ -261,7 +261,7 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 		return _sentence
 	}
 
-	private addParameters (sentence: string, request: any, params: Parameter[] = []) {
+	private addParameters (sentence: string, request: any, data: Data, params: Parameter[] = []) {
 		for (const param of params) {
 			if (request.parameters.find(p => p.name === param.name) !== undefined) {
 				continue
@@ -276,6 +276,12 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 			case Primitive.date: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Date, param.value); break
 			case Primitive.time: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Time, param.value); break
 			case Primitive.any:
+				if (Type.isList(param.type) || (param.type === Primitive.any)) {
+					const value = data.get(param.name)
+					if (Array.isArray(value)) {
+						continue
+					}
+				}
 				throw new Error(`Param: ${param.name} is any type in sentence: ${sentence}`)
 			}
 		}

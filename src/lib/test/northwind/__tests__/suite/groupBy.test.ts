@@ -43,7 +43,7 @@ describe('groupBy', () => {
 		expect(orm.parameters('Products.map(p => ({ count: count(1) }))')).toStrictEqual([])
 		expect(orm.parameters('Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))')).toStrictEqual([])
 		expect(orm.parameters('Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))')).toStrictEqual([])
-		expect(orm.parameters('Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))')).toStrictEqual([{'name':'id','type':'any'}])
+		expect(orm.parameters('Products.filter(p => p.id === id).map(p => ({ name: p.name, source: p.price, result: abs(p.price) }))')).toStrictEqual([{'name':'id','type':'integer'}])
 		expect(orm.parameters('Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))')).toStrictEqual([])
 		expect(orm.parameters('Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)')).toStrictEqual([])
 		expect(orm.parameters('Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))')).toStrictEqual([])

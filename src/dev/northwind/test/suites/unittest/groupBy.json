@@ -233,7 +233,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -568,7 +568,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],

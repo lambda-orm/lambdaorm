@@ -340,7 +340,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -349,7 +349,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -358,7 +358,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -367,7 +367,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -376,7 +376,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -385,7 +385,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -394,7 +394,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -403,7 +403,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -412,7 +412,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -421,7 +421,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -430,7 +430,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -439,7 +439,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -448,7 +448,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -457,7 +457,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -466,7 +466,7 @@
           "result": [
             {
               "name": "id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         }
@@ -616,7 +616,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -655,7 +655,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -694,7 +694,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -733,7 +733,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -772,7 +772,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -811,7 +811,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -850,7 +850,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -889,7 +889,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -928,7 +928,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -967,7 +967,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -1010,7 +1010,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -1049,7 +1049,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -1088,7 +1088,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -1127,7 +1127,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -1166,7 +1166,7 @@
             "parameters": [
               {
                 "name": "id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],

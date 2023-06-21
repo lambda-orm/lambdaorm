@@ -129,7 +129,7 @@
 			"request": "launch",
 			"program": "/usr/bin/grunt",
 			"args": [
-				"reate-data-for-test-suite"
+				"create-data-for-test-suite"
 			],
 			"stopOnEntry": false
 		},

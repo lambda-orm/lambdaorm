@@ -726,7 +726,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "id",
@@ -766,7 +766,7 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "id",
@@ -805,11 +805,11 @@
           "result": [
             {
               "name": "name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "description",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "id",
@@ -822,7 +822,7 @@
           "result": [
             {
               "name": "description",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "id",
@@ -852,11 +852,11 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -865,11 +865,11 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
-              "type": "any"
+              "type": "integer"
             },
             {
               "name": "details",
@@ -904,11 +904,11 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
-              "type": "any"
+              "type": "integer"
             },
             {
               "name": "details",
@@ -931,11 +931,11 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
-              "type": "any"
+              "type": "integer"
             }
           ]
         },
@@ -944,11 +944,11 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
-              "type": "any"
+              "type": "integer"
             },
             {
               "name": "details",
@@ -983,11 +983,11 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
-              "type": "any"
+              "type": "integer"
             },
             {
               "name": "details",
@@ -1022,11 +1022,11 @@
           "result": [
             {
               "name": "entity.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "entity.id",
-              "type": "any"
+              "type": "integer"
             },
             {
               "name": "details",
@@ -1851,7 +1851,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "id",
@@ -1984,7 +1984,7 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "id",
@@ -2111,11 +2111,11 @@
             "parameters": [
               {
                 "name": "name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "description",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "id",
@@ -2159,7 +2159,7 @@
             "parameters": [
               {
                 "name": "description",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "id",
@@ -2282,11 +2282,11 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -2379,11 +2379,11 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -2460,11 +2460,11 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -2495,11 +2495,11 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -2616,11 +2616,11 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -2713,11 +2713,11 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
@@ -2794,11 +2794,11 @@
             "parameters": [
               {
                 "name": "entity.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "entity.id",
-                "type": "any"
+                "type": "integer"
               }
             ],
             "constraints": [],
