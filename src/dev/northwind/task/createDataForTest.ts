@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { orm, helper, QueryInfo } from '../../../lib'
+import { orm, QueryInfo } from '../../../lib'
 import { Categories, Customers, Products, Orders } from '../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
+import { h3lp } from 'h3lp'
 
 const fs = require('fs')
 const path = require('path')
@@ -27,7 +28,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 		expressionTest.sentences = []
 		expressionTest.errors = 0
 		try {
-			expressionTest.expression = orm.toExpression(expressionTest.lambda)
+			expressionTest.expression = orm.expressions.convert(expressionTest.lambda, 'function')[0]
 			// expressionTest.lambda = expressionTest.lambda.toString()
 			expressionTest.normalizeExpression = orm.normalize(expressionTest.expression as string)
 			expressionTest.model = orm.model(expressionTest.expression as string)
@@ -979,11 +980,11 @@ async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
 	console.log(JSON.stringify(orm.stage.export({ stage: source }).sentence(), null, 2))
 	const data = await orm.stage.export({ stage: source }).execute()
-	await helper.fs.write(exportFile, JSON.stringify(data))
+	await h3lp.fs.write(exportFile, JSON.stringify(data))
 }
 async function stageImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
-	const content = await helper.fs.read(sourceFile) as string
+	const content = await h3lp.fs.read(sourceFile) as string
 	const data = JSON.parse(content)
 	await orm.stage.import({ stage: target }).execute(data)
 }

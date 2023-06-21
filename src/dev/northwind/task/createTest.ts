@@ -1,5 +1,3 @@
-import { helper } from '../../../lib'
-
 import { CategoryTest, ExpressionTest } from './testModel'
 import path from 'path'
 import { h3lp } from 'h3lp'
@@ -72,7 +70,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 
 	const content = lines.join('\n')
 	const testFolder = 'src/lib/test/northwind/__tests__'
-	if (!await helper.fs.exists(testFolder)) {
+	if (!await h3lp.fs.exists(testFolder)) {
 		await h3lp.fs.create(testFolder)
 	}
 	await h3lp.fs.write(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)
@@ -104,7 +102,7 @@ async function writeIntegrationTest (stages: string[], category: CategoryTest): 
 
 	const content = lines.join('\n')
 	const testFolder = 'src/lib/test/northwind/__integration__'
-	if (!await helper.fs.exists(testFolder)) {
+	if (!await h3lp.fs.exists(testFolder)) {
 		await h3lp.fs.create(testFolder)
 	}
 	h3lp.fs.write(path.join(testFolder, category.name.replace(' ', '_') + '.test.ts'), content)

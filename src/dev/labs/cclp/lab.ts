@@ -1,4 +1,5 @@
-import { Orm, helper } from '../../../lib'
+import { Orm } from '../../../lib'
+import { h3lp } from 'h3lp'
 import path  from 'path'
 import { DbDebtors } from './beesion/src/model'
 const lab = async () => {
@@ -41,13 +42,13 @@ const lab = async () => {
 			p.statusHistories
 			])
 			const sentence = orm.getInfo(query, options)
-			await helper.fs.write(path.join(__dirname,'debtor.query.json'), JSON.stringify(sentence, null, 2))		
+			await h3lp.fs.write(path.join(__dirname,'debtor.query.json'), JSON.stringify(sentence, null, 2))		
 			console.log(JSON.stringify(sentence, null, 2))
 			const result = await orm.execute(query, {}, options)
-			await helper.fs.write(path.join(__dirname,'debtors.json'),JSON.stringify(result))
+			await h3lp.fs.write(path.join(__dirname,'debtors.json'),JSON.stringify(result))
 	} catch (e:any) {
 		console.log(e.message)
-		await helper.fs.write(path.join(__dirname,'error.txt'),e.message)
+		await h3lp.fs.write(path.join(__dirname,'error.txt'),e.message)
 	} finally {
 		await orm.end()
 	}

@@ -162,8 +162,8 @@ describe('Metadata', () => {
 	test('query 4', async () => {
 		const expression = 'Products.filter(p => p.id === id).map(p => p).sort(p => p.id)'
 		const modelExpected :any= [{"name":"id","type":"integer"},{"name":"name","type":"string"},{"name":"supplierId","type":"integer"},{"name":"categoryId","type":"integer"},{"name":"quantity","type":"string"},{"name":"price","type":"decimal"},{"name":"inStock","type":"decimal"},{"name":"onOrder","type":"decimal"},{"name":"reorderLevel","type":"decimal"},{"name":"discontinued","type":"boolean"}]
-		const parametersExpected:any = [{"name":"id","type":"any"}]
-		const metadataExpected :any= {"classtype":"Sentence","pos":{"ln":0,"col":51},"name":"select","children":[],"type":"any","entity":"Products","columns":[{"name":"id","type":"integer"},{"name":"name","type":"string"},{"name":"supplierId","type":"integer"},{"name":"categoryId","type":"integer"},{"name":"quantity","type":"string"},{"name":"price","type":"decimal"},{"name":"inStock","type":"decimal"},{"name":"onOrder","type":"decimal"},{"name":"reorderLevel","type":"decimal"},{"name":"discontinued","type":"boolean"}],"parameters":[{"name":"id","type":"any"}],"constraints":[],"values":[],"defaults":[],"clause":"select","alias":"p"}
+		const parametersExpected:any = [{"name":"id","type":"integer"}]
+		const metadataExpected :any= {"classtype":"Sentence","pos":{"ln":0,"col":51},"name":"select","children":[],"type":"any","entity":"Products","columns":[{"name":"id","type":"integer"},{"name":"name","type":"string"},{"name":"supplierId","type":"integer"},{"name":"categoryId","type":"integer"},{"name":"quantity","type":"string"},{"name":"price","type":"decimal"},{"name":"inStock","type":"decimal"},{"name":"onOrder","type":"decimal"},{"name":"reorderLevel","type":"decimal"},{"name":"discontinued","type":"boolean"}],"parameters":[{"name":"id","type":"integer"}],"constraints":[],"values":[],"defaults":[],"clause":"select","alias":"p"}
 		const constraintsExpected :any= {"entity":"Products","constraints":[]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)
@@ -177,8 +177,8 @@ describe('Metadata', () => {
 	test('query 5', async () => {
 		const expression = 'Products.filter(p => p.id === id).sort(p => p.id)'
 		const modelExpected :any= [{"name":"id","type":"integer"},{"name":"name","type":"string"},{"name":"supplierId","type":"integer"},{"name":"categoryId","type":"integer"},{"name":"quantity","type":"string"},{"name":"price","type":"decimal"},{"name":"inStock","type":"decimal"},{"name":"onOrder","type":"decimal"},{"name":"reorderLevel","type":"decimal"},{"name":"discontinued","type":"boolean"}]
-		const parametersExpected:any = [{"name":"id","type":"any"}]
-		const metadataExpected :any= {"classtype":"Sentence","pos":{"ln":0,"col":39},"name":"select","children":[],"type":"any","entity":"Products","columns":[{"name":"id","type":"integer"},{"name":"name","type":"string"},{"name":"supplierId","type":"integer"},{"name":"categoryId","type":"integer"},{"name":"quantity","type":"string"},{"name":"price","type":"decimal"},{"name":"inStock","type":"decimal"},{"name":"onOrder","type":"decimal"},{"name":"reorderLevel","type":"decimal"},{"name":"discontinued","type":"boolean"}],"parameters":[{"name":"id","type":"any"}],"constraints":[],"values":[],"defaults":[],"clause":"select","alias":"p"}
+		const parametersExpected:any = [{"name":"id","type":"integer"}]
+		const metadataExpected :any= {"classtype":"Sentence","pos":{"ln":0,"col":39},"name":"select","children":[],"type":"any","entity":"Products","columns":[{"name":"id","type":"integer"},{"name":"name","type":"string"},{"name":"supplierId","type":"integer"},{"name":"categoryId","type":"integer"},{"name":"quantity","type":"string"},{"name":"price","type":"decimal"},{"name":"inStock","type":"decimal"},{"name":"onOrder","type":"decimal"},{"name":"reorderLevel","type":"decimal"},{"name":"discontinued","type":"boolean"}],"parameters":[{"name":"id","type":"integer"}],"constraints":[],"values":[],"defaults":[],"clause":"select","alias":"p"}
 		const constraintsExpected :any= {"entity":"Products","constraints":[]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)
@@ -252,8 +252,8 @@ describe('Metadata', () => {
 	test('query 10', async () => {
 		const expression = 'Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity])'
 		const modelExpected :any= [{"name":"category","type":"string"},{"name":"product","type":"string"},{"name":"unitPrice","type":"decimal"},{"name":"quantity","type":"decimal"}]
-		const parametersExpected:any = [{"name":"fromDate","type":"any"},{"name":"toDate","type":"any"},{"name":"minValue","type":"any"}]
-		const metadataExpected :any= {"classtype":"Sentence","pos":{"ln":0,"col":227},"name":"select","children":[],"type":"any","entity":"Orders.details","columns":[{"name":"category","type":"string"},{"name":"product","type":"string"},{"name":"unitPrice","type":"decimal"},{"name":"quantity","type":"decimal"}],"parameters":[{"name":"fromDate","type":"any"},{"name":"toDate","type":"any"},{"name":"minValue","type":"any"}],"constraints":[],"values":[],"defaults":[],"clause":"select","alias":"o"}
+		const parametersExpected:any = [{"name":"fromDate","type":"date"},{"name":"toDate","type":"date"},{"name":"minValue","type":"decimal"}]
+		const metadataExpected :any= {"classtype":"Sentence","pos":{"ln":0,"col":227},"name":"select","children":[],"type":"any","entity":"Orders.details","columns":[{"name":"category","type":"string"},{"name":"product","type":"string"},{"name":"unitPrice","type":"decimal"},{"name":"quantity","type":"decimal"}],"parameters":[{"name":"fromDate","type":"date"},{"name":"toDate","type":"date"},{"name":"minValue","type":"decimal"}],"constraints":[],"values":[],"defaults":[],"clause":"select","alias":"o"}
 		const constraintsExpected :any= {"entity":"Orders.details","constraints":[]}
 		const model = orm.model(expression)
 		const parameters = orm.parameters(expression)

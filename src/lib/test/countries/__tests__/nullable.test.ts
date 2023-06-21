@@ -18,8 +18,8 @@ describe('nullable', () => {
 		expect(orm.model('States.filter(p=> isNull(p.latitude)).map(p=> count(1))')).toStrictEqual([])
 		expect(orm.model('States.filter(p=> isNotNull(p.latitude)).map(p=> count(1))')).toStrictEqual([])
 		expect(orm.model('States.filter(p=> nvl(p.latitude,-100)== -100).map(p=> count(1))')).toStrictEqual([])
-		expect(orm.model('Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl(p.native,"???")})')).toStrictEqual([{'name':'native','type':'any'}])
-		expect(orm.model('Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl2(p.native,"is not null","is null")})')).toStrictEqual([{'name':'native','type':'any'}])
+		expect(orm.model('Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl(p.native,"???")})')).toStrictEqual([{'name':'native','type':'string'}])
+		expect(orm.model('Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl2(p.native,"is not null","is null")})')).toStrictEqual([{'name':'native','type':'string'}])
 	})
 	test('parameters', () => {
 		expect(orm.parameters('States.filter(p=> isNull(p.latitude)).map(p=> count(1))')).toStrictEqual([])

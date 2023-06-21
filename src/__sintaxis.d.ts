@@ -93,8 +93,10 @@ interface Queryable<T> extends MapClauses<T> {
 interface RelationMapClauses<T> {
 	/**  */
 	sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any): void
-
+	/**  */
 	filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterClauses<T>
+	/**  */
+	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
 }
 interface RelationIncludeClauses<T> {
 	/**  */
@@ -305,3 +307,6 @@ declare function max(value:any):any
 declare function min(value:any):any
 /**  */
 declare function sum(value:any):any
+
+// declare function test2(fn:(a:string)=>string):(a:string)=>string
+// declare function test2(arr:[string, number]):(a:string)=>string

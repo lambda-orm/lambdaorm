@@ -1,7 +1,0 @@
-CREATE TABLE tbl_loc_countries (numeric_code VARCHAR(5) NOT NULL ,iso3 VARCHAR(3) NOT NULL ,name VARCHAR(60) NOT NULL ,iso VARCHAR(2) NOT NULL ,CONSTRAINT tbl_loc_countries_PK PRIMARY KEY (iso3));
-CREATE TABLE tbl_loc_areas (parent VARCHAR(16)  ,country VARCHAR(3) NOT NULL ,code VARCHAR(16) NOT NULL ,type VARCHAR(16) NOT NULL ,name VARCHAR(200) NOT NULL ,CONSTRAINT tbl_loc_areas_PK PRIMARY KEY (code));
-CREATE TABLE tbl_loc_addresses (country VARCHAR(3) NOT NULL ,area VARCHAR(16) NOT NULL ,street VARCHAR(250)  ,street_type VARCHAR(3)  ,nro VARCHAR(20)  ,zip_code VARCHAR(30)  ,additional_data VARCHAR(100)  ,id INTEGER  AUTO_INCREMENT,city VARCHAR(100)  ,CONSTRAINT tbl_loc_addresses_PK PRIMARY KEY (id));
-ALTER TABLE tbl_loc_areas ADD CONSTRAINT tbl_loc_areas_country_FK FOREIGN KEY (country) REFERENCES tbl_loc_countries (iso3);
-ALTER TABLE tbl_loc_areas ADD CONSTRAINT tbl_loc_areas_parent_FK FOREIGN KEY (parent) REFERENCES tbl_loc_areas (code);
-ALTER TABLE tbl_loc_addresses ADD CONSTRAINT tbl_loc_addresses_country_FK FOREIGN KEY (country) REFERENCES tbl_loc_countries (iso3);
-ALTER TABLE tbl_loc_addresses ADD CONSTRAINT tbl_loc_addresses_area_FK FOREIGN KEY (area) REFERENCES tbl_loc_areas (code);

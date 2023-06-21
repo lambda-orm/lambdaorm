@@ -7,6 +7,7 @@ types:
   dateTime: DATETIME
   date: DATE
   time: TIME
+  text: TEXT
 format:
   dateTime: 'yyyy-LL-dd HH:mm:ss'
   date: 'yyyy-LL-dd'

@@ -702,11 +702,11 @@
           "result": [
             {
               "name": "name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "description",
-              "type": "any"
+              "type": "string"
             }
           ]
         },
@@ -1019,11 +1019,11 @@
           "result": [
             {
               "name": "name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "description",
-              "type": "any"
+              "type": "string"
             }
           ]
         },
@@ -1032,11 +1032,11 @@
           "result": [
             {
               "name": "p.name",
-              "type": "any"
+              "type": "string"
             },
             {
               "name": "p.description",
-              "type": "any"
+              "type": "string"
             }
           ]
         },
@@ -1569,11 +1569,11 @@
             "parameters": [
               {
                 "name": "name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "description",
-                "type": "any"
+                "type": "string"
               }
             ],
             "constraints": [
@@ -2431,11 +2431,11 @@
             "parameters": [
               {
                 "name": "name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "description",
-                "type": "any"
+                "type": "string"
               }
             ],
             "constraints": [
@@ -2481,11 +2481,11 @@
             "parameters": [
               {
                 "name": "p.name",
-                "type": "any"
+                "type": "string"
               },
               {
                 "name": "p.description",
-                "type": "any"
+                "type": "string"
               }
             ],
             "constraints": [],

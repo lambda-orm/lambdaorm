@@ -1,29 +1,8 @@
 # Research
 
-## Concepts
+## Data Source
 
-- [source](https://www.talend.com/resources/data-source/)
-
-### Domain Model
-
-- [domain model](https://es.wikipedia.org/wiki/Modelo_de_dominio)
-- [domain-model-pattern](https://udidahan.com/2007/04/21/domain-model-pattern/)
-
-### Command Query Separation (CQS)
-
-- [Wikipedia](https://es.wikipedia.org/wiki/Command%E2%80%93query_separation)
-
-### Command Query Responsibility Segregation (CQRS)
-
-- [clarified-cqrs](https://udidahan.com/2009/12/09/clarified-cqrs/)
-
-### Event-driven architecture (EDA)
-
-- [Wikipedia](https://en.wikipedia.org/wiki/Event-driven_architecture)
-
-### Design by contract
-
-- [wiki](https://en.wikipedia.org/wiki/Design_by_contract)
+- [data source](https://www.talend.com/resources/data-source/)
 
 ### Data Mapper
 
