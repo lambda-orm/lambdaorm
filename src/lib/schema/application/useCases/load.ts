@@ -23,10 +23,10 @@ export class LoadSchema {
 		schema = this.extender.extend(schema)
 		this.domain.entities = schema.domain.entities || []
 		this.domain.enums = schema.domain.enums || []
-		if (!schema.domain.views) {
-			schema.domain.views = [{ name: 'default', entities: [] }]
+		if (!schema.infrastructure.views) {
+			schema.infrastructure.views = [{ name: 'default', entities: [] }]
 		}
-		for (const view of schema.domain.views) {
+		for (const view of schema.infrastructure.views) {
 			this.view.load(view)
 		}
 		if (schema.infrastructure.mappings) {

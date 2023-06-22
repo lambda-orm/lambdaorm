@@ -158,11 +158,11 @@ export interface AppPathsConfig {
 export interface DomainSchema {
 	entities: Entity[]
 	enums: Enum[]
-	views: View[]
 }
 export interface InfrastructureSchema {
 	paths: AppPathsConfig
 	mappings: Mapping[]
+	views: View[]
 	sources: Source[]
 	stages: Stage[]
 }

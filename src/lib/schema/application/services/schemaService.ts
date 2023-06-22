@@ -6,11 +6,11 @@ export class SchemaService {
 	}
 
 	public newInfrastructure (): InfrastructureSchema {
-		return { paths: this.newPathsApp(), mappings: [], sources: [], stages: [] }
+		return { paths: this.newPathsApp(), mappings: [], sources: [], stages: [], views: [] }
 	}
 
 	public newDomain (): DomainSchema {
-		return { enums: [], entities: [], views: [] }
+		return { enums: [], entities: [] }
 	}
 
 	public newApplication ():ApplicationSchema {

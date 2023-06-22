@@ -213,8 +213,6 @@ domain:
           entity: Products
           to: id
           target: orderDetails
-  views:
-    - name: default
 application:  
   start:
     - name: test
@@ -492,3 +490,5 @@ infrastructure:
   - name: MongoDB
     sources:
       - name: MongoDB    
+  views:
+    - name: default

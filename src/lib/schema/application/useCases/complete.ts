@@ -15,9 +15,6 @@ export class CompleteSchema {
 			if (schema.domain.entities === undefined) {
 				schema.domain.entities = []
 			}
-			if (schema.domain.views === undefined) {
-				schema.domain.views = []
-			}
 		}
 		if (schema.infrastructure === undefined) {
 			schema.infrastructure = this.schemaService.newInfrastructure()
@@ -42,6 +39,9 @@ export class CompleteSchema {
 			}
 			if (schema.infrastructure.paths.model === undefined) {
 				schema.infrastructure.paths.model = 'model'
+			}
+			if (schema.infrastructure.views === undefined) {
+				schema.infrastructure.views = []
 			}
 		}
 		if (schema.application === undefined) {

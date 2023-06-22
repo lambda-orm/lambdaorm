@@ -23,8 +23,8 @@ export class SchemaExtender {
 		this.extendDataSources(schema)
 		this.extendDataStages(schema)
 		// views
-		if (!schema.domain.views || !schema.domain.views.length || schema.domain.views.length === 0) {
-			schema.domain.views = [{ name: 'default', entities: [] }]
+		if (!schema.infrastructure.views || !schema.infrastructure.views.length || schema.infrastructure.views.length === 0) {
+			schema.infrastructure.views = [{ name: 'default', entities: [] }]
 		}
 		// exclude entities not used in mapping
 		for (const k in schema.infrastructure.mappings) {
@@ -149,7 +149,7 @@ export class SchemaExtender {
 				this.completeEnums(schema.domain.enums)
 			}
 			if (schema.domain.entities) {
-				this.completeEntities(schema.domain.entities, schema.domain.views)
+				this.completeEntities(schema.domain.entities, schema.infrastructure.views)
 				if (schema.domain.entities && schema.domain.entities.length) {
 					this.completeRelations(schema.domain.entities)
 					this.completeDependents(schema.domain.entities)
