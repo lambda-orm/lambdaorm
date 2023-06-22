@@ -1,4 +1,4 @@
-model:
+domain:
   enums:
   entities:
     - name: Address
@@ -215,7 +215,24 @@ model:
           target: orderDetails
   views:
     - name: default
-data:    
+application:  
+  start:
+    - name: test
+      expression: console("App started")
+  end:
+    - name: test
+      expression: console("App ended")          
+  listeners:
+    - name: tests
+      actions: [select]
+      condition: 'options.stage === "MySQL" && query.entity=="Orders"'
+      before: console(args.expression)
+      after: console(stringify(args.result))
+infrastructure:
+  paths:
+    src: src
+    data: data
+    model: model    
   mappings:
     - name: default
       entities:
@@ -475,20 +492,3 @@ data:
   - name: MongoDB
     sources:
       - name: MongoDB    
-app:
-  paths:
-    src: src
-    data: data
-    model: model
-  start:
-    - name: test
-      expression: console("App started")
-  end:
-    - name: test
-      expression: console("App ended")          
-  listeners:
-    - name: tests
-      actions: [select]
-      condition: 'options.stage === "MySQL" && query.entity=="Orders"'
-      before: console(args.expression)
-      after: console(stringify(args.result))

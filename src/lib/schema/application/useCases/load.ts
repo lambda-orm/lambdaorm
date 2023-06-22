@@ -2,7 +2,7 @@ import { Helper } from '../../../shared/application'
 import { Schema, SchemaError } from '../../domain'
 import { Primitive } from 'typ3s'
 import { DataSourceConfigService } from '../services/config/dataSourceConfigService'
-import { ModelConfigService } from '../services/config/modelConfigService'
+import { DomainConfigService } from '../services/config/domainConfigService'
 import { MappingsConfigService } from '../services/config/mappingsConfigService'
 import { StageConfigService } from '../services/config/stageConfigService'
 import { ViewsConfigService } from '../services/config/viewsConfigService'
@@ -11,7 +11,7 @@ import { SchemaExtender } from '../services/schemaExtender'
 export class LoadSchema {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly source: DataSourceConfigService,
-		private readonly model:ModelConfigService,
+		private readonly domain:DomainConfigService,
 		private readonly mapping:MappingsConfigService,
 		private readonly stage:StageConfigService,
 		private readonly view:ViewsConfigService,
@@ -21,21 +21,21 @@ export class LoadSchema {
 	public load (_schema: Schema): Schema {
 		let schema = this.helper.utils.solveEnvironmentVars(_schema) as Schema
 		schema = this.extender.extend(schema)
-		this.model.entities = schema.model.entities || []
-		this.model.enums = schema.model.enums || []
-		if (!schema.model.views) {
-			schema.model.views = [{ name: 'default', entities: [] }]
+		this.domain.entities = schema.domain.entities || []
+		this.domain.enums = schema.domain.enums || []
+		if (!schema.domain.views) {
+			schema.domain.views = [{ name: 'default', entities: [] }]
 		}
-		for (const view of schema.model.views) {
+		for (const view of schema.domain.views) {
 			this.view.load(view)
 		}
-		if (schema.data.mappings) {
-			for (const mapping of schema.data.mappings) {
+		if (schema.infrastructure.mappings) {
+			for (const mapping of schema.infrastructure.mappings) {
 				this.mapping.load(mapping)
 			}
 		}
-		if (schema.data.sources) {
-			for (const source of schema.data.sources) {
+		if (schema.infrastructure.sources) {
+			for (const source of schema.infrastructure.sources) {
 				if (this.helper.val.isEmpty(source.connection)) {
 					console.log(`WARNING|source:"${source.name}"|connection is empty`)
 					continue
@@ -57,8 +57,8 @@ export class LoadSchema {
 				this.source.load(source)
 			}
 		}
-		if (schema.data.stages) {
-			for (const stage of schema.data.stages) {
+		if (schema.infrastructure.stages) {
+			for (const stage of schema.infrastructure.stages) {
 				this.stage.load(stage)
 			}
 		}

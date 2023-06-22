@@ -1,21 +1,21 @@
 import { Entity } from '../../../../schema/domain'
 import { Query, QueryOptions } from '../../../../query/domain'
-import { ModelConfigService } from '../../../../schema/application'
+import { DomainConfigService } from '../../../../schema/application'
 import { StageMappingService } from '../../services/stateService'
 import { Executor } from '../../../../execution/domain'
 import { ExpressionFacade } from '../../../../expressions/application'
 
 export abstract class StageActionDML {
 	protected stageMappingService: StageMappingService
-	protected model: ModelConfigService
+	protected domain: DomainConfigService
 	protected expressionFacade: ExpressionFacade
 	protected executor: Executor
 	protected options: QueryOptions
 	// protected sentenceService: SentenceService
 	protected arrowVariables = ['p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o']
-	constructor (stageMappingService: StageMappingService, model: ModelConfigService, expressionFacade: ExpressionFacade, executor: Executor, options: QueryOptions) {
+	constructor (stageMappingService: StageMappingService, domain: DomainConfigService, expressionFacade: ExpressionFacade, executor: Executor, options: QueryOptions) {
 		this.stageMappingService = stageMappingService
-		this.model = model
+		this.domain = domain
 		this.expressionFacade = expressionFacade
 		this.executor = executor
 		this.options = options
@@ -33,9 +33,9 @@ export abstract class StageActionDML {
 
 	public queries (): Query[] {
 		const queries: Query[] = []
-		for (const i in this.model.entities) {
-			const entity = this.model.entities[i]
-			if (!this.model.isChild(entity.name)) {
+		for (const i in this.domain.entities) {
+			const entity = this.domain.entities[i]
+			if (!this.domain.isChild(entity.name)) {
 				const query = this.createQuery(entity)
 				queries.push(query)
 			}
@@ -51,7 +51,7 @@ export abstract class StageActionDML {
 		for (const i in entity.relations) {
 			const relation = entity.relations[i]
 			if (relation.composite) {
-				const childEntity = this.model.getEntity(relation.entity)
+				const childEntity = this.domain.getEntity(relation.entity)
 				if (childEntity !== undefined) {
 					const childInclude = this.createInclude(childEntity, level + 1)
 					includes.push(`${arrowVariable}.${relation.name}${childInclude}`)

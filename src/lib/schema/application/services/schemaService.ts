@@ -1,20 +1,20 @@
-import { AppPathsConfig, AppSchema, DataSchema, ModelSchema, Schema } from '../../domain'
+import { AppPathsConfig, ApplicationSchema, InfrastructureSchema, DomainSchema, Schema } from '../../domain'
 
 export class SchemaService {
 	public newSchema ():Schema {
-		return { app: this.newApp(), model: this.newModel(), data: this.newData() }
+		return { application: this.newApplication(), domain: this.newDomain(), infrastructure: this.newInfrastructure() }
 	}
 
-	public newData (): DataSchema {
-		return { mappings: [], sources: [], stages: [] }
+	public newInfrastructure (): InfrastructureSchema {
+		return { paths: this.newPathsApp(), mappings: [], sources: [], stages: [] }
 	}
 
-	public newModel (): ModelSchema {
+	public newDomain (): DomainSchema {
 		return { enums: [], entities: [], views: [] }
 	}
 
-	public newApp ():AppSchema {
-		return { paths: this.newPathsApp(), start: [], end: [], listeners: [] }
+	public newApplication ():ApplicationSchema {
+		return { start: [], end: [], listeners: [] }
 	}
 
 	public newPathsApp (): AppPathsConfig {

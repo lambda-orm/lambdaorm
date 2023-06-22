@@ -1,7 +1,7 @@
 import { Enum, Entity, Property } from '../../../domain'
-import { ModelConfigServiceBase } from './modelConfigServiceBase'
+import { DomainConfigServiceBase } from './domainConfigServiceBase'
 
-export class ModelConfigService extends ModelConfigServiceBase<Entity, Property> {
+export class DomainConfigService extends DomainConfigServiceBase<Entity, Property> {
 	public entities: Entity[]
 	public enums: Enum[]
 

@@ -41,7 +41,7 @@ export class StageMappingService extends StageStateService<MappingConfig> {
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.schemaFacade.workspace, this.schemaFacade.schema.app.paths.data, `${name}-data.json`)
+		return path.join(this.schemaFacade.workspace, this.schemaFacade.schema.infrastructure.paths.data, `${name}-data.json`)
 	}
 }
 
@@ -51,7 +51,7 @@ export class StageModelService extends StageStateService<ModelConfig> {
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.schemaFacade.workspace, this.schemaFacade.schema.app.paths.data, `${name}-model.json`)
+		return path.join(this.schemaFacade.workspace, this.schemaFacade.schema.infrastructure.paths.data, `${name}-model.json`)
 	}
 
 	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
@@ -79,6 +79,6 @@ export class StageModelService extends StageStateService<ModelConfig> {
 		date = this.helper.str.replace(date, ':', '')
 		date = this.helper.str.replace(date, '.', '')
 		date = this.helper.str.replace(date, '-', '')
-		return path.join(this.schemaFacade.workspace, this.schemaFacade.schema.app.paths.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
+		return path.join(this.schemaFacade.workspace, this.schemaFacade.schema.infrastructure.paths.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
 	}
 }

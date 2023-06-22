@@ -48,16 +48,16 @@ export class StageFacade {
 
 	public delete (options?:QueryOptions):StageDelete {
 		const _options = this.expression.solveOptions(options)
-		return new StageDelete(this.stageMappingService, this.schemaFacade.model, this.expression, this.executor, _options)
+		return new StageDelete(this.stageMappingService, this.schemaFacade.domain, this.expression, this.executor, _options)
 	}
 
 	public export (options?:QueryOptions):StageExport {
 		const _options = this.expression.solveOptions(options)
-		return new StageExport(this.stageMappingService, this.schemaFacade.model, this.expression, this.executor, _options)
+		return new StageExport(this.stageMappingService, this.schemaFacade.domain, this.expression, this.executor, _options)
 	}
 
 	public import (options?:QueryOptions):StageImport {
 		const _options = this.expression.solveOptions(options)
-		return new StageImport(this.stageMappingService, this.schemaFacade.model, this.expression, this.executor, _options)
+		return new StageImport(this.stageMappingService, this.schemaFacade.domain, this.expression, this.executor, _options)
 	}
 }

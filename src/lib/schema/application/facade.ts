@@ -1,7 +1,7 @@
 import { ClauseInfo, DataSourceRule, Schema, SchemaError } from '../domain'
 import { DataSourceConfigService } from './services/config/dataSourceConfigService'
 import { MappingsConfigService } from './services/config/mappingsConfigService'
-import { ModelConfigService } from './services/config/modelConfigService'
+import { DomainConfigService } from './services/config/domainConfigService'
 import { StageConfigService } from './services/config/stageConfigService'
 import { ViewsConfigService } from './services/config/viewsConfigService'
 import { RouteService } from './services/routeService'
@@ -15,7 +15,7 @@ export class SchemaFacade {
 	public schema: Schema
 	constructor (public workspace:string,
 		public readonly source:DataSourceConfigService,
-		public readonly model:ModelConfigService,
+		public readonly domain:DomainConfigService,
 		public readonly mapping:MappingsConfigService,
 		public readonly stage:StageConfigService,
 		public readonly view:ViewsConfigService,

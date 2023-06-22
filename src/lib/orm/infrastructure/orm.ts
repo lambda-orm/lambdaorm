@@ -79,14 +79,14 @@ export class Orm implements IOrm {
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
 		const schema = await this.schema.initialize(source || this.schema.workspace)
 		// set connections
-		if (connect && schema.data.sources) {
-			for (const source of schema.data.sources.filter(p => this.helper.val.isNotEmpty(p.connection))) {
+		if (connect && schema.infrastructure.sources) {
+			for (const source of schema.infrastructure.sources.filter(p => this.helper.val.isNotEmpty(p.connection))) {
 				this.connection.load(source)
 			}
 		}
 		// add enums
-		if (schema.model.enums) {
-			for (const _enum of schema.model.enums) {
+		if (schema.domain.enums) {
+			for (const _enum of schema.domain.enums) {
 				const values:[string, any][] = []
 				if (_enum.values) {
 					for (const enumValue of _enum.values) {
@@ -97,16 +97,16 @@ export class Orm implements IOrm {
 			}
 		}
 		// start
-		if (schema.app.start) {
-			for (const task of schema.app.start) {
+		if (schema.application.start) {
+			for (const task of schema.application.start) {
 				if (task.condition === undefined || this.expressions.eval(task.condition)) {
 					this.expressions.eval(task.expression)
 				}
 			}
 		}
 		// add listeners
-		if (schema.app.listeners) {
-			for (const listener of schema.app.listeners) {
+		if (schema.application.listeners) {
+			for (const listener of schema.application.listeners) {
 				const observer = new ExecutionActionObserver(listener, this.expressions)
 				this.subscribe(observer)
 			}
@@ -120,8 +120,8 @@ export class Orm implements IOrm {
 	public async end (): Promise<void> {
 		// ends task
 		const schema = this.schema.schema
-		if (schema.app.end) {
-			for (const task of schema.app.end) {
+		if (schema.application.end) {
+			for (const task of schema.application.end) {
 				if (task.condition === undefined || this.expressions.eval(task.condition)) {
 					this.expressions.eval(task.expression)
 				}

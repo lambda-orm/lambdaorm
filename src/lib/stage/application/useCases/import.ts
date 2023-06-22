@@ -21,7 +21,7 @@ export class StageImport extends StageActionDML {
 				}
 			}
 			for (const pending of state.pending) {
-				const entity = this.model.getEntity(pending.entity)
+				const entity = this.domain.getEntity(pending.entity)
 				if (entity === undefined) {
 					throw new SchemaError(`Entity ${pending.entity} not found`)
 				}
@@ -64,7 +64,7 @@ export class StageImport extends StageActionDML {
 	}
 
 	protected solveInternalsIds (entityName:string, rows:any[], state:MappingConfig, parentEntity?:string):void {
-		const entity = this.model.getEntity(entityName)
+		const entity = this.domain.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
 		}
@@ -87,7 +87,7 @@ export class StageImport extends StageActionDML {
 	}
 
 	private solveInternalsIdsOne (entity:Entity, relation:Relation, state:MappingConfig, rows:any[]) {
-		const relationEntity = this.model.getEntity(relation.entity)
+		const relationEntity = this.domain.getEntity(relation.entity)
 		if (relationEntity === undefined) {
 			throw new SchemaError(`Relation Entity ${relation.entity} not found`)
 		}
@@ -128,7 +128,7 @@ export class StageImport extends StageActionDML {
 		if (aux[entityName] === undefined) {
 			aux[entityName] = {}
 		}
-		const entity = this.model.getEntity(entityName)
+		const entity = this.domain.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
 		}
@@ -156,7 +156,7 @@ export class StageImport extends StageActionDML {
 		if (state.mapping[entityName] === undefined) {
 			state.mapping[entityName] = {}
 		}
-		const entity = this.model.getEntity(entityName)
+		const entity = this.domain.getEntity(entityName)
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
 		}
@@ -189,7 +189,7 @@ export class StageImport extends StageActionDML {
 		const mainEntities = queries.map(p => p.entity).filter(onlyUnique)
 		const allEntities = this.getAllEntities(queries).filter(onlyUnique)
 
-		const entities = this.model.sortByRelations(mainEntities, allEntities)
+		const entities = this.domain.sortByRelations(mainEntities, allEntities)
 		const result:Query[] = []
 		for (const entity of entities) {
 			const query = queries.find(p => p.entity === entity)

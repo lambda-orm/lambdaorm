@@ -15,7 +15,7 @@ export class SchemaExtender {
 	) {}
 
 	public extend (source: Schema): Schema {
-		const schema = this.helper.obj.clone(source)
+		const schema = this.helper.obj.clone(source) as Schema
 		this.extendEnums(schema)
 		this.extendEntities(schema)
 		this.complete(schema)
@@ -23,43 +23,43 @@ export class SchemaExtender {
 		this.extendDataSources(schema)
 		this.extendDataStages(schema)
 		// views
-		if (!schema.model.views || !schema.model.views.length || schema.model.views.length === 0) {
-			schema.model.views = [{ name: 'default', entities: [] }]
+		if (!schema.domain.views || !schema.domain.views.length || schema.domain.views.length === 0) {
+			schema.domain.views = [{ name: 'default', entities: [] }]
 		}
 		// exclude entities not used in mapping
-		for (const k in schema.data.mappings) {
-			schema.data.mappings[k] = this.clearMapping2(schema, schema.data.mappings[k])
+		for (const k in schema.infrastructure.mappings) {
+			schema.infrastructure.mappings[k] = this.clearMapping2(schema, schema.infrastructure.mappings[k])
 		}
 		return schema
 	}
 
 	private extendEnums (schema: Schema) {
-		if (schema.model.enums === undefined) {
-			schema.model.enums = []
+		if (schema.domain.enums === undefined) {
+			schema.domain.enums = []
 		}
-		if (Array.isArray(schema.model.enums)) {
-			for (const _enum of schema.model.enums) {
+		if (Array.isArray(schema.domain.enums)) {
+			for (const _enum of schema.domain.enums) {
 				if (_enum && _enum.extends) {
-					this.extendEnum(_enum, schema.model.enums)
+					this.extendEnum(_enum, schema.domain.enums)
 				}
 			}
-			schema.model.enums = this.clearEnums(schema.model.enums)
+			schema.domain.enums = this.clearEnums(schema.domain.enums)
 		}
 	}
 
 	private extendEntities (schema: Schema) {
-		if (schema.model.entities === undefined) {
-			schema.model.entities = []
+		if (schema.domain.entities === undefined) {
+			schema.domain.entities = []
 		}
-		for (const entity of schema.model.entities) {
+		for (const entity of schema.domain.entities) {
 			this.entitySecureArrays(entity)
 		}
-		for (const entity of schema.model.entities) {
+		for (const entity of schema.domain.entities) {
 			if (entity && entity.extends) {
-				this.extendEntity(entity, schema.model.entities)
+				this.extendEntity(entity, schema.domain.entities)
 			}
 		}
-		schema.model.entities = this.clearEntities(schema.model.entities)
+		schema.domain.entities = this.clearEntities(schema.domain.entities)
 	}
 
 	private entitySecureArrays (entity:Entity) {
@@ -90,11 +90,11 @@ export class SchemaExtender {
 	}
 
 	private extendMappings (schema: Schema) {
-		if (!schema.data.mappings || !schema.data.mappings.length || schema.data.mappings.length === 0) {
-			schema.data.mappings = [{ name: 'default', entities: [] }]
+		if (!schema.infrastructure.mappings || !schema.infrastructure.mappings.length || schema.infrastructure.mappings.length === 0) {
+			schema.infrastructure.mappings = [{ name: 'default', entities: [] }]
 		} else {
 			// extend entities into mapping
-			for (const mapping of schema.data.mappings) {
+			for (const mapping of schema.infrastructure.mappings) {
 				if (mapping.entities === undefined) {
 					mapping.entities = []
 				}
@@ -103,56 +103,56 @@ export class SchemaExtender {
 				}
 			}
 			// extends mappings
-			for (const mapping of schema.data.mappings) {
-				this.extendMapping(mapping, schema.data.mappings)
+			for (const mapping of schema.infrastructure.mappings) {
+				this.extendMapping(mapping, schema.infrastructure.mappings)
 			}
 		}
 		// extend mapping for model
-		for (const k in schema.data.mappings) {
-			schema.data.mappings[k].entities = this.helper.obj.extends(schema.data.mappings[k].entities, schema.model.entities)
-			schema.data.mappings[k] = this.clearMapping(schema.data.mappings[k])
-			const mapping = schema.data.mappings[k]
+		for (const k in schema.infrastructure.mappings) {
+			schema.infrastructure.mappings[k].entities = this.helper.obj.extends(schema.infrastructure.mappings[k].entities, schema.domain.entities)
+			schema.infrastructure.mappings[k] = this.clearMapping(schema.infrastructure.mappings[k])
+			const mapping = schema.infrastructure.mappings[k]
 			if (mapping && mapping.entities) {
-				this.completeMapping(schema.data.mappings[k])
+				this.completeMapping(schema.infrastructure.mappings[k])
 			}
 		}
 	}
 
 	private extendDataSources (schema: Schema) {
-		if (!schema.data.sources || !schema.data.sources.length || schema.data.sources.length === 0) {
+		if (!schema.infrastructure.sources || !schema.infrastructure.sources.length || schema.infrastructure.sources.length === 0) {
 			console.log('sources not defined')
-			schema.data.sources = [{ name: 'default', dialect: DIALECT_DEFAULT, mapping: schema.data.mappings[0].name, connection: null }]
+			schema.infrastructure.sources = [{ name: 'default', dialect: DIALECT_DEFAULT, mapping: schema.infrastructure.mappings[0].name, connection: null }]
 		}
-		for (const k in schema.data.sources) {
-			const source = schema.data.sources[k]
+		for (const k in schema.infrastructure.sources) {
+			const source = schema.infrastructure.sources[k]
 			if (source.mapping === undefined) {
-				source.mapping = schema.data.mappings[0].name
+				source.mapping = schema.infrastructure.mappings[0].name
 			}
 		}
 	}
 
 	private extendDataStages (schema: Schema) {
-		if (!schema.data.stages || !schema.data.stages.length || schema.data.stages.length === 0) {
-			schema.data.stages = [{ name: 'default', sources: [{ name: schema.data.sources[0].name }] }]
+		if (!schema.infrastructure.stages || !schema.infrastructure.stages.length || schema.infrastructure.stages.length === 0) {
+			schema.infrastructure.stages = [{ name: 'default', sources: [{ name: schema.infrastructure.sources[0].name }] }]
 		}
-		for (const k in schema.data.stages) {
-			const stage = schema.data.stages[k]
+		for (const k in schema.infrastructure.stages) {
+			const stage = schema.infrastructure.stages[k]
 			if (stage.sources === undefined) {
-				stage.sources = [{ name: schema.data.sources[0].name }]
+				stage.sources = [{ name: schema.infrastructure.sources[0].name }]
 			}
 		}
 	}
 
 	public complete (schema: Schema): void {
 		if (schema) {
-			if (schema.model.enums) {
-				this.completeEnums(schema.model.enums)
+			if (schema.domain.enums) {
+				this.completeEnums(schema.domain.enums)
 			}
-			if (schema.model.entities) {
-				this.completeEntities(schema.model.entities, schema.model.views)
-				if (schema.model.entities && schema.model.entities.length) {
-					this.completeRelations(schema.model.entities)
-					this.completeDependents(schema.model.entities)
+			if (schema.domain.entities) {
+				this.completeEntities(schema.domain.entities, schema.domain.views)
+				if (schema.domain.entities && schema.domain.entities.length) {
+					this.completeRelations(schema.domain.entities)
+					this.completeDependents(schema.domain.entities)
 				}
 			}
 		}
@@ -445,8 +445,8 @@ export class SchemaExtender {
 
 	private existsInMapping (schema: Schema, mapping: string, entity: string): boolean {
 		const context = { entity, action: ObservableAction.ddl, read: false, write: true, dml: false, ddl: true }
-		const dataSourcesNames = schema.data.sources.filter(p => p.mapping === mapping).map(p => p.name)
-		for (const stage of schema.data.stages) {
+		const dataSourcesNames = schema.infrastructure.sources.filter(p => p.mapping === mapping).map(p => p.name)
+		for (const stage of schema.infrastructure.stages) {
 			const ruleDataSources = stage.sources.filter(p => dataSourcesNames.includes(p.name))
 			for (const ruleDataSource of ruleDataSources) {
 				if (ruleDataSource.condition === undefined || this.expressions.eval(ruleDataSource.condition, context)) {

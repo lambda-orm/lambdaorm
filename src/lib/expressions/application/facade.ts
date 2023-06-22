@@ -51,10 +51,6 @@ export class ExpressionFacade {
 		return this.expressionExecute.execute(expression, data, this.solveOptions(options))
 	}
 
-	// public async executeQuery (query: Query, data: any, options: QueryOptions): Promise<any> {
-	// return this._executeQuery.executeQuery(query, data, options)
-	// }
-
 	public async executeList (expressions: string[], options?: QueryOptions): Promise<any> {
 		return this.expressionExecute.executeList(expressions, this.solveOptions(options))
 	}

@@ -4,7 +4,7 @@ import {
 	Dependent, SchemaError
 } from '../../../domain'
 
-export abstract class ModelConfigServiceBase<TEntity extends Entity, TProperty extends Property> {
+export abstract class DomainConfigServiceBase<TEntity extends Entity, TProperty extends Property> {
 	public abstract get entities(): TEntity[];
 	public abstract get enums(): Enum[];
 

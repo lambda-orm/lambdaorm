@@ -6,55 +6,55 @@ export class CompleteSchema {
 	constructor (private readonly schemaService: SchemaService) {}
 
 	public complete (schema: Schema) {
-		if (schema.model === undefined) {
-			schema.model = this.schemaService.newModel()
+		if (schema.domain === undefined) {
+			schema.domain = this.schemaService.newDomain()
 		} else {
-			if (schema.model.enums === undefined) {
-				schema.model.enums = []
+			if (schema.domain.enums === undefined) {
+				schema.domain.enums = []
 			}
-			if (schema.model.entities === undefined) {
-				schema.model.entities = []
+			if (schema.domain.entities === undefined) {
+				schema.domain.entities = []
 			}
-			if (schema.model.views === undefined) {
-				schema.model.views = []
+			if (schema.domain.views === undefined) {
+				schema.domain.views = []
 			}
 		}
-		if (schema.data === undefined) {
-			schema.data = this.schemaService.newData()
+		if (schema.infrastructure === undefined) {
+			schema.infrastructure = this.schemaService.newInfrastructure()
 		} else {
-			if (schema.data.mappings === undefined) {
-				schema.data.mappings = []
+			if (schema.infrastructure.mappings === undefined) {
+				schema.infrastructure.mappings = []
 			}
-			if (schema.data.sources === undefined) {
-				schema.data.sources = []
+			if (schema.infrastructure.sources === undefined) {
+				schema.infrastructure.sources = []
 			}
-			if (schema.data.stages === undefined) {
-				schema.data.stages = []
+			if (schema.infrastructure.stages === undefined) {
+				schema.infrastructure.stages = []
+			}
+			if (schema.infrastructure.paths === undefined) {
+				schema.infrastructure.paths = this.schemaService.newPathsApp()
+			}
+			if (schema.infrastructure.paths.src === undefined) {
+				schema.infrastructure.paths.src = 'src'
+			}
+			if (schema.infrastructure.paths.data === undefined) {
+				schema.infrastructure.paths.data = 'data'
+			}
+			if (schema.infrastructure.paths.model === undefined) {
+				schema.infrastructure.paths.model = 'model'
 			}
 		}
-		if (schema.app === undefined) {
-			schema.app = this.schemaService.newApp()
+		if (schema.application === undefined) {
+			schema.application = this.schemaService.newApplication()
 		} else {
-			if (schema.app.start === undefined) {
-				schema.app.start = []
+			if (schema.application.start === undefined) {
+				schema.application.start = []
 			}
-			if (schema.app.end === undefined) {
-				schema.app.end = []
+			if (schema.application.end === undefined) {
+				schema.application.end = []
 			}
-			if (schema.app.listeners === undefined) {
-				schema.app.listeners = []
-			}
-			if (schema.app.paths === undefined) {
-				schema.app.paths = this.schemaService.newPathsApp()
-			}
-			if (schema.app.paths.src === undefined) {
-				schema.app.paths.src = 'src'
-			}
-			if (schema.app.paths.data === undefined) {
-				schema.app.paths.data = 'data'
-			}
-			if (schema.app.paths.model === undefined) {
-				schema.app.paths.model = 'model'
+			if (schema.application.listeners === undefined) {
+				schema.application.listeners = []
 			}
 		}
 	}

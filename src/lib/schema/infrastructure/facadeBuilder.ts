@@ -1,5 +1,5 @@
 import { Expressions } from '3xpr'
-import { DataSourceConfigService, MappingsConfigService, ModelConfigService, SchemaFacade, StageConfigService, ViewsConfigService } from '../application'
+import { DataSourceConfigService, MappingsConfigService, DomainConfigService, SchemaFacade, StageConfigService, ViewsConfigService } from '../application'
 import { SchemaService } from '../application/services/schemaService'
 import { RouteService } from '../application/services/routeService'
 import { SchemaExtender } from '../application/services/schemaExtender'
@@ -19,7 +19,7 @@ export class SchemaFacadeBuilder {
 
 	public build (workspace:string):SchemaFacade {
 		const source = new DataSourceConfigService()
-		const model = new ModelConfigService()
+		const model = new DomainConfigService()
 		const mapping = new MappingsConfigService()
 		const stage = new StageConfigService()
 		const view = new ViewsConfigService()
