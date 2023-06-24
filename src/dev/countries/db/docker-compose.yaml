@@ -20,4 +20,4 @@ services:
       - POSTGRES_USER=countries
       - POSTGRES_PASSWORD=countries
     ports:
-      - '5433:5432'
+      - '5434:5432'

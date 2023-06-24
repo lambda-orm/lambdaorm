@@ -1,4 +1,4 @@
-model:
+domain:
   enums:
     - name: DeviceType
       values:
@@ -297,7 +297,8 @@ model:
         - message: endDate cannot be less than startDate
           condition: startDate<=endDate
     # TODO: crear solo la relación en la entidad source y agregar la info para crear luego la relación en la entidad target
-    # TODO: Definir Task, Activity, ProgramedTask, etc
+    # TODO: Definir Task, Activity, ProgramedTask, etc  
+infrastructure:
   views:
     - name: default
       entities:
@@ -315,7 +316,6 @@ model:
           exclude: true
     - name: admin
       entities: []
-data:
   mappings:
     - name: default
     - name: keycloak
@@ -338,7 +338,7 @@ data:
             - name: realmId
               length: 255
               mapping: realm_id
-  dataSources:
+  sources:
     - name: main
       mapping: default
       dialect: Postgres
@@ -347,10 +347,10 @@ data:
       mapping: keycloak
       dialect: Postgres
       connection: $$CNN_KEYCLOAK
-stages:
-  - name: default
-    dataSources:
-      - name: main
-        condition: entity != "Users"
-      - name: keycloak
-        condition: entity == "Users"
+  stages:
+    - name: default
+      sources:
+        - name: main
+          condition: entity != "Users"
+        - name: keycloak
+          condition: entity == "Users"

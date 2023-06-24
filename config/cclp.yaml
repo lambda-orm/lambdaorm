@@ -1,4 +1,4 @@
-model:
+domain:
   entities:
     # Abstracts
     - name: SrbReferences
@@ -1203,7 +1203,9 @@ model:
           target: paymentMethods
   views:
     - name: default
-data:
+infrastructure:
+  views:
+    - name: default
   mappings:
     - name: default
       entities:
