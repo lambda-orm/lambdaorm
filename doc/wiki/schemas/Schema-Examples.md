@@ -7,7 +7,7 @@ The schema defines how the entities of the model are mapped with the database ta
 ![schema](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema.svg)
 
 ```yaml
-model:
+domain:
   entities:
     - name: Countries
       primaryKey: ["iso3"]
@@ -42,7 +42,7 @@ model:
           from: countryCode
           entity: Countries
           to: iso3
-data:          
+infrastructure:          
   sources:
     - name: dataSource1
       dialect: mysql
@@ -65,7 +65,7 @@ In this scheme we can see how to extend entities.
 To understand an entity we use the extends attribute in the definition of the entity
 
 ```yaml
-model:
+domain:
   entities:
     - name: Positions
       abstract: true
@@ -109,7 +109,7 @@ model:
           from: countryCode
           entity: Countries
           to: iso3
-data:          
+infrastructure:          
   sources:
     - name: dataSource1
       dialect: mysql
@@ -132,7 +132,7 @@ In this scheme we can see how to extend the schema.
 We use the extends attribute in the definition of the schema to extend it.
 
 ```yaml
-model:
+domain:
   entities:
     - name: Countries
       primaryKey: ["iso3"]
@@ -167,7 +167,7 @@ model:
           from: countryCode
           entity: Countries
           to: iso3
-data:          
+infrastructure:          
   mappings:
     - name: mapping1
     - name: mapping2
@@ -227,7 +227,7 @@ This schema has two entities that are in different databases.
 The database attribute is used in the entity to be able to specify that an entity is in a database other than the default of the schema.
 
 ```yaml
-model:
+domain:
   entities:
     - name: Countries
       primaryKey: ["iso3"]
@@ -262,7 +262,7 @@ model:
           from: countryCode
           entity: Countries
           to: iso3
-data:          
+infrastructure:          
   sources:
     - name: dataSource1
       dialect: MySQL
@@ -309,7 +309,7 @@ But in the case of the States entity, the name of the table and its fields diffe
 ![schema](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema5.svg)
 
 ```yaml
-model:
+domain:
   entities:
     - name: Positions
       abstract: true
@@ -355,7 +355,7 @@ model:
           from: countryCode
           entity: Countries
           to: iso3
-data:
+infrastructure:
   mappings:
     - name: mapping1
     - name: mapping2

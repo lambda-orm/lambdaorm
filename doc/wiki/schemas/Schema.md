@@ -13,7 +13,7 @@ Certain configurations use expressions based on the expression engine [js-expres
 ## Schema Structure
 
 ``` yaml
-model:
+domain:
   enums:
   - name: string
     values:
@@ -52,7 +52,8 @@ model:
         composite: boolean
     constraints:
       - message: string
-        condition: expression
+        condition: expression         
+infrastructure:
   views:
     - name: string
       entities:
@@ -61,8 +62,7 @@ model:
           properties:
             - name: string
               exclude: boolean
-              readExp: expression        
-data:
+              readExp: expression 
   mappings:
     - name: string
       entities:
@@ -84,11 +84,11 @@ data:
       sources:
         - name: string
           condition: expression
-app:
   paths:
     src: string
     data: string
-    model: string
+    domain: string        
+application:  
   start:
     - name: string
       condition: expression
@@ -109,15 +109,15 @@ app:
 
 ## Schema Definition
 
-| Property 				|      Description					 								|	required	|	default		|
-|-----------------|-------------------------------------------|:---------:|:---------:|
-| app 	 				  |  app configuration            						|						|	create 		|
-| enums 	 				|  definitions of enum  of model						|						|						|
-| entities 				|  definitions of entity of model						| yes				|						|
-| views 				  |  definitions of views					            | 				  |	create One|
-| mappings			  |  definitions of mappings									|      			|	create One|
-| sources 		    |  definitions of source								    | yes				|						|
-| stages 				  |  definitions of stages 										|      			|	create One|
+| Property 				|      Description					 								  |	required	|	default		|
+|-----------------|---------------------------------------------|:---------:|:---------:|
+| application		  |  application configure events and listeners |						|	create 		|
+| enums 	 				|  definitions of enum  of model						  |						|						|
+| entities 				|  definitions of entity of model						  | yes				|						|
+| views 				  |  definitions of views					              | 				  |	create One|
+| mappings			  |  definitions of mappings									  |      			|	create One|
+| sources 		    |  definitions of source								      | yes				|						|
+| stages 				  |  definitions of stages 										  |      			|	create One|
 
 - In the app section, the configuration of the routes where configuration files or execution results will be generated is established.
 - In the enums section, enumerations are defined that can then be used as the data type of a property.
@@ -145,7 +145,7 @@ Example:
 app:
   src: src
   data: data
-  model: model
+  domain: domain
 ```
 
 ### Enum
@@ -164,34 +164,35 @@ In this example, the **DeviceType** enum is defined, which is used in the **type
 Example:
 
 ```yaml
-enums:
-  - name: DeviceType
-    values:
-      - name: phone
-        value: phone
-      - name: computer
-        value: computer
-      - name: robot
-        value: robot
-entities:
-  ...
-  - name: Devices
-    extends: Products
-    primaryKey: ["id"]
-    uniqueKey: ["name"]
-    properties:
-      - name: id
-        length: 32
-        required: true
-        default: 'concat(type,"-",switch(type){case"phone":imei;default:mac;})'
-      - name: type
-        length: 16
-        required: true
-        enum: DeviceType
-      - name: name
-        length: 32
-        required: true  
-  ...       
+domain:
+  enums:
+    - name: DeviceType
+      values:
+        - name: phone
+          value: phone
+        - name: computer
+          value: computer
+        - name: robot
+          value: robot
+  entities:
+    ...
+    - name: Devices
+      extends: Products
+      primaryKey: ["id"]
+      uniqueKey: ["name"]
+      properties:
+        - name: id
+          length: 32
+          required: true
+          default: 'concat(type,"-",switch(type){case"phone":imei;default:mac;})'
+        - name: type
+          length: 16
+          required: true
+          enum: DeviceType
+        - name: name
+          length: 32
+          required: true  
+    ...       
 ```
 
 ### Entity
@@ -218,24 +219,25 @@ In this example the abstract entity **positions** is defined which extends the e
 Example:
 
 ```yaml
-entities:
-  - name: Positions
-    abstract: true
-    properties:
-      - name: latitude
-        length: 16
-      - name: longitude
-        length: 16
-  - name: Countries
-    extends: Positions
-    primaryKey: ["iso3"]
-    uniqueKey: ["name"]
-    properties:
-      - name: name
-        required: true
-      - name: iso3
-        length: 3
-        required: true
+domain:
+  entities:
+    - name: Positions
+      abstract: true
+      properties:
+        - name: latitude
+          length: 16
+        - name: longitude
+          length: 16
+    - name: Countries
+      extends: Positions
+      primaryKey: ["iso3"]
+      uniqueKey: ["name"]
+      properties:
+        - name: name
+          required: true
+        - name: iso3
+          length: 3
+          required: true
 ```
 
 #### Set Entity as view
@@ -247,21 +249,22 @@ Since this entity is managed by an external system and only select queries are a
 Example:
 
 ```yaml
-entities:
-  ...
-  - name: Users
-    view: true
-    extends: Basics
-    primaryKey: ["username"]
-    uniqueKey: ["email"]
-    properties:
-      - name: username
-        length: 32
-        required: true
-      - name: firstname
-        required: true
-      - name: lastname
-  ...
+domain:
+  entities:
+    ...
+    - name: Users
+      view: true
+      extends: Basics
+      primaryKey: ["username"]
+      uniqueKey: ["email"]
+      properties:
+        - name: username
+          length: 32
+          required: true
+        - name: firstname
+          required: true
+        - name: lastname
+    ...
 ```
 
 ### Property
@@ -288,25 +291,26 @@ The value of this property is defined in **readExp** using the expression langua
 Example:
 
 ```yaml
-entities:
-  ...
-  - name: Users
-    view: true
-    extends: Basics
-    primaryKey: ["username"]
-    uniqueKey: ["email"]
-    properties:
-      - name: username
-        length: 32
-        required: true
-      - name: firstname
-        required: true
-      - name: lastname
-        required: true
-      - name: fullmane
-        view: true
-        readExp: concat(lastname,", ",firstname)
-  ...    
+domain:
+  entities:
+    ...
+    - name: Users
+      view: true
+      extends: Basics
+      primaryKey: ["username"]
+      uniqueKey: ["email"]
+      properties:
+        - name: username
+          length: 32
+          required: true
+        - name: firstname
+          required: true
+        - name: lastname
+          required: true
+        - name: fullmane
+          view: true
+          readExp: concat(lastname,", ",firstname)
+    ...    
 ```
 
 **ReadExp** can be used as a view, in this case the read expression will be applied at the time of reading. \
@@ -320,19 +324,20 @@ This expression will be executed by the expression engine [js-expressions](https
 Example:
 
 ```yaml
-entities:
-  - name: Groups
-    extends: Basics
-    primaryKey: ["id"]
-    uniqueKey: ["name"]
-    properties:
-      - name: id
-        length: 32
-        default: lower(substring(replace(name," ","-"),0,32))
-        required: true
-      - name: name
-        length: 32
-        required: true
+domain:
+  entities:
+    - name: Groups
+      extends: Basics
+      primaryKey: ["id"]
+      uniqueKey: ["name"]
+      properties:
+        - name: id
+          length: 32
+          default: lower(substring(replace(name," ","-"),0,32))
+          required: true
+        - name: name
+          length: 32
+          required: true
 ```
 
 #### Read and write value in Property
@@ -344,30 +349,31 @@ These expressions will be executed by the expression engine [js-expressions](htt
 Example:
 
 ```yaml
-entities:
-  ...
-  - name: Users
-    view: true
-    extends: Basics
-    primaryKey: ["username"]
-    uniqueKey: ["email"]
-    properties:
-      - name: username
-        length: 32
-        required: true
-      - name: firstname
-        required: true
-      - name: lastname
-        required: true
-      - name: fullmane
-        view: true
-        readExp: concat(lastname,", ",firstname)
-      - name: email
-        required: true
-        length: 255
-        writeValue: encrypt(lower(email),"${USERS_SECRET_KEY}")
-        readValue: decrypt(email,"${USERS_SECRET_KEY}")
-  ...      
+domain:
+  entities:
+    ...
+    - name: Users
+      view: true
+      extends: Basics
+      primaryKey: ["username"]
+      uniqueKey: ["email"]
+      properties:
+        - name: username
+          length: 32
+          required: true
+        - name: firstname
+          required: true
+        - name: lastname
+          required: true
+        - name: fullmane
+          view: true
+          readExp: concat(lastname,", ",firstname)
+        - name: email
+          required: true
+          length: 255
+          writeValue: encrypt(lower(email),"${USERS_SECRET_KEY}")
+          readValue: decrypt(email,"${USERS_SECRET_KEY}")
+    ...      
 ```
 
 #### Key value in Property
@@ -382,54 +388,56 @@ but we want to work with the entities separately.
 Example:
 
 ```yaml
-entities:
-  - name: Locations
-    abstract: true
-    primaryKey: ["type","code"]
-    uniqueKey: ["type","name"]    
-    properties:
-      - name: code
-        required: true
-        length: 16
-      - name: type
-        required: true
-        length: 16 
-      - name: name
-        required: true
-  - name: Country
-    extends: Locations
-    properties:
-      - name: type
-        key: 'country'  
-  - name: States
-    extends: Locations
-    properties:
-      - name: type
-        key: 'state'
-  - name: Cities
-    extends: Locations
-    properties:
-      - name: type
-        key: 'city'        
-mappings:
-  - name: default
-    entities:
-      - name: Locations
-        abstract: true
-        mapping: TBL_LOCATIONS
-        properties:
-          - name: code
-            mapping: CODE
-          - name: type
-            mapping: TYPE
-          - name: name
-            mapping: NAME
-      - name: Country
-        extends: Locations
-      - name: States
-        extends: Locations
-      - name: Cities
-        extends: Locations
+domain:
+  entities:
+    - name: Locations
+      abstract: true
+      primaryKey: ["type","code"]
+      uniqueKey: ["type","name"]    
+      properties:
+        - name: code
+          required: true
+          length: 16
+        - name: type
+          required: true
+          length: 16 
+        - name: name
+          required: true
+    - name: Country
+      extends: Locations
+      properties:
+        - name: type
+          key: 'country'  
+    - name: States
+      extends: Locations
+      properties:
+        - name: type
+          key: 'state'
+    - name: Cities
+      extends: Locations
+      properties:
+        - name: type
+          key: 'city'
+infrastructure:        
+  mappings:
+    - name: default
+      entities:
+        - name: Locations
+          abstract: true
+          mapping: TBL_LOCATIONS
+          properties:
+            - name: code
+              mapping: CODE
+            - name: type
+              mapping: TYPE
+            - name: name
+              mapping: NAME
+        - name: Country
+          extends: Locations
+        - name: States
+          extends: Locations
+        - name: Cities
+          extends: Locations
 ```
 
 ### Relation
@@ -460,28 +468,30 @@ Types of target relation according to the source relation:
 Example:
 
 ```yaml
-- name: DeviceStatuses
-    extends: Basics
-    primaryKey: ["id"]
-    indexes:
-      - name: time
-        fields: ["time"]
-    properties:
-      - name: id
-        type: integer
-        required: true
-        autoIncrement: true
-      - name: deviceId
-        length: 32
-        required: true
-      - name: time
-        type: dateTime
-    relations:
-      - name: device
-        from: deviceId
-        entity: Devices
-        to: id
-        target: statuses
+domain:
+  entities:
+    - name: DeviceStatuses
+        extends: Basics
+        primaryKey: ["id"]
+        indexes:
+          - name: time
+            fields: ["time"]
+        properties:
+          - name: id
+            type: integer
+            required: true
+            autoIncrement: true
+          - name: deviceId
+            length: 32
+            required: true
+          - name: time
+            type: dateTime
+        relations:
+          - name: device
+            from: deviceId
+            entity: Devices
+            to: id
+            target: statuses
 ```
 
 #### Set relation as composite
@@ -496,47 +506,48 @@ Example: **Devices.Components**
 
 ```yaml
 ...
-entities:
-  ...
-  - name: Devices
-    primaryKey: ["id"]
-    uniqueKey: ["name"]
-    properties:
-      - name: id
-        length: 32
-        required: true
-        default: 'concat(type,"-",switch(type){case"phone":imei;default:mac;})'
-      - name: type
-        length: 16
-        required: true
-        enum: DeviceType
-      - name: name
-        length: 32
-        required: true
-      ...
-  - name: Devices.Components
-    extends: Products
-    primaryKey: ["id"]
-    uniqueKey: ["deviceId", "name"]
-    properties:
-      - name: id
-        length: 50
-        required: true
-        default: concat(deviceId,"-",lower(substring(replace(name," ","-"),0,16)))
-      - name: deviceId
-        length: 32
-        required: true
-      - name: name
-        length: 16
-        required: true
-      ...
-    relations:
-      - name: device
-        from: deviceId
-        entity: Devices
-        to: id
-        target: components
-    ...    
+domain:
+  entities:
+    ...
+    - name: Devices
+      primaryKey: ["id"]
+      uniqueKey: ["name"]
+      properties:
+        - name: id
+          length: 32
+          required: true
+          default: 'concat(type,"-",switch(type){case"phone":imei;default:mac;})'
+        - name: type
+          length: 16
+          required: true
+          enum: DeviceType
+        - name: name
+          length: 32
+          required: true
+        ...
+    - name: Devices.Components
+      extends: Products
+      primaryKey: ["id"]
+      uniqueKey: ["deviceId", "name"]
+      properties:
+        - name: id
+          length: 50
+          required: true
+          default: concat(deviceId,"-",lower(substring(replace(name," ","-"),0,16)))
+        - name: deviceId
+          length: 32
+          required: true
+        - name: name
+          length: 16
+          required: true
+        ...
+      relations:
+        - name: device
+          from: deviceId
+          entity: Devices
+          to: id
+          target: components
+      ...    
 ```
 
 ### Constraint
@@ -561,40 +572,41 @@ The defined message will be sent if the condition is not met.
 Example:
 
 ```yaml
-entities:
-  - name: Users
-    properties:
-      ...
-      - name: email
-        required: true
-        length: 255
-        readExp: mask(email)
-        writeValue: encrypt(lower(email),"${USERS_SECRET_KEY}")
-        readValue: decrypt(email,"${USERS_SECRET_KEY}")
-    constraints:
-      - message: invalid email
-        condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
-  - name: Files
-    properties:
-      - name: id
-        length: 255
-        required: true
-      - name: type
-        length: 16
-        required: true
-        enum: FileType
-      - name: deviceId
-        length: 32
-        required: true
-      - name: startDate
-        type: dateTime
-        required: true
-      - name: endDate
-        type: dateTime
-        required: true
-    constraints:
-      - message: endDate cannot be less than startDate
-        condition: startDate<=endDate
+domain:
+  entities:
+    - name: Users
+      properties:
+        ...
+        - name: email
+          required: true
+          length: 255
+          readExp: mask(email)
+          writeValue: encrypt(lower(email),"${USERS_SECRET_KEY}")
+          readValue: decrypt(email,"${USERS_SECRET_KEY}")
+      constraints:
+        - message: invalid email
+          condition: test(email,"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
+    - name: Files
+      properties:
+        - name: id
+          length: 255
+          required: true
+        - name: type
+          length: 16
+          required: true
+          enum: FileType
+        - name: deviceId
+          length: 32
+          required: true
+        - name: startDate
+          type: dateTime
+          required: true
+        - name: endDate
+          type: dateTime
+          required: true
+      constraints:
+        - message: endDate cannot be less than startDate
+          condition: startDate<=endDate
 ```
 
 ### View
@@ -613,29 +625,30 @@ In the following example, the **admin** view can access all entities.
 Example:
 
 ```yaml
-views:
-  - name: default
-    entities:
-      - name: Devices
-        properties:
-          - name: apiKey
-            readExp: '"***"'
-      - name: Users
-        properties:
-          - name: created
-            readExp: date(created)
-          - name: email
-            exclude: true
-  - name: collector
-    entities:
-      - name: Users
-        exclude: true
-      - name: Groups
-        exclude: true
-      - name: GroupUsers
-        exclude: true
-  - name: admin
-    entities: []
+infrastructure:
+  views:
+    - name: default
+      entities:
+        - name: Devices
+          properties:
+            - name: apiKey
+              readExp: '"***"'
+        - name: Users
+          properties:
+            - name: created
+              readExp: date(created)
+            - name: email
+              exclude: true
+    - name: collector
+      entities:
+        - name: Users
+          exclude: true
+        - name: Groups
+          exclude: true
+        - name: GroupUsers
+          exclude: true
+    - name: admin
+      entities: []
 ```
 
 ### Entity View
@@ -651,17 +664,18 @@ views:
 **Entities** set to **exclude** will not be accessible when using this view.
 
 ```yaml
-views:
-  ...
-  - name: collector
-    entities:
-      - name: Users
-        exclude: true
-      - name: Groups
-        exclude: true
-      - name: GroupUsers
-        exclude: true
-  ...
+infrastructure:
+  views:
+    ...
+    - name: collector
+      entities:
+        - name: Users
+          exclude: true
+        - name: Groups
+          exclude: true
+        - name: GroupUsers
+          exclude: true
+    ...
 ```
 
 ### Property View
@@ -677,17 +691,18 @@ views:
 **Properties** set to **exclude** will not be accessible when using this view.
 
 ```yaml
-views:
-  - name: default
-    entities:
-      ...
-      - name: Users
-        properties:
-          - name: created
-            readExp: date(created)
-          - name: email
-            exclude: true
-    ...        
+infrastructure:
+  views:
+    - name: default
+      entities:
+        ...
+        - name: Users
+          properties:
+            - name: created
+              readExp: date(created)
+            - name: email
+              exclude: true
+      ...        
 ```
 
 #### Read expression in Property View
@@ -697,17 +712,18 @@ The result of the expression defined in **readExp** using the expression languag
 Example:
 
 ```yaml
-views:
-  - name: default
-    entities:
-      ...
-      - name: Users
-        properties:
-          - name: created
-            readExp: date(created)
-          - name: email
-            exclude: true
-    ...        
+infrastructure:
+  views:
+    - name: default
+      entities:
+        ...
+        - name: Users
+          properties:
+            - name: created
+              readExp: date(created)
+            - name: email
+              exclude: true
+      ...        
 ```
 
 ### Mapping
@@ -737,25 +753,26 @@ This example defines the abstract mapping entity **Locations** which extends con
 
 ```yaml
 ...
-mappings:
-  - name: default
-    entities:
-      - name: Locations
-        abstract: true
-        mapping: TBL_LOCATIONS
-        properties:
-          - name: code
-            mapping: CODE
-          - name: type
-            mapping: TYPE
-          - name: name
-            mapping: NAME
-      - name: Country
-        extends: Locations
-      - name: States
-        extends: Locations
-      - name: Cities
-        extends: Locations
+infrastructure:
+  mappings:
+    - name: default
+      entities:
+        - name: Locations
+          abstract: true
+          mapping: TBL_LOCATIONS
+          properties:
+            - name: code
+              mapping: CODE
+            - name: type
+              mapping: TYPE
+            - name: name
+              mapping: NAME
+        - name: Country
+          extends: Locations
+        - name: States
+          extends: Locations
+        - name: Cities
+          extends: Locations
 ...        
 ```
 
@@ -766,28 +783,29 @@ This example filters records from the **user_entity** table where users are from
 
 ```yaml
 ...
-mappings:
-  - name: default
-  - name: keycloak
-    entities:
-      - name: Users
-        mapping: user_entity
-        filter: realmId == "${REALM_ID}"
-        properties:
-          - name: username
-            mapping: username
-          - name: firstname
-            mapping: first_name
-          - name: lastname
-            mapping: last_name
-          - name: email
-            mapping: email
-          - name: created
-            mapping: created_timestamp
-            readMappingExp: millisecondToDate(created/1000)
-          - name: realmId
-            length: 255
-            mapping: realm_id
+infrastructure:
+  mappings:
+    - name: default
+    - name: keycloak
+      entities:
+        - name: Users
+          mapping: user_entity
+          filter: realmId == "${REALM_ID}"
+          properties:
+            - name: username
+              mapping: username
+            - name: firstname
+              mapping: first_name
+            - name: lastname
+              mapping: last_name
+            - name: email
+              mapping: email
+            - name: created
+              mapping: created_timestamp
+              readMappingExp: millisecondToDate(created/1000)
+            - name: realmId
+              length: 255
+              mapping: realm_id
 ...
 ```
 
@@ -804,21 +822,22 @@ mappings:
 The result of the expression defined in **readMappingExp** using the expression language, will be returned in the read queries.
 
 ```yaml
-mappings:
-  - name: default
-  - name: keycloak
-    entities:
-      - name: Users
-        mapping: user_entity
-        filter: realmId == "${REALM_ID}"
-        properties:
-          ...
-          - name: created
-            mapping: created_timestamp
-            readMappingExp: millisecondToDate(created/1000)
-          - name: realmId
-            length: 255
-            mapping: realm_id
+infrastructure:
+  mappings:
+    - name: default
+    - name: keycloak
+      entities:
+        - name: Users
+          mapping: user_entity
+          filter: realmId == "${REALM_ID}"
+          properties:
+            ...
+            - name: created
+              mapping: created_timestamp
+              readMappingExp: millisecondToDate(created/1000)
+            - name: realmId
+              length: 255
+              mapping: realm_id
 ...
 ```
 
@@ -843,11 +862,12 @@ Using environment variable:
 
 ```yaml
 ...
-sources:
-  - name: test
-    dialect: MySQL
-    mapping: test
-    connection: ${CNN_MYSQL}
+infrastructure:
+  sources:
+    - name: test
+      dialect: MySQL
+      mapping: test
+      connection: ${CNN_MYSQL}
 ...    
 ```
 
@@ -855,16 +875,17 @@ In configuration:
 
 ```yaml
 ...
-sources:
-  - name: test
-    dialect: MySQL
-    mapping: test
-    connection:
-      host: localhost
-      port: 3306
-      user: test
-      password: test
-      database: test
+infrastructure:
+  sources:
+    - name: test
+      dialect: MySQL
+      mapping: test
+      connection:
+        host: localhost
+        port: 3306
+        user: test
+        password: test
+        database: test
 ...      
 ```
 
@@ -909,13 +930,14 @@ Example:
 
 ```yaml
 ...
-stages:
-  - name: default
-    sources:
-      - name: main
-        condition: entity != "Users"
-      - name: keycloak
-        condition: entity == "Users"
+infrastructure:
+  stages:
+    - name: default
+      sources:
+        - name: main
+          condition: entity != "Users"
+        - name: keycloak
+          condition: entity == "Users"
 ```
 
 ## Use
@@ -925,71 +947,77 @@ stages:
 configuration using yaml
 
 ```yaml
-entities:
-  - name: Countries
-    primaryKey: ["iso3"]
-    uniqueKey: ["name"]
-    properties:
-      - name: name
-        required: true
-      - name: iso3
-        length: 3
-        required: true
-mappings:
-  - name: mapping1
-    entities:
-      - name: Countries
-        mapping: TBL_COUNTRIES
-        properties:
-          - name: iso3
-            mapping: ISO3
-          - name: name
-            mapping: NAME
-sources:
-  - name: source1
-    dialect: MySQL
-    mapping: mapping2
-    connection: ${CNN_MYSQL}
+domain:
+  entities:
+    - name: Countries
+      primaryKey: ["iso3"]
+      uniqueKey: ["name"]
+      properties:
+        - name: name
+          required: true
+        - name: iso3
+          length: 3
+          required: true
+infrastructure:        
+  mappings:
+    - name: mapping1
+      entities:
+        - name: Countries
+          mapping: TBL_COUNTRIES
+          properties:
+            - name: iso3
+              mapping: ISO3
+            - name: name
+              mapping: NAME
+  sources:
+    - name: source1
+      dialect: MySQL
+      mapping: mapping2
+      connection: ${CNN_MYSQL}
 ```
 
 configuration using json
 
 ```json
-{
-	"entities": [
-		{
-			"name": "Countries",
-			"primaryKey": [ "iso3"  ],
-			"uniqueKey": [ "name" ],
-			"properties": [
-        { "name": "iso3", "required": true, "type": "string", "length": 3 },
-				{ "name": "name", "required": true, "type": "string" }				
-			]
-		}
-	],
-	"mappings":[
-		{
-			"name":"mapping1",
-		  "entities":[
-				{
-					"name": "Countries",
-					"mapping": "TBL_COUNTRIES",
-					"properties": [
-						{ "name": "iso3", "mapping": "ISO_3" },
-            { "name": "name","mapping": "NAME" },
-					]
-				}
-			]
-		}
-	],
+{ 
+  "domain": {
+    "entities": [
+      {
+        "name": "Countries",
+        "primaryKey": [ "iso3"  ],
+        "uniqueKey": [ "name" ],
+        "properties": [
+          { "name": "iso3", "required": true, "type": "string", "length": 3 },
+          { "name": "name", "required": true, "type": "string" }				
+        ]
+      }
+    ],
+  },
+  "infrastructure": {
+    "mappings":[
+      {
+        "name":"mapping1",
+        "entities":[
+          {
+            "name": "Countries",
+            "mapping": "TBL_COUNTRIES",
+            "properties": [
+              { "name": "iso3", "mapping": "ISO_3" },
+              { "name": "name","mapping": "NAME" },
+            ]
+          }
+        ]
+      }
+    ],
   	"sources": [
-    {
-      "name": "source1",
-			"mapping": "mapping1",
-      "dialect": "MySQL",
-      "connection": "${CNN_MYSQL}"
-    }
-  ]
+      {
+        "name": "source1",
+        "mapping": "mapping1",
+        "dialect": "MySQL",
+        "connection": "${CNN_MYSQL}"
+      }
+    ]
+  }  
 }
 ```
 
