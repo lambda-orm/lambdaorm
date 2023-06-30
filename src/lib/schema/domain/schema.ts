@@ -153,7 +153,7 @@ export interface TaskConfig {
 export interface AppPathsConfig {
 	src: string
 	data: string
-	model: string
+	domain: string
 }
 export interface DomainSchema {
 	entities: Entity[]

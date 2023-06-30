@@ -37,8 +37,8 @@ export class CompleteSchema {
 			if (schema.infrastructure.paths.data === undefined) {
 				schema.infrastructure.paths.data = 'data'
 			}
-			if (schema.infrastructure.paths.model === undefined) {
-				schema.infrastructure.paths.model = 'model'
+			if (schema.infrastructure.paths.domain === undefined) {
+				schema.infrastructure.paths.domain = 'domain'
 			}
 			if (schema.infrastructure.views === undefined) {
 				schema.infrastructure.views = []

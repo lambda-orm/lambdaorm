@@ -18,6 +18,6 @@ export class SchemaService {
 	}
 
 	public newPathsApp (): AppPathsConfig {
-		return { src: 'src', data: 'data', model: 'model' }
+		return { src: 'src', data: 'data', domain: 'domain' }
 	}
 }
