@@ -10,6 +10,7 @@ import { SchemaService } from './services/schemaService'
 import { CompleteSchema } from './useCases/complete'
 import { GetSchema } from './useCases/get'
 import { LoadSchema } from './useCases/load'
+import { CreateSchema } from './useCases/create'
 
 export class SchemaFacade {
 	public schema: Schema
@@ -22,6 +23,7 @@ export class SchemaFacade {
 		private readonly schemaService:SchemaService,
 		private readonly routeService:RouteService,
 		private readonly extender:SchemaExtender,
+		private readonly createSchema: CreateSchema,
 		private readonly loadSchema: LoadSchema,
 		private readonly getSchema: GetSchema,
 		private readonly completeSchema:CompleteSchema
@@ -35,6 +37,10 @@ export class SchemaFacade {
 
 	public getSource (clauseInfo: ClauseInfo, stage?: string):string {
 		return this.routeService.getSource(clauseInfo, stage)
+	}
+
+	public async create (): Promise<Schema> {
+		return this.createSchema.create()
 	}
 
 	public async get (source: string): Promise<Schema|null> {
