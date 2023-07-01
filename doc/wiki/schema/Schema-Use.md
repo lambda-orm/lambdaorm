@@ -1,4 +1,4 @@
-# Schema
+# Schema Use
 
 ## Simple configuration example
 
