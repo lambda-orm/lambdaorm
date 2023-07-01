@@ -1,4 +1,3 @@
-
 import { SintaxisError } from '../../../shared/domain'
 import { OperandBuilder } from '3xpr'
 import { OrmOperandHelper } from '../services/operandHelper'

@@ -1,8 +1,7 @@
-
 import { Enum, FormatMapping, EntityMapping, PropertyMapping, Mapping } from '../../../domain'
-import { ModelConfigServiceBase } from './modelConfigServiceBase'
+import { DomainConfigServiceBase } from './domainConfigServiceBase'
 
-export class MappingConfigService extends ModelConfigServiceBase<EntityMapping, PropertyMapping> {
+export class MappingConfigService extends DomainConfigServiceBase<EntityMapping, PropertyMapping> {
 	private mapping: Mapping
 	public enums: Enum[]
 	constructor (mapping: Mapping, enums: Enum[] = []) {

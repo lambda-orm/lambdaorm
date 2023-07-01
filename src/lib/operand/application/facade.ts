@@ -18,7 +18,7 @@ export class OperandFacade {
 		private readonly helper:Helper
 	) {
 		this.builder = new OperandBuilderCacheDecorator(
-			new OrmOperandBuilder(this.expressions, this.schema.model, this.helper),
+			new OrmOperandBuilder(this.expressions, this.schema.domain, this.helper),
 			cache,
 			operandSerializer, this.helper)
 		this.operandNormalize = new OperandNormalize(this.builder, operandHelper)

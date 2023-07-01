@@ -47,22 +47,21 @@ What differentiates λORM from other ORMs:
 
 ## Schema Configuration
 
-It is the link between the business model and data persistence.
+The schema includes all the configuration that the ORM needs.
 
-The classes that represent the business model are completely clean, without any attribute that binds them to persistence.
+The schema separates the definition of the business model (Domain) from the persistence of the data (Infrastructure).
 
-All the configuration required to resolve the relationship between the business model and persistence is done in the schema, which is configuration.
+In the domain, the entities and enumerators that represent the business model are completely clean, without any attributes that couple them to persistence.
 
-This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
+All queries are made according to the business model, so all queries are decoupled from the physical model of the data.
 
-This configuration contains the following sections.
+In the infrastructure, all the necessary configuration is defined to be able to persist and obtain the data from the different sources.
 
-- In the app section, the general configuration of the application is established, such as the src, data and model routes.
-- In the enums section, the enums that are part of the business model are defined
-- In the entities section, the entities that are part of the business model are defined
-- In the data sources section the different data sources are defined
-- In the mapping section, the mappings between the business model and the model in the data sources are defined.
-- In the stages section, the stages are defined where the rules that relate the business model to the different data sources are defined.
+The schema configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
+
+All the expressions that are used for the definition of conditions and for the execution of actions are based on the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
+
+[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Definition)
 
 ### Schema Configuration Example:
 
@@ -77,7 +76,7 @@ But in the case of the States entity, the name of the table and its fields diffe
 
 [View schema configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples#one-schema-related-multiples-databases)
 
-[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
+[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Definition)
 
 ## Query Language
 
@@ -325,9 +324,10 @@ npm install lambdaorm-cli -g
 - [Expression](https://github.com/FlavioLionelRita/lambdaorm/wiki/Expression)
 - [Repository](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
 - [Transaction](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
-- Schemas
-	- [Schema](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
+- Schema
+	- [Definition](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Definition)
 	- [Examples](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples)
+	- [Use](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Use)
 - Queries
 	- [Select](https://github.com/FlavioLionelRita/lambdaorm/wiki/Select)
 	- [Include](https://github.com/FlavioLionelRita/lambdaorm/wiki/Include)

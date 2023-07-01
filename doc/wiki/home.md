@@ -1,9 +1,10 @@
 - [Expression](https://github.com/FlavioLionelRita/lambdaorm/wiki/Expression)
 - [Repository](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
 - [Transaction](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
-- Schemas
-	- [Schema](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema)
+- Schema
+	- [Definition](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Definition)
 	- [Examples](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples)
+	- [Use](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Use)
 - Queries
 	- [Select](https://github.com/FlavioLionelRita/lambdaorm/wiki/Select)
 	- [Include](https://github.com/FlavioLionelRita/lambdaorm/wiki/Include)

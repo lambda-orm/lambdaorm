@@ -1,4 +1,3 @@
-
 import { ICache } from 'h3lp'
 import { Query, QueryOptions } from '../../../query/domain'
 import { IQueryBuilder } from '../../domain/services'

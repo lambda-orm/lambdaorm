@@ -1,4 +1,3 @@
-
 import { SentenceAction } from '../../../../schema/domain'
 import { SchemaFacade } from '../../../../schema/application'
 import { Query, Data, QueryOptions } from '../../../../query/domain'

@@ -1,5 +1,5 @@
 import { EvaluatorFactory, ExpressionNormalizer, ExpressionParse, OperandBuilder, Operand, OperandNormalize, OperandReduce, Expressions } from '3xpr'
-import { ModelConfigService } from '../../../schema/application'
+import { DomainConfigService } from '../../../schema/application'
 import { OrmOperandNormalizer } from './operandNormalizer'
 import { Helper } from '../../../shared/application'
 import { OrmOperandComplete } from '../usesCases/complete'
@@ -15,7 +15,7 @@ export class OrmOperandBuilder implements OperandBuilder {
 
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly expressions: Expressions,
-		private readonly modelConfigService: ModelConfigService,
+		private readonly modelConfigService: DomainConfigService,
 		private readonly helper:Helper
 	) {
 		const cloner = new OrmOperandClone()

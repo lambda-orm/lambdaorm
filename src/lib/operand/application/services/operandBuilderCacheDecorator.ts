@@ -1,4 +1,3 @@
-
 import { OperandBuilder, Operand, OperandSerializer, EvaluatorFactory } from '3xpr'
 import { ICache } from 'h3lp'
 import { Helper } from '../../../shared/application'

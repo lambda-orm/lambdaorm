@@ -1,4 +1,3 @@
-
 import { Helper } from '../../../shared/application'
 import { ConnectionConfig, ConnectionError } from '../../domain'
 import { ConnectionPool } from '../ports/connectionPool'

@@ -153,28 +153,28 @@ export interface TaskConfig {
 export interface AppPathsConfig {
 	src: string
 	data: string
-	model: string
+	domain: string
 }
-export interface ModelSchema {
+export interface DomainSchema {
 	entities: Entity[]
 	enums: Enum[]
-	views: View[]
 }
-export interface DataSchema {
+export interface InfrastructureSchema {
+	paths: AppPathsConfig
 	mappings: Mapping[]
+	views: View[]
 	sources: Source[]
 	stages: Stage[]
 }
-export interface AppSchema {
-	paths: AppPathsConfig
+export interface ApplicationSchema {
 	start:TaskConfig[]
 	listeners: ListenerConfig[]
 	end:TaskConfig[]
 }
 export interface Schema {
-	model: ModelSchema
-	data:DataSchema
-	app: AppSchema
+	domain: DomainSchema
+	infrastructure:InfrastructureSchema
+	application: ApplicationSchema
 }
 export interface ModelConfig {
 	mappings: Mapping[]

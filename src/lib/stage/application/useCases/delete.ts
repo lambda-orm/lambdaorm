@@ -13,7 +13,7 @@ export class StageDelete extends StageActionDML {
 			return self.indexOf(value) === index
 		}
 		const _entities = entities.map(p => p.name).filter(onlyUnique)
-		const sortedEntities = this.model.sortByRelations(_entities, _entities).reverse()
+		const sortedEntities = this.domain.sortByRelations(_entities, _entities).reverse()
 		const result:Entity[] = []
 		for (const sortedEntity of sortedEntities) {
 			const entity = entities.find(p => p.name === sortedEntity)
@@ -25,7 +25,7 @@ export class StageDelete extends StageActionDML {
 	}
 
 	protected build (): Query[] {
-		const entities = this.sort(this.model.entities)
+		const entities = this.sort(this.domain.entities)
 		const queries = this.createUpdateQueries(entities)
 		for (const entity of entities) {
 			const query = this.createQuery(entity)

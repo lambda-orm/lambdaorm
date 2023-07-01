@@ -3,10 +3,10 @@ import { ModelService, Operand, OperandType, TypeServiceImpl } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { SentenceCrudAction } from '../../../schema/domain'
 import { Sentence, SentenceInclude, Field, Map, From, Join, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update } from '../../domain'
-import { ModelConfigService } from '../../../schema/application'
+import { DomainConfigService } from '../../../schema/application'
 
 export class SentenceTypeService extends TypeServiceImpl {
-	constructor (model: ModelService, private readonly config: ModelConfigService) {
+	constructor (model: ModelService, private readonly config: DomainConfigService) {
 		super(model)
 	}
 

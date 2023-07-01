@@ -1,4 +1,3 @@
-
 import { ConnectionConfig, ConnectionError } from '../../domain'
 import { ConnectionPool } from '../ports/connectionPool'
 import { DialectPoolService } from './dialectPoolService'

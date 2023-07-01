@@ -1,7 +1,7 @@
 import { ClauseInfo, DataSourceRule, Schema, SchemaError } from '../domain'
 import { DataSourceConfigService } from './services/config/dataSourceConfigService'
 import { MappingsConfigService } from './services/config/mappingsConfigService'
-import { ModelConfigService } from './services/config/modelConfigService'
+import { DomainConfigService } from './services/config/domainConfigService'
 import { StageConfigService } from './services/config/stageConfigService'
 import { ViewsConfigService } from './services/config/viewsConfigService'
 import { RouteService } from './services/routeService'
@@ -10,18 +10,20 @@ import { SchemaService } from './services/schemaService'
 import { CompleteSchema } from './useCases/complete'
 import { GetSchema } from './useCases/get'
 import { LoadSchema } from './useCases/load'
+import { CreateSchema } from './useCases/create'
 
 export class SchemaFacade {
 	public schema: Schema
 	constructor (public workspace:string,
 		public readonly source:DataSourceConfigService,
-		public readonly model:ModelConfigService,
+		public readonly domain:DomainConfigService,
 		public readonly mapping:MappingsConfigService,
 		public readonly stage:StageConfigService,
 		public readonly view:ViewsConfigService,
 		private readonly schemaService:SchemaService,
 		private readonly routeService:RouteService,
 		private readonly extender:SchemaExtender,
+		private readonly createSchema: CreateSchema,
 		private readonly loadSchema: LoadSchema,
 		private readonly getSchema: GetSchema,
 		private readonly completeSchema:CompleteSchema
@@ -37,7 +39,11 @@ export class SchemaFacade {
 		return this.routeService.getSource(clauseInfo, stage)
 	}
 
-	public get (source: string): Promise<Schema|null> {
+	public async create (): Promise<Schema> {
+		return this.createSchema.create()
+	}
+
+	public async get (source: string): Promise<Schema|null> {
 		return this.getSchema.get(source)
 	}
 

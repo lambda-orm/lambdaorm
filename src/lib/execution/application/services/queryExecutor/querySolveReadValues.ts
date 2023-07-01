@@ -1,4 +1,3 @@
-
 import { Query } from '../../../../query/domain'
 import { Helper } from '../../../../shared/application'
 import { Expressions } from '3xpr'

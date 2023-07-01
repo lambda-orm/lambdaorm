@@ -1,8 +1,7 @@
-
 import { Helper } from '../../../shared/application'
 import { SintaxisError } from '../../../shared/domain'
 import { Relation, SchemaError, Entity } from '../../../schema/domain'
-import { ModelConfigService } from '../../../schema/application'
+import { DomainConfigService } from '../../../schema/application'
 import { Field } from '../../../sentence/domain'
 import { Expressions, Operand, OperandCloner, OperandType, Position } from '3xpr'
 import { Type, Primitive } from 'typ3s'
@@ -12,7 +11,7 @@ import { Type, Primitive } from 'typ3s'
 export class OrmOperandNormalizer {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (
-		private readonly modelConfigService: ModelConfigService,
+		private readonly modelConfigService: DomainConfigService,
 		private readonly expressions:Expressions,
 		private readonly cloner:OperandCloner,
 		private readonly helper:Helper

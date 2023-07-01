@@ -1,4 +1,3 @@
-
 import { ConnectionConfig } from '../domain'
 import { Connection } from './ports/connection'
 import { ConnectionPoolService } from './services/connectionPoolService'

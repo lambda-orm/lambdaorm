@@ -1,4 +1,4 @@
-model:
+domain:
   entities:
     - name: Positions
       abstract: true
@@ -46,9 +46,9 @@ model:
           from: countryCode
           entity: Countries
           to: iso3
+infrastructure:
   views:
     - name: default
-data:
   mappings:
     - name: mapping1
     - name: mapping2

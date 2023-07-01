@@ -1,4 +1,3 @@
-
 import {
 	ObservableAction, Mapping, DataSourceRule, Index, Source, Relation,
 	EntityMapping, PropertyMapping, SchemaError
@@ -7,18 +6,18 @@ import { Query } from '../../../query/domain'
 import { Delta, ChangedValue } from 'h3lp'
 import { DDLBuilderPort } from '../ports/ddlBuilderPort'
 import { Helper } from '../../../shared/application'
-import { ModelConfigService, SchemaFacade } from '../../../schema/application'
+import { DomainConfigService, SchemaFacade } from '../../../schema/application'
 import { LanguagesService } from './languagesService'
 import { DialectService } from './dialectService'
 
 export class DDLBuilderService {
-	private model: ModelConfigService
+	private domain: DomainConfigService
 	constructor (private readonly schemaFacade: SchemaFacade,
 	private readonly languages: LanguagesService,
 	public readonly stage: string,
 	private readonly helper:Helper
 	) {
-		this.model = schemaFacade.model
+		this.domain = schemaFacade.domain
 	}
 
 	public drop (mappings: Mapping[]): Query[] {
@@ -74,7 +73,7 @@ export class DDLBuilderService {
 	private _drop (source: Source, ruleDataSource: DataSourceRule, entitiesMapping: EntityMapping[], queries: Query[]): void {
 		const dialect = this.languages.getDialect(source.dialect)
 		const entities = entitiesMapping.map(p => p.name)
-		const sortedEntities = this.model.sortByDependencies(entities)
+		const sortedEntities = this.domain.sortByDependencies(entities)
 		// drop all constraint
 		for (const entityName of sortedEntities) {
 			// evaluate if entity apply in source
@@ -90,7 +89,7 @@ export class DDLBuilderService {
 		for (const entityName of sortedEntities) {
 			// evaluate if entity apply in source
 			if (this.evalDataSource(ruleDataSource, entityName)) {
-				// const entity = this.model.getEntity(entityName) as Entity
+				// const entity = this.domain.getEntity(entityName) as Entity
 				const entity = entitiesMapping.find(p => p.name === entityName)
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop indexes action`)
@@ -148,11 +147,11 @@ export class DDLBuilderService {
 	private _truncate (source: Source, ruleDataSource: DataSourceRule, entitiesMapping: EntityMapping[], queries: Query[]): void {
 		const dialect = this.languages.getDialect(source.dialect)
 		const entities = entitiesMapping.map(p => p.name)
-		const sortedEntities = this.model.sortByDependencies(entities)
+		const sortedEntities = this.domain.sortByDependencies(entities)
 		for (const entityName of sortedEntities) {
 			// evaluate if entity apply in source
 			if (this.evalDataSource(ruleDataSource, entityName)) {
-				// const entity = this.model.getEntity(entityName) as Entity
+				// const entity = this.domain.getEntity(entityName) as Entity
 				const entity = entitiesMapping.find(p => p.name === entityName)
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for truncate action`)

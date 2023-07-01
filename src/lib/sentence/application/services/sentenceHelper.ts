@@ -17,7 +17,7 @@ export class SentenceHelper {
 	}
 
 	public getPropertiesFromParameters (entityName: string, parameters: Parameter[]): Property[] {
-		const entity = this.schemaFacade.model.getEntity(entityName)
+		const entity = this.schemaFacade.domain.getEntity(entityName)
 		const properties: Property[] = []
 		if (entity && entity.properties && parameters) {
 			for (const parameter of parameters) {
@@ -79,14 +79,14 @@ export class SentenceHelper {
 				const obj = operand.children[0]
 				for (const p in obj.children) {
 					const keyVal = obj.children[p]
-					const property = this.schemaFacade.model.getProperty(entityName, keyVal.name)
+					const property = this.schemaFacade.domain.getProperty(entityName, keyVal.name)
 					const field = { name: keyVal.name, type: property.type }
 					fields.push(field)
 				}
 			}
 		}
 		if (addAutoIncrement) {
-			const autoIncrement = this.schemaFacade.model.getAutoIncrement(entityName)
+			const autoIncrement = this.schemaFacade.domain.getAutoIncrement(entityName)
 			if (autoIncrement) {
 				fields.unshift(autoIncrement)
 			}

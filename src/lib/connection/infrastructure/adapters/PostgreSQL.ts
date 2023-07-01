@@ -1,4 +1,3 @@
-
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query, Data } from '../../../query/domain'

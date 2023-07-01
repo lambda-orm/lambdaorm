@@ -1,4 +1,3 @@
-
 import { Type } from 'typ3s'
 import { ISentenceBuilder, Metadata, Sentence } from '../../domain'
 

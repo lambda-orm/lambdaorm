@@ -28,7 +28,7 @@ beforeAll(async () => {
 			name: 'constraints',
 			template: '\t\texpect(orm.constraints(${test})).toStrictEqual(${result})\n'
 		},
-		// {builded
+		// {
 		// name: 'metadata',
 		// template: '\t\texpect(orm.metadata(${test})).toStrictEqual(${result})\n'
 		// },

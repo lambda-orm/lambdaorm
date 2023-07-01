@@ -12,7 +12,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab.ts",
-			"envFile": "${workspaceFolder}/config/countries.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "cclp lab",

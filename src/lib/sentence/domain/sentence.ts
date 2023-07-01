@@ -1,4 +1,3 @@
-
 import { Property, Relation, Behavior, Constraint } from '../../schema/domain'
 import { Parameter, Operand, OperandType, Position } from '3xpr'
 import { Type } from 'typ3s'

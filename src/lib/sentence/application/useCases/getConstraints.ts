@@ -1,4 +1,3 @@
-
 import { ISentenceBuilder, MetadataConstraint, Sentence } from '../../domain'
 
 export class GetConstraints {
