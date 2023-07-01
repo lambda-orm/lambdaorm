@@ -44,8 +44,8 @@ domain:
           to: iso3
 infrastructure:          
   sources:
-    - name: dataSource1
-      dialect: mysql
+    - name: source1
+      dialect: MySQL
       connection:
         host: localhost
         port: 3306
@@ -111,8 +111,8 @@ domain:
           to: iso3
 infrastructure:          
   sources:
-    - name: dataSource1
-      dialect: mysql
+    - name: source1
+      dialect: MySQL
       connection:
         host: localhost
         port: 3306
@@ -189,8 +189,8 @@ infrastructure:
             - name: countryCode
               mapping: COUNTRY_CODE
   sources:
-    - name: dataSource1
-      dialect: mysql
+    - name: source1
+      dialect: MySQL
       mapping: mapping1
       connection:
         host: localhost
@@ -198,8 +198,8 @@ infrastructure:
         user: test
         password: test
         database: test
-    - name: dataSource2
-      dialect: Postgres
+    - name: source2
+      dialect: PostgreSQL
       mapping: mapping2
       connection:
         host: localhost
@@ -210,10 +210,10 @@ infrastructure:
   stages:
     - name: stage1
       sources:
-        - name: dataSource1
+        - name: source1
     - name: stage2
       sources:
-        - name: dataSource2
+        - name: source2
 ```
 
 [example lab](https://github.com/FlavioLionelRita/lambdaorm-lab03)
@@ -273,7 +273,7 @@ infrastructure:
         password: test
         database: test
     - name: dataSource2
-      dialect: Postgres
+      dialect: PostgreSQL
       connection:
         host: localhost
         port: 5432
@@ -377,11 +377,11 @@ infrastructure:
     - name: dataSource1
       dialect: MySQL
       mapping: mapping1
-      connection: $CNN_MYDB
+      connection: $CNN_MYSQL
     - name: dataSource2
-      dialect: Postgres
+      dialect: PostgreSQL
       mapping: mapping2
-      connection: $CNN_MYDB2
+      connection: $CNN_POSTGRES
   stages:
     - name: stage1
       sources:

@@ -1,16 +1,20 @@
 # Schema
 
-It is the link between the business model and data persistence.
+The schema includes all the configuration that the ORM needs.
 
-The classes that represent the business model are completely clean, without any attribute that binds them to persistence.
+The schema separates the definition of the business model (Domain) from the persistence of the data (Infrastructure).
 
-All the configuration necessary to resolve the relationship between the business model and persistence is done in the schema, which is 100% configuration.
+In the domain, the entities and enumerators that represent the business model are completely clean, without any attributes that couple them to persistence.
 
-This configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
+All queries are made according to the business model, so all queries are decoupled from the physical model of the data.
 
-Certain configurations use expressions based on the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
+In the infrastructure, all the necessary configuration is defined to be able to persist and obtain the data from the different sources.
 
-## Schema Structure
+The schema configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
+
+All the expressions that are used for the definition of conditions and for the execution of actions are based on the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
+
+## Structure
 
 ``` yaml
 domain:
@@ -52,17 +56,28 @@ domain:
         composite: boolean
     constraints:
       - message: string
-        condition: expression         
-infrastructure:
-  views:
+        condition: expression
+application:  
+  start:
     - name: string
-      entities:
-        - name: string
-          exclude: boolean
-          properties:
-            - name: string
-              exclude: boolean
-              readExp: expression 
+      condition: expression
+      expression: expression
+  end:
+    - name: string
+      condition: expression
+      expression: expression
+  errors:
+    - name: string
+      condition: expression
+      expression: expression    
+  listeners:
+    - name: string
+      actions: [select|insert|bulkInsert|update|delete]
+      condition: expression
+      before:  expression
+      after:  expression
+      error:  expression                    
+infrastructure:
   mappings:
     - name: string
       entities:
@@ -76,7 +91,7 @@ infrastructure:
               readMappingExp: expression
   sources:
     - name: string
-      dialect: MariaDb | MongoDB | MySQL | Oracle | PostgreSQL | SQLjs | SqlServer
+      dialect: [MySQL|MariaDB|PostgreSQL|Oracle|SqlServer|MongoDB|SQLjs] 
       mapping: string
       connection: object | EnvironmentVariable
   stages:
@@ -84,69 +99,38 @@ infrastructure:
       sources:
         - name: string
           condition: expression
+  views:
+    - name: string
+      entities:
+        - name: string
+          exclude: boolean
+          properties:
+            - name: string
+              exclude: boolean
+              readExp: expression        
   paths:
     src: string
     data: string
-    domain: string        
-application:  
-  start:
-    - name: string
-      condition: expression
-      expression: expression
-  end:
-    - name: string
-      condition: expression
-      expression: expression
-  listeners:
-    - name: string
-      actions: [select|insert|bulkInsert|update|delete]
-      condition: expression
-      before:  expression
-      after:  expression
-      error:  expression       
-              								  		 
+    domain: string              								  		 
 ```
 
-## Schema Definition
+## Definition
 
-| Property 				|      Description					 								  |	required	|	default		|
-|-----------------|---------------------------------------------|:---------:|:---------:|
-| application		  |  application configure events and listeners |						|	create 		|
-| enums 	 				|  definitions of enum  of model						  |						|						|
-| entities 				|  definitions of entity of model						  | yes				|						|
-| views 				  |  definitions of views					              | 				  |	create One|
-| mappings			  |  definitions of mappings									  |      			|	create One|
-| sources 		    |  definitions of source								      | yes				|						|
-| stages 				  |  definitions of stages 										  |      			|	create One|
+| Property 				| Description					 								          |
+|:----------------|:----------------------------------------------|
+| domain		      | definition of the business model              |
+| application		  | implementation of events and listeners        |
+| infrastructure	| concrete implementation of the data model     |
 
-- In the app section, the configuration of the routes where configuration files or execution results will be generated is established.
+## Domain
+
+| Property 				|      Description					 								  |
+|-----------------|---------------------------------------------|
+| enums 	 				|  definitions of enum  of model						  |
+| entities 				|  definitions of entity of model						  |
+
 - In the enums section, enumerations are defined that can then be used as the data type of a property.
 - In the entities section, the entities are defined with their properties, relationships and constraints
-- In the views section, different views are defined that can restrict or modify the results of the queries.
-- In the mappings section, the mapping between the entities in the tables or collections in the databases is defined.
-- In the sources section the databases are defined
-- In the stages section different scenarios are defined in which the rules that associate an entity with a source are determined
-
-### App
-
-In this app section, the configuration of the routes where the configuration files or execution results will be generated is established.
-
-| Property 				|      Description					 								|	required	|	default		|
-|-----------------|-------------------------------------------|:---------:|:---------:|
-| src 		 				|  set path of source code									|   				|		src			|
-| data 		 				|  define path of data											|   				|		data		|
-| model 		 			|  define path of	model to generate					|   				|		model		|
-
-#### App Example
-
-Example:
-
-```yaml
-app:
-  src: src
-  data: data
-  domain: domain
-```
 
 ### Enum
 
@@ -267,7 +251,7 @@ domain:
     ...
 ```
 
-### Property
+#### Property
 
 | Property 				|      Description					 								|	required	|	default		|
 |-----------------|-------------------------------------------|:---------:|:---------:|
@@ -283,7 +267,7 @@ domain:
 | writeValue 		 	| write expression resolved in server	      | 					|						|
 | key 		 		    | key to filter or insert										| 					|						|
 
-#### Set Property as view and readExp
+##### Set Property as view and readExp
 
 A property set to view is a property that will be returned in read queries. \
 The value of this property is defined in **readExp** using the expression language.
@@ -316,7 +300,7 @@ domain:
 **ReadExp** can be used as a view, in this case the read expression will be applied at the time of reading. \
 But no modification will be applied at the time of writing.
 
-#### Default value in Property
+##### Default value in Property
 
 When a record is inserted, the expression defined in **default** will be evaluated on the server. \
 This expression will be executed by the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
@@ -340,7 +324,7 @@ domain:
           required: true
 ```
 
-#### Read and write value in Property
+##### Read and write value in Property
 
 Both **readValue** and **writeValue** are executed on the server.
 When reading, **readValue** will be applied and in the writing actions, **writeValue** will be executed.
@@ -376,7 +360,7 @@ domain:
     ...      
 ```
 
-#### Key value in Property
+##### Key value in Property
 
 The key defined in **keyValue** will be used as a filter in the read and update queries. \
 When a record is inserted this key is assigned to the field. \
@@ -440,7 +424,7 @@ infrastructure:
           extends: Locations
 ```
 
-### Relation
+#### Relation
 
 | Property 				|      Description					 								|	required	|	default		|
 |-----------------|-------------------------------------------|:---------:|:---------:|
@@ -452,7 +436,7 @@ infrastructure:
 | composite 		 	| if the relationship is composite 					|						|	  false		|
 | target 		 	    | Name of the relation in the related entity|						|	  		    |
 
-#### Target relation
+##### Target relation
 
 When defining **target** the corresponding relationship will be created in the target entity.
 For example, if in the entity **DeviceStatuses** a relationship with **Devices** is created and in this relationship target = "statuses" is set. \
@@ -494,7 +478,7 @@ domain:
             target: statuses
 ```
 
-#### Set relation as composite
+##### Set relation as composite
 
 When a relationship is set to **composite** it will be treated as part of a document. \
 In the case of Non-Relational databases, the records of the relationship will be stored in the same collection. \
@@ -550,7 +534,7 @@ domain:
       ...    
 ```
 
-### Constraint
+#### Constraint
 
 | Property 				|      Description					 								|	required	|
 |-----------------|-------------------------------------------|:---------:|
@@ -609,122 +593,30 @@ domain:
           condition: startDate<=endDate
 ```
 
-### View
+## Application
 
-The view that can restrict or modify the results of the queries is defined.
+| Property 	| Description					 								                      |
+|:----------|:----------------------------------------------------------|
+| start		  | commands to execute when starting the application         |
+| end		    | commands to execute when the application is terminated    |
+| errors		| commands to execute when an error occurs                  |
+| listeners	| definition of the listeners and the action to be executed |
 
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| name 		 		    | name that identifies a view  							| yes				|
-| entities 		 	  | entity view list   					              |    				|
+## Infrastructure
 
-**Entities** not included in the view will not be subject to any restrictions.
+| Property 				|      Description					 								  |
+|-----------------|---------------------------------------------|
+| mappings			  |  definitions of mappings									  |
+| sources 		    |  definitions of source								      |
+| stages 				  |  definitions of stages 										  |
+| views 				  |  definitions of views					              |
+| paths 				  |  					                                  |
 
-In the following example, the **admin** view can access all entities.
-
-Example:
-
-```yaml
-infrastructure:
-  views:
-    - name: default
-      entities:
-        - name: Devices
-          properties:
-            - name: apiKey
-              readExp: '"***"'
-        - name: Users
-          properties:
-            - name: created
-              readExp: date(created)
-            - name: email
-              exclude: true
-    - name: collector
-      entities:
-        - name: Users
-          exclude: true
-        - name: Groups
-          exclude: true
-        - name: GroupUsers
-          exclude: true
-    - name: admin
-      entities: []
-```
-
-### Entity View
-
-| Property 				|      Description					 								|	required	|
-|-----------------|-------------------------------------------|:---------:|
-| name 		 		    | entity name 							                | yes				|
-| exclude 		 	  | determines whether the entity is excluded |    				|
-| properties	 	  | property view list   					            |    				|
-
-#### Exclude in Entity View
-
-**Entities** set to **exclude** will not be accessible when using this view.
-
-```yaml
-infrastructure:
-  views:
-    ...
-    - name: collector
-      entities:
-        - name: Users
-          exclude: true
-        - name: Groups
-          exclude: true
-        - name: GroupUsers
-          exclude: true
-    ...
-```
-
-### Property View
-
-| Property 				|      Description					 								  |	required	|
-|-----------------|---------------------------------------------|:---------:|
-| name 		 		    | property name 							                | yes				|
-| exclude 		 	  | determines whether the property is excluded |    				|
-| readExp	 	      | read expression resolved in source   				|    				|
-
-#### Exclude in Property View
-
-**Properties** set to **exclude** will not be accessible when using this view.
-
-```yaml
-infrastructure:
-  views:
-    - name: default
-      entities:
-        ...
-        - name: Users
-          properties:
-            - name: created
-              readExp: date(created)
-            - name: email
-              exclude: true
-      ...        
-```
-
-#### Read expression in Property View
-
-The result of the expression defined in **readExp** using the expression language, will be returned in the read queries.
-
-Example:
-
-```yaml
-infrastructure:
-  views:
-    - name: default
-      entities:
-        ...
-        - name: Users
-          properties:
-            - name: created
-              readExp: date(created)
-            - name: email
-              exclude: true
-      ...        
-```
+- In the mappings section, the mapping between the entities in the tables or collections in the databases is defined.
+- In the sources section the databases are defined
+- In the stages section different scenarios are defined in which the rules that associate an entity with a source are determined
+- In the views section, different views are defined that can restrict or modify the results of the queries.
+- In the paths section, the configuration of the routes where configuration files or execution results will be generated is established.
 
 ### Mapping
 
@@ -735,7 +627,7 @@ The mapping between entities in tables or collections in databases is defined.
 | name 		 				| name of mapping  													| yes				|						|
 | entities 				| list of entity mapping 				    				| yes				|						|
 
-### Entity Mapping
+#### Entity Mapping
 
 | Property 				|      Description					 								|	required	|	default		|
 |-----------------|-------------------------------------------|:---------:|:---------:|
@@ -746,7 +638,7 @@ The mapping between entities in tables or collections in databases is defined.
 | filter 	 			  | filter expression									        | 					|						|
 | properties			| list of property mapping  								|   				|						|
 
-#### Abstract and extends in Entity Mapping
+##### Abstract and extends in Entity Mapping
 
 Abstract mapping entities are useful for use in extensions. \
 This example defines the abstract mapping entity **Locations** which extends concrete entities.
@@ -776,7 +668,7 @@ infrastructure:
 ...        
 ```
 
-#### Filter in Entity Mapping
+##### Filter in Entity Mapping
 
 The filter defined in a Mapping entity is used to filter the records.
 This example filters records from the **user_entity** table where users are from a certain **realmId**.
@@ -809,7 +701,7 @@ infrastructure:
 ...
 ```
 
-### Property Mapping
+#### Property Mapping
 
 | Property 				|      Description					 								|	required	|	default		|
 |-----------------|-------------------------------------------|:---------:|:---------:|
@@ -817,7 +709,7 @@ infrastructure:
 | mapping 				| table name in the database 								| yes				|equal name |
 | readMappingExp	| read expression resolved in source				| 				  |           |
 
-#### Read expression in Property Mapping
+##### Read expression in Property Mapping
 
 The result of the expression defined in **readMappingExp** using the expression language, will be returned in the read queries.
 
@@ -898,7 +790,7 @@ The stage is defined in which the rules that relate an entity to a source are de
 | name 		 					| name of stage															| yes				|						|
 | sources   		    | list of sources rules			    				    | yes				|						|
 
-### Source Rule
+#### Source Rule
 
 | Property 					|      Description					 								|	required	|	default		|
 |-------------------|-------------------------------------------|:---------:|:---------:|
@@ -940,154 +832,138 @@ infrastructure:
           condition: entity == "Users"
 ```
 
-## Use
+### View
 
-### Simple configuration example
+The view that can restrict or modify the results of the queries is defined.
 
-configuration using yaml
+| Property 				|      Description					 								|	required	|
+|-----------------|-------------------------------------------|:---------:|
+| name 		 		    | name that identifies a view  							| yes				|
+| entities 		 	  | entity view list   					              |    				|
+
+**Entities** not included in the view will not be subject to any restrictions.
+
+In the following example, the **admin** view can access all entities.
+
+Example:
 
 ```yaml
-domain:
-  entities:
-    - name: Countries
-      primaryKey: ["iso3"]
-      uniqueKey: ["name"]
-      properties:
-        - name: name
-          required: true
-        - name: iso3
-          length: 3
-          required: true
-infrastructure:        
-  mappings:
-    - name: mapping1
+infrastructure:
+  views:
+    - name: default
       entities:
-        - name: Countries
-          mapping: TBL_COUNTRIES
+        - name: Devices
           properties:
-            - name: iso3
-              mapping: ISO3
-            - name: name
-              mapping: NAME
-  sources:
-    - name: source1
-      dialect: MySQL
-      mapping: mapping2
-      connection: ${CNN_MYSQL}
+            - name: apiKey
+              readExp: '"***"'
+        - name: Users
+          properties:
+            - name: created
+              readExp: date(created)
+            - name: email
+              exclude: true
+    - name: collector
+      entities:
+        - name: Users
+          exclude: true
+        - name: Groups
+          exclude: true
+        - name: GroupUsers
+          exclude: true
+    - name: admin
+      entities: []
 ```
 
-configuration using json
+#### Entity View
 
-```json
-{ 
-  "domain": {
-    "entities": [
-      {
-        "name": "Countries",
-        "primaryKey": [ "iso3"  ],
-        "uniqueKey": [ "name" ],
-        "properties": [
-          { "name": "iso3", "required": true, "type": "string", "length": 3 },
-          { "name": "name", "required": true, "type": "string" }				
-        ]
-      }
-    ],
-  },
-  "infrastructure": {
-    "mappings":[
-      {
-        "name":"mapping1",
-        "entities":[
-          {
-            "name": "Countries",
-            "mapping": "TBL_COUNTRIES",
-            "properties": [
-              { "name": "iso3", "mapping": "ISO_3" },
-              { "name": "name","mapping": "NAME" },
-            ]
-          }
-        ]
-      }
-    ],
-  	"sources": [
-      {
-        "name": "source1",
-        "mapping": "mapping1",
-        "dialect": "MySQL",
-        "connection": "${CNN_MYSQL}"
-      }
-    ]
-  }  
-}
+| Property 				|      Description					 								|	required	|
+|-----------------|-------------------------------------------|:---------:|
+| name 		 		    | entity name 							                | yes				|
+| exclude 		 	  | determines whether the entity is excluded |    				|
+| properties	 	  | property view list   					            |    				|
+
+#### Exclude in Entity View
+
+**Entities** set to **exclude** will not be accessible when using this view.
+
+```yaml
+infrastructure:
+  views:
+    ...
+    - name: collector
+      entities:
+        - name: Users
+          exclude: true
+        - name: Groups
+          exclude: true
+        - name: GroupUsers
+          exclude: true
+    ...
 ```
 
-### Generate the model
+#### Property View
 
-Once the schema is configured or modified, the model can be created or modified by executing the "update" command of [CLI](https://www.npmjs.com/package/lambdaorm-cli)
+| Property 				|      Description					 								  |	required	|
+|-----------------|---------------------------------------------|:---------:|
+| name 		 		    | property name 							                | yes				|
+| exclude 		 	  | determines whether the property is excluded |    				|
+| readExp	 	      | read expression resolved in source   				|    				|
 
-```sh
-lambdaorm update
+##### Exclude in Property View
+
+**Properties** set to **exclude** will not be accessible when using this view.
+
+```yaml
+infrastructure:
+  views:
+    - name: default
+      entities:
+        ...
+        - name: Users
+          properties:
+            - name: created
+              readExp: date(created)
+            - name: email
+              exclude: true
+      ...        
 ```
 
-This command generates the model file with all the entities as a repository file for each entity
+##### Read expression in Property View
 
-model.ts:
+The result of the expression defined in **readExp** using the expression language, will be returned in the read queries.
 
-``` ts
-export class Country {
-		iso3?: string
-		name?: string		
-}
-export interface QryCountry {
-	iso3: string
-	name: number
+Example:
 
-}
-export let Countries : Queryable<QryCountry>		
+```yaml
+infrastructure:
+  views:
+    - name: default
+      entities:
+        ...
+        - name: Users
+          properties:
+            - name: created
+              readExp: date(created)
+            - name: email
+              exclude: true
+      ...        
 ```
 
-repositoryCountry.ts:
+### Paths
 
-```ts
-import { Repository, IOrm } from 'lambdaorm'
-import { Country, QryCountry } from './model'
-export class CountryRepository extends Repository<Country, QryCountry> {
-	constructor (stage?: string, Orm?:IOrm) {
-		super('Countries', stage, Orm)
-	}
-	// Add your code here
-}
-```
+In this app section, the configuration of the routes where the configuration files or execution results will be generated is established.
 
-### Set schema
+| Property 				|      Description					 								|	required	|	default		|
+|-----------------|-------------------------------------------|:---------:|:---------:|
+| src 		 				|  set path of source code									|   				|		src			|
+| data 		 				|  define path of data											|   				|		data		|
+| model 		 			|  define path of	model to generate					|   				|		model		|
 
-When the orm.init() method is invoked it will execute the ORM initialization according to the schema.
+Example:
 
-The following options are available to define the settings.
-
-- Invoke the orm.init() method without the first argument and write this configuration to a file called lambdaorm.json or lambdaorm.yaml in the root of the project.
-according to the lambdaorm extension you will know how to read it.
-
-- Invoke the orm.init() method passing as an argument the path where the configuration file is located.
-This route must include the .yaml or .json extension since that way we will know how to read it.
-
-- Invoke the orm.init() method passing the configuration as a json object as argument
-
-Example passing the configuration file path:
-
-```ts
-import { orm } from 'lambdaorm'
-(async () => {
-	await orm.init('/home/my/app1/lambaORM.yaml')
-	try {		
-		const countries = await orm.execute(`Countries.map(p=>{name:p.name,code:p.alpha3})
-                                                  .sort(p=> desc(p.name))
-                                                  .page(1,10)`)
-		console.log(countries)	
-	} catch (error) {
-		console.log(error)
-	} finally {
-		await orm.end()
-	}
-})()
+```yaml
+app:
+  src: src
+  data: data
+  domain: domain
 ```
