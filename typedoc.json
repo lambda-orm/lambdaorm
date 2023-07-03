@@ -1,12 +1,8 @@
 {
 	"entryPoints": [
-		"src/lib/orm.ts",
-		"src/lib/connection",
-		"src/lib/language",
-		"src/lib/manager",
-		"src/lib/model",
-		"src/lib/repository",
-		"src/lib/stage"
+		"src/lib/orm/infrastructure/orm.ts",
+		"src/lib/connection"
+	
 	],
 	"out": "doc/source",
 	"excludePrivate": true,
