@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/useCases/complete.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/schema/application/useCases/complete.ts#L6)
+[src/lib/schema/application/useCases/complete.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/schema/application/useCases/complete.ts#L6)
 
 ## Methods
 
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/lib/schema/application/useCases/complete.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/schema/application/useCases/complete.ts#L8)
+[src/lib/schema/application/useCases/complete.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/schema/application/useCases/complete.ts#L8)

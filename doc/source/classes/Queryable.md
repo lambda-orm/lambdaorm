@@ -70,7 +70,7 @@ HavingClauses<T\>.constructor
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L8)
+[src/lib/repository/domain/queryable.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L8)
 
 ## Methods
 
@@ -90,7 +90,7 @@ HavingClauses<T\>.constructor
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:155](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L155)
+[src/lib/repository/domain/queryable.ts:155](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L155)
 
 ___
 
@@ -108,7 +108,7 @@ HavingClauses.constraints
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L25)
+[src/lib/repository/domain/queryable.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L25)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:170](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L170)
+[src/lib/repository/domain/queryable.ts:170](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L170)
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:175](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L175)
+[src/lib/repository/domain/queryable.ts:175](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L175)
 
 ___
 
@@ -166,7 +166,7 @@ HavingClauses.distinct
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:77](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L77)
+[src/lib/repository/domain/queryable.ts:77](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L77)
 
 ___
 
@@ -190,7 +190,7 @@ HavingClauses.execute
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L13)
+[src/lib/repository/domain/queryable.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L13)
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:135](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L135)
+[src/lib/repository/domain/queryable.ts:135](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L135)
 
 ___
 
@@ -240,7 +240,7 @@ HavingClauses.first
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L67)
+[src/lib/repository/domain/queryable.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L67)
 
 ___
 
@@ -260,7 +260,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L145)
+[src/lib/repository/domain/queryable.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L145)
 
 ___
 
@@ -280,7 +280,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:140](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L140)
+[src/lib/repository/domain/queryable.ts:140](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L140)
 
 ___
 
@@ -300,7 +300,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:150](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L150)
+[src/lib/repository/domain/queryable.ts:150](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L150)
 
 ___
 
@@ -330,7 +330,7 @@ HavingClauses.last
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L72)
+[src/lib/repository/domain/queryable.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L72)
 
 ___
 
@@ -360,7 +360,7 @@ HavingClauses.map
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:62](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L62)
+[src/lib/repository/domain/queryable.ts:62](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L62)
 
 ___
 
@@ -378,7 +378,7 @@ HavingClauses.metadata
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L37)
+[src/lib/repository/domain/queryable.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L37)
 
 ___
 
@@ -396,7 +396,7 @@ HavingClauses.model
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L21)
+[src/lib/repository/domain/queryable.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L21)
 
 ___
 
@@ -414,7 +414,7 @@ HavingClauses.normalize
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L17)
+[src/lib/repository/domain/queryable.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L17)
 
 ___
 
@@ -439,7 +439,7 @@ HavingClauses.page
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L44)
+[src/lib/repository/domain/queryable.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L44)
 
 ___
 
@@ -457,7 +457,7 @@ HavingClauses.parameters
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L29)
+[src/lib/repository/domain/queryable.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L29)
 
 ___
 
@@ -475,7 +475,7 @@ HavingClauses.sentence
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L33)
+[src/lib/repository/domain/queryable.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L33)
 
 ___
 
@@ -499,7 +499,7 @@ HavingClauses.sort
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L50)
+[src/lib/repository/domain/queryable.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L50)
 
 ___
 
@@ -519,7 +519,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:160](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L160)
+[src/lib/repository/domain/queryable.ts:160](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L160)
 
 ___
 
@@ -539,4 +539,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:165](https://github.com/FlavioLionelRita/lambdaorm/blob/b12533cf/src/lib/repository/domain/queryable.ts#L165)
+[src/lib/repository/domain/queryable.ts:165](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L165)
