@@ -19,7 +19,7 @@ module.exports = function (grunt) {
 			tsc: { cmd: 'npx tsc ' },
 			release: { cmd: './release.sh' },
 			to_develop: { cmd: './to_develop.sh' },
-			doc: { cmd: 'npx typedoc ' }
+			doc: { cmd: 'npx typedoc --plugin typedoc-plugin-markdown --out doc/source src/lib/index.ts' }
 		},
 		clean: {
 			build: ['build'],

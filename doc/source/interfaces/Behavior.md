@@ -1,0 +1,41 @@
+[Lambda ORM](../README.md) / Behavior
+
+# Interface: Behavior
+
+## Table of contents
+
+### Properties
+
+- [alias](Behavior.md#alias)
+- [expression](Behavior.md#expression)
+- [property](Behavior.md#property)
+
+## Properties
+
+### alias
+
+• `Optional` **alias**: `string`
+
+#### Defined in
+
+[src/lib/schema/domain/schema.ts:197](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/schema/domain/schema.ts#L197)
+
+___
+
+### expression
+
+• **expression**: `string`
+
+#### Defined in
+
+[src/lib/schema/domain/schema.ts:199](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/schema/domain/schema.ts#L199)
+
+___
+
+### property
+
+• **property**: `string`
+
+#### Defined in
+
+[src/lib/schema/domain/schema.ts:198](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/schema/domain/schema.ts#L198)
