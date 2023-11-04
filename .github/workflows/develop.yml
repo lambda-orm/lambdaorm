@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 20
       - name: Install global dependencies
-        run: npm install -g grunt-cli    
+        run: npm install -g grunt-cli husky    
       - name: Install dependencies
         run: npm install
       - name: Unit Tests
