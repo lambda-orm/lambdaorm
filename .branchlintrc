@@ -1,0 +1,8 @@
+{
+  allowed: [main, master, develop],
+  disallowed: [],
+  prefixes: [feature, bugfix, hotfix,support, release],
+  separator: /,
+  maxSections: 2,
+  msgBranchDisallowed: Pushing to %s is not allowed, use git-flow.
+}

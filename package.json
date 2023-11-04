@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.7.11",
+	"version": "0.8.01",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@gmail.com>",
 	"license": "MIT",
@@ -37,7 +37,7 @@
 		"create-test": "grunt --base . --gruntfile task/Gruntfile.js create-test",
 		"create-test-suite": "grunt --base . --gruntfile task/Gruntfile.js create-test-suite",
 		"build-test": "grunt --base . --gruntfile task/Gruntfile.js build-test",
-		"to_develop": "grunt --base . --gruntfile task/Gruntfile.js to_develop"
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"3xpr": "1.12.10",
