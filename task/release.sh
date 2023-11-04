@@ -11,7 +11,7 @@ if [ $SOURCE_BRANCH == 'develop' ]; then
     
     #123"
     git push
-    # create branch release and publish from branch
+    # create branch release
     git flow release start "${VERSION}"
     git flow release finish "${VERSION}"   
 else

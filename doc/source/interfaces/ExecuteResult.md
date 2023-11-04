@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:58](https://github.com/FlavioLionelRita/lambdaorm/blob/49f48e68/src/lib/query/domain/query.ts#L58)
+[src/lib/query/domain/query.ts:58](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/query/domain/query.ts#L58)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/49f48e68/src/lib/query/domain/query.ts#L57)
+[src/lib/query/domain/query.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/query/domain/query.ts#L57)
