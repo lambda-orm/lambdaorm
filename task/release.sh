@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 SOURCE_BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
-VERSION=$(jq -r '.version' ./package.json )
-APP=lib
-
 # Only execute release from develop branch
 if [ $SOURCE_BRANCH == 'develop' ]; then
     # tag and push to develop
     standard-version
+    VERSION=$(jq -r '.version' ./package.json )
     git add .
     git commit -m "ci(release): release ${VERSION} 
     
