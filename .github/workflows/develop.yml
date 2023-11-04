@@ -12,11 +12,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
-      - run: npm install
-      - name: Lint
-        run: npm run lint
-      - name: Build
-        run: npm run build
+          node-version: 20
+      - name: Install global dependencies
+        run: npm install -g grunt-cli    
+      - name: Install dependencies
+        run: npm install
       - name: Unit Tests
-        run: npm run unit-test
+        run: npm run test

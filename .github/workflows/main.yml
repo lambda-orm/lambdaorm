@@ -1,4 +1,4 @@
-name: Main
+name: Develop
 on:
   push:
     branches: [main]
@@ -7,20 +7,15 @@ on:
   workflow_dispatch:
 jobs:
   unit-test:
-    name: Unit Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
-      - run: npm install -g grunt-cli
-      - run: npm install
-      - name: Lint
-        run: npm run lint
-      - name: Build
-        run: npm run build
+          node-version: 20
+      - name: Install global dependencies
+        run: npm install -g grunt-cli    
+      - name: Install dependencies
+        run: npm install
       - name: Unit Tests
-        run: npm run unit-test
-      # - name: Integration Tests
-      #   run: npm run integration-test
+        run: npm run test
