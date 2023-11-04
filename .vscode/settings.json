@@ -12,6 +12,7 @@
 		"builtins",
 		"cclp",
 		"classtype",
+		"commitlint",
 		"concat",
 		"cond",
 		"cqrs",

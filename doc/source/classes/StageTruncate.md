@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/e52e7e4d/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/f313d751/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 ## Methods
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/truncate.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/e52e7e4d/src/lib/stage/application/useCases/truncate.ts#L13)
+[src/lib/stage/application/useCases/truncate.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/f313d751/src/lib/stage/application/useCases/truncate.ts#L13)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/truncate.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/e52e7e4d/src/lib/stage/application/useCases/truncate.ts#L5)
+[src/lib/stage/application/useCases/truncate.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/f313d751/src/lib/stage/application/useCases/truncate.ts#L5)
 
 ___
 
@@ -97,4 +97,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/e52e7e4d/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/f313d751/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

@@ -6,8 +6,12 @@ APP=lib
 # Only execute release from develop branch
 if [ $SOURCE_BRANCH == 'develop' ]; then
     # tag and push to develop
-    # git tag "${VERSION}" -m "${VERSION}"
-    # git push
+    git add .
+    git commit -m "ci(release): release ${VERSION} 
+    
+    #123"
+    git tag "${VERSION}" -m "${VERSION}"
+    git push
     # create branch release and publish from branch
     git flow release start "${VERSION}"
     git flow release finish "${VERSION}"   
