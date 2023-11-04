@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 20
       - name: Install global dependencies
-        run: npm install -g grunt-cli
+        run: npm install -g grunt-cli husky standard-version
       - name: Install dependencies
         run: npm install
       - name: Build dist
