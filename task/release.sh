@@ -9,7 +9,7 @@ if [ $SOURCE_BRANCH == 'develop' ]; then
     git add .
     git commit -m "ci(release): release ${VERSION} 
     
-    #123"
+    #0"
     git push
     # create branch release
     git flow release start "${VERSION}"
