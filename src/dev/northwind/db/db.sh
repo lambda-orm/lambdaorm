@@ -71,12 +71,18 @@ up(){
 	echo "INFO: Databases instances is ready for tests."
 }
 
-
 down(){	
 	docker-compose -p "northwind" down --remove-orphans
-	sudo chmod 755 ./volume/*
-	sudo rm -fR ./volume/*
-	docker volume rm northwind_northwind_oradata	
+	docker volume rm northwind_source-data
+	docker volume rm northwind_source-log
+	docker volume rm northwind_mysql-data
+	docker volume rm northwind_mysql-log
+	docker volume rm northwind_postgres-data
+	docker volume rm northwind_sqlserver
+	docker volume rm northwind_oracle_oradata
+	docker volume rm northwind_mongodb
+	docker volume rm northwind_mariadb-data
+	docker volume rm northwind_mariadb-log
 	echo "INFO: stopped Databases (if it was running)."
 }
 

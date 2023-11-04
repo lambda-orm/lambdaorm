@@ -16,7 +16,8 @@ services:
     cap_add:
       - SYS_NICE # CAP_SYS_NICE
     volumes:
-      - ./volume/Source:/var/lib/mysql
+      - source-data:/var/lib/mysql
+      - source-log:/var/log/mysql
     ports:
       - 3306:3306
     networks:
@@ -40,7 +41,8 @@ services:
     cap_add:
       - SYS_NICE # CAP_SYS_NICE
     volumes:
-      - ./volume/MySQL:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+      - mysql-log:/var/log/mysql
     ports:
       - '3307:3306'
     networks:
@@ -61,7 +63,7 @@ services:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
     volumes:
-      - ./volume/Postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     ports:
       - '5433:5432'
     networks:
@@ -82,7 +84,7 @@ services:
     networks:
       - northwind
     volumes:
-      - ./volume/SqlServer:/var/opt/mssql
+      - sqlserver:/var/opt/mssql
   Oracle:
     container_name: northwind-oracle
     # image: oracledb19c/oracle.19.3.0-ee:oracle19.3.0-ee
@@ -101,7 +103,7 @@ services:
       #  al usar el volume ./volume/oradata da error de permisos y no crea la instancia dentro del container
       #  por este motivo se crea el volume oradata:
       # info: https://github.com/oracle/docker-images/issues/439
-      - northwind_oradata:/opt/oracle/oradata # persistent oracle database data      
+      - oracle_oradata:/opt/oracle/oradata # persistent oracle database data      
       - ./oracle:/home/oracle/setup/custom_scripts
     ports:
       - 1521:1521
@@ -122,7 +124,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=test
     restart: always
     volumes:
-      - ./volume/MongoDB:/data/db
+      - mongodb:/data/db
   MariaDB:
     container_name: northwind-mariadb
     image: mariadb:10.3
@@ -133,11 +135,20 @@ services:
       - MYSQL_PASSWORD=test
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      - ./volume/MariaDB-data:/var/lib/mysql
-      - ./volume/MariaDB-log:/var/log/mysql
+      - mariadb-data:/var/lib/mysql
+      - mariadb-log:/var/log/mysql
     ports:
       - 3308:3306
     networks:
       - northwind
 volumes:
-  northwind_oradata: null
+  source-data:
+  source-log:
+  mysql-data:
+  mysql-log:
+  postgres-data:
+  sqlserver:
+  oracle_oradata:
+  mongodb:
+  mariadb-data:
+  mariadb-log:

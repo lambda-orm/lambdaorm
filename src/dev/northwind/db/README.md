@@ -89,7 +89,49 @@ sqlplus "northwind/northwind@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(Host=localhost
 ### uninstall
 
 ``` sh
-docker-compose down --remove-orphans
+docker-compose -p "northwind" down --remove-orphans
+docker volume rm northwind_source-data
+docker volume rm northwind_source-log
+docker volume rm northwind_mysql-data
+docker volume rm northwind_mysql-log
+docker volume rm northwind_postgres-data
+docker volume rm northwind_sqlserver
+docker volume rm northwind_oracle_oradata
+docker volume rm northwind_mongodb
+docker volume rm northwind_mariadb-data
+docker volume rm northwind_mariadb-log
+```
+
+## connect
+
+### install client
+
+MySQL
+
+``` sh
+sudo apt-get update
+sudo apt-get install mysql-client
+```
+
+MariaDB
+
+``` sh
+sudo apt-get update
+sudo apt-get install mariadb-client-10.0
+```
+
+host
+
+``` sh
+mysql --host=0.0.0.0 --port=3306 --user=root --password=root tests
+mysql --host=0.0.0.0 --port=3306 --user=test --password=test test
+mysql --host=0.0.0.0 --port=3307 --user=root --password=root northwind
+```
+
+container
+
+``` sh
+docker exec -it MariaDB mysql -h localhost -u root -p 
 ```
 
 ### connect mysql
@@ -118,39 +160,6 @@ GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;
 
 ./wait-until-healthy.sh lambdaORM-Source
 
-### install client
-
-MySQL
-
-``` sh
-sudo apt-get update
-sudo apt-get install mysql-client
-```
-
-MariaDB
-
-``` sh
-sudo apt-get update
-sudo apt-get install mariadb-client-10.0
-```
-
-## connect
-
-host
-
-``` sh
-mysql --host=0.0.0.0 --port=3306 --user=root --password=root tests
-
-mysql --host=0.0.0.0 --port=3306 --user=test --password=test test
-mysql --host=0.0.0.0 --port=3307 --user=root --password=root northwind
-```
-
-container
-
-``` sh
-docker exec -it MariaDB mysql -h localhost -u root -p 
-```
-
 ## connection string
 
 - Source: mysql://root:root@0.0.0.0:3306/northwind
@@ -170,7 +179,4 @@ docker exec -it MariaDB mysql -h localhost -u root -p
 - [mysql client on windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html#:~:text=To%20install%20MySQL%20Shell%20on,steps%20in%20the%20Setup%20Wizard.)
 - [MongoDB with docker](https://citizix.com/how-to-run-MongoDB-with-docker-and-docker-compose/)
 - [mongo shared](https://github.com/bitnami/bitnami-docker-MongoDB/issues/208)
-
-## MongoDb
-
-- [w3schools](https://www.w3schools.com/nodejs/nodejs_mongodb_createcollection.asp)
+- [nodejs mongodb](https://www.w3schools.com/nodejs/nodejs_mongodb_createcollection.asp)

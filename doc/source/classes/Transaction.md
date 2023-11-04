@@ -26,11 +26,11 @@
 
 | Name | Type |
 | :------ | :------ |
-| `queryExecutor` | `QueryExecutor` |
+| `queryExecutor` | [`QueryExecutor`](QueryExecutor.md) |
 
 #### Defined in
 
-[src/lib/execution/domain/transaction.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/execution/domain/transaction.ts#L6)
+[src/lib/execution/domain/transaction.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/execution/domain/transaction.ts#L6)
 
 ## Accessors
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/lib/execution/domain/transaction.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/execution/domain/transaction.ts#L14)
+[src/lib/execution/domain/transaction.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/execution/domain/transaction.ts#L14)
 
 ## Methods
 
@@ -65,4 +65,4 @@
 
 #### Defined in
 
-[src/lib/execution/domain/transaction.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/execution/domain/transaction.ts#L10)
+[src/lib/execution/domain/transaction.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/execution/domain/transaction.ts#L10)

@@ -21,7 +21,7 @@
 	},
 	"include": [
 		"src/**/*",
-		"Gruntfile.js"
+		"task/Gruntfile.js"
 	],
 	"exclude": [
 		"node_modules",

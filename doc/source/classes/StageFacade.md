@@ -29,20 +29,20 @@
 | Name | Type |
 | :------ | :------ |
 | `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
-| `expression` | `ExpressionFacade` |
+| `expression` | [`ExpressionFacade`](ExpressionFacade.md) |
 | `executor` | [`Executor`](../interfaces/Executor.md) |
-| `languages` | `LanguagesService` |
+| `languages` | [`LanguagesService`](LanguagesService.md) |
 | `helper` | [`Helper`](Helper.md) |
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/stage/application/facade.ts#L20)
+[src/lib/stage/application/facade.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/stage/application/facade.ts#L20)
 
 ## Methods
 
 ### clean
 
-▸ **clean**(`options?`): `StageActionDDL`
+▸ **clean**(`options?`): [`StageActionDDL`](StageActionDDL.md)
 
 #### Parameters
 
@@ -52,17 +52,17 @@
 
 #### Returns
 
-`StageActionDDL`
+[`StageActionDDL`](StageActionDDL.md)
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/stage/application/facade.ts#L39)
+[src/lib/stage/application/facade.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/stage/application/facade.ts#L39)
 
 ___
 
 ### delete
 
-▸ **delete**(`options?`): `StageDelete`
+▸ **delete**(`options?`): [`StageDelete`](StageDelete.md)
 
 #### Parameters
 
@@ -72,11 +72,11 @@ ___
 
 #### Returns
 
-`StageDelete`
+[`StageDelete`](StageDelete.md)
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/stage/application/facade.ts#L49)
+[src/lib/stage/application/facade.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/stage/application/facade.ts#L49)
 
 ___
 
@@ -96,13 +96,13 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/stage/application/facade.ts#L29)
+[src/lib/stage/application/facade.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/stage/application/facade.ts#L29)
 
 ___
 
 ### export
 
-▸ **export**(`options?`): `StageExport`
+▸ **export**(`options?`): [`StageExport`](StageExport.md)
 
 #### Parameters
 
@@ -112,17 +112,17 @@ ___
 
 #### Returns
 
-`StageExport`
+[`StageExport`](StageExport.md)
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/stage/application/facade.ts#L54)
+[src/lib/stage/application/facade.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/stage/application/facade.ts#L54)
 
 ___
 
 ### import
 
-▸ **import**(`options?`): `StageImport`
+▸ **import**(`options?`): [`StageImport`](StageImport.md)
 
 #### Parameters
 
@@ -132,17 +132,17 @@ ___
 
 #### Returns
 
-`StageImport`
+[`StageImport`](StageImport.md)
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/stage/application/facade.ts#L59)
+[src/lib/stage/application/facade.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/stage/application/facade.ts#L59)
 
 ___
 
 ### sync
 
-▸ **sync**(`options?`): `StageActionDDL`
+▸ **sync**(`options?`): [`StageActionDDL`](StageActionDDL.md)
 
 #### Parameters
 
@@ -152,17 +152,17 @@ ___
 
 #### Returns
 
-`StageActionDDL`
+[`StageActionDDL`](StageActionDDL.md)
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/stage/application/facade.ts#L34)
+[src/lib/stage/application/facade.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/stage/application/facade.ts#L34)
 
 ___
 
 ### truncate
 
-▸ **truncate**(`options?`): `StageActionDDL`
+▸ **truncate**(`options?`): [`StageActionDDL`](StageActionDDL.md)
 
 #### Parameters
 
@@ -172,8 +172,8 @@ ___
 
 #### Returns
 
-`StageActionDDL`
+[`StageActionDDL`](StageActionDDL.md)
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/stage/application/facade.ts#L44)
+[src/lib/stage/application/facade.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/stage/application/facade.ts#L44)

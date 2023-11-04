@@ -2,6 +2,20 @@
 
 # Class: QueryAction
 
+## Hierarchy
+
+- **`QueryAction`**
+
+  ↳ [`PageClauses`](PageClauses.md)
+
+  ↳ [`Map2Clauses`](Map2Clauses.md)
+
+  ↳ [`FilterAction`](FilterAction.md)
+
+  ↳ [`IncludeAction`](IncludeAction.md)
+
+  ↳ [`ModificableClauses`](ModificableClauses.md)
+
 ## Table of contents
 
 ### Constructors
@@ -33,21 +47,21 @@
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L8)
+[src/lib/repository/domain/queryable.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L8)
 
 ## Methods
 
 ### constraints
 
-▸ **constraints**(): `Promise`<`MetadataConstraint`\>
+▸ **constraints**(): `Promise`<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Returns
 
-`Promise`<`MetadataConstraint`\>
+`Promise`<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L25)
+[src/lib/repository/domain/queryable.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L25)
 
 ___
 
@@ -67,35 +81,35 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L13)
+[src/lib/repository/domain/queryable.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L13)
 
 ___
 
 ### metadata
 
-▸ **metadata**(): `Promise`<`Metadata`\>
+▸ **metadata**(): `Promise`<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Returns
 
-`Promise`<`Metadata`\>
+`Promise`<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L37)
+[src/lib/repository/domain/queryable.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L37)
 
 ___
 
 ### model
 
-▸ **model**(): `Promise`<`MetadataModel`[]\>
+▸ **model**(): `Promise`<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Returns
 
-`Promise`<`MetadataModel`[]\>
+`Promise`<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L21)
+[src/lib/repository/domain/queryable.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L21)
 
 ___
 
@@ -109,21 +123,21 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L17)
+[src/lib/repository/domain/queryable.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L17)
 
 ___
 
 ### parameters
 
-▸ **parameters**(): `Promise`<`MetadataParameter`[]\>
+▸ **parameters**(): `Promise`<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Returns
 
-`Promise`<`MetadataParameter`[]\>
+`Promise`<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L29)
+[src/lib/repository/domain/queryable.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L29)
 
 ___
 
@@ -137,4 +151,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L33)
+[src/lib/repository/domain/queryable.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L33)

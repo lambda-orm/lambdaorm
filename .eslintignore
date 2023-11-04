@@ -5,5 +5,4 @@ test/
 build/
 labs/
 node_modules/
-src/dev/northwind/db/volume
-src/dev/countries/db/volume
+

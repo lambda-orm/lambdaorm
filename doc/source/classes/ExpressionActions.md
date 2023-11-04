@@ -34,13 +34,13 @@
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/actions.ts#L8)
+[src/lib/repository/domain/actions.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/actions.ts#L8)
 
 ## Methods
 
 ### constraints
 
-▸ **constraints**(`expression`): `Promise`<`MetadataConstraint`\>
+▸ **constraints**(`expression`): `Promise`<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Parameters
 
@@ -50,11 +50,11 @@
 
 #### Returns
 
-`Promise`<`MetadataConstraint`\>
+`Promise`<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/actions.ts#L30)
+[src/lib/repository/domain/actions.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/actions.ts#L30)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/actions.ts#L14)
+[src/lib/repository/domain/actions.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/actions.ts#L14)
 
 ___
 
@@ -95,13 +95,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/actions.ts#L38)
+[src/lib/repository/domain/actions.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/actions.ts#L38)
 
 ___
 
 ### metadata
 
-▸ **metadata**(`expression`): `Promise`<`Metadata`\>
+▸ **metadata**(`expression`): `Promise`<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Parameters
 
@@ -111,17 +111,17 @@ ___
 
 #### Returns
 
-`Promise`<`Metadata`\>
+`Promise`<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/actions.ts#L34)
+[src/lib/repository/domain/actions.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/actions.ts#L34)
 
 ___
 
 ### model
 
-▸ **model**(`expression`): `Promise`<`MetadataModel`[]\>
+▸ **model**(`expression`): `Promise`<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Parameters
 
@@ -131,11 +131,11 @@ ___
 
 #### Returns
 
-`Promise`<`MetadataModel`[]\>
+`Promise`<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/actions.ts#L22)
+[src/lib/repository/domain/actions.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/actions.ts#L22)
 
 ___
 
@@ -155,13 +155,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/actions.ts#L18)
+[src/lib/repository/domain/actions.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/actions.ts#L18)
 
 ___
 
 ### parameters
 
-▸ **parameters**(`expression`): `Promise`<`MetadataParameter`[]\>
+▸ **parameters**(`expression`): `Promise`<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Parameters
 
@@ -171,8 +171,8 @@ ___
 
 #### Returns
 
-`Promise`<`MetadataParameter`[]\>
+`Promise`<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/actions.ts#L26)
+[src/lib/repository/domain/actions.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/actions.ts#L26)

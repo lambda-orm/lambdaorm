@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- `HavingClauses`<`T`\>
+- [`HavingClauses`](HavingClauses.md)<`T`\>
 
   ↳ **`Queryable`**
 
@@ -66,17 +66,17 @@
 
 #### Inherited from
 
-HavingClauses<T\>.constructor
+[HavingClauses](HavingClauses.md).[constructor](HavingClauses.md#constructor)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L8)
+[src/lib/repository/domain/queryable.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L8)
 
 ## Methods
 
 ### bulkInsert
 
-▸ **bulkInsert**(`value?`): `ModificableClauses`<`T`\>
+▸ **bulkInsert**(`value?`): [`ModificableClauses`](ModificableClauses.md)<`T`\>
 
 #### Parameters
 
@@ -86,63 +86,63 @@ HavingClauses<T\>.constructor
 
 #### Returns
 
-`ModificableClauses`<`T`\>
+[`ModificableClauses`](ModificableClauses.md)<`T`\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:155](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L155)
+[src/lib/repository/domain/queryable.ts:154](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L154)
 
 ___
 
 ### constraints
 
-▸ **constraints**(): `Promise`<`MetadataConstraint`\>
+▸ **constraints**(): `Promise`<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Returns
 
-`Promise`<`MetadataConstraint`\>
+`Promise`<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Inherited from
 
-HavingClauses.constraints
+[HavingClauses](HavingClauses.md).[constraints](HavingClauses.md#constraints)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L25)
+[src/lib/repository/domain/queryable.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L25)
 
 ___
 
 ### delete
 
-▸ **delete**(): `ModificableClauses`<`T`\>
+▸ **delete**(): [`ModificableClauses`](ModificableClauses.md)<`T`\>
 
 #### Returns
 
-`ModificableClauses`<`T`\>
+[`ModificableClauses`](ModificableClauses.md)<`T`\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:170](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L170)
+[src/lib/repository/domain/queryable.ts:169](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L169)
 
 ___
 
 ### deleteAll
 
-▸ **deleteAll**(): `Include`<`T`\>
+▸ **deleteAll**(): [`IncludeAction`](IncludeAction.md)<`T`\>
 
 #### Returns
 
-`Include`<`T`\>
+[`IncludeAction`](IncludeAction.md)<`T`\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:175](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L175)
+[src/lib/repository/domain/queryable.ts:174](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L174)
 
 ___
 
 ### distinct
 
-▸ **distinct**<`U`\>(`predicate`): `MapClauses`<`U`\>
+▸ **distinct**<`U`\>(`predicate`): [`MapClauses`](MapClauses.md)<`U`\>
 
 #### Type parameters
 
@@ -158,15 +158,15 @@ ___
 
 #### Returns
 
-`MapClauses`<`U`\>
+[`MapClauses`](MapClauses.md)<`U`\>
 
 #### Inherited from
 
-HavingClauses.distinct
+[HavingClauses](HavingClauses.md).[distinct](HavingClauses.md#distinct)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:77](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L77)
+[src/lib/repository/domain/queryable.ts:77](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L77)
 
 ___
 
@@ -186,17 +186,17 @@ ___
 
 #### Inherited from
 
-HavingClauses.execute
+[HavingClauses](HavingClauses.md).[execute](HavingClauses.md#execute)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L13)
+[src/lib/repository/domain/queryable.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L13)
 
 ___
 
 ### filter
 
-▸ **filter**(`predicate`): `FilterClauses`<`T`\>
+▸ **filter**(`predicate`): [`FilterClauses`](FilterClauses.md)<`T`\>
 
 #### Parameters
 
@@ -206,17 +206,17 @@ ___
 
 #### Returns
 
-`FilterClauses`<`T`\>
+[`FilterClauses`](FilterClauses.md)<`T`\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:135](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L135)
+[src/lib/repository/domain/queryable.ts:134](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L134)
 
 ___
 
 ### first
 
-▸ **first**<`U`\>(`predicate`): `Map2Clauses`<`U`\>
+▸ **first**<`U`\>(`predicate`): [`Map2Clauses`](Map2Clauses.md)<`U`\>
 
 #### Type parameters
 
@@ -232,21 +232,21 @@ ___
 
 #### Returns
 
-`Map2Clauses`<`U`\>
+[`Map2Clauses`](Map2Clauses.md)<`U`\>
 
 #### Inherited from
 
-HavingClauses.first
+[HavingClauses](HavingClauses.md).[first](HavingClauses.md#first)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L67)
+[src/lib/repository/domain/queryable.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L67)
 
 ___
 
 ### having
 
-▸ **having**(`predicate`): `HavingClauses`<`T`\>
+▸ **having**(`predicate`): [`HavingClauses`](HavingClauses.md)<`T`\>
 
 #### Parameters
 
@@ -256,17 +256,17 @@ ___
 
 #### Returns
 
-`HavingClauses`<`T`\>
+[`HavingClauses`](HavingClauses.md)<`T`\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L145)
+[src/lib/repository/domain/queryable.ts:144](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L144)
 
 ___
 
 ### include
 
-▸ **include**(`predicate`): `IncludeClauses`<`T`\>
+▸ **include**(`predicate`): [`IncludeClauses`](IncludeClauses.md)<`T`\>
 
 #### Parameters
 
@@ -276,17 +276,17 @@ ___
 
 #### Returns
 
-`IncludeClauses`<`T`\>
+[`IncludeClauses`](IncludeClauses.md)<`T`\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:140](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L140)
+[src/lib/repository/domain/queryable.ts:139](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L139)
 
 ___
 
 ### insert
 
-▸ **insert**(`value?`): `ModificableClauses`<`T`\>
+▸ **insert**(`value?`): [`ModificableClauses`](ModificableClauses.md)<`T`\>
 
 #### Parameters
 
@@ -296,17 +296,17 @@ ___
 
 #### Returns
 
-`ModificableClauses`<`T`\>
+[`ModificableClauses`](ModificableClauses.md)<`T`\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:150](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L150)
+[src/lib/repository/domain/queryable.ts:149](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L149)
 
 ___
 
 ### last
 
-▸ **last**<`U`\>(`predicate`): `Map2Clauses`<`U`\>
+▸ **last**<`U`\>(`predicate`): [`Map2Clauses`](Map2Clauses.md)<`U`\>
 
 #### Type parameters
 
@@ -322,21 +322,21 @@ ___
 
 #### Returns
 
-`Map2Clauses`<`U`\>
+[`Map2Clauses`](Map2Clauses.md)<`U`\>
 
 #### Inherited from
 
-HavingClauses.last
+[HavingClauses](HavingClauses.md).[last](HavingClauses.md#last)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L72)
+[src/lib/repository/domain/queryable.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L72)
 
 ___
 
 ### map
 
-▸ **map**<`U`\>(`predicate`): `MapClauses`<`U`\>
+▸ **map**<`U`\>(`predicate`): [`MapClauses`](MapClauses.md)<`U`\>
 
 #### Type parameters
 
@@ -352,51 +352,51 @@ ___
 
 #### Returns
 
-`MapClauses`<`U`\>
+[`MapClauses`](MapClauses.md)<`U`\>
 
 #### Inherited from
 
-HavingClauses.map
+[HavingClauses](HavingClauses.md).[map](HavingClauses.md#map)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:62](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L62)
+[src/lib/repository/domain/queryable.ts:62](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L62)
 
 ___
 
 ### metadata
 
-▸ **metadata**(): `Promise`<`Metadata`\>
+▸ **metadata**(): `Promise`<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Returns
 
-`Promise`<`Metadata`\>
+`Promise`<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Inherited from
 
-HavingClauses.metadata
+[HavingClauses](HavingClauses.md).[metadata](HavingClauses.md#metadata)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L37)
+[src/lib/repository/domain/queryable.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L37)
 
 ___
 
 ### model
 
-▸ **model**(): `Promise`<`MetadataModel`[]\>
+▸ **model**(): `Promise`<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Returns
 
-`Promise`<`MetadataModel`[]\>
+`Promise`<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Inherited from
 
-HavingClauses.model
+[HavingClauses](HavingClauses.md).[model](HavingClauses.md#model)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L21)
+[src/lib/repository/domain/queryable.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L21)
 
 ___
 
@@ -410,11 +410,11 @@ ___
 
 #### Inherited from
 
-HavingClauses.normalize
+[HavingClauses](HavingClauses.md).[normalize](HavingClauses.md#normalize)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L17)
+[src/lib/repository/domain/queryable.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L17)
 
 ___
 
@@ -435,29 +435,29 @@ ___
 
 #### Inherited from
 
-HavingClauses.page
+[HavingClauses](HavingClauses.md).[page](HavingClauses.md#page)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L44)
+[src/lib/repository/domain/queryable.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L44)
 
 ___
 
 ### parameters
 
-▸ **parameters**(): `Promise`<`MetadataParameter`[]\>
+▸ **parameters**(): `Promise`<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Returns
 
-`Promise`<`MetadataParameter`[]\>
+`Promise`<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Inherited from
 
-HavingClauses.parameters
+[HavingClauses](HavingClauses.md).[parameters](HavingClauses.md#parameters)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L29)
+[src/lib/repository/domain/queryable.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L29)
 
 ___
 
@@ -471,17 +471,17 @@ ___
 
 #### Inherited from
 
-HavingClauses.sentence
+[HavingClauses](HavingClauses.md).[sentence](HavingClauses.md#sentence)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L33)
+[src/lib/repository/domain/queryable.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L33)
 
 ___
 
 ### sort
 
-▸ **sort**(`predicate`): `PageClauses`
+▸ **sort**(`predicate`): [`PageClauses`](PageClauses.md)
 
 #### Parameters
 
@@ -491,21 +491,21 @@ ___
 
 #### Returns
 
-`PageClauses`
+[`PageClauses`](PageClauses.md)
 
 #### Inherited from
 
-HavingClauses.sort
+[HavingClauses](HavingClauses.md).[sort](HavingClauses.md#sort)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L50)
+[src/lib/repository/domain/queryable.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L50)
 
 ___
 
 ### update
 
-▸ **update**(`predicate`): `ModificableClauses`<`T`\>
+▸ **update**(`predicate`): [`ModificableClauses`](ModificableClauses.md)<`T`\>
 
 #### Parameters
 
@@ -515,17 +515,17 @@ ___
 
 #### Returns
 
-`ModificableClauses`<`T`\>
+[`ModificableClauses`](ModificableClauses.md)<`T`\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:160](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L160)
+[src/lib/repository/domain/queryable.ts:159](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L159)
 
 ___
 
 ### updateAll
 
-▸ **updateAll**(`predicate`): `Include`<`T`\>
+▸ **updateAll**(`predicate`): [`IncludeAction`](IncludeAction.md)<`T`\>
 
 #### Parameters
 
@@ -535,8 +535,8 @@ ___
 
 #### Returns
 
-`Include`<`T`\>
+[`IncludeAction`](IncludeAction.md)<`T`\>
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:165](https://github.com/FlavioLionelRita/lambdaorm/blob/6e8b2fff/src/lib/repository/domain/queryable.ts#L165)
+[src/lib/repository/domain/queryable.ts:164](https://github.com/FlavioLionelRita/lambdaorm/blob/1e58311b/lib/src/lib/repository/domain/queryable.ts#L164)
