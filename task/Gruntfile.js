@@ -115,7 +115,6 @@ module.exports = function (grunt) {
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
 	grunt.registerTask('dist', ['test', 'clean:dist', 'copy:lib', 'copy:config', 'copy:jest', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
-	grunt.registerTask('to-develop', ['test', 'exec:to_develop'])
 	grunt.registerTask('release', ['dist', 'doc', 'exec:release'])
 	grunt.registerTask('default', [])
 }
