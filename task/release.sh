@@ -10,7 +10,6 @@ if [ $SOURCE_BRANCH == 'develop' ]; then
     git commit -m "ci(release): release ${VERSION} 
     
     #123"
-    git tag "${VERSION}" -m "${VERSION}"
     git push
     # create branch release and publish from branch
     git flow release start "${VERSION}"
