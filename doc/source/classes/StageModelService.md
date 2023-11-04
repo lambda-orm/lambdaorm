@@ -41,7 +41,7 @@ StageStateService<ModelConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/stage/application/services/stateService.ts#L9)
+[src/lib/stage/application/services/stateService.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/df242d69/src/lib/stage/application/services/stateService.ts#L9)
 
 ## Methods
 
@@ -63,7 +63,7 @@ StageStateService<ModelConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/stage/application/services/stateService.ts#L57)
+[src/lib/stage/application/services/stateService.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/df242d69/src/lib/stage/application/services/stateService.ts#L57)
 
 ___
 
@@ -87,7 +87,7 @@ StageStateService.get
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/stage/application/services/stateService.ts#L11)
+[src/lib/stage/application/services/stateService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/df242d69/src/lib/stage/application/services/stateService.ts#L11)
 
 ___
 
@@ -111,7 +111,7 @@ StageStateService.getFile
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/stage/application/services/stateService.ts#L53)
+[src/lib/stage/application/services/stateService.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/df242d69/src/lib/stage/application/services/stateService.ts#L53)
 
 ___
 
@@ -135,7 +135,7 @@ StageStateService.remove
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/stage/application/services/stateService.ts#L28)
+[src/lib/stage/application/services/stateService.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/df242d69/src/lib/stage/application/services/stateService.ts#L28)
 
 ___
 
@@ -160,4 +160,4 @@ StageStateService.update
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/stage/application/services/stateService.ts#L23)
+[src/lib/stage/application/services/stateService.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/df242d69/src/lib/stage/application/services/stateService.ts#L23)

@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/useCases/get.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/schema/application/useCases/get.ts#L6)
+[src/lib/schema/application/useCases/get.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/df242d69/src/lib/schema/application/useCases/get.ts#L6)
 
 ## Methods
 
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/lib/schema/application/useCases/get.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/schema/application/useCases/get.ts#L8)
+[src/lib/schema/application/useCases/get.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/df242d69/src/lib/schema/application/useCases/get.ts#L8)
