@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/ports/connectionPool.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/ports/connectionPool.ts#L5)
+[src/lib/connection/application/ports/connectionPool.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/connection/application/ports/connectionPool.ts#L5)
 
 ## Methods
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/ports/connectionPool.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/ports/connectionPool.ts#L7)
+[src/lib/connection/application/ports/connectionPool.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/connection/application/ports/connectionPool.ts#L7)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connectionPool.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/ports/connectionPool.ts#L9)
+[src/lib/connection/application/ports/connectionPool.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/connection/application/ports/connectionPool.ts#L9)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/ports/connectionPool.ts#L6)
+[src/lib/connection/application/ports/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/connection/application/ports/connectionPool.ts#L6)
 
 ___
 
@@ -85,4 +85,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connectionPool.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/ports/connectionPool.ts#L8)
+[src/lib/connection/application/ports/connectionPool.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/connection/application/ports/connectionPool.ts#L8)
