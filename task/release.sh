@@ -14,12 +14,11 @@ if [ $SOURCE_BRANCH == 'develop' ]; then
     git checkout -b release/${VERSION}
     git push --set-upstream origin release/${VERSION}
     git checkout main
-    git merge release/${VERSION}\
+    git merge release/${VERSION} -m "chore(release): release ${VERSION}"
     git push origin main
-
-    git flow release start "${VERSION}"
-    git flow release finish -m "${VERSION}" -F ./CHANGELOG.md "${VERSION}"
-    git flow release finish -m "${VERSION}" "${VERSION}"
+    git checkout develop
+    git merge release/${VERSION} -m "chore(release): release ${VERSION}"
+    git push --set-upstream origin release/${VERSION}
 else
     echo "Error: The release must be executed from the develop branch and not from the ${SOURCE_BRANCH} branch."
     exit -1

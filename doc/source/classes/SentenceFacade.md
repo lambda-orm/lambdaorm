@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/application/facade.ts#L26)
+[src/lib/sentence/application/facade.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/application/facade.ts#L26)
 
 ## Methods
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/application/facade.ts#L43)
+[src/lib/sentence/application/facade.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/application/facade.ts#L43)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/application/facade.ts#L47)
+[src/lib/sentence/application/facade.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/application/facade.ts#L47)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/application/facade.ts#L63)
+[src/lib/sentence/application/facade.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/application/facade.ts#L63)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/application/facade.ts#L51)
+[src/lib/sentence/application/facade.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/application/facade.ts#L51)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/application/facade.ts#L55)
+[src/lib/sentence/application/facade.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/application/facade.ts#L55)
 
 ___
 
@@ -159,4 +159,4 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/application/facade.ts#L59)
+[src/lib/sentence/application/facade.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/application/facade.ts#L59)

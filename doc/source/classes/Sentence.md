@@ -62,7 +62,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:85](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L85)
+[src/lib/sentence/domain/sentence.ts:85](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L85)
 
 ## Properties
 
@@ -72,7 +72,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L79)
+[src/lib/sentence/domain/sentence.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L79)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:78](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L78)
+[src/lib/sentence/domain/sentence.ts:78](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L78)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L75)
+[src/lib/sentence/domain/sentence.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L75)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:81](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L81)
+[src/lib/sentence/domain/sentence.ts:81](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L81)
 
 ___
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:80](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L80)
+[src/lib/sentence/domain/sentence.ts:80](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L80)
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:83](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L83)
+[src/lib/sentence/domain/sentence.ts:83](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L83)
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:77](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L77)
+[src/lib/sentence/domain/sentence.ts:77](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L77)
 
 ___
 
@@ -212,7 +212,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:76](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L76)
+[src/lib/sentence/domain/sentence.ts:76](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L76)
 
 ___
 
@@ -264,7 +264,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:82](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L82)
+[src/lib/sentence/domain/sentence.ts:82](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L82)
 
 ## Methods
 
@@ -302,7 +302,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:103](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L103)
+[src/lib/sentence/domain/sentence.ts:103](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L103)
 
 ___
 
@@ -316,4 +316,4 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:99](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/sentence/domain/sentence.ts#L99)
+[src/lib/sentence/domain/sentence.ts:99](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/sentence/domain/sentence.ts#L99)

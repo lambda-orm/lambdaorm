@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/connection/application/facade.ts#L10)
+[src/lib/connection/application/facade.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/facade.ts#L10)
 
 ## Methods
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/connection/application/facade.ts#L33)
+[src/lib/connection/application/facade.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/facade.ts#L33)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/connection/application/facade.ts#L16)
+[src/lib/connection/application/facade.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/facade.ts#L16)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/connection/application/facade.ts#L29)
+[src/lib/connection/application/facade.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/facade.ts#L29)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/connection/application/facade.ts#L25)
+[src/lib/connection/application/facade.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/facade.ts#L25)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/connection/application/facade.ts#L21)
+[src/lib/connection/application/facade.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/facade.ts#L21)
 
 ___
 
@@ -149,4 +149,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/badcbd99/src/lib/connection/application/facade.ts#L37)
+[src/lib/connection/application/facade.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/0b03cab0/src/lib/connection/application/facade.ts#L37)
