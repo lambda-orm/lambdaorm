@@ -11,8 +11,11 @@ if [ $SOURCE_BRANCH == 'develop' ]; then
     #0"
     git push --follow-tags origin develop
     # create branch release
+    git checkout -b release/0.1.0
+    
     git flow release start "${VERSION}"
     git flow release finish -m "${VERSION}" -F ./CHANGELOG.md "${VERSION}"
+    git flow release finish -m "${VERSION}" "${VERSION}"
 else
     echo "Error: The release must be executed from the develop branch and not from the ${SOURCE_BRANCH} branch."
     exit -1
