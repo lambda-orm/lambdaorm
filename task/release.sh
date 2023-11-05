@@ -11,8 +11,12 @@ if [ $SOURCE_BRANCH == 'develop' ]; then
     #0"
     git push --follow-tags origin develop
     # create branch release
-    git checkout -b release/0.1.0
-    
+    git checkout -b release/${VERSION}
+    git push --set-upstream origin release/${VERSION}
+    git checkout main
+    git merge release/${VERSION}\
+    git push origin main
+
     git flow release start "${VERSION}"
     git flow release finish -m "${VERSION}" -F ./CHANGELOG.md "${VERSION}"
     git flow release finish -m "${VERSION}" "${VERSION}"
