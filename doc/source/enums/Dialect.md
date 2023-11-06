@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[src/lib/schema/domain/dialect.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/schema/domain/dialect.ts#L3)
+[src/lib/schema/domain/dialect.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/d75b1dc9/src/lib/schema/domain/dialect.ts#L3)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/dialect.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/schema/domain/dialect.ts#L8)
+[src/lib/schema/domain/dialect.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d75b1dc9/src/lib/schema/domain/dialect.ts#L8)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/dialect.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/schema/domain/dialect.ts#L2)
+[src/lib/schema/domain/dialect.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/d75b1dc9/src/lib/schema/domain/dialect.ts#L2)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/dialect.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/schema/domain/dialect.ts#L7)
+[src/lib/schema/domain/dialect.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/d75b1dc9/src/lib/schema/domain/dialect.ts#L7)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/dialect.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/schema/domain/dialect.ts#L4)
+[src/lib/schema/domain/dialect.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/d75b1dc9/src/lib/schema/domain/dialect.ts#L4)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/dialect.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/schema/domain/dialect.ts#L6)
+[src/lib/schema/domain/dialect.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d75b1dc9/src/lib/schema/domain/dialect.ts#L6)
 
 ___
 
@@ -82,4 +82,4 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/dialect.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/7c2cff39/src/lib/schema/domain/dialect.ts#L5)
+[src/lib/schema/domain/dialect.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/d75b1dc9/src/lib/schema/domain/dialect.ts#L5)
