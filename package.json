@@ -20,7 +20,6 @@
 		"test": "grunt --base . --gruntfile task/Gruntfile.js test",
 		"doc": "grunt --base . --gruntfile task/Gruntfile.js doc ",
 		"dist": "grunt --base . --gruntfile task/Gruntfile.js dist",
-		"to-develop": "grunt --base . --gruntfile task/Gruntfile.js to-develop",
 		"release": "grunt --base . --gruntfile task/Gruntfile.js release",
 		"integration-test": "grunt --base . --gruntfile task/Gruntfile.js integration-test",
 		"clean-data": "grunt --base . --gruntfile task/Gruntfile.js clean-data",

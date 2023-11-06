@@ -13,7 +13,6 @@ module.exports = function (grunt) {
 			integration_test: { cmd: 'npx jest --config jest-integration-config.json' },
 			tsc: { cmd: 'npx tsc ' },
 			release: { cmd: './task/release.sh' },
-			to_develop: { cmd: './task/to_develop.sh' },
 			doc: { cmd: 'npx typedoc --plugin typedoc-plugin-markdown --out doc/source src/lib/index.ts' }
 		},
 		clean: {
@@ -25,6 +24,7 @@ module.exports = function (grunt) {
 			config: { expand: true, cwd: 'config', src: '**', dest: 'dist/' },
 			sintaxis: { expand: true, cwd: './src', src: './__sintaxis.d.ts', dest: 'build/lib/' },
 			readme: { expand: true, src: './README.md', dest: 'dist/' },
+			changeLog: { expand: true, src: './CHANGELOG.md', dest: 'dist/' },
 			license: { expand: true, src: './LICENSE', dest: 'dist/' },
 			images: { expand: true, cwd: 'images/', src: '**', dest: 'dist/images/' },
 			jest: { expand: true, src: './jest-config.json', dest: 'dist/' }
@@ -114,7 +114,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('test', ['build', 'exec:test'])
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
-	grunt.registerTask('dist', ['test', 'clean:dist', 'copy:lib', 'copy:config', 'copy:jest', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('dist', ['test', 'clean:dist', 'copy:lib', 'copy:config', 'copy:jest', 'copy:images', 'copy:readme', 'copy:changeLog', 'copy:license', 'create-package'])
 	grunt.registerTask('release', ['dist', 'doc', 'exec:release'])
 	grunt.registerTask('default', [])
 }
