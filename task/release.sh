@@ -9,7 +9,7 @@ if [ $SOURCE_BRANCH == 'develop' ]; then
     git commit -m "ci(release): release ${VERSION} 
     
     #0"
-    git push --follow-tags origin develop
+    git push
     # create branch release
     git checkout -b release/${VERSION}
     git push --set-upstream origin release/${VERSION}
