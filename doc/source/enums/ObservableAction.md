@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/lib/schema/domain/actions.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/9a3f2a20/src/lib/schema/domain/actions.ts#L4)
+[src/lib/schema/domain/actions.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/80a298ee/src/lib/schema/domain/actions.ts#L4)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/actions.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/9a3f2a20/src/lib/schema/domain/actions.ts#L7)
+[src/lib/schema/domain/actions.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/80a298ee/src/lib/schema/domain/actions.ts#L7)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/actions.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/9a3f2a20/src/lib/schema/domain/actions.ts#L6)
+[src/lib/schema/domain/actions.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/80a298ee/src/lib/schema/domain/actions.ts#L6)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/actions.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/9a3f2a20/src/lib/schema/domain/actions.ts#L3)
+[src/lib/schema/domain/actions.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/80a298ee/src/lib/schema/domain/actions.ts#L3)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/actions.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/9a3f2a20/src/lib/schema/domain/actions.ts#L2)
+[src/lib/schema/domain/actions.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/80a298ee/src/lib/schema/domain/actions.ts#L2)
 
 ___
 
@@ -71,4 +71,4 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/actions.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/9a3f2a20/src/lib/schema/domain/actions.ts#L5)
+[src/lib/schema/domain/actions.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/80a298ee/src/lib/schema/domain/actions.ts#L5)
