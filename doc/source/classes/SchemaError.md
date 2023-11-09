@@ -44,7 +44,7 @@ Error.constructor
 
 #### Defined in
 
-[src/lib/schema/domain/errors.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/f4aa3e79/src/lib/schema/domain/errors.ts#L2)
+[src/lib/schema/domain/errors.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/2b71fadd/src/lib/schema/domain/errors.ts#L2)
 
 ## Properties
 

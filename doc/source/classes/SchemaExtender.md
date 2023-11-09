@@ -29,7 +29,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaExtender.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/f4aa3e79/src/lib/schema/application/services/schemaExtender.ts#L12)
+[src/lib/schema/application/services/schemaExtender.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/2b71fadd/src/lib/schema/application/services/schemaExtender.ts#L12)
 
 ## Methods
 
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaExtender.ts:146](https://github.com/FlavioLionelRita/lambdaorm/blob/f4aa3e79/src/lib/schema/application/services/schemaExtender.ts#L146)
+[src/lib/schema/application/services/schemaExtender.ts:146](https://github.com/FlavioLionelRita/lambdaorm/blob/2b71fadd/src/lib/schema/application/services/schemaExtender.ts#L146)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaExtender.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/f4aa3e79/src/lib/schema/application/services/schemaExtender.ts#L17)
+[src/lib/schema/application/services/schemaExtender.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/2b71fadd/src/lib/schema/application/services/schemaExtender.ts#L17)
 
 ___
 
@@ -90,4 +90,4 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaExtender.ts:161](https://github.com/FlavioLionelRita/lambdaorm/blob/f4aa3e79/src/lib/schema/application/services/schemaExtender.ts#L161)
+[src/lib/schema/application/services/schemaExtender.ts:161](https://github.com/FlavioLionelRita/lambdaorm/blob/2b71fadd/src/lib/schema/application/services/schemaExtender.ts#L161)
