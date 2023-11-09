@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.8.48",
+	"version": "0.8.49",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@gmail.com>",
 	"license": "MIT",
@@ -15,7 +15,7 @@
 		"url": "https://github.com/FlavioLionelRita/lambdaorm.git"
 	},
 	"standard-version": {
-		"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n##versions\n\n"
+		"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n## Versions\n"
 	},
 	"scripts": {
 		"lint": "grunt --base . --gruntfile task/Gruntfile.js lint",
