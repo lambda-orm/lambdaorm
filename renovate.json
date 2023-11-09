@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "config:base",
+    ":semanticCommits"
+  ],
+  "semanticCommits": true,
+  "automerge": true,
+  "timezone": "America/New_York",
+  "schedule": [
+    "before 3am on Monday"
+  ],
+  "prCreation": "not-pending",
+  "stabilityDays": 2,
+	"platforms": [
+    {
+      "platform": "github",
+      "token": "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"
+    }
+  ]
+}
