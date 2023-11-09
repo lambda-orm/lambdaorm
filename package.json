@@ -51,7 +51,7 @@
 		"typ3s": "0.1.0"
 	},
 	"devDependencies": {
-		"@babel/eslint-parser": "^7.22.5",
+		"@babel/eslint-parser": "^7.23.3",
 		"@types/jest": "^29.5.2",
 		"@types/mysql": "^2.15.21",
 		"@types/node": "^20.03.1",
