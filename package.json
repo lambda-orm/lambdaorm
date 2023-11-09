@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.8.32",
+	"version": "0.8.33",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@gmail.com>",
 	"license": "MIT",
@@ -16,7 +16,7 @@
 	},
 	"standard-version": {
 		"header": "# Changelog\n",
-		"changelogPreset": "./changelog-template.ejs"
+		"changelogPreset": "./changelog-template.hbs"
 	},
 	"scripts": {
 		"lint": "grunt --base . --gruntfile task/Gruntfile.js lint",
