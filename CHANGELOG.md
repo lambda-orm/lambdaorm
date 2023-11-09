@@ -1,6 +1,5 @@
 # Changelog
-
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+### [0.8.15](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.14...v0.8.15) (2023-11-09)
 
 ### [0.8.14](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.13...v0.8.14) (2023-11-08)
 
