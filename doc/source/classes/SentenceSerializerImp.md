@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/sentence/application/services/sentenceSerializer.ts#L7)
+[src/lib/sentence/application/services/sentenceSerializer.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/sentence/application/services/sentenceSerializer.ts#L7)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/sentence/application/services/sentenceSerializer.ts#L17)
+[src/lib/sentence/application/services/sentenceSerializer.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/sentence/application/services/sentenceSerializer.ts#L17)
 
 ___
 
@@ -94,4 +94,4 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/sentence/application/services/sentenceSerializer.ts#L13)
+[src/lib/sentence/application/services/sentenceSerializer.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/sentence/application/services/sentenceSerializer.ts#L13)

@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/repository/domain/actions.ts#L8)
+[src/lib/repository/domain/actions.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/repository/domain/actions.ts#L8)
 
 ## Methods
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/repository/domain/actions.ts#L30)
+[src/lib/repository/domain/actions.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/repository/domain/actions.ts#L30)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/repository/domain/actions.ts#L14)
+[src/lib/repository/domain/actions.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/repository/domain/actions.ts#L14)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/repository/domain/actions.ts#L38)
+[src/lib/repository/domain/actions.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/repository/domain/actions.ts#L38)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/repository/domain/actions.ts#L34)
+[src/lib/repository/domain/actions.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/repository/domain/actions.ts#L34)
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/repository/domain/actions.ts#L22)
+[src/lib/repository/domain/actions.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/repository/domain/actions.ts#L22)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/repository/domain/actions.ts#L18)
+[src/lib/repository/domain/actions.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/repository/domain/actions.ts#L18)
 
 ___
 
@@ -175,4 +175,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/4b4255a5/src/lib/repository/domain/actions.ts#L26)
+[src/lib/repository/domain/actions.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/45e3c40a/src/lib/repository/domain/actions.ts#L26)
