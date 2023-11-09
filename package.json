@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.8.23",
+	"version": "0.8.24",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@gmail.com>",
 	"license": "MIT",
@@ -15,7 +15,7 @@
 		"url": "https://github.com/FlavioLionelRita/lambdaorm.git"
 	},
 	"standard-version": {
-		"header": "# Changelog \n",
+		"header": "# Changelog\n",
 		"changelogPreset": "./changelog-template.ejs"
 	},
 	"scripts": {

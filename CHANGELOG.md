@@ -1,4 +1,6 @@
-# Changelog 
+# Changelog
+
+### [0.8.24](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.23...v0.8.24) (2023-11-09)
 
 ### [0.8.23](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.22...v0.8.23) (2023-11-09)
 
