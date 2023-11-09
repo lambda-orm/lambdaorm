@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.53](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.52...v0.8.53) (2023-11-09)
+
+
+### Features
+
+* **dependencies:** configure deopendabot target to develop ([b66289f](https://github.com/FlavioLionelRita/lambdaorm/commit/b66289f3be82019e6f62065bd9943e680e4a2663)), closes [#176](https://github.com/FlavioLionelRita/lambdaorm/issues/176)
+
 ### [0.8.52](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.51...v0.8.52) (2023-11-09)
 
 
