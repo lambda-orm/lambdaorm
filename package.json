@@ -15,7 +15,41 @@
 		"url": "https://github.com/FlavioLionelRita/lambdaorm.git"
 	},
 	"standard-version": {
-		"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n"
+		"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n",
+		"types": [
+			{
+				"type": "feat",
+				"section": "Features"
+			},
+			{
+				"type": "fix",
+				"section": "Bug Fixes"
+			},
+			{
+				"type": "chore",
+				"hidden": true
+			},
+			{
+				"type": "docs",
+				"hidden": true
+			},
+			{
+				"type": "style",
+				"hidden": true
+			},
+			{
+				"type": "refactor",
+				"hidden": true
+			},
+			{
+				"type": "perf",
+				"hidden": true
+			},
+			{
+				"type": "test",
+				"hidden": true
+			}
+		]
 	},
 	"scripts": {
 		"lint": "grunt --base . --gruntfile task/Gruntfile.js lint",
