@@ -12,7 +12,7 @@ yarn-error.log*
 volume
 
 # Dependency directories
-node_modules/
+node_modules
 
 # Confidentional data
 confidential/
