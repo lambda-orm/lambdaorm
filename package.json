@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.8.33",
+	"version": "0.8.34",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@gmail.com>",
 	"license": "MIT",
@@ -52,6 +52,7 @@
 		"typ3s": "0.1.0"
 	},
 	"devDependencies": {
+		"handlebars": "^4.7.8",
 		"@babel/eslint-parser": "^7.22.5",
 		"@types/jest": "^29.5.2",
 		"@types/mysql": "^2.15.21",
