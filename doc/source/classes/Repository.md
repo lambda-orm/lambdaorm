@@ -67,7 +67,7 @@
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L10)
+[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L10)
 
 ## Properties
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L10)
+[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L10)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L10)
+[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L10)
 
 ## Methods
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L41)
+[src/lib/repository/infrastructure/repository.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L41)
 
 ▸ **bulkInsert**(`entities`, `include`): `Promise`\<`any`[]\>
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L43)
+[src/lib/repository/infrastructure/repository.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L43)
 
 ___
 
@@ -156,7 +156,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L73)
+[src/lib/repository/infrastructure/repository.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L73)
 
 ▸ **delete**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L75)
+[src/lib/repository/infrastructure/repository.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L75)
 
 ___
 
@@ -203,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:80](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L80)
+[src/lib/repository/infrastructure/repository.ts:80](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L80)
 
 ___
 
@@ -229,7 +229,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:94](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L94)
+[src/lib/repository/infrastructure/repository.ts:94](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L94)
 
 ___
 
@@ -254,7 +254,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L28)
+[src/lib/repository/infrastructure/repository.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L28)
 
 ___
 
@@ -280,7 +280,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:101](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L101)
+[src/lib/repository/infrastructure/repository.ts:101](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L101)
 
 ___
 
@@ -304,7 +304,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L33)
+[src/lib/repository/infrastructure/repository.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L33)
 
 ▸ **insert**(`entity`, `include`): `Promise`\<`any`\>
 
@@ -325,7 +325,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L35)
+[src/lib/repository/infrastructure/repository.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L35)
 
 ___
 
@@ -351,7 +351,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:113](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L113)
+[src/lib/repository/infrastructure/repository.ts:113](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L113)
 
 ___
 
@@ -377,7 +377,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:87](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L87)
+[src/lib/repository/infrastructure/repository.ts:87](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L87)
 
 ___
 
@@ -401,7 +401,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:65](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L65)
+[src/lib/repository/infrastructure/repository.ts:65](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L65)
 
 ▸ **merge**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -422,7 +422,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L67)
+[src/lib/repository/infrastructure/repository.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L67)
 
 ___
 
@@ -440,7 +440,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L125)
+[src/lib/repository/infrastructure/repository.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L125)
 
 ___
 
@@ -464,7 +464,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L49)
+[src/lib/repository/infrastructure/repository.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L49)
 
 ▸ **update**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -485,7 +485,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L51)
+[src/lib/repository/infrastructure/repository.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L51)
 
 ___
 
@@ -512,4 +512,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/6a8043ca/src/lib/repository/infrastructure/repository.ts#L56)
+[src/lib/repository/infrastructure/repository.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/repository/infrastructure/repository.ts#L56)
