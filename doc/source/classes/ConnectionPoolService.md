@@ -19,7 +19,7 @@
 
 ### constructor
 
-• **new ConnectionPoolService**(`dialectPoolService`)
+• **new ConnectionPoolService**(`dialectPoolService`): [`ConnectionPoolService`](ConnectionPoolService.md)
 
 #### Parameters
 
@@ -27,15 +27,19 @@
 | :------ | :------ |
 | `dialectPoolService` | [`DialectPoolService`](DialectPoolService.md) |
 
+#### Returns
+
+[`ConnectionPoolService`](ConnectionPoolService.md)
+
 #### Defined in
 
-[src/lib/connection/application/services/connectionPoolService.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/services/connectionPoolService.ts#L8)
+[src/lib/connection/application/services/connectionPoolService.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/services/connectionPoolService.ts#L8)
 
 ## Methods
 
 ### end
 
-▸ **end**(`name`): `Promise`<`void`\>
+▸ **end**(`name`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -45,25 +49,25 @@
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/services/connectionPoolService.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/services/connectionPoolService.ts#L22)
+[src/lib/connection/application/services/connectionPoolService.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/services/connectionPoolService.ts#L22)
 
 ___
 
 ### endAll
 
-▸ **endAll**(): `Promise`<`void`\>
+▸ **endAll**(): `Promise`\<`void`\>
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/services/connectionPoolService.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/services/connectionPoolService.ts#L29)
+[src/lib/connection/application/services/connectionPoolService.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/services/connectionPoolService.ts#L29)
 
 ___
 
@@ -83,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/services/connectionPoolService.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/services/connectionPoolService.ts#L14)
+[src/lib/connection/application/services/connectionPoolService.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/services/connectionPoolService.ts#L14)
 
 ___
 
@@ -103,4 +107,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/services/connectionPoolService.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/services/connectionPoolService.ts#L10)
+[src/lib/connection/application/services/connectionPoolService.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/services/connectionPoolService.ts#L10)

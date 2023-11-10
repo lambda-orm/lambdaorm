@@ -30,7 +30,7 @@
 
 ### constructor
 
-• **new NotImplemented**(`message`)
+• **new NotImplemented**(`message`): [`NotImplemented`](NotImplemented.md)
 
 #### Parameters
 
@@ -38,13 +38,17 @@
 | :------ | :------ |
 | `message` | `string` |
 
+#### Returns
+
+[`NotImplemented`](NotImplemented.md)
+
 #### Overrides
 
 Error.constructor
 
 #### Defined in
 
-[src/lib/shared/domain/error.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/shared/domain/error.ts#L16)
+[src/lib/shared/domain/error.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/shared/domain/error.ts#L16)
 
 ## Properties
 
@@ -100,10 +104,6 @@ ___
 
 Optional override for formatting stack traces
 
-**`See`**
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-
 ##### Parameters
 
 | Name | Type |
@@ -114,6 +114,10 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 ##### Returns
 
 `any`
+
+**`See`**
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -141,7 +145,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

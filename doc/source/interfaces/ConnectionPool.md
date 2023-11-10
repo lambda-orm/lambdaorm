@@ -23,55 +23,55 @@
 
 #### Defined in
 
-[src/lib/connection/application/ports/connectionPool.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connectionPool.ts#L5)
+[src/lib/connection/application/ports/connectionPool.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connectionPool.ts#L5)
 
 ## Methods
 
 ### acquire
 
-▸ **acquire**(): `Promise`<[`Connection`](Connection.md)\>
+▸ **acquire**(): `Promise`\<[`Connection`](Connection.md)\>
 
 #### Returns
 
-`Promise`<[`Connection`](Connection.md)\>
+`Promise`\<[`Connection`](Connection.md)\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connectionPool.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connectionPool.ts#L7)
+[src/lib/connection/application/ports/connectionPool.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connectionPool.ts#L7)
 
 ___
 
 ### end
 
-▸ **end**(): `Promise`<`void`\>
+▸ **end**(): `Promise`\<`void`\>
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connectionPool.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connectionPool.ts#L9)
+[src/lib/connection/application/ports/connectionPool.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connectionPool.ts#L9)
 
 ___
 
 ### init
 
-▸ **init**(): `Promise`<`void`\>
+▸ **init**(): `Promise`\<`void`\>
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connectionPool.ts#L6)
+[src/lib/connection/application/ports/connectionPool.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connectionPool.ts#L6)
 
 ___
 
 ### release
 
-▸ **release**(`connection`): `Promise`<`void`\>
+▸ **release**(`connection`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -81,8 +81,8 @@ ___
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connectionPool.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connectionPool.ts#L8)
+[src/lib/connection/application/ports/connectionPool.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connectionPool.ts#L8)

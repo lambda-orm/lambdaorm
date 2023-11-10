@@ -16,7 +16,7 @@
 
 ### constructor
 
-• **new ReleaseConnection**(`poolService`)
+• **new ReleaseConnection**(`poolService`): [`ReleaseConnection`](ReleaseConnection.md)
 
 #### Parameters
 
@@ -24,15 +24,19 @@
 | :------ | :------ |
 | `poolService` | [`ConnectionPoolService`](ConnectionPoolService.md) |
 
+#### Returns
+
+[`ReleaseConnection`](ReleaseConnection.md)
+
 #### Defined in
 
-[src/lib/connection/application/useCases/release.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/useCases/release.ts#L6)
+[src/lib/connection/application/useCases/release.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/useCases/release.ts#L6)
 
 ## Methods
 
 ### release
 
-▸ **release**(`connection`): `Promise`<`void`\>
+▸ **release**(`connection`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -42,8 +46,8 @@
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/useCases/release.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/useCases/release.ts#L8)
+[src/lib/connection/application/useCases/release.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/useCases/release.ts#L8)

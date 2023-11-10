@@ -21,7 +21,7 @@
 
 ### constructor
 
-• **new SentenceFacade**(`schemaFacade`, `operandFacade`, `expressions`, `cache`, `serializer`, `helper`)
+• **new SentenceFacade**(`schemaFacade`, `operandFacade`, `expressions`, `cache`, `serializer`, `helper`): [`SentenceFacade`](SentenceFacade.md)
 
 #### Parameters
 
@@ -30,13 +30,17 @@
 | `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
 | `operandFacade` | [`OperandFacade`](OperandFacade.md) |
 | `expressions` | `Expressions` |
-| `cache` | `ICache`<`string`, `string`\> |
+| `cache` | `ICache`\<`string`, `string`\> |
 | `serializer` | [`SentenceSerializer`](../interfaces/SentenceSerializer.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`SentenceFacade`](SentenceFacade.md)
+
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/application/facade.ts#L26)
+[src/lib/sentence/application/facade.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/application/facade.ts#L26)
 
 ## Methods
 
@@ -58,7 +62,7 @@
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/application/facade.ts#L43)
+[src/lib/sentence/application/facade.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/application/facade.ts#L43)
 
 ___
 
@@ -78,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/application/facade.ts#L47)
+[src/lib/sentence/application/facade.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/application/facade.ts#L47)
 
 ___
 
@@ -99,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/application/facade.ts#L63)
+[src/lib/sentence/application/facade.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/application/facade.ts#L63)
 
 ___
 
@@ -119,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/application/facade.ts#L51)
+[src/lib/sentence/application/facade.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/application/facade.ts#L51)
 
 ___
 
@@ -139,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/application/facade.ts#L55)
+[src/lib/sentence/application/facade.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/application/facade.ts#L55)
 
 ___
 
@@ -159,4 +163,4 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/application/facade.ts#L59)
+[src/lib/sentence/application/facade.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/application/facade.ts#L59)

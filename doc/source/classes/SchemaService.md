@@ -20,7 +20,11 @@
 
 ### constructor
 
-• **new SchemaService**()
+• **new SchemaService**(): [`SchemaService`](SchemaService.md)
+
+#### Returns
+
+[`SchemaService`](SchemaService.md)
 
 ## Methods
 
@@ -34,7 +38,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaService.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/services/schemaService.ts#L16)
+[src/lib/schema/application/services/schemaService.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/services/schemaService.ts#L16)
 
 ___
 
@@ -48,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaService.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/services/schemaService.ts#L12)
+[src/lib/schema/application/services/schemaService.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/services/schemaService.ts#L12)
 
 ___
 
@@ -62,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaService.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/services/schemaService.ts#L8)
+[src/lib/schema/application/services/schemaService.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/services/schemaService.ts#L8)
 
 ___
 
@@ -76,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaService.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/services/schemaService.ts#L20)
+[src/lib/schema/application/services/schemaService.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/services/schemaService.ts#L20)
 
 ___
 
@@ -90,4 +94,4 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaService.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/services/schemaService.ts#L4)
+[src/lib/schema/application/services/schemaService.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/services/schemaService.ts#L4)

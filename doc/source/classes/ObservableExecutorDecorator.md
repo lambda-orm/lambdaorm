@@ -25,7 +25,7 @@
 
 ### constructor
 
-• **new ObservableExecutorDecorator**(`expressions`, `executor`, `helper`)
+• **new ObservableExecutorDecorator**(`expressions`, `executor`, `helper`): [`ObservableExecutorDecorator`](ObservableExecutorDecorator.md)
 
 #### Parameters
 
@@ -35,15 +35,19 @@
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`ObservableExecutorDecorator`](ObservableExecutorDecorator.md)
+
 #### Defined in
 
-[src/lib/execution/application/services/observableExecutorDecorator.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/observableExecutorDecorator.ts#L8)
+[src/lib/execution/application/services/observableExecutorDecorator.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/observableExecutorDecorator.ts#L8)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(`query`, `data`, `options`): `Promise`<`any`\>
+▸ **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -55,7 +59,7 @@
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Implementation of
 
@@ -63,13 +67,13 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/observableExecutorDecorator.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/observableExecutorDecorator.ts#L16)
+[src/lib/execution/application/services/observableExecutorDecorator.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/observableExecutorDecorator.ts#L16)
 
 ___
 
 ### executeList
 
-▸ **executeList**(`queries`, `options`): `Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+▸ **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Parameters
 
@@ -80,7 +84,7 @@ ___
 
 #### Returns
 
-`Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+`Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Implementation of
 
@@ -88,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/observableExecutorDecorator.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/observableExecutorDecorator.ts#L38)
+[src/lib/execution/application/services/observableExecutorDecorator.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/observableExecutorDecorator.ts#L38)
 
 ___
 
@@ -112,24 +116,24 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/observableExecutorDecorator.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/observableExecutorDecorator.ts#L47)
+[src/lib/execution/application/services/observableExecutorDecorator.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/observableExecutorDecorator.ts#L47)
 
 ___
 
 ### transaction
 
-▸ **transaction**(`options`, `callback`): `Promise`<`void`\>
+▸ **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
-| `callback` | (`tr`: [`Transaction`](Transaction.md)) => `Promise`<`void`\> |
+| `callback` | (`tr`: [`Transaction`](Transaction.md)) => `Promise`\<`void`\> |
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -137,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/observableExecutorDecorator.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/observableExecutorDecorator.ts#L42)
+[src/lib/execution/application/services/observableExecutorDecorator.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/observableExecutorDecorator.ts#L42)
 
 ___
 
@@ -161,4 +165,4 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/observableExecutorDecorator.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/observableExecutorDecorator.ts#L51)
+[src/lib/execution/application/services/observableExecutorDecorator.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/observableExecutorDecorator.ts#L51)

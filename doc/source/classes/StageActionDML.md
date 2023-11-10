@@ -27,7 +27,7 @@
 
 ### constructor
 
-• **new StageActionDML**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`)
+• **new StageActionDML**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`): [`StageActionDML`](StageActionDML.md)
 
 #### Parameters
 
@@ -39,9 +39,13 @@
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 
+#### Returns
+
+[`StageActionDML`](StageActionDML.md)
+
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDML.ts#L16)
+[src/lib/stage/application/useCases/base/actionDML.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDML.ts#L16)
 
 ## Methods
 
@@ -55,18 +59,18 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDML.ts#L34)
+[src/lib/stage/application/useCases/base/actionDML.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDML.ts#L34)
 
 ___
 
 ### sentence
 
-▸ **sentence**(): `Promise`<`any`\>
+▸ **sentence**(): `Promise`\<`any`\>
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDML.ts#L25)
+[src/lib/stage/application/useCases/base/actionDML.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDML.ts#L25)

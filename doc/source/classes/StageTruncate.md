@@ -24,7 +24,7 @@
 
 ### constructor
 
-• **new StageTruncate**(`executor`, `stageModelService`, `schemaFacade`, `languages`, `options`, `helper`)
+• **new StageTruncate**(`executor`, `stageModelService`, `schemaFacade`, `languages`, `options`, `helper`): [`StageTruncate`](StageTruncate.md)
 
 #### Parameters
 
@@ -37,23 +37,27 @@
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`StageTruncate`](StageTruncate.md)
+
 #### Inherited from
 
 [StageActionDDL](StageActionDDL.md).[constructor](StageActionDDL.md#constructor)
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(): `Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+▸ **execute**(): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Returns
 
-`Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+`Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Overrides
 
@@ -61,17 +65,17 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/truncate.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/truncate.ts#L13)
+[src/lib/stage/application/useCases/truncate.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/truncate.ts#L13)
 
 ___
 
 ### queries
 
-▸ **queries**(): `Promise`<[`Query`](Query.md)[]\>
+▸ **queries**(): `Promise`\<[`Query`](Query.md)[]\>
 
 #### Returns
 
-`Promise`<[`Query`](Query.md)[]\>
+`Promise`\<[`Query`](Query.md)[]\>
 
 #### Overrides
 
@@ -79,17 +83,17 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/truncate.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/truncate.ts#L5)
+[src/lib/stage/application/useCases/truncate.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/truncate.ts#L5)
 
 ___
 
 ### sentence
 
-▸ **sentence**(): `Promise`<`any`[]\>
+▸ **sentence**(): `Promise`\<`any`[]\>
 
 #### Returns
 
-`Promise`<`any`[]\>
+`Promise`\<`any`[]\>
 
 #### Inherited from
 
@@ -97,4 +101,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

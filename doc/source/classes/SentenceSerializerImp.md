@@ -22,7 +22,11 @@
 
 ### constructor
 
-• **new SentenceSerializerImp**()
+• **new SentenceSerializerImp**(): [`SentenceSerializerImp`](SentenceSerializerImp.md)
+
+#### Returns
+
+[`SentenceSerializerImp`](SentenceSerializerImp.md)
 
 ## Methods
 
@@ -46,7 +50,7 @@
 
 #### Defined in
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/application/services/sentenceSerializer.ts#L7)
+[src/lib/sentence/application/services/sentenceSerializer.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/application/services/sentenceSerializer.ts#L7)
 
 ___
 
@@ -70,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/application/services/sentenceSerializer.ts#L17)
+[src/lib/sentence/application/services/sentenceSerializer.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/application/services/sentenceSerializer.ts#L17)
 
 ___
 
@@ -94,4 +98,4 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/application/services/sentenceSerializer.ts#L13)
+[src/lib/sentence/application/services/sentenceSerializer.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/application/services/sentenceSerializer.ts#L13)

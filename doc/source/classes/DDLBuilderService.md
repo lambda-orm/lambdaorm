@@ -22,7 +22,7 @@
 
 ### constructor
 
-• **new DDLBuilderService**(`schemaFacade`, `languages`, `stage`, `helper`)
+• **new DDLBuilderService**(`schemaFacade`, `languages`, `stage`, `helper`): [`DDLBuilderService`](DDLBuilderService.md)
 
 #### Parameters
 
@@ -33,9 +33,13 @@
 | `stage` | `string` |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`DDLBuilderService`](DDLBuilderService.md)
+
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/language/application/services/ddlBuilder.ts#L15)
+[src/lib/language/application/services/ddlBuilder.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/language/application/services/ddlBuilder.ts#L15)
 
 ## Properties
 
@@ -45,7 +49,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/language/application/services/ddlBuilder.ts#L17)
+[src/lib/language/application/services/ddlBuilder.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/language/application/services/ddlBuilder.ts#L17)
 
 ## Methods
 
@@ -65,7 +69,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/language/application/services/ddlBuilder.ts#L23)
+[src/lib/language/application/services/ddlBuilder.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/language/application/services/ddlBuilder.ts#L23)
 
 ___
 
@@ -85,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/language/application/services/ddlBuilder.ts#L49)
+[src/lib/language/application/services/ddlBuilder.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/language/application/services/ddlBuilder.ts#L49)
 
 ___
 
@@ -105,4 +109,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/language/application/services/ddlBuilder.ts#L36)
+[src/lib/language/application/services/ddlBuilder.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/language/application/services/ddlBuilder.ts#L36)

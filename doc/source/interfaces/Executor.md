@@ -19,7 +19,7 @@
 
 ### execute
 
-▸ **execute**(`query`, `data`, `options`): `Promise`<`any`\>
+▸ **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -31,17 +31,17 @@
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/domain/executor.ts#L32)
+[src/lib/execution/domain/executor.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/domain/executor.ts#L32)
 
 ___
 
 ### executeList
 
-▸ **executeList**(`queries`, `options`): `Promise`<[`ExecuteResult`](ExecuteResult.md)[]\>
+▸ **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](ExecuteResult.md)[]\>
 
 #### Parameters
 
@@ -52,29 +52,29 @@ ___
 
 #### Returns
 
-`Promise`<[`ExecuteResult`](ExecuteResult.md)[]\>
+`Promise`\<[`ExecuteResult`](ExecuteResult.md)[]\>
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/domain/executor.ts#L33)
+[src/lib/execution/domain/executor.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/domain/executor.ts#L33)
 
 ___
 
 ### transaction
 
-▸ **transaction**(`options`, `callback`): `Promise`<`void`\>
+▸ **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `options` | [`QueryOptions`](QueryOptions.md) |
-| `callback` | (`tr`: [`Transaction`](../classes/Transaction.md)) => `Promise`<`void`\> |
+| `callback` | (`tr`: [`Transaction`](../classes/Transaction.md)) => `Promise`\<`void`\> |
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/domain/executor.ts#L34)
+[src/lib/execution/domain/executor.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/domain/executor.ts#L34)

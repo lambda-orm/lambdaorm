@@ -31,7 +31,7 @@
 
 ### constructor
 
-• **new SchemaFacade**(`workspace`, `source`, `domain`, `mapping`, `stage`, `view`, `schemaService`, `routeService`, `extender`, `createSchema`, `loadSchema`, `getSchema`, `completeSchema`)
+• **new SchemaFacade**(`workspace`, `source`, `domain`, `mapping`, `stage`, `view`, `schemaService`, `routeService`, `extender`, `createSchema`, `loadSchema`, `getSchema`, `completeSchema`): [`SchemaFacade`](SchemaFacade.md)
 
 #### Parameters
 
@@ -51,9 +51,13 @@
 | `getSchema` | [`GetSchema`](GetSchema.md) |
 | `completeSchema` | [`CompleteSchema`](CompleteSchema.md) |
 
+#### Returns
+
+[`SchemaFacade`](SchemaFacade.md)
+
 #### Defined in
 
-[src/lib/schema/application/facade.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L17)
+[src/lib/schema/application/facade.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L17)
 
 ## Properties
 
@@ -63,7 +67,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L19)
+[src/lib/schema/application/facade.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L19)
 
 ___
 
@@ -73,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L20)
+[src/lib/schema/application/facade.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L20)
 
 ___
 
@@ -83,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L16)
+[src/lib/schema/application/facade.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L16)
 
 ___
 
@@ -93,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L18)
+[src/lib/schema/application/facade.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L18)
 
 ___
 
@@ -103,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L21)
+[src/lib/schema/application/facade.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L21)
 
 ___
 
@@ -113,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L22)
+[src/lib/schema/application/facade.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L22)
 
 ___
 
@@ -123,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L17)
+[src/lib/schema/application/facade.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L17)
 
 ## Methods
 
@@ -143,21 +147,21 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:60](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L60)
+[src/lib/schema/application/facade.ts:60](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L60)
 
 ___
 
 ### create
 
-▸ **create**(): `Promise`<[`Schema`](../interfaces/Schema.md)\>
+▸ **create**(): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
 #### Returns
 
-`Promise`<[`Schema`](../interfaces/Schema.md)\>
+`Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L42)
+[src/lib/schema/application/facade.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L42)
 
 ___
 
@@ -178,13 +182,13 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L34)
+[src/lib/schema/application/facade.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L34)
 
 ___
 
 ### get
 
-▸ **get**(`source`): `Promise`<``null`` \| [`Schema`](../interfaces/Schema.md)\>
+▸ **get**(`source`): `Promise`\<``null`` \| [`Schema`](../interfaces/Schema.md)\>
 
 #### Parameters
 
@@ -194,11 +198,11 @@ ___
 
 #### Returns
 
-`Promise`<``null`` \| [`Schema`](../interfaces/Schema.md)\>
+`Promise`\<``null`` \| [`Schema`](../interfaces/Schema.md)\>
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L46)
+[src/lib/schema/application/facade.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L46)
 
 ___
 
@@ -219,13 +223,13 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L38)
+[src/lib/schema/application/facade.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L38)
 
 ___
 
 ### initialize
 
-▸ **initialize**(`source`): `Promise`<[`Schema`](../interfaces/Schema.md)\>
+▸ **initialize**(`source`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
 #### Parameters
 
@@ -235,8 +239,8 @@ ___
 
 #### Returns
 
-`Promise`<[`Schema`](../interfaces/Schema.md)\>
+`Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
 #### Defined in
 
-[src/lib/schema/application/facade.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/facade.ts#L50)
+[src/lib/schema/application/facade.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/facade.ts#L50)

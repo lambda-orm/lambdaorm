@@ -18,7 +18,7 @@
 
 ### constructor
 
-• **new SchemaExtender**(`expressions`, `helper`)
+• **new SchemaExtender**(`expressions`, `helper`): [`SchemaExtender`](SchemaExtender.md)
 
 #### Parameters
 
@@ -27,9 +27,13 @@
 | `expressions` | `Expressions` |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`SchemaExtender`](SchemaExtender.md)
+
 #### Defined in
 
-[src/lib/schema/application/services/schemaExtender.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/services/schemaExtender.ts#L12)
+[src/lib/schema/application/services/schemaExtender.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/services/schemaExtender.ts#L12)
 
 ## Methods
 
@@ -49,7 +53,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaExtender.ts:146](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/services/schemaExtender.ts#L146)
+[src/lib/schema/application/services/schemaExtender.ts:146](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/services/schemaExtender.ts#L146)
 
 ___
 
@@ -69,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaExtender.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/services/schemaExtender.ts#L17)
+[src/lib/schema/application/services/schemaExtender.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/services/schemaExtender.ts#L17)
 
 ___
 
@@ -90,4 +94,4 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/services/schemaExtender.ts:161](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/services/schemaExtender.ts#L161)
+[src/lib/schema/application/services/schemaExtender.ts:161](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/services/schemaExtender.ts#L161)

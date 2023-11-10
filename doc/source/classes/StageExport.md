@@ -24,7 +24,7 @@
 
 ### constructor
 
-• **new StageExport**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`)
+• **new StageExport**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`): [`StageExport`](StageExport.md)
 
 #### Parameters
 
@@ -36,27 +36,31 @@
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 
+#### Returns
+
+[`StageExport`](StageExport.md)
+
 #### Inherited from
 
 [StageActionDML](StageActionDML.md).[constructor](StageActionDML.md#constructor)
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDML.ts#L16)
+[src/lib/stage/application/useCases/base/actionDML.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDML.ts#L16)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(): `Promise`<[`SchemaConfig`](../interfaces/SchemaConfig.md)\>
+▸ **execute**(): `Promise`\<[`SchemaConfig`](../interfaces/SchemaConfig.md)\>
 
 #### Returns
 
-`Promise`<[`SchemaConfig`](../interfaces/SchemaConfig.md)\>
+`Promise`\<[`SchemaConfig`](../interfaces/SchemaConfig.md)\>
 
 #### Defined in
 
-[src/lib/stage/application/useCases/export.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/export.ts#L6)
+[src/lib/stage/application/useCases/export.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/export.ts#L6)
 
 ___
 
@@ -74,17 +78,17 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDML.ts#L34)
+[src/lib/stage/application/useCases/base/actionDML.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDML.ts#L34)
 
 ___
 
 ### sentence
 
-▸ **sentence**(): `Promise`<`any`\>
+▸ **sentence**(): `Promise`\<`any`\>
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Inherited from
 
@@ -92,4 +96,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDML.ts#L25)
+[src/lib/stage/application/useCases/base/actionDML.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDML.ts#L25)

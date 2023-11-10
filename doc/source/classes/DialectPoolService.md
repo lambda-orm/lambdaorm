@@ -17,7 +17,7 @@
 
 ### constructor
 
-• **new DialectPoolService**(`helper`)
+• **new DialectPoolService**(`helper`): [`DialectPoolService`](DialectPoolService.md)
 
 #### Parameters
 
@@ -25,9 +25,13 @@
 | :------ | :------ |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`DialectPoolService`](DialectPoolService.md)
+
 #### Defined in
 
-[src/lib/connection/application/services/dialectPoolService.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/services/dialectPoolService.ts#L7)
+[src/lib/connection/application/services/dialectPoolService.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/services/dialectPoolService.ts#L7)
 
 ## Methods
 
@@ -48,7 +52,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/services/dialectPoolService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/services/dialectPoolService.ts#L11)
+[src/lib/connection/application/services/dialectPoolService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/services/dialectPoolService.ts#L11)
 
 ___
 
@@ -68,4 +72,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/services/dialectPoolService.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/services/dialectPoolService.ts#L15)
+[src/lib/connection/application/services/dialectPoolService.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/services/dialectPoolService.ts#L15)

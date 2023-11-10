@@ -31,7 +31,7 @@
 
 ### constructor
 
-• **new Helper**(`operand`, `h3lp`)
+• **new Helper**(`operand`, `h3lp`): [`Helper`](Helper.md)
 
 #### Parameters
 
@@ -40,13 +40,17 @@
 | `operand` | `OperandHelper` |
 | `h3lp` | `H3lp` |
 
+#### Returns
+
+[`Helper`](Helper.md)
+
 #### Overrides
 
 H3lp.constructor
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/shared/application/helper.ts#L33)
+[src/lib/shared/application/helper.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/shared/application/helper.ts#L33)
 
 ## Properties
 
@@ -112,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/shared/application/helper.ts#L33)
+[src/lib/shared/application/helper.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/shared/application/helper.ts#L33)
 
 ___
 
@@ -122,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/shared/application/helper.ts#L32)
+[src/lib/shared/application/helper.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/shared/application/helper.ts#L32)
 
 ___
 

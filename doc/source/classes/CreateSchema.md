@@ -16,7 +16,7 @@
 
 ### constructor
 
-• **new CreateSchema**(`schemaService`)
+• **new CreateSchema**(`schemaService`): [`CreateSchema`](CreateSchema.md)
 
 #### Parameters
 
@@ -24,20 +24,24 @@
 | :------ | :------ |
 | `schemaService` | [`SchemaService`](SchemaService.md) |
 
+#### Returns
+
+[`CreateSchema`](CreateSchema.md)
+
 #### Defined in
 
-[src/lib/schema/application/useCases/create.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/useCases/create.ts#L6)
+[src/lib/schema/application/useCases/create.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/useCases/create.ts#L6)
 
 ## Methods
 
 ### create
 
-▸ **create**(): `Promise`<[`Schema`](../interfaces/Schema.md)\>
+▸ **create**(): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
 #### Returns
 
-`Promise`<[`Schema`](../interfaces/Schema.md)\>
+`Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
 #### Defined in
 
-[src/lib/schema/application/useCases/create.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/useCases/create.ts#L8)
+[src/lib/schema/application/useCases/create.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/useCases/create.ts#L8)

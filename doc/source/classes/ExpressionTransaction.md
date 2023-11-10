@@ -17,7 +17,7 @@
 
 ### constructor
 
-• **new ExpressionTransaction**(`transaction`, `builder`, `expressions`)
+• **new ExpressionTransaction**(`transaction`, `builder`, `expressions`): [`ExpressionTransaction`](ExpressionTransaction.md)
 
 #### Parameters
 
@@ -27,15 +27,19 @@
 | `builder` | [`IQueryBuilder`](../interfaces/IQueryBuilder.md) |
 | `expressions` | `Expressions` |
 
+#### Returns
+
+[`ExpressionTransaction`](ExpressionTransaction.md)
+
 #### Defined in
 
-[src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/useCases/transaction.ts#L9)
+[src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/useCases/transaction.ts#L9)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(`expression`, `data?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -46,13 +50,13 @@
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/useCases/transaction.ts#L13)
+[src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/useCases/transaction.ts#L13)
 
-▸ **execute**(`expression`, `data?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -63,17 +67,17 @@
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/useCases/transaction.ts#L14)
+[src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/useCases/transaction.ts#L14)
 
 ___
 
 ### executeQuery
 
-▸ **executeQuery**(`query`, `data?`): `Promise`<`any`\>
+▸ **executeQuery**(`query`, `data?`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -84,8 +88,8 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/useCases/transaction.ts#L23)
+[src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/useCases/transaction.ts#L23)

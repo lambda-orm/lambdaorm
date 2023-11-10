@@ -21,7 +21,7 @@
 
 ### constructor
 
-• **new ExpressionFacade**(`sentenceFacade`, `schemaFacade`, `languages`, `executor`, `expressions`, `cache`, `helper`)
+• **new ExpressionFacade**(`sentenceFacade`, `schemaFacade`, `languages`, `executor`, `expressions`, `cache`, `helper`): [`ExpressionFacade`](ExpressionFacade.md)
 
 #### Parameters
 
@@ -32,12 +32,16 @@
 | `languages` | [`LanguagesService`](LanguagesService.md) |
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `expressions` | `Expressions` |
-| `cache` | `ICache`<`string`, `string`\> |
+| `cache` | `ICache`\<`string`, `string`\> |
 | `helper` | [`Helper`](Helper.md) |
+
+#### Returns
+
+[`ExpressionFacade`](ExpressionFacade.md)
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/facade.ts#L24)
+[src/lib/expressions/application/facade.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/facade.ts#L24)
 
 ## Methods
 
@@ -58,13 +62,13 @@
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/facade.ts#L38)
+[src/lib/expressions/application/facade.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/facade.ts#L38)
 
 ___
 
 ### execute
 
-▸ **execute**(`expression`, `data?`, `options?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`, `options?`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -76,17 +80,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/facade.ts#L50)
+[src/lib/expressions/application/facade.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/facade.ts#L50)
 
 ___
 
 ### executeList
 
-▸ **executeList**(`expressions`, `options?`): `Promise`<`any`\>
+▸ **executeList**(`expressions`, `options?`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -97,11 +101,11 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/facade.ts#L54)
+[src/lib/expressions/application/facade.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/facade.ts#L54)
 
 ___
 
@@ -122,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/facade.ts#L42)
+[src/lib/expressions/application/facade.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/facade.ts#L42)
 
 ___
 
@@ -142,25 +146,25 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/facade.ts#L46)
+[src/lib/expressions/application/facade.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/facade.ts#L46)
 
 ___
 
 ### transaction
 
-▸ **transaction**(`options?`, `callback`): `Promise`<`void`\>
+▸ **transaction**(`options?`, `callback`): `Promise`\<`void`\>
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `options` | `undefined` \| [`QueryOptions`](../interfaces/QueryOptions.md) | `undefined` |
-| `callback` | (`tr`: [`ExpressionTransaction`](ExpressionTransaction.md)) => `Promise`<`void`\> | `undefined` |
+| `callback` | (`tr`: [`ExpressionTransaction`](ExpressionTransaction.md)) => `Promise`\<`void`\> | `undefined` |
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:58](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/expressions/application/facade.ts#L58)
+[src/lib/expressions/application/facade.ts:58](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/expressions/application/facade.ts#L58)

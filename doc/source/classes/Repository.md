@@ -1,6 +1,6 @@
 [Lambda ORM](../README.md) / Repository
 
-# Class: Repository<TEntity, TQuery\>
+# Class: Repository\<TEntity, TQuery\>
 
 ## Type parameters
 
@@ -11,7 +11,7 @@
 
 ## Implements
 
-- [`IRepository`](../interfaces/IRepository.md)<`TEntity`, `TQuery`\>
+- [`IRepository`](../interfaces/IRepository.md)\<`TEntity`, `TQuery`\>
 
 ## Table of contents
 
@@ -44,7 +44,7 @@
 
 ### constructor
 
-• **new Repository**<`TEntity`, `TQuery`\>(`name`, `stage?`, `orm?`)
+• **new Repository**\<`TEntity`, `TQuery`\>(`name`, `stage?`, `orm?`): [`Repository`](Repository.md)\<`TEntity`, `TQuery`\>
 
 #### Type parameters
 
@@ -61,9 +61,13 @@
 | `stage?` | `string` | `undefined` |
 | `orm` | [`IOrm`](../interfaces/IOrm.md) | `_orm` |
 
+#### Returns
+
+[`Repository`](Repository.md)\<`TEntity`, `TQuery`\>
+
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L10)
+[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L10)
 
 ## Properties
 
@@ -73,7 +77,7 @@
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L10)
+[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L10)
 
 ___
 
@@ -83,13 +87,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L10)
+[src/lib/repository/infrastructure/repository.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L10)
 
 ## Methods
 
 ### bulkInsert
 
-▸ **bulkInsert**(`entities`): `Promise`<`any`[]\>
+▸ **bulkInsert**(`entities`): `Promise`\<`any`[]\>
 
 #### Parameters
 
@@ -99,7 +103,7 @@ ___
 
 #### Returns
 
-`Promise`<`any`[]\>
+`Promise`\<`any`[]\>
 
 #### Implementation of
 
@@ -107,9 +111,9 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L41)
+[src/lib/repository/infrastructure/repository.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L41)
 
-▸ **bulkInsert**(`entities`, `include`): `Promise`<`any`[]\>
+▸ **bulkInsert**(`entities`, `include`): `Promise`\<`any`[]\>
 
 #### Parameters
 
@@ -120,7 +124,7 @@ ___
 
 #### Returns
 
-`Promise`<`any`[]\>
+`Promise`\<`any`[]\>
 
 #### Implementation of
 
@@ -128,13 +132,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L43)
+[src/lib/repository/infrastructure/repository.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L43)
 
 ___
 
 ### delete
 
-▸ **delete**(`entity`): `Promise`<`number`\>
+▸ **delete**(`entity`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -144,7 +148,7 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Implementation of
 
@@ -152,9 +156,9 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L73)
+[src/lib/repository/infrastructure/repository.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L73)
 
-▸ **delete**(`entity`, `include`): `Promise`<`number`\>
+▸ **delete**(`entity`, `include`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -165,7 +169,7 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Implementation of
 
@@ -173,13 +177,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L75)
+[src/lib/repository/infrastructure/repository.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L75)
 
 ___
 
 ### deleteAll
 
-▸ **deleteAll**(`data`, `filter?`, `include?`): `Promise`<`number`\>
+▸ **deleteAll**(`data`, `filter?`, `include?`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -191,7 +195,7 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Implementation of
 
@@ -199,13 +203,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:80](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L80)
+[src/lib/repository/infrastructure/repository.ts:80](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L80)
 
 ___
 
 ### distinct
 
-▸ **distinct**(`data`, `filter?`, `include?`): `Promise`<`any`[]\>
+▸ **distinct**(`data`, `filter?`, `include?`): `Promise`\<`any`[]\>
 
 #### Parameters
 
@@ -217,7 +221,7 @@ ___
 
 #### Returns
 
-`Promise`<`any`[]\>
+`Promise`\<`any`[]\>
 
 #### Implementation of
 
@@ -225,13 +229,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:94](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L94)
+[src/lib/repository/infrastructure/repository.ts:94](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L94)
 
 ___
 
 ### execute
 
-▸ **execute**(`expression`, `data?`): `Promise`<`any`\>
+▸ **execute**(`expression`, `data?`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -242,7 +246,7 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Implementation of
 
@@ -250,13 +254,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L28)
+[src/lib/repository/infrastructure/repository.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L28)
 
 ___
 
 ### first
 
-▸ **first**(`data`, `filter?`, `include?`): `Promise`<``null`` \| `TEntity`\>
+▸ **first**(`data`, `filter?`, `include?`): `Promise`\<``null`` \| `TEntity`\>
 
 #### Parameters
 
@@ -268,7 +272,7 @@ ___
 
 #### Returns
 
-`Promise`<``null`` \| `TEntity`\>
+`Promise`\<``null`` \| `TEntity`\>
 
 #### Implementation of
 
@@ -276,13 +280,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:101](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L101)
+[src/lib/repository/infrastructure/repository.ts:101](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L101)
 
 ___
 
 ### insert
 
-▸ **insert**(`entity`): `Promise`<`any`\>
+▸ **insert**(`entity`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -292,7 +296,7 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Implementation of
 
@@ -300,9 +304,9 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L33)
+[src/lib/repository/infrastructure/repository.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L33)
 
-▸ **insert**(`entity`, `include`): `Promise`<`any`\>
+▸ **insert**(`entity`, `include`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -313,7 +317,7 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Implementation of
 
@@ -321,13 +325,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L35)
+[src/lib/repository/infrastructure/repository.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L35)
 
 ___
 
 ### last
 
-▸ **last**(`data`, `filter?`, `include?`): `Promise`<``null`` \| `TEntity`\>
+▸ **last**(`data`, `filter?`, `include?`): `Promise`\<``null`` \| `TEntity`\>
 
 #### Parameters
 
@@ -339,7 +343,7 @@ ___
 
 #### Returns
 
-`Promise`<``null`` \| `TEntity`\>
+`Promise`\<``null`` \| `TEntity`\>
 
 #### Implementation of
 
@@ -347,13 +351,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:113](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L113)
+[src/lib/repository/infrastructure/repository.ts:113](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L113)
 
 ___
 
 ### list
 
-▸ **list**(`data`, `filter?`, `include?`): `Promise`<`TEntity`[]\>
+▸ **list**(`data`, `filter?`, `include?`): `Promise`\<`TEntity`[]\>
 
 #### Parameters
 
@@ -365,7 +369,7 @@ ___
 
 #### Returns
 
-`Promise`<`TEntity`[]\>
+`Promise`\<`TEntity`[]\>
 
 #### Implementation of
 
@@ -373,13 +377,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:87](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L87)
+[src/lib/repository/infrastructure/repository.ts:87](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L87)
 
 ___
 
 ### merge
 
-▸ **merge**(`entity`): `Promise`<`number`\>
+▸ **merge**(`entity`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -389,7 +393,7 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Implementation of
 
@@ -397,9 +401,9 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:65](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L65)
+[src/lib/repository/infrastructure/repository.ts:65](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L65)
 
-▸ **merge**(`entity`, `include`): `Promise`<`number`\>
+▸ **merge**(`entity`, `include`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -410,7 +414,7 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Implementation of
 
@@ -418,17 +422,17 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L67)
+[src/lib/repository/infrastructure/repository.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L67)
 
 ___
 
 ### query
 
-▸ **query**(): [`Queryable`](Queryable.md)<`TQuery`\>
+▸ **query**(): [`Queryable`](Queryable.md)\<`TQuery`\>
 
 #### Returns
 
-[`Queryable`](Queryable.md)<`TQuery`\>
+[`Queryable`](Queryable.md)\<`TQuery`\>
 
 #### Implementation of
 
@@ -436,13 +440,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L125)
+[src/lib/repository/infrastructure/repository.ts:125](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L125)
 
 ___
 
 ### update
 
-▸ **update**(`entity`): `Promise`<`number`\>
+▸ **update**(`entity`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -452,7 +456,7 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Implementation of
 
@@ -460,9 +464,9 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L49)
+[src/lib/repository/infrastructure/repository.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L49)
 
-▸ **update**(`entity`, `include`): `Promise`<`number`\>
+▸ **update**(`entity`, `include`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -473,7 +477,7 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Implementation of
 
@@ -481,13 +485,13 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L51)
+[src/lib/repository/infrastructure/repository.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L51)
 
 ___
 
 ### updateAll
 
-▸ **updateAll**(`data`, `map`, `filter?`, `include?`): `Promise`<`number`\>
+▸ **updateAll**(`data`, `map`, `filter?`, `include?`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -500,7 +504,7 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Implementation of
 
@@ -508,4 +512,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/infrastructure/repository.ts#L56)
+[src/lib/repository/infrastructure/repository.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/infrastructure/repository.ts#L56)

@@ -21,7 +21,7 @@
 
 ### constructor
 
-• **new ConnectionFacade**(`dialectService`, `poolService`, `acquireConnection`, `releaseConnection`)
+• **new ConnectionFacade**(`dialectService`, `poolService`, `acquireConnection`, `releaseConnection`): [`ConnectionFacade`](ConnectionFacade.md)
 
 #### Parameters
 
@@ -32,15 +32,19 @@
 | `acquireConnection` | [`AcquireConnection`](AcquireConnection.md) |
 | `releaseConnection` | [`ReleaseConnection`](ReleaseConnection.md) |
 
+#### Returns
+
+[`ConnectionFacade`](ConnectionFacade.md)
+
 #### Defined in
 
-[src/lib/connection/application/facade.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/facade.ts#L10)
+[src/lib/connection/application/facade.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/facade.ts#L10)
 
 ## Methods
 
 ### acquire
 
-▸ **acquire**(`name`): `Promise`<[`Connection`](../interfaces/Connection.md)\>
+▸ **acquire**(`name`): `Promise`\<[`Connection`](../interfaces/Connection.md)\>
 
 #### Parameters
 
@@ -50,11 +54,11 @@
 
 #### Returns
 
-`Promise`<[`Connection`](../interfaces/Connection.md)\>
+`Promise`\<[`Connection`](../interfaces/Connection.md)\>
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/facade.ts#L33)
+[src/lib/connection/application/facade.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/facade.ts#L33)
 
 ___
 
@@ -75,21 +79,21 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/facade.ts#L16)
+[src/lib/connection/application/facade.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/facade.ts#L16)
 
 ___
 
 ### end
 
-▸ **end**(): `Promise`<`void`\>
+▸ **end**(): `Promise`\<`void`\>
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/facade.ts#L29)
+[src/lib/connection/application/facade.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/facade.ts#L29)
 
 ___
 
@@ -109,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/facade.ts#L25)
+[src/lib/connection/application/facade.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/facade.ts#L25)
 
 ___
 
@@ -129,13 +133,13 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/facade.ts#L21)
+[src/lib/connection/application/facade.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/facade.ts#L21)
 
 ___
 
 ### release
 
-▸ **release**(`connection`): `Promise`<`void`\>
+▸ **release**(`connection`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -145,8 +149,8 @@ ___
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/facade.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/facade.ts#L37)
+[src/lib/connection/application/facade.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/facade.ts#L37)

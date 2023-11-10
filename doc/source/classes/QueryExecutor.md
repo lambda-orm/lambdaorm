@@ -28,7 +28,7 @@
 
 ### constructor
 
-• **new QueryExecutor**(`connectionFacade`, `languages`, `schemaFacade`, `expressions`, `options`, `helper`, `transactional?`)
+• **new QueryExecutor**(`connectionFacade`, `languages`, `schemaFacade`, `expressions`, `options`, `helper`, `transactional?`): [`QueryExecutor`](QueryExecutor.md)
 
 #### Parameters
 
@@ -42,9 +42,13 @@
 | `helper` | [`Helper`](Helper.md) | `undefined` |
 | `transactional` | `boolean` | `false` |
 
+#### Returns
+
+[`QueryExecutor`](QueryExecutor.md)
+
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L24)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L24)
 
 ## Properties
 
@@ -54,13 +58,13 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L29)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L29)
 
 ## Methods
 
 ### \_execute
 
-▸ **_execute**(`query`, `data`): `Promise`<`any`\>
+▸ **_execute**(`query`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -71,7 +75,7 @@
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Implementation of
 
@@ -79,27 +83,27 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:85](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L85)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:85](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L85)
 
 ___
 
 ### commit
 
-▸ **commit**(): `Promise`<`void`\>
+▸ **commit**(): `Promise`\<`void`\>
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L53)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L53)
 
 ___
 
 ### execute
 
-▸ **execute**(`query`, `data`): `Promise`<`any`\>
+▸ **execute**(`query`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -110,36 +114,36 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L75)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L75)
 
 ___
 
 ### release
 
-▸ **release**(): `Promise`<`void`\>
+▸ **release**(): `Promise`\<`void`\>
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L67)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L67)
 
 ___
 
 ### rollback
 
-▸ **rollback**(): `Promise`<`void`\>
+▸ **rollback**(): `Promise`\<`void`\>
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:60](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L60)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:60](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L60)

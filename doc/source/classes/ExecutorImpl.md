@@ -22,7 +22,7 @@
 
 ### constructor
 
-• **new ExecutorImpl**(`connectionFacade`, `languages`, `schemaFacade`, `expressions`, `helper`)
+• **new ExecutorImpl**(`connectionFacade`, `languages`, `schemaFacade`, `expressions`, `helper`): [`ExecutorImpl`](ExecutorImpl.md)
 
 #### Parameters
 
@@ -34,15 +34,19 @@
 | `expressions` | `Expressions` |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`ExecutorImpl`](ExecutorImpl.md)
+
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/executor.ts#L12)
+[src/lib/execution/application/services/executor.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/executor.ts#L12)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(`query`, `data`, `options`): `Promise`<`any`\>
+▸ **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -54,7 +58,7 @@
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Implementation of
 
@@ -62,13 +66,13 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/executor.ts#L19)
+[src/lib/execution/application/services/executor.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/executor.ts#L19)
 
 ___
 
 ### executeList
 
-▸ **executeList**(`queries`, `options`): `Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+▸ **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Parameters
 
@@ -79,7 +83,7 @@ ___
 
 #### Returns
 
-`Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+`Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Implementation of
 
@@ -87,13 +91,13 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/executor.ts#L42)
+[src/lib/execution/application/services/executor.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/executor.ts#L42)
 
 ___
 
 ### transaction
 
-▸ **transaction**(`options`, `callback`): `Promise`<`void`\>
+▸ **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
 Create a transaction
 
@@ -102,11 +106,11 @@ Create a transaction
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) | - |
-| `callback` | (`tr`: [`Transaction`](Transaction.md)) => `Promise`<`void`\> | Code to be executed in transaction |
+| `callback` | (`tr`: [`Transaction`](Transaction.md)) => `Promise`\<`void`\> | Code to be executed in transaction |
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Implementation of
 
@@ -114,4 +118,4 @@ Create a transaction
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/executor.ts#L73)
+[src/lib/execution/application/services/executor.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/executor.ts#L73)

@@ -1,6 +1,6 @@
 [Lambda ORM](../README.md) / Map2Clauses
 
-# Class: Map2Clauses<T\>
+# Class: Map2Clauses\<T\>
 
 ## Type parameters
 
@@ -35,7 +35,7 @@
 
 ### constructor
 
-• **new Map2Clauses**<`T`\>(`actions`, `expression`)
+• **new Map2Clauses**\<`T`\>(`actions`, `expression`): [`Map2Clauses`](Map2Clauses.md)\<`T`\>
 
 #### Type parameters
 
@@ -50,23 +50,27 @@
 | `actions` | [`ExpressionActions`](ExpressionActions.md) |
 | `expression` | `string` |
 
+#### Returns
+
+[`Map2Clauses`](Map2Clauses.md)\<`T`\>
+
 #### Inherited from
 
 [QueryAction](QueryAction.md).[constructor](QueryAction.md#constructor)
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/domain/queryable.ts#L8)
+[src/lib/repository/domain/queryable.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/domain/queryable.ts#L8)
 
 ## Methods
 
 ### constraints
 
-▸ **constraints**(): `Promise`<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
+▸ **constraints**(): `Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Returns
 
-`Promise`<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
+`Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Inherited from
 
@@ -74,13 +78,13 @@
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/domain/queryable.ts#L25)
+[src/lib/repository/domain/queryable.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/domain/queryable.ts#L25)
 
 ___
 
 ### execute
 
-▸ **execute**(`data`): `Promise`<`any`\>
+▸ **execute**(`data`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -90,7 +94,7 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Inherited from
 
@@ -98,17 +102,17 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/domain/queryable.ts#L13)
+[src/lib/repository/domain/queryable.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/domain/queryable.ts#L13)
 
 ___
 
 ### metadata
 
-▸ **metadata**(): `Promise`<[`Metadata`](../interfaces/Metadata.md)\>
+▸ **metadata**(): `Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Returns
 
-`Promise`<[`Metadata`](../interfaces/Metadata.md)\>
+`Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Inherited from
 
@@ -116,17 +120,17 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/domain/queryable.ts#L37)
+[src/lib/repository/domain/queryable.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/domain/queryable.ts#L37)
 
 ___
 
 ### model
 
-▸ **model**(): `Promise`<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
+▸ **model**(): `Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Returns
 
-`Promise`<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
+`Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Inherited from
 
@@ -134,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/domain/queryable.ts#L21)
+[src/lib/repository/domain/queryable.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/domain/queryable.ts#L21)
 
 ___
 
@@ -152,17 +156,17 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/domain/queryable.ts#L17)
+[src/lib/repository/domain/queryable.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/domain/queryable.ts#L17)
 
 ___
 
 ### parameters
 
-▸ **parameters**(): `Promise`<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
+▸ **parameters**(): `Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Returns
 
-`Promise`<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
+`Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Inherited from
 
@@ -170,17 +174,17 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/domain/queryable.ts#L29)
+[src/lib/repository/domain/queryable.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/domain/queryable.ts#L29)
 
 ___
 
 ### sentence
 
-▸ **sentence**(): `Promise`<[`QueryInfo`](../interfaces/QueryInfo.md)\>
+▸ **sentence**(): `Promise`\<[`QueryInfo`](../interfaces/QueryInfo.md)\>
 
 #### Returns
 
-`Promise`<[`QueryInfo`](../interfaces/QueryInfo.md)\>
+`Promise`\<[`QueryInfo`](../interfaces/QueryInfo.md)\>
 
 #### Inherited from
 
@@ -188,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/domain/queryable.ts#L33)
+[src/lib/repository/domain/queryable.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/domain/queryable.ts#L33)
 
 ___
 
@@ -208,4 +212,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/repository/domain/queryable.ts#L56)
+[src/lib/repository/domain/queryable.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/repository/domain/queryable.ts#L56)

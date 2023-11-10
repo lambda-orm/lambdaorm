@@ -28,7 +28,7 @@
 
 ### constructor
 
-• **new StageActionDDL**(`executor`, `stageModelService`, `schemaFacade`, `languages`, `options`, `helper`)
+• **new StageActionDDL**(`executor`, `stageModelService`, `schemaFacade`, `languages`, `options`, `helper`): [`StageActionDDL`](StageActionDDL.md)
 
 #### Parameters
 
@@ -41,48 +41,52 @@
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`StageActionDDL`](StageActionDDL.md)
+
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 ## Methods
 
 ### execute
 
-▸ `Abstract` **execute**(): `Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+▸ **execute**(): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Returns
 
-`Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+`Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
+[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
 
 ___
 
 ### queries
 
-▸ `Abstract` **queries**(): `Promise`<[`Query`](Query.md)[]\>
+▸ **queries**(): `Promise`\<[`Query`](Query.md)[]\>
 
 #### Returns
 
-`Promise`<[`Query`](Query.md)[]\>
+`Promise`\<[`Query`](Query.md)[]\>
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
+[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
 
 ___
 
 ### sentence
 
-▸ **sentence**(): `Promise`<`any`[]\>
+▸ **sentence**(): `Promise`\<`any`[]\>
 
 #### Returns
 
-`Promise`<`any`[]\>
+`Promise`\<`any`[]\>
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

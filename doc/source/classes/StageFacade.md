@@ -22,7 +22,7 @@
 
 ### constructor
 
-• **new StageFacade**(`schemaFacade`, `expression`, `executor`, `languages`, `helper`)
+• **new StageFacade**(`schemaFacade`, `expression`, `executor`, `languages`, `helper`): [`StageFacade`](StageFacade.md)
 
 #### Parameters
 
@@ -34,9 +34,13 @@
 | `languages` | [`LanguagesService`](LanguagesService.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`StageFacade`](StageFacade.md)
+
 #### Defined in
 
-[src/lib/stage/application/facade.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/facade.ts#L20)
+[src/lib/stage/application/facade.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/facade.ts#L20)
 
 ## Methods
 
@@ -56,7 +60,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/facade.ts#L39)
+[src/lib/stage/application/facade.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/facade.ts#L39)
 
 ___
 
@@ -76,13 +80,13 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/facade.ts#L49)
+[src/lib/stage/application/facade.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/facade.ts#L49)
 
 ___
 
 ### exists
 
-▸ **exists**(`name`): `Promise`<`boolean`\>
+▸ **exists**(`name`): `Promise`\<`boolean`\>
 
 #### Parameters
 
@@ -92,11 +96,11 @@ ___
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/facade.ts#L29)
+[src/lib/stage/application/facade.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/facade.ts#L29)
 
 ___
 
@@ -116,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/facade.ts#L54)
+[src/lib/stage/application/facade.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/facade.ts#L54)
 
 ___
 
@@ -136,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/facade.ts#L59)
+[src/lib/stage/application/facade.ts:59](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/facade.ts#L59)
 
 ___
 
@@ -156,7 +160,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/facade.ts#L34)
+[src/lib/stage/application/facade.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/facade.ts#L34)
 
 ___
 
@@ -176,4 +180,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/facade.ts#L44)
+[src/lib/stage/application/facade.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/facade.ts#L44)

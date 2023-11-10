@@ -30,7 +30,7 @@
 
 ### constructor
 
-• **new ExecutionActionObserver**(`config`, `expressions`)
+• **new ExecutionActionObserver**(`config`, `expressions`): [`ExecutionActionObserver`](ExecutionActionObserver.md)
 
 #### Parameters
 
@@ -39,13 +39,17 @@
 | `config` | [`ListenerConfig`](../interfaces/ListenerConfig.md) |
 | `expressions` | `Expressions` |
 
+#### Returns
+
+[`ExecutionActionObserver`](ExecutionActionObserver.md)
+
 #### Overrides
 
 [ActionObserver](ActionObserver.md).[constructor](ActionObserver.md#constructor)
 
 #### Defined in
 
-[src/lib/execution/application/services/observer.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/observer.ts#L6)
+[src/lib/execution/application/services/observer.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/observer.ts#L6)
 
 ## Properties
 
@@ -59,7 +63,7 @@
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/domain/executor.ts#L17)
+[src/lib/execution/domain/executor.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/domain/executor.ts#L17)
 
 ___
 
@@ -73,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/domain/executor.ts#L18)
+[src/lib/execution/domain/executor.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/domain/executor.ts#L18)
 
 ___
 
@@ -87,13 +91,13 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/domain/executor.ts#L19)
+[src/lib/execution/domain/executor.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/domain/executor.ts#L19)
 
 ## Methods
 
 ### after
 
-▸ **after**(`args`): `Promise`<`void`\>
+▸ **after**(`args`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -103,7 +107,7 @@ ___
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
@@ -111,13 +115,13 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/observer.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/observer.ts#L17)
+[src/lib/execution/application/services/observer.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/observer.ts#L17)
 
 ___
 
 ### before
 
-▸ **before**(`args`): `Promise`<`void`\>
+▸ **before**(`args`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -127,7 +131,7 @@ ___
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
@@ -135,13 +139,13 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/observer.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/observer.ts#L10)
+[src/lib/execution/application/services/observer.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/observer.ts#L10)
 
 ___
 
 ### error
 
-▸ **error**(`args`): `Promise`<`void`\>
+▸ **error**(`args`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -151,7 +155,7 @@ ___
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
@@ -159,4 +163,4 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/observer.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/observer.ts#L24)
+[src/lib/execution/application/services/observer.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/observer.ts#L24)

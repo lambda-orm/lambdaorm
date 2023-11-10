@@ -59,7 +59,7 @@
 
 ### constructor
 
-• **new Clause**(`pos`, `name`, `children`, `entity`, `alias`)
+• **new Clause**(`pos`, `name`, `children`, `entity`, `alias`): [`Clause`](Clause.md)
 
 #### Parameters
 
@@ -71,13 +71,17 @@
 | `entity` | `string` |
 | `alias` | `string` |
 
+#### Returns
+
+[`Clause`](Clause.md)
+
 #### Overrides
 
 Operand.constructor
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/domain/sentence.ts#L54)
+[src/lib/sentence/domain/sentence.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/domain/sentence.ts#L54)
 
 ## Properties
 
@@ -87,7 +91,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/domain/sentence.ts#L52)
+[src/lib/sentence/domain/sentence.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/domain/sentence.ts#L52)
 
 ___
 
@@ -111,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/domain/sentence.ts#L53)
+[src/lib/sentence/domain/sentence.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/domain/sentence.ts#L53)
 
 ___
 

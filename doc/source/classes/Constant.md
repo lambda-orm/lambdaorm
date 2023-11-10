@@ -33,7 +33,7 @@
 
 ### constructor
 
-• **new Constant**(`pos`, `name`, `type`, `children?`, `returnType?`)
+• **new Constant**(`pos`, `name`, `type`, `children?`, `returnType?`): [`Constant`](Constant.md)
 
 #### Parameters
 
@@ -44,6 +44,10 @@
 | `type` | `OperandType` |
 | `children?` | `Operand`[] |
 | `returnType?` | `Type` |
+
+#### Returns
+
+[`Constant`](Constant.md)
 
 #### Inherited from
 
@@ -181,4 +185,4 @@ Operand.eval
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/sentence/domain/sentence.ts#L8)
+[src/lib/sentence/domain/sentence.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/sentence/domain/sentence.ts#L8)

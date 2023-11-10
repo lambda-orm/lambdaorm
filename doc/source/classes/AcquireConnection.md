@@ -16,7 +16,7 @@
 
 ### constructor
 
-• **new AcquireConnection**(`poolService`)
+• **new AcquireConnection**(`poolService`): [`AcquireConnection`](AcquireConnection.md)
 
 #### Parameters
 
@@ -24,15 +24,19 @@
 | :------ | :------ |
 | `poolService` | [`ConnectionPoolService`](ConnectionPoolService.md) |
 
+#### Returns
+
+[`AcquireConnection`](AcquireConnection.md)
+
 #### Defined in
 
-[src/lib/connection/application/useCases/acquire.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/useCases/acquire.ts#L6)
+[src/lib/connection/application/useCases/acquire.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/useCases/acquire.ts#L6)
 
 ## Methods
 
 ### acquire
 
-▸ **acquire**(`name`): `Promise`<[`Connection`](../interfaces/Connection.md)\>
+▸ **acquire**(`name`): `Promise`\<[`Connection`](../interfaces/Connection.md)\>
 
 #### Parameters
 
@@ -42,8 +46,8 @@
 
 #### Returns
 
-`Promise`<[`Connection`](../interfaces/Connection.md)\>
+`Promise`\<[`Connection`](../interfaces/Connection.md)\>
 
 #### Defined in
 
-[src/lib/connection/application/useCases/acquire.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/useCases/acquire.ts#L8)
+[src/lib/connection/application/useCases/acquire.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/useCases/acquire.ts#L8)

@@ -60,7 +60,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L6)
+[src/lib/connection/application/ports/connection.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L6)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L8)
+[src/lib/connection/application/ports/connection.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L8)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L10)
+[src/lib/connection/application/ports/connection.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L10)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L11)
+[src/lib/connection/application/ports/connection.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L11)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L9)
+[src/lib/connection/application/ports/connection.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L9)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L7)
+[src/lib/connection/application/ports/connection.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L7)
 
 ## Accessors
 
@@ -124,13 +124,13 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L12)
+[src/lib/connection/application/ports/connection.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L12)
 
 ## Methods
 
 ### addFk
 
-▸ **addFk**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **addFk**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -141,17 +141,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L39)
+[src/lib/connection/application/ports/connection.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L39)
 
 ___
 
 ### addPk
 
-▸ **addPk**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **addPk**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -162,17 +162,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L37)
+[src/lib/connection/application/ports/connection.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L37)
 
 ___
 
 ### addProperty
 
-▸ **addProperty**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **addProperty**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -183,17 +183,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L36)
+[src/lib/connection/application/ports/connection.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L36)
 
 ___
 
 ### addUk
 
-▸ **addUk**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **addUk**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -204,17 +204,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L38)
+[src/lib/connection/application/ports/connection.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L38)
 
 ___
 
 ### alterProperty
 
-▸ **alterProperty**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **alterProperty**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -225,31 +225,31 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L35)
+[src/lib/connection/application/ports/connection.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L35)
 
 ___
 
 ### beginTransaction
 
-▸ **beginTransaction**(): `Promise`<`void`\>
+▸ **beginTransaction**(): `Promise`\<`void`\>
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L24)
+[src/lib/connection/application/ports/connection.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L24)
 
 ___
 
 ### bulkDelete
 
-▸ **bulkDelete**(`_mapping`, `_dialect`, `_query`, `_array`): `Promise`<`number`\>
+▸ **bulkDelete**(`_mapping`, `_dialect`, `_query`, `_array`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -262,17 +262,17 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L28)
+[src/lib/connection/application/ports/connection.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L28)
 
 ___
 
 ### bulkInsert
 
-▸ **bulkInsert**(`mapping`, `dialect`, `query`, `array`): `Promise`<`any`[]\>
+▸ **bulkInsert**(`mapping`, `dialect`, `query`, `array`): `Promise`\<`any`[]\>
 
 #### Parameters
 
@@ -285,17 +285,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`[]\>
+`Promise`\<`any`[]\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L18)
+[src/lib/connection/application/ports/connection.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L18)
 
 ___
 
 ### bulkUpdate
 
-▸ **bulkUpdate**(`_mapping`, `_dialect`, `_query`, `_array`): `Promise`<`number`\>
+▸ **bulkUpdate**(`_mapping`, `_dialect`, `_query`, `_array`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -308,31 +308,31 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L29)
+[src/lib/connection/application/ports/connection.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L29)
 
 ___
 
 ### commit
 
-▸ **commit**(): `Promise`<`void`\>
+▸ **commit**(): `Promise`\<`void`\>
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L25)
+[src/lib/connection/application/ports/connection.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L25)
 
 ___
 
 ### createEntity
 
-▸ **createEntity**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **createEntity**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -343,17 +343,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L31)
+[src/lib/connection/application/ports/connection.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L31)
 
 ___
 
 ### createFk
 
-▸ **createFk**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **createFk**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -364,17 +364,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L33)
+[src/lib/connection/application/ports/connection.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L33)
 
 ___
 
 ### createIndex
 
-▸ **createIndex**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **createIndex**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -385,17 +385,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L34)
+[src/lib/connection/application/ports/connection.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L34)
 
 ___
 
 ### createSequence
 
-▸ **createSequence**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **createSequence**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -406,17 +406,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L32)
+[src/lib/connection/application/ports/connection.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L32)
 
 ___
 
 ### delete
 
-▸ **delete**(`mapping`, `dialect`, `query`, `data`): `Promise`<`number`\>
+▸ **delete**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -429,17 +429,17 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L20)
+[src/lib/connection/application/ports/connection.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L20)
 
 ___
 
 ### dropEntity
 
-▸ **dropEntity**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **dropEntity**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -450,17 +450,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L41)
+[src/lib/connection/application/ports/connection.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L41)
 
 ___
 
 ### dropFk
 
-▸ **dropFk**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **dropFk**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -471,17 +471,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:45](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L45)
+[src/lib/connection/application/ports/connection.ts:45](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L45)
 
 ___
 
 ### dropIndex
 
-▸ **dropIndex**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **dropIndex**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -492,17 +492,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L46)
+[src/lib/connection/application/ports/connection.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L46)
 
 ___
 
 ### dropPk
 
-▸ **dropPk**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **dropPk**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -513,17 +513,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L43)
+[src/lib/connection/application/ports/connection.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L43)
 
 ___
 
 ### dropProperty
 
-▸ **dropProperty**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **dropProperty**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -534,17 +534,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L42)
+[src/lib/connection/application/ports/connection.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L42)
 
 ___
 
 ### dropSequence
 
-▸ **dropSequence**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **dropSequence**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -555,17 +555,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L40)
+[src/lib/connection/application/ports/connection.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L40)
 
 ___
 
 ### dropUk
 
-▸ **dropUk**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **dropUk**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -576,17 +576,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L44)
+[src/lib/connection/application/ports/connection.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L44)
 
 ___
 
 ### execute
 
-▸ **execute**(`query`): `Promise`<`any`\>
+▸ **execute**(`query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -596,17 +596,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L21)
+[src/lib/connection/application/ports/connection.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L21)
 
 ___
 
 ### executeDDL
 
-▸ **executeDDL**(`query`): `Promise`<`any`\>
+▸ **executeDDL**(`query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -616,17 +616,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L22)
+[src/lib/connection/application/ports/connection.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L22)
 
 ___
 
 ### executeSentence
 
-▸ **executeSentence**(`sentence`): `Promise`<`any`\>
+▸ **executeSentence**(`sentence`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -636,17 +636,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L23)
+[src/lib/connection/application/ports/connection.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L23)
 
 ___
 
 ### insert
 
-▸ **insert**(`mapping`, `dialect`, `query`, `data`): `Promise`<`any`\>
+▸ **insert**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -659,31 +659,31 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L17)
+[src/lib/connection/application/ports/connection.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L17)
 
 ___
 
 ### rollback
 
-▸ **rollback**(): `Promise`<`void`\>
+▸ **rollback**(): `Promise`\<`void`\>
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L26)
+[src/lib/connection/application/ports/connection.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L26)
 
 ___
 
 ### select
 
-▸ **select**(`mapping`, `dialect`, `query`, `data`): `Promise`<`any`\>
+▸ **select**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -696,17 +696,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L16)
+[src/lib/connection/application/ports/connection.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L16)
 
 ___
 
 ### truncateEntity
 
-▸ **truncateEntity**(`_mapping`, `query`): `Promise`<`any`\>
+▸ **truncateEntity**(`_mapping`, `query`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -717,17 +717,17 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L30)
+[src/lib/connection/application/ports/connection.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L30)
 
 ___
 
 ### update
 
-▸ **update**(`mapping`, `dialect`, `query`, `data`): `Promise`<`number`\>
+▸ **update**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`number`\>
 
 #### Parameters
 
@@ -740,11 +740,11 @@ ___
 
 #### Returns
 
-`Promise`<`number`\>
+`Promise`\<`number`\>
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L19)
+[src/lib/connection/application/ports/connection.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L19)
 
 ___
 
@@ -766,7 +766,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L13)
+[src/lib/connection/application/ports/connection.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L13)
 
 ___
 
@@ -788,4 +788,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/connection/application/ports/connection.ts#L14)
+[src/lib/connection/application/ports/connection.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/connection/application/ports/connection.ts#L14)

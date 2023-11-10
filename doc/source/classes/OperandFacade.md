@@ -18,7 +18,7 @@
 
 ### constructor
 
-• **new OperandFacade**(`expressions`, `schema`, `cache`, `operandSerializer`, `operandHelper`, `helper`)
+• **new OperandFacade**(`expressions`, `schema`, `cache`, `operandSerializer`, `operandHelper`, `helper`): [`OperandFacade`](OperandFacade.md)
 
 #### Parameters
 
@@ -26,14 +26,18 @@
 | :------ | :------ |
 | `expressions` | `Expressions` |
 | `schema` | [`SchemaFacade`](SchemaFacade.md) |
-| `cache` | `ICache`<`string`, `string`\> |
+| `cache` | `ICache`\<`string`, `string`\> |
 | `operandSerializer` | `OperandSerializer` |
 | `operandHelper` | [`OrmOperandHelper`](OrmOperandHelper.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`OperandFacade`](OperandFacade.md)
+
 #### Defined in
 
-[src/lib/operand/application/facade.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/operand/application/facade.ts#L13)
+[src/lib/operand/application/facade.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/operand/application/facade.ts#L13)
 
 ## Methods
 
@@ -53,7 +57,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/operand/application/facade.ts#L27)
+[src/lib/operand/application/facade.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/operand/application/facade.ts#L27)
 
 ___
 
@@ -73,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/operand/application/facade.ts#L35)
+[src/lib/operand/application/facade.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/operand/application/facade.ts#L35)
 
 ___
 
@@ -93,4 +97,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/operand/application/facade.ts#L31)
+[src/lib/operand/application/facade.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/operand/application/facade.ts#L31)

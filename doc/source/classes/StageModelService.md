@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-- `StageStateService`<[`ModelConfig`](../interfaces/ModelConfig.md)\>
+- `StageStateService`\<[`ModelConfig`](../interfaces/ModelConfig.md)\>
 
   ↳ **`StageModelService`**
 
@@ -26,7 +26,7 @@
 
 ### constructor
 
-• **new StageModelService**(`schemaFacade`, `helper`)
+• **new StageModelService**(`schemaFacade`, `helper`): [`StageModelService`](StageModelService.md)
 
 #### Parameters
 
@@ -35,19 +35,23 @@
 | `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`StageModelService`](StageModelService.md)
+
 #### Inherited from
 
-StageStateService<ModelConfig\>.constructor
+StageStateService\<ModelConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L9)
+[src/lib/stage/application/services/stateService.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L9)
 
 ## Methods
 
 ### ddl
 
-▸ **ddl**(`stage`, `action`, `queries`): `Promise`<`void`\>
+▸ **ddl**(`stage`, `action`, `queries`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -59,17 +63,17 @@ StageStateService<ModelConfig\>.constructor
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L57)
+[src/lib/stage/application/services/stateService.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L57)
 
 ___
 
 ### get
 
-▸ **get**(`name`): `Promise`<[`ModelConfig`](../interfaces/ModelConfig.md)\>
+▸ **get**(`name`): `Promise`\<[`ModelConfig`](../interfaces/ModelConfig.md)\>
 
 #### Parameters
 
@@ -79,7 +83,7 @@ ___
 
 #### Returns
 
-`Promise`<[`ModelConfig`](../interfaces/ModelConfig.md)\>
+`Promise`\<[`ModelConfig`](../interfaces/ModelConfig.md)\>
 
 #### Inherited from
 
@@ -87,7 +91,7 @@ StageStateService.get
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L11)
+[src/lib/stage/application/services/stateService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L11)
 
 ___
 
@@ -111,13 +115,13 @@ StageStateService.getFile
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L53)
+[src/lib/stage/application/services/stateService.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L53)
 
 ___
 
 ### remove
 
-▸ **remove**(`name`): `Promise`<`any`\>
+▸ **remove**(`name`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -127,7 +131,7 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Inherited from
 
@@ -135,13 +139,13 @@ StageStateService.remove
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L28)
+[src/lib/stage/application/services/stateService.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L28)
 
 ___
 
 ### update
 
-▸ **update**(`name`, `data`): `Promise`<`void`\>
+▸ **update**(`name`, `data`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -152,7 +156,7 @@ ___
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Inherited from
 
@@ -160,4 +164,4 @@ StageStateService.update
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L23)
+[src/lib/stage/application/services/stateService.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L23)

@@ -16,7 +16,7 @@
 
 ### constructor
 
-• **new LoadSchema**(`source`, `domain`, `mapping`, `stage`, `view`, `extender`, `helper`)
+• **new LoadSchema**(`source`, `domain`, `mapping`, `stage`, `view`, `extender`, `helper`): [`LoadSchema`](LoadSchema.md)
 
 #### Parameters
 
@@ -30,9 +30,13 @@
 | `extender` | [`SchemaExtender`](SchemaExtender.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`LoadSchema`](LoadSchema.md)
+
 #### Defined in
 
-[src/lib/schema/application/useCases/load.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/useCases/load.ts#L13)
+[src/lib/schema/application/useCases/load.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/useCases/load.ts#L13)
 
 ## Methods
 
@@ -52,4 +56,4 @@
 
 #### Defined in
 
-[src/lib/schema/application/useCases/load.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/schema/application/useCases/load.ts#L21)
+[src/lib/schema/application/useCases/load.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/schema/application/useCases/load.ts#L21)

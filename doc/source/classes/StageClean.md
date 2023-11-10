@@ -24,7 +24,7 @@
 
 ### constructor
 
-• **new StageClean**(`executor`, `stateService`, `mappingService`, `schemaFacade`, `languages`, `options`, `helper`)
+• **new StageClean**(`executor`, `stateService`, `mappingService`, `schemaFacade`, `languages`, `options`, `helper`): [`StageClean`](StageClean.md)
 
 #### Parameters
 
@@ -38,23 +38,27 @@
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`StageClean`](StageClean.md)
+
 #### Overrides
 
 [StageActionDDL](StageActionDDL.md).[constructor](StageActionDDL.md#constructor)
 
 #### Defined in
 
-[src/lib/stage/application/useCases/clean.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/clean.ts#L11)
+[src/lib/stage/application/useCases/clean.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/clean.ts#L11)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(): `Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+▸ **execute**(): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Returns
 
-`Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+`Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Overrides
 
@@ -62,17 +66,17 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/clean.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/clean.ts#L24)
+[src/lib/stage/application/useCases/clean.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/clean.ts#L24)
 
 ___
 
 ### queries
 
-▸ **queries**(): `Promise`<[`Query`](Query.md)[]\>
+▸ **queries**(): `Promise`\<[`Query`](Query.md)[]\>
 
 #### Returns
 
-`Promise`<[`Query`](Query.md)[]\>
+`Promise`\<[`Query`](Query.md)[]\>
 
 #### Overrides
 
@@ -80,17 +84,17 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/clean.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/clean.ts#L16)
+[src/lib/stage/application/useCases/clean.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/clean.ts#L16)
 
 ___
 
 ### sentence
 
-▸ **sentence**(): `Promise`<`any`[]\>
+▸ **sentence**(): `Promise`\<`any`[]\>
 
 #### Returns
 
-`Promise`<`any`[]\>
+`Promise`\<`any`[]\>
 
 #### Inherited from
 
@@ -98,4 +102,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

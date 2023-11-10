@@ -16,7 +16,7 @@
 
 ### \_execute
 
-▸ **_execute**(`query`, `data`): `Promise`<`any`\>
+▸ **_execute**(`query`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -27,8 +27,8 @@
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/iQueryInternalExecutor.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/application/services/queryExecutor/iQueryInternalExecutor.ts#L4)
+[src/lib/execution/application/services/queryExecutor/iQueryInternalExecutor.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/application/services/queryExecutor/iQueryInternalExecutor.ts#L4)

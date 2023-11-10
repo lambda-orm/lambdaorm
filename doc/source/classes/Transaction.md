@@ -20,7 +20,7 @@
 
 ### constructor
 
-• **new Transaction**(`queryExecutor`)
+• **new Transaction**(`queryExecutor`): [`Transaction`](Transaction.md)
 
 #### Parameters
 
@@ -28,9 +28,13 @@
 | :------ | :------ |
 | `queryExecutor` | [`QueryExecutor`](QueryExecutor.md) |
 
+#### Returns
+
+[`Transaction`](Transaction.md)
+
 #### Defined in
 
-[src/lib/execution/domain/transaction.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/domain/transaction.ts#L6)
+[src/lib/execution/domain/transaction.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/domain/transaction.ts#L6)
 
 ## Accessors
 
@@ -44,13 +48,13 @@
 
 #### Defined in
 
-[src/lib/execution/domain/transaction.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/domain/transaction.ts#L14)
+[src/lib/execution/domain/transaction.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/domain/transaction.ts#L14)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(`query`, `data?`): `Promise`<`any`\>
+▸ **execute**(`query`, `data?`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -61,8 +65,8 @@
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Defined in
 
-[src/lib/execution/domain/transaction.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/execution/domain/transaction.ts#L10)
+[src/lib/execution/domain/transaction.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/execution/domain/transaction.ts#L10)

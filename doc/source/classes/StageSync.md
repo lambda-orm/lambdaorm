@@ -24,7 +24,7 @@
 
 ### constructor
 
-• **new StageSync**(`executor`, `stageModelService`, `schemaFacade`, `languages`, `options`, `helper`)
+• **new StageSync**(`executor`, `stageModelService`, `schemaFacade`, `languages`, `options`, `helper`): [`StageSync`](StageSync.md)
 
 #### Parameters
 
@@ -37,23 +37,27 @@
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`StageSync`](StageSync.md)
+
 #### Inherited from
 
 [StageActionDDL](StageActionDDL.md).[constructor](StageActionDDL.md#constructor)
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(): `Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+▸ **execute**(): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Returns
 
-`Promise`<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+`Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Overrides
 
@@ -61,17 +65,17 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/sync.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/sync.ts#L11)
+[src/lib/stage/application/useCases/sync.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/sync.ts#L11)
 
 ___
 
 ### queries
 
-▸ **queries**(): `Promise`<[`Query`](Query.md)[]\>
+▸ **queries**(): `Promise`\<[`Query`](Query.md)[]\>
 
 #### Returns
 
-`Promise`<[`Query`](Query.md)[]\>
+`Promise`\<[`Query`](Query.md)[]\>
 
 #### Overrides
 
@@ -79,17 +83,17 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/sync.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/sync.ts#L6)
+[src/lib/stage/application/useCases/sync.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/sync.ts#L6)
 
 ___
 
 ### sentence
 
-▸ **sentence**(): `Promise`<`any`[]\>
+▸ **sentence**(): `Promise`\<`any`[]\>
 
 #### Returns
 
-`Promise`<`any`[]\>
+`Promise`\<`any`[]\>
 
 #### Inherited from
 
@@ -97,4 +101,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

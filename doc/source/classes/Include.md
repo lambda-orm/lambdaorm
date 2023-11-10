@@ -18,7 +18,7 @@
 
 ### constructor
 
-• **new Include**(`name`, `query`, `relation`)
+• **new Include**(`name`, `query`, `relation`): [`Include`](Include.md)
 
 #### Parameters
 
@@ -28,9 +28,13 @@
 | `query` | [`Query`](Query.md) |
 | `relation` | [`Relation`](../interfaces/Relation.md) |
 
+#### Returns
+
+[`Include`](Include.md)
+
 #### Defined in
 
-[src/lib/query/domain/query.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/query/domain/query.ts#L50)
+[src/lib/query/domain/query.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/query/domain/query.ts#L50)
 
 ## Properties
 
@@ -40,7 +44,7 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/query/domain/query.ts#L47)
+[src/lib/query/domain/query.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/query/domain/query.ts#L47)
 
 ___
 
@@ -50,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/query/domain/query.ts#L48)
+[src/lib/query/domain/query.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/query/domain/query.ts#L48)
 
 ___
 
@@ -60,4 +64,4 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/query/domain/query.ts#L49)
+[src/lib/query/domain/query.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/query/domain/query.ts#L49)

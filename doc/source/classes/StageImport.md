@@ -24,7 +24,7 @@
 
 ### constructor
 
-• **new StageImport**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`)
+• **new StageImport**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`): [`StageImport`](StageImport.md)
 
 #### Parameters
 
@@ -36,19 +36,23 @@
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 
+#### Returns
+
+[`StageImport`](StageImport.md)
+
 #### Inherited from
 
 [StageActionDML](StageActionDML.md).[constructor](StageActionDML.md#constructor)
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDML.ts#L16)
+[src/lib/stage/application/useCases/base/actionDML.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDML.ts#L16)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(`data`): `Promise`<`void`\>
+▸ **execute**(`data`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -58,11 +62,11 @@
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/stage/application/useCases/import.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/import.ts#L7)
+[src/lib/stage/application/useCases/import.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/import.ts#L7)
 
 ___
 
@@ -80,17 +84,17 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDML.ts#L34)
+[src/lib/stage/application/useCases/base/actionDML.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDML.ts#L34)
 
 ___
 
 ### sentence
 
-▸ **sentence**(): `Promise`<`any`\>
+▸ **sentence**(): `Promise`\<`any`\>
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Inherited from
 
@@ -98,4 +102,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/useCases/base/actionDML.ts#L25)
+[src/lib/stage/application/useCases/base/actionDML.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/useCases/base/actionDML.ts#L25)

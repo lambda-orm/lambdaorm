@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-- `StageStateService`<[`MappingConfig`](../interfaces/MappingConfig.md)\>
+- `StageStateService`\<[`MappingConfig`](../interfaces/MappingConfig.md)\>
 
   ↳ **`StageMappingService`**
 
@@ -25,7 +25,7 @@
 
 ### constructor
 
-• **new StageMappingService**(`schemaFacade`, `helper`)
+• **new StageMappingService**(`schemaFacade`, `helper`): [`StageMappingService`](StageMappingService.md)
 
 #### Parameters
 
@@ -34,19 +34,23 @@
 | `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
 | `helper` | [`Helper`](Helper.md) |
 
+#### Returns
+
+[`StageMappingService`](StageMappingService.md)
+
 #### Inherited from
 
-StageStateService<MappingConfig\>.constructor
+StageStateService\<MappingConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L9)
+[src/lib/stage/application/services/stateService.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L9)
 
 ## Methods
 
 ### get
 
-▸ **get**(`name`): `Promise`<[`MappingConfig`](../interfaces/MappingConfig.md)\>
+▸ **get**(`name`): `Promise`\<[`MappingConfig`](../interfaces/MappingConfig.md)\>
 
 #### Parameters
 
@@ -56,7 +60,7 @@ StageStateService<MappingConfig\>.constructor
 
 #### Returns
 
-`Promise`<[`MappingConfig`](../interfaces/MappingConfig.md)\>
+`Promise`\<[`MappingConfig`](../interfaces/MappingConfig.md)\>
 
 #### Inherited from
 
@@ -64,7 +68,7 @@ StageStateService.get
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L11)
+[src/lib/stage/application/services/stateService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L11)
 
 ___
 
@@ -88,13 +92,13 @@ StageStateService.getFile
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L43)
+[src/lib/stage/application/services/stateService.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L43)
 
 ___
 
 ### remove
 
-▸ **remove**(`name`): `Promise`<`any`\>
+▸ **remove**(`name`): `Promise`\<`any`\>
 
 #### Parameters
 
@@ -104,7 +108,7 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`\<`any`\>
 
 #### Inherited from
 
@@ -112,13 +116,13 @@ StageStateService.remove
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L28)
+[src/lib/stage/application/services/stateService.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L28)
 
 ___
 
 ### update
 
-▸ **update**(`name`, `data`): `Promise`<`void`\>
+▸ **update**(`name`, `data`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -129,7 +133,7 @@ ___
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Inherited from
 
@@ -137,4 +141,4 @@ StageStateService.update
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/stage/application/services/stateService.ts#L23)
+[src/lib/stage/application/services/stateService.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/stage/application/services/stateService.ts#L23)

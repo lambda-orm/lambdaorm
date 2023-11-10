@@ -17,7 +17,7 @@
 
 ### constructor
 
-• **new OrmOperandHelper**(`operandHelper`)
+• **new OrmOperandHelper**(`operandHelper`): [`OrmOperandHelper`](OrmOperandHelper.md)
 
 #### Parameters
 
@@ -25,9 +25,13 @@
 | :------ | :------ |
 | `operandHelper` | `IOperandHelper` |
 
+#### Returns
+
+[`OrmOperandHelper`](OrmOperandHelper.md)
+
 #### Defined in
 
-[src/lib/operand/application/services/operandHelper.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/operand/application/services/operandHelper.ts#L5)
+[src/lib/operand/application/services/operandHelper.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/operand/application/services/operandHelper.ts#L5)
 
 ## Methods
 
@@ -47,7 +51,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/operandHelper.ts:65](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/operand/application/services/operandHelper.ts#L65)
+[src/lib/operand/application/services/operandHelper.ts:65](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/operand/application/services/operandHelper.ts#L65)
 
 ___
 
@@ -67,4 +71,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/services/operandHelper.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/84e5f96e/src/lib/operand/application/services/operandHelper.ts#L7)
+[src/lib/operand/application/services/operandHelper.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/d65e38bc/src/lib/operand/application/services/operandHelper.ts#L7)
