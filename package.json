@@ -1,11 +1,11 @@
 {
 	"name": "lambdaorm",
-	"version": "0.8.57",
+	"version": "0.8.58",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@gmail.com>",
 	"license": "MIT",
 	"main": "./index.js",
-	"types": "./index.d.ts",
+	"types": "./syntax.d.ts",
 	"private": true,
 	"homepage": "https://github.com/FlavioLionelRita/lambdaorm#/lib/readme",
 	"bugs": {
