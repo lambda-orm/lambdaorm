@@ -183,7 +183,7 @@ Lambda ORM
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/schema/domain/schema.ts#L3)
+[src/lib/schema/domain/schema.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/schema/domain/schema.ts#L3)
 
 ___
 
@@ -193,4 +193,4 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:256](https://github.com/FlavioLionelRita/lambdaorm/blob/890273ad/src/lib/orm/infrastructure/orm.ts#L256)
+[src/lib/orm/infrastructure/orm.ts:256](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/orm/infrastructure/orm.ts#L256)
