@@ -21,7 +21,7 @@ module.exports = function (grunt) {
 		},
 		copy: {
 			lib: { expand: true, cwd: 'build/lib', src: '**', dest: 'dist/' },
-			types: { expand: true, cwd: './types', src: 'index.d.ts', dest: 'dist/' },
+			types: { expand: true, cwd: './types', src: '**', dest: 'dist/' },
 			readme: { expand: true, src: './README.md', dest: 'dist/' },
 			changeLog: { expand: true, src: './CHANGELOG.md', dest: 'dist/' },
 			license: { expand: true, src: './LICENSE', dest: 'dist/' },

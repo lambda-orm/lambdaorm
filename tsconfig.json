@@ -21,6 +21,7 @@
 	},
 	"include": [
 		"src/**/*",
+		"types/**/*",
 		"task/Gruntfile.js"
 , "types/index.d.ts"	],
 	"exclude": [
