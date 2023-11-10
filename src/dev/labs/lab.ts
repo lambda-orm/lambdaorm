@@ -8,7 +8,10 @@ export async function apply (callback: any) {
 		
 		const query = ()=> Orders.include(p=> [p.customer,p.details.include(p=> p.product.include(p=>p.category))]).page(1,1)
 		const result = await  orm.execute(query,null,options)
-		console.log(JSON.stringify(result))		
+		console.log(JSON.stringify(result))
+
+
+
 		
 	} catch (error:any) {
 		console.error(error.stack)

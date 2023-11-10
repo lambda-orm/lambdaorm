@@ -22,7 +22,7 @@
 	"include": [
 		"src/**/*",
 		"task/Gruntfile.js"
-	],
+, "types/index.d.ts"	],
 	"exclude": [
 		"node_modules",
 		"**/__jest__/*",

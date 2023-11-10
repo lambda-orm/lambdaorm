@@ -1,7 +1,5 @@
 # λORM
 
-**IMPORTANT: the library is in an Beta version!!!**
-
 λORM is an ORM for Node.js which bases its queries on a business model, abstracting from the physical model.
 By means of rules the corresponding Data Source is determined and by definition of mappings how the business model is mapped with the physical one.
 

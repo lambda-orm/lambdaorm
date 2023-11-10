@@ -12,7 +12,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab.ts",
-			"envFile": "${workspaceFolder}/lib/config/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lib cclp lab",
@@ -22,7 +22,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/cclp/lab.ts",
-			"envFile": "${workspaceFolder}/lib/config/cclp.env"
+			"envFile": "${workspaceFolder}/config/cclp.env"
 		},
 		{
 			"name": "lib build config",
@@ -171,7 +171,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-listener.ts",
-			"envFile": "${workspaceFolder}/lib/config/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},		
 		{
 			"name": "lib lab shapes",
@@ -191,7 +191,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-config.ts",
-			"envFile": "${workspaceFolder}/lib/config/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lib lab config 2",
@@ -201,7 +201,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-config02.ts",
-			"envFile": "${workspaceFolder}/lib/config/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lib lab mssql",
@@ -211,7 +211,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-mssql.ts",
-			"envFile": "${workspaceFolder}/lib/config/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lib lab mongo",
@@ -230,7 +230,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/mongo/queries.ts",
-			"envFile": "${workspaceFolder}/lib/config/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lib lab mongo stage queries",
@@ -240,7 +240,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/mongo/stage.ts",
-			"envFile": "${workspaceFolder}/lib/config/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lib lab sync",
@@ -250,7 +250,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/lab-sync.ts",
-			"envFile": "${workspaceFolder}/lib/config/northwind.env"
+			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
 			"name": "lib lab devicenet sync",
