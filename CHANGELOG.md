@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.60](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.59...v0.8.60) (2023-11-10)
+
+
+### Bug Fixes
+
+* **security:** update dependences ([f496198](https://github.com/FlavioLionelRita/lambdaorm/commit/f496198b6f9871e6eeaa1142bac51e1031208bf7)), closes [#176](https://github.com/FlavioLionelRita/lambdaorm/issues/176)
+
 ### [0.8.59](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.58...v0.8.59) (2023-11-10)
 
 ### [0.8.58](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.57...v0.8.58) (2023-11-10)
