@@ -39,7 +39,7 @@ module.exports = function (grunt) {
 			test: data.scripts.test
 		}
 		data.main = 'index.js'
-		data.types = 'index.d.ts'
+		data.types = ['index.d.ts', 'syntax.d.ts']
 		fs.writeFileSync('dist/package.json', JSON.stringify(data, null, 2), 'utf8')
 	})
 
