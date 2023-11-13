@@ -120,8 +120,8 @@ export class IncludeAction<T> extends QueryAction {
 }
 export class ModificableClauses<T> extends QueryAction {
 	/**  */
-	filter (predicate: (value: T, index: number, array: T[]) => unknown): QueryAction {
-		return new QueryAction(this.actions, `${this.expression}.filter(${predicate.toString()})`)
+	filter (predicate: (value: T, index: number, array: T[]) => unknown): FilterClauses<T> {
+		return new FilterClauses(this.actions, `${this.expression}.filter(${predicate.toString()})`)
 	}
 
 	/**  */
@@ -146,8 +146,13 @@ export class Queryable<T> extends HavingClauses<T> {
 	}
 
 	/**  */
-	insert (value?: T): ModificableClauses<T> {
-		return new ModificableClauses(this.actions, `${this.expression}.insert(${value !== undefined ? JSON.stringify(value) : ''})`)
+	// insert (predicate?: T): ModificableClauses<T>
+	insert (predicate?:(value:T) => unknown | T): ModificableClauses<T> {
+		if (predicate) {
+			return new ModificableClauses(this.actions, `${this.expression}.insert(${predicate !== undefined ? JSON.stringify(predicate) : ''})`)
+		} else {
+			return new ModificableClauses(this.actions, `${this.expression}.insert()`)
+		}
 	}
 
 	/**  */
@@ -156,8 +161,12 @@ export class Queryable<T> extends HavingClauses<T> {
 	}
 
 	/**  */
-	update (predicate: (value: T, index: number, array: T[]) => unknown): ModificableClauses<T> {
-		return new ModificableClauses(this.actions, `${this.expression}.update(${predicate.toString()})`)
+	update (predicate?: (value: T, index: number, array: T[]) => unknown): ModificableClauses<T> {
+		if (predicate) {
+			return new ModificableClauses(this.actions, `${this.expression}.update(${predicate.toString()})`)
+		} else {
+			return new ModificableClauses(this.actions, `${this.expression}.update()`)
+		}
 	}
 
 	/**  */
@@ -166,9 +175,16 @@ export class Queryable<T> extends HavingClauses<T> {
 	}
 
 	/**  */
-	delete (): ModificableClauses<T> {
-		return new ModificableClauses(this.actions, `${this.expression}.delete()`)
+	delete (predicate?:(value:T) => unknown): ModificableClauses<T> {
+		if (predicate) {
+			return new ModificableClauses(this.actions, `${this.expression}.delete(${predicate.toString()})`)
+		} else {
+			return new ModificableClauses(this.actions, `${this.expression}.delete()`)
+		}
 	}
+	// delete (): ModificableClauses<T> {
+	// return new ModificableClauses(this.actions, `${this.expression}.delete()`)
+	// }
 
 	/**  */
 	deleteAll (): IncludeAction<T> {

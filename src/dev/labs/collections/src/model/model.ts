@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 // THIS FILE IS NOT EDITABLE, IS MANAGED BY LAMBDA ORM
-import { Queryable } from './../../../../../lib'
+import { Queryable, ManyToOne, OneToMany, OneToOne } from './../../../../../lib'
 export abstract class SrbReference {
 	id?: number
 	refType?: string

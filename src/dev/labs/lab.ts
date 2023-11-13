@@ -1,4 +1,4 @@
-import { orm} from '../../lib'
+import { avg, orm} from '../../lib'
 import { Orders } from '../northwind/model/__model'
 
 export async function apply (callback: any) {

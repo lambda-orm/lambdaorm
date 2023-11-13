@@ -1,4 +1,4 @@
-import { Orm } from '../../../lib'
+import { Orm, isNotNull} from '../../../lib'
 import { h3lp } from 'h3lp'
 import path  from 'path'
 import { DbDebtors } from './beesion/src/model'

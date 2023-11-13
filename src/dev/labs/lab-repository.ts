@@ -1,4 +1,4 @@
-import { orm } from '../../lib'
+import { desc, max, orm } from '../../lib'
 import { CategoryRepository, Category, ProductRepository } from '../northwind/model'
 
 (async () => {

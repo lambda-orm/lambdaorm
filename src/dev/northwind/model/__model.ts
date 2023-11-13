@@ -1,5 +1,7 @@
 /* eslint-disable no-use-before-define */
 
+import { QryCategories, QryCustomers, QryEmployees, QryShippers, QrySuppliers, QryProducts, QryOrders } from './__queryable'
+
 export class Category {
 	id?: number
 	name?: string

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { orm, QueryInfo } from '../../../lib'
+import { orm, QueryInfo, max, min, sum, round, avg, between, abs, acos, asin, atan, atan2, ceil, cos, count, desc, exp, floor, ln, log, sign, tan, trunc } from '../../../lib'
 import { Categories, Customers, Products, Orders } from '../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 import { h3lp } from 'h3lp'
