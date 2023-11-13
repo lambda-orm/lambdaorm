@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L12)
+[src/lib/language/application/services/dialectService.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L12)
 
 ## Properties
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L5)
+[src/lib/language/application/services/dialectService.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L5)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L4)
+[src/lib/language/application/services/dialectService.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L4)
 
 ## Accessors
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L63)
+[src/lib/language/application/services/dialectService.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L63)
 
 ## Methods
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:83](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L83)
+[src/lib/language/application/services/dialectService.ts:83](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L83)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:91](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L91)
+[src/lib/language/application/services/dialectService.ts:91](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L91)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L75)
+[src/lib/language/application/services/dialectService.ts:75](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L75)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L71)
+[src/lib/language/application/services/dialectService.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L71)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:111](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L111)
+[src/lib/language/application/services/dialectService.ts:111](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L111)
 
 ___
 
@@ -205,7 +205,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:99](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L99)
+[src/lib/language/application/services/dialectService.ts:99](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L99)
 
 ___
 
@@ -226,7 +226,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L67)
+[src/lib/language/application/services/dialectService.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L67)
 
 ___
 
@@ -246,7 +246,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L79)
+[src/lib/language/application/services/dialectService.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L79)
 
 ___
 
@@ -266,4 +266,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:87](https://github.com/FlavioLionelRita/lambdaorm/blob/f496198b/src/lib/language/application/services/dialectService.ts#L87)
+[src/lib/language/application/services/dialectService.ts:87](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/language/application/services/dialectService.ts#L87)
