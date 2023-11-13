@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.62](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.61...v0.8.62) (2023-11-13)
+
+
+### Features
+
+* **release:** remove syntax.d.ts to types on package.json and add types on repository/domain/queriable ([6e46e7a](https://github.com/FlavioLionelRita/lambdaorm/commit/6e46e7a1dcfdb82e13c856bac97357910eea5037)), closes [#189](https://github.com/FlavioLionelRita/lambdaorm/issues/189)
+* **syntax:** refactorize quereable ([e5a8783](https://github.com/FlavioLionelRita/lambdaorm/commit/e5a878321f26d3d9e82182bbff3c8959c68acbd2)), closes [#189](https://github.com/FlavioLionelRita/lambdaorm/issues/189)
+
 ### [0.8.61](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.60...v0.8.61) (2023-11-13)
 
 
