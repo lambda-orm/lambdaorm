@@ -21,7 +21,6 @@ module.exports = function (grunt) {
 		},
 		copy: {
 			lib: { expand: true, cwd: 'build/lib', src: '**', dest: 'dist/' },
-			types: { expand: true, cwd: './types', src: '**', dest: 'dist/' },
 			readme: { expand: true, src: './README.md', dest: 'dist/' },
 			changeLog: { expand: true, src: './CHANGELOG.md', dest: 'dist/' },
 			license: { expand: true, src: './LICENSE', dest: 'dist/' },
@@ -39,7 +38,7 @@ module.exports = function (grunt) {
 			test: data.scripts.test
 		}
 		data.main = 'index.js'
-		data.types = ['index.d.ts', 'syntax.d.ts']
+		data.types = 'index.d.ts'
 		fs.writeFileSync('dist/package.json', JSON.stringify(data, null, 2), 'utf8')
 	})
 
@@ -113,7 +112,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('test', ['build', 'exec:test'])
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
-	grunt.registerTask('dist', ['test', 'clean:dist', 'copy:lib', 'copy:types', 'copy:jest', 'copy:images', 'copy:readme', 'copy:changeLog', 'copy:license', 'create-package'])
+	grunt.registerTask('dist', ['test', 'clean:dist', 'copy:lib', 'copy:jest', 'copy:images', 'copy:readme', 'copy:changeLog', 'copy:license', 'create-package'])
 	grunt.registerTask('release', ['dist', 'doc', 'exec:release'])
 	grunt.registerTask('default', [])
 }
