@@ -74,7 +74,7 @@
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L8)
+[src/lib/repository/domain/queryable.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L8)
 
 ## Methods
 
@@ -94,7 +94,7 @@
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:154](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L154)
+[src/lib/repository/domain/queryable.ts:159](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L159)
 
 ___
 
@@ -112,13 +112,19 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L25)
+[src/lib/repository/domain/queryable.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L25)
 
 ___
 
 ### delete
 
-▸ **delete**(): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
+▸ **delete**(`predicate?`): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `predicate?` | (`value`: `T`) => `unknown` |
 
 #### Returns
 
@@ -126,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:169](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L169)
+[src/lib/repository/domain/queryable.ts:178](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L178)
 
 ___
 
@@ -140,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:174](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L174)
+[src/lib/repository/domain/queryable.ts:190](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L190)
 
 ___
 
@@ -170,7 +176,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:77](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L77)
+[src/lib/repository/domain/queryable.ts:77](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L77)
 
 ___
 
@@ -194,7 +200,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L13)
+[src/lib/repository/domain/queryable.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L13)
 
 ___
 
@@ -214,7 +220,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:134](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L134)
+[src/lib/repository/domain/queryable.ts:134](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L134)
 
 ___
 
@@ -244,7 +250,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L67)
+[src/lib/repository/domain/queryable.ts:67](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L67)
 
 ___
 
@@ -264,7 +270,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:144](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L144)
+[src/lib/repository/domain/queryable.ts:144](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L144)
 
 ___
 
@@ -284,19 +290,19 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:139](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L139)
+[src/lib/repository/domain/queryable.ts:139](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L139)
 
 ___
 
 ### insert
 
-▸ **insert**(`value?`): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
+▸ **insert**(`predicate?`): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `value?` | `T` |
+| `predicate?` | (`value`: `T`) => `unknown` |
 
 #### Returns
 
@@ -304,7 +310,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:149](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L149)
+[src/lib/repository/domain/queryable.ts:150](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L150)
 
 ___
 
@@ -334,7 +340,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L72)
+[src/lib/repository/domain/queryable.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L72)
 
 ___
 
@@ -364,7 +370,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:62](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L62)
+[src/lib/repository/domain/queryable.ts:62](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L62)
 
 ___
 
@@ -382,7 +388,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L37)
+[src/lib/repository/domain/queryable.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L37)
 
 ___
 
@@ -400,7 +406,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L21)
+[src/lib/repository/domain/queryable.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L21)
 
 ___
 
@@ -418,7 +424,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L17)
+[src/lib/repository/domain/queryable.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L17)
 
 ___
 
@@ -443,7 +449,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L44)
+[src/lib/repository/domain/queryable.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L44)
 
 ___
 
@@ -461,7 +467,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L29)
+[src/lib/repository/domain/queryable.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L29)
 
 ___
 
@@ -479,7 +485,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L33)
+[src/lib/repository/domain/queryable.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L33)
 
 ___
 
@@ -503,19 +509,19 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L50)
+[src/lib/repository/domain/queryable.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L50)
 
 ___
 
 ### update
 
-▸ **update**(`predicate`): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
+▸ **update**(`predicate?`): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`value`: `T`, `index`: `number`, `array`: `T`[]) => `unknown` |
+| `predicate?` | (`value`: `T`, `index`: `number`, `array`: `T`[]) => `unknown` |
 
 #### Returns
 
@@ -523,7 +529,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:159](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L159)
+[src/lib/repository/domain/queryable.ts:164](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L164)
 
 ___
 
@@ -543,4 +549,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:164](https://github.com/FlavioLionelRita/lambdaorm/blob/11da7208/src/lib/repository/domain/queryable.ts#L164)
+[src/lib/repository/domain/queryable.ts:173](https://github.com/FlavioLionelRita/lambdaorm/blob/e5a87832/src/lib/repository/domain/queryable.ts#L173)
