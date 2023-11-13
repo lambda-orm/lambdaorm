@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.61](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.60...v0.8.61) (2023-11-13)
+
+
+### Features
+
+* **release:** add syntax.d.ts to types on package.json ([11da720](https://github.com/FlavioLionelRita/lambdaorm/commit/11da72085ff540d5c7d5060ecf58f0d62683e495)), closes [#189](https://github.com/FlavioLionelRita/lambdaorm/issues/189)
+
 ### [0.8.60](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.59...v0.8.60) (2023-11-10)
 
 
