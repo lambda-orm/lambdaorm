@@ -59,21 +59,21 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('countries-populate-source', 'countries populate source', function () {
-		const task = require('../build/dev/countries/task/populateSource')
+		const task = require('./build/dev/countries/task/populateSource')
 		task.apply(this.async())
 	})
 	grunt.registerTask('countries-create-data-for-test-suite', 'countries create data for test suite', function () {
-		const task = require('../build/dev/countries/task/createDataForTestSuite')
+		const task = require('./build/dev/countries/task/createDataForTestSuite')
 		task.apply(this.async())
 	})
 	grunt.registerTask('countries-create-test-suite', 'countries create test suite', function () {
-		const task = require('../build/dev/countries/task/createTestSuite')
+		const task = require('./build/dev/countries/task/createTestSuite')
 		task.apply(this.async())
 	})
 
 	grunt.registerTask('populate-source', 'populate source db', function () {
 		const fs = require('fs')
-		const task = require('../build/dev/task/mysqlExecute')
+		const task = require('./build/dev/task/mysqlExecute')
 		const sourceFile = './src/dev/northwind/db/northwind-mysql.sql'
 		const connection = JSON.parse(process.env.ORM_CNN_SOURCE)
 		const script = fs.readFileSync(sourceFile, { encoding: 'utf8' })
@@ -81,39 +81,39 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('populate-databases', 'populate databases for test', function () {
-		const task = require('../build/dev/northwind/task/populateDatabases')
+		const task = require('./build/dev/northwind/task/populateDatabases')
 		task.apply(sources, this.async())
 	})
 
 	grunt.registerTask('create-data-for-test', 'create data for test', function () {
-		const task = require('../build/dev/northwind/task/createDataForTest')
+		const task = require('./build/dev/northwind/task/createDataForTest')
 		task.apply(sources, this.async())
 	})
 
 	grunt.registerTask('create-data-for-test-suite', 'create data for test suite', function () {
-		const task = require('../build/dev/northwind/task/createDataForTestSuite')
+		const task = require('./build/dev/northwind/task/createDataForTestSuite')
 		task.apply(sources, this.async())
 	})
 
 	grunt.registerTask('create-test', 'create test', function () {
-		const task = require('../build/dev/northwind/task/createTest')
+		const task = require('./build/dev/northwind/task/createTest')
 		const dataForTestPath = './src/dev/northwind/test/data'
 		task.apply(dataForTestPath, sources, this.async())
 	})
 
 	grunt.registerTask('create-test-suite', 'create test suite', function () {
-		const task = require('../build/dev/northwind/task/createTestSuite')
+		const task = require('./build/dev/northwind/task/createTestSuite')
 		task.apply(this.async())
 	})
 
 	grunt.registerTask('build-config', 'build configuration', function () {
 		// this task needs to be js since it must be executed before executing npx tsc
-		const task = require('../src/dev/task/buildConfig')
+		const task = require('./src/dev/task/buildConfig')
 		task.apply(this.async())
 	})
 
 	grunt.registerTask('build-wiki', 'build wiki', function () {
-		const task = require('../build/dev/task/buildWiki')
+		const task = require('./build/dev/task/buildWiki')
 		task.apply(this.async())
 	})
 
@@ -124,7 +124,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('create-package', 'create package.json for dist', function () {
 		const fs = require('fs')
-		const data = require('../package.json')
+		const data = require('./package.json')
 		delete data.devDependencies
 		delete data.private
 		data.scripts = {
