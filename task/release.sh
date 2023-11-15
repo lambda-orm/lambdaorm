@@ -6,7 +6,7 @@ if [ $SOURCE_BRANCH == 'develop' ]; then
     standard-version
     VERSION=$(jq -r '.version' ./package.json )
     git add .
-    git commit -m "ci(release): release ${VERSION} 
+    git commit -m "chore(release): release ${VERSION} 
     
     #0"
     git push
