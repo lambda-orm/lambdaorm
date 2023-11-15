@@ -1,8 +1,8 @@
 {
 	"name": "lambdaorm",
-	"version": "0.8.63",
+	"version": "0.8.66",
 	"description": "ORM",
-	"author": "Flavio Lionel Rita <flaviolrita@gmail.com>",
+	"author": "Flavio Lionel Rita <flaviolrita@proton.me>",
 	"license": "MIT",
 	"main": "./index.js",
 	"types": "./syntax.d.ts",
