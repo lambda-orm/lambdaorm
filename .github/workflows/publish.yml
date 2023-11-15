@@ -28,7 +28,6 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Delete branch
         run: |
-          export HUSKY_SKIP_HOOKS=1
           git push origin --delete ${{ github.ref_name }} --no-verify
           echo "Branch ${{ github.ref_name }} deleted"        
 
