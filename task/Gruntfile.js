@@ -34,8 +34,8 @@ module.exports = function (grunt) {
 			createReleaseBranch: {
 				cmd: 'git checkout -b release/<%= version %> && git push --set-upstream origin release/<%= version %>'
 			},
-			mergeToMaster: {
-				cmd: 'git checkout master && git merge release/<%= version %> -m "chore(release): release <%= version %>" && git push'
+			mergeToMain: {
+				cmd: 'git checkout main && git merge release/<%= version %> -m "chore(release): release <%= version %>" && git push'
 			},
 			mergeToOriginalBranch: {
 				cmd: 'git checkout <%= originalBranch %> && git merge release/<%= version %> -m "chore(release): release <%= version %>" && git push'
@@ -135,7 +135,7 @@ module.exports = function (grunt) {
 		fs.writeFileSync('dist/package.json', JSON.stringify(data, null, 2), 'utf8')
 	})
 
-	grunt.registerTask('exec-release', ['exec:standardVersion', 'create-package', 'get-version', 'exec:push', 'exec:createReleaseBranch', 'exec:mergeToMaster', 'exec:mergeToOriginalBranch', 'exec:removeLocalReleaseBranch'])
+	grunt.registerTask('exec-release', ['exec:standardVersion', 'create-package', 'get-version', 'exec:push', 'exec:createReleaseBranch', 'exec:mergeToMain', 'exec:mergeToOriginalBranch', 'exec:removeLocalReleaseBranch'])
 	grunt.registerTask('run-release-if-applicable', 'run release if applicable', function () {
 		const originalBranch = grunt.config.get('originalBranch')
 		if (originalBranch === 'develop' || originalBranch.startsWith('hotfix')) {

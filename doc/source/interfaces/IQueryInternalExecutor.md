@@ -31,4 +31,4 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/iQueryInternalExecutor.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/835c25c0/src/lib/execution/application/services/queryExecutor/iQueryInternalExecutor.ts#L4)
+[src/lib/execution/application/services/queryExecutor/iQueryInternalExecutor.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/a5d1cf0f/src/lib/execution/application/services/queryExecutor/iQueryInternalExecutor.ts#L4)

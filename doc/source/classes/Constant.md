@@ -185,4 +185,4 @@ Operand.eval
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/835c25c0/src/lib/sentence/domain/sentence.ts#L8)
+[src/lib/sentence/domain/sentence.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/a5d1cf0f/src/lib/sentence/domain/sentence.ts#L8)
