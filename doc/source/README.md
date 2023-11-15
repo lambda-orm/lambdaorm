@@ -284,7 +284,7 @@ Lambda ORM
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:326](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L326)
+[src/lib/repository/domain/queryable.ts:326](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L326)
 
 ___
 
@@ -300,7 +300,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:324](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L324)
+[src/lib/repository/domain/queryable.ts:324](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L324)
 
 ___
 
@@ -316,7 +316,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:325](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L325)
+[src/lib/repository/domain/queryable.ts:325](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L325)
 
 ## Variables
 
@@ -326,7 +326,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/schema/domain/schema.ts#L3)
+[src/lib/schema/domain/schema.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/schema/domain/schema.ts#L3)
 
 ___
 
@@ -336,7 +336,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:256](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/orm/infrastructure/orm.ts#L256)
+[src/lib/orm/infrastructure/orm.ts:256](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/orm/infrastructure/orm.ts#L256)
 
 ## Functions
 
@@ -358,7 +358,7 @@ Get the absolute value
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:343](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L343)
+[src/lib/repository/domain/queryable.ts:343](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L343)
 
 ___
 
@@ -380,7 +380,7 @@ Get the arc cosine
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:345](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L345)
+[src/lib/repository/domain/queryable.ts:345](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L345)
 
 ___
 
@@ -401,7 +401,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:447](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L447)
+[src/lib/repository/domain/queryable.ts:447](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L447)
 
 ___
 
@@ -422,7 +422,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:449](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L449)
+[src/lib/repository/domain/queryable.ts:449](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L449)
 
 ___
 
@@ -443,7 +443,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:451](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L451)
+[src/lib/repository/domain/queryable.ts:451](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L451)
 
 ___
 
@@ -464,7 +464,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:445](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L445)
+[src/lib/repository/domain/queryable.ts:445](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L445)
 
 ___
 
@@ -485,7 +485,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:453](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L453)
+[src/lib/repository/domain/queryable.ts:453](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L453)
 
 ___
 
@@ -506,7 +506,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:455](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L455)
+[src/lib/repository/domain/queryable.ts:455](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L455)
 
 ___
 
@@ -527,7 +527,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:443](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L443)
+[src/lib/repository/domain/queryable.ts:443](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L443)
 
 ___
 
@@ -548,7 +548,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:330](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L330)
+[src/lib/repository/domain/queryable.ts:330](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L330)
 
 ___
 
@@ -568,7 +568,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:334](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L334)
+[src/lib/repository/domain/queryable.ts:334](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L334)
 
 ___
 
@@ -590,7 +590,7 @@ Get the arc sine
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:347](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L347)
+[src/lib/repository/domain/queryable.ts:347](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L347)
 
 ___
 
@@ -612,7 +612,7 @@ Get the arc tangent
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:349](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L349)
+[src/lib/repository/domain/queryable.ts:349](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L349)
 
 ___
 
@@ -635,7 +635,7 @@ Get the arc tangent of x and y
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:351](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L351)
+[src/lib/repository/domain/queryable.ts:351](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L351)
 
 ___
 
@@ -655,7 +655,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:489](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L489)
+[src/lib/repository/domain/queryable.ts:489](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L489)
 
 ___
 
@@ -677,7 +677,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:336](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L336)
+[src/lib/repository/domain/queryable.ts:336](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L336)
 
 ___
 
@@ -699,7 +699,7 @@ Get the smallest following integer
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:353](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L353)
+[src/lib/repository/domain/queryable.ts:353](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L353)
 
 ___
 
@@ -721,7 +721,7 @@ Get character from ASCII code
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:384](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L384)
+[src/lib/repository/domain/queryable.ts:384](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L384)
 
 ___
 
@@ -743,7 +743,7 @@ String concatenation
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:412](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L412)
+[src/lib/repository/domain/queryable.ts:412](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L412)
 
 ___
 
@@ -765,7 +765,7 @@ Get the cosine
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:355](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L355)
+[src/lib/repository/domain/queryable.ts:355](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L355)
 
 ___
 
@@ -787,7 +787,7 @@ Get hyperbolic cosine
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:357](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L357)
+[src/lib/repository/domain/queryable.ts:357](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L357)
 
 ___
 
@@ -807,7 +807,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:491](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L491)
+[src/lib/repository/domain/queryable.ts:491](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L491)
 
 ___
 
@@ -823,7 +823,7 @@ Get the current time
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:417](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L417)
+[src/lib/repository/domain/queryable.ts:417](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L417)
 
 ___
 
@@ -843,7 +843,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:425](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L425)
+[src/lib/repository/domain/queryable.ts:425](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L425)
 
 ___
 
@@ -864,7 +864,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:457](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L457)
+[src/lib/repository/domain/queryable.ts:457](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L457)
 
 ___
 
@@ -884,7 +884,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:427](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L427)
+[src/lib/repository/domain/queryable.ts:427](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L427)
 
 ___
 
@@ -904,7 +904,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:433](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L433)
+[src/lib/repository/domain/queryable.ts:433](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L433)
 
 ___
 
@@ -924,7 +924,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:332](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L332)
+[src/lib/repository/domain/queryable.ts:332](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L332)
 
 ___
 
@@ -944,7 +944,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:340](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L340)
+[src/lib/repository/domain/queryable.ts:340](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L340)
 
 ___
 
@@ -966,7 +966,7 @@ Raise e to the nth power
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:359](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L359)
+[src/lib/repository/domain/queryable.ts:359](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L359)
 
 ___
 
@@ -986,7 +986,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:493](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L493)
+[src/lib/repository/domain/queryable.ts:493](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L493)
 
 ___
 
@@ -1008,7 +1008,7 @@ Get the largest preceding integer
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:361](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L361)
+[src/lib/repository/domain/queryable.ts:361](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L361)
 
 ___
 
@@ -1028,7 +1028,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:437](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L437)
+[src/lib/repository/domain/queryable.ts:437](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L437)
 
 ___
 
@@ -1049,7 +1049,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:338](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L338)
+[src/lib/repository/domain/queryable.ts:338](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L338)
 
 ___
 
@@ -1069,7 +1069,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:486](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L486)
+[src/lib/repository/domain/queryable.ts:486](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L486)
 
 ___
 
@@ -1089,7 +1089,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:484](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L484)
+[src/lib/repository/domain/queryable.ts:484](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L484)
 
 ___
 
@@ -1109,7 +1109,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:495](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L495)
+[src/lib/repository/domain/queryable.ts:495](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L495)
 
 ___
 
@@ -1131,7 +1131,7 @@ Get natural logarithm of num
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:363](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L363)
+[src/lib/repository/domain/queryable.ts:363](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L363)
 
 ___
 
@@ -1154,7 +1154,7 @@ Get logarithm, base num1, of num2
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:365](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L365)
+[src/lib/repository/domain/queryable.ts:365](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L365)
 
 ___
 
@@ -1176,7 +1176,7 @@ Lowercase string
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:388](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L388)
+[src/lib/repository/domain/queryable.ts:388](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L388)
 
 ___
 
@@ -1200,7 +1200,7 @@ Pad the left-side of string
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:390](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L390)
+[src/lib/repository/domain/queryable.ts:390](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L390)
 
 ___
 
@@ -1222,7 +1222,7 @@ Remove leading chars
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:392](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L392)
+[src/lib/repository/domain/queryable.ts:392](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L392)
 
 ___
 
@@ -1242,7 +1242,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:497](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L497)
+[src/lib/repository/domain/queryable.ts:497](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L497)
 
 ___
 
@@ -1262,7 +1262,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:499](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L499)
+[src/lib/repository/domain/queryable.ts:499](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L499)
 
 ___
 
@@ -1282,7 +1282,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:439](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L439)
+[src/lib/repository/domain/queryable.ts:439](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L439)
 
 ___
 
@@ -1302,7 +1302,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:431](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L431)
+[src/lib/repository/domain/queryable.ts:431](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L431)
 
 ___
 
@@ -1318,7 +1318,7 @@ Get the current dateTime
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:421](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L421)
+[src/lib/repository/domain/queryable.ts:421](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L421)
 
 ___
 
@@ -1339,7 +1339,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:480](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L480)
+[src/lib/repository/domain/queryable.ts:480](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L480)
 
 ___
 
@@ -1361,7 +1361,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:482](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L482)
+[src/lib/repository/domain/queryable.ts:482](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L482)
 
 ___
 
@@ -1384,7 +1384,7 @@ Get remainder
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:367](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L367)
+[src/lib/repository/domain/queryable.ts:367](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L367)
 
 ___
 
@@ -1408,7 +1408,7 @@ The replace() method searches a string for a specified value and returns a new s
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:398](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L398)
+[src/lib/repository/domain/queryable.ts:398](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L398)
 
 ___
 
@@ -1431,7 +1431,7 @@ Get rounded value
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:369](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L369)
+[src/lib/repository/domain/queryable.ts:369](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L369)
 
 ___
 
@@ -1455,7 +1455,7 @@ Pad the right-side of string
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:400](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L400)
+[src/lib/repository/domain/queryable.ts:400](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L400)
 
 ___
 
@@ -1477,7 +1477,7 @@ Remove trailing spaces
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:402](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L402)
+[src/lib/repository/domain/queryable.ts:402](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L402)
 
 ___
 
@@ -1497,7 +1497,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:441](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L441)
+[src/lib/repository/domain/queryable.ts:441](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L441)
 
 ___
 
@@ -1519,7 +1519,7 @@ Get sign of exp
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:371](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L371)
+[src/lib/repository/domain/queryable.ts:371](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L371)
 
 ___
 
@@ -1541,7 +1541,7 @@ Get sine
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:373](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L373)
+[src/lib/repository/domain/queryable.ts:373](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L373)
 
 ___
 
@@ -1563,7 +1563,7 @@ Get hyperbolic sine
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:375](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L375)
+[src/lib/repository/domain/queryable.ts:375](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L375)
 
 ___
 
@@ -1577,7 +1577,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:477](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L477)
+[src/lib/repository/domain/queryable.ts:477](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L477)
 
 ___
 
@@ -1601,7 +1601,7 @@ Get a substring of string
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:404](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L404)
+[src/lib/repository/domain/queryable.ts:404](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L404)
 
 ___
 
@@ -1625,7 +1625,7 @@ Get a substring of string
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:406](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L406)
+[src/lib/repository/domain/queryable.ts:406](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L406)
 
 ___
 
@@ -1645,7 +1645,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:501](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L501)
+[src/lib/repository/domain/queryable.ts:501](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L501)
 
 ___
 
@@ -1667,7 +1667,7 @@ Get tangent
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:377](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L377)
+[src/lib/repository/domain/queryable.ts:377](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L377)
 
 ___
 
@@ -1689,7 +1689,7 @@ Get hyperbolic tangent
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:379](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L379)
+[src/lib/repository/domain/queryable.ts:379](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L379)
 
 ___
 
@@ -1709,7 +1709,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:423](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L423)
+[src/lib/repository/domain/queryable.ts:423](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L423)
 
 ___
 
@@ -1730,7 +1730,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:459](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L459)
+[src/lib/repository/domain/queryable.ts:459](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L459)
 
 ___
 
@@ -1750,7 +1750,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:464](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L464)
+[src/lib/repository/domain/queryable.ts:464](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L464)
 
 ___
 
@@ -1770,7 +1770,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:466](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L466)
+[src/lib/repository/domain/queryable.ts:466](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L466)
 
 ___
 
@@ -1790,7 +1790,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:470](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L470)
+[src/lib/repository/domain/queryable.ts:470](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L470)
 
 ___
 
@@ -1810,7 +1810,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:472](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L472)
+[src/lib/repository/domain/queryable.ts:472](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L472)
 
 ___
 
@@ -1830,7 +1830,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:462](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L462)
+[src/lib/repository/domain/queryable.ts:462](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L462)
 
 ___
 
@@ -1850,7 +1850,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:468](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L468)
+[src/lib/repository/domain/queryable.ts:468](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L468)
 
 ___
 
@@ -1866,7 +1866,7 @@ Get the current date
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:419](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L419)
+[src/lib/repository/domain/queryable.ts:419](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L419)
 
 ___
 
@@ -1888,7 +1888,7 @@ Remove characters
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:408](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L408)
+[src/lib/repository/domain/queryable.ts:408](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L408)
 
 ___
 
@@ -1911,7 +1911,7 @@ Truncate num
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:381](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L381)
+[src/lib/repository/domain/queryable.ts:381](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L381)
 
 ___
 
@@ -1933,7 +1933,7 @@ Uppercase string
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:410](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L410)
+[src/lib/repository/domain/queryable.ts:410](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L410)
 
 ___
 
@@ -1947,7 +1947,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:475](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L475)
+[src/lib/repository/domain/queryable.ts:475](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L475)
 
 ___
 
@@ -1967,7 +1967,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:435](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L435)
+[src/lib/repository/domain/queryable.ts:435](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L435)
 
 ___
 
@@ -1987,4 +1987,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:429](https://github.com/FlavioLionelRita/lambdaorm/blob/daad6f63/src/lib/repository/domain/queryable.ts#L429)
+[src/lib/repository/domain/queryable.ts:429](https://github.com/FlavioLionelRita/lambdaorm/blob/d08a222d/src/lib/repository/domain/queryable.ts#L429)
