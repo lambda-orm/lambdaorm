@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/services/dialectPoolService.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/ae0d2056/src/lib/connection/application/services/dialectPoolService.ts#L7)
+[src/lib/connection/application/services/dialectPoolService.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/95087682/src/lib/connection/application/services/dialectPoolService.ts#L7)
 
 ## Methods
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/services/dialectPoolService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/ae0d2056/src/lib/connection/application/services/dialectPoolService.ts#L11)
+[src/lib/connection/application/services/dialectPoolService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/95087682/src/lib/connection/application/services/dialectPoolService.ts#L11)
 
 ___
 
@@ -72,4 +72,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/services/dialectPoolService.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/ae0d2056/src/lib/connection/application/services/dialectPoolService.ts#L15)
+[src/lib/connection/application/services/dialectPoolService.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/95087682/src/lib/connection/application/services/dialectPoolService.ts#L15)
