@@ -137,7 +137,6 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('exec-release', ['exec:standardVersion', 'create-package', 'get-version', 'exec:push', 'exec:createReleaseBranch', 'exec:mergeToMaster', 'exec:mergeToOriginalBranch', 'exec:removeLocalReleaseBranch'])
 	grunt.registerTask('run-release-if-applicable', 'run release if applicable', function () {
-		grunt.task.run('exec:getOriginalBranch')
 		const originalBranch = grunt.config.get('originalBranch')
 		if (originalBranch === 'develop' || originalBranch.startsWith('hotfix')) {
 			grunt.task.run('exec-release')
@@ -157,6 +156,6 @@ module.exports = function (grunt) {
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
 	grunt.registerTask('dist', ['test', 'clean:dist', 'copy:lib', 'copy:jest', 'copy:images', 'copy:readme', 'copy:changeLog', 'copy:license', 'create-package'])
-	grunt.registerTask('release', ['dist', 'doc', 'run-release-if-applicable'])
+	grunt.registerTask('release', ['dist', 'doc', 'exec:getOriginalBranch', 'run-release-if-applicable'])
 	grunt.registerTask('default', [])
 }

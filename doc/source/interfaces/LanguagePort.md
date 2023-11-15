@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/95087682/src/lib/language/application/ports/languagePort.ts#L8)
+[src/lib/language/application/ports/languagePort.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/835c25c0/src/lib/language/application/ports/languagePort.ts#L8)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/95087682/src/lib/language/application/ports/languagePort.ts#L9)
+[src/lib/language/application/ports/languagePort.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/835c25c0/src/lib/language/application/ports/languagePort.ts#L9)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/95087682/src/lib/language/application/ports/languagePort.ts#L10)
+[src/lib/language/application/ports/languagePort.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/835c25c0/src/lib/language/application/ports/languagePort.ts#L10)
 
 ## Methods
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/95087682/src/lib/language/application/ports/languagePort.ts#L12)
+[src/lib/language/application/ports/languagePort.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/835c25c0/src/lib/language/application/ports/languagePort.ts#L12)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/95087682/src/lib/language/application/ports/languagePort.ts#L13)
+[src/lib/language/application/ports/languagePort.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/835c25c0/src/lib/language/application/ports/languagePort.ts#L13)
 
 ___
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/95087682/src/lib/language/application/ports/languagePort.ts#L11)
+[src/lib/language/application/ports/languagePort.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/835c25c0/src/lib/language/application/ports/languagePort.ts#L11)
