@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.63](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.62...v0.8.63) (2023-11-15)
+
+
+### Features
+
+* **syntax:** move syntaxys to .ts files ([ae0d205](https://github.com/FlavioLionelRita/lambdaorm/commit/ae0d205631f4155b4188a43789dac9bc67cbd301)), closes [#189](https://github.com/FlavioLionelRita/lambdaorm/issues/189)
+
 ### [0.8.62](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.61...v0.8.62) (2023-11-13)
 
 
