@@ -135,7 +135,7 @@ module.exports = function (grunt) {
 		fs.writeFileSync('dist/package.json', JSON.stringify(data, null, 2), 'utf8')
 	})
 
-	grunt.registerTask('exec-release', ['exec:standardVersion', 'create-package', 'get-version', 'exec:push', 'exec:createReleaseBranch', 'exec:mergeToMain', 'exec:mergeToOriginalBranch', 'exec:removeLocalReleaseBranch'])
+	grunt.registerTask('exec-release', ['exec:standardVersion', 'copy:changeLog', 'create-package', 'get-version', 'exec:push', 'exec:createReleaseBranch', 'exec:mergeToMain', 'exec:mergeToOriginalBranch', 'exec:removeLocalReleaseBranch'])
 	grunt.registerTask('run-release-if-applicable', 'run release if applicable', function () {
 		const originalBranch = grunt.config.get('originalBranch')
 		if (originalBranch === 'develop' || originalBranch.startsWith('hotfix')) {
@@ -155,7 +155,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('test', ['build', 'exec:test'])
 	grunt.registerTask('integration-test', ['db-up', 'exec:integration_test', 'db-down'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
-	grunt.registerTask('dist', ['test', 'clean:dist', 'copy:lib', 'copy:jest', 'copy:images', 'copy:readme', 'copy:changeLog', 'copy:license', 'create-package'])
+	grunt.registerTask('dist', ['test', 'clean:dist', 'copy:lib', 'copy:jest', 'copy:images', 'copy:readme', 'copy:license', 'create-package'])
 	grunt.registerTask('release', ['dist', 'doc', 'exec:getOriginalBranch', 'run-release-if-applicable'])
 	grunt.registerTask('default', [])
 }
