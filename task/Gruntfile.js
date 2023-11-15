@@ -29,7 +29,7 @@ module.exports = function (grunt) {
 				cmd: 'standard-version'
 			},
 			push: {
-				cmd: 'git add . && git commit -m "chore(release): <%= version %>" && git push && git push --tags'
+				cmd: 'git add . && git commit -m "chore(release): <%= version %>" && git push'
 			},
 			createReleaseBranch: {
 				cmd: 'git checkout -b release/<%= version %> && git push --set-upstream origin release/<%= version %>'
