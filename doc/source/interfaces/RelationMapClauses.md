@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:289](https://github.com/FlavioLionelRita/lambdaorm/blob/a5d1cf0f/src/lib/repository/domain/queryable.ts#L289)
+[src/lib/repository/domain/queryable.ts:289](https://github.com/FlavioLionelRita/lambdaorm/blob/dc415d06/src/lib/repository/domain/queryable.ts#L289)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:291](https://github.com/FlavioLionelRita/lambdaorm/blob/a5d1cf0f/src/lib/repository/domain/queryable.ts#L291)
+[src/lib/repository/domain/queryable.ts:291](https://github.com/FlavioLionelRita/lambdaorm/blob/dc415d06/src/lib/repository/domain/queryable.ts#L291)
 
 ___
 
@@ -77,4 +77,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:287](https://github.com/FlavioLionelRita/lambdaorm/blob/a5d1cf0f/src/lib/repository/domain/queryable.ts#L287)
+[src/lib/repository/domain/queryable.ts:287](https://github.com/FlavioLionelRita/lambdaorm/blob/dc415d06/src/lib/repository/domain/queryable.ts#L287)

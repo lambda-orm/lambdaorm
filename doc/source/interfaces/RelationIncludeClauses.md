@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:301](https://github.com/FlavioLionelRita/lambdaorm/blob/a5d1cf0f/src/lib/repository/domain/queryable.ts#L301)
+[src/lib/repository/domain/queryable.ts:301](https://github.com/FlavioLionelRita/lambdaorm/blob/dc415d06/src/lib/repository/domain/queryable.ts#L301)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:297](https://github.com/FlavioLionelRita/lambdaorm/blob/a5d1cf0f/src/lib/repository/domain/queryable.ts#L297)
+[src/lib/repository/domain/queryable.ts:297](https://github.com/FlavioLionelRita/lambdaorm/blob/dc415d06/src/lib/repository/domain/queryable.ts#L297)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:299](https://github.com/FlavioLionelRita/lambdaorm/blob/a5d1cf0f/src/lib/repository/domain/queryable.ts#L299)
+[src/lib/repository/domain/queryable.ts:299](https://github.com/FlavioLionelRita/lambdaorm/blob/dc415d06/src/lib/repository/domain/queryable.ts#L299)
 
 ___
 
@@ -123,4 +123,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/queryable.ts:295](https://github.com/FlavioLionelRita/lambdaorm/blob/a5d1cf0f/src/lib/repository/domain/queryable.ts#L295)
+[src/lib/repository/domain/queryable.ts:295](https://github.com/FlavioLionelRita/lambdaorm/blob/dc415d06/src/lib/repository/domain/queryable.ts#L295)
