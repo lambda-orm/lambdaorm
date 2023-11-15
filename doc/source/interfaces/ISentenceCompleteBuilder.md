@@ -28,4 +28,4 @@
 
 #### Defined in
 
-[src/lib/sentence/domain/services.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/dc415d06/src/lib/sentence/domain/services.ts#L9)
+[src/lib/sentence/domain/services.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/90c2a31f/src/lib/sentence/domain/services.ts#L9)
