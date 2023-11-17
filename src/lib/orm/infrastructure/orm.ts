@@ -215,7 +215,8 @@ export class Orm implements IOrm {
 	public getInfo(expression: string, options?: QueryOptions): QueryInfo;
 	public getInfo (expression: string|Function, options?: QueryOptions): QueryInfo {
 		const _expression = this.toExpression(expression)
-		return this.expression.getInfo(_expression, options)
+		const _options = options !== undefined && typeof options === 'string' ? JSON.parse(options) : options || {}
+		return this.expression.getInfo(_expression, _options)
 	}
 
 	/**
@@ -229,7 +230,9 @@ export class Orm implements IOrm {
 	public async execute(expression: string, data?: any, options?: QueryOptions):Promise<any>;
 	public async execute (expression: string|Function, data: any = {}, options?: QueryOptions): Promise<any> {
 		const _expression = this.toExpression(expression)
-		return this.expression.execute(_expression, data, options)
+		const _data = data !== undefined && typeof data === 'string' ? JSON.parse(data) : data || {}
+		const _options = options !== undefined && typeof options === 'string' ? JSON.parse(options) : options || {}
+		return this.expression.execute(_expression, _data, _options)
 	}
 
 	/**
