@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/abcbd74f/src/lib/query/domain/query.ts#L72)
+[src/lib/query/domain/query.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/d21f27fe/src/lib/query/domain/query.ts#L72)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:69](https://github.com/FlavioLionelRita/lambdaorm/blob/abcbd74f/src/lib/query/domain/query.ts#L69)
+[src/lib/query/domain/query.ts:69](https://github.com/FlavioLionelRita/lambdaorm/blob/d21f27fe/src/lib/query/domain/query.ts#L69)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:68](https://github.com/FlavioLionelRita/lambdaorm/blob/abcbd74f/src/lib/query/domain/query.ts#L68)
+[src/lib/query/domain/query.ts:68](https://github.com/FlavioLionelRita/lambdaorm/blob/d21f27fe/src/lib/query/domain/query.ts#L68)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/abcbd74f/src/lib/query/domain/query.ts#L71)
+[src/lib/query/domain/query.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/d21f27fe/src/lib/query/domain/query.ts#L71)
 
 ___
 
@@ -60,4 +60,4 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:70](https://github.com/FlavioLionelRita/lambdaorm/blob/abcbd74f/src/lib/query/domain/query.ts#L70)
+[src/lib/query/domain/query.ts:70](https://github.com/FlavioLionelRita/lambdaorm/blob/d21f27fe/src/lib/query/domain/query.ts#L70)
