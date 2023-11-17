@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.73](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.72...v0.8.73) (2023-11-17)
+
+
+### Features
+
+* on execute and getInfo , parse data and options if is serialized ([d21f27f](https://github.com/FlavioLionelRita/lambdaorm/commit/d21f27febe8c83792e979c91d1e1ccfaa5486e6f)), closes [#198](https://github.com/FlavioLionelRita/lambdaorm/issues/198)
+
 ### [0.8.72](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.71...v0.8.72) (2023-11-15)
 
 ### [0.8.71](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.70...v0.8.71) (2023-11-15)
