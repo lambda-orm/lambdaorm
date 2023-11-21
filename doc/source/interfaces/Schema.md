@@ -15,11 +15,11 @@
 
 ### application
 
-• **application**: [`ApplicationSchema`](ApplicationSchema.md)
+• `Optional` **application**: [`ApplicationSchema`](ApplicationSchema.md)
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:179](https://github.com/FlavioLionelRita/lambdaorm/blob/69928a4f/src/lib/schema/domain/schema.ts#L179)
+[src/lib/schema/domain/schema.ts:179](https://github.com/FlavioLionelRita/lambdaorm/blob/0c231c6f/src/lib/schema/domain/schema.ts#L179)
 
 ___
 
@@ -29,17 +29,17 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:177](https://github.com/FlavioLionelRita/lambdaorm/blob/69928a4f/src/lib/schema/domain/schema.ts#L177)
+[src/lib/schema/domain/schema.ts:177](https://github.com/FlavioLionelRita/lambdaorm/blob/0c231c6f/src/lib/schema/domain/schema.ts#L177)
 
 ___
 
 ### infrastructure
 
-• **infrastructure**: [`InfrastructureSchema`](InfrastructureSchema.md)
+• `Optional` **infrastructure**: [`InfrastructureSchema`](InfrastructureSchema.md)
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:178](https://github.com/FlavioLionelRita/lambdaorm/blob/69928a4f/src/lib/schema/domain/schema.ts#L178)
+[src/lib/schema/domain/schema.ts:178](https://github.com/FlavioLionelRita/lambdaorm/blob/0c231c6f/src/lib/schema/domain/schema.ts#L178)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:176](https://github.com/FlavioLionelRita/lambdaorm/blob/69928a4f/src/lib/schema/domain/schema.ts#L176)
+[src/lib/schema/domain/schema.ts:176](https://github.com/FlavioLionelRita/lambdaorm/blob/0c231c6f/src/lib/schema/domain/schema.ts#L176)
