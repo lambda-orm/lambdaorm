@@ -156,6 +156,7 @@ export interface AppPathsConfig {
 	domain: string
 }
 export interface DomainSchema {
+	version: string
 	entities: Entity[]
 	enums: Enum[]
 }
@@ -172,6 +173,7 @@ export interface ApplicationSchema {
 	end:TaskConfig[]
 }
 export interface Schema {
+	version: string
 	domain: DomainSchema
 	infrastructure:InfrastructureSchema
 	application: ApplicationSchema

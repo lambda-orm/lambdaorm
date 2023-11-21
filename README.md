@@ -345,5 +345,5 @@ npm install lambdaorm-cli -g
 	- [String](https://github.com/FlavioLionelRita/lambdaorm/wiki/String)
 - [Metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Metadata)
 - [CLI](https://www.npmjs.com/package/lambdaorm-cli)
-- [Labs](https://github.com/FlavioLionelRita/lambdaorm/wiki/Labs)
+- [Labs](https://github.com/FlavioLionelRita/lambdaorm-labs)
 - [Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/source/README.md)

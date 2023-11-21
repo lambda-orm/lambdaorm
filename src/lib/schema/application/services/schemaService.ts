@@ -2,7 +2,7 @@ import { AppPathsConfig, ApplicationSchema, InfrastructureSchema, DomainSchema, 
 
 export class SchemaService {
 	public newSchema ():Schema {
-		return { application: this.newApplication(), domain: this.newDomain(), infrastructure: this.newInfrastructure() }
+		return { version: '0.0.1', application: this.newApplication(), domain: this.newDomain(), infrastructure: this.newInfrastructure() }
 	}
 
 	public newInfrastructure (): InfrastructureSchema {
@@ -10,7 +10,7 @@ export class SchemaService {
 	}
 
 	public newDomain (): DomainSchema {
-		return { enums: [], entities: [] }
+		return { version: '0.0.1', enums: [], entities: [] }
 	}
 
 	public newApplication ():ApplicationSchema {

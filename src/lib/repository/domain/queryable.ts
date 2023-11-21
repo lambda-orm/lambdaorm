@@ -182,9 +182,6 @@ export class Queryable<T> extends HavingClauses<T> {
 			return new ModificableClauses(this.actions, `${this.expression}.delete()`)
 		}
 	}
-	// delete (): ModificableClauses<T> {
-	// return new ModificableClauses(this.actions, `${this.expression}.delete()`)
-	// }
 
 	/**  */
 	deleteAll (): IncludeAction<T> {
@@ -192,18 +189,6 @@ export class Queryable<T> extends HavingClauses<T> {
 	}
 }
 
-// interface PageClauses<T> {
-// /**  */
-// page(page:number, records:number):void
-// }
-// interface MapClauses<T> extends PageClauses<T> {
-// /**  */
-// sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any): PageClauses<T>
-// }
-// interface Map2Clauses<T> {
-// /**  */
-// sort(predicate: (value: T, index: number, array: T[]) => unknown, ...args: any):void
-// }
 export interface ModifyFilterClauses<T> {
 	/**  */
 	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): void
@@ -223,64 +208,6 @@ export interface ModifyAllClauses<T> {
 	/**  */
 	include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): ModifyIncludeClauses<T>
 }
-
-// interface HavingClauses<T> extends MapClauses<T> {
-// /**  */
-// map<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
-// /**  */
-// first<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-// /**  */
-// last<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-// /**  */
-// distinct<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
-// }
-// interface FilterIncludeClauses<T> extends HavingClauses<T> {
-// /**  */
-// having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
-// }
-// interface IncludeClauses<T> extends HavingClauses<T> {
-// /**  */
-// filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterIncludeClauses<T>
-// /**  */
-// having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
-// }
-// interface FilterClauses<T> extends HavingClauses<T> {
-// /**  */
-// include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
-// /**  */
-// having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
-// }
-// interface Queryable<T> extends MapClauses<T> {
-// /**  */
-// filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): FilterClauses<T>
-// /**  */
-// include(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): IncludeClauses<T>
-// /**  */
-// map<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
-// /**  */
-// first<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-// /**  */
-// last<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): Map2Clauses<U>
-// /**  */
-// distinct<U>(predicate: (value: T, index: number, array: T[]) => U, thisArg?: any): MapClauses<U>
-// /**  */
-// having(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): HavingClauses<T>
-// /**  */
-// insert(predicate?:(value:T) => unknown): ModifyClauses<T>
-// /**  */
-// update(predicate?:(value:T) => unknown): ModifyClauses<T>
-// /**  */
-// updateAll(predicate?:(value:T) => unknown): ModifyAllClauses<T>
-// /**  */
-// delete(predicate?:(value:T) => unknown): ModifyClauses<T>
-// /**  */
-// deleteAll(predicate?:(value:T) => unknown): ModifyAllClauses<T>
-// /**  */
-// sync(predicate?:(value:T) => unknown): ModifyClauses<T>
-// // include(...args:string[]):Entity<T>
-// /**  */
-// bulkInsert(predicate?:(value:T) => unknown): ModifyAllClauses<T>
-// }
 
 export interface RelationMapClauses<T> {
 	/**  */
@@ -390,10 +317,6 @@ export declare function lower(value:string):string
 export declare function lpad(value:string, len:number, pad:string):string
 /** Remove leading chars */
 export declare function ltrim(value:string):string
-// /**  */
-// declare function regExpReplace(value:string,expression:string):string
-// /**  */
-// declare function regExpSubstr(value:string,expression:string):string
 /** The replace() method searches a string for a specified value and returns a new string where the specified values are replaced. */
 export declare function replace(value:string, source:string, target:string):string
 /** Pad the right-side of string */
@@ -499,6 +422,3 @@ export declare function max(value:any):any
 export declare function min(value:any):any
 /**  */
 export declare function sum(value:any):any
-
-// declare function test2(fn:(a:string)=>string):(a:string)=>string
-// declare function test2(arr:[string, number]):(a:string)=>string

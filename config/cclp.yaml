@@ -1,4 +1,6 @@
+version: 1.0.0
 domain:
+  version: 1.0.0
   entities:
     # Abstracts
     - name: SrbReferences
