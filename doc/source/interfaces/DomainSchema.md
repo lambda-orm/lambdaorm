@@ -8,6 +8,7 @@
 
 - [entities](DomainSchema.md#entities)
 - [enums](DomainSchema.md#enums)
+- [version](DomainSchema.md#version)
 
 ## Properties
 
@@ -17,7 +18,7 @@
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:159](https://github.com/FlavioLionelRita/lambdaorm/blob/d21f27fe/src/lib/schema/domain/schema.ts#L159)
+[src/lib/schema/domain/schema.ts:160](https://github.com/FlavioLionelRita/lambdaorm/blob/283a24b9/src/lib/schema/domain/schema.ts#L160)
 
 ___
 
@@ -27,4 +28,14 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:160](https://github.com/FlavioLionelRita/lambdaorm/blob/d21f27fe/src/lib/schema/domain/schema.ts#L160)
+[src/lib/schema/domain/schema.ts:161](https://github.com/FlavioLionelRita/lambdaorm/blob/283a24b9/src/lib/schema/domain/schema.ts#L161)
+
+___
+
+### version
+
+• **version**: `string`
+
+#### Defined in
+
+[src/lib/schema/domain/schema.ts:159](https://github.com/FlavioLionelRita/lambdaorm/blob/283a24b9/src/lib/schema/domain/schema.ts#L159)
