@@ -3,12 +3,12 @@ import { SintaxisError } from '../../../shared/domain'
 import { SentenceAction, Property, Behavior, Constraint, Entity } from '../../../schema/domain'
 import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../../domain/sentence'
 import { Operand, Parameter, OperandType, Position, TypeService, Expressions } from '3xpr'
-import { Type, Primitive } from 'typ3s'
 import { SentenceTypeService } from './typeService'
 import { SentenceHelper } from './sentenceHelper'
 import { DomainConfigService, SchemaFacade } from '../../../schema/application'
 import { ISentenceBuilder } from '../../domain'
 import { OperandFacade } from '../../../operand/application'
+import { Type } from 'typ3s'
 
 interface AsteriskField {
 	index:number
@@ -105,7 +105,7 @@ class SentenceSolveConstraints {
 			if (property.enum) {
 				const _enum = this.modelConfig.getEnum(property.enum)
 				if (_enum && _enum.values) {
-					const values = _enum.values.map(p => typeof p.value === Primitive.number ? p.value : '"' + p.value + '"').join(',')
+					const values = _enum.values.map(p => typeof p.value === 'number' ? p.value : '"' + p.value + '"').join(',')
 					const constraint: Constraint = {
 						message: `invalid value for property ${property.name} in entity ${entityName}`,
 						condition: `${property.name}.in(${values})`

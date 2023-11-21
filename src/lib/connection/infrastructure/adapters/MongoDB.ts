@@ -302,7 +302,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 			if (source.length === 0) {
 				return ''
 			}
-			if (typeof source[0] === Primitive.string) {
+			if (typeof source[0] === 'string') {
 				return source.map((p:string) => `"${p}"`).join(',')
 			} else {
 				return source.join(',')
@@ -312,7 +312,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 			case Primitive.boolean:
 				return source ? 'true' : 'false'
 			case Primitive.string:
-				value = typeof source === Primitive.string ? source : source.toString()
+				value = typeof source === 'string' ? source : source.toString()
 				value = this.helper.str.replace(value, '\n', '\\n')
 				value = this.helper.str.replace(value, '"', '\\"')
 				return `"${value}"`
@@ -323,7 +323,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 			case Primitive.time:
 				return `"${this.writeTime(source, mapping, dialect)}"`
 			default:
-				if (typeof source === Primitive.string) {
+				if (typeof source === 'string') {
 					value = this.helper.str.replace(source, '\n', '\\n')
 					value = this.helper.str.replace(value, '"', '\\"')
 					return `"${value}"`

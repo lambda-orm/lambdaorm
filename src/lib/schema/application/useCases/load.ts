@@ -1,6 +1,5 @@
 import { Helper } from '../../../shared/application'
 import { Schema, SchemaError } from '../../domain'
-import { Primitive } from 'typ3s'
 import { DataSourceConfigService } from '../services/config/dataSourceConfigService'
 import { DomainConfigService } from '../services/config/domainConfigService'
 import { MappingsConfigService } from '../services/config/mappingsConfigService'
@@ -40,7 +39,7 @@ export class LoadSchema {
 					console.log(`WARNING|source:"${source.name}"|connection is empty`)
 					continue
 				}
-				if (typeof source.connection === Primitive.string) {
+				if (typeof source.connection === 'string') {
 					if (source.connection.includes('${')) {
 						console.log(`WARNING|source:"${source.name}"|had environment variables unsolved`)
 						continue
