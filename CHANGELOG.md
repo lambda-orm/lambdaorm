@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.77](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.76...v0.8.77) (2023-11-21)
+
+
+### Features
+
+* **schema:** set infrastructure and application properties in schema as nullables ([0c231c6](https://github.com/FlavioLionelRita/lambdaorm/commit/0c231c6f59c983af49da9b438d3ea105a83854ff)), closes [#202](https://github.com/FlavioLionelRita/lambdaorm/issues/202)
+
 ### [0.8.76](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.75...v0.8.76) (2023-11-21)
 
 ### [0.8.75](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.74...v0.8.75) (2023-11-21)
