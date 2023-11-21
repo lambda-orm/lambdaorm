@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.74](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.73...v0.8.74) (2023-11-21)
+
+
+### Features
+
+* **schema:** add version to schema ([283a24b](https://github.com/FlavioLionelRita/lambdaorm/commit/283a24b98e9f896ee48328d63bf6f234d7564c75)), closes [#202](https://github.com/FlavioLionelRita/lambdaorm/issues/202)
+
 ### [0.8.73](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.72...v0.8.73) (2023-11-17)
 
 
