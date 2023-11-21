@@ -22,6 +22,10 @@ export class LoadSchema {
 		schema = this.extender.extend(schema)
 		this.domain.entities = schema.domain.entities || []
 		this.domain.enums = schema.domain.enums || []
+
+		if (!schema.infrastructure) {
+			return schema
+		}
 		if (!schema.infrastructure.views) {
 			schema.infrastructure.views = [{ name: 'default', entities: [] }]
 		}

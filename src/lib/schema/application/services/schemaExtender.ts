@@ -23,11 +23,11 @@ export class SchemaExtender {
 		this.extendDataSources(schema)
 		this.extendDataStages(schema)
 		// views
-		if (!schema.infrastructure.views || !schema.infrastructure.views.length || schema.infrastructure.views.length === 0) {
+		if (schema.infrastructure && (!schema.infrastructure.views || !schema.infrastructure.views.length || schema.infrastructure.views.length === 0)) {
 			schema.infrastructure.views = [{ name: 'default', entities: [] }]
 		}
 		// exclude entities not used in mapping
-		for (const k in schema.infrastructure.mappings) {
+		for (const k in schema.infrastructure?.mappings) {
 			schema.infrastructure.mappings[k] = this.clearMapping2(schema, schema.infrastructure.mappings[k])
 		}
 		return schema
@@ -90,6 +90,9 @@ export class SchemaExtender {
 	}
 
 	private extendMappings (schema: Schema) {
+		if (!schema.infrastructure) {
+			return
+		}
 		if (!schema.infrastructure.mappings || !schema.infrastructure.mappings.length || schema.infrastructure.mappings.length === 0) {
 			schema.infrastructure.mappings = [{ name: 'default', entities: [] }]
 		} else {
@@ -119,6 +122,9 @@ export class SchemaExtender {
 	}
 
 	private extendDataSources (schema: Schema) {
+		if (!schema.infrastructure) {
+			return
+		}
 		if (!schema.infrastructure.sources || !schema.infrastructure.sources.length || schema.infrastructure.sources.length === 0) {
 			console.log('sources not defined')
 			schema.infrastructure.sources = [{ name: 'default', dialect: DIALECT_DEFAULT, mapping: schema.infrastructure.mappings[0].name, connection: null }]
@@ -132,6 +138,9 @@ export class SchemaExtender {
 	}
 
 	private extendDataStages (schema: Schema) {
+		if (!schema.infrastructure) {
+			return
+		}
 		if (!schema.infrastructure.stages || !schema.infrastructure.stages.length || schema.infrastructure.stages.length === 0) {
 			schema.infrastructure.stages = [{ name: 'default', sources: [{ name: schema.infrastructure.sources[0].name }] }]
 		}
@@ -149,7 +158,9 @@ export class SchemaExtender {
 				this.completeEnums(schema.domain.enums)
 			}
 			if (schema.domain.entities) {
-				this.completeEntities(schema.domain.entities, schema.infrastructure.views)
+				if (schema.infrastructure) {
+					this.completeEntities(schema.domain.entities, schema.infrastructure.views)
+				}
 				if (schema.domain.entities && schema.domain.entities.length) {
 					this.completeRelations(schema.domain.entities)
 					this.completeDependents(schema.domain.entities)
@@ -444,6 +455,9 @@ export class SchemaExtender {
 	}
 
 	private existsInMapping (schema: Schema, mapping: string, entity: string): boolean {
+		if (!schema.infrastructure) {
+			return false
+		}
 		const context = { entity, action: ObservableAction.ddl, read: false, write: true, dml: false, ddl: true }
 		const dataSourcesNames = schema.infrastructure.sources.filter(p => p.mapping === mapping).map(p => p.name)
 		for (const stage of schema.infrastructure.stages) {

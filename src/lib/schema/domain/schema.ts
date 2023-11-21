@@ -175,8 +175,8 @@ export interface ApplicationSchema {
 export interface Schema {
 	version: string
 	domain: DomainSchema
-	infrastructure:InfrastructureSchema
-	application: ApplicationSchema
+	infrastructure?:InfrastructureSchema
+	application?: ApplicationSchema
 }
 export interface ModelConfig {
 	mappings: Mapping[]
