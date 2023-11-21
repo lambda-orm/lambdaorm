@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/lib/schema/application/ports/fileSchemaReader.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/283a24b9/src/lib/schema/application/ports/fileSchemaReader.ts#L4)
+[src/lib/schema/application/ports/fileSchemaReader.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/f919598c/src/lib/schema/application/ports/fileSchemaReader.ts#L4)
