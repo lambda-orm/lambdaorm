@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/clean.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/f919598c/src/lib/stage/application/useCases/clean.ts#L11)
+[src/lib/stage/application/useCases/clean.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/69928a4f/src/lib/stage/application/useCases/clean.ts#L11)
 
 ## Methods
 
@@ -66,7 +66,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/clean.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/f919598c/src/lib/stage/application/useCases/clean.ts#L24)
+[src/lib/stage/application/useCases/clean.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/69928a4f/src/lib/stage/application/useCases/clean.ts#L24)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/clean.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/f919598c/src/lib/stage/application/useCases/clean.ts#L16)
+[src/lib/stage/application/useCases/clean.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/69928a4f/src/lib/stage/application/useCases/clean.ts#L16)
 
 ___
 
@@ -102,4 +102,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/f919598c/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/69928a4f/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
