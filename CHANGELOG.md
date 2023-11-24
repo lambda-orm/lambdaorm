@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.78](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.77...v0.8.78) (2023-11-24)
+
+
+### Bug Fixes
+
+* solve bug with oracle dbTypes and bug in sequence in mongodb ([afffa10](https://github.com/FlavioLionelRita/lambdaorm/commit/afffa105ffb05c52f485681bed1b5757c0a15ab9)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+
 ### [0.8.77](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.76...v0.8.77) (2023-11-21)
 
 
