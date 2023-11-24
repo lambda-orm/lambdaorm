@@ -94,5 +94,6 @@
 		"uroot",
 		"USERENV",
 		"VARCHAR"
-	]
+	],
+	"editor.inlineSuggest.showToolbar": "onHover"
 }

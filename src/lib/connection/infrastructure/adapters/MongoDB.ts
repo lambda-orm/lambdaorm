@@ -341,7 +341,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 			{ $inc: { sequence_value: count } },
 			{ returnNewDocument: true }
 		)
-		return sequenceDocument.value.sequence_value
+		return sequenceDocument.sequence_value
 	}
 
 	public async truncateEntity (mapping: MappingConfigService, query: Query): Promise<any> {

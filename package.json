@@ -39,8 +39,7 @@
 		"create-data-for-test-suite": "grunt create-data-for-test-suite",
 		"create-test": "grunt create-test",
 		"create-test-suite": "grunt create-test-suite",
-		"build-test": "grunt build-test",
-		"prepare": "husky install"
+		"build-test": "grunt build-test"
 	},
 	"dependencies": {
 		"3xpr": "1.12.10",

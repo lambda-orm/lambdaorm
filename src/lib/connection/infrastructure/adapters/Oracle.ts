@@ -53,7 +53,7 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 			this.pool = await OracleConnectionPoolAdapter.lib.createPool(this.config.connection)
 		}
 		const cnx = await this.pool.getConnection()
-		return new OracleConnectionAdapter(cnx, this, this.helper)
+		return new OracleConnectionAdapter(OracleConnectionPoolAdapter.lib, cnx, this, this.helper)
 	}
 
 	public async release (connection: Connection): Promise<void> {
@@ -65,7 +65,7 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 }
 export class OracleConnectionAdapter extends ConnectionAdapter {
-	constructor (cnx: any, pool: any, helper:Helper) {
+	constructor (private readonly lib:any, cnx: any, pool: any, helper:Helper) {
 		super(cnx, pool, helper)
 		this.maxChunkSizeIdsOnSelect = 999
 	}
@@ -260,24 +260,19 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		return { key, bindDef, returning }
 	}
 
-	private oracleType (type: Primitive): number {
+	private oracleType (type: Primitive): any {
 		switch (type) {
 		case Primitive.boolean:
-			return 2003
-			// oracledb.DB_TYPE_CHAR 2003
+			return this.lib.DB_TYPE_CHAR
 		case Primitive.string:
-			// eslint-disable-next-line no-case-declarations
-			return 2001
-			// oracledb.STRING 2001
+			return this.lib.STRING
 		case Primitive.integer:
 		case Primitive.decimal:
-			return 2010
-			// oracledb.NUMBER 2010
+			return this.lib.NUMBER
 		case Primitive.dateTime:
 		case Primitive.date:
 		case Primitive.time:
-			return 2014
-			// oracledb.DATE 2014
+			return this.lib.DATE
 		default:
 			throw new SchemaError(`type ${type} not implemented`)
 		}
