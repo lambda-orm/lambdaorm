@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/lib/language/application/ports/dmlBuilderPort.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/0c231c6f/src/lib/language/application/ports/dmlBuilderPort.ts#L3)
+[src/lib/language/application/ports/dmlBuilderPort.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/afffa105/src/lib/language/application/ports/dmlBuilderPort.ts#L3)
