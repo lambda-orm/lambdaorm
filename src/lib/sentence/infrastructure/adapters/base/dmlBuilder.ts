@@ -140,9 +140,9 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 			if (entity === undefined) {
 				throw new SchemaError(`not found mapping for ${join.name}`)
 			}
-			let joinText = template.replace('{name}', this.dialect.delimiter(entity.mapping))
-			joinText = joinText.replace('{alias}', join.alias)
-			joinText = joinText.replace('{relation}', this.buildOperand(join.children[0])).trim()
+			let joinText = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
+			joinText = this.helper.str.replace(joinText, '{alias}', join.alias)
+			joinText = this.helper.str.replace(joinText, '{relation}', this.buildOperand(join.children[0])).trim()
 			list.push(joinText)
 		}
 		return list.join(' ') + ' '
@@ -154,7 +154,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 		if (entityMapping === undefined) {
 			throw new SchemaError(`not found mapping for ${from.entity}`)
 		}
-		template = template.replace('{name}', this.dialect.delimiter(entityMapping))
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entityMapping))
 		template = this.helper.str.replace(template, '{alias}', from.alias)
 		return template.trim()
 	}
@@ -164,13 +164,11 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 		const templateColumn = this.dialect.other('column')
 		const fields: string[] = []
 		const values: any[] = []
-
 		const autoIncrement = this.mapping.getAutoIncrement(entity.name)
-
 		if (autoIncrement && entity.sequence) {
 			const templateSequenceNextVal = this.dialect.other('sequenceNextVal')
-			fields.push(templateColumn.replace('{name}', this.dialect.delimiter(autoIncrement.mapping)))
-			values.push(templateSequenceNextVal.replace('{name}', entity.sequence))
+			fields.push(this.helper.str.replace(templateColumn, '{name}', this.dialect.delimiter(autoIncrement.mapping)))
+			values.push(this.helper.str.replace(templateSequenceNextVal, '{name}', entity.sequence))
 		}
 		if (operand.children[0].type === OperandType.Obj) {
 			const obj = operand.children[0]
@@ -183,14 +181,14 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 				} else {
 					name = keyVal.name
 				}
-				fields.push(templateColumn.replace('{name}', this.dialect.delimiter(name)))
+				fields.push(this.helper.str.replace(templateColumn, '{name}', this.dialect.delimiter(name)))
 				values.push(this.buildOperand(keyVal.children[0]))
 			}
 		}
-		template = template.replace('{name}', this.dialect.delimiter(entity.mapping))
-		template = template.replace('{fields}', fields.join(','))
-		template = template.replace('{values}', values.join(','))
-		template = template.replace('{autoIncrementField}', autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : '0')
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
+		template = this.helper.str.replace(template, '{fields}', fields.join(','))
+		template = this.helper.str.replace(template, '{values}', values.join(','))
+		template = this.helper.str.replace(template, '{autoIncrementField}', autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : '0')
 		return template.trim()
 	}
 
@@ -210,16 +208,16 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 				} else {
 					name = keyVal.name
 				}
-				const column = templateColumn.replace('{name}', this.dialect.delimiter(name))
+				const column = this.helper.str.replace(templateColumn, '{name}', this.dialect.delimiter(name))
 				const value = this.buildOperand(keyVal.children[0])
-				let assign = templateAssign.replace('{0}', column)
-				assign = assign.replace('{1}', value)
+				let assign = this.helper.str.replace(templateAssign, '{0}', column)
+				assign = this.helper.str.replace(assign, '{1}', value)
 				assigns.push(assign)
 			}
 		}
 		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
 		template = this.helper.str.replace(template, '{alias}', operand.alias)
-		template = template.replace('{assigns}', assigns.join(','))
+		template = this.helper.str.replace(template, '{assigns}', assigns.join(','))
 		return template.trim() + ' '
 	}
 
@@ -242,8 +240,8 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 			records = parseInt(operand.children[2].name)
 		}
 		if (page < 1) page = 1
-		template = template.replace('{sentence}', sentence)
-		template = template.replace('{offset}', ((page - 1) * records).toString())
+		template = this.helper.str.replace(template, '{sentence}', sentence)
+		template = this.helper.str.replace(template, '{offset}', ((page - 1) * records).toString())
 		template = this.helper.str.replace(template, '{records}', records.toString())
 		return template.trim() + ' '
 	}
@@ -308,7 +306,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 	protected buildOperator (operand: Operand): string {
 		let text = this.dialect.operator(operand.name, operand.children.length)
 		for (let i = 0; i < operand.children.length; i++) {
-			text = text.replace('{' + i + '}', this.buildOperand(operand.children[i]))
+			text = this.helper.str.replace(text, '{' + i + '}', this.buildOperand(operand.children[i]))
 		}
 		return text
 	}
@@ -328,8 +326,8 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 			const value = this.buildOperand(operand.children[i])
 			const forceDelimiter = ['PostgreSQL', 'Oracle'].includes(this.dialect.name)
 			const alias = this.dialect.delimiter(operand.children[i].name, forceDelimiter)
-			let fieldText = template.replace('{value}', value)
-			fieldText = fieldText.replace('{alias}', alias)
+			let fieldText = this.helper.str.replace(template, '{value}', value)
+			fieldText = this.helper.str.replace(fieldText, '{alias}', alias)
 			text += (i > 0 ? ', ' : '') + fieldText
 		}
 		return text
@@ -351,24 +349,24 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 		if (this.mapping.existsProperty(field.entity, field.fieldName())) {
 			const property = this.mapping.getProperty(field.entity, field.fieldName())
 			if (field.alias === undefined) {
-				return this.dialect.other('column').replace('{name}', this.dialect.delimiter(property.mapping, true))
+				return this.helper.str.replace(this.dialect.other('column'), '{name}', this.dialect.delimiter(property.mapping, true))
 			} else {
 				let text = this.dialect.other('field')
-				text = text.replace('{entityAlias}', field.alias)
-				text = text.replace('{name}', this.dialect.delimiter(property.mapping))
+				text = this.helper.str.replace(text, '{entityAlias}', field.alias)
+				text = this.helper.str.replace(text, '{name}', this.dialect.delimiter(property.mapping))
 				return text
 			}
 		} else {
 			const forceDelimiter = ['PostgreSQL', 'Oracle'].includes(this.dialect.name)
-			return this.dialect.other('column').replace('{name}', this.dialect.delimiter(field.name, forceDelimiter))
+			return this.helper.str.replace(this.dialect.other('column'), '{name}', this.dialect.delimiter(field.name, forceDelimiter))
 		}
 	}
 
 	protected buildVariable (operand: Operand): string {
 		const number = operand.number ? operand.number : 0
 		let text = this.dialect.other('variable')
-		text = text.replace('{name}', this.helper.query.transformParameter(operand.name))
-		text = text.replace('{number}', number.toString())
+		text = this.helper.str.replace(text, '{name}', this.helper.query.transformParameter(operand.name))
+		text = this.helper.str.replace(text, '{number}', number.toString())
 		return text
 	}
 

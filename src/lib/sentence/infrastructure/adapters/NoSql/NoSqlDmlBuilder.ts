@@ -109,10 +109,11 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		newRoot = this.helper.str.replace(newRoot, '"', '\\"')
 		let text = ''
 		if (relation.type === RelationType.manyToOne) {
-			text = this.dialect.dml('unwind').replace('{0}', newRoot)
+			text = this.helper.str.replace(this.dialect.dml('unwind'), '{0}', newRoot)
 		}
 		const replaceRootTemplate = this.dialect.dml('replaceRoot')
-		text = text !== '' ? `${text}, ${replaceRootTemplate.replace('{0}', newRoot)}` : replaceRootTemplate.replace('{0}', newRoot)
+		newRoot = this.helper.str.replace(replaceRootTemplate, '{0}', newRoot)
+		text = text !== '' ? `${text}, ${newRoot}` : newRoot
 		return text
 	}
 
@@ -162,9 +163,9 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		}
 		const templateGroup = this.dialect.dml('rootGroupBy')
 		const templateProject = this.dialect.dml('rootMap')
-		let text = templateGroup.replace('{0}', columnsText)
-		text = text.replace('{1}', groupColumnsText)
-		text = text + ', ' + templateProject.replace('{0}', projectColumns)
+		let text = this.helper.str.replace(templateGroup, '{0}', columnsText)
+		text = this.helper.str.replace(text, '{1}', groupColumnsText)
+		text = text + ', ' + this.helper.str.replace(templateProject, '{0}', projectColumns)
 		// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
 		return this.helper.str.replace(text, '"$this.', '"$$this.')
 	}
@@ -181,7 +182,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			return mapText
 		} else {
 			const template = this.hadGroupFunction(map) ? this.dialect.dml('mapGroup') : this.dialect.dml('rootMap')
-			const result = template.replace('{0}', mapText)
+			const result = this.helper.str.replace(template, '{0}', mapText)
 			return result
 			// 			$map: {
 			// 				input: '$"Order Details"',
@@ -212,9 +213,9 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 				// const relationProperty = `"$\\\"${relationEntity.mapping}\\\""`
 				const relationProperty = `"$\\"${relationEntity.mapping}\\""`
 				const relationMap = this.getChildrenMap(include.children[0] as Sentence)
-				let compositeText = compositeTemplate.replace('{name}', include.relation.name)
-				compositeText = compositeText.replace('{input}', relationProperty)
-				compositeText = compositeText.replace('{in}', relationMap)
+				let compositeText = this.helper.str.replace(compositeTemplate, '{name}', include.relation.name)
+				compositeText = this.helper.str.replace(compositeText, '{input}', relationProperty)
+				compositeText = this.helper.str.replace(compositeText, '{in}', relationMap)
 				text = text === '' ? compositeText : `${text} ,${compositeText}`
 			}
 			return text
@@ -254,10 +255,10 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			const localField = join.children[0].children[1] as Field
 
 			const alias = entity.name !== join.entity ? localField.alias : undefined
-			let joinTemplate = template.replace('{name}', this.dialect.delimiter(joinEntity.mapping, true))
-			joinTemplate = joinTemplate.replace('{fromProperty}', this.getFieldMapping(localField))
-			joinTemplate = joinTemplate.replace('{toProperty}', this.getFieldMapping(foreignField, alias))
-			joinTemplate = joinTemplate.replace('{alias}', this.dialect.delimiter(join.alias, true))
+			let joinTemplate = this.helper.str.replace(template, '{name}', this.dialect.delimiter(joinEntity.mapping, true))
+			joinTemplate = this.helper.str.replace(joinTemplate, '{fromProperty}', this.getFieldMapping(localField))
+			joinTemplate = this.helper.str.replace(joinTemplate, '{toProperty}', this.getFieldMapping(foreignField, alias))
+			joinTemplate = this.helper.str.replace(joinTemplate, '{alias}', this.dialect.delimiter(join.alias, true))
 			text = text !== '' ? `${text}, ${joinTemplate}` : joinTemplate
 		}
 		return text
@@ -338,7 +339,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		// TODO: It remains to be resolved if the fields to filter correspond to an include composite.
 		// this.setPrefixToField(operand, '$')
 		const template = this.dialect.dml('rootFilter')
-		return template.replace('{0}', this.buildArrowFunction(operand))
+		return this.helper.str.replace(template, '{0}', this.buildArrowFunction(operand))
 	}
 
 	protected getFieldMapping (operand: Field, alias?:string): string {
@@ -383,12 +384,12 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 				// name = keyVal.name
 				// }
 				const value = this.buildOperand(keyVal.children[0])
-				let assign = templateAssign.replace('{0}', name)
-				assign = assign.replace('{1}', value)
+				let assign = this.helper.str.replace(templateAssign, '{0}', name)
+				assign = this.helper.str.replace(assign, '{1}', value)
 				assigns.push(assign)
 			}
 		}
-		return template.replace('{assigns}', assigns.join(','))
+		return this.helper.str.replace(template, '{assigns}', assigns.join(','))
 	}
 
 	protected buildUpdateSentence (sentence: Sentence): string {
@@ -429,12 +430,12 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 				}
 				const field = this.dialect.delimiter(name, false, true)
 				const value = this.buildOperand(keyVal.children[0])
-				let assign = templateAssign.replace('{0}', field)
-				assign = assign.replace('{1}', value)
+				let assign = this.helper.str.replace(templateAssign, '{0}', field)
+				assign = this.helper.str.replace(assign, '{1}', value)
 				assigns.push(assign)
 			}
 		}
-		return template.replace('{assigns}', assigns.join(','))
+		return this.helper.str.replace(template, '{assigns}', assigns.join(','))
 	}
 
 	protected override buildField (operand: Field): string {
@@ -449,9 +450,9 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 				templateKey = operand.prefix ? 'projectJoinField' : 'joinField'
 			}
 			let text = this.dialect.other(templateKey)
-			text = text.replace('{entityAlias}', operand.alias || '')
-			text = text.replace('{prefix}', operand.prefix || '')
-			text = text.replace('{name}', property.mapping)
+			text = this.helper.str.replace(text, '{entityAlias}', operand.alias || '')
+			text = this.helper.str.replace(text, '{prefix}', operand.prefix || '')
+			text = this.helper.str.replace(text, '{name}', property.mapping)
 			return text
 		} else {
 			return this.dialect.delimiter(operand.name, true)
@@ -464,8 +465,8 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		for (let i = 0; i < operand.children.length; i++) {
 			const value = this.buildOperand(operand.children[i])
 			const alias = this.dialect.delimiter(operand.children[i].name, true)
-			let fieldText = template.replace('{value}', value)
-			fieldText = fieldText.replace('{alias}', alias)
+			let fieldText = this.helper.str.replace(template, '{value}', value)
+			fieldText = this.helper.str.replace(fieldText, '{alias}', alias)
 			text += (i > 0 ? ', ' : '') + fieldText
 		}
 		return text
@@ -475,7 +476,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		if (operand instanceof Field) {
 			operand.prefix = prefix
 		}
-		if (operand.children) {
+		if (operand.children !== null && operand.children !== undefined) {
 			for (const p in operand.children) {
 				const child = operand.children[p]
 				if (child.type === OperandType.Operator && (child.name === '=' || child.name === '==' || child.name === '===' || child.name === '!=' || child.name === '!==')) {

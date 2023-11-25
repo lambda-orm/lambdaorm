@@ -15,6 +15,16 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
+			"name": "mongo lab",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/mongo/lab.js",
+			"envFile": "${workspaceFolder}/config/northwind.env"
+		},
+		{
 			"name": "lib cclp lab",
 			"type": "node",
 			"request": "launch",

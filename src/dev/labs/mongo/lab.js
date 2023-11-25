@@ -7,12 +7,52 @@ const MongoClient = require('mongodb').MongoClient;
 	const db = client.db(dbName)
 	//await db.collection('inventory').deleteMany({})
 
-	const result = await db.collection('Customers').aggregate(
-		[{ "$match" : { "_id":{ "$in" :["VINET"]} } }, { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName", "contact":"$ContactName", "phone":"$ContactTitle", "address":"$Address", "city":"$City", "region":"$Region", "postalCode":"$PostalCode", "country":"$Country", "LambdaOrmParentId":"$_id" }} ]
-	).toArray()
+	// const result = await db.collection('Customers').aggregate(
+	// 	[{ "$match" : { "_id":{ "$in" :["VINET"]} } }, { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName", "contact":"$ContactName", "phone":"$ContactTitle", "address":"$Address", "city":"$City", "region":"$Region", "postalCode":"$PostalCode", "country":"$Country", "LambdaOrmParentId":"$_id" }} ]
+	// ).toArray()
 	// 	[{ "$match" : { "VINET":{ "$in" :["_id"]} } }, { "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName", "contact":"$ContactName", "phone":"$ContactTitle", "address":"$Address", "city":"$City", "region":"$Region", "postalCode":"$PostalCode", "country":"$Country", "LambdaOrmParentId":"$_id" }} ]
-	
+	// const result = await db.collection('Orders').aggregate(
+	// [{ "$match" : { "CustomerID":"HANAR" } }, 
+	// { "$project" :{ 
+	// 	"_id": 0 , 
+	// 	"id":"$_id", 
+	// 	"customerId":"$CustomerID", 
+	// 	"employeeId":"$EmployeeID", 
+	// 	"orderDate":"$OrderDate", 
+	// 	"requiredDate":"$RequiredDate", 
+	// 	"shippedDate":"$ShippedDate", 
+	// 	"shipViaId":"$ShipVia", 
+	// 	"freight":"$Freight", 
+	// 	"name":"$ShipName", 
+	// 	"address":"$ShipAddress", 
+	// 	"city":"$ShipCity", 
+	// 	"region":"$ShipRegion", 
+	// 	"postalCode":"$ShipPostalCode", 
+	// 	"country":"$ShipCountry", 
+	// 	"__id":"$_id" ,
+	// 	"details": { 
+	// 		"$map": { 
+	// 			"input": "$\"Order Details\"", 
+	// 				"in": { 
+	// 						"quantity": "$$this.Quantity", 
+	// 						"unitPrice": "$$this.UnitPrice", 
+	// 						"__productId": "$$this.ProductID", 
+	// 						"LambdaOrmParentId": "$$this.OrderID" 
+	// 					} 
+	// 				} 
+	// 			}
+	// 	} } ,
+	// 	{ "$sort" :{ "_id":1 } }, 
+	// 	{ "$skip" : 0 }, 
+	// 	{ "$limit" : 3 } 
+	// ]
+	// ).toArray()
 
+	const result = await db.collection('Customers').aggregate(
+		[
+			{ "$match" : { "_id":{ "$in" :["ALFKI"]} } }
+		]).toArray()
+	console.log(JSON.stringify(result, null, 2))
 	// const result = await db.collection('Products').aggregate(
 	// 	[{ "$group": { "_id": 0, "count": { "$sum": 1 } } }]
 	// ).toArray()
@@ -140,8 +180,7 @@ const MongoClient = require('mongodb').MongoClient;
 	// 			}
 	// 		}
 	// 	}
-	// ]).toArray()
-	console.log(JSON.stringify(result, null, 2))
+	// ]).toArray()	
 	client.close()
 })()
 

@@ -96,8 +96,8 @@ functions:
     desc: "{0}:-1"
     asc: "{0}:1"
     between: '{ {0}: { "$gte": {1} , "$lt": {2} } }' # '{ "$and" :[{ "$gte" :[{0},{1}] },{ "$lt" :[{0},{2}] }] }'
-    includes: '{ {1}:{ "$in" :[{0}]} }'
-    in: '{ {1}:{ "$in" :[{0}]} }'
+    includes: '{ {0}:{ "$in" :[{1}]} }'
+    in: '{ {0}:{ "$in" :[{1}]} }'
     distinct: '{ "$group" :{ "_id" : null , "__distinct":{ "$addToSet": { {0} }}}}'
   numeric:
     abs: '{ "$abs" :{0} }'
@@ -165,7 +165,7 @@ functions:
   convert:
     toString: '{ "$toString" :{0} }'
     toDate: '{ "$toDate" :{0} }'
-    toDatetime: '{ "$toDate" :{0} }'
+    toDateTime: '{ "$toDate" :{0} }'
     toTime: '{ "$toDate" :{0} }'
     # toJson: 'json_value({0})'
     toNumber: '{ "toDecimal" :{0} }'
