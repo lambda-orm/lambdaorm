@@ -176,8 +176,9 @@
         "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
         "parse": "json_value({0})",
         "toString": "CAST({0} AS VARCHAR2)",
-        "like": "{0} LIKE '{1}'",
+        "like": "{0} LIKE {1}",
         "startsWith": "{0} LIKE '{1}%'",
+        "startWith": "{0} LIKE '{1}%'",
         "includes": "{0} LIKE '%{1}%'"
       },
       "dateTime": {
@@ -353,8 +354,9 @@
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
-          "like": "{0} LIKE '{1}'",
+          "like": "{0} LIKE {1}",
           "startsWith": "{0} LIKE '{1}%'",
+          "startWith": "{0} LIKE '{1}%'",
           "includes": "{0} LIKE '%{1}%'"
         },
         "dateTime": {
@@ -601,8 +603,9 @@
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
-          "like": "{0} LIKE '{1}'",
+          "like": "{0} LIKE {1}",
           "startsWith": "{0} LIKE '{1}%'",
+          "startWith": "{0} LIKE '{1}%'",
           "includes": "{0} LIKE '%{1}%'"
         },
         "dateTime": {
@@ -897,8 +900,9 @@
           "length": "LENGTH({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
           "parse": "json_value({0})",
-          "like": "{0} LIKE '{1}'",
+          "like": "{0} LIKE {1}",
           "startsWith": "{0} LIKE '{1}%'",
+          "startWith": "{0} LIKE '{1}%'",
           "includes": "{0} LIKE '%{1}%'"
         },
         "dateTime": {
@@ -1186,8 +1190,9 @@
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
           "parse": "json_value({0})",
           "toString": "CAST({0} AS VARCHAR2)",
-          "like": "{0} LIKE '{1}'",
+          "like": "{0} LIKE {1}",
           "startsWith": "{0} LIKE '{1}%'",
+          "startWith": "{0} LIKE '{1}%'",
           "includes": "{0} LIKE '%{1}%'"
         },
         "metadata": {
@@ -1390,8 +1395,9 @@
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
           "parse": "json_value({0})",
           "toString": "CAST({0} AS VARCHAR2)",
-          "like": "{0} LIKE '{1}'",
+          "like": "{0} LIKE {1}",
           "startsWith": "{0} LIKE '{1}%'",
+          "startWith": "{0} LIKE '{1}%'",
           "includes": "{0} LIKE '%{1}%'"
         },
         "dateTime": {
@@ -1576,8 +1582,9 @@
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
           "parse": "json_value({0})",
           "toString": "CAST({0} AS VARCHAR2)",
-          "like": "{0} LIKE '{1}'",
+          "like": "{0} LIKE {1}",
           "startsWith": "{0} LIKE '{1}%'",
+          "startWith": "{0} LIKE '{1}%'",
           "includes": "{0} LIKE '%{1}%'"
         },
         "dateTime": {

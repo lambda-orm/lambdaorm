@@ -112,6 +112,7 @@
         "length": "{ \"$strLenCP\" :{0} }",
         "like": "{ {0}:/{1}/ }",
         "startsWith": "{{0} : { $regex : /^{1}/ }}",
+        "startWith": "{{0} : { $regex : /^{1}/ }}",
         "includes": "{{0} : { $regex : \"{1}\" }}"
       },
       "dateTime": {
@@ -277,6 +278,7 @@
           "length": "{ \"$strLenCP\" :{0} }",
           "like": "{ {0}:/{1}/ }",
           "startsWith": "{{0} : { $regex : /^{1}/ }}",
+          "startWith": "{{0} : { $regex : /^{1}/ }}",
           "includes": "{{0} : { $regex : \"{1}\" }}"
         },
         "dateTime": {

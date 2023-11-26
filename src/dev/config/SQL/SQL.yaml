@@ -165,8 +165,9 @@ functions:
     parse: 'json_value({0})'
     # stringify: 'JSON_OBJECT({0})'
     toString: 'CAST({0} AS VARCHAR2)'
-    like: "{0} LIKE '{1}'"
+    like: "{0} LIKE {1}"
     startsWith: "{0} LIKE '{1}%'"
+    startWith: "{0} LIKE '{1}%'"
     includes: "{0} LIKE '%{1}%'"
   dateTime:
     # https://www.w3schools.com/jsref/jsref_obj_date.asp

@@ -287,7 +287,13 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 		const funcData = this.dialect.function(operand.name)
 		if (!funcData) throw new SintaxisError('Function ' + operand.name + ' not found')
 		let text = ''
-		if (funcData.type === 'multiple') {
+		if (['startWith', 'startsWith', 'like'].includes(operand.name) && operand.children.length === 2) {
+			text = funcData.template
+			const firstOperand = this.buildOperand(operand.children[0])
+			const secondOperand = this.helper.str.replace(this.buildOperand(operand.children[1]), '\'', '')
+			text = this.helper.str.replace(text, '{0}', firstOperand)
+			text = this.helper.str.replace(text, '{1}', secondOperand)
+		} else if (funcData.type === 'multiple') {
 			const template = funcData.template
 			text = this.buildOperand(operand.children[0])
 			for (let i = 1; i < operand.children.length; i++) {
@@ -297,7 +303,8 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 		} else {
 			text = funcData.template
 			for (let i = 0; i < operand.children.length; i++) {
-				text = this.helper.str.replace(text, '{' + i + '}', this.buildOperand(operand.children[i]))
+				const value = this.buildOperand(operand.children[i])
+				text = this.helper.str.replace(text, '{' + i + '}', value)
 			}
 		}
 		return text
