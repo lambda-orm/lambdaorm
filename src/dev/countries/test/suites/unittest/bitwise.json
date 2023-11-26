@@ -1,0 +1,402 @@
+{
+  "name": "bitwise",
+  "cases": [
+    {
+      "name": "normalize",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude & 1 })",
+          "result": "Countries.map(p=>{result:(p.longitude&1)}).filter(p=>(p.iso3==BRA)).sort(p=>asc(p.result)).page(1,1)"
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude | 1 })",
+          "result": "Countries.map(p=>{result:(p.longitude|1)}).filter(p=>(p.iso3==BRA)).sort(p=>asc(p.result)).page(1,1)"
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: ~ p.longitude })",
+          "result": "Countries.map(p=>{result:~p.longitude}).filter(p=>(p.iso3==BRA)).sort(p=>asc(p.result)).page(1,1)"
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude << 1 })",
+          "result": "Countries.map(p=>{result:(p.longitude<<1)}).filter(p=>(p.iso3==BRA)).sort(p=>asc(p.result)).page(1,1)"
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude ^ 1 })",
+          "result": "Countries.map(p=>{result:(p.longitude^1)}).filter(p=>(p.iso3==BRA)).sort(p=>asc(p.result)).page(1,1)"
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude >> 1 })",
+          "result": "Countries.map(p=>{result:(p.longitude>>1)}).filter(p=>(p.iso3==BRA)).sort(p=>asc(p.result)).page(1,1)"
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "model",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude & 1 })",
+          "result": [
+            {
+              "name": "result",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude | 1 })",
+          "result": [
+            {
+              "name": "result",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: ~ p.longitude })",
+          "result": [
+            {
+              "name": "result",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude << 1 })",
+          "result": [
+            {
+              "name": "result",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude ^ 1 })",
+          "result": [
+            {
+              "name": "result",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude >> 1 })",
+          "result": [
+            {
+              "name": "result",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "parameters",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude & 1 })",
+          "result": []
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude | 1 })",
+          "result": []
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: ~ p.longitude })",
+          "result": []
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude << 1 })",
+          "result": []
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude ^ 1 })",
+          "result": []
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude >> 1 })",
+          "result": []
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "constraints",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude & 1 })",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude | 1 })",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: ~ p.longitude })",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude << 1 })",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude ^ 1 })",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude >> 1 })",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "metadata",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude & 1 })",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 42
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "result",
+                "type": "number"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude | 1 })",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 42
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "result",
+                "type": "number"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: ~ p.longitude })",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 42
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "result",
+                "type": "number"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude << 1 })",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 42
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "result",
+                "type": "number"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude ^ 1 })",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 42
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "result",
+                "type": "number"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude >> 1 })",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 42
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "result",
+                "type": "number"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "getInfo",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude & 1 })",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT c.longitude & 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude | 1 })",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT c.longitude | 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: ~ p.longitude })",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT ~ c.longitude AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude << 1 })",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT c.longitude << 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude ^ 1 })",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT c.longitude ^ 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.iso3==\"BRA\").first(p=> {result: p.longitude >> 1 })",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT c.longitude >> 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
+            "children": []
+          }
+        }
+      ],
+      "errors": 0
+    }
+  ],
+  "errors": 0
+}

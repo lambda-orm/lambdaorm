@@ -175,7 +175,10 @@
         "length": "LENGTH({0})",
         "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
         "parse": "json_value({0})",
-        "toString": "CAST({0} AS VARCHAR2)"
+        "toString": "CAST({0} AS VARCHAR2)",
+        "like": "{0} LIKE '{1}'",
+        "startsWith": "{0} LIKE '{1}%'",
+        "includes": "{0} LIKE '%{1}%'"
       },
       "dateTime": {
         "now": "SYSTIMESTAMP",
@@ -349,7 +352,10 @@
           "strCount": "(LENGTH({0})-LENGTH(REPLACE({0},{1},'')))",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
-          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
+          "like": "{0} LIKE '{1}'",
+          "startsWith": "{0} LIKE '{1}%'",
+          "includes": "{0} LIKE '%{1}%'"
         },
         "dateTime": {
           "curTime": "CURTIME()",
@@ -594,7 +600,10 @@
           "strCount": "(LENGTH({0})-LENGTH(REPLACE({0},{1},'')))",
           "trim": "TRIM({0})",
           "upper": "UPPER({0})",
-          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))"
+          "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
+          "like": "{0} LIKE '{1}'",
+          "startsWith": "{0} LIKE '{1}%'",
+          "includes": "{0} LIKE '%{1}%'"
         },
         "dateTime": {
           "curTime": "CURTIME()",
@@ -887,7 +896,10 @@
           "upper": "UPPER({0})",
           "length": "LENGTH({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
-          "parse": "json_value({0})"
+          "parse": "json_value({0})",
+          "like": "{0} LIKE '{1}'",
+          "startsWith": "{0} LIKE '{1}%'",
+          "includes": "{0} LIKE '%{1}%'"
         },
         "dateTime": {
           "dateTime": "TO_CHAR({0},'YYYY-MM-DD\"T\"hh24:mi:ss')",
@@ -1173,7 +1185,10 @@
           "length": "LENGTH({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
           "parse": "json_value({0})",
-          "toString": "CAST({0} AS VARCHAR2)"
+          "toString": "CAST({0} AS VARCHAR2)",
+          "like": "{0} LIKE '{1}'",
+          "startsWith": "{0} LIKE '{1}%'",
+          "includes": "{0} LIKE '%{1}%'"
         },
         "metadata": {
           "user": "USER",
@@ -1374,7 +1389,10 @@
           "length": "LENGTH({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
           "parse": "json_value({0})",
-          "toString": "CAST({0} AS VARCHAR2)"
+          "toString": "CAST({0} AS VARCHAR2)",
+          "like": "{0} LIKE '{1}'",
+          "startsWith": "{0} LIKE '{1}%'",
+          "includes": "{0} LIKE '%{1}%'"
         },
         "dateTime": {
           "now": "SYSTIMESTAMP",
@@ -1557,7 +1575,10 @@
           "length": "LENGTH({0})",
           "mask": "Concat(LEFT({0},3),'***',RIGHT({0},3))",
           "parse": "json_value({0})",
-          "toString": "CAST({0} AS VARCHAR2)"
+          "toString": "CAST({0} AS VARCHAR2)",
+          "like": "{0} LIKE '{1}'",
+          "startsWith": "{0} LIKE '{1}%'",
+          "includes": "{0} LIKE '%{1}%'"
         },
         "dateTime": {
           "now": "SYSTIMESTAMP",

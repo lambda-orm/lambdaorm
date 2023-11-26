@@ -48,9 +48,9 @@ const MongoClient = require('mongodb').MongoClient;
 	// ]
 	// ).toArray()
 
-	const result = await db.collection('Customers').aggregate(
+	const result = await db.collection('Products').aggregate(
 		[
-			{ "$match" : { "_id":{ "$in" :["ALFKI"]} } }
+			{ "$group" :{ "_id": 0 , "maxPrice":{"$max" :"$UnitPrice" } }} , { $project: { _id: 0 } }
 		]).toArray()
 	console.log(JSON.stringify(result, null, 2))
 	// const result = await db.collection('Products').aggregate(

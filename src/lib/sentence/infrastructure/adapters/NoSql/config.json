@@ -109,7 +109,10 @@
         "substr": "{ \"$substr\" :[{0},{1},{2}] }",
         "trim": "{ \"$trim\" :{input:{0}, chars:\" \" } }",
         "upper": "{ \"$toUpper\" :{0} }",
-        "length": "{ \"$strLenCP\" :{0} }"
+        "length": "{ \"$strLenCP\" :{0} }",
+        "like": "{ {0}:/{1}/ }",
+        "startsWith": "{{0} : { $regex : /^{1}/ }}",
+        "includes": "{{0} : { $regex : \"{1}\" }}"
       },
       "dateTime": {
         "curtime": "\"$$CLUSTER_TIME\"",
@@ -271,7 +274,10 @@
           "substr": "{ \"$substr\" :[{0},{1},{2}] }",
           "trim": "{ \"$trim\" :{input:{0}, chars:\" \" } }",
           "upper": "{ \"$toUpper\" :{0} }",
-          "length": "{ \"$strLenCP\" :{0} }"
+          "length": "{ \"$strLenCP\" :{0} }",
+          "like": "{ {0}:/{1}/ }",
+          "startsWith": "{{0} : { $regex : /^{1}/ }}",
+          "includes": "{{0} : { $regex : \"{1}\" }}"
         },
         "dateTime": {
           "curtime": "\"$$CLUSTER_TIME\"",

@@ -1,0 +1,222 @@
+{
+  "name": "logical",
+  "cases": [
+    {
+      "name": "normalize",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" &&  p.longitude < -30 ).map(p=> {result:count(1)})",
+          "result": "Countries.map(p=>{result:count(1)}).filter(p=>((p.subregion==South America)&&(p.longitude<-30)))"
+        },
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" || p.subregion == \"Central America\" ).map(p=> {result:count(1)})",
+          "result": "Countries.map(p=>{result:count(1)}).filter(p=>((p.subregion==South America)||(p.subregion==Central America)))"
+        },
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\" &&  p.subregion != \"Northern America\" ).map(p=> {result:count(1)})",
+          "result": "Countries.map(p=>{result:count(1)}).filter(p=>((p.region==Americas)&&(p.subregion!=Northern America)))"
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "model",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" &&  p.longitude < -30 ).map(p=> {result:count(1)})",
+          "result": [
+            {
+              "name": "result",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" || p.subregion == \"Central America\" ).map(p=> {result:count(1)})",
+          "result": [
+            {
+              "name": "result",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\" &&  p.subregion != \"Northern America\" ).map(p=> {result:count(1)})",
+          "result": [
+            {
+              "name": "result",
+              "type": "integer"
+            }
+          ]
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "parameters",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" &&  p.longitude < -30 ).map(p=> {result:count(1)})",
+          "result": []
+        },
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" || p.subregion == \"Central America\" ).map(p=> {result:count(1)})",
+          "result": []
+        },
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\" &&  p.subregion != \"Northern America\" ).map(p=> {result:count(1)})",
+          "result": []
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "constraints",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" &&  p.longitude < -30 ).map(p=> {result:count(1)})",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" || p.subregion == \"Central America\" ).map(p=> {result:count(1)})",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\" &&  p.subregion != \"Northern America\" ).map(p=> {result:count(1)})",
+          "result": {
+            "entity": "Countries",
+            "constraints": []
+          }
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "metadata",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" &&  p.longitude < -30 ).map(p=> {result:count(1)})",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 80
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "result",
+                "type": "integer"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" || p.subregion == \"Central America\" ).map(p=> {result:count(1)})",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 94
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "result",
+                "type": "integer"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\" &&  p.subregion != \"Northern America\" ).map(p=> {result:count(1)})",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 88
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Countries",
+            "columns": [
+              {
+                "name": "result",
+                "type": "integer"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "c"
+          }
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "getInfo",
+      "tests": [
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" &&  p.longitude < -30 ).map(p=> {result:count(1)})",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE (c.subregion = 'South America' AND c.longitude < -30) ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.subregion == \"South America\" || p.subregion == \"Central America\" ).map(p=> {result:count(1)})",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE (c.subregion = 'South America' OR c.subregion = 'Central America') ",
+            "children": []
+          }
+        },
+        {
+          "test": "Countries.filter(p=> p.region == \"Americas\" &&  p.subregion != \"Northern America\" ).map(p=> {result:count(1)})",
+          "result": {
+            "entity": "Countries",
+            "dialect": "MySQL",
+            "source": "dataSource1",
+            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE (c.region = 'Americas' AND c.subregion <> 'Northern America') ",
+            "children": []
+          }
+        }
+      ],
+      "errors": 0
+    }
+  ],
+  "errors": 0
+}

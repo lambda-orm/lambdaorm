@@ -4,7 +4,7 @@ import { Products } from '../northwind/model/__model'
 export async function apply (callback: any) {
 	try {		
 		await orm.init('./config/northwind.yaml')
-		const options = {stage:'MySQL'}	
+		const options = {stage:'MongoDB'}	
 		
 		const query = () => Products.map(p => ({ maxPrice: max(p.price) }))
 		const result = await orm.execute(query, {}, options)

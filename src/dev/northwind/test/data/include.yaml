@@ -117,7 +117,7 @@ test:
             "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
             "city":"$ShipCity", "region":"$ShipRegion",
             "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
-            "__customerId":"$CustomerID" }} ]
+            "__customerId":"$CustomerID" }} , { "$project": { "_id": 0 } }]
           children:
             - entity: Customers
               dialect: MongoDB
@@ -128,7 +128,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
               children: []
       - stage: Oracle
         info:
@@ -322,7 +322,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -332,8 +333,8 @@ test:
           \"freight\":\"$Freight\", \"name\":\"$ShipName\",
           \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
           \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
-          \"country\":\"$ShipCountry\", \"__customerId\":\"$CustomerID\" }} ]" 
-          DATA:{"data":{"id":1}}
+          \"country\":\"$ShipCountry\", \"__customerId\":\"$CustomerID\" }} , {
+          \"$project\": { \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -502,7 +503,7 @@ test:
             "in": { "orderId":"$$this.OrderID", "productId":"$$this.ProductID",
             "unitPrice":"$$this.UnitPrice", "quantity":"$$this.Quantity",
             "discount":"$$this.Discount", "LambdaOrmParentId":"$$this.OrderID" }
-            }} }} ]
+            }} }} , { "$project": { "_id": 0 } }]
           children: []
       - stage: Oracle
         info:
@@ -922,7 +923,8 @@ test:
             "input": "$\"Order Details\"", "in": { "orderId":"$$this.OrderID",
             "productId":"$$this.ProductID", "unitPrice":"$$this.UnitPrice",
             "quantity":"$$this.Quantity", "discount":"$$this.Discount",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
             - entity: Customers
               dialect: MongoDB
@@ -933,7 +935,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
               children: []
       - stage: Oracle
         info:
@@ -1190,7 +1192,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -1206,8 +1209,8 @@ test:
           \"productId\":\"$$this.ProductID\",
           \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
           \"discount\":\"$$this.Discount\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -1498,7 +1501,8 @@ test:
             "productId":"$$this.ProductID", "unitPrice":"$$this.UnitPrice",
             "quantity":"$$this.Quantity", "discount":"$$this.Discount",
             "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
             - entity: Customers
               dialect: MongoDB
@@ -1509,7 +1513,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
               children: []
       - stage: Oracle
         info:
@@ -1854,7 +1858,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -1871,8 +1876,8 @@ test:
           \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
           \"discount\":\"$$this.Discount\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -2261,7 +2266,8 @@ test:
             "productId":"$$this.ProductID", "unitPrice":"$$this.UnitPrice",
             "quantity":"$$this.Quantity", "discount":"$$this.Discount",
             "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
             - entity: Customers
               dialect: MongoDB
@@ -2272,7 +2278,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
               children: []
       - stage: Oracle
         info:
@@ -2673,7 +2679,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -2690,8 +2697,8 @@ test:
           \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
           \"discount\":\"$$this.Discount\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -2999,7 +3006,8 @@ test:
             "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
             "input": "$\"Order Details\"", "in": { "quantity":"$$this.Quantity",
             "unitPrice":"$$this.UnitPrice", "productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
             - entity: Customers
               dialect: MongoDB
@@ -3010,7 +3018,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
               children: []
       - stage: Oracle
         info:
@@ -3261,7 +3269,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -3276,8 +3285,8 @@ test:
           \"$\\\"Order Details\\\"\", \"in\": {
           \"quantity\":\"$$this.Quantity\", \"unitPrice\":\"$$this.UnitPrice\",
           \"productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -3553,7 +3562,8 @@ test:
             "input": "$\"Order Details\"", "in": { "quantity":"$$this.Quantity",
             "unitPrice":"$$this.UnitPrice", "productId":"$$this.ProductID",
             "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
             - entity: Customers
               dialect: MongoDB
@@ -3564,7 +3574,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
               children: []
       - stage: Oracle
         info:
@@ -3901,7 +3911,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -3917,8 +3928,8 @@ test:
           \"quantity\":\"$$this.Quantity\", \"unitPrice\":\"$$this.UnitPrice\",
           \"productId\":\"$$this.ProductID\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -4252,7 +4263,8 @@ test:
             "__customerId":"$CustomerID", "__id":"$_id" ,"details": { "$map":{
             "input": "$\"Order Details\"", "in": { "quantity":"$$this.Quantity",
             "unitPrice":"$$this.UnitPrice", "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
             - entity: Customers
               dialect: MongoDB
@@ -4260,7 +4272,7 @@ test:
               sentence: >-
                 [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
                 "$project" :{ "_id": 0 , "name":"$CompanyName",
-                "LambdaOrmParentId":"$_id" }} ]
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
               children: []
       - stage: Oracle
         info:
@@ -4560,7 +4572,8 @@ test:
           :[VINET]} } "... is not valid JSON SOURCE: MongoDB ENTITY: Customers
           QUERY: "[{ \"$match\" : { \"_id\":{ \"$in\" :[{{LambdaOrmParentId}}]}
           } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$CompanyName\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -4575,8 +4588,8 @@ test:
           Details\\\"\", \"in\": { \"quantity\":\"$$this.Quantity\",
           \"unitPrice\":\"$$this.UnitPrice\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL

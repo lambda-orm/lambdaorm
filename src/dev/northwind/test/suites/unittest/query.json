@@ -1,0 +1,2946 @@
+{
+  "name": "query",
+  "cases": [
+    {
+      "name": "normalize",
+      "tests": [
+        {
+          "test": "Products.sort(p => p.name)",
+          "result": "Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.name))"
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": "Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)"
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": "Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)"
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": "Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).filter(p=>(p.id==id)).sort(p=>asc(p.id))"
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": "Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).filter(p=>(p.id==id)).sort(p=>asc(p.id))"
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": "Products.map(p=>{category:p.category.name}).sort(p=>asc(p.category))"
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": "Products.map(p=>{name:p.name,category:p.category.name}).sort(p=>[asc(p.category),asc(p.name)])"
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": "Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>asc(p.name))"
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])",
+          "result": "Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).filter(p=>(p.discontinued!=false)).sort(p=>[asc(p.category),desc(p.name)])"
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity }))",
+          "result": "Orders.details.map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).filter(p=>(between(p.order.shippedDate,fromDate,toDate)&&(p.unitPrice>minValue)))"
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity]) ",
+          "result": "Orders.details.map(p=>{category:p.product.category.name,product:p.product.name,unitPrice:p.unitPrice,quantity:p.quantity}).filter(p=>(between(p.order.shippedDate,fromDate,toDate)&&(p.unitPrice>minValue))).sort(p=>[asc(p.category),asc(p.product),asc(p.unitPrice),asc(p.quantity)])"
+        },
+        {
+          "test": "Products.first(p => p)",
+          "result": "Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>asc(p.id)).page(1,1)"
+        },
+        {
+          "test": "Products.last(p => p)",
+          "result": "Products.map(p=>{id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued}).sort(p=>desc(p.id)).page(1,1)"
+        },
+        {
+          "test": "Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))",
+          "result": "Products.map(p=>{category:p.category.name,name:p.name,quantity:p.quantity,inStock:p.inStock}).sort(p=>asc(p.category)).page(1,1)"
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).last(p => p.id)",
+          "result": "Products.map(p=>{id:p.id}).filter(p=>(p.discontinued!=false)).sort(p=>desc(p.id)).page(1,1)"
+        },
+        {
+          "test": "Products.distinct(p => p).sort(p => p.id)",
+          "result": "Products.map(p=>distinct({id:p.id,name:p.name,supplierId:p.supplierId,categoryId:p.categoryId,quantity:p.quantity,price:p.price,inStock:p.inStock,onOrder:p.onOrder,reorderLevel:p.reorderLevel,discontinued:p.discontinued})).sort(p=>asc(p.id))"
+        },
+        {
+          "test": "Products.distinct(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": "Products.map(p=>distinct({category:p.category.name})).sort(p=>asc(p.category))"
+        },
+        {
+          "test": "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])",
+          "result": "Products.map(p=>distinct({quantity:p.quantity,category:p.category.name})).sort(p=>[asc(p.quantity),asc(p.category)])"
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": "Orders.map(p=>{p:p,customer:p.customer,details:p.details}).filter(p=>(p.id==id))"
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": "Orders.map(p=>{p:p,customer:p.customer,employee:p.employee}).filter(p=>(p.id==id))"
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": "Orders.map(p=>{name:p.name,customer:p.customer,employee:p.employee}).filter(p=>(p.id==id))"
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": "Orders.map(p=>{name:p.name,customer:p.customer}).filter(p=>(p.id==id))"
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "model",
+      "tests": [
+        {
+          "test": "Products.sort(p => p.name)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "category",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            }
+          ]
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity }))",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            },
+            {
+              "name": "product",
+              "type": "string"
+            },
+            {
+              "name": "unitPrice",
+              "type": "decimal"
+            },
+            {
+              "name": "quantity",
+              "type": "decimal"
+            }
+          ]
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity]) ",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            },
+            {
+              "name": "product",
+              "type": "string"
+            },
+            {
+              "name": "unitPrice",
+              "type": "decimal"
+            },
+            {
+              "name": "quantity",
+              "type": "decimal"
+            }
+          ]
+        },
+        {
+          "test": "Products.first(p => p)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.last(p => p)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).last(p => p.id)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Products.distinct(p => p).sort(p => p.id)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "supplierId",
+              "type": "integer"
+            },
+            {
+              "name": "categoryId",
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "price",
+              "type": "decimal"
+            },
+            {
+              "name": "inStock",
+              "type": "decimal"
+            },
+            {
+              "name": "onOrder",
+              "type": "decimal"
+            },
+            {
+              "name": "reorderLevel",
+              "type": "decimal"
+            },
+            {
+              "name": "discontinued",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "test": "Products.distinct(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": [
+            {
+              "name": "category",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])",
+          "result": [
+            {
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "name": "category",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
+              "name": "customer.id",
+              "type": "string"
+            },
+            {
+              "name": "customer.name",
+              "type": "string"
+            },
+            {
+              "name": "customer.contact",
+              "type": "string"
+            },
+            {
+              "name": "customer.phone",
+              "type": "string"
+            },
+            {
+              "name": "customer.address",
+              "type": "string"
+            },
+            {
+              "name": "customer.city",
+              "type": "string"
+            },
+            {
+              "name": "customer.region",
+              "type": "string"
+            },
+            {
+              "name": "customer.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "customer.country",
+              "type": "string"
+            },
+            {
+              "name": "details.orderId",
+              "type": "integer"
+            },
+            {
+              "name": "details.productId",
+              "type": "integer"
+            },
+            {
+              "name": "details.unitPrice",
+              "type": "decimal"
+            },
+            {
+              "name": "details.quantity",
+              "type": "decimal"
+            },
+            {
+              "name": "details.discount",
+              "type": "decimal"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            },
+            {
+              "name": "customerId",
+              "type": "string"
+            },
+            {
+              "name": "employeeId",
+              "type": "integer"
+            },
+            {
+              "name": "orderDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "requiredDate",
+              "type": "date"
+            },
+            {
+              "name": "shippedDate",
+              "type": "date"
+            },
+            {
+              "name": "shipViaId",
+              "type": "integer"
+            },
+            {
+              "name": "freight",
+              "type": "decimal"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "type": "string"
+            },
+            {
+              "name": "postalCode",
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "type": "string"
+            },
+            {
+              "name": "customer.id",
+              "type": "string"
+            },
+            {
+              "name": "customer.name",
+              "type": "string"
+            },
+            {
+              "name": "customer.contact",
+              "type": "string"
+            },
+            {
+              "name": "customer.phone",
+              "type": "string"
+            },
+            {
+              "name": "customer.address",
+              "type": "string"
+            },
+            {
+              "name": "customer.city",
+              "type": "string"
+            },
+            {
+              "name": "customer.region",
+              "type": "string"
+            },
+            {
+              "name": "customer.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "customer.country",
+              "type": "string"
+            },
+            {
+              "name": "employee.id",
+              "type": "integer"
+            },
+            {
+              "name": "employee.lastName",
+              "type": "string"
+            },
+            {
+              "name": "employee.firstName",
+              "type": "string"
+            },
+            {
+              "name": "employee.title",
+              "type": "string"
+            },
+            {
+              "name": "employee.titleOfCourtesy",
+              "type": "string"
+            },
+            {
+              "name": "employee.birthDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "employee.hireDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "employee.phone",
+              "type": "string"
+            },
+            {
+              "name": "employee.reportsToId",
+              "type": "integer"
+            },
+            {
+              "name": "employee.address",
+              "type": "string"
+            },
+            {
+              "name": "employee.city",
+              "type": "string"
+            },
+            {
+              "name": "employee.region",
+              "type": "string"
+            },
+            {
+              "name": "employee.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "employee.country",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "customer.id",
+              "type": "string"
+            },
+            {
+              "name": "customer.name",
+              "type": "string"
+            },
+            {
+              "name": "customer.contact",
+              "type": "string"
+            },
+            {
+              "name": "customer.phone",
+              "type": "string"
+            },
+            {
+              "name": "customer.address",
+              "type": "string"
+            },
+            {
+              "name": "customer.city",
+              "type": "string"
+            },
+            {
+              "name": "customer.region",
+              "type": "string"
+            },
+            {
+              "name": "customer.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "customer.country",
+              "type": "string"
+            },
+            {
+              "name": "employee.id",
+              "type": "integer"
+            },
+            {
+              "name": "employee.lastName",
+              "type": "string"
+            },
+            {
+              "name": "employee.firstName",
+              "type": "string"
+            },
+            {
+              "name": "employee.title",
+              "type": "string"
+            },
+            {
+              "name": "employee.titleOfCourtesy",
+              "type": "string"
+            },
+            {
+              "name": "employee.birthDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "employee.hireDate",
+              "type": "dateTime"
+            },
+            {
+              "name": "employee.phone",
+              "type": "string"
+            },
+            {
+              "name": "employee.reportsToId",
+              "type": "integer"
+            },
+            {
+              "name": "employee.address",
+              "type": "string"
+            },
+            {
+              "name": "employee.city",
+              "type": "string"
+            },
+            {
+              "name": "employee.region",
+              "type": "string"
+            },
+            {
+              "name": "employee.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "employee.country",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "customer.id",
+              "type": "string"
+            },
+            {
+              "name": "customer.name",
+              "type": "string"
+            },
+            {
+              "name": "customer.contact",
+              "type": "string"
+            },
+            {
+              "name": "customer.phone",
+              "type": "string"
+            },
+            {
+              "name": "customer.address",
+              "type": "string"
+            },
+            {
+              "name": "customer.city",
+              "type": "string"
+            },
+            {
+              "name": "customer.region",
+              "type": "string"
+            },
+            {
+              "name": "customer.postalCode",
+              "type": "string"
+            },
+            {
+              "name": "customer.country",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "parameters",
+      "tests": [
+        {
+          "test": "Products.sort(p => p.name)",
+          "result": []
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": []
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": []
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": []
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": []
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": []
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])",
+          "result": []
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity }))",
+          "result": [
+            {
+              "name": "fromDate",
+              "type": "date"
+            },
+            {
+              "name": "toDate",
+              "type": "date"
+            },
+            {
+              "name": "minValue",
+              "type": "decimal"
+            }
+          ]
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity]) ",
+          "result": [
+            {
+              "name": "fromDate",
+              "type": "date"
+            },
+            {
+              "name": "toDate",
+              "type": "date"
+            },
+            {
+              "name": "minValue",
+              "type": "decimal"
+            }
+          ]
+        },
+        {
+          "test": "Products.first(p => p)",
+          "result": []
+        },
+        {
+          "test": "Products.last(p => p)",
+          "result": []
+        },
+        {
+          "test": "Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))",
+          "result": []
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).last(p => p.id)",
+          "result": []
+        },
+        {
+          "test": "Products.distinct(p => p).sort(p => p.id)",
+          "result": []
+        },
+        {
+          "test": "Products.distinct(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": []
+        },
+        {
+          "test": "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])",
+          "result": []
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": [
+            {
+              "name": "id",
+              "type": "integer"
+            }
+          ]
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "constraints",
+      "tests": [
+        {
+          "test": "Products.sort(p => p.name)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity }))",
+          "result": {
+            "entity": "Orders.details",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity]) ",
+          "result": {
+            "entity": "Orders.details",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.first(p => p)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.last(p => p)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).last(p => p.id)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.distinct(p => p).sort(p => p.id)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.distinct(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])",
+          "result": {
+            "entity": "Products",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": {
+            "entity": "Orders",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": {
+            "entity": "Orders",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": {
+            "entity": "Orders",
+            "constraints": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": {
+            "entity": "Orders",
+            "constraints": []
+          }
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "metadata",
+      "tests": [
+        {
+          "test": "Products.sort(p => p.name)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 14
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 42
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 30
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 51
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 39
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 56
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 70
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "category",
+                "type": "string"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 112
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 150
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 105
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders.details",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "name": "product",
+                "type": "string"
+              },
+              {
+                "name": "unitPrice",
+                "type": "decimal"
+              },
+              {
+                "name": "quantity",
+                "type": "decimal"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "fromDate",
+                "type": "date"
+              },
+              {
+                "name": "toDate",
+                "type": "date"
+              },
+              {
+                "name": "minValue",
+                "type": "decimal"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity]) ",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 227
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders.details",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "name": "product",
+                "type": "string"
+              },
+              {
+                "name": "unitPrice",
+                "type": "decimal"
+              },
+              {
+                "name": "quantity",
+                "type": "decimal"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "fromDate",
+                "type": "date"
+              },
+              {
+                "name": "toDate",
+                "type": "date"
+              },
+              {
+                "name": "minValue",
+                "type": "decimal"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Products.first(p => p)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 15
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.last(p => p)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 14
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 15
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).last(p => p.id)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 52
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.distinct(p => p).sort(p => p.id)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 31
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "supplierId",
+                "type": "integer"
+              },
+              {
+                "name": "categoryId",
+                "type": "integer"
+              },
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "type": "decimal"
+              },
+              {
+                "name": "inStock",
+                "type": "decimal"
+              },
+              {
+                "name": "onOrder",
+                "type": "decimal"
+              },
+              {
+                "name": "reorderLevel",
+                "type": "decimal"
+              },
+              {
+                "name": "discontinued",
+                "type": "boolean"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.distinct(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 61
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "category",
+                "type": "string"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 83
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Products",
+            "columns": [
+              {
+                "name": "quantity",
+                "type": "string"
+              },
+              {
+                "name": "category",
+                "type": "string"
+              }
+            ],
+            "parameters": [],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "p"
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 36
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              },
+              {
+                "name": "customer.id",
+                "type": "string"
+              },
+              {
+                "name": "customer.name",
+                "type": "string"
+              },
+              {
+                "name": "customer.contact",
+                "type": "string"
+              },
+              {
+                "name": "customer.phone",
+                "type": "string"
+              },
+              {
+                "name": "customer.address",
+                "type": "string"
+              },
+              {
+                "name": "customer.city",
+                "type": "string"
+              },
+              {
+                "name": "customer.region",
+                "type": "string"
+              },
+              {
+                "name": "customer.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "customer.country",
+                "type": "string"
+              },
+              {
+                "name": "details.orderId",
+                "type": "integer"
+              },
+              {
+                "name": "details.productId",
+                "type": "integer"
+              },
+              {
+                "name": "details.unitPrice",
+                "type": "decimal"
+              },
+              {
+                "name": "details.quantity",
+                "type": "decimal"
+              },
+              {
+                "name": "details.discount",
+                "type": "decimal"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 36
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "id",
+                "type": "integer"
+              },
+              {
+                "name": "customerId",
+                "type": "string"
+              },
+              {
+                "name": "employeeId",
+                "type": "integer"
+              },
+              {
+                "name": "orderDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "requiredDate",
+                "type": "date"
+              },
+              {
+                "name": "shippedDate",
+                "type": "date"
+              },
+              {
+                "name": "shipViaId",
+                "type": "integer"
+              },
+              {
+                "name": "freight",
+                "type": "decimal"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "address",
+                "type": "string"
+              },
+              {
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "name": "region",
+                "type": "string"
+              },
+              {
+                "name": "postalCode",
+                "type": "string"
+              },
+              {
+                "name": "country",
+                "type": "string"
+              },
+              {
+                "name": "customer.id",
+                "type": "string"
+              },
+              {
+                "name": "customer.name",
+                "type": "string"
+              },
+              {
+                "name": "customer.contact",
+                "type": "string"
+              },
+              {
+                "name": "customer.phone",
+                "type": "string"
+              },
+              {
+                "name": "customer.address",
+                "type": "string"
+              },
+              {
+                "name": "customer.city",
+                "type": "string"
+              },
+              {
+                "name": "customer.region",
+                "type": "string"
+              },
+              {
+                "name": "customer.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "customer.country",
+                "type": "string"
+              },
+              {
+                "name": "employee.id",
+                "type": "integer"
+              },
+              {
+                "name": "employee.lastName",
+                "type": "string"
+              },
+              {
+                "name": "employee.firstName",
+                "type": "string"
+              },
+              {
+                "name": "employee.title",
+                "type": "string"
+              },
+              {
+                "name": "employee.titleOfCourtesy",
+                "type": "string"
+              },
+              {
+                "name": "employee.birthDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "employee.hireDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "employee.phone",
+                "type": "string"
+              },
+              {
+                "name": "employee.reportsToId",
+                "type": "integer"
+              },
+              {
+                "name": "employee.address",
+                "type": "string"
+              },
+              {
+                "name": "employee.city",
+                "type": "string"
+              },
+              {
+                "name": "employee.region",
+                "type": "string"
+              },
+              {
+                "name": "employee.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "employee.country",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 36
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "customer.id",
+                "type": "string"
+              },
+              {
+                "name": "customer.name",
+                "type": "string"
+              },
+              {
+                "name": "customer.contact",
+                "type": "string"
+              },
+              {
+                "name": "customer.phone",
+                "type": "string"
+              },
+              {
+                "name": "customer.address",
+                "type": "string"
+              },
+              {
+                "name": "customer.city",
+                "type": "string"
+              },
+              {
+                "name": "customer.region",
+                "type": "string"
+              },
+              {
+                "name": "customer.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "customer.country",
+                "type": "string"
+              },
+              {
+                "name": "employee.id",
+                "type": "integer"
+              },
+              {
+                "name": "employee.lastName",
+                "type": "string"
+              },
+              {
+                "name": "employee.firstName",
+                "type": "string"
+              },
+              {
+                "name": "employee.title",
+                "type": "string"
+              },
+              {
+                "name": "employee.titleOfCourtesy",
+                "type": "string"
+              },
+              {
+                "name": "employee.birthDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "employee.hireDate",
+                "type": "dateTime"
+              },
+              {
+                "name": "employee.phone",
+                "type": "string"
+              },
+              {
+                "name": "employee.reportsToId",
+                "type": "integer"
+              },
+              {
+                "name": "employee.address",
+                "type": "string"
+              },
+              {
+                "name": "employee.city",
+                "type": "string"
+              },
+              {
+                "name": "employee.region",
+                "type": "string"
+              },
+              {
+                "name": "employee.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "employee.country",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": {
+            "classtype": "Sentence",
+            "pos": {
+              "ln": 0,
+              "col": 36
+            },
+            "name": "select",
+            "children": [],
+            "type": "any",
+            "entity": "Orders",
+            "columns": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "customer.id",
+                "type": "string"
+              },
+              {
+                "name": "customer.name",
+                "type": "string"
+              },
+              {
+                "name": "customer.contact",
+                "type": "string"
+              },
+              {
+                "name": "customer.phone",
+                "type": "string"
+              },
+              {
+                "name": "customer.address",
+                "type": "string"
+              },
+              {
+                "name": "customer.city",
+                "type": "string"
+              },
+              {
+                "name": "customer.region",
+                "type": "string"
+              },
+              {
+                "name": "customer.postalCode",
+                "type": "string"
+              },
+              {
+                "name": "customer.country",
+                "type": "string"
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "type": "integer"
+              }
+            ],
+            "constraints": [],
+            "values": [],
+            "defaults": [],
+            "clause": "select",
+            "alias": "o"
+          }
+        }
+      ],
+      "errors": 0
+    },
+    {
+      "name": "getInfo",
+      "tests": [
+        {
+          "test": "Products.sort(p => p.name)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductName asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => p).sort(p => p.id).page(1, 1)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.sort(p => p.id).page(1, 1)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).map(p => p).sort(p => p.id)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  WHERE p.ProductID = ? ORDER BY p.ProductID asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.id === id).sort(p => p.id) ",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  WHERE p.ProductID = ? ORDER BY p.ProductID asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ name: p.name, category: p.category.name })).sort(p => [p.category, p.name])",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductName AS name, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc, p.ProductName asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => p.name)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductName asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).map(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock })).sort(p => [p.category, desc(p.name)])",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> FALSE ORDER BY category asc, p.ProductName desc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity }))",
+          "result": {
+            "entity": "Orders.details",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS product, o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND o.UnitPrice > ?) ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.details.filter(p => between(p.order.shippedDate, fromDate, toDate) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product, p.unitPrice, p.quantity]) ",
+          "result": {
+            "entity": "Orders.details",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS product, o.UnitPrice AS unitPrice, o.Quantity AS quantity FROM `Order Details` o INNER JOIN Orders o1 ON o1.OrderID = o.OrderID INNER JOIN Products p ON p.ProductID = o.ProductID INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE (o1.ShippedDate BETWEEN ? AND ? AND o.UnitPrice > ?) ORDER BY category asc, product asc, o.UnitPrice asc, o.Quantity asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.first(p => p)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.last(p => p)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID desc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity, inStock: p.inStock }))",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.filter(p => p.discontinued !== false).last(p => p.id)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <> FALSE ORDER BY p.ProductID desc  LIMIT 0,1 ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.distinct(p => p).sort(p => p.id)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT DISTINCT p.ProductID AS id, p.ProductName AS name, p.SupplierID AS supplierId, p.CategoryID AS categoryId, p.QuantityPerUnit AS quantity, p.UnitPrice AS price, p.UnitsInStock AS inStock, p.UnitsOnOrder AS onOrder, p.ReorderLevel AS reorderLevel, p.Discontinued AS discontinued FROM Products p  ORDER BY p.ProductID asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.distinct(p => ({ category: p.category.name })).sort(p => p.category)",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT DISTINCT c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY category asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => [p.quantity, p.category])",
+          "result": {
+            "entity": "Products",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT DISTINCT p.QuantityPerUnit AS quantity, c.CategoryName AS category FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID ORDER BY p.QuantityPerUnit asc, category asc ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.details])",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, c.CustomerID AS `customer.id`, c.CompanyName AS `customer.name`, c.ContactName AS `customer.contact`, c.ContactTitle AS `customer.phone`, c.Address AS `customer.address`, c.City AS `customer.city`, c.Region AS `customer.region`, c.PostalCode AS `customer.postalCode`, c.Country AS `customer.country`, d.OrderID AS `details.orderId`, d.ProductID AS `details.productId`, d.UnitPrice AS `details.unitPrice`, d.Quantity AS `details.quantity`, d.Discount AS `details.discount` FROM Orders o INNER JOIN Customers c ON c.CustomerID = o.CustomerID INNER JOIN `Order Details` d ON d.OrderID = o.OrderID WHERE o.OrderID = ? ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p,p.customer,p.employee])",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT o.OrderID AS id, o.CustomerID AS customerId, o.EmployeeID AS employeeId, o.OrderDate AS orderDate, o.RequiredDate AS requiredDate, o.ShippedDate AS shippedDate, o.ShipVia AS shipViaId, o.Freight AS freight, o.ShipName AS name, o.ShipAddress AS address, o.ShipCity AS city, o.ShipRegion AS region, o.ShipPostalCode AS postalCode, o.ShipCountry AS country, c.CustomerID AS `customer.id`, c.CompanyName AS `customer.name`, c.ContactName AS `customer.contact`, c.ContactTitle AS `customer.phone`, c.Address AS `customer.address`, c.City AS `customer.city`, c.Region AS `customer.region`, c.PostalCode AS `customer.postalCode`, c.Country AS `customer.country`, e.EmployeeID AS `employee.id`, e.LastName AS `employee.lastName`, e.FirstName AS `employee.firstName`, e.Title AS `employee.title`, e.TitleOfCourtesy AS `employee.titleOfCourtesy`, e.BirthDate AS `employee.birthDate`, e.HireDate AS `employee.hireDate`, e.HomePhone AS `employee.phone`, e.ReportsTo AS `employee.reportsToId`, e.Address AS `employee.address`, e.City AS `employee.city`, e.Region AS `employee.region`, e.PostalCode AS `employee.postalCode`, e.Country AS `employee.country` FROM Orders o INNER JOIN Customers c ON c.CustomerID = o.CustomerID INNER JOIN Employees e ON e.EmployeeID = o.EmployeeID WHERE o.OrderID = ? ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer,p.employee])",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT o.ShipName AS name, c.CustomerID AS `customer.id`, c.CompanyName AS `customer.name`, c.ContactName AS `customer.contact`, c.ContactTitle AS `customer.phone`, c.Address AS `customer.address`, c.City AS `customer.city`, c.Region AS `customer.region`, c.PostalCode AS `customer.postalCode`, c.Country AS `customer.country`, e.EmployeeID AS `employee.id`, e.LastName AS `employee.lastName`, e.FirstName AS `employee.firstName`, e.Title AS `employee.title`, e.TitleOfCourtesy AS `employee.titleOfCourtesy`, e.BirthDate AS `employee.birthDate`, e.HireDate AS `employee.hireDate`, e.HomePhone AS `employee.phone`, e.ReportsTo AS `employee.reportsToId`, e.Address AS `employee.address`, e.City AS `employee.city`, e.Region AS `employee.region`, e.PostalCode AS `employee.postalCode`, e.Country AS `employee.country` FROM Orders o INNER JOIN Customers c ON c.CustomerID = o.CustomerID INNER JOIN Employees e ON e.EmployeeID = o.EmployeeID WHERE o.OrderID = ? ",
+            "children": []
+          }
+        },
+        {
+          "test": "Orders.filter(p => p.id === id).map(p => [p.name,p.customer])",
+          "result": {
+            "entity": "Orders",
+            "dialect": "MySQL",
+            "source": "MySQL",
+            "sentence": "SELECT o.ShipName AS name, c.CustomerID AS `customer.id`, c.CompanyName AS `customer.name`, c.ContactName AS `customer.contact`, c.ContactTitle AS `customer.phone`, c.Address AS `customer.address`, c.City AS `customer.city`, c.Region AS `customer.region`, c.PostalCode AS `customer.postalCode`, c.Country AS `customer.country` FROM Orders o INNER JOIN Customers c ON c.CustomerID = o.CustomerID WHERE o.OrderID = ? ",
+            "children": []
+          }
+        }
+      ],
+      "errors": 0
+    }
+  ],
+  "errors": 0
+}

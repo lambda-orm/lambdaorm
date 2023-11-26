@@ -54,6 +54,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		const collection = mapping.entityMapping(collectionName)
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		const aggregate = this.parseTemplate(mapping, dialect, query.sentence, params)
+		// console.log(JSON.stringify(aggregate, null, 2))
 
 		// TODO:solve transaction
 		// const result = this.session
