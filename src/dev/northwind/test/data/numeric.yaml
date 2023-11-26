@@ -1,0 +1,81 @@
+name: numeric
+data:
+  a:
+    id: 1
+test:
+  - name: function abs
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function acos
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function asin
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function atan
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function atan2
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function ceil
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function cos
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function exp
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function floor
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function ln
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function log
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function round
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function sign
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function tan
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: function trunc
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+errors: 15

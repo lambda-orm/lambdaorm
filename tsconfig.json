@@ -20,10 +20,10 @@
 		]
 	},
 	"include": [
-		"src/**/*",
-		"types/**/*",
+		"src/**/*.ts",
+		"src/syntax.d.ts",
 		"Gruntfile.js"
-, "types/index.d.ts"	],
+   	],
 	"exclude": [
 		"node_modules",
 		"**/__jest__/*",

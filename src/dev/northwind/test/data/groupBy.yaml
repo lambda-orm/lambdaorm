@@ -1,0 +1,47 @@
+name: groupBy
+data:
+  a:
+    id: 1
+test:
+  - name: groupBy 1
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.max without value'
+  - name: groupBy 2
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.min without value'
+  - name: groupBy 3
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.sum without value'
+  - name: groupBy 4
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.round without value'
+  - name: groupBy 5
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.count without value'
+  - name: groupBy 6
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.max without value'
+  - name: groupBy 7
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.max without value'
+  - name: groupBy 8
+    data: a
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.abs without value'
+  - name: groupBy 9
+    sentences: []
+    errors: 1
+    error: 'Error: Operand undefined'
+  - name: query 10
+    sentences: []
+    errors: 1
+    error: 'Error: attribute lib_1.sum without value'
+errors: 10
