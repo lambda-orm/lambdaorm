@@ -53,8 +53,9 @@ up(){
 
 down(){	
 	docker-compose -p "countries" down --remove-orphans
-	sudo chmod 755 ./volume/*
-	sudo rm -fR ./volume/*
+	docker volume rm countries_mysql-data
+	docker volume rm countries_mysql-log
+	docker volume rm countries_postgres-data
 	echo "INFO: stopped Databases (if it was running)."
 }
 

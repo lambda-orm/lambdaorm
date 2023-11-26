@@ -8,6 +8,8 @@ module.exports = function (grunt) {
 		exec: {
 			db_up: { cmd: './db.sh up', options: { cwd: './src/dev/northwind/db' } },
 			db_down: { cmd: './db.sh down', options: { cwd: './src/dev/northwind/db' } },
+			countries_db_up: { cmd: './db.sh up', options: { cwd: './src/dev/countries/db' } },
+			countries_db_down: { cmd: './db.sh down', options: { cwd: './src/dev/countries/db' } },
 			clean_data: { cmd: './clean_data.sh ' + sources.join(','), options: { cwd: './src/dev/task' } },
 			clean_test: { cmd: './clean_test.sh ', options: { cwd: './src/dev/task' } },
 			lint: { cmd: 'npx eslint src' },
@@ -147,9 +149,13 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('clean-test', ['exec:clean_test'])
 	grunt.registerTask('clean-data', ['exec:clean_data'])
-	grunt.registerTask('db-down', ['exec:db_down', 'clean-data'])
+	grunt.registerTask('db-down', ['exec:db_down'])
 	grunt.registerTask('db-up', ['db-down', 'exec:db_up', 'populate-source', 'populate-databases'])
-	grunt.registerTask('build-test', ['db-up', 'clean-test', 'create-data-for-test', 'create-data-for-test-suite', 'create-test', 'create-test-suite', 'db-down'])
+	grunt.registerTask('northwind-build-test', ['db-up', 'create-data-for-test', 'create-data-for-test-suite', 'create-test', 'create-test-suite', 'db-down'])
+	grunt.registerTask('countries-db-down', ['exec:countries_db_down'])
+	grunt.registerTask('countries-db-up', ['countries-db-down', 'exec:countries_db_up', 'countries-populate-source'])
+	grunt.registerTask('countries-build-test', ['countries-db-up', 'countries-create-data-for-test-suite', 'countries-create-test-suite', 'countries-db-down'])
+	grunt.registerTask('build-test', ['clean-test', 'clean-data', 'northwind-build-test', 'countries-build-test'])
 	grunt.registerTask('lint', ['exec:lint'])
 	grunt.registerTask('build', ['lint', 'clean:build', 'build-config', 'exec:tsc'])
 	grunt.registerTask('test', ['build', 'exec:test'])

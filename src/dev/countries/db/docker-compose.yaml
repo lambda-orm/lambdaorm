@@ -1,4 +1,7 @@
 version: '3'
+networks:
+  countries:
+    driver: bridge
 services:
   mysql:
     container_name: countries-mysql
@@ -9,8 +12,20 @@ services:
       - MYSQL_USER=countries
       - MYSQL_PASSWORD=countries
       - MYSQL_ROOT_PASSWORD=root
+    cap_add:
+      - SYS_NICE # CAP_SYS_NICE
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - mysql-log:/var/log/my  
     ports:
       - 3309:3306
+    networks:
+      - countries
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "-uroot", "-proot", "status" ]
+      interval: 3s
+      timeout: 1s
+      retries: 10    
   postgres:
     container_name: countries-postgres
     image: postgres:10
@@ -19,5 +34,18 @@ services:
       - POSTGRES_DB=countries
       - POSTGRES_USER=countries
       - POSTGRES_PASSWORD=countries
+    volumes:
+      - postgres-data:/var/lib/postgresql/data  
     ports:
       - '5434:5432'
+    networks:
+      - countries
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "countries" ]
+      interval: 3s
+      timeout: 1s
+      retries: 10
+volumes:
+  mysql-data:
+  mysql-log:
+  postgres-data:          
