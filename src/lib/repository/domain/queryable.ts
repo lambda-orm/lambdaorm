@@ -265,7 +265,7 @@ export declare function between(value:any, from:any, to:any):boolean
 export declare function includes(value: any, list: any[]): boolean
 /**  */
 export declare function distinct(value:any):any
-// numeric -------------------------------------------------------------------
+// numeric --------------------------------------------------------------------------------------------------------------
 /** Get the absolute value */
 export declare function abs(value:number):number
 /** Get the arc cosine */
@@ -306,7 +306,7 @@ export declare function tan(value:number):number
 export declare function tanh(value:number):number
 /** Truncate num  */
 export declare function trunc(value:number, decimals:number):number
-// string:---------------------------------------------------------
+// string:---------------------------------------------------------------------------------------------------------------
 /** Get character from ASCII code */
 export declare function chr(value:string):string
 /**  Capitalize words */
@@ -334,8 +334,18 @@ export declare function upper(value:string):string
 /** String concatenation */
 export declare function concat(...values:string[]):string
 // function length(value:string):number
+/** Get the position of the first occurrence of substring */
+export declare function like(field:string, searchString:string):string
+/**
+ * Returns true if the sequence of elements of searchString converted to a String is the
+ * same as the corresponding elements of this object (converted to a String) starting at
+ * position. Otherwise returns false.
+ */
+export declare function startsWith(field:string, searchString:string):string
+/** Returns true if searchString appears as a substring of the result of converting this */
+export declare function includes(field:string, searchString:string):string
 
-// dateTime:
+// dateTime: -------------------------------------------------------------------------------------------------------------
 /** Get the current time */
 export declare function curTime():Date
 /** Get the current date */

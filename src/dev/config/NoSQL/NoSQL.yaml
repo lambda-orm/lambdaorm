@@ -138,6 +138,9 @@ functions:
     trim: '{ "$trim" :{input:{0}, chars:" " } }'
     upper: '{ "$toUpper" :{0} }'
     length: '{ "$strLenCP" :{0} }'
+    like: '{ {0}:/{1}/ }'
+    startsWith: '{{0} : { $regex : /^{1}/ }}'
+    includes: '{{0} : { $regex : "{1}" }}'
   dateTime:
     curtime: '"$$CLUSTER_TIME"'
     today: '{ "$currentDate" :{ "$type":"date"} }'
