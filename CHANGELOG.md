@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.81](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.80...v0.8.81) (2023-11-26)
+
+
+### Bug Fixes
+
+* **language:** solve sencond parameter on startsWith and like functions ([d07a0a4](https://github.com/FlavioLionelRita/lambdaorm/commit/d07a0a4f05e27f58b6172cbfebdfbc559e4a3874)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+
 ### [0.8.80](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.79...v0.8.80) (2023-11-26)
 
 ### [0.8.79](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.78...v0.8.79) (2023-11-26)
