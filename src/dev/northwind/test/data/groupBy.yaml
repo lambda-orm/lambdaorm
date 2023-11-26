@@ -38,9 +38,7 @@ test:
           entity: Products
           dialect: MongoDB
           source: MongoDB
-          sentence: >-
-            [{ "$group" :{ "_id": 0 , "maxPrice":{ "$max" :"$UnitPrice" } }} , {
-            "$project": { "_id": 0 } }]
+          sentence: '[{ "$group" :{ "_id": 0 , "maxPrice":{ "$max" :"$UnitPrice" } }} ]'
           children: []
       - stage: Oracle
         info:
@@ -49,7 +47,7 @@ test:
           source: Oracle
           sentence: 'SELECT MAX(p.UnitPrice) AS "maxPrice" FROM Products p  '
           children: []
-    errors: 0
+    errors: 1
     expression: 'Products.map(p => ({ maxPrice: max(p.price) }))'
     normalizeExpression: Products.map(p=>{maxPrice:max(p.price)})
     model:
@@ -83,6 +81,10 @@ test:
       - stage: PostgreSQL
       - stage: SqlServer
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - _id: 0
+            maxPrice: 263.5
       - stage: Oracle
     result:
       - maxPrice: 263.5
@@ -121,9 +123,7 @@ test:
           entity: Products
           dialect: MongoDB
           source: MongoDB
-          sentence: >-
-            [{ "$group" :{ "_id": 0 , "minPrice":{ "$min" :"$UnitPrice" } }} , {
-            "$project": { "_id": 0 } }]
+          sentence: '[{ "$group" :{ "_id": 0 , "minPrice":{ "$min" :"$UnitPrice" } }} ]'
           children: []
       - stage: Oracle
         info:
@@ -132,7 +132,7 @@ test:
           source: Oracle
           sentence: 'SELECT MIN(p.UnitPrice) AS "minPrice" FROM Products p  '
           children: []
-    errors: 0
+    errors: 1
     expression: 'Products.map(p => ({ minPrice: min(p.price) }))'
     normalizeExpression: Products.map(p=>{minPrice:min(p.price)})
     model:
@@ -166,6 +166,10 @@ test:
       - stage: PostgreSQL
       - stage: SqlServer
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - _id: 0
+            minPrice: 2.5
       - stage: Oracle
     result:
       - minPrice: 2.5
@@ -204,9 +208,7 @@ test:
           entity: Products
           dialect: MongoDB
           source: MongoDB
-          sentence: >-
-            [{ "$group" :{ "_id": 0 , "total":{ "$sum" :"$UnitPrice" } }} , {
-            "$project": { "_id": 0 } }]
+          sentence: '[{ "$group" :{ "_id": 0 , "total":{ "$sum" :"$UnitPrice" } }} ]'
           children: []
       - stage: Oracle
         info:
@@ -215,7 +217,7 @@ test:
           source: Oracle
           sentence: 'SELECT SUM(p.UnitPrice) AS "total" FROM Products p  '
           children: []
-    errors: 0
+    errors: 1
     expression: 'Products.map(p => ({ total: sum(p.price) }))'
     normalizeExpression: Products.map(p=>{total:sum(p.price)})
     model:
@@ -249,6 +251,10 @@ test:
       - stage: PostgreSQL
       - stage: SqlServer
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - _id: 0
+            total: 2222.71
       - stage: Oracle
     result:
       - total: 2222.71
@@ -291,7 +297,7 @@ test:
           source: MongoDB
           sentence: >-
             [{ "$group" :{ "_id": 0 , "average":{ "$round" :[{ "$avg"
-            :"$UnitPrice" },4] } }} , { "$project": { "_id": 0 } }]
+            :"$UnitPrice" },4] } }} ]
           children: []
       - stage: Oracle
         info:
@@ -333,8 +339,8 @@ test:
         error: >-
           ExecutionError: ERROR: The $round accumulator is a unary operator
           SOURCE: MongoDB ENTITY: Products QUERY: "[{ \"$group\" :{ \"_id\": 0 ,
-          \"average\":{ \"$round\" :[{ \"$avg\" :\"$UnitPrice\" },4] } }} , {
-          \"$project\": { \"_id\": 0 } }]"  DATA:{"data":{}}
+          \"average\":{ \"$round\" :[{ \"$avg\" :\"$UnitPrice\" },4] } }} ]" 
+          DATA:{"data":{}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -377,9 +383,7 @@ test:
           entity: Products
           dialect: MongoDB
           source: MongoDB
-          sentence: >-
-            [{ "$group" :{ "_id": 0 , "count":{ "$sum" : 1 } }} , { "$project":
-            { "_id": 0 } }]
+          sentence: '[{ "$group" :{ "_id": 0 , "count":{ "$sum" : 1 } }} ]'
           children: []
       - stage: Oracle
         info:
@@ -388,7 +392,7 @@ test:
           source: Oracle
           sentence: 'SELECT COUNT(1) AS "count" FROM Products p  '
           children: []
-    errors: 0
+    errors: 1
     expression: 'Products.map(p => ({ count: count(1) }))'
     normalizeExpression: Products.map(p=>{count:count(1)})
     model:
@@ -422,6 +426,10 @@ test:
       - stage: PostgreSQL
       - stage: SqlServer
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - _id: 0
+            count: 77
       - stage: Oracle
     result:
       - count: 77
@@ -471,8 +479,7 @@ test:
           sentence: >-
             [{ "$group" :{ "_id":{ "category":"$CategoryID" } , "largestPrice":{
             "$max" :"$UnitPrice" } }}, { "$project" :{ "_id": 0 ,
-            "category":"$_id.category" , "largestPrice":"$largestPrice" }} , {
-            "$project": { "_id": 0 } }]
+            "category":"$_id.category" , "largestPrice":"$largestPrice" }} ]
           children: []
       - stage: Oracle
         info:
@@ -543,22 +550,22 @@ test:
       - stage: MongoDB
         error: not equal MySQL
         result:
+          - category: 6
+            largestPrice: 123.79
           - category: 4
             largestPrice: 55
           - category: 2
             largestPrice: 43.9
-          - category: 7
-            largestPrice: 53
           - category: 8
             largestPrice: 62.5
           - category: 3
             largestPrice: 81
+          - category: 7
+            largestPrice: 53
           - category: 5
             largestPrice: 38
           - category: 1
             largestPrice: 263.5
-          - category: 6
-            largestPrice: 123.79
       - stage: Oracle
         error: not equal MySQL
         result:
@@ -647,8 +654,7 @@ test:
             "foreignField": "_id", "as": "c" }}, { "$group" :{ "_id":{
             "category":{ "$arrayElemAt": ["$c.CategoryName", 0] } } ,
             "largestPrice":{ "$max" :"$UnitPrice" } }}, { "$project" :{ "_id": 0
-            , "category":"$_id.category" , "largestPrice":"$largestPrice" }} , {
-            "$project": { "_id": 0 } }]
+            , "category":"$_id.category" , "largestPrice":"$largestPrice" }} ]
           children: []
       - stage: Oracle
         info:
@@ -720,22 +726,22 @@ test:
       - stage: MongoDB
         error: not equal MySQL
         result:
-          - category: Seafood
-            largestPrice: 62.5
-          - category: Dairy Products
-            largestPrice: 55
-          - category: Meat/Poultry
-            largestPrice: 123.79
-          - category: Beverages
-            largestPrice: 263.5
-          - category: Condiments
-            largestPrice: 43.9
-          - category: Grains/Cereals
-            largestPrice: 38
-          - category: Produce
-            largestPrice: 53
           - category: Confections
             largestPrice: 81
+          - category: Produce
+            largestPrice: 53
+          - category: Seafood
+            largestPrice: 62.5
+          - category: Grains/Cereals
+            largestPrice: 38
+          - category: Condiments
+            largestPrice: 43.9
+          - category: Beverages
+            largestPrice: 263.5
+          - category: Meat/Poultry
+            largestPrice: 123.79
+          - category: Dairy Products
+            largestPrice: 55
       - stage: Oracle
         error: not equal MySQL
         result:
@@ -820,7 +826,7 @@ test:
           sentence: >-
             [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
             "name":"$ProductName", "source":"$UnitPrice", "result":{ "$abs"
-            :"$UnitPrice" } }} , { "$project": { "_id": 0 } }]
+            :"$UnitPrice" } }} ]
           children: []
       - stage: Oracle
         info:
@@ -940,8 +946,7 @@ test:
             "category":{ "$arrayElemAt": ["$c.CategoryName", 0] } } ,
             "largestPrice":{ "$max" :"$UnitPrice" } }}, { "$project" :{ "_id": 0
             , "category":"$_id.category" , "largestPrice":"$largestPrice" }} , {
-            "$match" : { { "$max" :"UnitPrice" }: { "$gt": 100 } } }, {
-            "$project": { "_id": 0 } }]
+            "$match" : { { "$max" :"UnitPrice" }: { "$gt": 100 } } }]
           children: []
       - stage: Oracle
         info:
@@ -1000,8 +1005,7 @@ test:
           \"largestPrice\":{ \"$max\" :\"$UnitPrice\" } }}, { \"$project\" :{
           \"_id\": 0 , \"category\":\"$_id.category\" ,
           \"largestPrice\":\"$largestPrice\" }} , { \"$match\" : { { \"$max\"
-          :\"UnitPrice\" }: { \"$gt\": 100 } } }, { \"$project\": { \"_id\": 0 }
-          }]"  DATA:{"data":{}}
+          :\"UnitPrice\" }: { \"$gt\": 100 } } }]"  DATA:{"data":{}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -1062,7 +1066,7 @@ test:
             "subTotal":{ "$sum" :{ "$multiply" :[{ "$multiply" :[{ "$multiply"
             :["$UnitPrice","$Quantity"] },{ "$subtract" :[1,{ "$divide"
             :["$Discount",100] }] }] },100] } } }} , { "$sort" :{ "subTotal":1 }
-            }, { "$project": { "_id": 0 } }]
+            }]
           children: []
       - stage: Oracle
         info:
@@ -1074,7 +1078,7 @@ test:
             * 100)) AS "subTotal" FROM "Order Details" o  ORDER BY "subTotal"
             asc 
           children: []
-    errors: 0
+    errors: 1
     expression: >-
       Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 -
       p.discount / 100)) * 100) })).sort(p => p.subTotal)
@@ -1111,7 +1115,11 @@ test:
       - stage: PostgreSQL
       - stage: SqlServer
       - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - _id: 0
+            subTotal: 135445859
       - stage: Oracle
     result:
       - subTotal: 135445859
-errors: 8
+errors: 13

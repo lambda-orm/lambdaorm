@@ -30,20 +30,13 @@ module.exports = function (grunt) {
 			standardVersion: {
 				cmd: 'standard-version'
 			},
-			push: {
-				cmd: 'git add . && git commit -m "chore(release): <%= version %>" && git push'
-			},
-			createReleaseBranch: {
-				cmd: 'git checkout -b release/<%= version %> && git push --set-upstream origin release/<%= version %>'
-			},
-			mergeToMain: {
-				cmd: 'git checkout main && git merge release/<%= version %> -m "chore(release): release <%= version %>" && git push'
-			},
-			mergeToOriginalBranch: {
-				cmd: 'git checkout <%= originalBranch %> && git merge release/<%= version %> -m "chore(release): release <%= version %>" && git push'
-			},
-			removeLocalReleaseBranch: {
-				cmd: 'git branch -D release/<%= version %>'
+			gitFlowRelease: {
+				cmd: `git add . && git commit -m "chore(release): <%= version %>" && git push && git push --tags
+				  &&  git checkout -b release/<%= version %> && git push --set-upstream origin release/<%= version %>
+				  &&  git checkout main && git merge release/<%= version %> -m "chore(release): release <%= version %>" && git push
+				  &&  git checkout <%= originalBranch %> && git merge release/<%= version %> -m "chore(release): release <%= version %>" && git push
+				  &&  git branch -D release/<%= version %>
+				`
 			}
 		},
 		clean: {
@@ -137,7 +130,7 @@ module.exports = function (grunt) {
 		fs.writeFileSync('dist/package.json', JSON.stringify(data, null, 2), 'utf8')
 	})
 
-	grunt.registerTask('exec-release', ['exec:standardVersion', 'copy:changeLog', 'create-package', 'get-version', 'exec:push', 'exec:createReleaseBranch', 'exec:mergeToMain', 'exec:mergeToOriginalBranch', 'exec:removeLocalReleaseBranch'])
+	grunt.registerTask('exec-release', ['exec:standardVersion', 'copy:changeLog', 'create-package', 'get-version', 'exec:gitFlowRelease'])
 	grunt.registerTask('run-release-if-applicable', 'run release if applicable', function () {
 		const originalBranch = grunt.config.get('originalBranch')
 		if (originalBranch === 'develop' || originalBranch.startsWith('hotfix')) {

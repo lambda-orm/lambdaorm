@@ -77,9 +77,10 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		if (page) {
 			text = this.buildPage(text, page)
 		}
-		if (!text.includes('"$project":')) {
-			text = `${text}, { "$project": { "_id": 0 } }`
-		}
+		// Although hiding the _id field is useful in some queries such as groupBy, this field is used in sequences
+		// if (!text.includes('"$project":')) {
+		// text = `${text}, { "$project": { "_id": 0 } }`
+		// }
 		return `[${text}]`
 	}
 
