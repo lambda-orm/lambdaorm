@@ -156,6 +156,8 @@
 |undefined|undefined|
 |undefined|undefined|
 |undefined|undefined|
+|undefined|undefined|
+|undefined|undefined|
 
 ## Definition
 
@@ -194,6 +196,15 @@
 - params:
 	- source: T
 	- values: T
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- value: string
+	- pattern: string
 
 ### undefined
 
@@ -1426,6 +1437,16 @@
 - return: undefined
 - params:
 	- values: any
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- value: string
+	- sub: string
+	- start: number
 
 ### undefined
 

@@ -1,19 +1,6 @@
 {
 	"entryPoints": [
-		
-		// "src/lib/connection",
-		// "src/lib/execution",
-		// "src/lib/expressions",
-		// "src/lib/language",
-		// "src/lib/operand",
 		"src/lib/orm"
-		// "src/lib/query",
-		// "src/lib/repository",
-		// "src/lib/schema",
-		// "src/lib/sentence",
-		// "src/lib/sentence/domain",
-		// "src/lib/shared",
-		// "src/lib/stage"	
 	],
 	"out": "doc/source",
 	"excludePrivate": true,
