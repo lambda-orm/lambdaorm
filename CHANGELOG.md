@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.79](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.78...v0.8.79) (2023-11-26)
+
+
+### Features
+
+* **language:** add like, startsWith and includes function ([55f1abc](https://github.com/FlavioLionelRita/lambdaorm/commit/55f1abcce634a0f0d7e035f52eac2f2aa9fc25e1)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+
+
+### Bug Fixes
+
+* solve bug with includes in mongo ([2894c4f](https://github.com/FlavioLionelRita/lambdaorm/commit/2894c4f31fcaf674ec212327251e977b7b3db44d)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* **test:** add syntax.d.ts for dev code ([594d8bb](https://github.com/FlavioLionelRita/lambdaorm/commit/594d8bb2ca5cc2480ccbf221afaa6f90298e9a4c)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* **test:** regenerate unit-test ([65e6d80](https://github.com/FlavioLionelRita/lambdaorm/commit/65e6d804b2a9c2151dd8ce314b02c885219af09f)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+
 ### [0.8.78](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.77...v0.8.78) (2023-11-24)
 
 
