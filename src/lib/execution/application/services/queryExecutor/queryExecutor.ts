@@ -1,4 +1,4 @@
-import { SentenceAction } from '../../../../schema/domain'
+import { RelationType, SentenceAction } from '../../../../schema/domain'
 import { SchemaFacade } from '../../../../schema/application'
 import { Query, Data, QueryOptions } from '../../../../query/domain'
 import { Helper } from '../../../../shared/application'
@@ -78,7 +78,28 @@ export class QueryExecutor implements IQueryInternalExecutor {
 			await this._execute(query, _data)
 			return _data
 		} else {
-			return this._execute(query, _data)
+			const result = await this._execute(query, _data)
+			this.clearTemporalFields(query, result)
+			return result
+		}
+	}
+
+	private clearTemporalFields (query: Query, result: any):void {
+		for (const include of query.includes) {
+			const keyId = '__' + include.relation.from
+			for (const element of result) {
+				const item = element[include.name]
+				delete element[keyId]
+				if (include.relation.type === RelationType.manyToOne) {
+					for (const child of item) {
+						delete child.LambdaOrmParentId
+					}
+					this.clearTemporalFields(include.query, item)
+				} else if (item) {
+					delete item.LambdaOrmParentId
+					this.clearTemporalFields(include.query, [item])
+				}
+			}
 		}
 	}
 

@@ -24,17 +24,13 @@ export class QuerySelectExecutor {
 	public async select (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<any> {
 		const mainResult = await connection.select(mapping, dialect, query, data)
 		const entity = mapping.getEntity(query.entity) as EntityMapping
-
 		if (mainResult.length > 0) {
 			// get rows for include relations
 			if (entity.hadReadValues) {
 				this.solveReadValues.solve(query, mainResult)
 			}
 			await this.selectIncludes(query, data, mainResult, dialect, connection)
-			// clear temporal fields used for include relations
-			this.selectClearTemporalFields(query, mainResult)
 		}
-
 		return mainResult
 	}
 
@@ -96,24 +92,6 @@ export class QuerySelectExecutor {
 			}
 		}
 		await Promise.all(promises2)
-	}
-
-	private selectClearTemporalFields (query: Query, mainResult: any):void {
-		for (const p in query.includes) {
-			const include = query.includes[p]
-			const keyId = '__' + include.relation.from
-			for (const element of mainResult) {
-				const item = element[include.name]
-				delete element[keyId]
-				if (include.relation.type === RelationType.manyToOne) {
-					for (const child of item) {
-						delete child.LambdaOrmParentId
-					}
-				} else if (item) {
-					delete item.LambdaOrmParentId
-				}
-			}
-		}
 	}
 
 	private selectChunkResult (result: any[], keyId: string): { ids:any[], result :any[] } {
