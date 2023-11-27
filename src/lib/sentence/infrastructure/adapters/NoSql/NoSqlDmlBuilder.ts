@@ -34,7 +34,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		})
 	}
 
-	protected override buildMapSentence (sentence: Sentence): string {
+	protected override buildSelectSentence (sentence: Sentence): string {
 		const map = sentence.children.find(p => p.name === 'map') as Map | undefined
 		const joins = sentence.children.filter(p => p instanceof Join) as Join[]
 		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined

@@ -11,11 +11,14 @@ export class GeQueryPlan {
 	}
 
 	private _plan (query: Query): QueryPlan {
-		const mainSentence: QueryPlan = { entity: query.entity, dialect: query.dialect, source: query.source, sentence: query.sentence, children: [] }
+		const mainSentence: QueryPlan = { entity: query.entity, dialect: query.dialect, source: query.source, sentence: query.sentence }
 		for (const p in query.includes) {
 			const include = query.includes[p]
 			const includeSentence = this._plan(include.query)
-			mainSentence.children?.push(includeSentence)
+			if (mainSentence.children === undefined) {
+				mainSentence.children = []
+			}
+			mainSentence.children.push(includeSentence)
 		}
 		return mainSentence
 	}

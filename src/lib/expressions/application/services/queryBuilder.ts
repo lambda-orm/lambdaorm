@@ -25,16 +25,16 @@ export class QueryBuilder implements IQueryBuilder {
 		const includes:Include[] = []
 		const source = this.sentenceFacade.getSource(sentence, stage)
 		const language = this.languages.getByDialect(source.dialect)
-		const dialect = this.languages.getDialect(source.dialect)
+		// const dialect = this.languages.getDialect(source.dialect)
 		const mapping = this.schema.mapping.getInstance(source.mapping)
 		const sentenceIncludes = sentence.getIncludes()
 		for (const p in sentenceIncludes) {
 			const sentenceInclude = sentenceIncludes[p]
-			if (!sentenceInclude.relation.composite || !dialect.solveComposite) {
-				const queryInclude = this.dmlBuild(sentenceInclude.children[0] as Sentence, view, stage)
-				const include = new Include(sentenceInclude.name, queryInclude, sentenceInclude.relation)
-				includes.push(include)
-			}
+			// if (!sentenceInclude.relation.composite || !dialect.solveComposite) {
+			const queryInclude = this.dmlBuild(sentenceInclude.children[0] as Sentence, view, stage)
+			const include = new Include(sentenceInclude.name, queryInclude, sentenceInclude.relation)
+			includes.push(include)
+			// }
 		}
 		const query = language.dmlBuilder(source, mapping).build(sentence)
 		query.includes = query.includes.concat(includes)

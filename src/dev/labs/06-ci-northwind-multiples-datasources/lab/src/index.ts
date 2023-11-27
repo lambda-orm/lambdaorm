@@ -17,10 +17,10 @@ import { h3lp } from 'h3lp'
 													.map(p => [p.quantity, p.unitPrice])])
 													.page(1,1)
 		`
-		const plan = orm.plan(query)
-		console.log(JSON.stringify(plan,null,2))
-		// const result = await orm.execute(query, { customerId: 'HANAR' })
-		// console.log(JSON.stringify(result,null,2))		
+		// const plan = orm.plan(query)
+		// console.log(JSON.stringify(plan,null,2))
+		const result = await orm.execute(query, { customerId: 'HANAR' })
+		console.log(JSON.stringify(result,null,2))		
 	} catch (error: any) {
 		console.error(error)
 	} finally{

@@ -37,7 +37,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 	protected buildSentence (sentence: Sentence): string {
 		switch (sentence.crudAction) {
 		case SentenceCrudAction.select:
-			return this.buildMapSentence(sentence)
+			return this.buildSelectSentence(sentence)
 		case SentenceCrudAction.insert:
 			return this.buildInsertSentence(sentence)
 		case SentenceCrudAction.update:
@@ -49,7 +49,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 		}
 	}
 
-	protected buildMapSentence (sentence: Sentence): string {
+	protected buildSelectSentence (sentence: Sentence): string {
 		const map = sentence.children.find(p => p.name === 'map') as Map | undefined
 		const from = sentence.children.find(p => p instanceof From) as From | undefined
 		const joins = sentence.children.filter(p => p instanceof Join) as Join[]

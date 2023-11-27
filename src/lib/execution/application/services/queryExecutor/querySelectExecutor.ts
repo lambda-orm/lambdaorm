@@ -38,17 +38,43 @@ export class QuerySelectExecutor {
 		return mainResult
 	}
 
-	private async selectIncludes (query: Query, data: Data, mainResult: any, dialect: DialectService, connection: Connection): Promise<any> {
+	private async selectIncludes (query: Query, data: Data, mainResult: any, dialect: DialectService, connection: Connection): Promise<void> {
 		const idsChunkSize = this.options.chunkSize ? Math.min(connection.maxChunkSizeIdsOnSelect, this.options.chunkSize) : connection.maxChunkSizeIdsOnSelect
 		const chunkSize = this.options.chunkSize ? Math.min(connection.maxChunkSizeOnSelect, this.options.chunkSize) : connection.maxChunkSizeOnSelect
 		for (const include of query.includes) {
 			if (!include.relation.composite || !dialect.solveComposite) {
 				await this.selectInclude(include, data, mainResult, idsChunkSize, chunkSize)
+			} else if (include.query.includes.length > 0) {
+				await this.selectIncludeComposite(include, data, mainResult, idsChunkSize, chunkSize)
 			}
 		}
 	}
 
-	private async selectInclude (include: Include, data: Data, mainResult: any, idsChunkSize: number, chunkSize:number): Promise<any> {
+	private async selectIncludeComposite (include: Include, data: Data, mainResult: any, idsChunkSize: number, chunkSize:number): Promise<void> {
+		const includeItems:any[] = []
+		for (const element of mainResult) {
+			const item = element[include.relation.name]
+			if (include.relation.type === RelationType.manyToOne) {
+				for (const child of item) {
+					child.LambdaOrmParentId = element[include.relation.from]
+					includeItems.push(child)
+				}
+			} else if (item) {
+				item.LambdaOrmParentId = element[include.relation.from]
+				includeItems.push(item)
+			}
+		}
+		for (const includeChild of include.query.includes) {
+			const keyId = '__' + includeChild.relation.from
+			const chunk = this.selectChunkResult(includeItems, keyId)
+			const _data = data.clone()
+			_data.set('LambdaOrmParentId', chunk.ids)
+			const includeResult = await this.executor._execute(includeChild.query, _data)
+			await this.addIncludeResult(includeChild, includeResult, chunk.result, chunkSize)
+		}
+	}
+
+	private async selectInclude (include: Include, data: Data, mainResult: any, idsChunkSize: number, chunkSize:number): Promise<void> {
 		let chunks: any[] = []
 		const keyId = '__' + include.relation.from
 
@@ -90,7 +116,7 @@ export class QuerySelectExecutor {
 		}
 	}
 
-	private selectChunkResult (result: any[], keyId: string): any {
+	private selectChunkResult (result: any[], keyId: string): { ids:any[], result :any[] } {
 		const ids: any[] = []
 		for (const item of result) {
 			const id = item[keyId]
@@ -128,11 +154,15 @@ export class QuerySelectExecutor {
 		return ids
 	}
 
-	private async selectChild (include: Include, _data: Data, ids: any[], mainResult: any, chunkSize:number): Promise<any> {
+	private async selectChild (include: Include, _data: Data, ids: any[], mainResult: any, chunkSize:number): Promise<void> {
 		const data = _data.clone()
 		data.set('LambdaOrmParentId', ids)
-		const keyId = '__' + include.relation.from
 		const includeResult = await this.executor._execute(include.query, data)
+		await this.addIncludeResult(include, includeResult, mainResult, chunkSize)
+	}
+
+	private async addIncludeResult (include: Include, includeResult:any, mainResult: any, chunkSize:number): Promise<void> {
+		const keyId = '__' + include.relation.from
 		if (include.relation.type === RelationType.manyToOne) {
 			if (includeResult.length > chunkSize) {
 				const promises: any[] = []
@@ -158,7 +188,7 @@ export class QuerySelectExecutor {
 		}
 	}
 
-	private selectChildSetManyToOne (mainResult: any[], includeResult: any[], propertyName: string, keyId: string) {
+	private selectChildSetManyToOne (mainResult: any[], includeResult: any[], propertyName: string, keyId: string): void {
 		for (const element of mainResult) {
 			const relationId = element[keyId]
 			if (element[propertyName] === undefined) {
@@ -172,7 +202,7 @@ export class QuerySelectExecutor {
 		}
 	}
 
-	private selectChildSetOneToMany (mainResult: any[], includeResult: any[], propertyName: string, keyId: string) {
+	private selectChildSetOneToMany (mainResult: any[], includeResult: any[], propertyName: string, keyId: string): void {
 		for (const element of mainResult) {
 			const relationId = element[keyId]
 			if (element[propertyName] === undefined) {
