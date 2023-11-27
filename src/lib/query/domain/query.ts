@@ -64,10 +64,10 @@ export interface QueryOptions {
 	tryAllCan?:boolean
 	headers?:any
 }
-export interface QueryInfo {
+export interface QueryPlan {
 	entity: string
 	dialect: string
 	source: string
 	sentence: string
-	children?: QueryInfo[]
+	children?: QueryPlan[]
 }

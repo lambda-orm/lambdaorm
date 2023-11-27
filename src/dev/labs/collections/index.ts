@@ -39,7 +39,7 @@ const lab = async () => {
 							p.statusHistories	]),p.statusHistories
 		])
 		// .filter(p => p.id === id)
-		const sentence = orm.getInfo(query, options)
+		const sentence = orm.plan(query, options)
 		await h3lp.fs.write('./src/dev/labs/collections/sentence.json', JSON.stringify(sentence, null, 2))
 		const result = await orm.execute(query, {}, options)
 		await h3lp.fs.write('./src/dev/labs/collections/result.json', JSON.stringify(result, null, 2))

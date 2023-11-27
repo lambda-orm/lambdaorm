@@ -39,7 +39,7 @@ export abstract class UnitBuildTest implements IBuildTest {
 				},
 				{
 					name: 'getInfo',
-					func: (expression: string) => this.orm.getInfo(expression, this.options),
+					func: (expression: string) => this.orm.plan(expression, this.options),
 					tests: this.tests()
 				}
 			]

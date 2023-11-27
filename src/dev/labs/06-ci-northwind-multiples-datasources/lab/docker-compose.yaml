@@ -1,0 +1,34 @@
+version: '3'
+services:
+  mysql:
+    container_name: lab-mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
+  postgres:
+    container_name: lab-postgres  
+    image: postgres:10
+    restart: always
+    environment:
+      - POSTGRES_DB=test
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+    ports:
+      - 5433:5432
+  mongodb:    
+    container_name: lab-mongo
+    image: mongo:5.0
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=test
+    ports:
+      - 27017:27017  
+           

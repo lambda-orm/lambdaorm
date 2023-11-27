@@ -1,0 +1,22 @@
+import { Query, QueryPlan, QueryOptions } from '../../../query/domain'
+import { IQueryBuilder } from '../../domain/services'
+
+export class GeQueryPlan {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly builder:IQueryBuilder) {}
+
+	public plan (expression: string, options: QueryOptions): QueryPlan {
+		const query = this.builder.build(expression, options)
+		return this._plan(query)
+	}
+
+	private _plan (query: Query): QueryPlan {
+		const mainSentence: QueryPlan = { entity: query.entity, dialect: query.dialect, source: query.source, sentence: query.sentence, children: [] }
+		for (const p in query.includes) {
+			const include = query.includes[p]
+			const includeSentence = this._plan(include.query)
+			mainSentence.children?.push(includeSentence)
+		}
+		return mainSentence
+	}
+}

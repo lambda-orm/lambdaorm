@@ -13,7 +13,7 @@ export async function apply (callback: any) {
 		)
 		.sort(p=> p.name)
 		.page(1,3)`
-		const info = orm.getInfo(query)
+		const info = orm.plan(query)
 		console.log(info)
 		const result = await orm.execute(query, { region: 'Asia' })
 		console.log(JSON.stringify(result, null, 2))

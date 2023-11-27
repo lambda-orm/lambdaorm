@@ -13,7 +13,7 @@ import { ExecutionError } from '../../domain'
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples
 
-interface OracleQueryInfo{
+interface OracleQueryPlan{
 	sql:string
 	values:any
 }
@@ -71,7 +71,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 	}
 
 	public async select (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
-		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
+		const qryInfo = this.getQueryPlan(mapping, dialect, query, data)
 		const result = await this.cnx.execute(qryInfo.sql, qryInfo.values, { autoCommit: !this.inTransaction })
 		const list: any[] = []
 		for (const i in result.rows) {
@@ -93,7 +93,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 
 	public async insert (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		let sql:string
-		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
+		const qryInfo = this.getQueryPlan(mapping, dialect, query, data)
 		const autoIncrementInfo = this.getAutoIncrementInfo(mapping, query)
 		if (autoIncrementInfo) {
 			qryInfo.values[autoIncrementInfo.key] = autoIncrementInfo.bindDef
@@ -152,13 +152,13 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 	}
 
 	public async update (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
-		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
+		const qryInfo = this.getQueryPlan(mapping, dialect, query, data)
 		const result = await this.cnx.execute(qryInfo.sql, qryInfo.values, { autoCommit: !this.inTransaction })
 		return result.rowsAffected
 	}
 
 	public async delete (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number> {
-		const qryInfo = this.getQueryInfo(mapping, dialect, query, data)
+		const qryInfo = this.getQueryPlan(mapping, dialect, query, data)
 		const result = await this.cnx.execute(qryInfo.sql, qryInfo.values, { autoCommit: !this.inTransaction })
 		return result.rowsAffected
 	}
@@ -204,7 +204,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		return rows
 	}
 
-	private getQueryInfo (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): OracleQueryInfo {
+	private getQueryPlan (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): OracleQueryPlan {
 		const values: any = {}
 		let sql = query.sentence
 		const params = this.dataToParameters(mapping, dialect, query, data)

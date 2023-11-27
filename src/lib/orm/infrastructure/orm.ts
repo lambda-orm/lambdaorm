@@ -2,7 +2,7 @@
 
 import { Helper } from '../../shared/application'
 import { h3lp } from 'h3lp'
-import { QueryOptions, QueryInfo } from '../../query/domain'
+import { QueryOptions, QueryPlan } from '../../query/domain'
 import { Dialect, Schema, Stage } from '../../schema/domain'
 import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata } from '../../sentence/domain'
 import { SchemaFacade } from '../../schema/application'
@@ -211,12 +211,12 @@ export class Orm implements IOrm {
 	 * @param expression query expression
 	 * @param options options of execution
 	 */
-	public getInfo(expression: Function, options?: QueryOptions): QueryInfo;
-	public getInfo(expression: string, options?: QueryOptions): QueryInfo;
-	public getInfo (expression: string|Function, options?: QueryOptions): QueryInfo {
+	public plan(expression: Function, options?: QueryOptions): QueryPlan;
+	public plan(expression: string, options?: QueryOptions): QueryPlan;
+	public plan (expression: string|Function, options?: QueryOptions): QueryPlan {
 		const _expression = this.toExpression(expression)
 		const _options = options !== undefined && typeof options === 'string' ? JSON.parse(options) : options || {}
-		return this.expression.getInfo(_expression, _options)
+		return this.expression.plan(_expression, _options)
 	}
 
 	/**

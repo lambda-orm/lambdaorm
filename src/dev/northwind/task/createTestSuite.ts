@@ -34,7 +34,7 @@ beforeAll(async () => {
 		// },
 		{
 			name: 'getInfo',
-			template: '\t\texpect(orm.getInfo(${test},{ stage: \'MySQL\' })).toStrictEqual(${result})\n'
+			template: '\t\texpect(orm.plan(${test},{ stage: \'MySQL\' })).toStrictEqual(${result})\n'
 		}
 	]
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../../sentence/domain'
-import { QueryInfo, QueryOptions } from '../../query/domain'
+import { QueryPlan, QueryOptions } from '../../query/domain'
 import { Schema, Dialect } from '../../schema/domain'
 import { SchemaFacade } from '../../schema/application'
 import { StageFacade } from '../../stage/application'
@@ -58,8 +58,8 @@ export interface IOrm
 	 * @param expression
 	 * @param stage
 	 */
-	getInfo(expression: Function, options?: QueryOptions): QueryInfo
-	getInfo(expression: string, options?: QueryOptions): QueryInfo
+	plan(expression: Function, options?: QueryOptions): QueryPlan
+	plan(expression: string, options?: QueryOptions): QueryPlan
 
 	/**
 		* Execute expression

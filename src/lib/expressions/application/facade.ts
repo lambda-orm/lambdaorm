@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { SentenceFacade } from '../../sentence/application'
-import { Query, QueryInfo, QueryOptions } from '../../query/domain'
+import { Query, QueryPlan, QueryOptions } from '../../query/domain'
 import { QueryHelper } from './services/queryHelper'
-import { GetInfoQuery } from './useCases/getInfo'
+import { GeQueryPlan } from './useCases/plan'
 import { SchemaFacade } from '../../schema/application'
 import { LanguagesService } from '../../language/application'
 import { IQueryBuilder } from '../domain'
@@ -18,7 +18,7 @@ import { Helper } from '../../shared/application'
 
 export class ExpressionFacade {
 	private queryHelper:QueryHelper
-	private getInfoQuery:GetInfoQuery
+	private getQueryPlan:GeQueryPlan
 	private builder:IQueryBuilder
 	private expressionExecute:ExpressionExecute
 	constructor (
@@ -30,7 +30,7 @@ export class ExpressionFacade {
 		cache: ICache<string, string>,
 		helper:Helper) {
 		this.builder = new QueryBuilderCacheDecorator(new QueryBuilder(this.sentenceFacade, this.schemaFacade, this.languages), cache, helper)
-		this.getInfoQuery = new GetInfoQuery(this.builder)
+		this.getQueryPlan = new GeQueryPlan(this.builder)
 		this.queryHelper = new QueryHelper(this.schemaFacade.stage, this.schemaFacade.view)
 		this.expressionExecute = new ExpressionExecute(this.builder, executor, expressions)
 	}
@@ -39,8 +39,8 @@ export class ExpressionFacade {
 		return this.builder.build(expression, this.solveOptions(options))
 	}
 
-	public getInfo (expression: string, options?: QueryOptions): QueryInfo {
-		return this.getInfoQuery.getInfo(expression, this.solveOptions(options))
+	public plan (expression: string, options?: QueryOptions): QueryPlan {
+		return this.getQueryPlan.plan(expression, this.solveOptions(options))
 	}
 
 	public solveOptions (options?: QueryOptions):QueryOptions {

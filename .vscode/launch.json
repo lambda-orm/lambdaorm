@@ -25,6 +25,16 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
+			"name": "lab 06",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/06-ci-northwind-multiples-datasources/lab/src/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/06-ci-northwind-multiples-datasources/lab/.env"
+		},
+		{
 			"name": "lib cclp lab",
 			"type": "node",
 			"request": "launch",

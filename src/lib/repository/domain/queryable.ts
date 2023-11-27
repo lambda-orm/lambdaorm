@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { ExpressionActions } from './actions'
 import { MetadataConstraint, MetadataModel, MetadataParameter, Metadata } from '../../sentence/domain'
-import { QueryInfo } from '../../query/domain'
+import { QueryPlan } from '../../query/domain'
 export class QueryAction {
 	protected actions
 	protected expression
@@ -30,8 +30,8 @@ export class QueryAction {
 		return this.actions.parameters(this.expression)
 	}
 
-	public async sentence ():Promise<QueryInfo> {
-		return this.actions.getInfo(this.expression)
+	public async sentence ():Promise<QueryPlan> {
+		return this.actions.plan(this.expression)
 	}
 
 	public async metadata ():Promise<Metadata> {

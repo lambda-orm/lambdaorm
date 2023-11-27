@@ -1,4 +1,4 @@
-import { QueryInfo } from '../../query/domain'
+import { QueryPlan } from '../../query/domain'
 import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../../sentence/domain'
 import { IOrm } from '../../orm/application'
 export class ExpressionActions {
@@ -35,7 +35,7 @@ export class ExpressionActions {
 		return this.orm.metadata(`${this.name}${expression}`)
 	}
 
-	public async getInfo (expression: string): Promise<QueryInfo> {
-		return this.orm.getInfo(`${this.name}${expression}`, { stage: this.stage })
+	public async getInfo (expression: string): Promise<QueryPlan> {
+		return this.orm.plan(`${this.name}${expression}`, { stage: this.stage })
 	}
 }

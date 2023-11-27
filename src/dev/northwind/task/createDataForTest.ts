@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../../../syntax.d.ts" />
-import { orm, QueryInfo } from '../../../lib'
+import { orm, QueryPlan } from '../../../lib'
 import { Categories, Customers, Products, Orders } from '../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 import { h3lp } from 'h3lp'
@@ -39,10 +39,10 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 			expressionTest.metadata = orm.metadata(expressionTest.expression as string)
 			for (const r in stages) {
 				const stage = stages[r]
-				let info: QueryInfo | undefined
+				let info: QueryPlan | undefined
 				let error
 				try {
-					info = orm.getInfo(expressionTest.expression as string, { stage, view: 'default' })
+					info = orm.plan(expressionTest.expression as string, { stage, view: 'default' })
 				} catch (err: any) {
 					error = err.toString()
 				} finally {

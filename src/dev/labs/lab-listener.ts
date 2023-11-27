@@ -28,7 +28,7 @@ export async function apply (callback: any) {
 		const query = 'Employees.filter(p=> p.firstName== firstName && p.lastName== lastName).update({reportsToId:reportsToId})'
 		const context = {reportsToId: 1, firstName: 'test', lastName: 'xxx'}
 
-		const info = orm.getInfo(query,options)
+		const info = orm.plan(query,options)
 		console.log(info)
 		const result = await orm.execute(query, context, options)
 		console.log(JSON.stringify(result, null, 2))

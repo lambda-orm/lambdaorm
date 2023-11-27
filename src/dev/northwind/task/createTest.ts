@@ -58,7 +58,7 @@ async function writeUnitTest (stages: string[], category: CategoryTest): Promise
 					const sentence = expTest.sentences.find(p => p.stage === stage && p.error === undefined)
 					if (sentence !== undefined && sentence.info !== undefined) {
 						lines.push(`\t\tconst ${stage}Expected = ${JSON.stringify(sentence.info)}`)
-						lines.push(`\t\tlet ${stage} = orm.getInfo(expression,{stage:'${stage}'})`)
+						lines.push(`\t\tlet ${stage} = orm.plan(expression,{stage:'${stage}'})`)
 						lines.push(`\t\texpect(${stage}Expected).toStrictEqual(${stage})`)
 					}
 				}

@@ -1,6 +1,6 @@
 import { H3lp, IStringHelper } from 'h3lp'
 import { expressions, OperandHelper } from '3xpr'
-// import { QueryInfo } from './domain'
+// import { QueryPlan } from './domain'
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
 

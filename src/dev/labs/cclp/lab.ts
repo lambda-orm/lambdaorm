@@ -41,7 +41,7 @@ const lab = async () => {
 				]),
 			p.statusHistories
 			])
-			const sentence = orm.getInfo(query, options)
+			const sentence = orm.plan(query, options)
 			await h3lp.fs.write(path.join(__dirname,'debtor.query.json'), JSON.stringify(sentence, null, 2))		
 			console.log(JSON.stringify(sentence, null, 2))
 			const result = await orm.execute(query, {}, options)

@@ -78,9 +78,9 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			text = this.buildPage(text, page)
 		}
 		// Although hiding the _id field is useful in some queries such as groupBy, this field is used in sequences
-		// if (!text.includes('"$project":')) {
-		// text = `${text}, { "$project": { "_id": 0 } }`
-		// }
+		if (!text.includes('"$project":')) {
+			text = `${text}, { "$project": { "_id": 0 } }`
+		}
 		return `[${text}]`
 	}
 
