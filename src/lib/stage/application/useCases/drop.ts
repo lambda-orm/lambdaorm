@@ -6,7 +6,7 @@ import { StageActionDDL } from './base/actionDDL'
 import { Executor } from '../../../execution/domain'
 import { Helper } from '../../../shared/application'
 
-export class StageClean extends StageActionDDL {
+export class StageDrop extends StageActionDDL {
 	private mappingService: StageMappingService
 	constructor (executor: Executor, stateService:StageModelService, mappingService:StageMappingService, schemaFacade: SchemaFacade, languages: LanguagesService, options:QueryOptions, helper:Helper) {
 		super(executor, stateService, schemaFacade, languages, options, helper)

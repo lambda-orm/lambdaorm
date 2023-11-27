@@ -6,7 +6,7 @@ export async function apply (callback: any) {
 		require('dotenv').config({ path: './config/countries.env' })
 		await orm.init('./config/countries.yaml')
 
-		await orm.stage.clean().execute()
+		await orm.stage.drop().execute()
 		await orm.stage.sync().execute()
 		const content = await h3lp.fs.read('./src/dev/countries/db/data.json')
 		const data = JSON.parse(content as string)

@@ -7,7 +7,7 @@ import { h3lp } from 'h3lp'
 		await orm.init('./src/dev/labs/06-ci-northwind-multiples-datasources/lab/lambdaORM.yaml')
 		const content = await h3lp.fs.read('./src/dev/labs/06-ci-northwind-multiples-datasources/lab/data.json') || ''
 		const data = JSON.parse(content)
-		await orm.stage.clean( {tryAllCan:true }).execute()
+		await orm.stage.drop( {tryAllCan:true }).execute()
 		await orm.stage.sync().execute()
 		await orm.stage.import().execute(data)
 		const query = `Orders.filter(p => p.customerId == customerId)
@@ -19,8 +19,8 @@ import { h3lp } from 'h3lp'
 		`
 		const plan = orm.plan(query)
 		console.log(JSON.stringify(plan,null,2))
-		const result = await orm.execute(query, { customerId: 'HANAR' })
-		console.log(JSON.stringify(result,null,2))		
+		// const result = await orm.execute(query, { customerId: 'HANAR' })
+		// console.log(JSON.stringify(result,null,2))		
 	} catch (error: any) {
 		console.error(error)
 	} finally{

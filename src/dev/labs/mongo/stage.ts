@@ -5,7 +5,7 @@ async function apply () {
 	try {
 		const stage = 'MongoDB'
 		await orm.init()
-		const cleanQueries  = await orm.stage.clean({stage:stage}).queries()
+		const cleanQueries  = await orm.stage.drop({stage:stage}).queries()
 		const syncQueries = await orm.stage.sync({stage:stage}).queries()
 		const importQueries  = orm.stage.import({stage:stage}).queries()
 		const exportQueries  = orm.stage.export({stage:stage}).queries()

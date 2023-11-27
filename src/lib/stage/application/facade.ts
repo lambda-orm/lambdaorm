@@ -5,7 +5,7 @@ import { StageMappingService, StageModelService } from './services/stateService'
 import { Helper } from '../../shared/application'
 import { QueryOptions } from '../../query/domain'
 import { StageActionDDL } from './useCases/base/actionDDL'
-import { StageClean } from './useCases/clean'
+import { StageDrop } from './useCases/drop'
 import { StageDelete } from './useCases/delete'
 import { StageExport } from './useCases/export'
 import { StageImport } from './useCases/import'
@@ -36,9 +36,9 @@ export class StageFacade {
 		return new StageSync(this.executor, this.stageModelService, this.schemaFacade, this.languages, _options, this.helper)
 	}
 
-	public clean (options?:QueryOptions):StageActionDDL {
+	public drop (options?:QueryOptions):StageActionDDL {
 		const _options = this.expression.solveOptions(options)
-		return new StageClean(this.executor, this.stageModelService, this.stageMappingService, this.schemaFacade, this.languages, _options, this.helper)
+		return new StageDrop(this.executor, this.stageModelService, this.stageMappingService, this.schemaFacade, this.languages, _options, this.helper)
 	}
 
 	public truncate (options?:QueryOptions):StageActionDDL {
