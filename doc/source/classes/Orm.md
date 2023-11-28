@@ -62,7 +62,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L44)
+[src/lib/orm/infrastructure/orm.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L44)
 
 ## Properties
 
@@ -72,7 +72,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L33)
+[src/lib/orm/infrastructure/orm.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L33)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L35)
+[src/lib/orm/infrastructure/orm.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L35)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L34)
+[src/lib/orm/infrastructure/orm.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L34)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L36)
+[src/lib/orm/infrastructure/orm.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L36)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L37)
+[src/lib/orm/infrastructure/orm.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L37)
 
 ## Accessors
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:70](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L70)
+[src/lib/orm/infrastructure/orm.ts:70](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L70)
 
 ___
 
@@ -158,7 +158,7 @@ IOrm.workspace
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:136](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L136)
+[src/lib/orm/infrastructure/orm.ts:136](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L136)
 
 ___
 
@@ -174,7 +174,7 @@ Singleton
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L63)
+[src/lib/orm/infrastructure/orm.ts:63](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L63)
 
 ## Methods
 
@@ -202,7 +202,7 @@ Constraints of expression
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:190](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L190)
+[src/lib/orm/infrastructure/orm.ts:190](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L190)
 
 ▸ **constraints**(`expression`): [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
 
@@ -222,7 +222,7 @@ Constraints of expression
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:191](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L191)
+[src/lib/orm/infrastructure/orm.ts:191](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L191)
 
 ___
 
@@ -248,7 +248,7 @@ Get dialect of source
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L145)
+[src/lib/orm/infrastructure/orm.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L145)
 
 ___
 
@@ -268,7 +268,7 @@ Frees the resources used, for example the connection pools
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:120](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L120)
+[src/lib/orm/infrastructure/orm.ts:120](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L120)
 
 ___
 
@@ -298,7 +298,7 @@ Result of execution
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:229](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L229)
+[src/lib/orm/infrastructure/orm.ts:229](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L229)
 
 ▸ **execute**(`expression`, `data?`, `options?`): `Promise`\<`any`\>
 
@@ -320,7 +320,7 @@ Result of execution
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:230](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L230)
+[src/lib/orm/infrastructure/orm.ts:230](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L230)
 
 ___
 
@@ -349,7 +349,7 @@ promise void
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L79)
+[src/lib/orm/infrastructure/orm.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L79)
 
 ___
 
@@ -377,7 +377,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:202](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L202)
+[src/lib/orm/infrastructure/orm.ts:202](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L202)
 
 ▸ **metadata**(`expression`): [`Metadata`](../interfaces/Metadata.md)
 
@@ -397,7 +397,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:203](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L203)
+[src/lib/orm/infrastructure/orm.ts:203](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L203)
 
 ___
 
@@ -425,7 +425,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:166](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L166)
+[src/lib/orm/infrastructure/orm.ts:166](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L166)
 
 ▸ **model**(`expression`): [`MetadataModel`](../interfaces/MetadataModel.md)[]
 
@@ -445,7 +445,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:167](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L167)
+[src/lib/orm/infrastructure/orm.ts:167](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L167)
 
 ___
 
@@ -473,7 +473,7 @@ Expression normalized
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:154](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L154)
+[src/lib/orm/infrastructure/orm.ts:154](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L154)
 
 ▸ **normalize**(`expression`): `string`
 
@@ -493,7 +493,7 @@ Expression normalized
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:155](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L155)
+[src/lib/orm/infrastructure/orm.ts:155](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L155)
 
 ___
 
@@ -521,7 +521,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:178](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L178)
+[src/lib/orm/infrastructure/orm.ts:178](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L178)
 
 ▸ **parameters**(`expression`): [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
 
@@ -541,7 +541,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:179](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L179)
+[src/lib/orm/infrastructure/orm.ts:179](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L179)
 
 ___
 
@@ -568,7 +568,7 @@ Get getInfo of expression
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:214](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L214)
+[src/lib/orm/infrastructure/orm.ts:214](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L214)
 
 ▸ **plan**(`expression`, `options?`): [`QueryPlan`](../interfaces/QueryPlan.md)
 
@@ -589,7 +589,7 @@ Get getInfo of expression
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:215](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L215)
+[src/lib/orm/infrastructure/orm.ts:215](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L215)
 
 ___
 
@@ -609,7 +609,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:251](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L251)
+[src/lib/orm/infrastructure/orm.ts:251](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L251)
 
 ___
 
@@ -636,7 +636,7 @@ Create a transaction
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:243](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L243)
+[src/lib/orm/infrastructure/orm.ts:243](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L243)
 
 ___
 
@@ -656,4 +656,4 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:255](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/orm/infrastructure/orm.ts#L255)
+[src/lib/orm/infrastructure/orm.ts:255](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/orm/infrastructure/orm.ts#L255)

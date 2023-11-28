@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/useCases/load.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/schema/application/useCases/load.ts#L12)
+[src/lib/schema/application/useCases/load.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/schema/application/useCases/load.ts#L12)
 
 ## Methods
 
@@ -56,4 +56,4 @@
 
 #### Defined in
 
-[src/lib/schema/application/useCases/load.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/schema/application/useCases/load.ts#L20)
+[src/lib/schema/application/useCases/load.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/schema/application/useCases/load.ts#L20)
