@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.83](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.82...v0.8.83) (2023-11-28)
+
+
+### Features
+
+* **query:** solve children of composite ([058b6e8](https://github.com/FlavioLionelRita/lambdaorm/commit/058b6e80f24d823524ee11b39acce6b0a9997e8f)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* **query:** solve compose include with children ([0a0af85](https://github.com/FlavioLionelRita/lambdaorm/commit/0a0af856edade4e368efb1272cebbb7ac8ede803)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* **sentence:** rename getInfo for plan ([6fce97d](https://github.com/FlavioLionelRita/lambdaorm/commit/6fce97d515d719a7bce00f4aa594fc2be6e20b75)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* **stage:** rename stage.clean for stage.drop ([e55ef63](https://github.com/FlavioLionelRita/lambdaorm/commit/e55ef63c372b9378b0a881738e5560c707a118f3)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+
 ### [0.8.82](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.81...v0.8.82) (2023-11-26)
 
 ### [0.8.81](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.80...v0.8.81) (2023-11-26)
