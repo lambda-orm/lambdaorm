@@ -1188,8 +1188,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source, ROUND(ABS((p.UnitPrice * -1)),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source, ROUND(ABS((p.UnitPrice * -1)),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1198,8 +1197,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 0.25 AS source, ROUND(ACOS(0.25),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 0.25 AS source, ROUND(ACOS(0.25),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1208,8 +1206,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 0.25 AS source, ROUND(ASIN(0.25),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 0.25 AS source, ROUND(ASIN(0.25),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1218,8 +1215,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 0.25 AS source, ROUND(ATAN(0.25),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 0.25 AS source, ROUND(ATAN(0.25),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1228,8 +1224,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 0.5 AS source, ROUND(ATAN(0.25,1),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 0.5 AS source, ROUND(ATAN(0.25,1),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1238,8 +1233,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 25.75 AS source, ROUND(CEIL(25.75),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 25.75 AS source, ROUND(CEIL(25.75),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1248,8 +1242,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 2 AS source, ROUND(COS(2),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 2 AS source, ROUND(COS(2),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1258,8 +1251,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 1 AS source, ROUND(EXP(1),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 1 AS source, ROUND(EXP(1),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1268,8 +1260,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 25.75 AS source, ROUND(FLOOR(25.75),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 25.75 AS source, ROUND(FLOOR(25.75),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1278,8 +1269,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 2 AS source, ROUND(LN(2),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 2 AS source, ROUND(LN(2),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1288,8 +1278,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 10 AS m, 20 AS n, ROUND(LOG(10,20),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 10 AS m, 20 AS n, ROUND(LOG(10,20),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1298,8 +1287,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1308,8 +1296,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 255.5 AS source, ROUND(SIGN(255.5),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 255.5 AS source, ROUND(SIGN(255.5),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1318,8 +1305,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 1.75 AS source, ROUND(TAN(1.75),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 1.75 AS source, ROUND(TAN(1.75),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -1328,8 +1314,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, 135.375 AS source, ROUND(TRUNCATE(135.375,2),10) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, 135.375 AS source, ROUND(TRUNCATE(135.375,2),10) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         }
       ],

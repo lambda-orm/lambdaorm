@@ -706,8 +706,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p  ",
-            "children": []
+            "sentence": "SELECT MAX(p.UnitPrice) AS maxPrice FROM Products p  "
           }
         },
         {
@@ -716,8 +715,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT MIN(p.UnitPrice) AS minPrice FROM Products p  ",
-            "children": []
+            "sentence": "SELECT MIN(p.UnitPrice) AS minPrice FROM Products p  "
           }
         },
         {
@@ -726,8 +724,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT SUM(p.UnitPrice) AS total FROM Products p  ",
-            "children": []
+            "sentence": "SELECT SUM(p.UnitPrice) AS total FROM Products p  "
           }
         },
         {
@@ -736,8 +733,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT ROUND(AVG(p.UnitPrice),4) AS average FROM Products p  ",
-            "children": []
+            "sentence": "SELECT ROUND(AVG(p.UnitPrice),4) AS average FROM Products p  "
           }
         },
         {
@@ -746,8 +742,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT COUNT(1) AS count FROM Products p  ",
-            "children": []
+            "sentence": "SELECT COUNT(1) AS count FROM Products p  "
           }
         },
         {
@@ -756,8 +751,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p  GROUP BY p.CategoryID ",
-            "children": []
+            "sentence": "SELECT p.CategoryID AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p  GROUP BY p.CategoryID "
           }
         },
         {
@@ -766,8 +760,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName ",
-            "children": []
+            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName "
           }
         },
         {
@@ -776,8 +769,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT p.ProductName AS name, p.UnitPrice AS source, ABS(p.UnitPrice) AS result FROM Products p  WHERE p.ProductID = ? ",
-            "children": []
+            "sentence": "SELECT p.ProductName AS name, p.UnitPrice AS source, ABS(p.UnitPrice) AS result FROM Products p  WHERE p.ProductID = ? "
           }
         },
         {
@@ -786,8 +778,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ",
-            "children": []
+            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 "
           }
         },
         {
@@ -796,8 +787,7 @@
             "entity": "Orders.details",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100))) * 100)) AS subTotal FROM `Order Details` o  ORDER BY subTotal asc ",
-            "children": []
+            "sentence": "SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100))) * 100)) AS subTotal FROM `Order Details` o  ORDER BY subTotal asc "
           }
         },
         {
@@ -806,8 +796,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY largestPrice desc ",
-            "children": []
+            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 ORDER BY largestPrice desc "
           }
         },
         {
@@ -816,8 +805,7 @@
             "entity": "Products",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY largestPrice desc ",
-            "children": []
+            "sentence": "SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.UnitPrice > 5 GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 50 ORDER BY largestPrice desc "
           }
         }
       ],

@@ -1640,8 +1640,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT CURDATE() AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT CURDATE() AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1650,8 +1649,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT NOW() AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT NOW() AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1660,8 +1658,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT CURTIME() AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT CURTIME() AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1670,8 +1667,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT CONVERT('2021-09-06T14:39:11.444Z', TIME) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT CONVERT('2021-09-06T14:39:11.444Z', TIME) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1680,8 +1676,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT CONVERT('2021-09-06T14:39:11.444Z', DATE) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT CONVERT('2021-09-06T14:39:11.444Z', DATE) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1690,8 +1685,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT CONVERT('2021-09-06T14:39:11.444Z', DATETIME) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT CONVERT('2021-09-06T14:39:11.444Z', DATETIME) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1700,8 +1694,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DATE_FORMAT(CONVERT('2021-09-06T14:39:11.444Z', DATETIME), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DATE_FORMAT(CONVERT('2021-09-06T14:39:11.444Z', DATETIME), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1710,8 +1703,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT EXTRACT(YEAR FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT EXTRACT(YEAR FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1720,8 +1712,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT EXTRACT(MONTH FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT EXTRACT(MONTH FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1730,8 +1721,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DAYOFMONTH('2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DAYOFMONTH('2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1740,8 +1730,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DAYOFWEEK('2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DAYOFWEEK('2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1750,8 +1739,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT EXTRACT(HOUR FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT EXTRACT(HOUR FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1760,8 +1748,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT EXTRACT(MINUTE FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT EXTRACT(MINUTE FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1770,8 +1757,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT EXTRACT(SECOND FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT EXTRACT(SECOND FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1780,8 +1766,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT ROUND(EXTRACT(MICROSECOND FROM '2021-09-06T14:39:11.444Z')/1000,0) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT ROUND(EXTRACT(MICROSECOND FROM '2021-09-06T14:39:11.444Z')/1000,0) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1790,8 +1775,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 YEAR) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 YEAR) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1800,8 +1784,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 MONTH) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 MONTH) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1810,8 +1793,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 DAY) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 DAY) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1820,8 +1802,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT '2021-09-06T14:39:11.444Z' + interval '2' HOUR AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT '2021-09-06T14:39:11.444Z' + interval '2' HOUR AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1830,8 +1811,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT '2021-09-06T14:39:11.444Z' + interval '2' MINUTE AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT '2021-09-06T14:39:11.444Z' + interval '2' MINUTE AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1840,8 +1820,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT '2021-09-06T14:39:11.444Z' + interval '2' SECOND AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT '2021-09-06T14:39:11.444Z' + interval '2' SECOND AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1850,8 +1829,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL (2 * 1000) MICROSECOND) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL (2 * 1000) MICROSECOND) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1860,8 +1838,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT ADDTIME('2021-09-06T14:39:11.444Z','08:22:12') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT ADDTIME('2021-09-06T14:39:11.444Z','08:22:12') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1870,8 +1847,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT SUBTIME('2021-09-06T14:39:11.444Z','08:22:12') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT SUBTIME('2021-09-06T14:39:11.444Z','08:22:12') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1880,8 +1856,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DATEDIFF('2021-09-06T14:39:11','2021-09-02T12:30:10') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DATEDIFF('2021-09-06T14:39:11','2021-09-02T12:30:10') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1890,8 +1865,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT TIMESTAMPDIFF(HOUR, '2021-09-02T12:30:10','2021-09-06T14:39:11') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT TIMESTAMPDIFF(HOUR, '2021-09-02T12:30:10','2021-09-06T14:39:11') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1900,8 +1874,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT TIMESTAMPDIFF(SECOND, '2021-09-02T12:30:10','2021-09-06T14:39:11') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT TIMESTAMPDIFF(SECOND, '2021-09-02T12:30:10','2021-09-06T14:39:11') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1910,8 +1883,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT ROUND(TIMESTAMPDIFF(MICROSECOND, '2021-09-02T12:30:10','2021-09-06T14:39:11')/1000,0) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT ROUND(TIMESTAMPDIFF(MICROSECOND, '2021-09-02T12:30:10','2021-09-06T14:39:11')/1000,0) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1920,8 +1892,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DATE_FORMAT(FROM_UNIXTIME(2000*24*3600), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DATE_FORMAT(FROM_UNIXTIME(2000*24*3600), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1930,8 +1901,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DATE_FORMAT(FROM_UNIXTIME(2000*3600), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DATE_FORMAT(FROM_UNIXTIME(2000*3600), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1940,8 +1910,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DATE_FORMAT(FROM_UNIXTIME(2000), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DATE_FORMAT(FROM_UNIXTIME(2000), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -1950,8 +1919,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT DATE_FORMAT(FROM_UNIXTIME(2000/1000), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT DATE_FORMAT(FROM_UNIXTIME(2000/1000), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         }
       ],

@@ -190,8 +190,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE (c.subregion = 'South America' AND c.longitude < -30) ",
-            "children": []
+            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE (c.subregion = 'South America' AND c.longitude < -30) "
           }
         },
         {
@@ -200,8 +199,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE (c.subregion = 'South America' OR c.subregion = 'Central America') ",
-            "children": []
+            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE (c.subregion = 'South America' OR c.subregion = 'Central America') "
           }
         },
         {
@@ -210,8 +208,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE (c.region = 'Americas' AND c.subregion <> 'Northern America') ",
-            "children": []
+            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE (c.region = 'Americas' AND c.subregion <> 'Northern America') "
           }
         }
       ],

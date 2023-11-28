@@ -29,7 +29,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -53,7 +52,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -79,7 +77,6 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN ($1) 
-              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -103,7 +100,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
-              children: []
       - stage: MongoDB
         info:
           entity: Orders
@@ -117,7 +113,7 @@ test:
             "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
             "city":"$ShipCity", "region":"$ShipRegion",
             "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
-            "__customerId":"$CustomerID" }} ]
+            "__customerId":"$CustomerID" }} , { "$project": { "_id": 0 } }]
           children:
             - entity: Customers
               dialect: MongoDB
@@ -128,8 +124,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
-              children: []
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
       - stage: Oracle
         info:
           entity: Orders
@@ -155,7 +150,6 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN (:LambdaOrmParentId) 
-              children: []
     errors: 2
     expression: Orders.filter(p => p.id === id).include(p => p.customer)
     normalizeExpression: >-
@@ -322,7 +316,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -332,8 +327,8 @@ test:
           \"freight\":\"$Freight\", \"name\":\"$ShipName\",
           \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
           \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
-          \"country\":\"$ShipCountry\", \"__customerId\":\"$CustomerID\" }} ]" 
-          DATA:{"data":{"id":1}}
+          \"country\":\"$ShipCountry\", \"__customerId\":\"$CustomerID\" }} , {
+          \"$project\": { \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -415,7 +410,6 @@ test:
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
                 AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order
                 Details` o1  WHERE  o1.OrderID IN (?) 
-              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -438,7 +432,6 @@ test:
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
                 AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order
                 Details` o1  WHERE  o1.OrderID IN (?) 
-              children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -461,7 +454,6 @@ test:
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
                 o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId"
                 FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
-              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -484,7 +476,6 @@ test:
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
                 AS discount, o1.OrderID AS LambdaOrmParentId FROM [Order
                 Details] o1  WHERE  o1.OrderID IN (@LambdaOrmParentId) 
-              children: []
       - stage: MongoDB
         info:
           entity: Orders
@@ -502,8 +493,19 @@ test:
             "in": { "orderId":"$$this.OrderID", "productId":"$$this.ProductID",
             "unitPrice":"$$this.UnitPrice", "quantity":"$$this.Quantity",
             "discount":"$$this.Discount", "LambdaOrmParentId":"$$this.OrderID" }
-            }} }} ]
-          children: []
+            }} }} , { "$project": { "_id": 0 } }]
+          children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
+                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
+                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
+                "orderId":"$OrderID", "productId":"$ProductID",
+                "unitPrice":"$UnitPrice", "quantity":"$Quantity",
+                "discount":"$Discount", "LambdaOrmParentId":"$OrderID" }} , {
+                "$project": { "_id": 0 } }]
       - stage: Oracle
         info:
           entity: Orders
@@ -527,7 +529,6 @@ test:
                 o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId"
                 FROM "Order Details" o1  WHERE  o1.OrderID IN
                 (:LambdaOrmParentId) 
-              children: []
     errors: 2
     expression: Orders.filter(p => p.id === id).include(p => p.details)
     normalizeExpression: >-
@@ -716,26 +717,22 @@ test:
             region: null
             postalCode: '51100'
             country: France
-            __id: 1
             details:
               - orderId: 1
                 productId: 11
                 unitPrice: 14
                 quantity: 12
                 discount: 0
-                LambdaOrmParentId: 1
               - orderId: 1
                 productId: 42
                 unitPrice: 9.8
                 quantity: 10
                 discount: 0
-                LambdaOrmParentId: 1
               - orderId: 1
                 productId: 72
                 unitPrice: 34.8
                 quantity: 5
                 discount: 0
-                LambdaOrmParentId: 1
       - stage: Oracle
     result:
       - id: 1
@@ -793,7 +790,6 @@ test:
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
                 AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order
                 Details` o1  WHERE  o1.OrderID IN (?) 
-              children: []
             - entity: Customers
               dialect: MySQL
               source: MySQL
@@ -803,7 +799,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -826,7 +821,6 @@ test:
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
                 AS discount, o1.OrderID AS LambdaOrmParentId FROM `Order
                 Details` o1  WHERE  o1.OrderID IN (?) 
-              children: []
             - entity: Customers
               dialect: MariaDB
               source: MariaDB
@@ -836,7 +830,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -860,7 +853,6 @@ test:
                 o1.UnitPrice AS "unitPrice", o1.Quantity AS "quantity",
                 o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId"
                 FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
-              children: []
             - entity: Customers
               dialect: PostgreSQL
               source: PostgreSQL
@@ -871,7 +863,6 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN ($1) 
-              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -894,7 +885,6 @@ test:
                 o1.UnitPrice AS unitPrice, o1.Quantity AS quantity, o1.Discount
                 AS discount, o1.OrderID AS LambdaOrmParentId FROM [Order
                 Details] o1  WHERE  o1.OrderID IN (@LambdaOrmParentId) 
-              children: []
             - entity: Customers
               dialect: SqlServer
               source: SqlServer
@@ -904,7 +894,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
-              children: []
       - stage: MongoDB
         info:
           entity: Orders
@@ -922,8 +911,20 @@ test:
             "input": "$\"Order Details\"", "in": { "orderId":"$$this.OrderID",
             "productId":"$$this.ProductID", "unitPrice":"$$this.UnitPrice",
             "quantity":"$$this.Quantity", "discount":"$$this.Discount",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
+                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
+                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
+                "orderId":"$OrderID", "productId":"$ProductID",
+                "unitPrice":"$UnitPrice", "quantity":"$Quantity",
+                "discount":"$Discount", "LambdaOrmParentId":"$OrderID" }} , {
+                "$project": { "_id": 0 } }]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
@@ -933,8 +934,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
-              children: []
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
       - stage: Oracle
         info:
           entity: Orders
@@ -959,7 +959,6 @@ test:
                 o1.Discount AS "discount", o1.OrderID AS "LambdaOrmParentId"
                 FROM "Order Details" o1  WHERE  o1.OrderID IN
                 (:LambdaOrmParentId) 
-              children: []
             - entity: Customers
               dialect: Oracle
               source: Oracle
@@ -970,7 +969,6 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN (:LambdaOrmParentId) 
-              children: []
     errors: 2
     expression: Orders.filter(p => p.id === id).include(p => [p.details, p.customer])
     normalizeExpression: >-
@@ -1190,7 +1188,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -1206,8 +1205,8 @@ test:
           \"productId\":\"$$this.ProductID\",
           \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
           \"discount\":\"$$this.Discount\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -1329,7 +1328,6 @@ test:
                     p.ReorderLevel AS reorderLevel, p.Discontinued AS
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (?) 
-                  children: []
             - entity: Customers
               dialect: MySQL
               source: MySQL
@@ -1339,7 +1337,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -1375,7 +1372,6 @@ test:
                     p.ReorderLevel AS reorderLevel, p.Discontinued AS
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (?) 
-                  children: []
             - entity: Customers
               dialect: MariaDB
               source: MariaDB
@@ -1385,7 +1381,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -1422,7 +1417,6 @@ test:
                     p.ReorderLevel AS "reorderLevel", p.Discontinued AS
                     "discontinued", p.ProductID AS "LambdaOrmParentId" FROM
                     Products p  WHERE  p.ProductID IN ($1) 
-                  children: []
             - entity: Customers
               dialect: PostgreSQL
               source: PostgreSQL
@@ -1433,7 +1427,6 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN ($1) 
-              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -1469,7 +1462,6 @@ test:
                     p.ReorderLevel AS reorderLevel, p.Discontinued AS
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
-                  children: []
             - entity: Customers
               dialect: SqlServer
               source: SqlServer
@@ -1479,7 +1471,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
-              children: []
       - stage: MongoDB
         info:
           entity: Orders
@@ -1498,8 +1489,34 @@ test:
             "productId":"$$this.ProductID", "unitPrice":"$$this.UnitPrice",
             "quantity":"$$this.Quantity", "discount":"$$this.Discount",
             "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
+                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
+                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
+                "orderId":"$OrderID", "productId":"$ProductID",
+                "unitPrice":"$UnitPrice", "quantity":"$Quantity",
+                "discount":"$Discount", "__productId":"$ProductID",
+                "LambdaOrmParentId":"$OrderID" }} , { "$project": { "_id": 0 }
+                }]
+              children:
+                - entity: Products
+                  dialect: MongoDB
+                  source: MongoDB
+                  sentence: >-
+                    [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } },
+                    { "$project" :{ "_id": 0 , "id":"$_id",
+                    "name":"$ProductName", "supplierId":"$SupplierID",
+                    "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
+                    "price":"$UnitPrice", "inStock":"$UnitsInStock",
+                    "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
+                    "discontinued":"$Discontinued", "LambdaOrmParentId":"$_id"
+                    }} , { "$project": { "_id": 0 } }]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
@@ -1509,8 +1526,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
-              children: []
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
       - stage: Oracle
         info:
           entity: Orders
@@ -1547,7 +1563,6 @@ test:
                     p.ReorderLevel AS "reorderLevel", p.Discontinued AS
                     "discontinued", p.ProductID AS "LambdaOrmParentId" FROM
                     Products p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
-                  children: []
             - entity: Customers
               dialect: Oracle
               source: Oracle
@@ -1558,7 +1573,6 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN (:LambdaOrmParentId) 
-              children: []
     errors: 2
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
@@ -1854,7 +1868,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -1871,8 +1886,8 @@ test:
           \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
           \"discount\":\"$$this.Discount\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -2059,7 +2074,6 @@ test:
                         c.Description AS description, c.CategoryID AS
                         LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID
                         IN (?) 
-                      children: []
             - entity: Customers
               dialect: MySQL
               source: MySQL
@@ -2070,7 +2084,6 @@ test:
                 AS postalCode, c1.Country AS country, c1.CustomerID AS
                 LambdaOrmParentId FROM Customers c1  WHERE  c1.CustomerID IN
                 (?) 
-              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -2116,7 +2129,6 @@ test:
                         c.Description AS description, c.CategoryID AS
                         LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID
                         IN (?) 
-                      children: []
             - entity: Customers
               dialect: MariaDB
               source: MariaDB
@@ -2127,7 +2139,6 @@ test:
                 AS postalCode, c1.Country AS country, c1.CustomerID AS
                 LambdaOrmParentId FROM Customers c1  WHERE  c1.CustomerID IN
                 (?) 
-              children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -2174,7 +2185,6 @@ test:
                         c.Description AS "description", c.CategoryID AS
                         "LambdaOrmParentId" FROM Categories c  WHERE 
                         c.CategoryID IN ($1) 
-                      children: []
             - entity: Customers
               dialect: PostgreSQL
               source: PostgreSQL
@@ -2185,7 +2195,6 @@ test:
                 "region", c1.PostalCode AS "postalCode", c1.Country AS
                 "country", c1.CustomerID AS "LambdaOrmParentId" FROM Customers
                 c1  WHERE  c1.CustomerID IN ($1) 
-              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -2231,7 +2240,6 @@ test:
                         c.Description AS description, c.CategoryID AS
                         LambdaOrmParentId FROM Categories c  WHERE  c.CategoryID
                         IN (@LambdaOrmParentId) 
-                      children: []
             - entity: Customers
               dialect: SqlServer
               source: SqlServer
@@ -2242,7 +2250,6 @@ test:
                 AS postalCode, c1.Country AS country, c1.CustomerID AS
                 LambdaOrmParentId FROM Customers c1  WHERE  c1.CustomerID IN
                 (@LambdaOrmParentId) 
-              children: []
       - stage: MongoDB
         info:
           entity: Orders
@@ -2261,8 +2268,45 @@ test:
             "productId":"$$this.ProductID", "unitPrice":"$$this.UnitPrice",
             "quantity":"$$this.Quantity", "discount":"$$this.Discount",
             "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
+                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
+                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
+                "orderId":"$OrderID", "productId":"$ProductID",
+                "unitPrice":"$UnitPrice", "quantity":"$Quantity",
+                "discount":"$Discount", "__productId":"$ProductID",
+                "LambdaOrmParentId":"$OrderID" }} , { "$project": { "_id": 0 }
+                }]
+              children:
+                - entity: Products
+                  dialect: MongoDB
+                  source: MongoDB
+                  sentence: >-
+                    [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } },
+                    { "$project" :{ "_id": 0 , "id":"$_id",
+                    "name":"$ProductName", "supplierId":"$SupplierID",
+                    "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
+                    "price":"$UnitPrice", "inStock":"$UnitsInStock",
+                    "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
+                    "discontinued":"$Discontinued",
+                    "__categoryId":"$CategoryID", "LambdaOrmParentId":"$_id" }}
+                    , { "$project": { "_id": 0 } }]
+                  children:
+                    - entity: Categories
+                      dialect: MongoDB
+                      source: MongoDB
+                      sentence: >-
+                        [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]}
+                        } }, { "$project" :{ "_id": 0 , "id":"$_id",
+                        "name":"$CategoryName", "description":"$Description",
+                        "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0
+                        } }]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
@@ -2272,8 +2316,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
-              children: []
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
       - stage: Oracle
         info:
           entity: Orders
@@ -2320,7 +2363,6 @@ test:
                         c.Description AS "description", c.CategoryID AS
                         "LambdaOrmParentId" FROM Categories c  WHERE 
                         c.CategoryID IN (:LambdaOrmParentId) 
-                      children: []
             - entity: Customers
               dialect: Oracle
               source: Oracle
@@ -2331,7 +2373,6 @@ test:
                 "region", c1.PostalCode AS "postalCode", c1.Country AS
                 "country", c1.CustomerID AS "LambdaOrmParentId" FROM Customers
                 c1  WHERE  c1.CustomerID IN (:LambdaOrmParentId) 
-              children: []
     errors: 2
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
@@ -2673,7 +2714,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -2690,8 +2732,8 @@ test:
           \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
           \"discount\":\"$$this.Discount\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -2874,7 +2916,6 @@ test:
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
                 `Order Details` o1  WHERE  o1.OrderID IN (?) 
-              children: []
             - entity: Customers
               dialect: MySQL
               source: MySQL
@@ -2884,7 +2925,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -2906,7 +2946,6 @@ test:
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
                 `Order Details` o1  WHERE  o1.OrderID IN (?) 
-              children: []
             - entity: Customers
               dialect: MariaDB
               source: MariaDB
@@ -2916,7 +2955,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -2939,7 +2977,6 @@ test:
                 SELECT o1.Quantity AS "quantity", o1.UnitPrice AS "unitPrice",
                 o1.ProductID AS "productId", o1.OrderID AS "LambdaOrmParentId"
                 FROM "Order Details" o1  WHERE  o1.OrderID IN ($1) 
-              children: []
             - entity: Customers
               dialect: PostgreSQL
               source: PostgreSQL
@@ -2950,7 +2987,6 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN ($1) 
-              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -2972,7 +3008,6 @@ test:
                 SELECT o1.Quantity AS quantity, o1.UnitPrice AS unitPrice,
                 o1.ProductID AS productId, o1.OrderID AS LambdaOrmParentId FROM
                 [Order Details] o1  WHERE  o1.OrderID IN (@LambdaOrmParentId) 
-              children: []
             - entity: Customers
               dialect: SqlServer
               source: SqlServer
@@ -2982,7 +3017,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
-              children: []
       - stage: MongoDB
         info:
           entity: Orders
@@ -2999,8 +3033,19 @@ test:
             "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
             "input": "$\"Order Details\"", "in": { "quantity":"$$this.Quantity",
             "unitPrice":"$$this.UnitPrice", "productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
+                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
+                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
+                "quantity":"$Quantity", "unitPrice":"$UnitPrice",
+                "productId":"$ProductID", "LambdaOrmParentId":"$OrderID" }} , {
+                "$project": { "_id": 0 } }]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
@@ -3010,8 +3055,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
-              children: []
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
       - stage: Oracle
         info:
           entity: Orders
@@ -3035,7 +3079,6 @@ test:
                 o1.ProductID AS "productId", o1.OrderID AS "LambdaOrmParentId"
                 FROM "Order Details" o1  WHERE  o1.OrderID IN
                 (:LambdaOrmParentId) 
-              children: []
             - entity: Customers
               dialect: Oracle
               source: Oracle
@@ -3046,7 +3089,6 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN (:LambdaOrmParentId) 
-              children: []
     errors: 2
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.map(p => ({
@@ -3261,7 +3303,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -3276,8 +3319,8 @@ test:
           \"$\\\"Order Details\\\"\", \"in\": {
           \"quantity\":\"$$this.Quantity\", \"unitPrice\":\"$$this.UnitPrice\",
           \"productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -3388,7 +3431,6 @@ test:
                     p.ReorderLevel AS reorderLevel, p.Discontinued AS
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (?) 
-                  children: []
             - entity: Customers
               dialect: MySQL
               source: MySQL
@@ -3398,7 +3440,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -3433,7 +3474,6 @@ test:
                     p.ReorderLevel AS reorderLevel, p.Discontinued AS
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (?) 
-                  children: []
             - entity: Customers
               dialect: MariaDB
               source: MariaDB
@@ -3443,7 +3483,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -3479,7 +3518,6 @@ test:
                     p.ReorderLevel AS "reorderLevel", p.Discontinued AS
                     "discontinued", p.ProductID AS "LambdaOrmParentId" FROM
                     Products p  WHERE  p.ProductID IN ($1) 
-                  children: []
             - entity: Customers
               dialect: PostgreSQL
               source: PostgreSQL
@@ -3490,7 +3528,6 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN ($1) 
-              children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -3525,7 +3562,6 @@ test:
                     p.ReorderLevel AS reorderLevel, p.Discontinued AS
                     discontinued, p.ProductID AS LambdaOrmParentId FROM Products
                     p  WHERE  p.ProductID IN (@LambdaOrmParentId) 
-                  children: []
             - entity: Customers
               dialect: SqlServer
               source: SqlServer
@@ -3535,7 +3571,6 @@ test:
                 c.City AS city, c.Region AS region, c.PostalCode AS postalCode,
                 c.Country AS country, c.CustomerID AS LambdaOrmParentId FROM
                 Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
-              children: []
       - stage: MongoDB
         info:
           entity: Orders
@@ -3553,8 +3588,33 @@ test:
             "input": "$\"Order Details\"", "in": { "quantity":"$$this.Quantity",
             "unitPrice":"$$this.UnitPrice", "productId":"$$this.ProductID",
             "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
+                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
+                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
+                "quantity":"$Quantity", "unitPrice":"$UnitPrice",
+                "productId":"$ProductID", "__productId":"$ProductID",
+                "LambdaOrmParentId":"$OrderID" }} , { "$project": { "_id": 0 }
+                }]
+              children:
+                - entity: Products
+                  dialect: MongoDB
+                  source: MongoDB
+                  sentence: >-
+                    [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } },
+                    { "$project" :{ "_id": 0 , "id":"$_id",
+                    "name":"$ProductName", "supplierId":"$SupplierID",
+                    "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
+                    "price":"$UnitPrice", "inStock":"$UnitsInStock",
+                    "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
+                    "discontinued":"$Discontinued", "LambdaOrmParentId":"$_id"
+                    }} , { "$project": { "_id": 0 } }]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
@@ -3564,8 +3624,7 @@ test:
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} ]
-              children: []
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
       - stage: Oracle
         info:
           entity: Orders
@@ -3601,7 +3660,6 @@ test:
                     p.ReorderLevel AS "reorderLevel", p.Discontinued AS
                     "discontinued", p.ProductID AS "LambdaOrmParentId" FROM
                     Products p  WHERE  p.ProductID IN (:LambdaOrmParentId) 
-                  children: []
             - entity: Customers
               dialect: Oracle
               source: Oracle
@@ -3612,7 +3670,6 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN (:LambdaOrmParentId) 
-              children: []
     errors: 2
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.details.include(q =>
@@ -3901,7 +3958,8 @@ test:
           \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
           \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -3917,8 +3975,8 @@ test:
           \"quantity\":\"$$this.Quantity\", \"unitPrice\":\"$$this.UnitPrice\",
           \"productId\":\"$$this.ProductID\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -4071,7 +4129,6 @@ test:
               sentence: >-
                 SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
                 FROM Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
             - entity: Orders.details
               dialect: MySQL
               source: MySQL
@@ -4095,7 +4152,6 @@ test:
                         SELECT c1.CategoryName AS name, c1.CategoryID AS
                         LambdaOrmParentId FROM Categories c1  WHERE 
                         c1.CategoryID IN (?) 
-                      children: []
       - stage: MariaDB
         info:
           entity: Orders
@@ -4117,7 +4173,6 @@ test:
               sentence: >-
                 SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
                 FROM Customers c  WHERE  c.CustomerID IN (?) 
-              children: []
             - entity: Orders.details
               dialect: MariaDB
               source: MariaDB
@@ -4141,7 +4196,6 @@ test:
                         SELECT c1.CategoryName AS name, c1.CategoryID AS
                         LambdaOrmParentId FROM Categories c1  WHERE 
                         c1.CategoryID IN (?) 
-                      children: []
       - stage: PostgreSQL
         info:
           entity: Orders
@@ -4164,7 +4218,6 @@ test:
                 SELECT c.CompanyName AS "name", c.CustomerID AS
                 "LambdaOrmParentId" FROM Customers c  WHERE  c.CustomerID IN
                 ($1) 
-              children: []
             - entity: Orders.details
               dialect: PostgreSQL
               source: PostgreSQL
@@ -4188,7 +4241,6 @@ test:
                         SELECT c1.CategoryName AS "name", c1.CategoryID AS
                         "LambdaOrmParentId" FROM Categories c1  WHERE 
                         c1.CategoryID IN ($1) 
-                      children: []
       - stage: SqlServer
         info:
           entity: Orders
@@ -4210,7 +4262,6 @@ test:
               sentence: >-
                 SELECT c.CompanyName AS name, c.CustomerID AS LambdaOrmParentId
                 FROM Customers c  WHERE  c.CustomerID IN (@LambdaOrmParentId) 
-              children: []
             - entity: Orders.details
               dialect: SqlServer
               source: SqlServer
@@ -4235,7 +4286,6 @@ test:
                         SELECT c1.CategoryName AS name, c1.CategoryID AS
                         LambdaOrmParentId FROM Categories c1  WHERE 
                         c1.CategoryID IN (@LambdaOrmParentId) 
-                      children: []
       - stage: MongoDB
         info:
           entity: Orders
@@ -4252,7 +4302,8 @@ test:
             "__customerId":"$CustomerID", "__id":"$_id" ,"details": { "$map":{
             "input": "$\"Order Details\"", "in": { "quantity":"$$this.Quantity",
             "unitPrice":"$$this.UnitPrice", "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} ]
+            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
+            "_id": 0 } }]
           children:
             - entity: Customers
               dialect: MongoDB
@@ -4260,8 +4311,35 @@ test:
               sentence: >-
                 [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
                 "$project" :{ "_id": 0 , "name":"$CompanyName",
-                "LambdaOrmParentId":"$_id" }} ]
-              children: []
+                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
+            - entity: Orders.details
+              dialect: MongoDB
+              source: MongoDB
+              sentence: >-
+                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
+                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
+                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
+                "quantity":"$Quantity", "unitPrice":"$UnitPrice",
+                "__productId":"$ProductID", "LambdaOrmParentId":"$OrderID" }} ,
+                { "$project": { "_id": 0 } }]
+              children:
+                - entity: Products
+                  dialect: MongoDB
+                  source: MongoDB
+                  sentence: >-
+                    [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } },
+                    { "$project" :{ "_id": 0 , "name":"$ProductName",
+                    "__categoryId":"$CategoryID", "LambdaOrmParentId":"$_id" }}
+                    , { "$project": { "_id": 0 } }]
+                  children:
+                    - entity: Categories
+                      dialect: MongoDB
+                      source: MongoDB
+                      sentence: >-
+                        [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]}
+                        } }, { "$project" :{ "_id": 0 , "name":"$CategoryName",
+                        "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0
+                        } }]
       - stage: Oracle
         info:
           entity: Orders
@@ -4284,7 +4362,6 @@ test:
                 SELECT c.CompanyName AS "name", c.CustomerID AS
                 "LambdaOrmParentId" FROM Customers c  WHERE  c.CustomerID IN
                 (:LambdaOrmParentId) 
-              children: []
             - entity: Orders.details
               dialect: Oracle
               source: Oracle
@@ -4309,7 +4386,6 @@ test:
                         SELECT c1.CategoryName AS "name", c1.CategoryID AS
                         "LambdaOrmParentId" FROM Categories c1  WHERE 
                         c1.CategoryID IN (:LambdaOrmParentId) 
-                      children: []
     errors: 2
     expression: >-
       Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name),
@@ -4560,7 +4636,8 @@ test:
           :[VINET]} } "... is not valid JSON SOURCE: MongoDB ENTITY: Customers
           QUERY: "[{ \"$match\" : { \"_id\":{ \"$in\" :[{{LambdaOrmParentId}}]}
           } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$CompanyName\",
-          \"LambdaOrmParentId\":\"$_id\" }} ]" 
+          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
+          }]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
           SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
           \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
@@ -4575,8 +4652,8 @@ test:
           Details\\\"\", \"in\": { \"quantity\":\"$$this.Quantity\",
           \"unitPrice\":\"$$this.UnitPrice\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} ]" 
-          DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
+          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL

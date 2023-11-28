@@ -322,8 +322,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE c.region = 'Americas' ",
-            "children": []
+            "sentence": "SELECT COUNT(1) AS result FROM Countries c  WHERE c.region = 'Americas' "
           }
         },
         {
@@ -332,8 +331,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.region AS region, COUNT(1) AS countries FROM Countries c  GROUP BY c.region ",
-            "children": []
+            "sentence": "SELECT c.region AS region, COUNT(1) AS countries FROM Countries c  GROUP BY c.region "
           }
         },
         {
@@ -342,8 +340,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.region AS region, MAX(c.latitude) AS max FROM Countries c  GROUP BY c.region ",
-            "children": []
+            "sentence": "SELECT c.region AS region, MAX(c.latitude) AS max FROM Countries c  GROUP BY c.region "
           }
         },
         {
@@ -352,8 +349,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.region AS region, MIN(c.latitude) AS min FROM Countries c  GROUP BY c.region ",
-            "children": []
+            "sentence": "SELECT c.region AS region, MIN(c.latitude) AS min FROM Countries c  GROUP BY c.region "
           }
         },
         {
@@ -362,8 +358,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.region AS region, AVG(c.latitude) AS avg FROM Countries c  GROUP BY c.region ",
-            "children": []
+            "sentence": "SELECT c.region AS region, AVG(c.latitude) AS avg FROM Countries c  GROUP BY c.region "
           }
         }
       ],

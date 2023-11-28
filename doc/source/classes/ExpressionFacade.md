@@ -13,7 +13,7 @@
 - [build](ExpressionFacade.md#build)
 - [execute](ExpressionFacade.md#execute)
 - [executeList](ExpressionFacade.md#executelist)
-- [getInfo](ExpressionFacade.md#getinfo)
+- [plan](ExpressionFacade.md#plan)
 - [solveOptions](ExpressionFacade.md#solveoptions)
 - [transaction](ExpressionFacade.md#transaction)
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/expressions/application/facade.ts#L24)
+[src/lib/expressions/application/facade.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/expressions/application/facade.ts#L24)
 
 ## Methods
 
@@ -62,7 +62,7 @@
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/expressions/application/facade.ts#L38)
+[src/lib/expressions/application/facade.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/expressions/application/facade.ts#L38)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/expressions/application/facade.ts#L50)
+[src/lib/expressions/application/facade.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/expressions/application/facade.ts#L50)
 
 ___
 
@@ -105,13 +105,13 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/expressions/application/facade.ts#L54)
+[src/lib/expressions/application/facade.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/expressions/application/facade.ts#L54)
 
 ___
 
-### getInfo
+### plan
 
-▸ **getInfo**(`expression`, `options?`): [`QueryInfo`](../interfaces/QueryInfo.md)
+▸ **plan**(`expression`, `options?`): [`QueryPlan`](../interfaces/QueryPlan.md)
 
 #### Parameters
 
@@ -122,11 +122,11 @@ ___
 
 #### Returns
 
-[`QueryInfo`](../interfaces/QueryInfo.md)
+[`QueryPlan`](../interfaces/QueryPlan.md)
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/expressions/application/facade.ts#L42)
+[src/lib/expressions/application/facade.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/expressions/application/facade.ts#L42)
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/expressions/application/facade.ts#L46)
+[src/lib/expressions/application/facade.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/expressions/application/facade.ts#L46)
 
 ___
 
@@ -167,4 +167,4 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:58](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/expressions/application/facade.ts#L58)
+[src/lib/expressions/application/facade.ts:58](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/expressions/application/facade.ts#L58)

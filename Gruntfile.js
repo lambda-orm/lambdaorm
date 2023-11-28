@@ -102,7 +102,6 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('build-config', 'build configuration', function () {
-		// this task needs to be js since it must be executed before executing npx tsc
 		const task = require('./src/dev/task/buildConfig')
 		task.apply(this.async())
 	})
@@ -129,8 +128,14 @@ module.exports = function (grunt) {
 		data.types = 'index.d.ts'
 		fs.writeFileSync('dist/package.json', JSON.stringify(data, null, 2), 'utf8')
 	})
+	grunt.registerTask('changelog-format', 'apply format to changelog', function () {
+		const changelog = grunt.file.read('CHANGELOG.md')
+		let newChangelog = changelog.replace(/\n### Bug Fixes/g, '**Bug Fixes:**')
+		newChangelog = newChangelog.replace(/\n### Features/g, '**Features:**')
+		grunt.file.write('CHANGELOG.md', newChangelog)
+	})
 
-	grunt.registerTask('exec-release', ['exec:standardVersion', 'copy:changeLog', 'create-package', 'get-version', 'exec:gitFlowRelease'])
+	grunt.registerTask('exec-release', ['exec:standardVersion', 'changelog-format', 'copy:changeLog', 'create-package', 'get-version', 'exec:gitFlowRelease'])
 	grunt.registerTask('run-release-if-applicable', 'run release if applicable', function () {
 		const originalBranch = grunt.config.get('originalBranch')
 		if (originalBranch === 'develop' || originalBranch.startsWith('hotfix')) {

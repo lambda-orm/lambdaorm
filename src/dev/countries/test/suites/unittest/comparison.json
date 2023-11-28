@@ -290,8 +290,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.name AS name FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT c.name AS name FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -300,8 +299,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.name AS name FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT c.name AS name FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -310,8 +308,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.name AS name FROM Countries c  WHERE (c.latitude < -9 AND (c.latitude > -11 AND c.longitude = -55)) ORDER BY c.name asc  LIMIT 0,1 ",
-            "children": []
+            "sentence": "SELECT c.name AS name FROM Countries c  WHERE (c.latitude < -9 AND (c.latitude > -11 AND c.longitude = -55)) ORDER BY c.name asc  LIMIT 0,1 "
           }
         },
         {
@@ -320,8 +317,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.name AS name FROM Countries c  WHERE (c.latitude BETWEEN -11 AND -9 AND c.longitude = -55) ORDER BY c.name asc  LIMIT 0,1 ",
-            "children": []
+            "sentence": "SELECT c.name AS name FROM Countries c  WHERE (c.latitude BETWEEN -11 AND -9 AND c.longitude = -55) ORDER BY c.name asc  LIMIT 0,1 "
           }
         },
         {
@@ -330,8 +326,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.name AS name FROM Countries c  WHERE  c.iso3 IN ('BRA', 'ARG') ",
-            "children": []
+            "sentence": "SELECT c.name AS name FROM Countries c  WHERE  c.iso3 IN ('BRA', 'ARG') "
           }
         }
       ],

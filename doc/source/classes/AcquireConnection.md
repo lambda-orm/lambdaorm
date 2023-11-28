@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/useCases/acquire.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/connection/application/useCases/acquire.ts#L6)
+[src/lib/connection/application/useCases/acquire.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/connection/application/useCases/acquire.ts#L6)
 
 ## Methods
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[src/lib/connection/application/useCases/acquire.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/connection/application/useCases/acquire.ts#L8)
+[src/lib/connection/application/useCases/acquire.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/connection/application/useCases/acquire.ts#L8)

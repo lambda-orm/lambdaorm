@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/schema/domain/schema.ts#L22)
+[src/lib/schema/domain/schema.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/schema/domain/schema.ts#L22)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/schema/domain/schema.ts#L21)
+[src/lib/schema/domain/schema.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/schema/domain/schema.ts#L21)

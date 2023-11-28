@@ -157,148 +157,148 @@ describe('Metadata', () => {
 describe('Sentences', () => {
 	test('insert 1', async () => {
 		const expression = 'Categories.insert()'
-		const MySQLExpected = {"entity":"Categories","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)","children":[]}
+		const MySQLExpected = {"entity":"Categories","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"}
 		let MySQL = orm.plan(expression,{stage:'MySQL'})
 		expect(MySQLExpected).toStrictEqual(MySQL)
-		const MariaDBExpected = {"entity":"Categories","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)","children":[]}
+		const MariaDBExpected = {"entity":"Categories","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"}
 		let MariaDB = orm.plan(expression,{stage:'MariaDB'})
 		expect(MariaDBExpected).toStrictEqual(MariaDB)
-		const PostgreSQLExpected = {"entity":"Categories","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id","children":[]}
+		const PostgreSQLExpected = {"entity":"Categories","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id"}
 		let PostgreSQL = orm.plan(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const SqlServerExpected = {"entity":"Categories","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@name,@description)","children":[]}
+		const SqlServerExpected = {"entity":"Categories","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@name,@description)"}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Categories","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CategoryName\":{{name}},\"Description\":{{description}} }","children":[]}
+		const MongoDBExpected = {"entity":"Categories","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CategoryName\":{{name}},\"Description\":{{description}} }"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
-		const OracleExpected = {"entity":"Categories","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Categories(CategoryID,CategoryName,Description) VALUES(SQ_CATEGORIES.nextval,:name,:description)","children":[]}
+		const OracleExpected = {"entity":"Categories","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Categories(CategoryID,CategoryName,Description) VALUES(SQ_CATEGORIES.nextval,:name,:description)"}
 		let Oracle = orm.plan(expression,{stage:'Oracle'})
 		expect(OracleExpected).toStrictEqual(Oracle)
 	})
 	test('insert 2', async () => {
 		const expression = 'Categories.insert(() => [name, description])'
-		const MySQLExpected = {"entity":"Categories","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)","children":[]}
+		const MySQLExpected = {"entity":"Categories","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"}
 		let MySQL = orm.plan(expression,{stage:'MySQL'})
 		expect(MySQLExpected).toStrictEqual(MySQL)
-		const MariaDBExpected = {"entity":"Categories","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)","children":[]}
+		const MariaDBExpected = {"entity":"Categories","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"}
 		let MariaDB = orm.plan(expression,{stage:'MariaDB'})
 		expect(MariaDBExpected).toStrictEqual(MariaDB)
-		const PostgreSQLExpected = {"entity":"Categories","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id","children":[]}
+		const PostgreSQLExpected = {"entity":"Categories","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id"}
 		let PostgreSQL = orm.plan(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const SqlServerExpected = {"entity":"Categories","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@name,@description)","children":[]}
+		const SqlServerExpected = {"entity":"Categories","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@name,@description)"}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Categories","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CategoryName\":{{name}},\"Description\":{{description}} }","children":[]}
+		const MongoDBExpected = {"entity":"Categories","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CategoryName\":{{name}},\"Description\":{{description}} }"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
-		const OracleExpected = {"entity":"Categories","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Categories(CategoryID,CategoryName,Description) VALUES(SQ_CATEGORIES.nextval,:name,:description)","children":[]}
+		const OracleExpected = {"entity":"Categories","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Categories(CategoryID,CategoryName,Description) VALUES(SQ_CATEGORIES.nextval,:name,:description)"}
 		let Oracle = orm.plan(expression,{stage:'Oracle'})
 		expect(OracleExpected).toStrictEqual(Oracle)
 	})
 	test('insert 3', async () => {
 		const expression = 'Categories.insert(entity)'
-		const MySQLExpected = {"entity":"Categories","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)","children":[]}
+		const MySQLExpected = {"entity":"Categories","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"}
 		let MySQL = orm.plan(expression,{stage:'MySQL'})
 		expect(MySQLExpected).toStrictEqual(MySQL)
-		const MariaDBExpected = {"entity":"Categories","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)","children":[]}
+		const MariaDBExpected = {"entity":"Categories","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"}
 		let MariaDB = orm.plan(expression,{stage:'MariaDB'})
 		expect(MariaDBExpected).toStrictEqual(MariaDB)
-		const PostgreSQLExpected = {"entity":"Categories","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id","children":[]}
+		const PostgreSQLExpected = {"entity":"Categories","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id"}
 		let PostgreSQL = orm.plan(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const SqlServerExpected = {"entity":"Categories","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@entity_name,@entity_description)","children":[]}
+		const SqlServerExpected = {"entity":"Categories","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@entity_name,@entity_description)"}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Categories","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CategoryName\":{{entity_name}},\"Description\":{{entity_description}} }","children":[]}
+		const MongoDBExpected = {"entity":"Categories","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CategoryName\":{{entity_name}},\"Description\":{{entity_description}} }"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
-		const OracleExpected = {"entity":"Categories","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Categories(CategoryID,CategoryName,Description) VALUES(SQ_CATEGORIES.nextval,:entity_name,:entity_description)","children":[]}
+		const OracleExpected = {"entity":"Categories","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Categories(CategoryID,CategoryName,Description) VALUES(SQ_CATEGORIES.nextval,:entity_name,:entity_description)"}
 		let Oracle = orm.plan(expression,{stage:'Oracle'})
 		expect(OracleExpected).toStrictEqual(Oracle)
 	})
 	test('insert 4', async () => {
 		const expression = 'Categories.insert(entity)'
-		const MySQLExpected = {"entity":"Categories","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)","children":[]}
+		const MySQLExpected = {"entity":"Categories","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"}
 		let MySQL = orm.plan(expression,{stage:'MySQL'})
 		expect(MySQLExpected).toStrictEqual(MySQL)
-		const MariaDBExpected = {"entity":"Categories","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)","children":[]}
+		const MariaDBExpected = {"entity":"Categories","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"}
 		let MariaDB = orm.plan(expression,{stage:'MariaDB'})
 		expect(MariaDBExpected).toStrictEqual(MariaDB)
-		const PostgreSQLExpected = {"entity":"Categories","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id","children":[]}
+		const PostgreSQLExpected = {"entity":"Categories","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Categories(CategoryName,Description) VALUES($1,$2) RETURNING CategoryID AS id"}
 		let PostgreSQL = orm.plan(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const SqlServerExpected = {"entity":"Categories","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@entity_name,@entity_description)","children":[]}
+		const SqlServerExpected = {"entity":"Categories","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Categories(CategoryName,Description) OUTPUT INSERTED.CategoryID VALUES(@entity_name,@entity_description)"}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Categories","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CategoryName\":{{entity_name}},\"Description\":{{entity_description}} }","children":[]}
+		const MongoDBExpected = {"entity":"Categories","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CategoryName\":{{entity_name}},\"Description\":{{entity_description}} }"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
-		const OracleExpected = {"entity":"Categories","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Categories(CategoryID,CategoryName,Description) VALUES(SQ_CATEGORIES.nextval,:entity_name,:entity_description)","children":[]}
+		const OracleExpected = {"entity":"Categories","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Categories(CategoryID,CategoryName,Description) VALUES(SQ_CATEGORIES.nextval,:entity_name,:entity_description)"}
 		let Oracle = orm.plan(expression,{stage:'Oracle'})
 		expect(OracleExpected).toStrictEqual(Oracle)
 	})
 	test('insert 5', async () => {
 		const expression = 'Orders.insert()'
-		const MySQLExpected = {"entity":"Orders","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)","children":[]}
+		const MySQLExpected = {"entity":"Orders","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"}
 		let MySQL = orm.plan(expression,{stage:'MySQL'})
 		expect(MySQLExpected).toStrictEqual(MySQL)
-		const MariaDBExpected = {"entity":"Orders","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)","children":[]}
+		const MariaDBExpected = {"entity":"Orders","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"}
 		let MariaDB = orm.plan(expression,{stage:'MariaDB'})
 		expect(MariaDBExpected).toStrictEqual(MariaDB)
-		const PostgreSQLExpected = {"entity":"Orders","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID AS id","children":[]}
+		const PostgreSQLExpected = {"entity":"Orders","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID AS id"}
 		let PostgreSQL = orm.plan(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const SqlServerExpected = {"entity":"Orders","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) OUTPUT INSERTED.OrderID VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)","children":[]}
+		const SqlServerExpected = {"entity":"Orders","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) OUTPUT INSERTED.OrderID VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)"}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Orders","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}} }","children":[]}
+		const MongoDBExpected = {"entity":"Orders","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}} }"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
-		const OracleExpected = {"entity":"Orders","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)","children":[]}
+		const OracleExpected = {"entity":"Orders","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)"}
 		let Oracle = orm.plan(expression,{stage:'Oracle'})
 		expect(OracleExpected).toStrictEqual(Oracle)
 	})
 	test('insert 6', async () => {
 		const expression = 'Orders.insert().include(p => p.details)'
-		const MySQLExpected = {"entity":"Orders","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)","children":[{"entity":"Orders.details","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)","children":[]}]}
+		const MySQLExpected = {"entity":"Orders","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)","children":[{"entity":"Orders.details","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)"}]}
 		let MySQL = orm.plan(expression,{stage:'MySQL'})
 		expect(MySQLExpected).toStrictEqual(MySQL)
-		const MariaDBExpected = {"entity":"Orders","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)","children":[{"entity":"Orders.details","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)","children":[]}]}
+		const MariaDBExpected = {"entity":"Orders","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)","children":[{"entity":"Orders.details","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)"}]}
 		let MariaDB = orm.plan(expression,{stage:'MariaDB'})
 		expect(MariaDBExpected).toStrictEqual(MariaDB)
-		const PostgreSQLExpected = {"entity":"Orders","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID AS id","children":[{"entity":"Orders.details","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO \"Order Details\"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id","children":[]}]}
+		const PostgreSQLExpected = {"entity":"Orders","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID AS id","children":[{"entity":"Orders.details","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO \"Order Details\"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id"}]}
 		let PostgreSQL = orm.plan(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const SqlServerExpected = {"entity":"Orders","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) OUTPUT INSERTED.OrderID VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)","children":[{"entity":"Orders.details","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO [Order Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT INSERTED.0 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)","children":[]}]}
+		const SqlServerExpected = {"entity":"Orders","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) OUTPUT INSERTED.OrderID VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)","children":[{"entity":"Orders.details","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO [Order Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT INSERTED.0 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)"}]}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Orders","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}} }","children":[{"entity":"Orders.details","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}} }","children":[]}]}
+		const MongoDBExpected = {"entity":"Orders","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}} }","children":[{"entity":"Orders.details","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}} }"},{"entity":"Orders.details","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}} }"}]}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
-		const OracleExpected = {"entity":"Orders","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)","children":[{"entity":"Orders.details","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO \"Order Details\"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)","children":[]}]}
+		const OracleExpected = {"entity":"Orders","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)","children":[{"entity":"Orders.details","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO \"Order Details\"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)"}]}
 		let Oracle = orm.plan(expression,{stage:'Oracle'})
 		expect(OracleExpected).toStrictEqual(Oracle)
 	})
 	test('insert 7', async () => {
 		const expression = 'Orders.insert().include(p => [p.details, p.customer])'
-		const MySQLExpected = {"entity":"Orders","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)","children":[{"entity":"Orders.details","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)","children":[]},{"entity":"Customers","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(?,?,?,?,?,?,?,?,?)","children":[]}]}
+		const MySQLExpected = {"entity":"Orders","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)","children":[{"entity":"Orders.details","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)"},{"entity":"Customers","dialect":"MySQL","source":"MySQL","sentence":"INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(?,?,?,?,?,?,?,?,?)"}]}
 		let MySQL = orm.plan(expression,{stage:'MySQL'})
 		expect(MySQLExpected).toStrictEqual(MySQL)
-		const MariaDBExpected = {"entity":"Orders","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)","children":[{"entity":"Orders.details","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)","children":[]},{"entity":"Customers","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(?,?,?,?,?,?,?,?,?)","children":[]}]}
+		const MariaDBExpected = {"entity":"Orders","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)","children":[{"entity":"Orders.details","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)"},{"entity":"Customers","dialect":"MariaDB","source":"MariaDB","sentence":"INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(?,?,?,?,?,?,?,?,?)"}]}
 		let MariaDB = orm.plan(expression,{stage:'MariaDB'})
 		expect(MariaDBExpected).toStrictEqual(MariaDB)
-		const PostgreSQLExpected = {"entity":"Orders","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID AS id","children":[{"entity":"Orders.details","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO \"Order Details\"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id","children":[]},{"entity":"Customers","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id","children":[]}]}
+		const PostgreSQLExpected = {"entity":"Orders","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING OrderID AS id","children":[{"entity":"Orders.details","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO \"Order Details\"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES($1,$2,$3,$4,$5) RETURNING 0 AS id"},{"entity":"Customers","dialect":"PostgreSQL","source":"PostgreSQL","sentence":"INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING 0 AS id"}]}
 		let PostgreSQL = orm.plan(expression,{stage:'PostgreSQL'})
 		expect(PostgreSQLExpected).toStrictEqual(PostgreSQL)
-		const SqlServerExpected = {"entity":"Orders","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) OUTPUT INSERTED.OrderID VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)","children":[{"entity":"Orders.details","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO [Order Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT INSERTED.0 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)","children":[]},{"entity":"Customers","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) OUTPUT INSERTED.0 VALUES(@id,@name,@contact,@phone,@address,@city,@region,@postalCode,@country)","children":[]}]}
+		const SqlServerExpected = {"entity":"Orders","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) OUTPUT INSERTED.OrderID VALUES(@customerId,@employeeId,@orderDate,@requiredDate,@shippedDate,@shipViaId,@freight,@name,@address,@city,@region,@postalCode,@country)","children":[{"entity":"Orders.details","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO [Order Details](OrderID,ProductID,UnitPrice,Quantity,Discount) OUTPUT INSERTED.0 VALUES(@orderId,@productId,@unitPrice,@quantity,@discount)"},{"entity":"Customers","dialect":"SqlServer","source":"SqlServer","sentence":"INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) OUTPUT INSERTED.0 VALUES(@id,@name,@contact,@phone,@address,@city,@region,@postalCode,@country)"}]}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Orders","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}} }","children":[{"entity":"Orders.details","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}} }","children":[]},{"entity":"Customers","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"_id\":{{id}},\"CompanyName\":{{name}},\"ContactName\":{{contact}},\"ContactTitle\":{{phone}},\"Address\":{{address}},\"City\":{{city}},\"Region\":{{region}},\"PostalCode\":{{postalCode}},\"Country\":{{country}} }","children":[]}]}
+		const MongoDBExpected = {"entity":"Orders","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"CustomerID\":{{customerId}},\"EmployeeID\":{{employeeId}},\"OrderDate\":{{orderDate}},\"RequiredDate\":{{requiredDate}},\"ShippedDate\":{{shippedDate}},\"ShipVia\":{{shipViaId}},\"Freight\":{{freight}},\"ShipName\":{{name}},\"ShipAddress\":{{address}},\"ShipCity\":{{city}},\"ShipRegion\":{{region}},\"ShipPostalCode\":{{postalCode}},\"ShipCountry\":{{country}} }","children":[{"entity":"Orders.details","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}} }"},{"entity":"Orders.details","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"OrderID\":{{orderId}},\"ProductID\":{{productId}},\"UnitPrice\":{{unitPrice}},\"Quantity\":{{quantity}},\"Discount\":{{discount}} }"},{"entity":"Customers","dialect":"MongoDB","source":"MongoDB","sentence":"{ \"_id\":{{id}},\"CompanyName\":{{name}},\"ContactName\":{{contact}},\"ContactTitle\":{{phone}},\"Address\":{{address}},\"City\":{{city}},\"Region\":{{region}},\"PostalCode\":{{postalCode}},\"Country\":{{country}} }"}]}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
-		const OracleExpected = {"entity":"Orders","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)","children":[{"entity":"Orders.details","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO \"Order Details\"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)","children":[]},{"entity":"Customers","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country)","children":[]}]}
+		const OracleExpected = {"entity":"Orders","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Orders(OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(SQ_ORDERS.nextval,:customerId,:employeeId,:orderDate,:requiredDate,:shippedDate,:shipViaId,:freight,:name,:address,:city,:region,:postalCode,:country)","children":[{"entity":"Orders.details","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO \"Order Details\"(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(:orderId,:productId,:unitPrice,:quantity,:discount)"},{"entity":"Customers","dialect":"Oracle","source":"Oracle","sentence":"INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(:id,:name,:contact,:phone,:address,:city,:region,:postalCode,:country)"}]}
 		let Oracle = orm.plan(expression,{stage:'Oracle'})
 		expect(OracleExpected).toStrictEqual(Oracle)
 	})

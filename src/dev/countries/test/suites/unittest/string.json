@@ -740,8 +740,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT LOWER(c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT LOWER(c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -750,8 +749,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT UPPER(c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT UPPER(c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -760,8 +758,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT CONCAT(CONCAT(c.region,' '),c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT CONCAT(CONCAT(c.region,' '),c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -770,8 +767,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT LPAD(c.region,12,'_') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT LPAD(c.region,12,'_') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -780,8 +776,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT RPAD(c.region,12,'_') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT RPAD(c.region,12,'_') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -790,8 +785,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT CHAR(68 USING ASCII) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT CHAR(68 USING ASCII) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -800,8 +794,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT LTRIM('  a  ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT LTRIM('  a  ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -810,8 +803,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT RTRIM('  a  ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT RTRIM('  a  ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -820,8 +812,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT REPLACE(c.region,'a','*') AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT REPLACE(c.region,'a','*') AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -830,8 +821,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT Concat(LEFT(c.subregion,3),'***',RIGHT(c.subregion,3)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT Concat(LEFT(c.subregion,3),'***',RIGHT(c.subregion,3)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -840,8 +830,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT SUBSTR(c.subregion,1,3) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT SUBSTR(c.subregion,1,3) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -850,8 +839,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT SUBSTR(c.subregion,1,3) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT SUBSTR(c.subregion,1,3) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -860,8 +848,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT (LENGTH(c.subregion)-LENGTH(REPLACE(c.subregion,'a',''))) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT (LENGTH(c.subregion)-LENGTH(REPLACE(c.subregion,'a',''))) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         },
         {
@@ -870,8 +857,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT CONVERT(c.latitude, CHAR) AS result FROM Countries c  WHERE c.iso3 = 'BRA' ",
-            "children": []
+            "sentence": "SELECT CONVERT(c.latitude, CHAR) AS result FROM Countries c  WHERE c.iso3 = 'BRA' "
           }
         }
       ],

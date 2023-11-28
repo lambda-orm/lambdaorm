@@ -28,8 +28,8 @@ describe('sort', () => {
 		expect(orm.constraints('Countries.map(p=> {region:p.region,max:max(p.latitude)}).sort(p=> asc(p.max))')).toStrictEqual({"entity":"Countries","constraints":[]})
 	})
 	test('getInfo', () => {
-		expect(orm.plan('Countries.map(p=> {region:p.region,countries:count(1)}).sort(p=> p.countries)',{ stage: 'stage1' })).toStrictEqual({"entity":"Countries","dialect":"MySQL","source":"dataSource1","sentence":"SELECT c.region AS region, COUNT(1) AS countries FROM Countries c  GROUP BY c.region ORDER BY countries asc ","children":[]})
-		expect(orm.plan('Countries.filter(p=> p.subregion == "South America").map(p=> p.iso3).sort(p=> desc(iso3))',{ stage: 'stage1' })).toStrictEqual({"entity":"Countries","dialect":"MySQL","source":"dataSource1","sentence":"SELECT c.iso3 AS iso3 FROM Countries c  WHERE c.subregion = 'South America' ORDER BY ? desc ","children":[]})
-		expect(orm.plan('Countries.map(p=> {region:p.region,max:max(p.latitude)}).sort(p=> asc(p.max))',{ stage: 'stage1' })).toStrictEqual({"entity":"Countries","dialect":"MySQL","source":"dataSource1","sentence":"SELECT c.region AS region, MAX(c.latitude) AS max FROM Countries c  GROUP BY c.region ORDER BY max asc ","children":[]})
+		expect(orm.plan('Countries.map(p=> {region:p.region,countries:count(1)}).sort(p=> p.countries)',{ stage: 'stage1' })).toStrictEqual({"entity":"Countries","dialect":"MySQL","source":"dataSource1","sentence":"SELECT c.region AS region, COUNT(1) AS countries FROM Countries c  GROUP BY c.region ORDER BY countries asc "})
+		expect(orm.plan('Countries.filter(p=> p.subregion == "South America").map(p=> p.iso3).sort(p=> desc(iso3))',{ stage: 'stage1' })).toStrictEqual({"entity":"Countries","dialect":"MySQL","source":"dataSource1","sentence":"SELECT c.iso3 AS iso3 FROM Countries c  WHERE c.subregion = 'South America' ORDER BY ? desc "})
+		expect(orm.plan('Countries.map(p=> {region:p.region,max:max(p.latitude)}).sort(p=> asc(p.max))',{ stage: 'stage1' })).toStrictEqual({"entity":"Countries","dialect":"MySQL","source":"dataSource1","sentence":"SELECT c.region AS region, MAX(c.latitude) AS max FROM Countries c  GROUP BY c.region ORDER BY max asc "})
 	})
 })

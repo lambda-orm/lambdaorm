@@ -3132,8 +3132,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
-            "children": []
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"
           }
         },
         {
@@ -3142,8 +3141,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
-            "children": []
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"
           }
         },
         {
@@ -3152,8 +3150,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
-            "children": []
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"
           }
         },
         {
@@ -3162,8 +3159,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
-            "children": []
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"
           }
         },
         {
@@ -3172,8 +3168,7 @@
             "entity": "Orders",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            "children": []
+            "sentence": "INSERT INTO Orders(CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"
           }
         },
         {
@@ -3188,8 +3183,7 @@
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)",
-                "children": []
+                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)"
               }
             ]
           }
@@ -3206,15 +3200,13 @@
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)",
-                "children": []
+                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES(?,?,?,?,?)"
               },
               {
                 "entity": "Customers",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(?,?,?,?,?,?,?,?,?)",
-                "children": []
+                "sentence": "INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES(?,?,?,?,?,?,?,?,?)"
               }
             ]
           }
@@ -3225,8 +3217,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
-            "children": []
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"
           }
         },
         {
@@ -3235,8 +3226,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
-            "children": []
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"
           }
         },
         {
@@ -3245,8 +3235,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)",
-            "children": []
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES(?,?)"
           }
         },
         {
@@ -3255,8 +3244,7 @@
             "entity": "Categories",
             "dialect": "MySQL",
             "source": "MySQL",
-            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES ?",
-            "children": []
+            "sentence": "INSERT INTO Categories(CategoryName,Description) VALUES ?"
           }
         },
         {
@@ -3271,8 +3259,7 @@
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?",
-                "children": []
+                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?"
               }
             ]
           }
@@ -3289,15 +3276,13 @@
                 "entity": "Orders.details",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?",
-                "children": []
+                "sentence": "INSERT INTO `Order Details`(OrderID,ProductID,UnitPrice,Quantity,Discount) VALUES ?"
               },
               {
                 "entity": "Customers",
                 "dialect": "MySQL",
                 "source": "MySQL",
-                "sentence": "INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES ?",
-                "children": []
+                "sentence": "INSERT INTO Customers(CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country) VALUES ?"
               }
             ]
           }

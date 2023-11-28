@@ -216,8 +216,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.region AS region, COUNT(1) AS countries FROM Countries c  GROUP BY c.region ORDER BY countries asc ",
-            "children": []
+            "sentence": "SELECT c.region AS region, COUNT(1) AS countries FROM Countries c  GROUP BY c.region ORDER BY countries asc "
           }
         },
         {
@@ -226,8 +225,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.iso3 AS iso3 FROM Countries c  WHERE c.subregion = 'South America' ORDER BY ? desc ",
-            "children": []
+            "sentence": "SELECT c.iso3 AS iso3 FROM Countries c  WHERE c.subregion = 'South America' ORDER BY ? desc "
           }
         },
         {
@@ -236,8 +234,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.region AS region, MAX(c.latitude) AS max FROM Countries c  GROUP BY c.region ORDER BY max asc ",
-            "children": []
+            "sentence": "SELECT c.region AS region, MAX(c.latitude) AS max FROM Countries c  GROUP BY c.region ORDER BY max asc "
           }
         }
       ],

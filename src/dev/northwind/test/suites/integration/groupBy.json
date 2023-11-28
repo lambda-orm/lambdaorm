@@ -783,7 +783,6 @@
           "test": "Products.map(p => ({ maxPrice: max(p.price) }))",
           "result": [
             {
-              "_id": 0,
               "maxPrice": 263.5
             }
           ]
@@ -792,7 +791,6 @@
           "test": "Products.map(p => ({ minPrice: min(p.price) }))",
           "result": [
             {
-              "_id": 0,
               "minPrice": 2.5
             }
           ]
@@ -801,21 +799,19 @@
           "test": "Products.map(p => ({ total: sum(p.price) }))",
           "result": [
             {
-              "_id": 0,
               "total": 2222.71
             }
           ]
         },
         {
           "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
-          "error": "ExecutionError: ERROR: The $round accumulator is a unary operator SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"average\\\":{ \\\"$round\\\" :[{ \\\"$avg\\\" :\\\"$UnitPrice\\\" },4] } }} ]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: The $round accumulator is a unary operator SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"average\\\":{ \\\"$round\\\" :[{ \\\"$avg\\\" :\\\"$UnitPrice\\\" },4] } }} ]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:168:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "error": "ExecutionError: ERROR: The $round accumulator is a unary operator SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"average\\\":{ \\\"$round\\\" :[{ \\\"$avg\\\" :\\\"$UnitPrice\\\" },4] } }} , { \\\"$project\\\": { \\\"_id\\\": 0 } }]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: The $round accumulator is a unary operator SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"average\\\":{ \\\"$round\\\" :[{ \\\"$avg\\\" :\\\"$UnitPrice\\\" },4] } }} , { \\\"$project\\\": { \\\"_id\\\": 0 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:189:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
         },
         {
           "test": "Products.map(p => ({ count: count(1) }))",
           "result": [
             {
-              "_id": 0,
               "count": 77
             }
           ]
@@ -824,24 +820,20 @@
           "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
           "result": [
             {
-              "category": 8,
-              "largestPrice": 62.5
+              "category": 7,
+              "largestPrice": 53
             },
             {
               "category": 3,
               "largestPrice": 81
             },
             {
-              "category": 7,
-              "largestPrice": 53
+              "category": 8,
+              "largestPrice": 62.5
             },
             {
               "category": 2,
               "largestPrice": 43.9
-            },
-            {
-              "category": 1,
-              "largestPrice": 263.5
             },
             {
               "category": 6,
@@ -850,6 +842,10 @@
             {
               "category": 4,
               "largestPrice": 55
+            },
+            {
+              "category": 1,
+              "largestPrice": 263.5
             },
             {
               "category": 5,
@@ -861,36 +857,36 @@
           "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
           "result": [
             {
-              "category": "Condiments",
-              "largestPrice": 43.9
-            },
-            {
-              "category": "Beverages",
-              "largestPrice": 263.5
-            },
-            {
-              "category": "Meat/Poultry",
-              "largestPrice": 123.79
-            },
-            {
-              "category": "Grains/Cereals",
-              "largestPrice": 38
+              "category": "Confections",
+              "largestPrice": 81
             },
             {
               "category": "Dairy Products",
               "largestPrice": 55
             },
             {
-              "category": "Seafood",
-              "largestPrice": 62.5
-            },
-            {
-              "category": "Confections",
-              "largestPrice": 81
-            },
-            {
               "category": "Produce",
               "largestPrice": 53
+            },
+            {
+              "category": "Condiments",
+              "largestPrice": 43.9
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Grains/Cereals",
+              "largestPrice": 38
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
             }
           ]
         },
@@ -906,23 +902,23 @@
         },
         {
           "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
-          "error": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:168:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "error": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }, { \\\"$project\\\": { \\\"_id\\\": 0 } }]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }, { \\\"$project\\\": { \\\"_id\\\": 0 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:189:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
         },
         {
           "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
-          "error": "ExecutionError: ERROR: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string SOURCE: MongoDB ENTITY: Orders.details QUERY: \"[{ \\\"$unwind\\\" : \\\"$\\\\\\\"Order Details\\\\\\\"\\\" }, { \\\"$replaceRoot\\\": { \\\"newRoot\\\": \\\"$\\\\\\\"Order Details\\\\\\\"\\\" } }, { \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"subTotal\\\":{ \\\"$sum\\\" :{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[\\\"$UnitPrice\\\",\\\"$Quantity\\\"] },{ \\\"$subtract\\\" :[1,{ \\\"$divide\\\" :[\\\"$Discount\\\",100] }] }] },100] } } }} , { \\\"$sort\\\" :{ \\\"subTotal\\\":1 } }]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string SOURCE: MongoDB ENTITY: Orders.details QUERY: \"[{ \\\"$unwind\\\" : \\\"$\\\\\\\"Order Details\\\\\\\"\\\" }, { \\\"$replaceRoot\\\": { \\\"newRoot\\\": \\\"$\\\\\\\"Order Details\\\\\\\"\\\" } }, { \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"subTotal\\\":{ \\\"$sum\\\" :{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[\\\"$UnitPrice\\\",\\\"$Quantity\\\"] },{ \\\"$subtract\\\" :[1,{ \\\"$divide\\\" :[\\\"$Discount\\\",100] }] }] },100] } } }} , { \\\"$sort\\\" :{ \\\"subTotal\\\":1 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:168:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "error": "ExecutionError: ERROR: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string SOURCE: MongoDB ENTITY: Orders.details QUERY: \"[{ \\\"$unwind\\\" : \\\"$\\\\\\\"Order Details\\\\\\\"\\\" }, { \\\"$replaceRoot\\\": { \\\"newRoot\\\": \\\"$\\\\\\\"Order Details\\\\\\\"\\\" } }, { \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"subTotal\\\":{ \\\"$sum\\\" :{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[\\\"$UnitPrice\\\",\\\"$Quantity\\\"] },{ \\\"$subtract\\\" :[1,{ \\\"$divide\\\" :[\\\"$Discount\\\",100] }] }] },100] } } }} , { \\\"$sort\\\" :{ \\\"subTotal\\\":1 } }, { \\\"$project\\\": { \\\"_id\\\": 0 } }]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string SOURCE: MongoDB ENTITY: Orders.details QUERY: \"[{ \\\"$unwind\\\" : \\\"$\\\\\\\"Order Details\\\\\\\"\\\" }, { \\\"$replaceRoot\\\": { \\\"newRoot\\\": \\\"$\\\\\\\"Order Details\\\\\\\"\\\" } }, { \\\"$group\\\" :{ \\\"_id\\\": 0 , \\\"subTotal\\\":{ \\\"$sum\\\" :{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[{ \\\"$multiply\\\" :[\\\"$UnitPrice\\\",\\\"$Quantity\\\"] },{ \\\"$subtract\\\" :[1,{ \\\"$divide\\\" :[\\\"$Discount\\\",100] }] }] },100] } } }} , { \\\"$sort\\\" :{ \\\"subTotal\\\":1 } }, { \\\"$project\\\": { \\\"_id\\\": 0 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:189:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
         },
         {
           "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
-          "error": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:168:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "error": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }, { \\\"$project\\\": { \\\"_id\\\": 0 } }]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 335 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 100 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }, { \\\"$project\\\": { \\\"_id\\\": 0 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:189:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
         },
         {
           "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
-          "error": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 381 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$match\\\" : { \\\"UnitPrice\\\": { \\\"$gt\\\": 5 } } }, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 50 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 381 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$match\\\" : { \\\"UnitPrice\\\": { \\\"$gt\\\": 5 } } }, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 50 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:168:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "error": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 381 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$match\\\" : { \\\"UnitPrice\\\": { \\\"$gt\\\": 5 } } }, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 50 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }, { \\\"$project\\\": { \\\"_id\\\": 0 } }]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: Expected property name or '}' in JSON at position 381 SOURCE: MongoDB ENTITY: Products QUERY: \"[{ \\\"$lookup\\\" :{ \\\"from\\\": \\\"Categories\\\", \\\"localField\\\": \\\"CategoryID\\\" , \\\"foreignField\\\": \\\"_id\\\", \\\"as\\\": \\\"c\\\" }}, { \\\"$match\\\" : { \\\"UnitPrice\\\": { \\\"$gt\\\": 5 } } }, { \\\"$group\\\" :{ \\\"_id\\\":{ \\\"category\\\":{ \\\"$arrayElemAt\\\": [\\\"$c.CategoryName\\\", 0] } } , \\\"largestPrice\\\":{ \\\"$max\\\" :\\\"$UnitPrice\\\" } }}, { \\\"$project\\\" :{ \\\"_id\\\": 0 , \\\"category\\\":\\\"$_id.category\\\" , \\\"largestPrice\\\":\\\"$largestPrice\\\" }} , { \\\"$match\\\" : { { \\\"$max\\\" :\\\"UnitPrice\\\" }: { \\\"$gt\\\": 50 } } }, { \\\"$sort\\\" :{ \\\"largestPrice\\\":-1 } }, { \\\"$project\\\": { \\\"_id\\\": 0 } }]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutor.<anonymous> (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:189:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/project/lambdaorm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
         }
       ],
       "errors": 5

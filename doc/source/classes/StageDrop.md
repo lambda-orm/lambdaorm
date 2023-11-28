@@ -1,30 +1,30 @@
-[Lambda ORM](../README.md) / StageClean
+[Lambda ORM](../README.md) / StageDrop
 
-# Class: StageClean
+# Class: StageDrop
 
 ## Hierarchy
 
 - [`StageActionDDL`](StageActionDDL.md)
 
-  ↳ **`StageClean`**
+  ↳ **`StageDrop`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](StageClean.md#constructor)
+- [constructor](StageDrop.md#constructor)
 
 ### Methods
 
-- [execute](StageClean.md#execute)
-- [queries](StageClean.md#queries)
-- [sentence](StageClean.md#sentence)
+- [execute](StageDrop.md#execute)
+- [queries](StageDrop.md#queries)
+- [sentence](StageDrop.md#sentence)
 
 ## Constructors
 
 ### constructor
 
-• **new StageClean**(`executor`, `stateService`, `mappingService`, `schemaFacade`, `languages`, `options`, `helper`): [`StageClean`](StageClean.md)
+• **new StageDrop**(`executor`, `stateService`, `mappingService`, `schemaFacade`, `languages`, `options`, `helper`): [`StageDrop`](StageDrop.md)
 
 #### Parameters
 
@@ -40,7 +40,7 @@
 
 #### Returns
 
-[`StageClean`](StageClean.md)
+[`StageDrop`](StageDrop.md)
 
 #### Overrides
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/clean.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/stage/application/useCases/clean.ts#L11)
+[src/lib/stage/application/useCases/drop.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/stage/application/useCases/drop.ts#L11)
 
 ## Methods
 
@@ -66,7 +66,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/clean.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/stage/application/useCases/clean.ts#L24)
+[src/lib/stage/application/useCases/drop.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/stage/application/useCases/drop.ts#L24)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/clean.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/stage/application/useCases/clean.ts#L16)
+[src/lib/stage/application/useCases/drop.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/stage/application/useCases/drop.ts#L16)
 
 ___
 
@@ -102,4 +102,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/cf45f081/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/0a0af856/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

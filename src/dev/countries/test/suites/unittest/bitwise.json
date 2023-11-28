@@ -340,8 +340,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.longitude & 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
-            "children": []
+            "sentence": "SELECT c.longitude & 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 "
           }
         },
         {
@@ -350,8 +349,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.longitude | 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
-            "children": []
+            "sentence": "SELECT c.longitude | 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 "
           }
         },
         {
@@ -360,8 +358,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT ~ c.longitude AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
-            "children": []
+            "sentence": "SELECT ~ c.longitude AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 "
           }
         },
         {
@@ -370,8 +367,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.longitude << 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
-            "children": []
+            "sentence": "SELECT c.longitude << 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 "
           }
         },
         {
@@ -380,8 +376,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.longitude ^ 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
-            "children": []
+            "sentence": "SELECT c.longitude ^ 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 "
           }
         },
         {
@@ -390,8 +385,7 @@
             "entity": "Countries",
             "dialect": "MySQL",
             "source": "dataSource1",
-            "sentence": "SELECT c.longitude >> 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 ",
-            "children": []
+            "sentence": "SELECT c.longitude >> 1 AS result FROM Countries c  WHERE c.iso3 = 'BRA' ORDER BY result asc  LIMIT 0,1 "
           }
         }
       ],
