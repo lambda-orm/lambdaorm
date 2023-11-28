@@ -67,11 +67,10 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('populate-source', 'populate source db', function () {
-		const fs = require('fs')
 		const task = require('./build/dev/task/mysqlExecute')
 		const sourceFile = './src/dev/northwind/db/northwind-mysql.sql'
 		const connection = JSON.parse(process.env.ORM_CNN_SOURCE)
-		const script = fs.readFileSync(sourceFile, { encoding: 'utf8' })
+		const script = grunt.file.write(sourceFile, { encoding: 'utf8' })
 		task.apply(script, connection, this.async())
 	})
 

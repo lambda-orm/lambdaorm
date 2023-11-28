@@ -44,7 +44,7 @@ StageStateService\<MappingConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/stage/application/services/stateService.ts#L9)
+[src/lib/stage/application/services/stateService.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/a13846db/src/lib/stage/application/services/stateService.ts#L9)
 
 ## Methods
 
@@ -68,7 +68,7 @@ StageStateService.get
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/stage/application/services/stateService.ts#L11)
+[src/lib/stage/application/services/stateService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/a13846db/src/lib/stage/application/services/stateService.ts#L11)
 
 ___
 
@@ -92,7 +92,7 @@ StageStateService.getFile
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/stage/application/services/stateService.ts#L43)
+[src/lib/stage/application/services/stateService.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/a13846db/src/lib/stage/application/services/stateService.ts#L43)
 
 ___
 
@@ -116,7 +116,7 @@ StageStateService.remove
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/stage/application/services/stateService.ts#L28)
+[src/lib/stage/application/services/stateService.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/a13846db/src/lib/stage/application/services/stateService.ts#L28)
 
 ___
 
@@ -141,4 +141,4 @@ StageStateService.update
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/bea17731/src/lib/stage/application/services/stateService.ts#L23)
+[src/lib/stage/application/services/stateService.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/a13846db/src/lib/stage/application/services/stateService.ts#L23)
