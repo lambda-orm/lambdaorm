@@ -1,0 +1,27 @@
+# Features
+
+- Supports MySQL, MariaDB, PostgresSQL, Oracle, SqlServer, SqlJs and MongoDB.
+- TypeScript and JavaScript support
+- [Schema Configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Configuration)
+	- Decoupling the business model from physical model
+	- Configuration in json or yml formats
+	- Definition of mappings to map the business model with the physical model
+	- Extends entities
+	- Environment variables
+	- define indices, unique keys and constraints
+- [Query Language](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Language)
+	- Simple query language based on javascript lambda expressions.
+	- Can write the expression as javascript code or as a string
+	- Crud clauses
+	- Implicit joins and group by
+	- [Eager loading using the Include() method.](https://github.com/FlavioLionelRita/lambdaorm/wiki/Include)
+	- [Query expression metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Metadata)
+- [Repositories and custom repositories](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
+- Using multiple database instances
+- [Transactions and distributed transactions](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
+- [BulkInsert](https://github.com/FlavioLionelRita/lambdaorm/wiki/BulkInsert)
+- Connection pooling
+- Listeners and subscribers
+- High performance
+- [CLI](https://github.com/FlavioLionelRita/lambdaorm-cli)
+- [Api Rest](https://github.com/FlavioLionelRita/lambdaorm-svc)

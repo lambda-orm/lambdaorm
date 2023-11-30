@@ -1,9 +1,53 @@
+# Include
 
-We use include to get data from a related entity as part of the query.
+λORM includes the include method to load related entities, both for OneToMany, manyToOne, and oneToOne relationships.
 
-For each include a query is created, which are executed within the same transaction.
+We can also apply filters or bring us some fields from related entities.
 
-By performance, all the data is obtained for each query and then the result is assembled in memory.
+For each include, a statement is executed that fetches all the necessary records, then the objects with relationships are assembled in memory. In this way, multiple executions are avoided, considerably improving performance.
+
+Includes can be used in selects, inserts, updates, deletes, and bulkInserts.
+
+``` ts
+import { orm } from 'lambdaorm'
+(async () => {
+	await orm.init()
+	const query = (id:number) => 
+	Orders.filter(p => p.id === id)
+		.include(p => [p.customer.map(p => ({ name: p.name, address: concat(p.address, ', ', p.city, ' (', p.postalCode, ')  ', p.country) })),
+			p.details.include(p => p.product
+				.include(p => p.category.map(p => p.name))
+				.map(p => p.name))
+				.map(p => [p.quantity, p.unitPrice])])
+		.map(p => p.orderDate)
+	const result = await orm.execute(query)
+	console.log(JSON.stringify(result, null, 2))
+	await orm.end()
+})()
+```
+
+The previous sentence will bring us the following result:
+
+```json
+[{"orderDate": "1996-07-03T22:00:00.000Z",
+  "customer": { "name": "Vins et alcools Chevalier",
+				  "address": "59 rue de l'Abbaye, Reims (51100)  France"
+				},
+  "details":[
+	{"quantity": 12, "unitPrice": 14,
+	  "product": { "name": "Queso Cabrales",
+					"category": { "name": "Dairy Products"}}
+	},
+	{"quantity": 10, "unitPrice": 9.8,
+	 "product": { "name": "Singaporean Hokkien Fried Mee",
+				  "category": { "name": "Grains/Cereals" 	}}
+	},
+	{"quantity": 5, "unitPrice": 34.8,
+	 "product": { "name": "Mozzarella di Giovanni",
+				  "category": { "name": "Dairy Products" }}
+	}]
+}]
+```
 
 ## Examples
 

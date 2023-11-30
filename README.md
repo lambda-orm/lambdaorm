@@ -20,20 +20,20 @@ What differentiates λORM from other ORMs:
 
 - Supports MySQL, MariaDB, PostgresSQL, Oracle, SqlServer, SqlJs and MongoDB.
 - TypeScript and JavaScript support
-- [Schema Configuration](#schema-configuration)
+- [Schema Configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Configuration)
 	- Decoupling the business model from physical model
 	- Configuration in json or yml formats
 	- Definition of mappings to map the business model with the physical model
 	- Extends entities
 	- Environment variables
 	- define indices, unique keys and constraints
-- [Query Language](#query-language)
+- [Query Language](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Language)
 	- Simple query language based on javascript lambda expressions.
 	- Can write the expression as javascript code or as a string
 	- Crud clauses
 	- Implicit joins and group by
-	- [Eager loading using the Include() method.](#includes)
-	- [Query expression metadata](#query-expression-metadata)
+	- [Eager loading using the Include() method.](https://github.com/FlavioLionelRita/lambdaorm/wiki/Include)
+	- [Query expression metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Metadata)
 - [Repositories and custom repositories](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
 - Using multiple database instances
 - [Transactions and distributed transactions](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
@@ -41,9 +41,10 @@ What differentiates λORM from other ORMs:
 - Connection pooling
 - Listeners and subscribers
 - High performance
-- [CLI](#cli)
+- [CLI](https://github.com/FlavioLionelRita/lambdaorm-cli)
+- [Api Rest](https://github.com/FlavioLionelRita/lambdaorm-svc)
 
-## Schema Configuration
+## Schema
 
 The schema includes all the configuration that the ORM needs.
 
@@ -59,24 +60,7 @@ The schema configuration can be done in a yaml, json file or passed as a paramet
 
 All the expressions that are used for the definition of conditions and for the execution of actions are based on the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
 
-[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Definition)
-
-### Schema Configuration Example:
-
-This example poses a stage where two sources are accessed.
-Data source 1 is MySQL and contains the Countries table and source 2 is PostgreSQL contains the States table.
-
-In the case of the Countries entity, both the name of the table and the fields coincide with the name of the entity and the name of the properties, so the mapping is transparent.
-
-But in the case of the States entity, the name of the table and its fields differ, so the mapping defines the mapping.
-
-![diagram](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema5.svg)
-
-[View schema configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples#one-schema-related-multiples-databases)
-
-[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Definition)
-
-## Query Language
+## Queries
 
 The query language is based on [javascript lambda expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
 These expressions can be written as javascript code by browsing the business model entities.
@@ -85,7 +69,7 @@ Expressions can also be sent as a string
 
 λOrm translates the expression into the language corresponding to each database engine.
 
-### Query Language Example:
+### Query Language Example
 
 ```ts
 Countries
@@ -176,7 +160,7 @@ import { orm } from 'lambdaorm'
 })()
 ```
 
-#### Result:
+**Result:**
 
 ```json
 [{"name": "Afghanistan",
@@ -200,150 +184,17 @@ import { orm } from 'lambdaorm'
  }]
 ```
 
-### Repositories
-
-Repositories are associated with an entity and have various methods to interact with it.
-
-```ts
-import { orm } from 'lambdaorm'
-import { CountryRepository } from './models/country'
-
-(async () => {
-	await orm.init()
-	const countryRepository = new CountryRepository('stage1')
-	const result = await countryRepository.query()
-		.filter(p=> p.region == region)
-		.page(1,3)
-		.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
-		.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
-							.map(p=> [p.name,p.latitude,p.longitude])
-		).execute({ region: 'Asia' })	
-	console.log(JSON.stringify(result, null, 2))
-	await orm.end()
-})()
-```
-
-[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
-
-### Includes:
-
-λORM includes the include method to load related entities, both for OneToMany, manyToOne, and oneToOne relationships.
-
-We can also apply filters or bring us some fields from related entities.
-
-For each include, a statement is executed that fetches all the necessary records, then the objects with relationships are assembled in memory. In this way, multiple executions are avoided, considerably improving performance.
-
-Includes can be used in selects, inserts, updates, deletes, and bulkInserts.
-
-``` ts
-import { orm } from 'lambdaorm'
-(async () => {
-	await orm.init()
-	const query = (id:number) => 
-	Orders.filter(p => p.id === id)
-		.include(p => [p.customer.map(p => ({ name: p.name, address: concat(p.address, ', ', p.city, ' (', p.postalCode, ')  ', p.country) })),
-			p.details.include(p => p.product
-				.include(p => p.category.map(p => p.name))
-				.map(p => p.name))
-				.map(p => [p.quantity, p.unitPrice])])
-		.map(p => p.orderDate)
-	const result = await orm.execute(query)
-	console.log(JSON.stringify(result, null, 2))
-	await orm.end()
-})()
-```
-
-The previous sentence will bring us the following result:
-
-```json
-[{"orderDate": "1996-07-03T22:00:00.000Z",
-  "customer": { "name": "Vins et alcools Chevalier",
-				  "address": "59 rue de l'Abbaye, Reims (51100)  France"
-				},
-  "details":[
-	{"quantity": 12, "unitPrice": 14,
-	  "product": { "name": "Queso Cabrales",
-					"category": { "name": "Dairy Products"}}
-	},
-	{"quantity": 10, "unitPrice": 9.8,
-	 "product": { "name": "Singaporean Hokkien Fried Mee",
-				  "category": { "name": "Grains/Cereals" 	}}
-	},
-	{"quantity": 5, "unitPrice": 34.8,
-	 "product": { "name": "Mozzarella di Giovanni",
-				  "category": { "name": "Dairy Products" }}
-	}]
-}]
-```
-
-[More info](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Include)
-
-### Query expression metadata
-
-λORM has the following methods to extract metadata information from expressions.
-
-To execute these methods it is not necessary to connect to the database.
-
-|method    		|Description          															|Path                     		|
-|:------------|:--------------------------------------------------|:----------------------------|
-|	parameters	| Get parameters in the expression									| orm.parameters(expression)	|
-|	model				| Get model of the result in an execution						| orm.model(expression)				|
-|	metadata		| Get metadata of the expression										| orm.metadata(expression)		|
-|	sentence		| Get sentence in the dialect of the physical model	| orm.sentence(expression)		|
-|	constraints	| Get constraints of expression											| orm.constraints(expression)	|
-
-[more info](https://github.com/FlavioLionelRita/lambdaorm/wiki/metadata)
-
-## CLI
-
-Install the package globally to use the CLI commands to help you create and maintain projects
-
-```sh
-npm install lambdaorm-cli -g
-```
-
-### CLI Commands
-
-| Command    	| Description                                  									  |
-|:------------|:----------------------------------------------------------------|
-|	version	 		| Prints lambdaorm version this project uses.											|
-|	init				| Generates lambdaorm project structure.													|
-|	update			| update model, packages and project structure.										|
-|	sync				|	Synchronize database.																						|
-|	import			| Import data from file to database																|
-|	export			| Export data from a database 																		|
-|	execute			| Execute an expression lambda or return information							|
-|	drop				|	Removes all database objects but not the database.							|
-
-[CLI package](https://www.npmjs.com/package/lambdaorm-cli)
-
 ## Documentation
 
-- [Expression](https://github.com/FlavioLionelRita/lambdaorm/wiki/Expression)
-- [Repository](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
-- [Transaction](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
-- Schema
-	- [Definition](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Definition)
-	- [Examples](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples)
-	- [Use](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Use)
-- Queries
-	- [Select](https://github.com/FlavioLionelRita/lambdaorm/wiki/Select)
-	- [Include](https://github.com/FlavioLionelRita/lambdaorm/wiki/Include)
-	- [BulkInsert](https://github.com/FlavioLionelRita/lambdaorm/wiki/BulkInsert)
-	- [Insert](https://github.com/FlavioLionelRita/lambdaorm/wiki/Insert)
-	- [Update](https://github.com/FlavioLionelRita/lambdaorm/wiki/Update)
-	- [Delete](https://github.com/FlavioLionelRita/lambdaorm/wiki/Delete)
-- Operators & Functions
-	- [Bitwise](https://github.com/FlavioLionelRita/lambdaorm/wiki/Bitwise)
-	- [Comparison](https://github.com/FlavioLionelRita/lambdaorm/wiki/Comparison)
-	- [Datetime](https://github.com/FlavioLionelRita/lambdaorm/wiki/Datetime)
-	- [Group](https://github.com/FlavioLionelRita/lambdaorm/wiki/Group)
-	- [Logical](https://github.com/FlavioLionelRita/lambdaorm/wiki/Logical)
-	- [Nullable](https://github.com/FlavioLionelRita/lambdaorm/wiki/Nullable)
-	- [Numeric](https://github.com/FlavioLionelRita/lambdaorm/wiki/Numeric)
-	- [Sort](https://github.com/FlavioLionelRita/lambdaorm/wiki/Sort)
-	- [String](https://github.com/FlavioLionelRita/lambdaorm/wiki/String)
-- [Metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Metadata)
-- [CLI](https://www.npmjs.com/package/lambdaorm-cli)
-- [Labs](https://github.com/FlavioLionelRita/lambdaorm-labs)
-- [Source Code](https://github.com/FlavioLionelRita/lambdaorm/blob/main/doc/source/README.md)
+Full documentation is available in the [Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki).
+
+## Related projects
+
+- [Lambda ORM CLI](https://github.com/FlavioLionelRita/lambdaorm-cli)
+- [Lambda ORM Service](https://github.com/FlavioLionelRita/lambdaorm-cvs)
+- [Node Client](https://github.com/FlavioLionelRita/lambdaorm-client-node)
+- [Kotlin Client](https://github.com/FlavioLionelRita/lambdaorm-client-kotlin)
+
+## Labs
+
+You can access various labs at [github.com/FlavioLionelRita/lambdaorm-labs](https://github.com/FlavioLionelRita/lambdaorm-labs)
