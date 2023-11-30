@@ -46,13 +46,13 @@ export class LoadSchema {
 				if (typeof source.connection === 'string') {
 					if (source.connection.includes('${')) {
 						console.log(`WARNING|source:"${source.name}"|had environment variables unsolved`)
-						continue
-					}
-					const connection = this.helper.utils.tryParse(source.connection)
-					if (connection) {
-						source.connection = connection
 					} else {
-						throw new SchemaError(`Connection "${source.connection}" not serializable`)
+						const connection = this.helper.utils.tryParse(source.connection)
+						if (connection) {
+							source.connection = connection
+						} else {
+							throw new SchemaError(`Connection "${source.connection}" not serializable`)
+						}
 					}
 				} else if (typeof source.connection !== 'object') {
 					throw new SchemaError(`The source "${source.name}" connection to is not defined as an object`)
