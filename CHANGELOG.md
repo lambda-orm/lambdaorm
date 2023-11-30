@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.8.89](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.88...v0.8.89) (2023-11-30)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * **schema:** bugfix on load source without connection ([889020d](https://github.com/FlavioLionelRita/lambdaorm/commit/889020d7dbd2834450411b5caf7540175b996e8c)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
 

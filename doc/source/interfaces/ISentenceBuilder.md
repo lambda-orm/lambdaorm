@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/lib/sentence/domain/services.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/b409f8e3/src/lib/sentence/domain/services.ts#L5)
+[src/lib/sentence/domain/services.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/sentence/domain/services.ts#L5)
