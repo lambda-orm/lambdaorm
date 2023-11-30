@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.88](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.87...v0.8.88) (2023-11-30)
+
+
+### Features
+
+* add ormLibrary with method execute ([b409f8e](https://github.com/FlavioLionelRita/lambdaorm/commit/b409f8e34ab095313e1231acd77a4d9b034c5af3)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+
 ### [0.8.87](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.86...v0.8.87) (2023-11-30)
 
 **Features:**
