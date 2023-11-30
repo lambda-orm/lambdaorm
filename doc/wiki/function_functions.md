@@ -158,6 +158,7 @@
 |undefined|undefined|
 |undefined|undefined|
 |undefined|undefined|
+|undefined|undefined|
 
 ## Definition
 
@@ -1410,6 +1411,16 @@
 - return: undefined
 - params:
 	- value: any
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- expression: string
+	- data: any
+	- options: any
 
 ### undefined
 

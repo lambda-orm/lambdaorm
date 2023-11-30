@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/46f45373/src/lib/query/domain/query.ts#L50)
+[src/lib/query/domain/query.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/b409f8e3/src/lib/query/domain/query.ts#L50)
 
 ## Properties
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/46f45373/src/lib/query/domain/query.ts#L47)
+[src/lib/query/domain/query.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/b409f8e3/src/lib/query/domain/query.ts#L47)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/46f45373/src/lib/query/domain/query.ts#L48)
+[src/lib/query/domain/query.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/b409f8e3/src/lib/query/domain/query.ts#L48)
 
 ___
 
@@ -64,4 +64,4 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/46f45373/src/lib/query/domain/query.ts#L49)
+[src/lib/query/domain/query.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/b409f8e3/src/lib/query/domain/query.ts#L49)
