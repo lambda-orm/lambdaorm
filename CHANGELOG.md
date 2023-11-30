@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.87](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.86...v0.8.87) (2023-11-30)
+
+
+### Features
+
+* update readme and refactorize wiki ([46f4537](https://github.com/FlavioLionelRita/lambdaorm/commit/46f453736382c51bdbdcfa0efbd45d2d1285faf0)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+
 ### [0.8.86](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.85...v0.8.86) (2023-11-30)
 
 **Features:**
