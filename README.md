@@ -184,10 +184,6 @@ import { orm } from 'lambdaorm'
  }]
 ```
 
-## Documentation
-
-Full documentation is available in the [Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki).
-
 ## Related projects
 
 - [Lambda ORM CLI](https://github.com/FlavioLionelRita/lambdaorm-cli)
@@ -195,6 +191,10 @@ Full documentation is available in the [Wiki](https://github.com/FlavioLionelRit
 - [Node Client](https://github.com/FlavioLionelRita/lambdaorm-client-node)
 - [Kotlin Client](https://github.com/FlavioLionelRita/lambdaorm-client-kotlin)
 
+## Documentation
+
+Full documentation is available in the [Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki).
+
 ## Labs
 
-You can access various labs at [github.com/FlavioLionelRita/lambdaorm-labs](https://github.com/FlavioLionelRita/lambdaorm-labs)
+You can access various labs at [lambdaorm labs](https://github.com/FlavioLionelRita/lambdaorm-labs)
