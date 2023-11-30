@@ -25,6 +25,7 @@ import { StageFacadeBuilder } from '../../stage/infrastructure'
 import { SentenceLanguageServiceBuilder } from '../../sentence/infrastructure'
 import { ExecutionActionObserver, ObservableExecutorDecorator } from '../../execution/application'
 import { ActionObserver } from '../../execution/domain'
+import { OrmLibrary } from './ormLibrary'
 
 /**
  * Facade through which you can access all the functionalities of the library.
@@ -53,6 +54,7 @@ export class Orm implements IOrm {
 		this.sentence = new SentenceFacadeBuilder(this.expressions, this.helper).build(this.schema, this.operand)
 		this.expression = new ExpressionFacadeBuilder(this.language, this.executor, this.expressions, this.helper).build(this.sentence, this.schema)
 		this.stage = new StageFacadeBuilder(this.language, this.executor, this.helper).build(this.schema, this.expression)
+		new OrmLibrary(this).load()
 	}
 
 	// eslint-disable-next-line no-use-before-define
