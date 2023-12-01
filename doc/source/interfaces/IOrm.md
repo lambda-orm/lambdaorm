@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L14)
+[src/lib/orm/application/orm.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L14)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L13)
+[src/lib/orm/application/orm.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L13)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L12)
+[src/lib/orm/application/orm.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L12)
 
 ## Accessors
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L11)
+[src/lib/orm/application/orm.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L11)
 
 ## Methods
 
@@ -98,7 +98,7 @@ Constraints of expression
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L46)
+[src/lib/orm/application/orm.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L46)
 
 ▸ **constraints**(`expression`): [`MetadataConstraint`](MetadataConstraint.md)
 
@@ -114,7 +114,7 @@ Constraints of expression
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L47)
+[src/lib/orm/application/orm.ts:47](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L47)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L16)
+[src/lib/orm/application/orm.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L16)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L20)
+[src/lib/orm/application/orm.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L20)
 
 ___
 
@@ -174,7 +174,7 @@ Result of execution
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L71)
+[src/lib/orm/application/orm.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L71)
 
 ▸ **execute**(`expression`, `data?`, `options?`): `Promise`\<`any`\>
 
@@ -192,7 +192,7 @@ Result of execution
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L72)
+[src/lib/orm/application/orm.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L72)
 
 ___
 
@@ -213,7 +213,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L19)
+[src/lib/orm/application/orm.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L19)
 
 ___
 
@@ -237,7 +237,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L53)
+[src/lib/orm/application/orm.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L53)
 
 ▸ **metadata**(`expression`): [`Metadata`](Metadata.md)
 
@@ -253,7 +253,7 @@ metadata of expression
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L54)
+[src/lib/orm/application/orm.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L54)
 
 ___
 
@@ -277,7 +277,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L32)
+[src/lib/orm/application/orm.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L32)
 
 ▸ **model**(`expression`): [`MetadataModel`](MetadataModel.md)[]
 
@@ -293,7 +293,7 @@ Model of expression
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L33)
+[src/lib/orm/application/orm.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L33)
 
 ___
 
@@ -317,7 +317,7 @@ Expression normalized
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L25)
+[src/lib/orm/application/orm.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L25)
 
 ▸ **normalize**(`expression`): `string`
 
@@ -333,7 +333,7 @@ Expression normalized
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L26)
+[src/lib/orm/application/orm.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L26)
 
 ___
 
@@ -357,7 +357,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L39)
+[src/lib/orm/application/orm.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L39)
 
 ▸ **parameters**(`expression`): [`MetadataParameter`](MetadataParameter.md)[]
 
@@ -373,7 +373,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L40)
+[src/lib/orm/application/orm.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L40)
 
 ___
 
@@ -394,7 +394,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L61)
+[src/lib/orm/application/orm.ts:61](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L61)
 
 ▸ **plan**(`expression`, `options?`): [`QueryPlan`](QueryPlan.md)
 
@@ -411,7 +411,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:62](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L62)
+[src/lib/orm/application/orm.ts:62](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L62)
 
 ___
 
@@ -434,4 +434,4 @@ transaction
 
 #### Defined in
 
-[src/lib/orm/application/orm.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/f3081132/src/lib/orm/application/orm.ts#L79)
+[src/lib/orm/application/orm.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/4a7be3c2/src/lib/orm/application/orm.ts#L79)

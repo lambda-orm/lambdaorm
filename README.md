@@ -100,9 +100,9 @@ import { orm } from 'lambdaorm'
 	await orm.init()	
 	const query =  
 	`Orders.filter(p => p.customerId == customerId)
-		.include(p => [p.details.include(p=> p.product.map(p=>p.name)),
-						      p.customer.map(p => p.name)
-									])
+		.include(p => [p.details.include(p=> p.product.map(p=>p.name))
+                    .map(p=> {subTotal: p.quantity * p.unitPrice}) ,
+                  p.customer.map(p => p.name)])
 		.order(p=> p.orderDate)							
 		.page(1,1)`  
 	const result = await orm.execute(query, { customerId: 'HANAR' })
