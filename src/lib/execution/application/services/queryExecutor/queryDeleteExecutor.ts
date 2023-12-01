@@ -2,12 +2,12 @@ import { Query, Include, Data, QueryOptions } from '../../../../query/domain'
 import { Connection } from '../../../../connection/application'
 import { DialectService } from '../../../../language/application'
 import { MappingConfigService } from '../../../../schema/application/services/config/mappingConfigService'
-import { IQueryInternalExecutor } from './iQueryInternalExecutor'
+import { QueryInternalExecutor } from './queryInternalExecutor'
 
 export class QueryDeleteExecutor {
 	public options: QueryOptions
-	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, options: QueryOptions) {
+	private executor: QueryInternalExecutor
+	constructor (executor: QueryInternalExecutor, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 	}

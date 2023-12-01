@@ -28,6 +28,14 @@ export abstract class ActionObserver {
 	public async error (args:ActionObserverArgs):Promise<void> {}
 }
 
+export interface QueryExecutor {
+	get options() : QueryOptions
+	commit (): Promise<void>
+	rollback (): Promise<void>
+	release (): Promise<void>
+	execute (query: Query, data: any): Promise<any>
+}
+
 export interface Executor {
 	execute (query: Query, data: any, options: QueryOptions): Promise<any>
 	executeList (queries: Query[], options: QueryOptions): Promise<ExecuteResult[]>
@@ -38,3 +46,5 @@ export interface ObservableExecutor {
 	subscribe (observer:ActionObserver):void
 	unsubscribe (observer:ActionObserver): void
 }
+
+export interface ObservableExecutorDecorator extends Executor, ObservableExecutor {}

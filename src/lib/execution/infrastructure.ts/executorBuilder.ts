@@ -2,8 +2,9 @@ import { ConnectionFacade } from '../../connection/application'
 import { LanguagesService } from '../../language/application'
 import { Expressions } from '3xpr'
 import { SchemaFacade } from '../../schema/application'
-import { ExecutorImpl, ObservableExecutorDecorator } from '../application'
+import { ExecutorImpl } from '../application'
 import { Helper } from '../../shared/application'
+import { ObservableExecutorDecorator } from '../domain'
 
 export class ExecutorBuilder {
 	// eslint-disable-next-line no-useless-constructor
@@ -13,6 +14,6 @@ export class ExecutorBuilder {
 	private readonly helper: Helper) {}
 
 	public build (schema: SchemaFacade):ObservableExecutorDecorator {
-		return new ObservableExecutorDecorator(this.expressions, new ExecutorImpl(this.connection, this.languages, schema, this.expressions, this.helper), this.helper)
+		return new ExecutorImpl(this.connection, this.languages, schema, this.expressions, this.helper)
 	}
 }

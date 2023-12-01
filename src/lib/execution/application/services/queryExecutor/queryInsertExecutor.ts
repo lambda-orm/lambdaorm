@@ -7,15 +7,14 @@ import { Expressions } from '3xpr'
 import { QuerySolveDefaults } from './querySolveDefaults'
 import { QuerySolveWriteValues } from './querySolveWriteValues'
 import { QueryEvalConstraints } from './queryEvalConstraints'
-import { IQueryInternalExecutor } from './iQueryInternalExecutor'
-
+import { QueryInternalExecutor } from './queryInternalExecutor'
 export class QueryInsertExecutor {
 	public options: QueryOptions
 	private solveDefaults:QuerySolveDefaults
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
-	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
+	private executor: QueryInternalExecutor
+	constructor (executor: QueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)

@@ -1,0 +1,5 @@
+CREATE TABLE Categories (CategoryID INTEGER  AUTO_INCREMENT,CategoryName VARCHAR(80) NOT NULL ,CONSTRAINT Categories_PK PRIMARY KEY (CategoryID));
+ALTER TABLE Categories ADD CONSTRAINT Categories_UK UNIQUE (CategoryName);
+CREATE TABLE Products (ProductID INTEGER  AUTO_INCREMENT,ProductName VARCHAR(80) NOT NULL ,CategoryID INTEGER  ,QuantityPerUnit VARCHAR(80)  ,UnitPrice DECIMAL(10,4)  ,CONSTRAINT Products_PK PRIMARY KEY (ProductID));
+ALTER TABLE Products ADD CONSTRAINT Products_UK UNIQUE (ProductName);
+ALTER TABLE Products ADD CONSTRAINT Products_category_FK FOREIGN KEY (CategoryID) REFERENCES Categories (CategoryID);

@@ -7,7 +7,9 @@ export class OrmLibrary {
 	load () {
 		// TODO: solve async expression
 		this.orm.expressions.addFunction('execute(expression:string,data:any,options:any):any', async (expression:string, data:any, options:any) => {
-			return await this.orm.execute(expression, data, options)
+			if (expression !== undefined && expression !== null && expression.trim() === '') {
+				return await this.orm.execute(expression, data, options)
+			}
 		})
 	}
 }

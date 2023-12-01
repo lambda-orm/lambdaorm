@@ -1,20 +1,35 @@
 import { Query, ExecuteResult, QueryOptions } from '../../../query/domain'
 import { SchemaFacade } from '../../../schema/application'
 import { LanguagesService } from '../../../language/application'
-import { QueryExecutor } from './queryExecutor/queryExecutor'
-import { Transaction, Executor } from '../../domain'
+import { QueryExecutorImpl } from './queryExecutor/queryExecutor'
+import { Transaction, Executor, QueryExecutor, ActionObserver, ObservableExecutor } from '../../domain'
 import { ConnectionFacade } from '../../../connection/application'
 import { Expressions } from '3xpr'
 import { Helper } from '../../../shared/application/helper'
+import { ObservableQueryExecutor } from './queryExecutor/observableQueryExecutor'
 
-export class ExecutorImpl implements Executor {
-	// eslint-disable-next-line no-useless-constructor
+export class ExecutorImpl implements Executor, ObservableExecutor {
+	private observers:ActionObserver[]
 	constructor (private readonly connectionFacade: ConnectionFacade,
 		private readonly languages: LanguagesService,
 		private readonly schemaFacade: SchemaFacade,
 		private readonly expressions: Expressions,
 		private readonly helper: Helper
-	) {}
+	) {
+		this.observers = []
+	}
+
+	public subscribe (observer:ActionObserver):void {
+		this.observers.push(observer)
+	}
+
+	public unsubscribe (observer:ActionObserver): void {
+		const index = this.observers.indexOf(observer)
+		if (index === -1) {
+			throw new Error('Subject: Nonexistent observer.')
+		}
+		this.observers.splice(index, 1)
+	}
 
 	public async execute (query: Query, data: any, options: QueryOptions): Promise<any> {
 		let error: any
@@ -24,7 +39,7 @@ export class ExecutorImpl implements Executor {
 				result = await tr.execute(query, data)
 			})
 		} else {
-			const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, this.helper, false)
+			const queryExecutor = this.createQueryExecutor(options, false)
 			try {
 				result = await queryExecutor.execute(query, data)
 			} catch (_error) {
@@ -44,7 +59,7 @@ export class ExecutorImpl implements Executor {
 
 		if (options.tryAllCan) {
 			for (const query of queries) {
-				const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, this.helper, false)
+				const queryExecutor = this.createQueryExecutor(options, false)
 				try {
 					const result = await queryExecutor.execute(query, {})
 					results.push(result)
@@ -71,7 +86,7 @@ export class ExecutorImpl implements Executor {
  * @param callback Code to be executed in transaction
  */
 	public async transaction (options: QueryOptions, callback: { (tr: Transaction): Promise<void> }): Promise<void> {
-		const queryExecutor = new QueryExecutor(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, this.helper, true)
+		const queryExecutor = this.createQueryExecutor(options, true)
 		let error: any
 		try {
 			const transaction = new Transaction(queryExecutor)
@@ -86,5 +101,10 @@ export class ExecutorImpl implements Executor {
 		if (error) {
 			throw error
 		}
+	}
+
+	private createQueryExecutor (options: QueryOptions, transactional:boolean): QueryExecutor {
+		const queryExecutor = new QueryExecutorImpl(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, this.helper, transactional)
+		return new ObservableQueryExecutor(this.expressions, queryExecutor, this.observers)
 	}
 }

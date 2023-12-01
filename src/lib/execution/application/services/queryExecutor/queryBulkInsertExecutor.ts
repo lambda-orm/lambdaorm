@@ -5,7 +5,7 @@ import { Connection } from '../../../../connection/application'
 import { DialectService } from '../../../../language/application'
 import { MappingConfigService } from '../../../../schema/application/services/config/mappingConfigService'
 import { Expressions } from '3xpr'
-import { IQueryInternalExecutor } from './iQueryInternalExecutor'
+import { QueryInternalExecutor } from './queryInternalExecutor'
 import { QueryEvalConstraints } from './queryEvalConstraints'
 import { QuerySolveDefaults } from './querySolveDefaults'
 import { QuerySolveWriteValues } from './querySolveWriteValues'
@@ -15,8 +15,8 @@ export class QueryBulkInsertExecutor {
 	private solveDefaults:QuerySolveDefaults
 	private solveWriteValues: QuerySolveWriteValues
 	private constraints: QueryEvalConstraints
-	private executor: IQueryInternalExecutor
-	constructor (executor: IQueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
+	private executor: QueryInternalExecutor
+	constructor (executor: QueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
 		this.solveWriteValues = new QuerySolveWriteValues(expressions)

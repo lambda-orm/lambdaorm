@@ -25,14 +25,14 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
-			"name": "lab 06",
+			"name": "ci-08-cqrs",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/06-ci-northwind-multiples-datasources/lab/src/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/06-ci-northwind-multiples-datasources/lab/.env"
+			"program": "${workspaceFolder}/src/dev/labs/ci-08-cqrs/lab/src/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/ci-08-cqrs/lab/.env"
 		},
 		{
 			"name": "lib cclp lab",

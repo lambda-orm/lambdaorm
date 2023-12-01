@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Query, QueryOptions } from '../../query/domain'
-import { QueryExecutor } from '../application/services/queryExecutor/queryExecutor'
+import { QueryExecutor } from './executor'
 
 export class Transaction {
 	constructor (private readonly queryExecutor: QueryExecutor) {

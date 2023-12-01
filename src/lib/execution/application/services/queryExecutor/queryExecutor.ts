@@ -6,14 +6,15 @@ import { ExecutionError } from '../../../../connection/domain'
 import { ConnectionFacade, Connection } from '../../../../connection/application'
 import { LanguagesService } from '../../../../language/application'
 import { Expressions } from '3xpr'
-import { IQueryInternalExecutor } from './iQueryInternalExecutor'
+import { QueryInternalExecutor } from './queryInternalExecutor'
 import { QueryBulkInsertExecutor } from './queryBulkInsertExecutor'
 import { QueryDeleteExecutor } from './queryDeleteExecutor'
 import { QueryInsertExecutor } from './queryInsertExecutor'
 import { QuerySelectExecutor } from './querySelectExecutor'
 import { QueryUpdateExecutor } from './queryUpdateExecutor'
+import { QueryExecutor } from '../../../domain'
 
-export class QueryExecutor implements IQueryInternalExecutor {
+export class QueryExecutorImpl implements QueryExecutor, QueryInternalExecutor {
 	private connections: any
 	private selectExecutor: QuerySelectExecutor
 	private insertExecutor: QueryInsertExecutor
@@ -26,7 +27,7 @@ export class QueryExecutor implements IQueryInternalExecutor {
 		private readonly languages: LanguagesService,
 		private readonly schemaFacade: SchemaFacade,
 		private readonly expressions: Expressions,
-		public readonly options: QueryOptions,
+		private readonly _options: QueryOptions,
 		private readonly helper: Helper,
 		private transactional = false
 	) {
@@ -36,6 +37,10 @@ export class QueryExecutor implements IQueryInternalExecutor {
 		this.bulkInsertExecutor = new QueryBulkInsertExecutor(this, this.expressions, this.options)
 		this.updateExecutor = new QueryUpdateExecutor(this, this.expressions, this.options)
 		this.deleteExecutor = new QueryDeleteExecutor(this, this.options)
+	}
+
+	public get options (): QueryOptions {
+		return this._options
 	}
 
 	private async getConnection (source: string): Promise<Connection> {

@@ -5,14 +5,14 @@ import { Connection } from '../../../../connection/application'
 import { DialectService } from '../../../../language/application'
 import { MappingConfigService } from '../../../../schema/application/services/config/mappingConfigService'
 import { Expressions } from '3xpr'
-import { IQueryInternalExecutor } from './iQueryInternalExecutor'
+import { QueryInternalExecutor } from './queryInternalExecutor'
 import { QuerySolveReadValues } from './querySolveReadValues'
 
 export class QuerySelectExecutor {
 	private solveReadValues: QuerySolveReadValues
 
 	constructor (
-		private readonly executor: IQueryInternalExecutor,
+		private readonly executor: QueryInternalExecutor,
 		expressions: Expressions,
 		public readonly options: QueryOptions,
 		private readonly helper:Helper) {

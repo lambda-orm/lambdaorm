@@ -23,8 +23,8 @@ import { ExecutorBuilder } from '../../execution/infrastructure.ts'
 import { SchemaFacadeBuilder } from '../../schema/infrastructure'
 import { StageFacadeBuilder } from '../../stage/infrastructure'
 import { SentenceLanguageServiceBuilder } from '../../sentence/infrastructure'
-import { ExecutionActionObserver, ObservableExecutorDecorator } from '../../execution/application'
-import { ActionObserver } from '../../execution/domain'
+import { ExecutionActionObserver } from '../../execution/application'
+import { ActionObserver, ObservableExecutorDecorator } from '../../execution/domain'
 import { OrmLibrary } from './ormLibrary'
 
 /**
@@ -44,6 +44,7 @@ export class Orm implements IOrm {
 
 	constructor (workspace: string = process.cwd()) {
 		this.expressions = new OrmExpressionsBuilder().build()
+		new OrmLibrary(this).load()
 		// TODO: resolver en  HelperBuilder
 		this.helper = new Helper(new OperandHelper(this.expressions.constBuilder), h3lp)
 		this.language = new SentenceLanguageServiceBuilder(this.helper).build()
@@ -54,7 +55,6 @@ export class Orm implements IOrm {
 		this.sentence = new SentenceFacadeBuilder(this.expressions, this.helper).build(this.schema, this.operand)
 		this.expression = new ExpressionFacadeBuilder(this.language, this.executor, this.expressions, this.helper).build(this.sentence, this.schema)
 		this.stage = new StageFacadeBuilder(this.language, this.executor, this.helper).build(this.schema, this.expression)
-		new OrmLibrary(this).load()
 	}
 
 	// eslint-disable-next-line no-use-before-define
