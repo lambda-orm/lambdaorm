@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L38)
+[src/lib/sentence/domain/metadata.ts:38](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L38)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L26)
+[src/lib/sentence/domain/metadata.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L26)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L23)
+[src/lib/sentence/domain/metadata.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L23)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L37)
+[src/lib/sentence/domain/metadata.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L37)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L30)
+[src/lib/sentence/domain/metadata.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L30)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L33)
+[src/lib/sentence/domain/metadata.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L33)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L35)
+[src/lib/sentence/domain/metadata.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L35)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L29)
+[src/lib/sentence/domain/metadata.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L29)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L39)
+[src/lib/sentence/domain/metadata.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L39)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L25)
+[src/lib/sentence/domain/metadata.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L25)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L40)
+[src/lib/sentence/domain/metadata.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L40)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L32)
+[src/lib/sentence/domain/metadata.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L32)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L24)
+[src/lib/sentence/domain/metadata.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L24)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L31)
+[src/lib/sentence/domain/metadata.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L31)
 
 ___
 
@@ -173,7 +173,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L36)
+[src/lib/sentence/domain/metadata.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L36)
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L28)
+[src/lib/sentence/domain/metadata.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L28)
 
 ___
 
@@ -193,7 +193,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L27)
+[src/lib/sentence/domain/metadata.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L27)
 
 ___
 
@@ -203,4 +203,4 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/metadata.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/4a9a349e/src/lib/sentence/domain/metadata.ts#L34)
+[src/lib/sentence/domain/metadata.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/metadata.ts#L34)

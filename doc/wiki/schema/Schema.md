@@ -12,7 +12,7 @@ In the infrastructure, all the necessary configuration is defined to be able to 
 
 The schema configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
 
-All the expressions that are used for the definition of conditions and for the execution of actions are based on the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
+All the expressions that are used for the definition of conditions and for the execution of actions are based on the expression engine [3xpr](https://www.npmjs.com/package/3xpr)
 
 ## Example:
 
