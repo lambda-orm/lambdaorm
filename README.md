@@ -215,51 +215,6 @@ import { orm } from 'lambdaorm'
 })()
 ```
 
-**Result:**
-
-```json
-[
-  {
-    "name": "Afghanistan",
-    "subregion": "Southern Asia",
-    "latitude": "33.00000000",
-    "longitude": "65.00000000",
-    "states": [
-      {
-        "name": "Farah",
-        "latitude": "32.49532800",
-        "longitude": "62.26266270"
-      },
-      {
-        "name": "Faryab",
-        "latitude": "36.07956130",
-        "longitude": "64.90595500"
-      }
-    ]
-  },
-  {
-    "name": "United Arab Emirates",
-    "subregion": "Western Asia",
-    "latitude": "24.00000000",
-    "longitude": "54.00000000",
-    "states": [
-      {
-        "name": "Fujairah",
-        "latitude": "25.12880990",
-        "longitude": "56.32648490"
-      }
-    ]
-  },
-  {
-    "name": "Armenia",
-    "subregion": "Western Asia",
-    "latitude": "40.00000000",
-    "longitude": "45.00000000",
-    "states": []
-  }
-]
-```
-
 #### Advantage
 
 - Use of the same programming language.
