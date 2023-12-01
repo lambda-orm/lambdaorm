@@ -2,7 +2,7 @@ import { Query, QueryOptions } from '../../../../query/domain'
 import { Expressions } from '3xpr'
 import { ActionObserver, QueryExecutor } from '../../../domain'
 
-export class ObservableQueryExecutor implements QueryExecutor {
+export class QueryExecutorObservableDecorator implements QueryExecutor {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (
 		private readonly expressions:Expressions,
@@ -27,14 +27,18 @@ export class ObservableQueryExecutor implements QueryExecutor {
 	}
 
 	public async execute (query: Query, data: any): Promise<any> {
-		try {
-			await this.beforeExecutionNotify(query, data, this.options)
-			const result = await this.queryExecutor.execute(query, data)
-			await this.afterExecutionNotify(query, data, this.options, result)
-			return result
-		} catch (error) {
-			await this.errorExecutionNotify(query, data, this.options, error)
-			throw error
+		if (['select', 'insert', 'bulkInsert', 'update', 'delete'].includes(query.action)) {
+			try {
+				await this.beforeExecutionNotify(query, data, this.options)
+				const result = await this.queryExecutor.execute(query, data)
+				await this.afterExecutionNotify(query, data, this.options, result)
+				return result
+			} catch (error) {
+				await this.errorExecutionNotify(query, data, this.options, error)
+				throw error
+			}
+		} else {
+			return this.queryExecutor.execute(query, data)
 		}
 	}
 

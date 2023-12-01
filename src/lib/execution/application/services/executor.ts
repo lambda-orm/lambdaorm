@@ -6,8 +6,7 @@ import { Transaction, Executor, QueryExecutor, ActionObserver, ObservableExecuto
 import { ConnectionFacade } from '../../../connection/application'
 import { Expressions } from '3xpr'
 import { Helper } from '../../../shared/application/helper'
-import { ObservableQueryExecutor } from './queryExecutor/observableQueryExecutor'
-
+import { QueryExecutorObservableDecorator } from './queryExecutor/queryExecutorObservableDecorator'
 export class ExecutorImpl implements Executor, ObservableExecutor {
 	private observers:ActionObserver[]
 	constructor (private readonly connectionFacade: ConnectionFacade,
@@ -105,6 +104,6 @@ export class ExecutorImpl implements Executor, ObservableExecutor {
 
 	private createQueryExecutor (options: QueryOptions, transactional:boolean): QueryExecutor {
 		const queryExecutor = new QueryExecutorImpl(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, this.helper, transactional)
-		return new ObservableQueryExecutor(this.expressions, queryExecutor, this.observers)
+		return new QueryExecutorObservableDecorator(this.expressions, queryExecutor, this.observers)
 	}
 }
