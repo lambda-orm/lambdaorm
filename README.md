@@ -60,7 +60,21 @@ The schema configuration can be done in a yaml, json file or passed as a paramet
 
 All the expressions that are used for the definition of conditions and for the execution of actions are based on the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
 
-## Queries
+## Usage
+
+To work with the orm we can do it using the singleton object called "orm" or using repositories.
+
+### Object **orm**
+
+This orm object acts as a facade and from this we access all the methods.
+
+When the orm.init() method is called, the orm initialization will be executed from the configuration.
+
+#### **execute method**:
+
+This method receives the expression as a javascript lambda function or a string.
+
+### Queries
 
 The query language is based on [javascript lambda expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
 These expressions can be written as javascript code by browsing the business model entities.
@@ -78,49 +92,70 @@ For example:
 - Customers in a MySQL table
 - Products in a Postgres table.
 
-```ts
-Orders.filter(p => p.customerId == customerId)
-  .include(p => [p.details.include(p=> p.product.map(p=>p.name)),
-	        p.customer.map(p => p.name)])
-  .order(p=> p.orderDate)							
-  .page(1,2)
-```
-
-**We can get the execution plan in the code with:**
+**We can execute and also obtain the execution plan:**
 
 ```typescript
 import { orm } from 'lambdaorm'
 (async () => {
 	await orm.init()	
 	const query =  
-		`Orders.filter(p => p.customerId == customerId)
-			.include(p => [p.details.include(p=> p.product.map(p=>p.name)),
-				             p.customer.map(p => p.name) 
-										])
-			.order(p=> p.orderDate)							
-			.page(1,1)
-		`
-  const plan = orm.plan(query,{ stage:"default"})
-  console.log(JSON.stringify(plan,null,2))
+	`Orders.filter(p => p.customerId == customerId)
+		.include(p => [p.details.include(p=> p.product.map(p=>p.name)),
+						      p.customer.map(p => p.name)
+									])
+		.order(p=> p.orderDate)							
+		.page(1,1)`  
+	const result = await orm.execute(query, { customerId: 'HANAR' })
+	console.log(JSON.stringify(result,null,2))
+	const plan = orm.plan(query)
+  console.log(JSON.stringify(plan,null,2))	
 	await orm.end()
 })()
-
-```
-
-**Or using CLI:**
-
-```sh
-lambdaorm plan -q 'Orders.filter(p => p.customerId == customerId).include(p => [p.details.include(p=> p.product.map(p=>p.name)),p.customer.map(p => p.name)]).order(p=> p.orderDate).page(1,2)'
 ```
 
 **Result:**
+
+```json
+[
+  {
+    "id": 3,
+    "customerId": "HANAR",
+    "orderDate": "1996-07-08T00:00:00.000+02:00",
+    "details": [
+      {
+        "subTotal": 77,
+        "product": {
+          "name": "Jack's New England Clam Chowder"
+        }
+      },
+      {
+        "subTotal": 1484,
+        "product": {
+          "name": "Manjimup Dried Apples"
+        }
+      },
+      {
+        "subTotal": 252,
+        "product": {
+          "name": "Louisiana Fiery Hot Pepper Sauce"
+        }
+      }
+    ],
+    "customer": {
+      "name": "Hanari Carnes"
+    }
+  }
+]
+```
+
+**Plan:**
 
 ```json
 {
   "entity": "Orders",
   "dialect": "MongoDB",
   "source": "Ordering",
-  "sentence": "[{ \"$match\" : { \"CustomerID\":{{customerId}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"customerId\":\"$CustomerID\", \"orderDate\":\"$OrderDate\", \"__id\":\"$_id\", \"__customerId\":\"$CustomerID\" ,\"details\": { \"$map\":{ \"input\": \"$\\\"Order Details\\\"\", \"in\": { \"orderId\":\"$$this.OrderID\", \"productId\":\"$$this.ProductID\", \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\", \"__productId\":\"$$this.ProductID\", \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$sort\" :{ \"OrderDate\":1 } } , { \"$skip\" : 0 }, { \"$limit\" : 1 } , { \"$project\": { \"_id\": 0 } }]",
+  "sentence": "[{ \"$match\" : { \"CustomerID\":{{customerId}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"customerId\":\"$CustomerID\", \"orderDate\":\"$OrderDate\", \"__id\":\"$_id\", \"__customerId\":\"$CustomerID\" ,\"details\": { \"$map\":{ \"input\": \"$\\\"Order Details\\\"\", \"in\": { \"subTotal\":{ \"$multiply\" :[\"$$this.Quantity\",\"$$this.UnitPrice\"] }, \"__productId\":\"$$this.ProductID\", \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$sort\" :{ \"OrderDate\":1 } } , { \"$skip\" : 0 }, { \"$limit\" : 1 } , { \"$project\": { \"_id\": 0 } }]",
   "children": [
     {
       "entity": "Orders.details",
@@ -145,73 +180,21 @@ lambdaorm plan -q 'Orders.filter(p => p.customerId == customerId).include(p => [
 }
 ```
 
-**Result:**
+### We can do it ourselves through CLI
 
-```json
-[
-  {
-    "id": 3,
-    "customerId": "HANAR",
-    "orderDate": "1996-07-08T00:00:00.000+02:00",
-    "details": [
-      {
-        "orderId": 3,
-        "productId": 41,
-        "unitPrice": 7.7,
-        "quantity": 10,
-        "product": {
-          "name": "Jack's New England Clam Chowder"
-        }
-      },
-      {
-        "orderId": 3,
-        "productId": 51,
-        "unitPrice": 42.4,
-        "quantity": 35,
-        "product": {
-          "name": "Manjimup Dried Apples"
-        }
-      },
-      {
-        "orderId": 3,
-        "productId": 65,
-        "unitPrice": 16.8,
-        "quantity": 15,
-        "product": {
-          "name": "Louisiana Fiery Hot Pepper Sauce"
-        }
-      }
-    ],
-    "customer": {
-      "name": "Hanari Carnes"
-    }
-  } 
-]
+**Execute:**
+
+```sh
+lambdaorm execute -q 'Orders.filter(p => p.customerId == customerId).include(p => [p.details.include(p=> p.product.map(p=>p.name)),p.customer.map(p => p.name)]).order(p=> p.orderDate).page(1,2)' -d	'{"customerId":"HANAR"}'
 ```
 
-### Advantage:
+**Plan:**
 
-- Use of the same programming language.
-- No need to learn a new language.
-- Expressions easy to write and understand.
-- Use of the intellisense offered by the IDE to write the expressions.
-- Avoid syntax errors.
+```sh
+lambdaorm plan -q 'Orders.filter(p => p.customerId == customerId).include(p => [p.details.include(p=> p.product.map(p=>p.name)),p.customer.map(p => p.name)]).order(p=> p.orderDate).page(1,2)'
+```
 
-## Usage
-
-To work with the orm we can do it using the singleton object called "orm" or using repositories.
-
-### Object **orm**
-
-This orm object acts as a facade and from this we access all the methods.
-
-When the orm.init() method is called, the orm initialization will be executed from the configuration.
-
-#### **execute method**:
-
-This method receives the expression as a javascript lambda function or a string.
-
-#### Use lambda expression:
+### Use lambda expression
 
 The advantage of writing the expression as a javascript lambda function is that this way we will have the help of intellisense and we will make sure that the expression has no syntax errors.
 
@@ -276,6 +259,14 @@ import { orm } from 'lambdaorm'
   }
 ]
 ```
+
+#### Advantage
+
+- Use of the same programming language.
+- No need to learn a new language.
+- Expressions easy to write and understand.
+- Use of the intellisense offered by the IDE to write the expressions.
+- Avoid syntax errors.
 
 ## Related projects
 
