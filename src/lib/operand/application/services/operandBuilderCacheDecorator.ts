@@ -16,6 +16,9 @@ export class OperandBuilderCacheDecorator implements OperandBuilder {
 
 	public build (expression: string): Operand {
 		try {
+			if (expression === undefined || expression === null || expression.trim() === '') {
+				throw new Error('undefined expression')
+			}
 			const key = this.helper.utils.hashCode(expression).toString()
 			const value = this.cache.get(key)
 			if (!value) {

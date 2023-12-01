@@ -231,7 +231,13 @@ export class Orm implements IOrm {
 	public async execute(expression: Function, data?: any, options?: QueryOptions):Promise<any>;
 	public async execute(expression: string, data?: any, options?: QueryOptions):Promise<any>;
 	public async execute (expression: string|Function, data: any = {}, options?: QueryOptions): Promise<any> {
+		if (expression === undefined || expression === null) {
+			throw new Error('expression is empty')
+		}
 		const _expression = this.toExpression(expression)
+		if (_expression === '') {
+			throw new Error('expression is empty')
+		}
 		const _data = data !== undefined && typeof data === 'string' ? JSON.parse(data) : data || {}
 		const _options = options !== undefined && typeof options === 'string' ? JSON.parse(options) : options || {}
 		return this.expression.execute(_expression, _data, _options)

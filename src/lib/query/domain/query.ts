@@ -15,6 +15,7 @@ export interface QueryArgs{
 	defaults?: Behavior[],
 	// eslint-disable-next-line no-use-before-define
 	includes?: Include[]
+	expression?: string,
 }
 export class Query {
 	public action: SentenceAction
@@ -29,6 +30,7 @@ export class Query {
 	public constraints: Constraint[]
 	public values: Behavior[]
 	public defaults: Behavior[]
+	public expression: string
 	constructor (args:QueryArgs) {
 		this.action = args.action
 		this.dialect = args.dialect
@@ -41,6 +43,7 @@ export class Query {
 		this.values = args.values || []
 		this.defaults = args.defaults || []
 		this.includes = args.includes || []
+		this.expression = args.expression || ''
 	}
 }
 export class Include {

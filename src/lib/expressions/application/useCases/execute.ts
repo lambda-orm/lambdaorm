@@ -12,6 +12,10 @@ export class ExpressionExecute {
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public async execute (expression: string, data: any, options: QueryOptions): Promise<any> {
+		if (expression === undefined || expression === null || expression.trim() === '') {
+			console.log('expression is empty')
+			return null
+		}
 		const query = this.builder.build(expression, options)
 		return this.executor.execute(query, data === null || data === undefined ? {} : data, options)
 	}

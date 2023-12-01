@@ -1,3 +1,0 @@
-{ "_id" : "SQ_ORDERS", "sequence_value": 1 };
-;
-{"properties":{"OrderDate":1},"options":{"name":"Orders_orderDate"}};

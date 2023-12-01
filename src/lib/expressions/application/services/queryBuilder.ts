@@ -18,7 +18,9 @@ export class QueryBuilder implements IQueryBuilder {
 		const _view = this.schema.view.get(options.view)
 		const view = this.schema.view.getInstance(_view.name)
 		const sentence = this.sentenceFacade.build(expression, view, options.stage as string)
-		return this.dmlBuild(sentence, view, options.stage as string)
+		const query = this.dmlBuild(sentence, view, options.stage as string)
+		query.expression = expression
+		return query
 	}
 
 	private dmlBuild (sentence: Sentence, view: ViewConfigService, stage: string): Query {
