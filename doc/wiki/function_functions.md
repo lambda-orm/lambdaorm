@@ -159,6 +159,11 @@
 |undefined|undefined|
 |undefined|undefined|
 |undefined|undefined|
+|undefined|undefined|
+|undefined|undefined|
+|undefined|undefined|
+|undefined|undefined|
+|undefined|undefined|
 
 ## Definition
 
@@ -1421,6 +1426,47 @@
 	- expression: string
 	- data: any
 	- options: any
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- expression: string
+	- options: any
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- expression: string
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- expression: string
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- expression: string
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- expression: string
 
 ### undefined
 

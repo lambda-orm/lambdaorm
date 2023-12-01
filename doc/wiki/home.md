@@ -44,7 +44,7 @@ What differentiates λORM from other ORMs:
 - [CLI](https://github.com/FlavioLionelRita/lambdaorm-cli)
 - [Api Rest](https://github.com/FlavioLionelRita/lambdaorm-svc)
 
-## Schema Configuration
+## Schema
 
 The schema includes all the configuration that the ORM needs.
 
@@ -60,7 +60,7 @@ The schema configuration can be done in a yaml, json file or passed as a paramet
 
 All the expressions that are used for the definition of conditions and for the execution of actions are based on the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
 
-## Query Language
+## Queries
 
 The query language is based on [javascript lambda expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
 These expressions can be written as javascript code by browsing the business model entities.
@@ -69,30 +69,124 @@ Expressions can also be sent as a string
 
 λOrm translates the expression into the language corresponding to each database engine.
 
-### Query Language Example:
+### Query Language Example
+
+For a schema where we have mapped the entities to different data sources.
+For example:
+
+- Orders and OrderDetails are located in a MongoDb collection
+- Customers in a MySQL table
+- Products in a Postgres table.
 
 ```ts
-Countries
-	.filter(p=> p.region == region)	
-	.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
-	.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
-		  .map(p=> [p.name,p.latitude,p.longitude])
-	)
-	.page(1,3)
+Orders.filter(p => p.customerId == customerId)
+  .include(p => [p.details.include(p=> p.product.map(p=>p.name)),
+	        p.customer.map(p => p.name)])
+  .order(p=> p.orderDate)							
+  .page(1,2)
 ```
 
-where the SQL equivalent of the expression is:
+**We can get the execution plan in the code with:**
 
-```sql
-SELECT c.name AS `name`, c.subregion AS `subregion`, c.latitude AS `latitude`, c.longitude AS `longitude`, c.iso3 AS `__iso3` 
-FROM Countries c  
-WHERE c.region = ? 
-LIMIT 0,3
+```typescript
+import { orm } from 'lambdaorm'
+(async () => {
+	await orm.init()	
+	const query =  
+		`Orders.filter(p => p.customerId == customerId)
+			.include(p => [p.details.include(p=> p.product.map(p=>p.name)),
+				             p.customer.map(p => p.name) 
+										])
+			.order(p=> p.orderDate)							
+			.page(1,1)
+		`
+  const plan = orm.plan(query,{ stage:"default"})
+  console.log(JSON.stringify(plan,null,2))
+	await orm.end()
+})()
 
-SELECT s.NAME AS "name", s.LATITUDE AS "latitude", s.LONGITUDE AS "longitude", s.COUNTRY_CODE AS "__parentId" 
-FROM TBL_STATES s  
-WHERE SUBSTR(s.NAME,1,1) = 'F'
-  AND s.s.COUNTRY_CODE IN (?) 
+```
+
+**Or using CLI:**
+
+```sh
+lambdaorm plan -q 'Orders.filter(p => p.customerId == customerId).include(p => [p.details.include(p=> p.product.map(p=>p.name)),p.customer.map(p => p.name)]).order(p=> p.orderDate).page(1,2)'
+```
+
+**Result:**
+
+```json
+{
+  "entity": "Orders",
+  "dialect": "MongoDB",
+  "source": "Ordering",
+  "sentence": "[{ \"$match\" : { \"CustomerID\":{{customerId}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\", \"customerId\":\"$CustomerID\", \"orderDate\":\"$OrderDate\", \"__id\":\"$_id\", \"__customerId\":\"$CustomerID\" ,\"details\": { \"$map\":{ \"input\": \"$\\\"Order Details\\\"\", \"in\": { \"orderId\":\"$$this.OrderID\", \"productId\":\"$$this.ProductID\", \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\", \"__productId\":\"$$this.ProductID\", \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$sort\" :{ \"OrderDate\":1 } } , { \"$skip\" : 0 }, { \"$limit\" : 1 } , { \"$project\": { \"_id\": 0 } }]",
+  "children": [
+    {
+      "entity": "Orders.details",
+      "dialect": "MongoDB",
+      "source": "Ordering",
+      "children": [
+        {
+          "entity": "Products",
+          "dialect": "MySQL",
+          "source": "Catalog",
+          "sentence": "SELECT p.ProductName AS name, p.ProductID AS LambdaOrmParentId FROM Products p  WHERE  p.ProductID IN (?) "
+        }
+      ]
+    },
+    {
+      "entity": "Customers",
+      "dialect": "PostgreSQL",
+      "source": "Crm",
+      "sentence": "SELECT c.CompanyName AS \"name\", c.CustomerID AS \"LambdaOrmParentId\" FROM Customers c  WHERE  c.CustomerID IN ($1) "
+    }
+  ]
+}
+```
+
+**Result:**
+
+```json
+[
+  {
+    "id": 3,
+    "customerId": "HANAR",
+    "orderDate": "1996-07-08T00:00:00.000+02:00",
+    "details": [
+      {
+        "orderId": 3,
+        "productId": 41,
+        "unitPrice": 7.7,
+        "quantity": 10,
+        "product": {
+          "name": "Jack's New England Clam Chowder"
+        }
+      },
+      {
+        "orderId": 3,
+        "productId": 51,
+        "unitPrice": 42.4,
+        "quantity": 35,
+        "product": {
+          "name": "Manjimup Dried Apples"
+        }
+      },
+      {
+        "orderId": 3,
+        "productId": 65,
+        "unitPrice": 16.8,
+        "quantity": 15,
+        "product": {
+          "name": "Louisiana Fiery Hot Pepper Sauce"
+        }
+      }
+    ],
+    "customer": {
+      "name": "Hanari Carnes"
+    }
+  } 
+]
 ```
 
 ### Advantage:
@@ -138,50 +232,49 @@ import { orm } from 'lambdaorm'
 })()
 ```
 
-#### Use string expression
-
-The advantage of writing the expression in a string is that we can receive it from outside, example UI, CLI command, stored, etc.
-
-```ts
-import { orm } from 'lambdaorm'
-(async () => {
-	await orm.init()	
-	const query = `
-	Countries
-		.filter(p=> p.region == region)		
-		.map(p=> [p.name,p.subregion,p.latitude,p.longitude])
-		.include(p => p.states.filter(p=> substr(p.name,1,1)=="F")
-			.map(p=> [p.name,p.latitude,p.longitude])
-		)
-		.page(1,3)`																								    
-	const result = await orm.execute(query, { region: 'Asia' })
-	console.log(JSON.stringify(result, null, 2))
-	await orm.end()
-})()
-```
-
-#### Result:
+**Result:**
 
 ```json
-[{"name": "Afghanistan",
-  "subregion": "Southern Asia",
-  "latitude": "33.00000000",
-  "longitude": "65.00000000",
-  "states":[{"name": "Farah", "latitude": "32.49532800", "longitude": "62.26266270" },
-      		{"name": "Faryab", "latitude": "36.07956130","longitude": "64.90595500" }]
- },
- {"name": "United Arab Emirates",
-  "subregion": "Western Asia",
-  "latitude": "24.00000000",
-  "longitude": "54.00000000",
-  "states": [{"name": "Fujairah","latitude": "25.12880990","longitude": "56.32648490" }]
- },
- {"name": "Armenia",
-  "subregion": "Western Asia",
-  "latitude": "40.00000000",
-  "longitude": "45.00000000",
-  "states": []
- }]
+[
+  {
+    "name": "Afghanistan",
+    "subregion": "Southern Asia",
+    "latitude": "33.00000000",
+    "longitude": "65.00000000",
+    "states": [
+      {
+        "name": "Farah",
+        "latitude": "32.49532800",
+        "longitude": "62.26266270"
+      },
+      {
+        "name": "Faryab",
+        "latitude": "36.07956130",
+        "longitude": "64.90595500"
+      }
+    ]
+  },
+  {
+    "name": "United Arab Emirates",
+    "subregion": "Western Asia",
+    "latitude": "24.00000000",
+    "longitude": "54.00000000",
+    "states": [
+      {
+        "name": "Fujairah",
+        "latitude": "25.12880990",
+        "longitude": "56.32648490"
+      }
+    ]
+  },
+  {
+    "name": "Armenia",
+    "subregion": "Western Asia",
+    "latitude": "40.00000000",
+    "longitude": "45.00000000",
+    "states": []
+  }
+]
 ```
 
 ## Related projects
@@ -194,4 +287,4 @@ import { orm } from 'lambdaorm'
 
 ## Labs
 
-You can access various labs at [github.com/FlavioLionelRita/lambdaorm-labs](https://github.com/FlavioLionelRita/lambdaorm-labs)
+You can access various labs at [lambdaorm labs](https://github.com/FlavioLionelRita/lambdaorm-labs)

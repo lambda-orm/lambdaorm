@@ -15,8 +15,12 @@ import { h3lp } from 'h3lp'
 		
 		const query =  
 		`Orders.filter(p => p.customerId == customerId)
-			.include(p => p.customer.map(p => p.name))
-			.page(1,1)`
+			.include(p => [p.details.include(p=> p.product.map(p=>p.name)),
+				             p.customer.map(p => p.name) 
+										])
+			.order(p=> p.orderDate)							
+			.page(1,2)
+		`
 		
 		let plan: any,result:any 
 		plan = orm.plan(query,{ stage:"default"})

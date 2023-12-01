@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/services/routeService.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/schema/application/services/routeService.ts#L7)
+[src/lib/schema/application/services/routeService.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/schema/application/services/routeService.ts#L7)
 
 ## Methods
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/services/routeService.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/schema/application/services/routeService.ts#L10)
+[src/lib/schema/application/services/routeService.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/schema/application/services/routeService.ts#L10)
 
 ___
 
@@ -86,4 +86,4 @@ ___
 
 #### Defined in
 
-[src/lib/schema/application/services/routeService.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/schema/application/services/routeService.ts#L27)
+[src/lib/schema/application/services/routeService.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/schema/application/services/routeService.ts#L27)

@@ -5,6 +5,7 @@
 ## Implements
 
 - [`Executor`](../interfaces/Executor.md)
+- [`ObservableExecutor`](../interfaces/ObservableExecutor.md)
 
 ## Table of contents
 
@@ -16,7 +17,9 @@
 
 - [execute](ExecutorImpl.md#execute)
 - [executeList](ExecutorImpl.md#executelist)
+- [subscribe](ExecutorImpl.md#subscribe)
 - [transaction](ExecutorImpl.md#transaction)
+- [unsubscribe](ExecutorImpl.md#unsubscribe)
 
 ## Constructors
 
@@ -40,7 +43,7 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/execution/application/services/executor.ts#L12)
+[src/lib/execution/application/services/executor.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/execution/application/services/executor.ts#L12)
 
 ## Methods
 
@@ -66,7 +69,7 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/execution/application/services/executor.ts#L19)
+[src/lib/execution/application/services/executor.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/execution/application/services/executor.ts#L33)
 
 ___
 
@@ -91,7 +94,31 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/execution/application/services/executor.ts#L42)
+[src/lib/execution/application/services/executor.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/execution/application/services/executor.ts#L56)
+
+___
+
+### subscribe
+
+▸ **subscribe**(`observer`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `observer` | [`ActionObserver`](ActionObserver.md) |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[ObservableExecutor](../interfaces/ObservableExecutor.md).[subscribe](../interfaces/ObservableExecutor.md#subscribe)
+
+#### Defined in
+
+[src/lib/execution/application/services/executor.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/execution/application/services/executor.ts#L21)
 
 ___
 
@@ -118,4 +145,28 @@ Create a transaction
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:73](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/execution/application/services/executor.ts#L73)
+[src/lib/execution/application/services/executor.ts:87](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/execution/application/services/executor.ts#L87)
+
+___
+
+### unsubscribe
+
+▸ **unsubscribe**(`observer`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `observer` | [`ActionObserver`](ActionObserver.md) |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[ObservableExecutor](../interfaces/ObservableExecutor.md).[unsubscribe](../interfaces/ObservableExecutor.md#unsubscribe)
+
+#### Defined in
+
+[src/lib/execution/application/services/executor.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/execution/application/services/executor.ts#L25)

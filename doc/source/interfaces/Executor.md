@@ -2,10 +2,15 @@
 
 # Interface: Executor
 
+## Hierarchy
+
+- **`Executor`**
+
+  ↳ [`ObservableExecutorDecorator`](ObservableExecutorDecorator.md)
+
 ## Implemented by
 
 - [`ExecutorImpl`](../classes/ExecutorImpl.md)
-- [`ObservableExecutorDecorator`](../classes/ObservableExecutorDecorator.md)
 
 ## Table of contents
 
@@ -35,7 +40,7 @@
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/execution/domain/executor.ts#L32)
+[src/lib/execution/domain/executor.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/execution/domain/executor.ts#L40)
 
 ___
 
@@ -56,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/execution/domain/executor.ts#L33)
+[src/lib/execution/domain/executor.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/execution/domain/executor.ts#L41)
 
 ___
 
@@ -77,4 +82,4 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/889020d7/src/lib/execution/domain/executor.ts#L34)
+[src/lib/execution/domain/executor.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/1410aa2d/src/lib/execution/domain/executor.ts#L42)
