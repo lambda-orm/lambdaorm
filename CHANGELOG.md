@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.90](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.89...v0.8.90) (2023-12-01)
+
+
+### Features
+
+* **expressions:** add orm library ([1410aa2](https://github.com/FlavioLionelRita/lambdaorm/commit/1410aa2ddca05ff68def1e3f861650734d2c8cdb)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+
+
+### Bug Fixes
+
+* working cqrs ([4fd91e7](https://github.com/FlavioLionelRita/lambdaorm/commit/4fd91e7ec8af46479385899b011552896e9564c1)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* working in bugfix listeners ([29f5423](https://github.com/FlavioLionelRita/lambdaorm/commit/29f5423a2bf9769e9f06bb7c30e24a94afaca6e3)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+
 ### [0.8.89](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.88...v0.8.89) (2023-11-30)
 
 **Bug Fixes:**

@@ -1,13 +1,13 @@
 {
 	"name": "lambdaorm",
-	"version": "0.8.89",
+	"version": "0.8.90",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@proton.me>",
 	"license": "MIT",
 	"main": "./index.js",
 	"types": "./syntax.d.ts",
 	"private": true,
-	"homepage": "https://github.com/FlavioLionelRita/lambdaorm#/lib/readme",
+	"homepage": "https://github.com/FlavioLionelRita/lambdaorm#/readme",
 	"bugs": {
 		"url": "https://github.com/FlavioLionelRita/lambdaorm/issues"
 	},
@@ -45,7 +45,7 @@
 		"countries-create-test-suite": "grunt countries-create-test-suite"
 	},
 	"dependencies": {
-		"3xpr": "^1.14.0",
+		"3xpr": "^1.14.1",
 		"crypto-js": "^4.1.1",
 		"h3lp": "^1.5.1",
 		"js-yaml": "^4.1.0",
