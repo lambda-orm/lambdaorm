@@ -225,4 +225,4 @@ application:
     - name: syncInsights
       actions: [insert, bulkInsert,update,delete]
       condition: options.stage.in("default","cqrs")
-      after: execute(expression,data,{stage:"insights"})      
+      after: orm.execute(expression,data,{stage:"insights"})      

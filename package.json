@@ -45,7 +45,7 @@
 		"countries-create-test-suite": "grunt countries-create-test-suite"
 	},
 	"dependencies": {
-		"3xpr": "^1.12.20",
+		"3xpr": "^1.14.0",
 		"crypto-js": "^4.1.1",
 		"h3lp": "^1.5.1",
 		"js-yaml": "^4.1.0",

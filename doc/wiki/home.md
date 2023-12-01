@@ -186,10 +186,11 @@ import { orm } from 'lambdaorm'
 
 ## Related projects
 
-- [Lambda ORM CLI](https://github.com/FlavioLionelRita/lambdaorm-cli)
-- [Lambda ORM Service](https://github.com/FlavioLionelRita/lambdaorm-cvs)
-- [Node Client](https://github.com/FlavioLionelRita/lambdaorm-client-node)
-- [Kotlin Client](https://github.com/FlavioLionelRita/lambdaorm-client-kotlin)
+- [3xpr](https://www.npmjs.com/package/3xpr)
+- [Lambda ORM CLI](https://www.npmjs.com/package/lambdaorm-cli)
+- [Lambda ORM Service](https://github.com/FlavioLionelRita/lambdaorm-svc)
+- [Client Node](https://www.npmjs.com/package/lambdaorm-client-node)
+- [Client Kotlin](https://github.com/FlavioLionelRita/lambdaorm-client-kotlin)
 
 ## Labs
 
