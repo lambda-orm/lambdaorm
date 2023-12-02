@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.8.95](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.94...v0.8.95) (2023-12-02)
 
-
-### Features
+**Features:**
 
 * **listener:** rename action property for on ([5d57f9a](https://github.com/FlavioLionelRita/lambdaorm/commit/5d57f9ad7e93a9ead9da4ed152194512e49a81f4)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
 * **wiki:** add shema examples ([9d75e95](https://github.com/FlavioLionelRita/lambdaorm/commit/9d75e951249eb92cc4017b5efb170d920f2e57de)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)

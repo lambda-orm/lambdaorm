@@ -16,8 +16,8 @@
 
 ### Properties
 
-- [actions](ExecutionActionObserver.md#actions)
 - [condition](ExecutionActionObserver.md#condition)
+- [on](ExecutionActionObserver.md#on)
 - [transactional](ExecutionActionObserver.md#transactional)
 
 ### Methods
@@ -49,23 +49,9 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/observer.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/application/services/observer.ts#L6)
+[src/lib/execution/application/services/observer.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/application/services/observer.ts#L6)
 
 ## Properties
-
-### actions
-
-• **actions**: [`SentenceAction`](../enums/SentenceAction.md)[]
-
-#### Inherited from
-
-[ActionObserver](ActionObserver.md).[actions](ActionObserver.md#actions)
-
-#### Defined in
-
-[src/lib/execution/domain/executor.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/domain/executor.ts#L17)
-
-___
 
 ### condition
 
@@ -77,7 +63,21 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/domain/executor.ts#L18)
+[src/lib/execution/domain/executor.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/domain/executor.ts#L18)
+
+___
+
+### on
+
+• **on**: [`SentenceAction`](../enums/SentenceAction.md)[]
+
+#### Inherited from
+
+[ActionObserver](ActionObserver.md).[on](ActionObserver.md#on)
+
+#### Defined in
+
+[src/lib/execution/domain/executor.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/domain/executor.ts#L17)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/domain/executor.ts#L19)
+[src/lib/execution/domain/executor.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/domain/executor.ts#L19)
 
 ## Methods
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/observer.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/application/services/observer.ts#L17)
+[src/lib/execution/application/services/observer.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/application/services/observer.ts#L17)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/observer.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/application/services/observer.ts#L10)
+[src/lib/execution/application/services/observer.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/application/services/observer.ts#L10)
 
 ___
 
@@ -163,4 +163,4 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/observer.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/application/services/observer.ts#L24)
+[src/lib/execution/application/services/observer.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/application/services/observer.ts#L24)

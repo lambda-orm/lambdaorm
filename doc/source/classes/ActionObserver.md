@@ -16,8 +16,8 @@
 
 ### Properties
 
-- [actions](ActionObserver.md#actions)
 - [condition](ActionObserver.md#condition)
+- [on](ActionObserver.md#on)
 - [transactional](ActionObserver.md#transactional)
 
 ### Methods
@@ -30,13 +30,13 @@
 
 ### constructor
 
-• **new ActionObserver**(`actions`, `condition?`, `transactional?`): [`ActionObserver`](ActionObserver.md)
+• **new ActionObserver**(`on`, `condition?`, `transactional?`): [`ActionObserver`](ActionObserver.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `actions` | [`SentenceAction`](../enums/SentenceAction.md)[] |
+| `on` | [`SentenceAction`](../enums/SentenceAction.md)[] |
 | `condition?` | `string` |
 | `transactional?` | `boolean` |
 
@@ -46,19 +46,9 @@
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/domain/executor.ts#L20)
+[src/lib/execution/domain/executor.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/domain/executor.ts#L20)
 
 ## Properties
-
-### actions
-
-• **actions**: [`SentenceAction`](../enums/SentenceAction.md)[]
-
-#### Defined in
-
-[src/lib/execution/domain/executor.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/domain/executor.ts#L17)
-
-___
 
 ### condition
 
@@ -66,7 +56,17 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/domain/executor.ts#L18)
+[src/lib/execution/domain/executor.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/domain/executor.ts#L18)
+
+___
+
+### on
+
+• **on**: [`SentenceAction`](../enums/SentenceAction.md)[]
+
+#### Defined in
+
+[src/lib/execution/domain/executor.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/domain/executor.ts#L17)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/domain/executor.ts#L19)
+[src/lib/execution/domain/executor.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/domain/executor.ts#L19)
 
 ## Methods
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/domain/executor.ts#L27)
+[src/lib/execution/domain/executor.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/domain/executor.ts#L27)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/domain/executor.ts#L26)
+[src/lib/execution/domain/executor.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/domain/executor.ts#L26)
 
 ___
 
@@ -136,4 +136,4 @@ ___
 
 #### Defined in
 
-[src/lib/execution/domain/executor.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/execution/domain/executor.ts#L28)
+[src/lib/execution/domain/executor.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/execution/domain/executor.ts#L28)

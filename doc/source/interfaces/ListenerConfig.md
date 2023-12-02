@@ -6,25 +6,14 @@
 
 ### Properties
 
-- [actions](ListenerConfig.md#actions)
 - [after](ListenerConfig.md#after)
 - [before](ListenerConfig.md#before)
 - [condition](ListenerConfig.md#condition)
 - [error](ListenerConfig.md#error)
 - [name](ListenerConfig.md#name)
-- [transactional](ListenerConfig.md#transactional)
+- [on](ListenerConfig.md#on)
 
 ## Properties
-
-### actions
-
-• **actions**: [`SentenceAction`](../enums/SentenceAction.md)[]
-
-#### Defined in
-
-[src/lib/schema/domain/schema.ts:141](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/schema/domain/schema.ts#L141)
-
-___
 
 ### after
 
@@ -32,7 +21,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/schema/domain/schema.ts#L145)
+[src/lib/schema/domain/schema.ts:144](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/schema/domain/schema.ts#L144)
 
 ___
 
@@ -42,7 +31,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:144](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/schema/domain/schema.ts#L144)
+[src/lib/schema/domain/schema.ts:143](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/schema/domain/schema.ts#L143)
 
 ___
 
@@ -52,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:142](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/schema/domain/schema.ts#L142)
+[src/lib/schema/domain/schema.ts:142](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/schema/domain/schema.ts#L142)
 
 ___
 
@@ -62,7 +51,7 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:146](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/schema/domain/schema.ts#L146)
+[src/lib/schema/domain/schema.ts:145](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/schema/domain/schema.ts#L145)
 
 ___
 
@@ -72,14 +61,14 @@ ___
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:140](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/schema/domain/schema.ts#L140)
+[src/lib/schema/domain/schema.ts:140](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/schema/domain/schema.ts#L140)
 
 ___
 
-### transactional
+### on
 
-• `Optional` **transactional**: `boolean`
+• **on**: [`SentenceAction`](../enums/SentenceAction.md)[]
 
 #### Defined in
 
-[src/lib/schema/domain/schema.ts:143](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/schema/domain/schema.ts#L143)
+[src/lib/schema/domain/schema.ts:141](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/schema/domain/schema.ts#L141)

@@ -62,7 +62,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/sentence.ts#L32)
+[src/lib/sentence/domain/sentence.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/sentence/domain/sentence.ts#L32)
 
 ## Properties
 
@@ -72,7 +72,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/sentence.ts#L29)
+[src/lib/sentence/domain/sentence.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/sentence/domain/sentence.ts#L29)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/sentence.ts#L28)
+[src/lib/sentence/domain/sentence.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/sentence/domain/sentence.ts#L28)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/sentence.ts#L30)
+[src/lib/sentence/domain/sentence.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/sentence/domain/sentence.ts#L30)
 
 ___
 
@@ -186,7 +186,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/sentence.ts#L31)
+[src/lib/sentence/domain/sentence.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/sentence/domain/sentence.ts#L31)
 
 ___
 
@@ -228,7 +228,7 @@ node_modules/3xpr/shared/domain/operand.d.ts:42
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/sentence.ts#L46)
+[src/lib/sentence/domain/sentence.ts:46](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/sentence/domain/sentence.ts#L46)
 
 ___
 
@@ -266,4 +266,4 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/b900e4c6/src/lib/sentence/domain/sentence.ts#L39)
+[src/lib/sentence/domain/sentence.ts:39](https://github.com/FlavioLionelRita/lambdaorm/blob/5d57f9ad/src/lib/sentence/domain/sentence.ts#L39)
