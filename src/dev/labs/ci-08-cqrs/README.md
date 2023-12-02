@@ -334,7 +334,7 @@ infrastructure:
 application:
   listeners:
     - name: syncInsights
-      actions:
+      on:
         - insert
         - bulkInsert
         - update

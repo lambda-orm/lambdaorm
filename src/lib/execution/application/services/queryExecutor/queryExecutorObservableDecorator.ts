@@ -44,7 +44,7 @@ export class QueryExecutorObservableDecorator implements QueryExecutor {
 
 	private async beforeExecutionNotify (query: Query, data: any, options: QueryOptions):Promise<void> {
 		const args = { expression: query.expression, query, data, options }
-		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.on.includes(query.action)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.before(args)
 			} else {
@@ -58,7 +58,7 @@ export class QueryExecutorObservableDecorator implements QueryExecutor {
 
 	private async afterExecutionNotify (query: Query, data: any, options: QueryOptions, result:any):Promise<void> {
 		const args = { expression: query.expression, query, data, options, result }
-		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.on.includes(query.action)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.after(args)
 			} else {
@@ -72,7 +72,7 @@ export class QueryExecutorObservableDecorator implements QueryExecutor {
 
 	private async errorExecutionNotify (query: Query, data: any, options: QueryOptions, error:any):Promise<void> {
 		const args = { expression: query.expression, query, data, options, error }
-		this.observers.filter(p => p.actions.includes(query.action)).forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.on.includes(query.action)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.error(args)
 			} else {

@@ -4,7 +4,7 @@ import { Expressions } from '3xpr'
 
 export class ExecutionActionObserver extends ActionObserver {
 	constructor (private readonly config:ListenerConfig, private readonly expressions:Expressions) {
-		super(config.actions, config.condition, config.transactional)
+		super(config.on, config.condition)
 	}
 
 	public override async before (args: ActionObserverArgs): Promise<void> {

@@ -14,11 +14,11 @@ export interface ActionObserverArgs{
 }
 
 export abstract class ActionObserver {
-	public actions:SentenceAction[]
+	public on:SentenceAction[]
 	public condition?:string
 	public transactional?:boolean
-	constructor (actions:SentenceAction[], condition?:string, transactional?:boolean) {
-		this.actions = actions
+	constructor (on:SentenceAction[], condition?:string, transactional?:boolean) {
+		this.on = on
 		this.condition = condition
 		this.transactional = transactional
 	}

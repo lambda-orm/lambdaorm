@@ -138,9 +138,8 @@ export interface Stage {
 }
 export interface ListenerConfig {
 	name: string
-	actions: SentenceAction[]
+	on: SentenceAction[]
 	condition?: string
-	transactional?:boolean
 	before?:string
 	after?:string
 	error?:string
