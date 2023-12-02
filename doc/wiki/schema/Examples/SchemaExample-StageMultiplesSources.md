@@ -1,7 +1,11 @@
 
-# Stage related multiples datasources
+# Stage related multiples Sources
 
-## Stage related to multiple datasources sharing the mapping
+- When the entities are in different databases, the data source for each entity must be specified in the stage configuration.
+- This is done through the "condition" property, which is an expression that is evaluated for each entity and if true, the specified data source is used.
+- Source conditions are evaluated in the order they are found in the stage, so if an entity meets the two-source condition, the data source from the first source that meets the condition will be used.
+
+## Stage related to multiple Sources sharing the mapping
 
 This schema has two entities that are in different databases.
 

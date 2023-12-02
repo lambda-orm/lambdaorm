@@ -1,4 +1,19 @@
-# Simple
+# Basic Schema Example
+
+In the basic configuration of a schema, the entities, mapping and data sources are defined.
+Properties, relationships and keys are defined in entities.
+In the mapping, the mappings of the entities with the database tables are defined.
+In the data sources, the dialect of the data source and the connections are defined.
+
+Many properties can be omitted since they have a default value.
+For example:
+
+- If the type of a property is not defined in an entity, it is assumed to be a string.
+- If it is not specified that the property is required, it is assumed that it is not.
+- If the length of a property is not defined, it is assumed to be 80.
+- If the mapping information is not defined, it is assumed that the entities are called the same in the source data and that the properties are called the same as the field in the table or collection.
+
+## Schema Example
 
 The schema defines how the entities of the model are mapped with the database tables.
 

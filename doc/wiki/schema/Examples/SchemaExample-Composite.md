@@ -19,7 +19,7 @@ The Orders.details entity is a composite entity of the Orders entity. \
 ```yaml
 domain:  
   entities:
-	...  
+...  
   - name: Orders
     primaryKey: [id]
     indexes:
@@ -534,7 +534,7 @@ Orders table:
 
 Orders details table:
 
-![OrderDetailsCompositeInPostgres](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/OrderDetailsCompositeInPostgres.png)
+![OrderDetailsCompositeInPostgres](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/OrderDetailCompositeInPostgres.png)
 
 ## Queries
 

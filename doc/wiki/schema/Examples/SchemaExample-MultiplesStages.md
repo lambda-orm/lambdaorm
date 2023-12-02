@@ -1,4 +1,14 @@
-# Two stages
+# Multiples Stages
+
+The scheme allows you to define different usage scenarios.
+These usage scenarios can be used for different reasons, for example:
+
+- You can create a scenario to work with an Oracle Base and another with SqlServer with the same definition of the business model to perform performance tests.
+- You can configure one stage as a source and another as a destination to perform data migrations.
+- You can define one stage for read operations and another for write operations.
+- You can define one stage for the development environment and another for the qa environment.
+
+## Schema Example
 
 In this scheme we can see how to extend the schema.
 
@@ -67,11 +77,11 @@ infrastructure:
     - name: source1
       dialect: MySQL
       mapping: mapping1
-      connection: ${CNN_MYSQL}
+      connection: $CNN_MYSQL
     - name: source2
       dialect: PostgreSQL
       mapping: mapping2
-      connection: ${CNN_POSTGRES}
+      connection: $CNN_POSTGRES
   stages:
     - name: stage1
       sources:

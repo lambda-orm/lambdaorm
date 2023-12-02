@@ -1,12 +1,15 @@
 # Extend
 
+Through the `extends` property we can extend the configuration in the schema. \
+Entities, mappings and mapping entities can be extended.
+
 ## Extend Entity
 
-In this scheme we can see how to extend entities.
+In this scheme we can see how to extend entities. \
+In this case, the Countries and States entities are extended from the abstract entity Positions \
+It is not mandatory that the entity be abstract to be able to use it as a basis to extend
 
 ![schema](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema2.svg)
-
-To understand an entity we use the extends attribute in the definition of the entity
 
 ```yaml
 domain:
