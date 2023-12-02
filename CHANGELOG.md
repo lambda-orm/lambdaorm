@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.8.96](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.95...v0.8.96) (2023-12-02)
 
-
-### Features
+**Features:**
 
 * **wiki:** complete edefinition and examples of schame ([ade761b](https://github.com/FlavioLionelRita/lambdaorm/commit/ade761b96b9c91b0941346cb2450d4d570804d98)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
 
