@@ -22,6 +22,7 @@
 		"CREATEROLE",
 		"curtime",
 		"Cypher",
+		"datasource",
 		"datasources",
 		"DATEDIFF",
 		"dateTime",

@@ -24,5 +24,3 @@ In the case of the Countries entity, both the name of the table and the fields c
 But in the case of the States entity, the name of the table and its fields differ, so the mapping defines the mapping.
 
 ![diagram](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema5.svg)
-
-[View schema configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Examples#one-schema-related-multiples-databases)

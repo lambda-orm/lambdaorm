@@ -2,7 +2,7 @@
 
 ## Simple configuration example
 
-### configuration using yaml
+**Configuration using yaml:**
 
 ```yaml
 domain:
@@ -34,7 +34,7 @@ infrastructure:
       connection: ${CNN_MYSQL}
 ```
 
-### Configuration using json
+**Configuration using json:**
 
 ```json
 { 
@@ -79,12 +79,12 @@ infrastructure:
 }
 ```
 
-## Generate the model
+## Build source code
 
-Once the schema is configured or modified, the model can be created or modified by executing the "update" command of [CLI](https://www.npmjs.com/package/lambdaorm-cli)
+Once the schema is configured or modified, the model can be created or modified by executing the "build" command of [CLI](https://www.npmjs.com/package/lambdaorm-cli)
 
 ```sh
-lambdaorm update
+lambdaorm build -l node 
 ```
 
 This command generates the model file with all the entities as a repository file for each entity
