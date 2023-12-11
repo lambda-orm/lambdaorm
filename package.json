@@ -55,7 +55,7 @@
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.23.3",
-		"@types/jest": "^29.5.10",
+		"@types/jest": "^29.5.11",
 		"@types/mysql": "^2.15.21",
 		"@types/node": "^20.10.0",
 		"@types/yargs": "^17.0.24",
