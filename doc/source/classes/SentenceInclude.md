@@ -29,6 +29,9 @@
 ### Methods
 
 - [eval](SentenceInclude.md#eval)
+- [evalAsync](SentenceInclude.md#evalasync)
+- [isAsync](SentenceInclude.md#isasync)
+- [solve](SentenceInclude.md#solve)
 
 ## Constructors
 
@@ -55,7 +58,7 @@ Operand.constructor
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:130](https://github.com/FlavioLionelRita/lambdaorm/blob/ade761b9/src/lib/sentence/domain/sentence.ts#L130)
+[src/lib/sentence/domain/sentence.ts:130](https://github.com/FlavioLionelRita/lambdaorm/blob/3a7cdffc/src/lib/sentence/domain/sentence.ts#L130)
 
 ## Properties
 
@@ -69,7 +72,7 @@ Operand.children
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:43
+node_modules/3xpr/shared/domain/operand.d.ts:44
 
 ___
 
@@ -83,7 +86,7 @@ Operand.evaluator
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:45
+node_modules/3xpr/shared/domain/operand.d.ts:46
 
 ___
 
@@ -97,7 +100,7 @@ Operand.id
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:47
+node_modules/3xpr/shared/domain/operand.d.ts:48
 
 ___
 
@@ -111,7 +114,7 @@ Operand.name
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:41
+node_modules/3xpr/shared/domain/operand.d.ts:42
 
 ___
 
@@ -125,7 +128,7 @@ Operand.number
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:46
+node_modules/3xpr/shared/domain/operand.d.ts:47
 
 ___
 
@@ -139,7 +142,7 @@ Operand.pos
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:40
+node_modules/3xpr/shared/domain/operand.d.ts:41
 
 ___
 
@@ -149,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:129](https://github.com/FlavioLionelRita/lambdaorm/blob/ade761b9/src/lib/sentence/domain/sentence.ts#L129)
+[src/lib/sentence/domain/sentence.ts:129](https://github.com/FlavioLionelRita/lambdaorm/blob/3a7cdffc/src/lib/sentence/domain/sentence.ts#L129)
 
 ___
 
@@ -163,7 +166,7 @@ Operand.returnType
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:44
+node_modules/3xpr/shared/domain/operand.d.ts:45
 
 ___
 
@@ -177,7 +180,7 @@ Operand.type
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:42
+node_modules/3xpr/shared/domain/operand.d.ts:43
 
 ## Methods
 
@@ -201,4 +204,70 @@ Operand.eval
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:49
+node_modules/3xpr/shared/domain/operand.d.ts:50
+
+___
+
+### evalAsync
+
+▸ **evalAsync**(`context`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | `Context` |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Inherited from
+
+Operand.evalAsync
+
+#### Defined in
+
+node_modules/3xpr/shared/domain/operand.d.ts:51
+
+___
+
+### isAsync
+
+▸ **isAsync**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Inherited from
+
+Operand.isAsync
+
+#### Defined in
+
+node_modules/3xpr/shared/domain/operand.d.ts:52
+
+___
+
+### solve
+
+▸ **solve**(`context`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | `Context` |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Inherited from
+
+Operand.solve
+
+#### Defined in
+
+node_modules/3xpr/shared/domain/operand.d.ts:53

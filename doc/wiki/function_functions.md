@@ -164,8 +164,17 @@
 |undefined|undefined|
 |undefined|undefined|
 |undefined|undefined|
+|undefined|undefined|
 
 ## Definition
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- ms?: number
 
 ### undefined
 

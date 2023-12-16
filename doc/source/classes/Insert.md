@@ -30,6 +30,9 @@
 ### Methods
 
 - [eval](Insert.md#eval)
+- [evalAsync](Insert.md#evalasync)
+- [isAsync](Insert.md#isasync)
+- [solve](Insert.md#solve)
 
 ## Constructors
 
@@ -57,7 +60,7 @@
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/ade761b9/src/lib/sentence/domain/sentence.ts#L54)
+[src/lib/sentence/domain/sentence.ts:54](https://github.com/FlavioLionelRita/lambdaorm/blob/3a7cdffc/src/lib/sentence/domain/sentence.ts#L54)
 
 ## Properties
 
@@ -71,7 +74,7 @@
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/ade761b9/src/lib/sentence/domain/sentence.ts#L52)
+[src/lib/sentence/domain/sentence.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/3a7cdffc/src/lib/sentence/domain/sentence.ts#L52)
 
 ___
 
@@ -85,7 +88,7 @@ ___
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:43
+node_modules/3xpr/shared/domain/operand.d.ts:44
 
 ___
 
@@ -99,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/domain/sentence.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/ade761b9/src/lib/sentence/domain/sentence.ts#L53)
+[src/lib/sentence/domain/sentence.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/3a7cdffc/src/lib/sentence/domain/sentence.ts#L53)
 
 ___
 
@@ -113,7 +116,7 @@ ___
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:45
+node_modules/3xpr/shared/domain/operand.d.ts:46
 
 ___
 
@@ -127,7 +130,7 @@ ___
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:47
+node_modules/3xpr/shared/domain/operand.d.ts:48
 
 ___
 
@@ -141,7 +144,7 @@ ___
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:41
+node_modules/3xpr/shared/domain/operand.d.ts:42
 
 ___
 
@@ -155,7 +158,7 @@ ___
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:46
+node_modules/3xpr/shared/domain/operand.d.ts:47
 
 ___
 
@@ -169,7 +172,7 @@ ___
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:40
+node_modules/3xpr/shared/domain/operand.d.ts:41
 
 ___
 
@@ -183,7 +186,7 @@ ___
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:44
+node_modules/3xpr/shared/domain/operand.d.ts:45
 
 ___
 
@@ -197,7 +200,7 @@ ___
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:42
+node_modules/3xpr/shared/domain/operand.d.ts:43
 
 ## Methods
 
@@ -221,4 +224,70 @@ node_modules/3xpr/shared/domain/operand.d.ts:42
 
 #### Defined in
 
-node_modules/3xpr/shared/domain/operand.d.ts:49
+node_modules/3xpr/shared/domain/operand.d.ts:50
+
+___
+
+### evalAsync
+
+▸ **evalAsync**(`context`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | `Context` |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Inherited from
+
+[Clause](Clause.md).[evalAsync](Clause.md#evalasync)
+
+#### Defined in
+
+node_modules/3xpr/shared/domain/operand.d.ts:51
+
+___
+
+### isAsync
+
+▸ **isAsync**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Inherited from
+
+[Clause](Clause.md).[isAsync](Clause.md#isasync)
+
+#### Defined in
+
+node_modules/3xpr/shared/domain/operand.d.ts:52
+
+___
+
+### solve
+
+▸ **solve**(`context`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | `Context` |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Inherited from
+
+[Clause](Clause.md).[solve](Clause.md#solve)
+
+#### Defined in
+
+node_modules/3xpr/shared/domain/operand.d.ts:53
