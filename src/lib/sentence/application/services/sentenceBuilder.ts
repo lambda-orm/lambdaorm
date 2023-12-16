@@ -299,7 +299,6 @@ export class SentenceBuilder implements ISentenceBuilder {
 			if (fields.length === 1) {
 				children.push(new GroupBy(pos, 'groupBy', fields, entityName, alias))
 			} else {
-				// TODO: chequear este caso
 				const array: Operand = new Operand(pos, 'array', OperandType.List, fields)
 				children.push(new GroupBy(pos, 'groupBy', [array], entityName, alias))
 			}

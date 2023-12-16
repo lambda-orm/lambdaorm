@@ -45,7 +45,6 @@ export class Orm implements IOrm {
 	constructor (workspace: string = process.cwd()) {
 		this.expressions = new OrmExpressionsBuilder().build()
 		new OrmLibrary(this).load()
-		// TODO: resolver en  HelperBuilder
 		this.helper = new Helper(new OperandHelper(this.expressions.constBuilder), h3lp)
 		this.language = new SentenceLanguageServiceBuilder(this.helper).build()
 		this.connection = new ConnectionFacadeBuilder(this.helper).build()
@@ -102,7 +101,7 @@ export class Orm implements IOrm {
 		if (schema.application?.start) {
 			for (const task of schema.application.start) {
 				if (task.condition === undefined || this.expressions.eval(task.condition)) {
-					this.expressions.eval(task.expression)
+					await this.expressions.evalAsync(task.expression)
 				}
 			}
 		}
@@ -125,7 +124,7 @@ export class Orm implements IOrm {
 		if (schema.application?.end) {
 			for (const task of schema.application.end) {
 				if (task.condition === undefined || this.expressions.eval(task.condition)) {
-					this.expressions.eval(task.expression)
+					await this.expressions.evalAsync(task.expression)
 				}
 			}
 		}

@@ -9,22 +9,19 @@ export class ExecutionActionObserver extends ActionObserver {
 
 	public override async before (args: ActionObserverArgs): Promise<void> {
 		if (this.config.before !== undefined) {
-			// TODO: solve async expression
-			this.expressions.eval(this.config.before, args)
+			await this.expressions.evalAsync(this.config.before, args)
 		}
 	}
 
 	public override async after (args: ActionObserverArgs): Promise<void> {
 		if (this.config.after !== undefined) {
-			// TODO: solve async expression
-			this.expressions.eval(this.config.after, args)
+			await this.expressions.evalAsync(this.config.after, args)
 		}
 	}
 
 	public override async error (args: ActionObserverArgs): Promise<void> {
 		if (this.config.error !== undefined) {
-			// TODO: solve async expression
-			this.expressions.eval(this.config.error, args)
+			await this.expressions.evalAsync(this.config.error, args)
 		}
 	}
 }
