@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.8.97](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.96...v0.8.97) (2023-12-16)
+
+
+### Bug Fixes
+
+* **library:** solve orm.execute async method ([3a7cdff](https://github.com/FlavioLionelRita/lambdaorm/commit/3a7cdffca7ae94d5e92afbcc17b2c19eca6d90a6)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+
 ### [0.8.96](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.95...v0.8.96) (2023-12-02)
 
 **Features:**
