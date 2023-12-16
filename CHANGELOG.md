@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.8.98](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.97...v0.8.98) (2023-12-16)
 
-
-### Features
+**Features:**
 
 * solve async expressions ([6310c38](https://github.com/FlavioLionelRita/lambdaorm/commit/6310c38e7cb24458c4cf6000993ce5a7ce8701a3)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
 
