@@ -514,7 +514,7 @@ import path from'path'
 
 [complete lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/client-node/02-import-data)
 
-## Consideraciones
+## Considerations
 
 Keep in mind that whether we use the "lambdaorm" or "lambdaorm-client-node" library we can write the queries in lambda or string format.
 
