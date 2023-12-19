@@ -1,6 +1,6 @@
 # λORM
 
-λORM goes beyond being an ORM library for Node.js.
+λORM goes beyond being an ORM library.
 
 In addition to being consumed as a Node library, it can also be consumed as a command line interface (CLI) and as a REST service. This facilitates its consumption from different programming languages.
 
