@@ -247,7 +247,7 @@ Result:
 ]
 ```
 
-[complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
+[view complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
 
 ### CQRS (Command Query Responsibility Segregation)
 
@@ -440,7 +440,7 @@ Result:
 }
 ```
 
-[complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/03-northwind-cqrs)
+[view complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/03-northwind-cqrs)
 
 ### CQRS (Command Query Responsibility Segregation) with Kafka
 
@@ -470,7 +470,7 @@ application:
       after: queue.send("insights-sync",[{expression:expression,data:data}]) 
 ```
 
-[complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)
+[view complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)
 
 ### Node Client
 
@@ -533,7 +533,7 @@ import path from'path'
 })()
 ```
 
-[complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/client-node/02-import-data)
+[view complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/client-node/02-import-data)
 
 ## Considerations
 

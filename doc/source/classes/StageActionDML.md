@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/02a3343d/src/lib/stage/application/useCases/base/actionDML.ts#L16)
+[src/lib/stage/application/useCases/base/actionDML.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/useCases/base/actionDML.ts#L16)
 
 ## Methods
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/02a3343d/src/lib/stage/application/useCases/base/actionDML.ts#L34)
+[src/lib/stage/application/useCases/base/actionDML.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/useCases/base/actionDML.ts#L34)
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/02a3343d/src/lib/stage/application/useCases/base/actionDML.ts#L25)
+[src/lib/stage/application/useCases/base/actionDML.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/useCases/base/actionDML.ts#L25)
