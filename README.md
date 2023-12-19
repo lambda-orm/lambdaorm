@@ -10,7 +10,7 @@ For example, in one query you can obtain or modify records from different entiti
 
 In addition, it allows you to define different scenarios for the same domain. For example, in one scenario the infrastructure may be distributed instances of SQlServer, MongoDB and Oracle, and in another scenario it may be a single instance of Postgres.
 
-In addition to specifying how the domain maps to the infrastructure, you can also define indexes, unique keys, enums, default values, constraints, listeners, etc. All this configuration is done through a file in JSON or YAML format. And all the conditions or actions defined in the configuration file are performed with the same expression language to define queries.
+In addition to specifying how the domain maps to the infrastructure, you can also define indexes, unique keys, enums, default values, constraints, listeners, etc. All this configuration is done through a file in JSON or YAML format. And all the conditions or actions defined in the configuration file are performed with the same [expression language](https://www.npmjs.com/package/3xpr) to define queries.
 
 Queries are written as lambda expressions, similar to those you would use in JavaScript on arrays of objects. These expressions are the same whether the ORM is being used from the Node library, CLI, the REST service or a client of another programming language.
 
@@ -46,7 +46,7 @@ Additionally, information can be obtained from the queries without having to exe
 - TypeScript and JavaScript support
 - [CLI Support](https://github.com/FlavioLionelRita/lambdaorm-cli) support
 - [REST API Support](https://github.com/FlavioLionelRita/lambdaorm-svc)
-- HTTP Client Support:
+- HTTP Client Support
   - [Node Client](https://www.npmjs.com/package/lambdaorm-client-node)
   - [Kotlin Client](https://github.com/FlavioLionelRita/lambdaorm-client-kotlin) (In Progress)
   - Java Client (Coming Soon)
@@ -59,7 +59,7 @@ To show different ways of consuming the ORM we will propose different cases with
 To simplify the schema, we will omit the specification of the properties, keys, indices and relationships of the entities as well as the mapping.
 But you can see the complete schema in the example labs.
 
-### Unique Source Case
+### Unique Source
 
 **Schema:**
 
@@ -155,7 +155,7 @@ Result:
 ]
 ```
 
-### Multiple Sources Case
+### Multiple Sources
 
 **Schema:**
 
@@ -247,9 +247,9 @@ Result:
 ]
 ```
 
-[complete lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
+[complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
 
-### CQRS (Command Query Responsibility Segregation) case
+### CQRS (Command Query Responsibility Segregation)
 
 **Schema:**
 
@@ -358,7 +358,7 @@ Result:
 ]
 ```
 
-**Plan on default Stage:**
+**Read Query Plan on Default Stage:**
 
 When a query is executed in the default stage, data will be obtained from different data sources according to the stage configuration.
 
@@ -398,7 +398,7 @@ Result:
 }
 ```
 
-**Plan on CQRS Stage:**
+**Read Query Plan on CQRS Stage:**
 
 When you run a query on the cqrs stage, you will get data from a single data source according to the stage configuration.
 But if the query is for insert, update or delete, it will be executed in the corresponding data source.
@@ -440,9 +440,9 @@ Result:
 }
 ```
 
-[complete lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/03-northwind-cqrs)
+[complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/03-northwind-cqrs)
 
-### CQRS (Command Query Responsibility Segregation) with Kafka case
+### CQRS (Command Query Responsibility Segregation) with Kafka
 
 If we use the ORM from the REST service, we can use Kafka to publish the insert, update and delete data events in the default and cqrs scenario. And configure Kafka consumers to update the data in the insights scenario.
 
@@ -470,9 +470,30 @@ application:
       after: queue.send("insights-sync",[{expression:expression,data:data}]) 
 ```
 
-[complete lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)
+[complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)
 
-### Node Client case
+### Node Client
+
+**Schema:**
+
+In the case of using a rest service client, the schema only defines the domain and the paths in the infrastructure.
+Since the infrastructure definition is done in the rest service configuration.
+
+```yaml
+domain:  
+  entities:
+  - name: Categories
+  - name: Customers
+  - name: Products
+  - name: Orders
+  - name: Orders.details
+infrastructure:
+  paths:    
+    src: src
+    domain: northwind/domain 
+```
+
+**Query:**
 
 In this case we will use a Node client that will connect to the REST service to execute the query.
 And in this case we will write the query in string format.
@@ -489,7 +510,7 @@ import path from'path'
   // Gets the content of the data.json file to insert the data
   const content = fs.readFileSync(path.join(__dirname,'../data.json'), 'utf-8')
   const data = JSON.parse(content)
-  // Import data: ERROR
+  // Import data
   await orm.stage.import('default',data)
   // query as string
   const query = `Orders.filter(p =>p.customerId==customerId)
@@ -512,7 +533,7 @@ import path from'path'
 })()
 ```
 
-[complete lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/client-node/02-import-data)
+[complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/client-node/02-import-data)
 
 ## Considerations
 
@@ -521,6 +542,8 @@ Keep in mind that whether we use the "lambdaorm" or "lambdaorm-client-node" libr
 We could start a development by proposing a simple infrastructure and then make modifications to it and this would not affect our code, since the queries are written based on the domain model and are independent of the infrastructure.
 
 You could also have development, test and production environments with different infrastructure configurations without having to alter the code.
+
+In addition to the examples presented previously, there are many other use cases that can be solved with λORM by configuring the schema and queries language. Therefore, we invite you to explore the different [laboratories](https://github.com/FlavioLionelRita/lambdaorm-labs) and read the [documentation](https://github.com/FlavioLionelRita/lambdaorm/wiki).
 
 ## All Labs
 
