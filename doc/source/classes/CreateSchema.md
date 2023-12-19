@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/schema/application/useCases/create.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/c9705c45/src/lib/schema/application/useCases/create.ts#L6)
+[src/lib/schema/application/useCases/create.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/02a3343d/src/lib/schema/application/useCases/create.ts#L6)
 
 ## Methods
 
@@ -44,4 +44,4 @@
 
 #### Defined in
 
-[src/lib/schema/application/useCases/create.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/c9705c45/src/lib/schema/application/useCases/create.ts#L8)
+[src/lib/schema/application/useCases/create.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/02a3343d/src/lib/schema/application/useCases/create.ts#L8)
