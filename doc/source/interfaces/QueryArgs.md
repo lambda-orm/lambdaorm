@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L6)
+[src/lib/query/domain/query.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L6)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L11)
+[src/lib/query/domain/query.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L11)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L13)
+[src/lib/query/domain/query.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L13)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L15)
+[src/lib/query/domain/query.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L15)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L7)
+[src/lib/query/domain/query.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L7)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L10)
+[src/lib/query/domain/query.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L10)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L18)
+[src/lib/query/domain/query.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L18)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L17)
+[src/lib/query/domain/query.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L17)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L12)
+[src/lib/query/domain/query.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L12)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L9)
+[src/lib/query/domain/query.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L9)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L8)
+[src/lib/query/domain/query.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L8)
 
 ___
 
@@ -137,4 +137,4 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/d4e23658/src/lib/query/domain/query.ts#L14)
+[src/lib/query/domain/query.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/b06d7548/src/lib/query/domain/query.ts#L14)
