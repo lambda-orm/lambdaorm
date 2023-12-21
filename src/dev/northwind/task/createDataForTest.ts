@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../../../syntax.d.ts" />
-import { orm } from '../../../lib'
-import { QueryPlan } from 'lambdaorm-base'
+import { orm, QueryPlan } from '../../../lib'
 import { Categories, Customers, Products, Orders } from '../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 import { h3lp } from 'h3lp'

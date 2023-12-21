@@ -11,7 +11,7 @@
 
 ## Implements
 
-- `IRepository`\<`TEntity`, `TQuery`\>
+- [`IRepository`](../interfaces/IRepository.md)\<`TEntity`, `TQuery`\>
 
 ## Table of contents
 
@@ -67,7 +67,7 @@
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L9)
+[src/lib/repository/infrastructure/repository.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L9)
 
 ## Properties
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L9)
+[src/lib/repository/infrastructure/repository.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L9)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L9)
+[src/lib/repository/infrastructure/repository.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L9)
 
 ## Methods
 
@@ -107,11 +107,11 @@ ___
 
 #### Implementation of
 
-IRepository.bulkInsert
+[IRepository](../interfaces/IRepository.md).[bulkInsert](../interfaces/IRepository.md#bulkinsert)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L40)
+[src/lib/repository/infrastructure/repository.ts:40](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L40)
 
 ▸ **bulkInsert**(`entities`, `include`): `Promise`\<`any`[]\>
 
@@ -128,11 +128,11 @@ IRepository.bulkInsert
 
 #### Implementation of
 
-IRepository.bulkInsert
+[IRepository](../interfaces/IRepository.md).[bulkInsert](../interfaces/IRepository.md#bulkinsert)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L42)
+[src/lib/repository/infrastructure/repository.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L42)
 
 ___
 
@@ -152,11 +152,11 @@ ___
 
 #### Implementation of
 
-IRepository.delete
+[IRepository](../interfaces/IRepository.md).[delete](../interfaces/IRepository.md#delete)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L72)
+[src/lib/repository/infrastructure/repository.ts:72](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L72)
 
 ▸ **delete**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -173,11 +173,11 @@ IRepository.delete
 
 #### Implementation of
 
-IRepository.delete
+[IRepository](../interfaces/IRepository.md).[delete](../interfaces/IRepository.md#delete)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:74](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L74)
+[src/lib/repository/infrastructure/repository.ts:74](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L74)
 
 ___
 
@@ -199,11 +199,11 @@ ___
 
 #### Implementation of
 
-IRepository.deleteAll
+[IRepository](../interfaces/IRepository.md).[deleteAll](../interfaces/IRepository.md#deleteall)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L79)
+[src/lib/repository/infrastructure/repository.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L79)
 
 ___
 
@@ -225,11 +225,11 @@ ___
 
 #### Implementation of
 
-IRepository.distinct
+[IRepository](../interfaces/IRepository.md).[distinct](../interfaces/IRepository.md#distinct)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:93](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L93)
+[src/lib/repository/infrastructure/repository.ts:93](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L93)
 
 ___
 
@@ -250,11 +250,11 @@ ___
 
 #### Implementation of
 
-IRepository.execute
+[IRepository](../interfaces/IRepository.md).[execute](../interfaces/IRepository.md#execute)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L27)
+[src/lib/repository/infrastructure/repository.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L27)
 
 ___
 
@@ -276,11 +276,11 @@ ___
 
 #### Implementation of
 
-IRepository.first
+[IRepository](../interfaces/IRepository.md).[first](../interfaces/IRepository.md#first)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:100](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L100)
+[src/lib/repository/infrastructure/repository.ts:100](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L100)
 
 ___
 
@@ -300,11 +300,11 @@ ___
 
 #### Implementation of
 
-IRepository.insert
+[IRepository](../interfaces/IRepository.md).[insert](../interfaces/IRepository.md#insert)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L32)
+[src/lib/repository/infrastructure/repository.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L32)
 
 ▸ **insert**(`entity`, `include`): `Promise`\<`any`\>
 
@@ -321,11 +321,11 @@ IRepository.insert
 
 #### Implementation of
 
-IRepository.insert
+[IRepository](../interfaces/IRepository.md).[insert](../interfaces/IRepository.md#insert)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L34)
+[src/lib/repository/infrastructure/repository.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L34)
 
 ___
 
@@ -347,11 +347,11 @@ ___
 
 #### Implementation of
 
-IRepository.last
+[IRepository](../interfaces/IRepository.md).[last](../interfaces/IRepository.md#last)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:112](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L112)
+[src/lib/repository/infrastructure/repository.ts:112](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L112)
 
 ___
 
@@ -373,11 +373,11 @@ ___
 
 #### Implementation of
 
-IRepository.list
+[IRepository](../interfaces/IRepository.md).[list](../interfaces/IRepository.md#list)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:86](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L86)
+[src/lib/repository/infrastructure/repository.ts:86](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L86)
 
 ___
 
@@ -397,11 +397,11 @@ ___
 
 #### Implementation of
 
-IRepository.merge
+[IRepository](../interfaces/IRepository.md).[merge](../interfaces/IRepository.md#merge)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L64)
+[src/lib/repository/infrastructure/repository.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L64)
 
 ▸ **merge**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -418,29 +418,29 @@ IRepository.merge
 
 #### Implementation of
 
-IRepository.merge
+[IRepository](../interfaces/IRepository.md).[merge](../interfaces/IRepository.md#merge)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:66](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L66)
+[src/lib/repository/infrastructure/repository.ts:66](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L66)
 
 ___
 
 ### query
 
-▸ **query**(): `Queryable`\<`TQuery`\>
+▸ **query**(): [`Queryable`](Queryable.md)\<`TQuery`\>
 
 #### Returns
 
-`Queryable`\<`TQuery`\>
+[`Queryable`](Queryable.md)\<`TQuery`\>
 
 #### Implementation of
 
-IRepository.query
+[IRepository](../interfaces/IRepository.md).[query](../interfaces/IRepository.md#query)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:124](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L124)
+[src/lib/repository/infrastructure/repository.ts:124](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L124)
 
 ___
 
@@ -460,11 +460,11 @@ ___
 
 #### Implementation of
 
-IRepository.update
+[IRepository](../interfaces/IRepository.md).[update](../interfaces/IRepository.md#update)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L48)
+[src/lib/repository/infrastructure/repository.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L48)
 
 ▸ **update**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -481,11 +481,11 @@ IRepository.update
 
 #### Implementation of
 
-IRepository.update
+[IRepository](../interfaces/IRepository.md).[update](../interfaces/IRepository.md#update)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L50)
+[src/lib/repository/infrastructure/repository.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L50)
 
 ___
 
@@ -508,8 +508,8 @@ ___
 
 #### Implementation of
 
-IRepository.updateAll
+[IRepository](../interfaces/IRepository.md).[updateAll](../interfaces/IRepository.md#updateall)
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/infrastructure/repository.ts#L55)
+[src/lib/repository/infrastructure/repository.ts:55](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/infrastructure/repository.ts#L55)

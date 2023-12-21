@@ -1,6 +1,4 @@
-import { orm ,ActionObserver ,ActionObserverArgs } from '../../lib'
-import { SentenceAction } from 'lambdaorm-base'
-
+import { orm ,ActionObserver ,ActionObserverArgs, SentenceAction } from '../../lib'
 class EmployeeUpdateObserver extends ActionObserver {
 	constructor() {
 		super([SentenceAction.update],'query.entity=="Employees"',true)

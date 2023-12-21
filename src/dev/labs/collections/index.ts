@@ -1,5 +1,4 @@
-import { Orm} from '../../../lib'
-import {isNotNull } from 'lambdaorm-base'
+import { Orm, isNotNull} from '../../../lib'
 import { h3lp } from 'h3lp'
 import { DbDebtors } from './src/model'
 const lab = async () => {

@@ -1,5 +1,4 @@
-import { orm} from '../../../lib'
-import { max } from 'lambdaorm-base'
+import { orm, max} from '../../../lib'
 import { Products } from '../../northwind/model/__model'
 
 async function apply () {

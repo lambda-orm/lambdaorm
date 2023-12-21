@@ -27,11 +27,11 @@
 
 | Name | Type |
 | :------ | :------ |
-| `schemaFacade` | `SchemaFacade` |
+| `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
 | `operandFacade` | [`OperandFacade`](OperandFacade.md) |
 | `expressions` | `Expressions` |
 | `cache` | `ICache`\<`string`, `string`\> |
-| `serializer` | `SentenceSerializer` |
+| `serializer` | [`SentenceSerializer`](../interfaces/SentenceSerializer.md) |
 | `helper` | [`Helper`](Helper.md) |
 
 #### Returns
@@ -40,35 +40,35 @@
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/facade.ts#L27)
+[src/lib/sentence/application/facade.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/sentence/application/facade.ts#L27)
 
 ## Methods
 
 ### build
 
-▸ **build**(`expression`, `view`, `stage`): `Sentence`
+▸ **build**(`expression`, `view`, `stage`): [`Sentence`](Sentence.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expression` | `string` |
-| `view` | `ViewConfigService` |
+| `view` | [`ViewConfigService`](ViewConfigService.md) |
 | `stage` | `string` |
 
 #### Returns
 
-`Sentence`
+[`Sentence`](Sentence.md)
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/facade.ts#L44)
+[src/lib/sentence/application/facade.ts:44](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/sentence/application/facade.ts#L44)
 
 ___
 
 ### constraints
 
-▸ **constraints**(`expression`): `MetadataConstraint`
+▸ **constraints**(`expression`): [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
 
 #### Parameters
 
@@ -78,38 +78,38 @@ ___
 
 #### Returns
 
-`MetadataConstraint`
+[`MetadataConstraint`](../interfaces/MetadataConstraint.md)
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/facade.ts#L48)
+[src/lib/sentence/application/facade.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/sentence/application/facade.ts#L48)
 
 ___
 
 ### getSource
 
-▸ **getSource**(`sentence`, `stage`): `Source`
+▸ **getSource**(`sentence`, `stage`): [`Source`](../interfaces/Source.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sentence` | `Sentence` |
+| `sentence` | [`Sentence`](Sentence.md) |
 | `stage` | `string` |
 
 #### Returns
 
-`Source`
+[`Source`](../interfaces/Source.md)
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/facade.ts#L64)
+[src/lib/sentence/application/facade.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/sentence/application/facade.ts#L64)
 
 ___
 
 ### metadata
 
-▸ **metadata**(`expression`): `Metadata`
+▸ **metadata**(`expression`): [`Metadata`](../interfaces/Metadata.md)
 
 #### Parameters
 
@@ -119,17 +119,17 @@ ___
 
 #### Returns
 
-`Metadata`
+[`Metadata`](../interfaces/Metadata.md)
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/facade.ts#L52)
+[src/lib/sentence/application/facade.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/sentence/application/facade.ts#L52)
 
 ___
 
 ### model
 
-▸ **model**(`expression`): `MetadataModel`[]
+▸ **model**(`expression`): [`MetadataModel`](../interfaces/MetadataModel.md)[]
 
 #### Parameters
 
@@ -139,17 +139,17 @@ ___
 
 #### Returns
 
-`MetadataModel`[]
+[`MetadataModel`](../interfaces/MetadataModel.md)[]
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/facade.ts#L56)
+[src/lib/sentence/application/facade.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/sentence/application/facade.ts#L56)
 
 ___
 
 ### parameters
 
-▸ **parameters**(`expression`): `MetadataParameter`[]
+▸ **parameters**(`expression`): [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
 
 #### Parameters
 
@@ -159,8 +159,8 @@ ___
 
 #### Returns
 
-`MetadataParameter`[]
+[`MetadataParameter`](../interfaces/MetadataParameter.md)[]
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:60](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/facade.ts#L60)
+[src/lib/sentence/application/facade.ts:60](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/sentence/application/facade.ts#L60)

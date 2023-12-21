@@ -26,7 +26,7 @@
 | :------ | :------ |
 | `name` | `string` |
 | `query` | [`Query`](Query.md) |
-| `relation` | `Relation` |
+| `relation` | [`Relation`](../interfaces/Relation.md) |
 
 #### Returns
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L52)
+[src/lib/query/domain/query.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L52)
 
 ## Properties
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L49)
+[src/lib/query/domain/query.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L49)
 
 ___
 
@@ -54,14 +54,14 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L50)
+[src/lib/query/domain/query.ts:50](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L50)
 
 ___
 
 ### relation
 
-• **relation**: `Relation`
+• **relation**: [`Relation`](../interfaces/Relation.md)
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L51)
+[src/lib/query/domain/query.ts:51](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L51)

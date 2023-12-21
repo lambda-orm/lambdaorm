@@ -18,7 +18,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `sentence` | `Sentence` |
+| `sentence` | [`Sentence`](../classes/Sentence.md) |
 
 #### Returns
 
@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/lib/sentence/application/ports/dmlBuilderPort.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/ports/dmlBuilderPort.ts#L5)
+[src/lib/sentence/application/ports/dmlBuilderPort.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/sentence/application/ports/dmlBuilderPort.ts#L5)

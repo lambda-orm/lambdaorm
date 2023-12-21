@@ -33,7 +33,7 @@
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `stateService` | [`StageModelService`](StageModelService.md) |
 | `mappingService` | [`StageMappingService`](StageMappingService.md) |
-| `schemaFacade` | `SchemaFacade` |
+| `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
 | `languages` | [`LanguagesService`](LanguagesService.md) |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 | `helper` | [`Helper`](Helper.md) |
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/drop.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/drop.ts#L11)
+[src/lib/stage/application/useCases/drop.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/drop.ts#L11)
 
 ## Methods
 
@@ -66,7 +66,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/drop.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/drop.ts#L24)
+[src/lib/stage/application/useCases/drop.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/drop.ts#L24)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/drop.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/drop.ts#L16)
+[src/lib/stage/application/useCases/drop.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/drop.ts#L16)
 
 ___
 
@@ -102,4 +102,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

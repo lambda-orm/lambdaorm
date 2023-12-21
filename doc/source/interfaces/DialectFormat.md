@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/lib/language/domain/model.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/domain/model.ts#L3)
+[src/lib/language/domain/model.ts:3](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/language/domain/model.ts#L3)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/domain/model.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/domain/model.ts#L2)
+[src/lib/language/domain/model.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/language/domain/model.ts#L2)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/domain/model.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/domain/model.ts#L4)
+[src/lib/language/domain/model.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/language/domain/model.ts#L4)

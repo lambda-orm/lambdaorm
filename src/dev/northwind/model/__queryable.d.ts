@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import { Queryable, ManyToOne, OneToMany } from 'lambdaorm-base'
+import { Queryable, ManyToOne, OneToMany } from '../../../lib'
 interface QryCategory {
 	id: number
 	name: string

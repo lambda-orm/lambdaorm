@@ -4,7 +4,7 @@
 
 ## Implements
 
-- `ExpressionActions`
+- [`ExpressionActions`](../interfaces/ExpressionActions.md)
 
 ## Table of contents
 
@@ -42,13 +42,13 @@
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/domain/actions.ts#L7)
+[src/lib/repository/domain/actions.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/domain/actions.ts#L7)
 
 ## Methods
 
 ### constraints
 
-▸ **constraints**(`expression`): `Promise`\<`MetadataConstraint`\>
+▸ **constraints**(`expression`): `Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Parameters
 
@@ -58,15 +58,15 @@
 
 #### Returns
 
-`Promise`\<`MetadataConstraint`\>
+`Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Implementation of
 
-ExpressionActions.constraints
+[ExpressionActions](../interfaces/ExpressionActions.md).[constraints](../interfaces/ExpressionActions.md#constraints)
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/domain/actions.ts#L29)
+[src/lib/repository/domain/actions.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/domain/actions.ts#L29)
 
 ___
 
@@ -87,17 +87,17 @@ ___
 
 #### Implementation of
 
-ExpressionActions.execute
+[ExpressionActions](../interfaces/ExpressionActions.md).[execute](../interfaces/ExpressionActions.md#execute)
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/domain/actions.ts#L13)
+[src/lib/repository/domain/actions.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/domain/actions.ts#L13)
 
 ___
 
 ### metadata
 
-▸ **metadata**(`expression`): `Promise`\<`Metadata`\>
+▸ **metadata**(`expression`): `Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Parameters
 
@@ -107,21 +107,21 @@ ___
 
 #### Returns
 
-`Promise`\<`Metadata`\>
+`Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Implementation of
 
-ExpressionActions.metadata
+[ExpressionActions](../interfaces/ExpressionActions.md).[metadata](../interfaces/ExpressionActions.md#metadata)
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/domain/actions.ts#L33)
+[src/lib/repository/domain/actions.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/domain/actions.ts#L33)
 
 ___
 
 ### model
 
-▸ **model**(`expression`): `Promise`\<`MetadataModel`[]\>
+▸ **model**(`expression`): `Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Parameters
 
@@ -131,15 +131,15 @@ ___
 
 #### Returns
 
-`Promise`\<`MetadataModel`[]\>
+`Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Implementation of
 
-ExpressionActions.model
+[ExpressionActions](../interfaces/ExpressionActions.md).[model](../interfaces/ExpressionActions.md#model)
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/domain/actions.ts#L21)
+[src/lib/repository/domain/actions.ts:21](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/domain/actions.ts#L21)
 
 ___
 
@@ -159,17 +159,17 @@ ___
 
 #### Implementation of
 
-ExpressionActions.normalize
+[ExpressionActions](../interfaces/ExpressionActions.md).[normalize](../interfaces/ExpressionActions.md#normalize)
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/domain/actions.ts#L17)
+[src/lib/repository/domain/actions.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/domain/actions.ts#L17)
 
 ___
 
 ### parameters
 
-▸ **parameters**(`expression`): `Promise`\<`MetadataParameter`[]\>
+▸ **parameters**(`expression`): `Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Parameters
 
@@ -179,21 +179,21 @@ ___
 
 #### Returns
 
-`Promise`\<`MetadataParameter`[]\>
+`Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Implementation of
 
-ExpressionActions.parameters
+[ExpressionActions](../interfaces/ExpressionActions.md).[parameters](../interfaces/ExpressionActions.md#parameters)
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/domain/actions.ts#L25)
+[src/lib/repository/domain/actions.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/domain/actions.ts#L25)
 
 ___
 
 ### plan
 
-▸ **plan**(`expression`): `Promise`\<`QueryPlan`\>
+▸ **plan**(`expression`): `Promise`\<[`QueryPlan`](../interfaces/QueryPlan.md)\>
 
 #### Parameters
 
@@ -203,12 +203,12 @@ ___
 
 #### Returns
 
-`Promise`\<`QueryPlan`\>
+`Promise`\<[`QueryPlan`](../interfaces/QueryPlan.md)\>
 
 #### Implementation of
 
-ExpressionActions.plan
+[ExpressionActions](../interfaces/ExpressionActions.md).[plan](../interfaces/ExpressionActions.md#plan)
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/repository/domain/actions.ts#L37)
+[src/lib/repository/domain/actions.ts:37](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/repository/domain/actions.ts#L37)

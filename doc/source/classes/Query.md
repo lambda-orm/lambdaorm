@@ -41,47 +41,47 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L33)
+[src/lib/query/domain/query.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L33)
 
 ## Properties
 
 ### action
 
-• **action**: `SentenceAction`
+• **action**: [`SentenceAction`](../enums/SentenceAction.md)
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L20)
+[src/lib/query/domain/query.ts:20](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L20)
 
 ___
 
 ### columns
 
-• **columns**: `Property`[]
+• **columns**: [`Property`](../interfaces/Property.md)[]
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L27)
+[src/lib/query/domain/query.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L27)
 
 ___
 
 ### constraints
 
-• **constraints**: `Constraint`[]
+• **constraints**: [`Constraint`](../interfaces/Constraint.md)[]
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L29)
+[src/lib/query/domain/query.ts:29](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L29)
 
 ___
 
 ### defaults
 
-• **defaults**: `Behavior`[]
+• **defaults**: [`Behavior`](../interfaces/Behavior.md)[]
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L31)
+[src/lib/query/domain/query.ts:31](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L31)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L24)
+[src/lib/query/domain/query.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L24)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L26)
+[src/lib/query/domain/query.ts:26](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L26)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L32)
+[src/lib/query/domain/query.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L32)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L22)
+[src/lib/query/domain/query.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L22)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L28)
+[src/lib/query/domain/query.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L28)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L23)
+[src/lib/query/domain/query.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L23)
 
 ___
 
@@ -151,14 +151,14 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L25)
+[src/lib/query/domain/query.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L25)
 
 ___
 
 ### values
 
-• **values**: `Behavior`[]
+• **values**: [`Behavior`](../interfaces/Behavior.md)[]
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/query/domain/query.ts#L30)
+[src/lib/query/domain/query.ts:30](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/query/domain/query.ts#L30)

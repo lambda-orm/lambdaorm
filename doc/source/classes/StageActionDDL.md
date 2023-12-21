@@ -36,7 +36,7 @@
 | :------ | :------ |
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `stageModelService` | [`StageModelService`](StageModelService.md) |
-| `schemaFacade` | `SchemaFacade` |
+| `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
 | `languages` | [`LanguagesService`](LanguagesService.md) |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 | `helper` | [`Helper`](Helper.md) |
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 ## Methods
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
+[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
+[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
 
 ___
 
@@ -89,4 +89,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

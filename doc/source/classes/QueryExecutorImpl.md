@@ -37,7 +37,7 @@
 | :------ | :------ | :------ |
 | `connectionFacade` | [`ConnectionFacade`](ConnectionFacade.md) | `undefined` |
 | `languages` | [`LanguagesService`](LanguagesService.md) | `undefined` |
-| `schemaFacade` | `SchemaFacade` | `undefined` |
+| `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) | `undefined` |
 | `expressions` | `Expressions` | `undefined` |
 | `_options` | [`QueryOptions`](../interfaces/QueryOptions.md) | `undefined` |
 | `helper` | [`Helper`](Helper.md) | `undefined` |
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L24)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L24)
 
 ## Accessors
 
@@ -67,7 +67,7 @@ QueryExecutor.options
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L41)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:41](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L41)
 
 ## Methods
 
@@ -80,7 +80,7 @@ QueryExecutor.options
 | Name | Type |
 | :------ | :------ |
 | `query` | [`Query`](Query.md) |
-| `data` | `Data` |
+| `data` | [`Data`](Data.md) |
 
 #### Returns
 
@@ -92,7 +92,7 @@ QueryExecutor.options
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:110](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L110)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:110](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L110)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L57)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L57)
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L79)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:79](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L79)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L71)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:71](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L71)
 
 ___
 
@@ -171,4 +171,4 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L64)
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:64](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L64)

@@ -31,7 +31,7 @@
 | Name | Type |
 | :------ | :------ |
 | `stageMappingService` | [`StageMappingService`](StageMappingService.md) |
-| `domain` | `DomainConfigService` |
+| `domain` | [`DomainConfigService`](DomainConfigService.md) |
 | `expressionFacade` | [`ExpressionFacade`](ExpressionFacade.md) |
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
@@ -46,21 +46,21 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDML.ts#L15)
+[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/base/actionDML.ts#L15)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(): `Promise`\<`SchemaConfig`\>
+▸ **execute**(): `Promise`\<[`SchemaConfig`](../interfaces/SchemaConfig.md)\>
 
 #### Returns
 
-`Promise`\<`SchemaConfig`\>
+`Promise`\<[`SchemaConfig`](../interfaces/SchemaConfig.md)\>
 
 #### Defined in
 
-[src/lib/stage/application/useCases/export.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/export.ts#L6)
+[src/lib/stage/application/useCases/export.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/export.ts#L6)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDML.ts#L33)
+[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/base/actionDML.ts#L33)
 
 ___
 
@@ -96,4 +96,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDML.ts#L24)
+[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/stage/application/useCases/base/actionDML.ts#L24)
