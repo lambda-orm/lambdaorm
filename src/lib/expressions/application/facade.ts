@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { SentenceFacade } from '../../sentence/application'
-import { Query, QueryPlan, QueryOptions } from '../../query/domain'
+import { Query, QueryOptions } from '../../query/domain'
+import { QueryPlan, SchemaFacade } from 'lambdaorm-base'
 import { QueryHelper } from './services/queryHelper'
 import { GeQueryPlan } from './useCases/plan'
-import { SchemaFacade } from '../../schema/application'
 import { LanguagesService } from '../../language/application'
 import { IQueryBuilder } from '../domain'
 import { QueryBuilder } from './services/queryBuilder'

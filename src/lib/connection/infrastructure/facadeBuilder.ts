@@ -1,4 +1,4 @@
-import { Dialect } from '../../schema/domain'
+import { Dialect } from 'lambdaorm-base'
 import { ConnectionFacade } from '../application'
 import { ConnectionPoolService } from '../application/services/connectionPoolService'
 import { DialectPoolService } from '../application/services/dialectPoolService'

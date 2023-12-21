@@ -1,4 +1,4 @@
-import { NotImplemented } from '../../../shared/domain'
+import { NotImplemented } from 'lambdaorm-base'
 import { LanguagePort } from '../ports/languagePort'
 import { DialectService } from './dialectService'
 

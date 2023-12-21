@@ -1,8 +1,9 @@
-import { Sentence, Field, Filter, Join, SentenceInclude, Insert, Update } from '../../domain'
-import { EntityMapping, SchemaError, PropertyMapping, PropertyView, SentenceAction } from '../../../schema/domain'
+import {
+	EntityMapping, SchemaError, PropertyMapping, PropertyView, SentenceAction,
+	Sentence, Field, Filter, Join, SentenceInclude, Insert, Update, MappingConfigService, ViewConfigService
+} from 'lambdaorm-base'
 import { Expressions, Operand, OperandType } from '3xpr'
 import { Type } from 'typ3s'
-import { MappingConfigService, ViewConfigService } from '../../../schema/application'
 
 export class SentenceCompleter {
 	// eslint-disable-next-line no-useless-constructor

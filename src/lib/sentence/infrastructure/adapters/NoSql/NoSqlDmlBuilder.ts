@@ -1,9 +1,10 @@
 /* eslint-disable no-tabs */
 import { Operand, OperandType } from '3xpr'
-import { SintaxisError } from '../../../../shared/domain'
-import { SentenceCrudAction, SentenceAction, SchemaError, EntityMapping, RelationType } from '../../../../schema/domain'
+import {
+	SentenceCrudAction, SentenceAction, SchemaError, EntityMapping, RelationType, SintaxisError,
+	Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update
+} from 'lambdaorm-base'
 import { Query, Include } from '../../../../query/domain'
-import { Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update } from '../../../domain'
 import { DmlBuilderAdapter } from '../base/dmlBuilder'
 
 export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {

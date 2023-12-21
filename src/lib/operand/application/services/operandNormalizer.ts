@@ -1,8 +1,5 @@
 import { Helper } from '../../../shared/application'
-import { SintaxisError } from '../../../shared/domain'
-import { Relation, SchemaError, Entity } from '../../../schema/domain'
-import { DomainConfigService } from '../../../schema/application'
-import { Field } from '../../../sentence/domain'
+import { Field, DomainConfigService, Relation, SchemaError, Entity, SintaxisError } from 'lambdaorm-base'
 import { Expressions, Operand, OperandCloner, OperandType, Position } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 /**

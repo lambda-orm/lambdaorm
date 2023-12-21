@@ -1,4 +1,4 @@
-import { Constraint } from '../../../../schema/domain'
+import { Constraint } from 'lambdaorm-base'
 import { ValidationError } from '../../../domain'
 import { Query } from '../../../../query/domain'
 import { Expressions } from '3xpr'

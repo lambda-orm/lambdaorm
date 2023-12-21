@@ -1,5 +1,4 @@
-import { Property, Relation, Behavior, Constraint } from '../../schema/domain/schema'
-import { SentenceAction } from '../../schema/domain/actions'
+import { Property, Relation, Behavior, Constraint, SentenceAction } from 'lambdaorm-base'
 import { Parameter } from '3xpr'
 
 export interface QueryArgs{
@@ -66,11 +65,4 @@ export interface QueryOptions {
 	chunkSize?:number
 	tryAllCan?:boolean
 	headers?:any
-}
-export interface QueryPlan {
-	entity: string
-	dialect: string
-	source: string
-	sentence: string
-	children?: QueryPlan[]
 }

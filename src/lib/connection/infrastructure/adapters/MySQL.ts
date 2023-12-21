@@ -2,10 +2,10 @@
 import { Type, Primitive } from 'typ3s'
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
-import { Query, Data } from '../../../query/domain'
+import { Query } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
 import { Connection } from '../../application'
-import { MappingConfigService } from '../../../schema/application'
+import { MappingConfigService, Data } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
 import { Helper } from '../../../shared/application'
 

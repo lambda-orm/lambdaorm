@@ -1,7 +1,8 @@
-import { Source } from '../../schema/domain'
 import { OperandFacade } from '../../operand/application'
-import { SchemaFacade, ViewConfigService } from '../../schema/application'
-import { ISentenceBuilder, ISentenceCompleteBuilder, Metadata, MetadataConstraint, MetadataModel, MetadataParameter, Sentence, SentenceSerializer } from '../domain'
+import {
+	ISentenceBuilder, ISentenceCompleteBuilder, Metadata, MetadataConstraint, MetadataModel, MetadataParameter, Sentence, SentenceSerializer,
+	SchemaFacade, ViewConfigService, Source
+} from 'lambdaorm-base'
 import { SentenceBuilder } from './services/sentenceBuilder'
 import { SentenceCompleteBuilder } from './services/sentenceCompleteBuilder'
 import { SentenceCompleteBuilderCacheDecorator } from './services/sentenceCompleteBuilderCacheDecorator'

@@ -1,5 +1,5 @@
 import { ActionObserver, ActionObserverArgs } from '../../domain'
-import { ListenerConfig } from '../../../schema/domain'
+import { ListenerConfig } from 'lambdaorm-base'
 import { Expressions } from '3xpr'
 
 export class ExecutionActionObserver extends ActionObserver {

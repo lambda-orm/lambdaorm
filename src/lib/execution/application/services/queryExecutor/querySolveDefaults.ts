@@ -1,4 +1,4 @@
-import { Behavior } from '../../../../schema/domain'
+import { Behavior } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
 import { Expressions } from '3xpr'
 

@@ -51,7 +51,8 @@
 		"js-yaml": "^4.1.0",
 		"luxon": "^3.4.4",
 		"sqlstring": "^2.3.3",
-		"typ3s": "^0.1.0"
+		"typ3s": "^0.1.0",
+		"lambdaorm-base": "^0.1.6"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.23.3",

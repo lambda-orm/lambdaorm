@@ -1,4 +1,4 @@
-import { Entity, SchemaError } from '../../../schema/domain'
+import { Entity, SchemaError } from 'lambdaorm-base'
 import { Query } from '../../../query/domain'
 import { StageActionDML } from './base/actionDML'
 

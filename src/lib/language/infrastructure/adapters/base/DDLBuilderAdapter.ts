@@ -1,6 +1,5 @@
-import { MappingConfigService } from '../../../../schema/application'
 import { Query } from '../../../../query/domain'
-import { Index, Source, Relation, EntityMapping, PropertyMapping } from '../../../../schema/domain'
+import { Index, Source, Relation, EntityMapping, PropertyMapping, MappingConfigService } from 'lambdaorm-base'
 import { DialectService, DDLBuilderPort } from '../../../application'
 import { Helper } from '../../../../shared/application'
 

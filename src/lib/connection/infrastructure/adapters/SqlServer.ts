@@ -2,13 +2,13 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
-import { Query, Data } from '../../../query/domain'
+import { Query } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
 import { Helper } from '../../../shared/application'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
-import { MappingConfigService } from '../../../schema/application'
+import { MappingConfigService, Data } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
 
 export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {

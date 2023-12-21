@@ -1,9 +1,8 @@
 // TODO: solve
 import { orm as _orm } from '../../'
-
 import { IOrm } from '../../orm/application'
-import { Queryable, ExpressionActions } from '../domain'
-import { IRepository } from '../application'
+import { ExpressionActionsImpl } from '../domain'
+import { IRepository, Queryable } from 'lambdaorm-base'
 
 export class Repository<TEntity, TQuery> implements IRepository<TEntity, TQuery> {
 	// eslint-disable-next-line no-useless-constructor
@@ -123,6 +122,6 @@ export class Repository<TEntity, TQuery> implements IRepository<TEntity, TQuery>
 	}
 
 	public query (): Queryable<TQuery> {
-		return new Queryable<TQuery>(new ExpressionActions(this.name, this.orm, this.stage), '')
+		return new Queryable<TQuery>(new ExpressionActionsImpl(this.name, this.orm, this.stage), '')
 	}
 }

@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../../sentence/domain'
-import { QueryPlan, QueryOptions } from '../../query/domain'
-import { Schema, Dialect } from '../../schema/domain'
-import { SchemaFacade } from '../../schema/application'
+import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata, QueryPlan, Schema, Dialect, SchemaFacade } from 'lambdaorm-base'
+import { QueryOptions } from '../../query/domain'
 import { StageFacade } from '../../stage/application'
 import { ExpressionTransaction } from '../../expressions/application'
 import { Expressions } from '3xpr'

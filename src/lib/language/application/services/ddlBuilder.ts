@@ -1,12 +1,11 @@
 import {
 	ObservableAction, Mapping, DataSourceRule, Index, Source, Relation,
-	EntityMapping, PropertyMapping, SchemaError
-} from '../../../schema/domain'
+	EntityMapping, PropertyMapping, SchemaError, DomainConfigService, SchemaFacade
+} from 'lambdaorm-base'
 import { Query } from '../../../query/domain'
 import { Delta, ChangedValue } from 'h3lp'
 import { DDLBuilderPort } from '../ports/ddlBuilderPort'
 import { Helper } from '../../../shared/application'
-import { DomainConfigService, SchemaFacade } from '../../../schema/application'
 import { LanguagesService } from './languagesService'
 import { DialectService } from './dialectService'
 

@@ -1,7 +1,6 @@
-import { ModelConfig, MappingConfig, Dialect } from '../../../schema/domain'
 import { Query } from '../../../query/domain'
 import { Helper } from '../../../shared/application'
-import { SchemaFacade } from '../../../schema/application'
+import { SchemaFacade, ModelConfig, MappingConfig, Dialect } from 'lambdaorm-base'
 const path = require('path')
 
 abstract class StageStateService<T> {

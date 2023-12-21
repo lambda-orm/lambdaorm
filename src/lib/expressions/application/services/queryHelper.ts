@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { QueryOptions } from '../../../query/domain'
-import { StageConfigService, ViewsConfigService } from '../../../schema/application'
+import { StageConfigService, ViewsConfigService } from 'lambdaorm-base'
 
 export class QueryHelper {
 	// eslint-disable-next-line no-useless-constructor

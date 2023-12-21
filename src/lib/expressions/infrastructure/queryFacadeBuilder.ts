@@ -1,6 +1,6 @@
 import { MemoryCache } from 'h3lp'
 import { LanguagesService } from '../../language/application'
-import { SchemaFacade } from '../../schema/application'
+import { SchemaFacade } from 'lambdaorm-base'
 import { SentenceFacade } from '../../sentence/application'
 import { Expressions } from '3xpr'
 import { ExpressionFacade } from '../application'

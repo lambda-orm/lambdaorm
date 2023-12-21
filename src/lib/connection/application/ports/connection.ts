@@ -1,6 +1,6 @@
-import { Query, Data } from '../../../query/domain'
+import { Query } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
-import { MappingConfigService } from '../../../schema/application'
+import { MappingConfigService, Data } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
 export interface Connection {
 	cnx: any

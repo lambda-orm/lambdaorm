@@ -1,6 +1,5 @@
 import { DDLBuilderPort, DMLBuilderPort } from '../../../../language/application'
-import { MappingConfigService } from '../../../../schema/application'
-import { Source } from '../../../../schema/domain'
+import { MappingConfigService, Source } from 'lambdaorm-base'
 import { LanguageAdapter, NoSqlDDLBuilderAdapter } from '../../../../language/infrastructure'
 import config from './config.json'
 import { NoSqlDMLBuilderAdapter } from './NoSqlDmlBuilder'

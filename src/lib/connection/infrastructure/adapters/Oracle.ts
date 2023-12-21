@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
-import { Query, Data } from '../../../query/domain'
+import { Query } from '../../../query/domain'
 import { Helper } from '../../../shared/application'
-import { SchemaError, PropertyMapping } from '../../../schema/domain'
+import { SchemaError, PropertyMapping, Data, MappingConfigService } from 'lambdaorm-base'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
-import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
 import { ExecutionError } from '../../domain'
 

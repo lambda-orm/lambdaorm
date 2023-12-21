@@ -1,5 +1,5 @@
 import { MemoryCache } from 'h3lp'
-import { SchemaFacade } from '../../schema/application'
+import { SchemaFacade } from 'lambdaorm-base'
 import { OperandFacade, OrmOperandHelper } from '../application'
 import { Expressions, OperandSerializerImpl } from '3xpr'
 import { Helper } from '../../shared/application'

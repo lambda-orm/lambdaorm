@@ -1,4 +1,4 @@
-import { SintaxisError } from '../../../shared/domain'
+import { SintaxisError } from 'lambdaorm-base'
 import { OperandBuilder } from '3xpr'
 import { OrmOperandHelper } from '../services/operandHelper'
 

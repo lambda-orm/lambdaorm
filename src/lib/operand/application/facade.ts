@@ -1,5 +1,5 @@
 import { OperandBuilder, Operand, OperandSerializer, Expressions } from '3xpr'
-import { SchemaFacade } from '../../schema/application'
+import { SchemaFacade } from 'lambdaorm-base'
 import { OperandBuilderCacheDecorator } from './services/operandBuilderCacheDecorator'
 import { OrmOperandBuilder } from './services/operandBuilder'
 import { OperandNormalize } from './usesCases/normalize'

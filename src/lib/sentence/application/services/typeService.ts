@@ -1,9 +1,9 @@
-import { SintaxisError } from '../../../shared/domain'
 import { ModelService, Operand, OperandType, TypeServiceImpl } from '3xpr'
 import { Type, Primitive } from 'typ3s'
-import { SentenceCrudAction } from '../../../schema/domain'
-import { Sentence, SentenceInclude, Field, Map, From, Join, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update } from '../../domain'
-import { DomainConfigService } from '../../../schema/application'
+import {
+	Sentence, SentenceInclude, Field, Map, From, Join, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update,
+	SentenceCrudAction, SintaxisError, DomainConfigService
+} from 'lambdaorm-base'
 
 export class SentenceTypeService extends TypeServiceImpl {
 	constructor (model: ModelService, private readonly config: DomainConfigService) {

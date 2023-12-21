@@ -1,7 +1,7 @@
-import { Query, Include, Data, QueryOptions } from '../../../../query/domain'
+import { Query, Include, QueryOptions } from '../../../../query/domain'
 import { Connection } from '../../../../connection/application'
 import { DialectService } from '../../../../language/application'
-import { MappingConfigService } from '../../../../schema/application/services/config/mappingConfigService'
+import { MappingConfigService, Data } from 'lambdaorm-base'
 import { QueryInternalExecutor } from './queryInternalExecutor'
 
 export class QueryDeleteExecutor {

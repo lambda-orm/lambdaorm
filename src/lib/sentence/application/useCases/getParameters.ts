@@ -1,5 +1,5 @@
 import { Primitive } from 'typ3s'
-import { ISentenceBuilder, MetadataParameter, Sentence } from '../../domain'
+import { ISentenceBuilder, MetadataParameter, Sentence } from 'lambdaorm-base'
 
 export class GetParameters {
 	// eslint-disable-next-line no-useless-constructor

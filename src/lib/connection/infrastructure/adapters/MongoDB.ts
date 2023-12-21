@@ -2,14 +2,12 @@
 /* eslint-disable no-tabs */
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
-import { Query, Data, Include } from '../../../query/domain'
+import { Query, Include } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
-import { MethodNotImplemented } from '../../../shared/domain'
-import { SchemaError, RelationType, EntityMapping } from '../../../schema/domain'
+import { SchemaError, RelationType, EntityMapping, MethodNotImplemented, Data, MappingConfigService } from 'lambdaorm-base'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
-import { MappingConfigService } from '../../../schema/application'
 import { DialectService } from '../../../language/application'
 import { Helper } from '../../../shared/application'
 

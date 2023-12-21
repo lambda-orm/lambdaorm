@@ -1,4 +1,5 @@
-import { Query, QueryPlan, QueryOptions } from '../../../query/domain'
+import { Query, QueryOptions } from '../../../query/domain'
+import { QueryPlan } from 'lambdaorm-base'
 import { IQueryBuilder } from '../../domain/services'
 
 export class GeQueryPlan {

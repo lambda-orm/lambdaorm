@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { SentenceAction } from '../../schema/domain'
+import { SentenceAction } from 'lambdaorm-base'
 import { ExecuteResult, Query, QueryOptions } from '../../query/domain'
 import { Transaction } from '.'
 

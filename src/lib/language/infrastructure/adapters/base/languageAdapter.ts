@@ -1,6 +1,4 @@
-import { NotImplemented } from '../../../../shared/domain'
-import { Source } from '../../../../schema/domain'
-import { MappingConfigService } from '../../../../schema/application'
+import { NotImplemented, Source, MappingConfigService } from 'lambdaorm-base'
 import { DialectService, LanguagePort, DDLBuilderPort, DMLBuilderPort } from '../../../application'
 
 export abstract class LanguageAdapter implements LanguagePort {

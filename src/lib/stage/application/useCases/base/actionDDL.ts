@@ -1,7 +1,7 @@
 import { LanguagesService } from '../../../../language/application'
 import { StageModelService } from '../../services/stateService'
 import { Query, QueryOptions, ExecuteResult } from '../../../../query/domain'
-import { SchemaFacade } from '../../../../schema/application'
+import { SchemaFacade } from 'lambdaorm-base'
 import { Executor } from '../../../../execution/domain'
 import { Helper } from '../../../../shared/application'
 

@@ -1,12 +1,11 @@
 /* eslint-disable no-case-declarations */
-import { SintaxisError } from '../../../shared/domain'
-import { SentenceAction, Property, Behavior, Constraint, Entity } from '../../../schema/domain'
-import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude } from '../../domain/sentence'
+import {
+	Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude,
+	SintaxisError, DomainConfigService, SchemaFacade, ISentenceBuilder, SentenceAction, Property, Behavior, Constraint, Entity
+} from 'lambdaorm-base'
 import { Operand, Parameter, OperandType, Position, TypeService, Expressions } from '3xpr'
 import { SentenceTypeService } from './typeService'
 import { SentenceHelper } from './sentenceHelper'
-import { DomainConfigService, SchemaFacade } from '../../../schema/application'
-import { ISentenceBuilder } from '../../domain'
 import { OperandFacade } from '../../../operand/application'
 import { Type } from 'typ3s'
 

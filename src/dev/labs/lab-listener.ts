@@ -1,4 +1,5 @@
-import { orm ,ActionObserver ,SentenceAction, ActionObserverArgs } from '../../lib'
+import { orm ,ActionObserver ,ActionObserverArgs } from '../../lib'
+import { SentenceAction } from 'lambdaorm-base'
 
 class EmployeeUpdateObserver extends ActionObserver {
 	constructor() {

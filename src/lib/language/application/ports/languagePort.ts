@@ -1,6 +1,5 @@
-import { Source } from '../../../schema/domain'
 import { DialectService } from '../services/dialectService'
-import { MappingConfigService } from '../../../schema/application'
+import { MappingConfigService, Source } from 'lambdaorm-base'
 import { DDLBuilderPort } from './ddlBuilderPort'
 import { DMLBuilderPort } from './dmlBuilderPort'
 

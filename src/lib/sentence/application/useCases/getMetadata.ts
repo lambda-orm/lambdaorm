@@ -1,5 +1,5 @@
 import { Type } from 'typ3s'
-import { ISentenceBuilder, Metadata, Sentence } from '../../domain'
+import { ISentenceBuilder, Metadata, Sentence } from 'lambdaorm-base'
 
 export class GetMetadata {
 	// eslint-disable-next-line no-useless-constructor

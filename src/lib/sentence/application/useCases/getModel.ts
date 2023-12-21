@@ -1,4 +1,4 @@
-import { ISentenceBuilder, MetadataModel, Sentence } from '../../domain'
+import { ISentenceBuilder, MetadataModel, Sentence } from 'lambdaorm-base'
 
 export class GetModel {
 	// eslint-disable-next-line no-useless-constructor

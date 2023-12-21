@@ -1,5 +1,5 @@
 import { Query } from '../../../query/domain'
-import { Index, Relation, EntityMapping, PropertyMapping } from '../../../schema/domain'
+import { Index, Relation, EntityMapping, PropertyMapping } from 'lambdaorm-base'
 
 export interface DDLBuilderPort {
 	truncateEntity(entity: EntityMapping): Query | undefined

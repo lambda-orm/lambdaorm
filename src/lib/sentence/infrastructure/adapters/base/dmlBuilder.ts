@@ -1,11 +1,11 @@
 import { Operand, OperandType } from '3xpr'
 import { Primitive } from 'typ3s'
-import { SentenceCrudAction, Source, SchemaError, EntityMapping } from '../../../../schema/domain'
-import { SintaxisError } from '../../../../shared/domain'
+import {
+	SentenceCrudAction, Source, SchemaError, EntityMapping, SintaxisError, Field, Sentence,
+	From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, BulkInsert, MappingConfigService
+} from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
-import { Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, BulkInsert } from '../../../domain'
 import { Helper } from '../../../../shared/application'
-import { MappingConfigService } from '../../../../schema/application'
 import { DialectService } from '../../../../language/application'
 import { DmlBuilderPort } from '../../../application'
 

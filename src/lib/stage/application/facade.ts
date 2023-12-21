@@ -1,4 +1,4 @@
-import { SchemaFacade } from '../../schema/application'
+import { SchemaFacade } from 'lambdaorm-base'
 import { ExpressionFacade } from '../../expressions/application'
 import { LanguagesService } from '../../language/application'
 import { StageMappingService, StageModelService } from './services/stateService'

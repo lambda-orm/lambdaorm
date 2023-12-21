@@ -1,7 +1,6 @@
-import { QueryPlan } from '../../query/domain'
-import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata } from '../../sentence/domain'
+import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata, QueryPlan, ExpressionActions } from 'lambdaorm-base'
 import { IOrm } from '../../orm/application'
-export class ExpressionActions {
+export class ExpressionActionsImpl implements ExpressionActions {
 	private orm:IOrm
 	private name:string
 	private stage?:string
@@ -35,7 +34,7 @@ export class ExpressionActions {
 		return this.orm.metadata(`${this.name}${expression}`)
 	}
 
-	public async getInfo (expression: string): Promise<QueryPlan> {
+	public async plan (expression: string): Promise<QueryPlan> {
 		return this.orm.plan(`${this.name}${expression}`, { stage: this.stage })
 	}
 }

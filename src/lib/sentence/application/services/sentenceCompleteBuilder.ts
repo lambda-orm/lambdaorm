@@ -1,6 +1,5 @@
 import { Expressions } from '3xpr'
-import { SchemaFacade, ViewConfigService } from '../../../schema/application'
-import { ISentenceBuilder, ISentenceCompleteBuilder, Sentence } from '../../domain'
+import { ISentenceBuilder, ISentenceCompleteBuilder, Sentence, SchemaFacade, ViewConfigService } from 'lambdaorm-base'
 import { SentenceCompleter } from './sentenceCompleter'
 import { SentenceHelper } from './sentenceHelper'
 

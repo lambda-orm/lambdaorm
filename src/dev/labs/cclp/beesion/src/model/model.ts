@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
 // THIS FILE IS NOT EDITABLE, IS MANAGED BY LAMBDA ORM
-import { Queryable, ManyToOne, OneToMany, OneToOne } from '../../../../../../lib'
+import { Queryable, ManyToOne, OneToMany, OneToOne } from 'lambdaorm-base'
 export abstract class SrbReference {
 	id?: number
 	refType?: string

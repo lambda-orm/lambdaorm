@@ -1,6 +1,5 @@
 import { ICache } from 'h3lp'
-import { ISentenceCompleteBuilder, Sentence, SentenceSerializer } from '../../domain'
-import { ViewConfigService } from '../../../schema/application'
+import { ISentenceCompleteBuilder, Sentence, SentenceSerializer, ViewConfigService } from 'lambdaorm-base'
 import { Helper } from '../../../shared/application'
 
 export class SentenceCompleteBuilderCacheDecorator implements ISentenceCompleteBuilder {

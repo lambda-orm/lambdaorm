@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Query, Data } from '../../../../query/domain'
+import { Query } from '../../../../query/domain'
 import { ConnectionConfig } from '../../../domain'
-import { MethodNotImplemented } from '../../../../shared/domain'
 import { Helper } from '../../../../shared/application'
 import { Parameter } from '3xpr'
 import { Primitive } from 'typ3s'
 import { Connection } from '../../../application'
-import { MappingConfigService } from '../../../../schema/application'
+import { MappingConfigService, MethodNotImplemented, Data } from 'lambdaorm-base'
 import { DialectService } from '../../../../language/application'
 
 export abstract class ConnectionAdapter implements Connection {

@@ -1,9 +1,9 @@
-import { SintaxisError } from '../../../shared/domain'
-import { ObservableAction, Property, SentenceCrudAction, Source, ClauseInfo } from '../../../schema/domain'
-import { Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete } from '../../domain'
+import {
+	ObservableAction, Property, SentenceCrudAction, Source, ClauseInfo, SintaxisError, SchemaFacade,
+	Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete
+} from 'lambdaorm-base'
 import { Operand, Parameter, OperandType } from '3xpr'
 import { Type, Primitive } from 'typ3s'
-import { SchemaFacade } from '../../../schema/application'
 
 export class SentenceHelper {
 	// private model: ModelConfigService

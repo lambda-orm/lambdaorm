@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { SentenceAction, PropertyMapping, Property, Relation, Index, EntityMapping, SchemaError } from '../../../../schema/domain'
+import { SentenceAction, PropertyMapping, Property, Relation, Index, EntityMapping, SchemaError } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
-import { Helper } from '../../../../shared/application'
 import { DDLBuilderAdapter } from '../base/DDLBuilderAdapter'
 
 export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
