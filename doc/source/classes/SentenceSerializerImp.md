@@ -4,7 +4,7 @@
 
 ## Implements
 
-- [`SentenceSerializer`](../interfaces/SentenceSerializer.md)
+- `SentenceSerializer`
 
 ## Table of contents
 
@@ -32,31 +32,31 @@
 
 ### clone
 
-▸ **clone**(`sentence`): [`Sentence`](Sentence.md)
+▸ **clone**(`sentence`): `Sentence`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `sentence` | [`Sentence`](Sentence.md) |
+| `sentence` | `Sentence` |
 
 #### Returns
 
-[`Sentence`](Sentence.md)
+`Sentence`
 
 #### Implementation of
 
-[SentenceSerializer](../interfaces/SentenceSerializer.md).[clone](../interfaces/SentenceSerializer.md#clone)
+SentenceSerializer.clone
 
 #### Defined in
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/sentence/application/services/sentenceSerializer.ts#L7)
+[src/lib/sentence/application/services/sentenceSerializer.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/services/sentenceSerializer.ts#L9)
 
 ___
 
 ### deserialize
 
-▸ **deserialize**(`value`): [`Sentence`](Sentence.md)
+▸ **deserialize**(`value`): `Sentence`
 
 #### Parameters
 
@@ -66,15 +66,15 @@ ___
 
 #### Returns
 
-[`Sentence`](Sentence.md)
+`Sentence`
 
 #### Implementation of
 
-[SentenceSerializer](../interfaces/SentenceSerializer.md).[deserialize](../interfaces/SentenceSerializer.md#deserialize)
+SentenceSerializer.deserialize
 
 #### Defined in
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/sentence/application/services/sentenceSerializer.ts#L17)
+[src/lib/sentence/application/services/sentenceSerializer.ts:19](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/services/sentenceSerializer.ts#L19)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `sentence` | [`Sentence`](Sentence.md) |
+| `sentence` | `Sentence` |
 
 #### Returns
 
@@ -94,8 +94,8 @@ ___
 
 #### Implementation of
 
-[SentenceSerializer](../interfaces/SentenceSerializer.md).[serialize](../interfaces/SentenceSerializer.md#serialize)
+SentenceSerializer.serialize
 
 #### Defined in
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/sentence/application/services/sentenceSerializer.ts#L13)
+[src/lib/sentence/application/services/sentenceSerializer.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/sentence/application/services/sentenceSerializer.ts#L15)

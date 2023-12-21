@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-- `StageStateService`\<[`MappingConfig`](../interfaces/MappingConfig.md)\>
+- `StageStateService`\<`MappingConfig`\>
 
   ↳ **`StageMappingService`**
 
@@ -31,7 +31,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
+| `schemaFacade` | `SchemaFacade` |
 | `helper` | [`Helper`](Helper.md) |
 
 #### Returns
@@ -44,13 +44,13 @@ StageStateService\<MappingConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L9)
+[src/lib/stage/application/services/stateService.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L8)
 
 ## Methods
 
 ### get
 
-▸ **get**(`name`): `Promise`\<[`MappingConfig`](../interfaces/MappingConfig.md)\>
+▸ **get**(`name`): `Promise`\<`MappingConfig`\>
 
 #### Parameters
 
@@ -60,7 +60,7 @@ StageStateService\<MappingConfig\>.constructor
 
 #### Returns
 
-`Promise`\<[`MappingConfig`](../interfaces/MappingConfig.md)\>
+`Promise`\<`MappingConfig`\>
 
 #### Inherited from
 
@@ -68,7 +68,7 @@ StageStateService.get
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L11)
+[src/lib/stage/application/services/stateService.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L10)
 
 ___
 
@@ -92,7 +92,7 @@ StageStateService.getFile
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:43](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L43)
+[src/lib/stage/application/services/stateService.ts:42](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L42)
 
 ___
 
@@ -116,7 +116,7 @@ StageStateService.remove
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L28)
+[src/lib/stage/application/services/stateService.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L27)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `name` | `string` |
-| `data` | [`MappingConfig`](../interfaces/MappingConfig.md) |
+| `data` | `MappingConfig` |
 
 #### Returns
 
@@ -141,4 +141,4 @@ StageStateService.update
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L23)
+[src/lib/stage/application/services/stateService.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L22)

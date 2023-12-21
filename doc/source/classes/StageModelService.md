@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-- `StageStateService`\<[`ModelConfig`](../interfaces/ModelConfig.md)\>
+- `StageStateService`\<`ModelConfig`\>
 
   ↳ **`StageModelService`**
 
@@ -32,7 +32,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
+| `schemaFacade` | `SchemaFacade` |
 | `helper` | [`Helper`](Helper.md) |
 
 #### Returns
@@ -45,7 +45,7 @@ StageStateService\<ModelConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L9)
+[src/lib/stage/application/services/stateService.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L8)
 
 ## Methods
 
@@ -67,13 +67,13 @@ StageStateService\<ModelConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:57](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L57)
+[src/lib/stage/application/services/stateService.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L56)
 
 ___
 
 ### get
 
-▸ **get**(`name`): `Promise`\<[`ModelConfig`](../interfaces/ModelConfig.md)\>
+▸ **get**(`name`): `Promise`\<`ModelConfig`\>
 
 #### Parameters
 
@@ -83,7 +83,7 @@ ___
 
 #### Returns
 
-`Promise`\<[`ModelConfig`](../interfaces/ModelConfig.md)\>
+`Promise`\<`ModelConfig`\>
 
 #### Inherited from
 
@@ -91,7 +91,7 @@ StageStateService.get
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L11)
+[src/lib/stage/application/services/stateService.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L10)
 
 ___
 
@@ -115,7 +115,7 @@ StageStateService.getFile
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:53](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L53)
+[src/lib/stage/application/services/stateService.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L52)
 
 ___
 
@@ -139,7 +139,7 @@ StageStateService.remove
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:28](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L28)
+[src/lib/stage/application/services/stateService.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L27)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `name` | `string` |
-| `data` | [`ModelConfig`](../interfaces/ModelConfig.md) |
+| `data` | `ModelConfig` |
 
 #### Returns
 
@@ -164,4 +164,4 @@ StageStateService.update
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/services/stateService.ts#L23)
+[src/lib/stage/application/services/stateService.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/services/stateService.ts#L22)

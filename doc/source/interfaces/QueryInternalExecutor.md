@@ -23,7 +23,7 @@
 | Name | Type |
 | :------ | :------ |
 | `query` | [`Query`](../classes/Query.md) |
-| `data` | [`Data`](../classes/Data.md) |
+| `data` | `Data` |
 
 #### Returns
 
@@ -31,4 +31,4 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts:4](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts#L4)
+[src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts#L5)

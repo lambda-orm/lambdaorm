@@ -31,7 +31,7 @@
 | Name | Type |
 | :------ | :------ |
 | `stageMappingService` | [`StageMappingService`](StageMappingService.md) |
-| `domain` | [`DomainConfigService`](DomainConfigService.md) |
+| `domain` | `DomainConfigService` |
 | `expressionFacade` | [`ExpressionFacade`](ExpressionFacade.md) |
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/useCases/base/actionDML.ts#L16)
+[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDML.ts#L15)
 
 ## Methods
 
@@ -58,7 +58,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `data` | [`SchemaConfig`](../interfaces/SchemaConfig.md) |
+| `data` | `SchemaConfig` |
 
 #### Returns
 
@@ -66,7 +66,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/import.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/useCases/import.ts#L7)
+[src/lib/stage/application/useCases/import.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/import.ts#L7)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:34](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/useCases/base/actionDML.ts#L34)
+[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDML.ts#L33)
 
 ___
 
@@ -102,4 +102,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:25](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/stage/application/useCases/base/actionDML.ts#L25)
+[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/stage/application/useCases/base/actionDML.ts#L24)

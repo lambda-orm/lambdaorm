@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/ports/languagePort.ts#L8)
+[src/lib/language/application/ports/languagePort.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/ports/languagePort.ts#L7)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/ports/languagePort.ts#L9)
+[src/lib/language/application/ports/languagePort.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/ports/languagePort.ts#L8)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/ports/languagePort.ts#L10)
+[src/lib/language/application/ports/languagePort.ts:9](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/ports/languagePort.ts#L9)
 
 ## Methods
 
@@ -56,8 +56,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `source` | [`Source`](Source.md) |
-| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `source` | `Source` |
+| `mapping` | `MappingConfigService` |
 
 #### Returns
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/ports/languagePort.ts#L12)
+[src/lib/language/application/ports/languagePort.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/ports/languagePort.ts#L11)
 
 ___
 
@@ -77,8 +77,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `source` | [`Source`](Source.md) |
-| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `source` | `Source` |
+| `mapping` | `MappingConfigService` |
 
 #### Returns
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:13](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/ports/languagePort.ts#L13)
+[src/lib/language/application/ports/languagePort.ts:12](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/ports/languagePort.ts#L12)
 
 ___
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/ports/languagePort.ts#L11)
+[src/lib/language/application/ports/languagePort.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/ports/languagePort.ts#L10)

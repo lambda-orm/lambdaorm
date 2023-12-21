@@ -28,7 +28,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
+| `schemaFacade` | `SchemaFacade` |
 | `languages` | [`LanguagesService`](LanguagesService.md) |
 | `stage` | `string` |
 | `helper` | [`Helper`](Helper.md) |
@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/services/ddlBuilder.ts#L15)
+[src/lib/language/application/services/ddlBuilder.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/services/ddlBuilder.ts#L14)
 
 ## Properties
 
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:17](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/services/ddlBuilder.ts#L17)
+[src/lib/language/application/services/ddlBuilder.ts:16](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/services/ddlBuilder.ts#L16)
 
 ## Methods
 
@@ -61,7 +61,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `mappings` | [`Mapping`](../interfaces/Mapping.md)[] |
+| `mappings` | `Mapping`[] |
 
 #### Returns
 
@@ -69,7 +69,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:23](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/services/ddlBuilder.ts#L23)
+[src/lib/language/application/services/ddlBuilder.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/services/ddlBuilder.ts#L22)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mappings` | [`Mapping`](../interfaces/Mapping.md)[] |
+| `mappings` | `Mapping`[] |
 
 #### Returns
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:49](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/services/ddlBuilder.ts#L49)
+[src/lib/language/application/services/ddlBuilder.ts:48](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/services/ddlBuilder.ts#L48)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mappings` | [`Mapping`](../interfaces/Mapping.md)[] |
+| `mappings` | `Mapping`[] |
 
 #### Returns
 
@@ -109,4 +109,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:36](https://github.com/FlavioLionelRita/lambdaorm/blob/b2f3850a/src/lib/language/application/services/ddlBuilder.ts#L36)
+[src/lib/language/application/services/ddlBuilder.ts:35](https://github.com/FlavioLionelRita/lambdaorm/blob/e6abcc99/src/lib/language/application/services/ddlBuilder.ts#L35)
