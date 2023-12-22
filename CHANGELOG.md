@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.9.8](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.9.7...v0.9.8) (2023-12-22)
+
+
+### Features
+
+* update lambdaorm-base and remove QueryOptions for lambdaorm ([27a00d3](https://github.com/FlavioLionelRita/lambdaorm/commit/27a00d30f842f63f5106dd70fae641798133bd48)), closes [#224](https://github.com/FlavioLionelRita/lambdaorm/issues/224)
+
 ### [0.9.7](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.9.6...v0.9.7) (2023-12-22)
 
 ### [0.9.6](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.9.5...v0.9.6) (2023-12-21)
