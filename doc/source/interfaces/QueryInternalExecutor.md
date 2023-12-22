@@ -31,4 +31,4 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/b5326020/src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts#L5)
+[src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/a57c107f/src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts#L5)
