@@ -2,21 +2,17 @@
 
 λORM goes beyond being an ORM library.
 
-In addition to being consumed as a Node library, it can also be consumed as a command line interface (CLI) and as a REST service. This facilitates its consumption from different programming languages.
+In addition to being consumed as a NodeJs library, it can also be consumed as a command line interface (CLI), as a REST service, or as a REST service client in various languages. This facilitates its consumption from environments.
 
-λORM abstracts the domain model from the infrastructure, being independent of the database engine, the mapping and distribution of entities in said engines.
+λORM abstracts the domain model of the infrastructure, being independent of the database engine, the mapping and the distribution of entities in said engines. For example, in a query you can obtain or modify records from different entities, where some persist in MySQL, others in Postgres, and others in Mongo.
 
-For example, in one query you can obtain or modify records from different entities, some persisting in MySQL, others in Postgres, and others in Mongo.
+λORM allows you to define different scenarios for the same domain. For example, in one scenario the infrastructure may consist of distributed instances across SQlServer, MongoDB, and Oracle. Another scenario may be a single Postgres instance.
 
-In addition, it allows you to define different scenarios for the same domain. For example, in one scenario the infrastructure may be distributed instances of SQlServer, MongoDB and Oracle, and in another scenario it may be a single instance of Postgres.
+Through the schema you can define entities, enumerations, indexes, unique keys, default values, restrictions, mapping, sources, stages, listeners, etc. The schema can be defined in a JSON or YAML. Conditions or actions are performed with the same [expression language](https://www.npmjs.com/package/3xpr) that is used to define queries.
 
-In addition to specifying how the domain maps to the infrastructure, you can also define indexes, unique keys, enums, default values, constraints, listeners, etc. All this configuration is done through a file in JSON or YAML format. And all the conditions or actions defined in the configuration file are performed with the same [expression language](https://www.npmjs.com/package/3xpr) to define queries.
+It is possible to implement the CQRS pattern with just configuration, without needing to write a single line of additional code.
 
-Queries are written as lambda expressions, similar to those you would use in JavaScript on arrays of objects. These expressions are the same whether the ORM is being used from the Node library, CLI, the REST service or a client of another programming language.
-
-It is possible to implement the CQRS pattern with just configuration, without needing to write a single line of additional code. This is independent of whether, in the case of commands, the data is persisted across different database engines and in the case of queries, it is obtained from a single database instance.
-
-Additionally, information can be obtained from the queries without having to execute them, such as the resulting data model, the required parameters, the constraints that will be evaluated in an insert or update query, and the query execution plan.
+λORM has methods to obtain information from queries without having to execute them. We can get the resulting data model, the required parameters, the constraints to be evaluated in an insert or update query, and the execution plan.
 
 ## Features
 
@@ -118,7 +114,7 @@ import { Orders } from './northwind/domain/model'
 })()
 ```
 
-Result:
+**Result:**
 
 ```json
 [
@@ -210,7 +206,7 @@ This time we will execute the query from the command line interface (CLI) and we
 lambdaorm execute -e ".env" -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).page(1,1)" -d "{\"customerId\": \"HANAR\"}"
 ```
 
-Result:
+**Result:**
 
 ```json
 [
@@ -329,7 +325,7 @@ In this case we will execute the query from the REST service.
 curl -X POST "http://localhost:9291/execute?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)","data":"{\"customerId\": \"CENTC\"}", "options":"{\"stage\": \"default\"}"}'
 ```
 
-Result:
+**Result:**
 
 ```json
 [
@@ -366,7 +362,7 @@ When a query is executed in the default stage, data will be obtained from differ
 curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)", "options":"{\"default\": \"cqrs\"}"}'
 ```
 
-Result:
+**Result:**
 
 ```sh
 {
@@ -407,7 +403,7 @@ But if the query is for insert, update or delete, it will be executed in the cor
 curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)", "options":"{\"stage\": \"cqrs\"}"}'
 ```
 
-Result:
+**Result:**
 
 ```json
 {
