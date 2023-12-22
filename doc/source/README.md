@@ -341,7 +341,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:263](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/orm/infrastructure/orm.ts#L263)
+[src/lib/orm/infrastructure/orm.ts:263](https://github.com/FlavioLionelRita/lambdaorm/blob/a55d8095/src/lib/orm/infrastructure/orm.ts#L263)
 
 ## Functions
 

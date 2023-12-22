@@ -53,7 +53,7 @@ Error.constructor
 
 #### Defined in
 
-[src/lib/execution/domain/errors.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/ba89e56a/src/lib/execution/domain/errors.ts#L2)
+[src/lib/execution/domain/errors.ts:2](https://github.com/FlavioLionelRita/lambdaorm/blob/a55d8095/src/lib/execution/domain/errors.ts#L2)
 
 ## Properties
 
