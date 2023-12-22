@@ -7,6 +7,7 @@
 ### Properties
 
 - [chunkSize](QueryOptions.md#chunksize)
+- [headers](QueryOptions.md#headers)
 - [stage](QueryOptions.md#stage)
 - [tryAllCan](QueryOptions.md#tryallcan)
 - [view](QueryOptions.md#view)
@@ -20,6 +21,16 @@
 #### Defined in
 
 node_modules/lambdaorm-base/query/domain/query.d.ts:11
+
+___
+
+### headers
+
+• `Optional` **headers**: [`string`, `any`][]
+
+#### Defined in
+
+node_modules/lambdaorm-base/query/domain/query.d.ts:13
 
 ___
 
