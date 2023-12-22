@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "0.9.8",
+	"version": "0.9.9",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@proton.me>",
 	"license": "MIT",
@@ -49,10 +49,10 @@
 		"typ3s": "^0.1.0",
 		"3xpr": "^1.15.0",
 		"crypto-js": "^4.1.1",
-		"lambdaorm-base": "^0.1.9",		
+		"lambdaorm-base": "^0.1.9",
 		"js-yaml": "^4.1.0",
 		"luxon": "^3.4.4",
-		"sqlstring": "^2.3.3"		
+		"sqlstring": "^2.3.3"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.23.3",
