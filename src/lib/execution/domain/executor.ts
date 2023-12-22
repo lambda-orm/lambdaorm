@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { SentenceAction } from 'lambdaorm-base'
-import { ExecuteResult, Query, QueryOptions } from '../../query/domain'
+import { SentenceAction, QueryOptions } from 'lambdaorm-base'
+import { ExecuteResult, Query } from '../../query/domain'
 import { Transaction } from '.'
 
 export interface ActionObserverArgs{

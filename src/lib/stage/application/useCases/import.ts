@@ -1,6 +1,6 @@
 import { StageActionDML } from './base/actionDML'
-import { SchemaConfig, MappingConfig, Entity, SchemaError, Relation } from 'lambdaorm-base'
-import { Query, QueryOptions } from '../../../query/domain'
+import { SchemaConfig, MappingConfig, Entity, SchemaError, Relation, QueryOptions } from 'lambdaorm-base'
+import { Query } from '../../../query/domain'
 import { Transaction } from '../../../execution/domain'
 
 export class StageImport extends StageActionDML {

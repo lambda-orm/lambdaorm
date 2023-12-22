@@ -10,7 +10,7 @@ In addition to being consumed as a NodeJs library, it can also be consumed as a 
 
 Through the schema you can define entities, enumerations, indexes, unique keys, default values, restrictions, mapping, sources, stages, listeners, etc. The schema can be defined in a JSON or YAML. Conditions or actions are performed with the same [expression language](https://www.npmjs.com/package/3xpr) that is used to define queries.
 
-It is possible to implement the CQRS pattern with just configuration, without needing to write a single line of additional code.
+It is possible to implement the [CQRS](https://microservices.io/patterns/data/cqrs.html) pattern with just configuration, without needing to write a single line of additional code.
 
 λORM has methods to obtain information from queries without having to execute them. We can get the resulting data model, the required parameters, the constraints to be evaluated in an insert or update query, and the execution plan.
 
@@ -245,7 +245,7 @@ lambdaorm execute -e ".env" -q "Orders.filter(p => p.customerId == customerId).i
 
 [view complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
 
-### CQRS (Command Query Responsibility Segregation)
+### [CQRS (Command Query Responsibility Segregation)](https://microservices.io/patterns/data/cqrs.html)
 
 **Schema:**
 
@@ -438,7 +438,7 @@ curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: app
 
 [view complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/03-northwind-cqrs)
 
-### CQRS (Command Query Responsibility Segregation) with Kafka
+### [CQRS (Command Query Responsibility Segregation)](https://microservices.io/patterns/data/cqrs.html) with Kafka
 
 If we use the ORM from the REST service, we can use Kafka to publish the insert, update and delete data events in the default and cqrs scenario. And configure Kafka consumers to update the data in the insights scenario.
 

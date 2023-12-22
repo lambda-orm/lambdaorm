@@ -1,5 +1,5 @@
-import { Query, QueryOptions, Include } from '../../../query/domain'
-import { SchemaFacade, ViewConfigService, Sentence } from 'lambdaorm-base'
+import { Query, Include } from '../../../query/domain'
+import { SchemaFacade, ViewConfigService, Sentence, QueryOptions } from 'lambdaorm-base'
 import { LanguagesService } from '../../../language/application'
 import { SentenceFacade } from '../../../sentence/application'
 import { IQueryBuilder } from '../../domain/services'

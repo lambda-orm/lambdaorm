@@ -59,10 +59,3 @@ export interface ExecuteResult {
 	result?: any
 	error?: Error
 }
-export interface QueryOptions {
-	view?: string
-	stage?: string
-	chunkSize?:number
-	tryAllCan?:boolean
-	headers?:any
-}

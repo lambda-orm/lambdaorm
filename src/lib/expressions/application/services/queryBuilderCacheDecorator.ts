@@ -1,7 +1,8 @@
 import { ICache } from 'h3lp'
-import { Query, QueryOptions } from '../../../query/domain'
+import { Query } from '../../../query/domain'
 import { IQueryBuilder } from '../../domain/services'
 import { Helper } from '../../../shared/application'
+import { QueryOptions } from 'lambdaorm-base'
 
 export class QueryBuilderCacheDecorator implements IQueryBuilder {
 	// eslint-disable-next-line no-useless-constructor

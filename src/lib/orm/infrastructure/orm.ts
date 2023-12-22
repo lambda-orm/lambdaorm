@@ -2,8 +2,7 @@
 
 import { Helper } from '../../shared/application'
 import { h3lp } from 'h3lp'
-import { QueryOptions } from '../../query/domain'
-import { MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Dialect, Schema, Stage, QueryPlan, SchemaFacade, SchemaFacadeBuilder } from 'lambdaorm-base'
+import { QueryOptions, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Dialect, Schema, Stage, QueryPlan, SchemaFacade, SchemaFacadeBuilder } from 'lambdaorm-base'
 import { ConnectionFacade } from '../../connection/application'
 import { LanguagesService } from '../../language/application'
 import { StageFacade } from '../../stage/application'

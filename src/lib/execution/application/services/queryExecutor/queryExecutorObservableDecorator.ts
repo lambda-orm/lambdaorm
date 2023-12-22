@@ -1,6 +1,7 @@
-import { Query, QueryOptions } from '../../../../query/domain'
+import { Query } from '../../../../query/domain'
 import { Expressions } from '3xpr'
 import { ActionObserver, QueryExecutor } from '../../../domain'
+import { QueryOptions } from 'lambdaorm-base'
 
 export class QueryExecutorObservableDecorator implements QueryExecutor {
 	// eslint-disable-next-line no-useless-constructor

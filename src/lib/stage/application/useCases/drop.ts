@@ -1,5 +1,5 @@
-import { Query, ExecuteResult, QueryOptions } from '../../../query/domain'
-import { SchemaFacade } from 'lambdaorm-base'
+import { Query, ExecuteResult } from '../../../query/domain'
+import { SchemaFacade, QueryOptions } from 'lambdaorm-base'
 import { LanguagesService, DDLBuilderService } from '../../../language/application'
 import { StageMappingService, StageModelService } from '../services/stateService'
 import { StageActionDDL } from './base/actionDDL'

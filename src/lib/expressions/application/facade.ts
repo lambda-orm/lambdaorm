@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { SentenceFacade } from '../../sentence/application'
-import { Query, QueryOptions } from '../../query/domain'
-import { QueryPlan, SchemaFacade } from 'lambdaorm-base'
+import { Query } from '../../query/domain'
+import { QueryPlan, SchemaFacade, QueryOptions } from 'lambdaorm-base'
 import { QueryHelper } from './services/queryHelper'
 import { GeQueryPlan } from './useCases/plan'
 import { LanguagesService } from '../../language/application'

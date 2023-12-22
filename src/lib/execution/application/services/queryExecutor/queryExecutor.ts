@@ -1,5 +1,5 @@
-import { RelationType, SentenceAction, SchemaFacade, Data } from 'lambdaorm-base'
-import { Query, QueryOptions } from '../../../../query/domain'
+import { QueryOptions, RelationType, SentenceAction, SchemaFacade, Data } from 'lambdaorm-base'
+import { Query } from '../../../../query/domain'
 import { Helper } from '../../../../shared/application'
 import { ExecutionError } from '../../../../connection/domain'
 import { ConnectionFacade, Connection } from '../../../../connection/application'

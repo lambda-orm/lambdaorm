@@ -1,5 +1,5 @@
-import { Query, QueryOptions } from '../../../../query/domain'
-import { DomainConfigService, Entity } from 'lambdaorm-base'
+import { Query } from '../../../../query/domain'
+import { DomainConfigService, Entity, QueryOptions } from 'lambdaorm-base'
 import { StageMappingService } from '../../services/stateService'
 import { Executor } from '../../../../execution/domain'
 import { ExpressionFacade } from '../../../../expressions/application'

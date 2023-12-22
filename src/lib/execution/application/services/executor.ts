@@ -1,5 +1,5 @@
-import { Query, ExecuteResult, QueryOptions } from '../../../query/domain'
-import { SchemaFacade } from 'lambdaorm-base'
+import { Query, ExecuteResult } from '../../../query/domain'
+import { QueryOptions, SchemaFacade } from 'lambdaorm-base'
 import { LanguagesService } from '../../../language/application'
 import { QueryExecutorImpl } from './queryExecutor/queryExecutor'
 import { Transaction, Executor, QueryExecutor, ActionObserver, ObservableExecutor } from '../../domain'

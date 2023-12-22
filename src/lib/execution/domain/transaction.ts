@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Query, QueryOptions } from '../../query/domain'
+import { Query } from '../../query/domain'
 import { QueryExecutor } from './executor'
+import { QueryOptions } from 'lambdaorm-base'
 
 export class Transaction {
 	constructor (private readonly queryExecutor: QueryExecutor) {

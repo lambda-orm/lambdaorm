@@ -1,5 +1,5 @@
 import { Executor } from '../../../execution/domain'
-import { QueryOptions } from '../../../query/domain'
+import { QueryOptions } from 'lambdaorm-base'
 import { IQueryBuilder } from '../../domain/services'
 import { ExpressionTransaction } from './transaction'
 import { Expressions } from '3xpr'
