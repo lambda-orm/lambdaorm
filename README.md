@@ -1,5 +1,10 @@
 # λORM
 
+[![language typescript](https://img.shields.io/badge/language-typescript-blue)](https://www.npmjs.com/package/lambdaorm)
+[![npm version](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/npm.svg)](https://www.npmjs.com/package/lambdaorm)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 λORM goes beyond being an ORM library.
 
 In addition to being consumed as a NodeJs library, it can also be consumed as a command line interface (CLI), as a REST service, or as a REST service client in various languages. This facilitates its consumption from environments.
