@@ -23,7 +23,7 @@ ___
 
 ### sources
 
-• **sources**: [`DataSourceRule`](DataSourceRule.md)[]
+• **sources**: [`SourceRule`](SourceRule.md)[]
 
 #### Defined in
 

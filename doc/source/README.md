@@ -120,7 +120,6 @@ Lambda ORM
 - [ContextInfo](interfaces/ContextInfo.md)
 - [DDLBuilderPort](interfaces/DDLBuilderPort.md)
 - [DMLBuilderPort](interfaces/DMLBuilderPort.md)
-- [DataSourceRule](interfaces/DataSourceRule.md)
 - [Dependent](interfaces/Dependent.md)
 - [DialectFormat](interfaces/DialectFormat.md)
 - [DmlBuilderPort](interfaces/DmlBuilderPort-1.md)
@@ -176,6 +175,7 @@ Lambda ORM
 - [SchemaConfigEntity](interfaces/SchemaConfigEntity.md)
 - [SentenceSerializer](interfaces/SentenceSerializer.md)
 - [Source](interfaces/Source.md)
+- [SourceRule](interfaces/SourceRule.md)
 - [Stage](interfaces/Stage.md)
 - [TaskConfig](interfaces/TaskConfig.md)
 - [View](interfaces/View.md)
@@ -341,7 +341,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:263](https://github.com/FlavioLionelRita/lambdaorm/blob/a55d8095/src/lib/orm/infrastructure/orm.ts#L263)
+[src/lib/orm/infrastructure/orm.ts:262](https://github.com/FlavioLionelRita/lambdaorm/blob/27a00d30/src/lib/orm/infrastructure/orm.ts#L262)
 
 ## Functions
 

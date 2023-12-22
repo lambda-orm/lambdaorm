@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/execution/domain/transaction.ts:6](https://github.com/FlavioLionelRita/lambdaorm/blob/a55d8095/src/lib/execution/domain/transaction.ts#L6)
+[src/lib/execution/domain/transaction.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/27a00d30/src/lib/execution/domain/transaction.ts#L7)
 
 ## Accessors
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/lib/execution/domain/transaction.ts:14](https://github.com/FlavioLionelRita/lambdaorm/blob/a55d8095/src/lib/execution/domain/transaction.ts#L14)
+[src/lib/execution/domain/transaction.ts:15](https://github.com/FlavioLionelRita/lambdaorm/blob/27a00d30/src/lib/execution/domain/transaction.ts#L15)
 
 ## Methods
 
@@ -69,4 +69,4 @@
 
 #### Defined in
 
-[src/lib/execution/domain/transaction.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/a55d8095/src/lib/execution/domain/transaction.ts#L10)
+[src/lib/execution/domain/transaction.ts:11](https://github.com/FlavioLionelRita/lambdaorm/blob/27a00d30/src/lib/execution/domain/transaction.ts#L11)

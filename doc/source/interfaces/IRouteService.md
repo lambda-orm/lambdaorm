@@ -23,7 +23,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `source` | [`DataSourceRule`](DataSourceRule.md) |
+| `source` | [`SourceRule`](SourceRule.md) |
 | `clauseInfo` | [`ClauseInfo`](ClauseInfo.md) |
 
 #### Returns

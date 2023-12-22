@@ -48,7 +48,7 @@ node_modules/lambdaorm-base/schema/application/services/routeService.d.ts:7
 
 | Name | Type |
 | :------ | :------ |
-| `source` | [`DataSourceRule`](../interfaces/DataSourceRule.md) |
+| `source` | [`SourceRule`](../interfaces/SourceRule.md) |
 | `clauseInfo` | [`ClauseInfo`](../interfaces/ClauseInfo.md) |
 
 #### Returns

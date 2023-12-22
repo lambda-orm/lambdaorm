@@ -22,7 +22,7 @@
 
 - [complete](SchemaFacade.md#complete)
 - [create](SchemaFacade.md#create)
-- [evalDataSourceRule](SchemaFacade.md#evaldatasourcerule)
+- [evalSourceRule](SchemaFacade.md#evalsourcerule)
 - [get](SchemaFacade.md#get)
 - [getSource](SchemaFacade.md#getsource)
 - [initialize](SchemaFacade.md#initialize)
@@ -165,15 +165,15 @@ node_modules/lambdaorm-base/schema/application/facade.d.ts:32
 
 ___
 
-### evalDataSourceRule
+### evalSourceRule
 
-▸ **evalDataSourceRule**(`rule`, `clauseInfo`): `boolean`
+▸ **evalSourceRule**(`rule`, `clauseInfo`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `rule` | [`DataSourceRule`](../interfaces/DataSourceRule.md) |
+| `rule` | [`SourceRule`](../interfaces/SourceRule.md) |
 | `clauseInfo` | [`ClauseInfo`](../interfaces/ClauseInfo.md) |
 
 #### Returns
