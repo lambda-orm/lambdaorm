@@ -50,14 +50,14 @@ All notable changes to this project will be documented in this file.
 
 **Features:**
 
-* **wiki:** complete edefinition and examples of schame ([ade761b](https://github.com/FlavioLionelRita/lambdaorm/commit/ade761b96b9c91b0941346cb2450d4d570804d98)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* **wiki:** complete definition and examples of schema ([ade761b](https://github.com/FlavioLionelRita/lambdaorm/commit/ade761b96b9c91b0941346cb2450d4d570804d98)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
 
 ### [0.8.95](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.94...v0.8.95) (2023-12-02)
 
 **Features:**
 
 * **listener:** rename action property for on ([5d57f9a](https://github.com/FlavioLionelRita/lambdaorm/commit/5d57f9ad7e93a9ead9da4ed152194512e49a81f4)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
-* **wiki:** add shema examples ([9d75e95](https://github.com/FlavioLionelRita/lambdaorm/commit/9d75e951249eb92cc4017b5efb170d920f2e57de)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* **wiki:** add schema examples ([9d75e95](https://github.com/FlavioLionelRita/lambdaorm/commit/9d75e951249eb92cc4017b5efb170d920f2e57de)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
 
 ### [0.8.94](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.93...v0.8.94) (2023-12-01)
 
@@ -94,13 +94,13 @@ All notable changes to this project will be documented in this file.
 
 **Features:**
 
-* update readme and refactorize wiki ([46f4537](https://github.com/FlavioLionelRita/lambdaorm/commit/46f453736382c51bdbdcfa0efbd45d2d1285faf0)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* update readme and refactoring wiki ([46f4537](https://github.com/FlavioLionelRita/lambdaorm/commit/46f453736382c51bdbdcfa0efbd45d2d1285faf0)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
 
 ### [0.8.86](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.85...v0.8.86) (2023-11-30)
 
 **Features:**
 
-* update readme and refactorize wiki ([35522f7](https://github.com/FlavioLionelRita/lambdaorm/commit/35522f756b6074d7de084d0ba9704795d6a86702)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* update readme and refactoring wiki ([35522f7](https://github.com/FlavioLionelRita/lambdaorm/commit/35522f756b6074d7de084d0ba9704795d6a86702)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
 
 ### [0.8.85](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.84...v0.8.85) (2023-11-28)
 
@@ -121,7 +121,7 @@ All notable changes to this project will be documented in this file.
 
 **Bug Fixes:**
 
-* **language:** solve sencond parameter on startsWith and like functions ([d07a0a4](https://github.com/FlavioLionelRita/lambdaorm/commit/d07a0a4f05e27f58b6172cbfebdfbc559e4a3874)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
+* **language:** solve second parameter on startsWith and like functions ([d07a0a4](https://github.com/FlavioLionelRita/lambdaorm/commit/d07a0a4f05e27f58b6172cbfebdfbc559e4a3874)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm/issues/201)
 
 ### [0.8.80](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.79...v0.8.80) (2023-11-26)
 
@@ -187,14 +187,14 @@ All notable changes to this project will be documented in this file.
 
 **Features:**
 
-* **syntax:** move syntaxys to .ts files ([ae0d205](https://github.com/FlavioLionelRita/lambdaorm/commit/ae0d205631f4155b4188a43789dac9bc67cbd301)), closes [#189](https://github.com/FlavioLionelRita/lambdaorm/issues/189)
+* **syntax:** move sintaxis to .ts files ([ae0d205](https://github.com/FlavioLionelRita/lambdaorm/commit/ae0d205631f4155b4188a43789dac9bc67cbd301)), closes [#189](https://github.com/FlavioLionelRita/lambdaorm/issues/189)
 
 ### [0.8.62](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.61...v0.8.62) (2023-11-13)
 
 **Features:**
 
-* **release:** remove syntax.d.ts to types on package.json and add types on repository/domain/queriable ([6e46e7a](https://github.com/FlavioLionelRita/lambdaorm/commit/6e46e7a1dcfdb82e13c856bac97357910eea5037)), closes [#189](https://github.com/FlavioLionelRita/lambdaorm/issues/189)
-* **syntax:** refactorize quereable ([e5a8783](https://github.com/FlavioLionelRita/lambdaorm/commit/e5a878321f26d3d9e82182bbff3c8959c68acbd2)), closes [#189](https://github.com/FlavioLionelRita/lambdaorm/issues/189)
+* **release:** remove syntax.d.ts to types on package.json and add types on repository/domain/queryable ([6e46e7a](https://github.com/FlavioLionelRita/lambdaorm/commit/6e46e7a1dcfdb82e13c856bac97357910eea5037)), closes [#189](https://github.com/FlavioLionelRita/lambdaorm/issues/189)
+* **syntax:** refactoring queryable ([e5a8783](https://github.com/FlavioLionelRita/lambdaorm/commit/e5a878321f26d3d9e82182bbff3c8959c68acbd2)), closes [#189](https://github.com/FlavioLionelRita/lambdaorm/issues/189)
 
 ### [0.8.61](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.8.60...v0.8.61) (2023-11-13)
 
