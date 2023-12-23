@@ -13,7 +13,7 @@ export class StageFacadeBuilder {
 		private readonly helper:Helper
 	) {}
 
-	public build (schemaFacade: SchemaFacade, expressionFacade: ExpressionFacade):StageFacade {
-		return new StageFacade(schemaFacade, expressionFacade, this.executor, this.languages, this.helper)
+	public build (workspace:string, schemaFacade: SchemaFacade, expressionFacade: ExpressionFacade):StageFacade {
+		return new StageFacade(workspace, schemaFacade, expressionFacade, this.executor, this.languages, this.helper)
 	}
 }

@@ -16,13 +16,14 @@ export class StageFacade {
 	private stageModelService: StageModelService
 	private stageMappingService: StageMappingService
 
-	constructor (private readonly schemaFacade: SchemaFacade,
+	constructor (workspace: string,
+		private readonly schemaFacade: SchemaFacade,
 		private readonly expression: ExpressionFacade,
 		private readonly executor: Executor,
 		private readonly languages: LanguagesService,
 		private readonly helper:Helper) {
-		this.stageMappingService = new StageMappingService(schemaFacade, this.helper)
-		this.stageModelService = new StageModelService(schemaFacade, this.helper)
+		this.stageMappingService = new StageMappingService(workspace, schemaFacade, this.helper)
+		this.stageModelService = new StageModelService(workspace, schemaFacade, this.helper)
 	}
 
 	public async exists (name:string) {

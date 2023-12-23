@@ -38,18 +38,18 @@ export class Orm implements IOrm {
 	private expression: ExpressionFacade
 	private executor:ObservableExecutorDecorator
 
-	constructor (workspace: string = process.cwd()) {
+	constructor (private _workspace: string = process.cwd()) {
 		this.expressions = new OrmExpressionsBuilder().build()
 		new OrmLibrary(this).load()
 		this.helper = new Helper(new OperandHelper(this.expressions.constBuilder), h3lp)
 		this.language = new SentenceLanguageServiceBuilder(this.helper).build()
 		this.connection = new ConnectionFacadeBuilder(this.helper).build()
-		this.schema = new SchemaFacadeBuilder(this.expressions, this.helper).build(workspace)
+		this.schema = new SchemaFacadeBuilder(this.expressions, this.helper).build()
 		this.executor = new ExecutorBuilder(this.connection, this.language, this.expressions, this.helper).build(this.schema)
 		this.operand = new OperandFacadeBuilder(this.expressions, this.helper).build(this.schema)
 		this.sentence = new SentenceFacadeBuilder(this.expressions, this.helper).build(this.schema, this.operand)
 		this.expression = new ExpressionFacadeBuilder(this.language, this.executor, this.expressions, this.helper).build(this.sentence, this.schema)
-		this.stage = new StageFacadeBuilder(this.language, this.executor, this.helper).build(this.schema, this.expression)
+		this.stage = new StageFacadeBuilder(this.language, this.executor, this.helper).build(_workspace, this.schema, this.expression)
 	}
 
 	// eslint-disable-next-line no-use-before-define
@@ -74,7 +74,7 @@ export class Orm implements IOrm {
  * @returns promise void
  */
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
-		const schema = await this.schema.initialize(source || this.schema.workspace)
+		const schema = await this.schema.initialize(source || this._workspace)
 		// set connections
 		if (connect && schema.infrastructure?.sources) {
 			for (const source of schema.infrastructure.sources.filter(p => this.helper.val.isNotEmpty(p.connection))) {
@@ -131,7 +131,7 @@ export class Orm implements IOrm {
 	 * Get workspace path
 	 */
 	public get workspace (): string {
-		return this.schema.workspace
+		return this._workspace
 	}
 
 	/**
