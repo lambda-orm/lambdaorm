@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.0.2](https://github.com/FlavioLionelRita/lambdaorm/compare/v1.0.1...v1.0.2) (2023-12-23)
+
 ### [1.0.1](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.9.11...v1.0.1) (2023-12-23)
 
 ### [0.9.11](https://github.com/FlavioLionelRita/lambdaorm/compare/v0.9.10...v0.9.11) (2023-12-22)
