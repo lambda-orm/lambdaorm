@@ -37,13 +37,7 @@ node_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:7
 
 ### build
 
-▸ **build**(`workspace`): [`SchemaFacade`](SchemaFacade.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `workspace` | `string` |
+▸ **build**(): [`SchemaFacade`](SchemaFacade.md)
 
 #### Returns
 

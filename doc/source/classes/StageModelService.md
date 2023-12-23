@@ -26,12 +26,13 @@
 
 ### constructor
 
-• **new StageModelService**(`schemaFacade`, `helper`): [`StageModelService`](StageModelService.md)
+• **new StageModelService**(`workspace`, `schemaFacade`, `helper`): [`StageModelService`](StageModelService.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `workspace` | `string` |
 | `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
 | `helper` | [`Helper`](Helper.md) |
 
@@ -45,7 +46,7 @@ StageStateService\<ModelConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/a7df49bc/src/lib/stage/application/services/stateService.ts#L8)
+[src/lib/stage/application/services/stateService.ts:8](https://github.com/FlavioLionelRita/lambdaorm/blob/7147e97d/src/lib/stage/application/services/stateService.ts#L8)
 
 ## Methods
 
@@ -67,7 +68,7 @@ StageStateService\<ModelConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/a7df49bc/src/lib/stage/application/services/stateService.ts#L56)
+[src/lib/stage/application/services/stateService.ts:56](https://github.com/FlavioLionelRita/lambdaorm/blob/7147e97d/src/lib/stage/application/services/stateService.ts#L56)
 
 ___
 
@@ -91,7 +92,7 @@ StageStateService.get
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/a7df49bc/src/lib/stage/application/services/stateService.ts#L10)
+[src/lib/stage/application/services/stateService.ts:10](https://github.com/FlavioLionelRita/lambdaorm/blob/7147e97d/src/lib/stage/application/services/stateService.ts#L10)
 
 ___
 
@@ -115,7 +116,7 @@ StageStateService.getFile
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/a7df49bc/src/lib/stage/application/services/stateService.ts#L52)
+[src/lib/stage/application/services/stateService.ts:52](https://github.com/FlavioLionelRita/lambdaorm/blob/7147e97d/src/lib/stage/application/services/stateService.ts#L52)
 
 ___
 
@@ -139,7 +140,7 @@ StageStateService.remove
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/a7df49bc/src/lib/stage/application/services/stateService.ts#L27)
+[src/lib/stage/application/services/stateService.ts:27](https://github.com/FlavioLionelRita/lambdaorm/blob/7147e97d/src/lib/stage/application/services/stateService.ts#L27)
 
 ___
 
@@ -164,4 +165,4 @@ StageStateService.update
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/a7df49bc/src/lib/stage/application/services/stateService.ts#L22)
+[src/lib/stage/application/services/stateService.ts:22](https://github.com/FlavioLionelRita/lambdaorm/blob/7147e97d/src/lib/stage/application/services/stateService.ts#L22)

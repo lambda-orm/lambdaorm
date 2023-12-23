@@ -16,7 +16,6 @@
 - [source](SchemaFacade.md#source)
 - [stage](SchemaFacade.md#stage)
 - [view](SchemaFacade.md#view)
-- [workspace](SchemaFacade.md#workspace)
 
 ### Methods
 
@@ -31,13 +30,12 @@
 
 ### constructor
 
-• **new SchemaFacade**(`workspace`, `source`, `domain`, `mapping`, `stage`, `view`, `schemaService`, `routeService`, `extender`, `createSchema`, `loadSchema`, `getSchema`, `completeSchema`): [`SchemaFacade`](SchemaFacade.md)
+• **new SchemaFacade**(`source`, `domain`, `mapping`, `stage`, `view`, `schemaService`, `routeService`, `extender`, `createSchema`, `loadSchema`, `getSchema`, `completeSchema`): [`SchemaFacade`](SchemaFacade.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `workspace` | `string` |
 | `source` | [`DataSourceConfigService`](DataSourceConfigService.md) |
 | `domain` | [`DomainConfigService`](DomainConfigService.md) |
 | `mapping` | [`MappingsConfigService`](MappingsConfigService.md) |
@@ -57,7 +55,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:29
+node_modules/lambdaorm-base/schema/application/facade.d.ts:28
 
 ## Properties
 
@@ -67,7 +65,7 @@ node_modules/lambdaorm-base/schema/application/facade.d.ts:29
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:17
+node_modules/lambdaorm-base/schema/application/facade.d.ts:16
 
 ___
 
@@ -77,7 +75,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:18
+node_modules/lambdaorm-base/schema/application/facade.d.ts:17
 
 ___
 
@@ -87,7 +85,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:28
+node_modules/lambdaorm-base/schema/application/facade.d.ts:27
 
 ___
 
@@ -97,7 +95,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:16
+node_modules/lambdaorm-base/schema/application/facade.d.ts:15
 
 ___
 
@@ -107,7 +105,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:19
+node_modules/lambdaorm-base/schema/application/facade.d.ts:18
 
 ___
 
@@ -117,17 +115,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:20
-
-___
-
-### workspace
-
-• **workspace**: `string`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:15
+node_modules/lambdaorm-base/schema/application/facade.d.ts:19
 
 ## Methods
 
@@ -147,7 +135,7 @@ node_modules/lambdaorm-base/schema/application/facade.d.ts:15
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:35
+node_modules/lambdaorm-base/schema/application/facade.d.ts:34
 
 ___
 
@@ -161,7 +149,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:32
+node_modules/lambdaorm-base/schema/application/facade.d.ts:31
 
 ___
 
@@ -182,7 +170,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:30
+node_modules/lambdaorm-base/schema/application/facade.d.ts:29
 
 ___
 
@@ -202,7 +190,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:33
+node_modules/lambdaorm-base/schema/application/facade.d.ts:32
 
 ___
 
@@ -223,7 +211,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:31
+node_modules/lambdaorm-base/schema/application/facade.d.ts:30
 
 ___
 
@@ -243,4 +231,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:34
+node_modules/lambdaorm-base/schema/application/facade.d.ts:33

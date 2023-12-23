@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.1.0](https://github.com/FlavioLionelRita/lambdaorm/compare/v1.0.2...v1.1.0) (2023-12-23)
 
-
-### Features
+**Features:**
 
 * remove workspace for schemaFacade and update lambdaorm-base ([7147e97](https://github.com/FlavioLionelRita/lambdaorm/commit/7147e97df60d1a570b182a6c12ca0d4646dbe3c6)), closes [#223](https://github.com/FlavioLionelRita/lambdaorm/issues/223)
 
