@@ -1,30 +1,30 @@
-[Lambda ORM](../README.md) / SchemaService
+[Lambda ORM](../README.md) / SchemaCreateService
 
-# Class: SchemaService
+# Class: SchemaCreateService
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](SchemaService.md#constructor)
+- [constructor](SchemaCreateService.md#constructor)
 
 ### Methods
 
-- [newApplication](SchemaService.md#newapplication)
-- [newDomain](SchemaService.md#newdomain)
-- [newInfrastructure](SchemaService.md#newinfrastructure)
-- [newPathsApp](SchemaService.md#newpathsapp)
-- [newSchema](SchemaService.md#newschema)
+- [newApplication](SchemaCreateService.md#newapplication)
+- [newDomain](SchemaCreateService.md#newdomain)
+- [newInfrastructure](SchemaCreateService.md#newinfrastructure)
+- [newPathsApp](SchemaCreateService.md#newpathsapp)
+- [newSchema](SchemaCreateService.md#newschema)
 
 ## Constructors
 
 ### constructor
 
-• **new SchemaService**(): [`SchemaService`](SchemaService.md)
+• **new SchemaCreateService**(): [`SchemaCreateService`](SchemaCreateService.md)
 
 #### Returns
 
-[`SchemaService`](SchemaService.md)
+[`SchemaCreateService`](SchemaCreateService.md)
 
 ## Methods
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:6
+node_modules/lambdaorm-base/schema/application/services/createService.d.ts:6
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:5
+node_modules/lambdaorm-base/schema/application/services/createService.d.ts:5
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:4
+node_modules/lambdaorm-base/schema/application/services/createService.d.ts:4
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:7
+node_modules/lambdaorm-base/schema/application/services/createService.d.ts:7
 
 ___
 
@@ -94,4 +94,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:3
+node_modules/lambdaorm-base/schema/application/services/createService.d.ts:3

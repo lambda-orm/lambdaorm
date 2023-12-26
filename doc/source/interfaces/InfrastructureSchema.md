@@ -26,7 +26,7 @@ ___
 
 ### paths
 
-• **paths**: [`AppPathsConfig`](AppPathsConfig.md)
+• `Optional` **paths**: [`AppPathsConfig`](AppPathsConfig.md)
 
 #### Defined in
 

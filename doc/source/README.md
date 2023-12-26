@@ -77,11 +77,11 @@ Lambda ORM
 - [ReleaseConnection](classes/ReleaseConnection.md)
 - [Repository](classes/Repository.md)
 - [RouteService](classes/RouteService.md)
+- [SchemaCreateService](classes/SchemaCreateService.md)
 - [SchemaError](classes/SchemaError.md)
 - [SchemaExtender](classes/SchemaExtender.md)
 - [SchemaFacade](classes/SchemaFacade.md)
 - [SchemaFacadeBuilder](classes/SchemaFacadeBuilder.md)
-- [SchemaService](classes/SchemaService.md)
 - [Sentence](classes/Sentence.md)
 - [SentenceFacade](classes/SentenceFacade.md)
 - [SentenceInclude](classes/SentenceInclude.md)
@@ -341,7 +341,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:262](https://github.com/FlavioLionelRita/lambdaorm/blob/19874704/src/lib/orm/infrastructure/orm.ts#L262)
+[src/lib/orm/infrastructure/orm.ts:262](https://github.com/FlavioLionelRita/lambdaorm/blob/8667a6d5/src/lib/orm/infrastructure/orm.ts#L262)
 
 ## Functions
 

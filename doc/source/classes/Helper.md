@@ -50,7 +50,7 @@ H3lp.constructor
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/19874704/src/lib/shared/application/helper.ts#L33)
+[src/lib/shared/application/helper.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/8667a6d5/src/lib/shared/application/helper.ts#L33)
 
 ## Properties
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/19874704/src/lib/shared/application/helper.ts#L33)
+[src/lib/shared/application/helper.ts:33](https://github.com/FlavioLionelRita/lambdaorm/blob/8667a6d5/src/lib/shared/application/helper.ts#L33)
 
 ___
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/19874704/src/lib/shared/application/helper.ts#L32)
+[src/lib/shared/application/helper.ts:32](https://github.com/FlavioLionelRita/lambdaorm/blob/8667a6d5/src/lib/shared/application/helper.ts#L32)
 
 ___
 

@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [1.1.2](https://github.com/FlavioLionelRita/lambdaorm/compare/v1.1.1...v1.1.2) (2023-12-26)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * solve undefined schema.infrastructure.paths properties ([8667a6d](https://github.com/FlavioLionelRita/lambdaorm/commit/8667a6d5ef0b22ce08c904332c8b380d7de71bc5)), closes [#223](https://github.com/FlavioLionelRita/lambdaorm/issues/223)
 
