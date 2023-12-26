@@ -10,6 +10,7 @@
 
 ### Properties
 
+- [createService](SchemaFacade.md#createservice)
 - [domain](SchemaFacade.md#domain)
 - [mapping](SchemaFacade.md#mapping)
 - [schema](SchemaFacade.md#schema)
@@ -30,7 +31,7 @@
 
 ### constructor
 
-• **new SchemaFacade**(`source`, `domain`, `mapping`, `stage`, `view`, `schemaService`, `routeService`, `extender`, `createSchema`, `loadSchema`, `getSchema`, `completeSchema`): [`SchemaFacade`](SchemaFacade.md)
+• **new SchemaFacade**(`source`, `domain`, `mapping`, `stage`, `view`, `createService`, `routeService`, `extender`, `createSchema`, `loadSchema`, `getSchema`, `completeSchema`): [`SchemaFacade`](SchemaFacade.md)
 
 #### Parameters
 
@@ -41,7 +42,7 @@
 | `mapping` | [`MappingsConfigService`](MappingsConfigService.md) |
 | `stage` | [`StageConfigService`](StageConfigService.md) |
 | `view` | [`ViewsConfigService`](ViewsConfigService.md) |
-| `schemaService` | [`SchemaCreateService`](SchemaCreateService.md) |
+| `createService` | [`SchemaCreateService`](SchemaCreateService.md) |
 | `routeService` | [`RouteService`](RouteService.md) |
 | `extender` | [`SchemaExtender`](SchemaExtender.md) |
 | `createSchema` | [`CreateSchema`](CreateSchema.md) |
@@ -58,6 +59,16 @@
 node_modules/lambdaorm-base/schema/application/facade.d.ts:28
 
 ## Properties
+
+### createService
+
+• `Readonly` **createService**: [`SchemaCreateService`](SchemaCreateService.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/facade.d.ts:20
+
+___
 
 ### domain
 

@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/operandHelper.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/8667a6d5/src/lib/operand/application/services/operandHelper.ts#L5)
+[src/lib/operand/application/services/operandHelper.ts:5](https://github.com/FlavioLionelRita/lambdaorm/blob/6f505321/src/lib/operand/application/services/operandHelper.ts#L5)
 
 ## Methods
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/operandHelper.ts:65](https://github.com/FlavioLionelRita/lambdaorm/blob/8667a6d5/src/lib/operand/application/services/operandHelper.ts#L65)
+[src/lib/operand/application/services/operandHelper.ts:65](https://github.com/FlavioLionelRita/lambdaorm/blob/6f505321/src/lib/operand/application/services/operandHelper.ts#L65)
 
 ___
 
@@ -71,4 +71,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/services/operandHelper.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/8667a6d5/src/lib/operand/application/services/operandHelper.ts#L7)
+[src/lib/operand/application/services/operandHelper.ts:7](https://github.com/FlavioLionelRita/lambdaorm/blob/6f505321/src/lib/operand/application/services/operandHelper.ts#L7)
