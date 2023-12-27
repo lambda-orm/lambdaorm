@@ -47,11 +47,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
-=======
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
->>>>>>> release/1.2.0
+[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 ## Methods
 
@@ -65,11 +61,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
-=======
-[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
->>>>>>> release/1.2.0
+[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
 
 ___
 
@@ -83,11 +75,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
-=======
-[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
->>>>>>> release/1.2.0
+[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
 
 ___
 
@@ -101,8 +89,4 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
-=======
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
->>>>>>> release/1.2.0
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

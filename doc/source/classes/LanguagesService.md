@@ -31,11 +31,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/language/application/services/languagesService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/languagesService.ts#L9)
-=======
-[src/lib/language/application/services/languagesService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/languagesService.ts#L9)
->>>>>>> release/1.2.0
+[src/lib/language/application/services/languagesService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/language/application/services/languagesService.ts#L9)
 
 ## Properties
 
@@ -45,11 +41,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/language/application/services/languagesService.ts:6](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/languagesService.ts#L6)
-=======
-[src/lib/language/application/services/languagesService.ts:6](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/languagesService.ts#L6)
->>>>>>> release/1.2.0
+[src/lib/language/application/services/languagesService.ts:6](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/language/application/services/languagesService.ts#L6)
 
 ## Methods
 
@@ -69,11 +61,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/language/application/services/languagesService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/languagesService.ts#L14)
-=======
-[src/lib/language/application/services/languagesService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/languagesService.ts#L14)
->>>>>>> release/1.2.0
+[src/lib/language/application/services/languagesService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/language/application/services/languagesService.ts#L14)
 
 ___
 
@@ -93,11 +81,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/language/application/services/languagesService.ts:24](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/languagesService.ts#L24)
-=======
-[src/lib/language/application/services/languagesService.ts:24](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/languagesService.ts#L24)
->>>>>>> release/1.2.0
+[src/lib/language/application/services/languagesService.ts:24](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/language/application/services/languagesService.ts#L24)
 
 ___
 
@@ -117,11 +101,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/language/application/services/languagesService.ts:32](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/languagesService.ts#L32)
-=======
-[src/lib/language/application/services/languagesService.ts:32](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/languagesService.ts#L32)
->>>>>>> release/1.2.0
+[src/lib/language/application/services/languagesService.ts:32](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/language/application/services/languagesService.ts#L32)
 
 ___
 
@@ -141,8 +121,4 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/language/application/services/languagesService.ts:43](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/languagesService.ts#L43)
-=======
-[src/lib/language/application/services/languagesService.ts:43](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/languagesService.ts#L43)
->>>>>>> release/1.2.0
+[src/lib/language/application/services/languagesService.ts:43](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/language/application/services/languagesService.ts#L43)

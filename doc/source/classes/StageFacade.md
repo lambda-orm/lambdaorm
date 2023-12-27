@@ -41,11 +41,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/facade.ts:19](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/facade.ts#L19)
-=======
-[src/lib/stage/application/facade.ts:19](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/facade.ts#L19)
->>>>>>> release/1.2.0
+[src/lib/stage/application/facade.ts:19](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/facade.ts#L19)
 
 ## Methods
 
@@ -65,11 +61,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/facade.ts:49](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/facade.ts#L49)
-=======
-[src/lib/stage/application/facade.ts:49](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/facade.ts#L49)
->>>>>>> release/1.2.0
+[src/lib/stage/application/facade.ts:49](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/facade.ts#L49)
 
 ___
 
@@ -89,11 +81,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/facade.ts:39](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/facade.ts#L39)
-=======
-[src/lib/stage/application/facade.ts:39](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/facade.ts#L39)
->>>>>>> release/1.2.0
+[src/lib/stage/application/facade.ts:39](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/facade.ts#L39)
 
 ___
 
@@ -113,11 +101,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/facade.ts:29](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/facade.ts#L29)
-=======
-[src/lib/stage/application/facade.ts:29](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/facade.ts#L29)
->>>>>>> release/1.2.0
+[src/lib/stage/application/facade.ts:29](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/facade.ts#L29)
 
 ___
 
@@ -137,11 +121,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/facade.ts#L54)
-=======
-[src/lib/stage/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/facade.ts#L54)
->>>>>>> release/1.2.0
+[src/lib/stage/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/facade.ts#L54)
 
 ___
 
@@ -161,11 +141,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/facade.ts:59](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/facade.ts#L59)
-=======
-[src/lib/stage/application/facade.ts:59](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/facade.ts#L59)
->>>>>>> release/1.2.0
+[src/lib/stage/application/facade.ts:59](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/facade.ts#L59)
 
 ___
 
@@ -185,11 +161,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/facade.ts:34](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/facade.ts#L34)
-=======
-[src/lib/stage/application/facade.ts:34](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/facade.ts#L34)
->>>>>>> release/1.2.0
+[src/lib/stage/application/facade.ts:34](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/facade.ts#L34)
 
 ___
 
@@ -209,8 +181,4 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/facade.ts#L44)
-=======
-[src/lib/stage/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/facade.ts#L44)
->>>>>>> release/1.2.0
+[src/lib/stage/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/facade.ts#L44)

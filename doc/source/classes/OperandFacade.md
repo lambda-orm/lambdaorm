@@ -37,11 +37,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/operand/application/facade.ts#L13)
-=======
-[src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/operand/application/facade.ts#L13)
->>>>>>> release/1.2.0
+[src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/operand/application/facade.ts#L13)
 
 ## Methods
 
@@ -61,11 +57,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/operand/application/facade.ts#L27)
-=======
-[src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/operand/application/facade.ts#L27)
->>>>>>> release/1.2.0
+[src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/operand/application/facade.ts#L27)
 
 ___
 
@@ -85,11 +77,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/operand/application/facade.ts#L35)
-=======
-[src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/operand/application/facade.ts#L35)
->>>>>>> release/1.2.0
+[src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/operand/application/facade.ts#L35)
 
 ___
 
@@ -109,8 +97,4 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/operand/application/facade.ts#L31)
-=======
-[src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/operand/application/facade.ts#L31)
->>>>>>> release/1.2.0
+[src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/operand/application/facade.ts#L31)

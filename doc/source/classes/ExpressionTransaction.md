@@ -33,11 +33,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/expressions/application/useCases/transaction.ts#L9)
-=======
-[src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/expressions/application/useCases/transaction.ts#L9)
->>>>>>> release/1.2.0
+[src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/expressions/application/useCases/transaction.ts#L9)
 
 ## Methods
 
@@ -58,11 +54,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/expressions/application/useCases/transaction.ts#L13)
-=======
-[src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/expressions/application/useCases/transaction.ts#L13)
->>>>>>> release/1.2.0
+[src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/expressions/application/useCases/transaction.ts#L13)
 
 ▸ **execute**(`expression`, `data?`): `Promise`\<`any`\>
 
@@ -79,11 +71,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/expressions/application/useCases/transaction.ts#L14)
-=======
-[src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/expressions/application/useCases/transaction.ts#L14)
->>>>>>> release/1.2.0
+[src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/expressions/application/useCases/transaction.ts#L14)
 
 ___
 
@@ -104,8 +92,4 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/expressions/application/useCases/transaction.ts#L23)
-=======
-[src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/expressions/application/useCases/transaction.ts#L23)
->>>>>>> release/1.2.0
+[src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/expressions/application/useCases/transaction.ts#L23)

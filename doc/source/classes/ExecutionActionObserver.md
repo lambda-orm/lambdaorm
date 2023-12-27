@@ -49,11 +49,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/application/services/observer.ts:6](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/observer.ts#L6)
-=======
-[src/lib/execution/application/services/observer.ts:6](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/observer.ts#L6)
->>>>>>> release/1.2.0
+[src/lib/execution/application/services/observer.ts:6](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/application/services/observer.ts#L6)
 
 ## Properties
 
@@ -67,11 +63,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/domain/executor.ts:18](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/executor.ts#L18)
-=======
-[src/lib/execution/domain/executor.ts:18](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/executor.ts#L18)
->>>>>>> release/1.2.0
+[src/lib/execution/domain/executor.ts:18](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/domain/executor.ts#L18)
 
 ___
 
@@ -85,11 +77,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/domain/executor.ts:17](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/executor.ts#L17)
-=======
-[src/lib/execution/domain/executor.ts:17](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/executor.ts#L17)
->>>>>>> release/1.2.0
+[src/lib/execution/domain/executor.ts:17](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/domain/executor.ts#L17)
 
 ___
 
@@ -103,11 +91,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/domain/executor.ts:19](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/executor.ts#L19)
-=======
-[src/lib/execution/domain/executor.ts:19](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/executor.ts#L19)
->>>>>>> release/1.2.0
+[src/lib/execution/domain/executor.ts:19](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/domain/executor.ts#L19)
 
 ## Methods
 
@@ -131,11 +115,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/application/services/observer.ts:16](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/observer.ts#L16)
-=======
-[src/lib/execution/application/services/observer.ts:16](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/observer.ts#L16)
->>>>>>> release/1.2.0
+[src/lib/execution/application/services/observer.ts:16](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/application/services/observer.ts#L16)
 
 ___
 
@@ -159,11 +139,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/application/services/observer.ts:10](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/observer.ts#L10)
-=======
-[src/lib/execution/application/services/observer.ts:10](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/observer.ts#L10)
->>>>>>> release/1.2.0
+[src/lib/execution/application/services/observer.ts:10](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/application/services/observer.ts#L10)
 
 ___
 
@@ -187,8 +163,4 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/application/services/observer.ts:22](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/observer.ts#L22)
-=======
-[src/lib/execution/application/services/observer.ts:22](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/observer.ts#L22)
->>>>>>> release/1.2.0
+[src/lib/execution/application/services/observer.ts:22](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/application/services/observer.ts#L22)

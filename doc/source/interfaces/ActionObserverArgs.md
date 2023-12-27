@@ -20,11 +20,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/domain/executor.ts:10](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/executor.ts#L10)
-=======
-[src/lib/execution/domain/executor.ts:10](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/executor.ts#L10)
->>>>>>> release/1.2.0
+[src/lib/execution/domain/executor.ts:10](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/domain/executor.ts#L10)
 
 ___
 
@@ -34,11 +30,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/domain/executor.ts:13](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/executor.ts#L13)
-=======
-[src/lib/execution/domain/executor.ts:13](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/executor.ts#L13)
->>>>>>> release/1.2.0
+[src/lib/execution/domain/executor.ts:13](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/domain/executor.ts#L13)
 
 ___
 
@@ -48,11 +40,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/domain/executor.ts:11](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/executor.ts#L11)
-=======
-[src/lib/execution/domain/executor.ts:11](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/executor.ts#L11)
->>>>>>> release/1.2.0
+[src/lib/execution/domain/executor.ts:11](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/domain/executor.ts#L11)
 
 ___
 
@@ -62,11 +50,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/domain/executor.ts:9](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/executor.ts#L9)
-=======
-[src/lib/execution/domain/executor.ts:9](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/executor.ts#L9)
->>>>>>> release/1.2.0
+[src/lib/execution/domain/executor.ts:9](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/domain/executor.ts#L9)
 
 ___
 
@@ -76,8 +60,4 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/execution/domain/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/executor.ts#L12)
-=======
-[src/lib/execution/domain/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/executor.ts#L12)
->>>>>>> release/1.2.0
+[src/lib/execution/domain/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/execution/domain/executor.ts#L12)

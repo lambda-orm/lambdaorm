@@ -62,11 +62,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:41](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L41)
-=======
-[src/lib/orm/infrastructure/orm.ts:41](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L41)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:41](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L41)
 
 ## Properties
 
@@ -76,11 +72,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L30)
-=======
-[src/lib/orm/infrastructure/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L30)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L30)
 
 ___
 
@@ -94,11 +86,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:32](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L32)
-=======
-[src/lib/orm/infrastructure/orm.ts:32](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L32)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:32](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L32)
 
 ___
 
@@ -108,11 +96,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:31](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L31)
-=======
-[src/lib/orm/infrastructure/orm.ts:31](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L31)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:31](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L31)
 
 ___
 
@@ -126,11 +110,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:33](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L33)
-=======
-[src/lib/orm/infrastructure/orm.ts:33](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L33)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:33](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L33)
 
 ___
 
@@ -144,11 +124,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:34](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L34)
-=======
-[src/lib/orm/infrastructure/orm.ts:34](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L34)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:34](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L34)
 
 ## Accessors
 
@@ -162,11 +138,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:67](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L67)
-=======
-[src/lib/orm/infrastructure/orm.ts:67](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L67)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:67](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L67)
 
 ___
 
@@ -186,11 +158,7 @@ IOrm.workspace
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:133](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L133)
-=======
-[src/lib/orm/infrastructure/orm.ts:133](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L133)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:133](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L133)
 
 ___
 
@@ -206,11 +174,7 @@ Singleton
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:60](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L60)
-=======
-[src/lib/orm/infrastructure/orm.ts:60](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L60)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:60](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L60)
 
 ## Methods
 
@@ -238,11 +202,7 @@ Constraints of expression
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:187](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L187)
-=======
-[src/lib/orm/infrastructure/orm.ts:187](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L187)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:187](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L187)
 
 ▸ **constraints**(`expression`): [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
 
@@ -262,11 +222,7 @@ Constraints of expression
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:188](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L188)
-=======
-[src/lib/orm/infrastructure/orm.ts:188](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L188)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:188](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L188)
 
 ___
 
@@ -292,11 +248,7 @@ Get dialect of source
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:142](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L142)
-=======
-[src/lib/orm/infrastructure/orm.ts:142](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L142)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:142](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L142)
 
 ___
 
@@ -316,11 +268,7 @@ Frees the resources used, for example the connection pools
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:117](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L117)
-=======
-[src/lib/orm/infrastructure/orm.ts:117](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L117)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:117](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L117)
 
 ___
 
@@ -350,11 +298,7 @@ Result of execution
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:226](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L226)
-=======
-[src/lib/orm/infrastructure/orm.ts:226](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L226)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:226](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L226)
 
 ▸ **execute**(`expression`, `data?`, `options?`): `Promise`\<`any`\>
 
@@ -376,11 +320,7 @@ Result of execution
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:227](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L227)
-=======
-[src/lib/orm/infrastructure/orm.ts:227](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L227)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:227](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L227)
 
 ___
 
@@ -409,11 +349,7 @@ promise void
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:76](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L76)
-=======
-[src/lib/orm/infrastructure/orm.ts:76](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L76)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:76](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L76)
 
 ___
 
@@ -441,11 +377,7 @@ metadata of expression
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:199](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L199)
-=======
-[src/lib/orm/infrastructure/orm.ts:199](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L199)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:199](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L199)
 
 ▸ **metadata**(`expression`): [`Metadata`](../interfaces/Metadata.md)
 
@@ -465,11 +397,7 @@ metadata of expression
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:200](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L200)
-=======
-[src/lib/orm/infrastructure/orm.ts:200](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L200)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:200](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L200)
 
 ___
 
@@ -497,11 +425,7 @@ Model of expression
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:163](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L163)
-=======
-[src/lib/orm/infrastructure/orm.ts:163](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L163)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:163](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L163)
 
 ▸ **model**(`expression`): [`MetadataModel`](../interfaces/MetadataModel.md)[]
 
@@ -521,11 +445,7 @@ Model of expression
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:164](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L164)
-=======
-[src/lib/orm/infrastructure/orm.ts:164](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L164)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:164](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L164)
 
 ___
 
@@ -553,11 +473,7 @@ Expression normalized
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:151](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L151)
-=======
-[src/lib/orm/infrastructure/orm.ts:151](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L151)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:151](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L151)
 
 ▸ **normalize**(`expression`): `string`
 
@@ -577,11 +493,7 @@ Expression normalized
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:152](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L152)
-=======
-[src/lib/orm/infrastructure/orm.ts:152](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L152)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:152](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L152)
 
 ___
 
@@ -609,11 +521,7 @@ Parameters of expression
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:175](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L175)
-=======
-[src/lib/orm/infrastructure/orm.ts:175](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L175)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:175](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L175)
 
 ▸ **parameters**(`expression`): [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
 
@@ -633,11 +541,7 @@ Parameters of expression
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:176](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L176)
-=======
-[src/lib/orm/infrastructure/orm.ts:176](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L176)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:176](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L176)
 
 ___
 
@@ -664,11 +568,7 @@ Get getInfo of expression
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:211](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L211)
-=======
-[src/lib/orm/infrastructure/orm.ts:211](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L211)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:211](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L211)
 
 ▸ **plan**(`expression`, `options?`): [`QueryPlan`](../interfaces/QueryPlan.md)
 
@@ -689,11 +589,7 @@ Get getInfo of expression
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:212](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L212)
-=======
-[src/lib/orm/infrastructure/orm.ts:212](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L212)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:212](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L212)
 
 ___
 
@@ -713,11 +609,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:254](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L254)
-=======
-[src/lib/orm/infrastructure/orm.ts:254](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L254)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:254](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L254)
 
 ___
 
@@ -744,11 +636,7 @@ Create a transaction
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:246](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L246)
-=======
-[src/lib/orm/infrastructure/orm.ts:246](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L246)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:246](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L246)
 
 ___
 
@@ -768,8 +656,4 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/orm/infrastructure/orm.ts:258](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/orm/infrastructure/orm.ts#L258)
-=======
-[src/lib/orm/infrastructure/orm.ts:258](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/orm/infrastructure/orm.ts#L258)
->>>>>>> release/1.2.0
+[src/lib/orm/infrastructure/orm.ts:258](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/orm/infrastructure/orm.ts#L258)

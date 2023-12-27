@@ -27,8 +27,4 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/expressions/domain/services.ts:5](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/expressions/domain/services.ts#L5)
-=======
-[src/lib/expressions/domain/services.ts:5](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/expressions/domain/services.ts#L5)
->>>>>>> release/1.2.0
+[src/lib/expressions/domain/services.ts:5](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/expressions/domain/services.ts#L5)

@@ -46,11 +46,7 @@ StageStateService\<ModelConfig\>.constructor
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/services/stateService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/services/stateService.ts#L8)
-=======
-[src/lib/stage/application/services/stateService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/services/stateService.ts#L8)
->>>>>>> release/1.2.0
+[src/lib/stage/application/services/stateService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/services/stateService.ts#L8)
 
 ## Methods
 
@@ -72,11 +68,7 @@ StageStateService\<ModelConfig\>.constructor
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/services/stateService.ts:56](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/services/stateService.ts#L56)
-=======
-[src/lib/stage/application/services/stateService.ts:56](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/services/stateService.ts#L56)
->>>>>>> release/1.2.0
+[src/lib/stage/application/services/stateService.ts:56](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/services/stateService.ts#L56)
 
 ___
 
@@ -100,11 +92,7 @@ StageStateService.get
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/services/stateService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/services/stateService.ts#L10)
-=======
-[src/lib/stage/application/services/stateService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/services/stateService.ts#L10)
->>>>>>> release/1.2.0
+[src/lib/stage/application/services/stateService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/services/stateService.ts#L10)
 
 ___
 
@@ -128,11 +116,7 @@ StageStateService.getFile
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/services/stateService.ts:52](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/services/stateService.ts#L52)
-=======
-[src/lib/stage/application/services/stateService.ts:52](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/services/stateService.ts#L52)
->>>>>>> release/1.2.0
+[src/lib/stage/application/services/stateService.ts:52](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/services/stateService.ts#L52)
 
 ___
 
@@ -156,11 +140,7 @@ StageStateService.remove
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/services/stateService.ts:27](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/services/stateService.ts#L27)
-=======
-[src/lib/stage/application/services/stateService.ts:27](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/services/stateService.ts#L27)
->>>>>>> release/1.2.0
+[src/lib/stage/application/services/stateService.ts:27](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/services/stateService.ts#L27)
 
 ___
 
@@ -185,8 +165,4 @@ StageStateService.update
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/stage/application/services/stateService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/services/stateService.ts#L22)
-=======
-[src/lib/stage/application/services/stateService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/services/stateService.ts#L22)
->>>>>>> release/1.2.0
+[src/lib/stage/application/services/stateService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/stage/application/services/stateService.ts#L22)

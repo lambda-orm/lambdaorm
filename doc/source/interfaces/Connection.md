@@ -60,11 +60,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L6)
-=======
-[src/lib/connection/application/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L6)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L6)
 
 ___
 
@@ -74,11 +70,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L8)
-=======
-[src/lib/connection/application/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L8)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L8)
 
 ___
 
@@ -88,11 +80,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L10)
-=======
-[src/lib/connection/application/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L10)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L10)
 
 ___
 
@@ -102,11 +90,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L11)
-=======
-[src/lib/connection/application/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L11)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L11)
 
 ___
 
@@ -116,11 +100,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L9)
-=======
-[src/lib/connection/application/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L9)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L9)
 
 ___
 
@@ -130,11 +110,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L7)
-=======
-[src/lib/connection/application/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L7)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L7)
 
 ## Accessors
 
@@ -148,11 +124,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L12)
-=======
-[src/lib/connection/application/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L12)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L12)
 
 ## Methods
 
@@ -173,11 +145,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L39)
-=======
-[src/lib/connection/application/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L39)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L39)
 
 ___
 
@@ -198,11 +166,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L37)
-=======
-[src/lib/connection/application/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L37)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L37)
 
 ___
 
@@ -223,11 +187,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L36)
-=======
-[src/lib/connection/application/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L36)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L36)
 
 ___
 
@@ -248,11 +208,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L38)
-=======
-[src/lib/connection/application/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L38)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L38)
 
 ___
 
@@ -273,11 +229,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:35](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L35)
-=======
-[src/lib/connection/application/ports/connection.ts:35](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L35)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:35](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L35)
 
 ___
 
@@ -291,11 +243,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L24)
-=======
-[src/lib/connection/application/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L24)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L24)
 
 ___
 
@@ -318,11 +266,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L28)
-=======
-[src/lib/connection/application/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L28)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L28)
 
 ___
 
@@ -345,11 +289,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L18)
-=======
-[src/lib/connection/application/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L18)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L18)
 
 ___
 
@@ -372,11 +312,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:29](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L29)
-=======
-[src/lib/connection/application/ports/connection.ts:29](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L29)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:29](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L29)
 
 ___
 
@@ -390,11 +326,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L25)
-=======
-[src/lib/connection/application/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L25)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L25)
 
 ___
 
@@ -415,11 +347,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L31)
-=======
-[src/lib/connection/application/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L31)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L31)
 
 ___
 
@@ -440,11 +368,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:33](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L33)
-=======
-[src/lib/connection/application/ports/connection.ts:33](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L33)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:33](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L33)
 
 ___
 
@@ -465,11 +389,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L34)
-=======
-[src/lib/connection/application/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L34)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L34)
 
 ___
 
@@ -490,11 +410,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L32)
-=======
-[src/lib/connection/application/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L32)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L32)
 
 ___
 
@@ -517,11 +433,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L20)
-=======
-[src/lib/connection/application/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L20)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L20)
 
 ___
 
@@ -542,11 +454,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L41)
-=======
-[src/lib/connection/application/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L41)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L41)
 
 ___
 
@@ -567,11 +475,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L45)
-=======
-[src/lib/connection/application/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L45)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L45)
 
 ___
 
@@ -592,11 +496,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L46)
-=======
-[src/lib/connection/application/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L46)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L46)
 
 ___
 
@@ -617,11 +517,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L43)
-=======
-[src/lib/connection/application/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L43)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L43)
 
 ___
 
@@ -642,11 +538,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L42)
-=======
-[src/lib/connection/application/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L42)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L42)
 
 ___
 
@@ -667,11 +559,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L40)
-=======
-[src/lib/connection/application/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L40)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L40)
 
 ___
 
@@ -692,11 +580,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L44)
-=======
-[src/lib/connection/application/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L44)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L44)
 
 ___
 
@@ -716,11 +600,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L21)
-=======
-[src/lib/connection/application/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L21)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L21)
 
 ___
 
@@ -740,11 +620,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L22)
-=======
-[src/lib/connection/application/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L22)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L22)
 
 ___
 
@@ -764,11 +640,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L23)
-=======
-[src/lib/connection/application/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L23)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L23)
 
 ___
 
@@ -791,11 +663,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:17](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L17)
-=======
-[src/lib/connection/application/ports/connection.ts:17](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L17)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:17](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L17)
 
 ___
 
@@ -809,11 +677,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L26)
-=======
-[src/lib/connection/application/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L26)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L26)
 
 ___
 
@@ -836,11 +700,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L16)
-=======
-[src/lib/connection/application/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L16)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L16)
 
 ___
 
@@ -861,11 +721,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L30)
-=======
-[src/lib/connection/application/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L30)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L30)
 
 ___
 
@@ -888,11 +744,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L19)
-=======
-[src/lib/connection/application/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L19)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L19)
 
 ___
 
@@ -914,11 +766,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L13)
-=======
-[src/lib/connection/application/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L13)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L13)
 
 ___
 
@@ -940,8 +788,4 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/connection/application/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/ports/connection.ts#L14)
-=======
-[src/lib/connection/application/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/ports/connection.ts#L14)
->>>>>>> release/1.2.0
+[src/lib/connection/application/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/connection/application/ports/connection.ts#L14)

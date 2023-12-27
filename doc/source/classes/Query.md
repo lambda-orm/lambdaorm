@@ -41,11 +41,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:33](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L33)
-=======
-[src/lib/query/domain/query.ts:33](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L33)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:33](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L33)
 
 ## Properties
 
@@ -55,11 +51,7 @@
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:20](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L20)
-=======
-[src/lib/query/domain/query.ts:20](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L20)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:20](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L20)
 
 ___
 
@@ -69,11 +61,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:27](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L27)
-=======
-[src/lib/query/domain/query.ts:27](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L27)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:27](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L27)
 
 ___
 
@@ -83,11 +71,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:29](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L29)
-=======
-[src/lib/query/domain/query.ts:29](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L29)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:29](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L29)
 
 ___
 
@@ -97,11 +81,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:31](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L31)
-=======
-[src/lib/query/domain/query.ts:31](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L31)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:31](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L31)
 
 ___
 
@@ -111,11 +91,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:24](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L24)
-=======
-[src/lib/query/domain/query.ts:24](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L24)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:24](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L24)
 
 ___
 
@@ -125,11 +101,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:26](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L26)
-=======
-[src/lib/query/domain/query.ts:26](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L26)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:26](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L26)
 
 ___
 
@@ -139,11 +111,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:32](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L32)
-=======
-[src/lib/query/domain/query.ts:32](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L32)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:32](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L32)
 
 ___
 
@@ -153,11 +121,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:22](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L22)
-=======
-[src/lib/query/domain/query.ts:22](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L22)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:22](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L22)
 
 ___
 
@@ -167,11 +131,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:28](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L28)
-=======
-[src/lib/query/domain/query.ts:28](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L28)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:28](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L28)
 
 ___
 
@@ -181,11 +141,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:23](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L23)
-=======
-[src/lib/query/domain/query.ts:23](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L23)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:23](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L23)
 
 ___
 
@@ -195,11 +151,7 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:25](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L25)
-=======
-[src/lib/query/domain/query.ts:25](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L25)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:25](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L25)
 
 ___
 
@@ -209,8 +161,4 @@ ___
 
 #### Defined in
 
-<<<<<<< HEAD
-[src/lib/query/domain/query.ts:30](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L30)
-=======
-[src/lib/query/domain/query.ts:30](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L30)
->>>>>>> release/1.2.0
+[src/lib/query/domain/query.ts:30](https://github.com/lambda-orm/lambdaorm/blob/352576f4/src/lib/query/domain/query.ts#L30)
