@@ -4,10 +4,10 @@ import path from 'path'
 
 // function getUsers () {
 // return [
-// { username: 'flaviolrita', firstname: 'Flavio Lionel', lastname: 'Rita', email: 'flaviolrita@hotmail.com' },
+// { username: 'flaviolrita', firstname: 'Flavio Lionel', lastname: 'Rita', email: 'lambdaorm@proton.me' },
 // { username: 'griss512', firstname: 'Gricelda Rocio', lastname: 'Puchuri Corilla', email: 'griss512@hotmail.com' },
-// { username: 'micaelavrita', firstname: 'Micaela Valentina', lastname: 'Rita Puchuri', email: 'flaviolrita@hotmail.com' },
-// { username: 'joaquinirita', firstname: 'Joaquin Ignacio', lastname: 'Rita Puchuri', email: 'flaviolrita@hotmail.com' }
+// { username: 'micaelavrita', firstname: 'Micaela Valentina', lastname: 'Rita Puchuri', email: 'lambdaorm@proton.me' },
+// { username: 'joaquinirita', firstname: 'Joaquin Ignacio', lastname: 'Rita Puchuri', email: 'lambdaorm@proton.me' }
 // ]
 // }
 

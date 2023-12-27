@@ -32,7 +32,7 @@ This Code of Conduct applies both within project spaces and in public spaces whe
 
 ## Compliance
 
-Instances of abusive, harassing or unacceptable behavior can be reported by contacting the project team [flaviolrita@proton.me](mailto:flaviolrita@proton.me).
+Instances of abusive, harassing or unacceptable behavior can be reported by contacting the project team [lambdaorm@proton.me](mailto:lambdaorm@proton.me).
 
 All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate in the circumstances. The project team is obliged to maintain confidentiality in relation to the report. More details of specific compliance policies may be published separately.
 

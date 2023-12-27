@@ -4,7 +4,7 @@ If you want to communicate with us, you can do so in several ways. We are always
 
 ## Via Email
 
-- [flaviolrita@proton.me](mailto:flaviolrita@proton.me).
+- [lambdaorm@proton.me](mailto:lambdaorm@proton.me)
 
 ## Via Slack
 
