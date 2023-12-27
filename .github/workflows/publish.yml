@@ -26,9 +26,9 @@ jobs:
         run: cd ./dist && npm publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Delete branch
-        run: |
-          git push origin --delete ${{ github.ref_name }} --no-verify
-          echo "Branch ${{ github.ref_name }} deleted"        
+      # - name: Delete branch
+      #   run: |
+      #     git push origin --delete ${{ github.ref_name }} --no-verify
+      #     echo "Branch ${{ github.ref_name }} deleted"        
 
 

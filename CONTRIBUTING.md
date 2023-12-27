@@ -132,6 +132,47 @@ They are replaced by merge request using GitLab
 
 We use commit messages to automatically generate the changelog and version, so it is important that you follow the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines.
 
+### Commitlint
+
+Commitlint is a tool that allows us to validate the commit messages, and thus be able to standardize them. \
+It is based on a configuration file, which is usually called commitlint.config.js, and in which we can define the rules that we want to apply to the commit messages.
+
+Install:
+
+```bash
+npm install -g @commitlint/cli @commitlint/config-conventional
+```
+
+### Branch lint
+
+Branch lint is a tool that allows us to validate the branch names, and thus be able to standardize them. \
+It is based on a configuration file, which is usually called .branchlintrc, and in which we can define the rules that we want to apply to the branch names.
+
+Install:
+
+```bash
+npm install -g branchlint
+```
+
+### Husky
+
+What Husky is based on is Git Hooks, which are scripts that are executed at certain times, such as before a commit, push, etc... \
+Husky allows us to configure these hooks in a very simple way, and also allows us configure them in the package.json, which allows us to have a more portable project.
+
+Install:
+
+```bash
+npm install -g husky
+npx husky install
+```
+
+Add hook for commitlint:
+
+```bash
+npx husky add .husky/commit-msg  'commitlint --edit ${1}'
+npx husky add .husky/pre-push  'branchlint'
+```
+
 ## Tasks
 
 Main Tasks:

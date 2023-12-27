@@ -2,3 +2,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 commitlint --edit ${1}
+commitlint --edit ${1}
