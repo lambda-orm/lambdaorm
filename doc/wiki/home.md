@@ -1,5 +1,18 @@
 # λORM
 
+[![Join the community on GitHub Discussions](https://img.shields.io/badge/Join%20the%20community-on%20GitHub%20Discussions-blue.svg)](https://github.com/FlavioLionelRita/lambdaorm/discussions)
+[![Slack](https://img.shields.io/badge/chat-on%20slack-orange)](https://join.slack.com/t/nuevoespaciod-xo58767/shared_invite/zt-29ix7pc2r-Wd_ZBWnWRDv_5DM4NPtVhQ)
+[![Gitter](https://badges.gitter.im/lambdaorm/community.svg)](https://app.gitter.im/#/room/#lambdaorm-how-to-contribute:gitter.im)
+[![Discord](https://img.shields.io/badge/chat-on%20discord-orange)](https://discord.com/invite/yXT6XBX2)
+[![Wiki](https://img.shields.io/badge/doc-wiki-yellow)](https://github.com/FlavioLionelRita/lambdaorm/wiki)
+[![language typescript](https://img.shields.io/badge/language-typescript-blue)](https://www.npmjs.com/package/lambdaorm)
+[![npm version](https://img.shields.io/badge/npm-10.2.5-green)](https://www.npmjs.com/package/lambdaorm)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Github CI](https://img.shields.io/badge/Github-CI-red.svg)](https://github.com/FlavioLionelRita/lambdaorm/actions?query=workflow%3A%22publish%22)
+[![CLI](https://img.shields.io/badge/Api-CLI-blue.svg)](https://www.npmjs.com/package/lambdaorm-cli)
+[![Api REST](https://img.shields.io/badge/Api-REST-blue.svg)](https://github.com/FlavioLionelRita/lambdaorm-svc)
+
 λORM goes beyond being an ORM library.
 
 In addition to being consumed as a NodeJs library, it can also be consumed as a command line interface (CLI), as a REST service, or as a REST service client in various languages. This facilitates its consumption from environments.
@@ -13,6 +26,8 @@ Through the schema you can define entities, enumerations, indexes, unique keys, 
 It is possible to implement the [CQRS](https://microservices.io/patterns/data/cqrs.html) pattern with just configuration, without needing to write a single line of additional code.
 
 λORM has methods to obtain information from queries without having to execute them. We can get the resulting data model, the required parameters, the constraints to be evaluated in an insert or update query, and the execution plan.
+
+Would you like to contribute? Read [our contribution guidelines](./CONTRIBUTING.md) to know more. There are many ways to help!
 
 ## Features
 
