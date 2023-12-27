@@ -276,7 +276,7 @@ CNN_MONGODB={"url":"mongodb://test:test@localhost:27017","database":"test"}
 
 **Laboratory:**
 
-[CLI - northwind multiples datasources](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
+[CLI - northwind multiples datasources](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
 
 ## Composite example in different datasources
 
@@ -524,17 +524,17 @@ infrastructure:
 
 Orders collection:
 
-![OrderCompositeInMongo](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/OrderCompositeInMongo.png)
+![OrderCompositeInMongo](https://raw.githubusercontent.com/lambda-orm/lambdaorm/HEAD/images/OrderCompositeInMongo.png)
 
 ### Orders Composite in Postgres
 
 Orders table:
 
-![OrderCompositeInPostgres](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/OrderCompositeInPostgres.png)
+![OrderCompositeInPostgres](https://raw.githubusercontent.com/lambda-orm/lambdaorm/HEAD/images/OrderCompositeInPostgres.png)
 
 Orders details table:
 
-![OrderDetailsCompositeInPostgres](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/OrderDetailCompositeInPostgres.png)
+![OrderDetailsCompositeInPostgres](https://raw.githubusercontent.com/lambda-orm/lambdaorm/HEAD/images/OrderDetailCompositeInPostgres.png)
 
 ## Queries
 
@@ -670,6 +670,6 @@ Result:
 
 ## Laboratories
 
-- [CLI - northwind](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/05-northwind)
-- [CLI - northwind multiples datasources](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
-- [CLI - northwind multiples stages](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/07-northwind-multiples-stages)
+- [CLI - northwind](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/05-northwind)
+- [CLI - northwind multiples datasources](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
+- [CLI - northwind multiples stages](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/07-northwind-multiples-stages)

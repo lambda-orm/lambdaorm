@@ -9,7 +9,7 @@
 
 This schema has two entities that are in different databases.
 
-![schema](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema4.svg)
+![schema](https://raw.githubusercontent.com/lambda-orm/lambdaorm/HEAD/images/schema4.svg)
 
 The database attribute is used in the entity to be able to specify that an entity is in a database other than the default of the schema.
 
@@ -91,7 +91,7 @@ In the case of the Countries entity, both the name of the table and the fields c
 
 But in the case of the States entity, the name of the table and its fields differ, so the mapping defines the mapping.
 
-![schema](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema5.svg)
+![schema](https://raw.githubusercontent.com/lambda-orm/lambdaorm/HEAD/images/schema5.svg)
 
 ```yaml
 domain:
@@ -177,4 +177,4 @@ infrastructure:
 
 ## Laboratories
 
-- [CLI - two datasource same query](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/04-two-datasource-same-query)
+- [CLI - two datasource same query](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/04-two-datasource-same-query)

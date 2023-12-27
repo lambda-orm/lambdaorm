@@ -71,4 +71,4 @@ application:
     after: orm.execute(expression,data,{stage:"insights"}) 
 ```
 
-View in [CLI - northwind CQRS lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/08-northwind-cqrs)
+View in [CLI - northwind CQRS lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/08-northwind-cqrs)
