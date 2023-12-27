@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## [1.2.0](https://github.com/lambda-orm/lambdaorm/compare/v1.1.5...v1.2.0) (2023-12-27)
+
+
+### Features
+
+* move repository to org ([73ae43d](https://github.com/lambda-orm/lambdaorm/commit/73ae43da1fd6f3cf50e8163c929fe0e027f6bb28)), closes [#224](https://github.com/lambda-orm/lambdaorm/issues/224)
+
 ### [1.1.5](https://github.com/lambda-orm/lambdaorm/compare/v1.1.4...v1.1.5) (2023-12-27)
 
 ### [1.1.4](https://github.com/lambda-orm/lambdaorm/compare/v1.1.3...v1.1.4) (2023-12-27)
