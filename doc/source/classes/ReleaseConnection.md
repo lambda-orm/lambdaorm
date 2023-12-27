@@ -30,7 +30,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/connection/application/useCases/release.ts:6](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/useCases/release.ts#L6)
+=======
+[src/lib/connection/application/useCases/release.ts:6](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/useCases/release.ts#L6)
+>>>>>>> release/1.2.0
 
 ## Methods
 
@@ -50,4 +54,8 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/connection/application/useCases/release.ts:8](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/useCases/release.ts#L8)
+=======
+[src/lib/connection/application/useCases/release.ts:8](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/useCases/release.ts#L8)
+>>>>>>> release/1.2.0

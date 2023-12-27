@@ -34,7 +34,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/domain/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/transaction.ts#L7)
+=======
+[src/lib/execution/domain/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/transaction.ts#L7)
+>>>>>>> release/1.2.0
 
 ## Accessors
 
@@ -48,7 +52,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/domain/transaction.ts:15](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/transaction.ts#L15)
+=======
+[src/lib/execution/domain/transaction.ts:15](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/transaction.ts#L15)
+>>>>>>> release/1.2.0
 
 ## Methods
 
@@ -69,4 +77,8 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/domain/transaction.ts:11](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/domain/transaction.ts#L11)
+=======
+[src/lib/execution/domain/transaction.ts:11](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/domain/transaction.ts#L11)
+>>>>>>> release/1.2.0

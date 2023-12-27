@@ -32,7 +32,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/shared/application/helper.ts:9](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/shared/application/helper.ts#L9)
+=======
+[src/lib/shared/application/helper.ts:9](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/shared/application/helper.ts#L9)
+>>>>>>> release/1.2.0
 
 ## Methods
 
@@ -53,7 +57,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/shared/application/helper.ts:11](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/shared/application/helper.ts#L11)
+=======
+[src/lib/shared/application/helper.ts:11](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/shared/application/helper.ts#L11)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -73,7 +81,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/shared/application/helper.ts:20](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/shared/application/helper.ts#L20)
+=======
+[src/lib/shared/application/helper.ts:20](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/shared/application/helper.ts#L20)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -93,4 +105,8 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/shared/application/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/shared/application/helper.ts#L24)
+=======
+[src/lib/shared/application/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/shared/application/helper.ts#L24)
+>>>>>>> release/1.2.0

@@ -45,7 +45,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/useCases/base/actionDML.ts#L15)
+=======
+[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/useCases/base/actionDML.ts#L15)
+>>>>>>> release/1.2.0
 
 ## Methods
 
@@ -59,7 +63,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/useCases/base/actionDML.ts#L33)
+=======
+[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/useCases/base/actionDML.ts#L33)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -73,4 +81,8 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/stage/application/useCases/base/actionDML.ts#L24)
+=======
+[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/stage/application/useCases/base/actionDML.ts#L24)
+>>>>>>> release/1.2.0

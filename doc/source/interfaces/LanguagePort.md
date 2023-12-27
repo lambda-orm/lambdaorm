@@ -24,7 +24,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/ports/languagePort.ts:7](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/ports/languagePort.ts#L7)
+=======
+[src/lib/language/application/ports/languagePort.ts:7](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/ports/languagePort.ts#L7)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -34,7 +38,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/ports/languagePort.ts:8](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/ports/languagePort.ts#L8)
+=======
+[src/lib/language/application/ports/languagePort.ts:8](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/ports/languagePort.ts#L8)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -44,7 +52,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/ports/languagePort.ts:9](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/ports/languagePort.ts#L9)
+=======
+[src/lib/language/application/ports/languagePort.ts:9](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/ports/languagePort.ts#L9)
+>>>>>>> release/1.2.0
 
 ## Methods
 
@@ -65,7 +77,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/ports/languagePort.ts:11](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/ports/languagePort.ts#L11)
+=======
+[src/lib/language/application/ports/languagePort.ts:11](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/ports/languagePort.ts#L11)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -86,7 +102,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/ports/languagePort.ts:12](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/ports/languagePort.ts#L12)
+=======
+[src/lib/language/application/ports/languagePort.ts:12](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/ports/languagePort.ts#L12)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -106,4 +126,8 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/ports/languagePort.ts:10](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/ports/languagePort.ts#L10)
+=======
+[src/lib/language/application/ports/languagePort.ts:10](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/ports/languagePort.ts#L10)
+>>>>>>> release/1.2.0

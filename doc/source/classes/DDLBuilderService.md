@@ -39,7 +39,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/services/ddlBuilder.ts:14](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/ddlBuilder.ts#L14)
+=======
+[src/lib/language/application/services/ddlBuilder.ts:14](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/ddlBuilder.ts#L14)
+>>>>>>> release/1.2.0
 
 ## Properties
 
@@ -49,7 +53,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/services/ddlBuilder.ts:16](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/ddlBuilder.ts#L16)
+=======
+[src/lib/language/application/services/ddlBuilder.ts:16](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/ddlBuilder.ts#L16)
+>>>>>>> release/1.2.0
 
 ## Methods
 
@@ -69,7 +77,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/services/ddlBuilder.ts:22](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/ddlBuilder.ts#L22)
+=======
+[src/lib/language/application/services/ddlBuilder.ts:22](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/ddlBuilder.ts#L22)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -89,7 +101,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/services/ddlBuilder.ts:48](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/ddlBuilder.ts#L48)
+=======
+[src/lib/language/application/services/ddlBuilder.ts:48](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/ddlBuilder.ts#L48)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -109,4 +125,8 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/language/application/services/ddlBuilder.ts:35](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/language/application/services/ddlBuilder.ts#L35)
+=======
+[src/lib/language/application/services/ddlBuilder.ts:35](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/language/application/services/ddlBuilder.ts#L35)
+>>>>>>> release/1.2.0

@@ -49,7 +49,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:24](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L24)
+=======
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:24](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L24)
+>>>>>>> release/1.2.0
 
 ## Accessors
 
@@ -67,7 +71,11 @@ QueryExecutor.options
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:41](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L41)
+=======
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:41](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L41)
+>>>>>>> release/1.2.0
 
 ## Methods
 
@@ -92,7 +100,11 @@ QueryExecutor.options
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:110](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L110)
+=======
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:110](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L110)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -110,7 +122,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:57](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L57)
+=======
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:57](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L57)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -135,7 +151,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:79](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L79)
+=======
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:79](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L79)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -153,7 +173,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:71](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L71)
+=======
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:71](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L71)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -171,4 +195,8 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:64](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L64)
+=======
+[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:64](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L64)
+>>>>>>> release/1.2.0

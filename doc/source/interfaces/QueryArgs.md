@@ -27,7 +27,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:5](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L5)
+=======
+[src/lib/query/domain/query.ts:5](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L5)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -37,7 +41,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:10](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L10)
+=======
+[src/lib/query/domain/query.ts:10](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L10)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -47,7 +55,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:12](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L12)
+=======
+[src/lib/query/domain/query.ts:12](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L12)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -57,7 +69,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:14](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L14)
+=======
+[src/lib/query/domain/query.ts:14](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L14)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -67,7 +83,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:6](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L6)
+=======
+[src/lib/query/domain/query.ts:6](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L6)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -77,7 +97,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:9](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L9)
+=======
+[src/lib/query/domain/query.ts:9](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L9)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -87,7 +111,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:17](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L17)
+=======
+[src/lib/query/domain/query.ts:17](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L17)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -97,7 +125,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:16](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L16)
+=======
+[src/lib/query/domain/query.ts:16](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L16)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -107,7 +139,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:11](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L11)
+=======
+[src/lib/query/domain/query.ts:11](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L11)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -117,7 +153,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:8](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L8)
+=======
+[src/lib/query/domain/query.ts:8](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L8)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -127,7 +167,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:7](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L7)
+=======
+[src/lib/query/domain/query.ts:7](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L7)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -137,4 +181,8 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/query/domain/query.ts:13](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/query/domain/query.ts#L13)
+=======
+[src/lib/query/domain/query.ts:13](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/query/domain/query.ts#L13)
+>>>>>>> release/1.2.0

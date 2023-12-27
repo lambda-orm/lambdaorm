@@ -40,7 +40,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/sentence/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/sentence/application/facade.ts#L27)
+=======
+[src/lib/sentence/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/sentence/application/facade.ts#L27)
+>>>>>>> release/1.2.0
 
 ## Methods
 
@@ -62,7 +66,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/sentence/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/sentence/application/facade.ts#L44)
+=======
+[src/lib/sentence/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/sentence/application/facade.ts#L44)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -82,7 +90,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/sentence/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/sentence/application/facade.ts#L48)
+=======
+[src/lib/sentence/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/sentence/application/facade.ts#L48)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -103,7 +115,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/sentence/application/facade.ts:64](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/sentence/application/facade.ts#L64)
+=======
+[src/lib/sentence/application/facade.ts:64](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/sentence/application/facade.ts#L64)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -123,7 +139,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/sentence/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/sentence/application/facade.ts#L52)
+=======
+[src/lib/sentence/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/sentence/application/facade.ts#L52)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -143,7 +163,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/sentence/application/facade.ts:56](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/sentence/application/facade.ts#L56)
+=======
+[src/lib/sentence/application/facade.ts:56](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/sentence/application/facade.ts#L56)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -163,4 +187,8 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/sentence/application/facade.ts:60](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/sentence/application/facade.ts#L60)
+=======
+[src/lib/sentence/application/facade.ts:60](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/sentence/application/facade.ts#L60)
+>>>>>>> release/1.2.0

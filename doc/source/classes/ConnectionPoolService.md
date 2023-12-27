@@ -33,7 +33,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/connection/application/services/connectionPoolService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/services/connectionPoolService.ts#L8)
+=======
+[src/lib/connection/application/services/connectionPoolService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/services/connectionPoolService.ts#L8)
+>>>>>>> release/1.2.0
 
 ## Methods
 
@@ -53,7 +57,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/connection/application/services/connectionPoolService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/services/connectionPoolService.ts#L22)
+=======
+[src/lib/connection/application/services/connectionPoolService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/services/connectionPoolService.ts#L22)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -67,7 +75,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/connection/application/services/connectionPoolService.ts:29](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/services/connectionPoolService.ts#L29)
+=======
+[src/lib/connection/application/services/connectionPoolService.ts:29](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/services/connectionPoolService.ts#L29)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -87,7 +99,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/connection/application/services/connectionPoolService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/services/connectionPoolService.ts#L14)
+=======
+[src/lib/connection/application/services/connectionPoolService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/services/connectionPoolService.ts#L14)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -107,4 +123,8 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/connection/application/services/connectionPoolService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/connection/application/services/connectionPoolService.ts#L10)
+=======
+[src/lib/connection/application/services/connectionPoolService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/connection/application/services/connectionPoolService.ts#L10)
+>>>>>>> release/1.2.0

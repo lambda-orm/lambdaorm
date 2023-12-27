@@ -50,7 +50,11 @@ H3lp.constructor
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/shared/application/helper.ts#L33)
+=======
+[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/shared/application/helper.ts#L33)
+>>>>>>> release/1.2.0
 
 ## Properties
 
@@ -116,7 +120,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/shared/application/helper.ts#L33)
+=======
+[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/shared/application/helper.ts#L33)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -126,7 +134,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/shared/application/helper.ts:32](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/shared/application/helper.ts#L32)
+=======
+[src/lib/shared/application/helper.ts:32](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/shared/application/helper.ts#L32)
+>>>>>>> release/1.2.0
 
 ___
 

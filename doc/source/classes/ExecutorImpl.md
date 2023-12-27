@@ -43,7 +43,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/executor.ts#L12)
+=======
+[src/lib/execution/application/services/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/executor.ts#L12)
+>>>>>>> release/1.2.0
 
 ## Methods
 
@@ -69,7 +73,11 @@
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/executor.ts#L33)
+=======
+[src/lib/execution/application/services/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/executor.ts#L33)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -94,7 +102,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/executor.ts#L56)
+=======
+[src/lib/execution/application/services/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/executor.ts#L56)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -118,7 +130,11 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/executor.ts:21](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/executor.ts#L21)
+=======
+[src/lib/execution/application/services/executor.ts:21](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/executor.ts#L21)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -145,7 +161,11 @@ Create a transaction
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/executor.ts:87](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/executor.ts#L87)
+=======
+[src/lib/execution/application/services/executor.ts:87](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/executor.ts#L87)
+>>>>>>> release/1.2.0
 
 ___
 
@@ -169,4 +189,8 @@ ___
 
 #### Defined in
 
+<<<<<<< HEAD
 [src/lib/execution/application/services/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/2f28c8f6/src/lib/execution/application/services/executor.ts#L25)
+=======
+[src/lib/execution/application/services/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/73ae43da/src/lib/execution/application/services/executor.ts#L25)
+>>>>>>> release/1.2.0
