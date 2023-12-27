@@ -7,7 +7,7 @@ As a developer, you can contribute in many different ways, such as:
 - Report bugs
 - Help solve problems
 - Improve documentation
-- Write code labs in [lambdaorm-labs](https://github.com/FlavioLionelRita/lambdaorm-labs).
+- Write code labs in [lambdaorm-labs](https://github.com/lambda-orm/lambdaorm-labs).
 
 As a collaborator, these are the guidelines we would like you to follow:
 
@@ -23,7 +23,7 @@ There are several ways to ask your question:
 
 - You can create a question on [StackOverflow](https://stackoverflow.com/questions/tagged/lambdaorm) where questions should be tagged with the `lambdaorm` tag.
 - You can ask at [Slack](https://join.slack.com/t/nuevoespaciod-xo58767/shared_invite/zt-29ix7pc2r-Wd_ZBWnWRDv_5DM4NPtVhQ)
-- You can create an issue at [github issues](https://github.com/FlavioLionelRita/lambdaorm/issues)
+- You can create an issue at [github issues](https://github.com/lambda-orm/lambdaorm/issues)
 - If you have Telegram, find me by (@flaviolrita`)
 
 ## Did you find a security vulnerability?
@@ -33,11 +33,11 @@ Please contact me at [lambdaorm@proton.me](mailto:lambdaorm@proton.me) with the 
 
 ## Did you find a bug?
 
-If you find a bug in the source code, you can help us [github issues](https://github.com/FlavioLionelRita/lambdaorm/issues).
+If you find a bug in the source code, you can help us [github issues](https://github.com/lambda-orm/lambdaorm/issues).
 
 ## Missing a feature?
 
-You can *request* a new feature at [github issues](https://github.com/FlavioLionelRita/lambdaorm/issues).
+You can *request* a new feature at [github issues](https://github.com/lambda-orm/lambdaorm/issues).
 If you want to *implement* a new feature, please submit an issue with
 First a proposal for your work, to be sure we can use it.
 Please consider what type of exchange it is:
@@ -152,7 +152,7 @@ Subs Tasks:
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the [MIT License](https://github.com/FlavioLionelRita/lambdaorm/blob/main/LICENSE).
+By contributing, you agree that your contributions will be licensed under the [MIT License](https://github.com/lambda-orm/lambdaorm/blob/main/LICENSE).
 
 ## References
 

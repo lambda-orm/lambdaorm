@@ -12,7 +12,7 @@ These usage scenarios can be used for different reasons, for example:
 
 In this scheme we can see how to extend the schema.
 
-![schema](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema3.svg)
+![schema](https://raw.githubusercontent.com/lambda-orm/lambdaorm/HEAD/images/schema3.svg)
 
 We use the extends attribute in the definition of the schema to extend it.
 
@@ -100,4 +100,4 @@ CNN_POSTGRES={"host":"0.0.0.0","port":5433,"user":"test","password":"test","data
 
 ## Laboratories
 
-- [CLI - two stages](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/03-two-stages)
+- [CLI - two stages](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/03-two-stages)

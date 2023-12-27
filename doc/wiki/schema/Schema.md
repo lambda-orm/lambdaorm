@@ -23,4 +23,4 @@ In the case of the Countries entity, both the name of the table and the fields c
 
 But in the case of the States entity, the name of the table and its fields differ, so the mapping defines the mapping.
 
-![diagram](https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm/HEAD/images/schema5.svg)
+![diagram](https://raw.githubusercontent.com/lambda-orm/lambdaorm/HEAD/images/schema5.svg)

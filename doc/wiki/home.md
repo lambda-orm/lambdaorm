@@ -1,17 +1,17 @@
 # λORM
 
-[![Join the community on GitHub Discussions](https://img.shields.io/badge/Join%20the%20community-on%20GitHub%20Discussions-blue.svg)](https://github.com/FlavioLionelRita/lambdaorm/discussions)
+[![Join the community on GitHub Discussions](https://img.shields.io/badge/Join%20the%20community-on%20GitHub%20Discussions-blue.svg)](https://github.com/lambda-orm/lambdaorm/discussions)
 [![Slack](https://img.shields.io/badge/chat-on%20slack-orange)](https://join.slack.com/t/nuevoespaciod-xo58767/shared_invite/zt-29ix7pc2r-Wd_ZBWnWRDv_5DM4NPtVhQ)
 [![Gitter](https://badges.gitter.im/lambdaorm/community.svg)](https://app.gitter.im/#/room/#lambdaorm-how-to-contribute:gitter.im)
 [![Discord](https://img.shields.io/badge/chat-on%20discord-orange)](https://discord.com/invite/yXT6XBX2)
-[![Wiki](https://img.shields.io/badge/doc-wiki-yellow)](https://github.com/FlavioLionelRita/lambdaorm/wiki)
+[![Wiki](https://img.shields.io/badge/doc-wiki-yellow)](https://github.com/lambda-orm/lambdaorm/wiki)
 [![language typescript](https://img.shields.io/badge/language-typescript-blue)](https://www.npmjs.com/package/lambdaorm)
 [![npm version](https://img.shields.io/badge/npm-10.2.5-green)](https://www.npmjs.com/package/lambdaorm)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![Github CI](https://img.shields.io/badge/Github-CI-red.svg)](https://github.com/FlavioLionelRita/lambdaorm/actions?query=workflow%3A%22publish%22)
+[![Github CI](https://img.shields.io/badge/Github-CI-red.svg)](https://github.com/lambda-orm/lambdaorm/actions?query=workflow%3A%22publish%22)
 [![CLI](https://img.shields.io/badge/Api-CLI-blue.svg)](https://www.npmjs.com/package/lambdaorm-cli)
-[![Api REST](https://img.shields.io/badge/Api-REST-blue.svg)](https://github.com/FlavioLionelRita/lambdaorm-svc)
+[![Api REST](https://img.shields.io/badge/Api-REST-blue.svg)](https://github.com/lambda-orm/lambdaorm-svc)
 
 λORM goes beyond being an ORM library.
 
@@ -32,7 +32,7 @@ Would you like to contribute? Read [our contribution guidelines](./CONTRIBUTING.
 ## Features
 
 - Supports MySQL, MariaDB, PostgresSQL, Oracle, SqlServer, SqlJs and MongoDB.
-- [Schema Configuration](https://github.com/FlavioLionelRita/lambdaorm/wiki/Schema-Configuration)
+- [Schema Configuration](https://github.com/lambda-orm/lambdaorm/wiki/Schema-Configuration)
   - Decoupling the domain model from infrastructure
 	- Configuration in json or yml formats
 	- Definition of mappings between domain and infrastructure
@@ -40,26 +40,26 @@ Would you like to contribute? Read [our contribution guidelines](./CONTRIBUTING.
 	- Environment variables
   - define indices, unique keys and constraints
   - Conditions and actions are based on the expression engine [3xpr](https://www.npmjs.com/package/3xpr)
-- [Query Language](https://github.com/FlavioLionelRita/lambdaorm/wiki/Query-Language)
+- [Query Language](https://github.com/lambda-orm/lambdaorm/wiki/Query-Language)
 	- Simple query language based on javascript lambda expressions.
 	- Can write the expression as javascript code or as a string
 	- Crud clauses
 	- Implicit joins and group by
-	- [Eager loading using the Include() method.](https://github.com/FlavioLionelRita/lambdaorm/wiki/Include)
-	- [Query expression metadata](https://github.com/FlavioLionelRita/lambdaorm/wiki/Metadata)
-- [Repositories and custom repositories](https://github.com/FlavioLionelRita/lambdaorm/wiki/Repository)
-- [Transactions and distributed transactions](https://github.com/FlavioLionelRita/lambdaorm/wiki/Transaction)
+	- [Eager loading using the Include() method.](https://github.com/lambda-orm/lambdaorm/wiki/Include)
+	- [Query expression metadata](https://github.com/lambda-orm/lambdaorm/wiki/Metadata)
+- [Repositories and custom repositories](https://github.com/lambda-orm/lambdaorm/wiki/Repository)
+- [Transactions and distributed transactions](https://github.com/lambda-orm/lambdaorm/wiki/Transaction)
 - Performance and Optimization
-  - [BulkInsert](https://github.com/FlavioLionelRita/lambdaorm/wiki/BulkInsert)
+  - [BulkInsert](https://github.com/lambda-orm/lambdaorm/wiki/BulkInsert)
   - High performance queries
   - Connection pooling
 - Listeners and subscribers
 - TypeScript and JavaScript support
-- [CLI Support](https://github.com/FlavioLionelRita/lambdaorm-cli) support
-- [REST API Support](https://github.com/FlavioLionelRita/lambdaorm-svc)
+- [CLI Support](https://github.com/lambda-orm/lambdaorm-cli) support
+- [REST API Support](https://github.com/lambda-orm/lambdaorm-svc)
 - HTTP Client Support
   - [Node Client](https://www.npmjs.com/package/lambdaorm-client-node)
-  - [Kotlin Client](https://github.com/FlavioLionelRita/lambdaorm-client-kotlin) (In Progress)
+  - [Kotlin Client](https://github.com/lambda-orm/lambdaorm-client-kotlin) (In Progress)
   - Java Client (Coming Soon)
   - C# Client (Coming Soon)
   - Python Client (Coming Soon)
@@ -258,7 +258,7 @@ lambdaorm execute -e ".env" -q "Orders.filter(p => p.customerId == customerId).i
 ]
 ```
 
-[view complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
+[view complete laboratory](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
 
 ### [CQRS (Command Query Responsibility Segregation)](https://microservices.io/patterns/data/cqrs.html)
 
@@ -451,7 +451,7 @@ curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: app
 }
 ```
 
-[view complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/03-northwind-cqrs)
+[view complete laboratory](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/03-northwind-cqrs)
 
 ### [CQRS (Command Query Responsibility Segregation)](https://microservices.io/patterns/data/cqrs.html) with Kafka
 
@@ -481,7 +481,7 @@ application:
       after: queue.send("insights-sync",[{expression:expression,data:data}]) 
 ```
 
-[view complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)
+[view complete laboratory](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)
 
 ### Node Client
 
@@ -544,7 +544,7 @@ import path from'path'
 })()
 ```
 
-[view complete laboratory](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/client-node/02-import-data)
+[view complete laboratory](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/client-node/02-import-data)
 
 ## Considerations
 
@@ -554,20 +554,20 @@ We could start a development by proposing a simple infrastructure and then make 
 
 You could also have development, test and production environments with different infrastructure configurations without having to alter the code.
 
-In addition to the examples presented previously, there are many other use cases that can be solved with λORM by configuring the schema and queries language. Therefore, we invite you to explore the different [laboratories](https://github.com/FlavioLionelRita/lambdaorm-labs) and read the [documentation](https://github.com/FlavioLionelRita/lambdaorm/wiki).
+In addition to the examples presented previously, there are many other use cases that can be solved with λORM by configuring the schema and queries language. Therefore, we invite you to explore the different [laboratories](https://github.com/lambda-orm/lambdaorm-labs) and read the [documentation](https://github.com/lambda-orm/lambdaorm/wiki).
 
 ## All Labs
 
-You can access various labs at [lambdaorm labs](https://github.com/FlavioLionelRita/lambdaorm-labs)
+You can access various labs at [lambdaorm labs](https://github.com/lambda-orm/lambdaorm-labs)
 
 ## Documentation
 
-Full documentation is available in the [Wiki](https://github.com/FlavioLionelRita/lambdaorm/wiki).
+Full documentation is available in the [Wiki](https://github.com/lambda-orm/lambdaorm/wiki).
 
 ## Related projects
 
 - [Lambda ORM CLI](https://www.npmjs.com/package/lambdaorm-cli)
-- [Lambda ORM Service](https://github.com/FlavioLionelRita/lambdaorm-svc)
+- [Lambda ORM Service](https://github.com/lambda-orm/lambdaorm-svc)
 - [Client Node](https://www.npmjs.com/package/lambdaorm-client-node)
-- [Client Kotlin](https://github.com/FlavioLionelRita/lambdaorm-client-kotlin)
+- [Client Kotlin](https://github.com/lambda-orm/lambdaorm-client-kotlin)
 - [3xpr](https://www.npmjs.com/package/3xpr)

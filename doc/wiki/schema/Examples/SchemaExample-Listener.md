@@ -267,4 +267,4 @@ application:
 
 ## Laboratories
 
-[CLI - northwind cqrs](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/08-northwind-cqrs)
+[CLI - northwind cqrs](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/08-northwind-cqrs)
