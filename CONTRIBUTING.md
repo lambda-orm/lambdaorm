@@ -51,6 +51,47 @@ and help you design the change so that it is successfully accepted into the proj
 
 According to the Git Flow workflow, feature branches and bug fixes will be merged into `develop` via pull requests.
 
+### Git Flow Start
+
+Install:
+
+```bash
+apt-get install git-flow
+```
+
+**Init:**
+
+Git Flow will ask us a series of questions from the terminal, we will answer by default (simply by pressing enter) each and every one of them. \
+If we want to avoid this step, using the -d flag all default configurations will be established.
+
+```bash
+git flow init
+```
+
+Example:
+
+```bash
+Which branch should be used for bringing forth production releases?
+   - develop
+   - master
+Branch name for production releases: [master]
+
+Which branch should be used for integration of the "next release"?
+   - develop
+Branch name for "next release" development: [develop]
+
+How to name your supporting branch prefixes?
+Feature branches? [feature/]
+Bugfix branches? [bugfix/]
+Release branches? [release/]
+Hotfix branches? [hotfix/]
+Support branches? [support/]
+Version tag prefix? []
+Hooks and filters directory? [/Users/your-user/Sites/your-dirname]
+```
+
+By default, master will be our main branch, develop will be our development branch, new feature branches will be prefixed with feature/, branches to fix small bugs that have not reached production will be prefixed with bugfix/, branches to put Code in production will be prefixed with release/, bugfix branches in production will be prefixed with hotfix/, and support branches will be prefixed with support/.
+
 ### Features
 
 When we are going to develop a new feature, or evolve/modify an existing one, we will use feature branches. \
