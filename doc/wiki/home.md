@@ -27,7 +27,7 @@ It is possible to implement the [CQRS](https://microservices.io/patterns/data/cq
 
 λORM has methods to obtain information from queries without having to execute them. We can get the resulting data model, the required parameters, the constraints to be evaluated in an insert or update query, and the execution plan.
 
-Would you like to contribute? Read [our contribution guidelines](./CONTRIBUTING.md) to know more. There are many ways to help!
+Would you like to contribute? Read [our contribution guidelines](https://github.com/lambda-orm/lambdaorm/blob/main/CONTRIBUTING.md) to know more. There are many ways to help!
 
 ## Features
 
@@ -515,7 +515,7 @@ import fs from 'fs'
 import path from'path'
 ( async () => {
  try { 
-  orm.init('http://localhost:9291')
+  await orm.init('http://localhost:9291')
   // test connection
   console.log(await orm.general.ping())
   // Gets the content of the data.json file to insert the data
