@@ -45,14 +45,15 @@
 		"countries-create-test-suite": "grunt countries-create-test-suite"
 	},
 	"dependencies": {
-		"h3lp": "^1.5.1",
-		"typ3s": "^0.1.0",
 		"3xpr": "^1.15.0",
-		"lambdaorm-base": "^0.1.16",
 		"crypto-js": "^4.1.1",
+		"h3lp": "^1.5.1",
 		"js-yaml": "^4.1.0",
+		"lambdaorm-base": "^0.1.16",
+		"lambdaorm-cli": "^0.9.33",
 		"luxon": "^3.4.4",
-		"sqlstring": "^2.3.3"
+		"sqlstring": "^2.3.3",
+		"typ3s": "^0.1.0"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.23.3",
