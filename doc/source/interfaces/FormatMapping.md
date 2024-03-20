@@ -26,6 +26,7 @@
 - [hadWriteExps](FormatMapping.md#hadwriteexps)
 - [hadWriteValues](FormatMapping.md#hadwritevalues)
 - [indexes](FormatMapping.md#indexes)
+- [intermediate](FormatMapping.md#intermediate)
 - [name](FormatMapping.md#name)
 - [primaryKey](FormatMapping.md#primarykey)
 - [properties](FormatMapping.md#properties)
@@ -48,7 +49,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:60
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:61
 
 ___
 
@@ -62,7 +63,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:77
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:78
 
 ___
 
@@ -76,7 +77,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:70
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:71
 
 ___
 
@@ -86,7 +87,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:99
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:101
 
 ___
 
@@ -96,7 +97,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:98
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:100
 
 ___
 
@@ -110,7 +111,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:69
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:70
 
 ___
 
@@ -124,7 +125,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:59
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:60
 
 ___
 
@@ -138,7 +139,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:75
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:76
 
 ___
 
@@ -152,7 +153,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:71
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:72
 
 ___
 
@@ -166,7 +167,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:73
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:74
 
 ___
 
@@ -180,7 +181,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:76
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:77
 
 ___
 
@@ -194,7 +195,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:72
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:73
 
 ___
 
@@ -208,7 +209,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:74
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:75
 
 ___
 
@@ -222,7 +223,21 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:66
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:67
+
+___
+
+### intermediate
+
+• `Optional` **intermediate**: `boolean`
+
+#### Inherited from
+
+[Entity](Entity.md).[intermediate](Entity.md#intermediate)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:79
 
 ___
 
@@ -236,7 +251,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:58
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:59
 
 ___
 
@@ -250,7 +265,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:63
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:64
 
 ___
 
@@ -264,7 +279,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:67
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:68
 
 ___
 
@@ -278,7 +293,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:68
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:69
 
 ___
 
@@ -292,7 +307,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:65
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:66
 
 ___
 
@@ -306,7 +321,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:61
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:62
 
 ___
 
@@ -316,7 +331,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:100
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:102
 
 ___
 
@@ -330,7 +345,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:64
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:65
 
 ___
 
@@ -344,4 +359,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:62
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:63

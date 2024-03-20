@@ -22,7 +22,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `schemaService` | [`SchemaCreateService`](SchemaCreateService.md) |
+| `schemaService` | [`SchemaService`](SchemaService.md) |
 
 #### Returns
 

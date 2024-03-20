@@ -2,7 +2,8 @@ import {
 	BitwiseBuildTest, NumericBuildTest, ComparisonBuildTest, DateTimeBuildTest,
 	GroupBuildTest, LogicalBuildTest, NullableBuildTest, SortBuildTest, StringBuildTest
 } from '../test/builders'
-import { orm, QueryOptions } from '../../../lib'
+import { orm } from '../../../lib'
+import { QueryOptions } from 'lambdaorm-base'
 import { h3lp } from 'h3lp'
 
 export async function apply (callback: any) {

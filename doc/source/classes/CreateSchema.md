@@ -22,7 +22,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `schemaService` | [`SchemaCreateService`](SchemaCreateService.md) |
+| `schemaService` | [`SchemaService`](SchemaService.md) |
 
 #### Returns
 
@@ -36,12 +36,35 @@ node_modules/lambdaorm-base/schema/application/useCases/create.d.ts:5
 
 ### create
 
-▸ **create**(): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
+▸ **create**(`data`): [`Schema`](../interfaces/Schema.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `any` |
 
 #### Returns
 
-`Promise`\<[`Schema`](../interfaces/Schema.md)\>
+[`Schema`](../interfaces/Schema.md)
 
 #### Defined in
 
 node_modules/lambdaorm-base/schema/application/useCases/create.d.ts:6
+
+▸ **create**(`data`, `name?`): [`Schema`](../interfaces/Schema.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `any`[] |
+| `name?` | `string` |
+
+#### Returns
+
+[`Schema`](../interfaces/Schema.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/useCases/create.d.ts:7

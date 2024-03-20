@@ -10,10 +10,10 @@
 
 ### Properties
 
-- [createService](SchemaFacade.md#createservice)
 - [domain](SchemaFacade.md#domain)
 - [mapping](SchemaFacade.md#mapping)
 - [schema](SchemaFacade.md#schema)
+- [schemaService](SchemaFacade.md#schemaservice)
 - [source](SchemaFacade.md#source)
 - [stage](SchemaFacade.md#stage)
 - [view](SchemaFacade.md#view)
@@ -26,12 +26,13 @@
 - [get](SchemaFacade.md#get)
 - [getSource](SchemaFacade.md#getsource)
 - [initialize](SchemaFacade.md#initialize)
+- [update](SchemaFacade.md#update)
 
 ## Constructors
 
 ### constructor
 
-• **new SchemaFacade**(`source`, `domain`, `mapping`, `stage`, `view`, `createService`, `routeService`, `extender`, `createSchema`, `loadSchema`, `getSchema`, `completeSchema`): [`SchemaFacade`](SchemaFacade.md)
+• **new SchemaFacade**(`source`, `domain`, `mapping`, `stage`, `view`, `schemaService`, `routeService`, `extender`, `createSchema`, `updateSchema`, `loadSchema`, `getSchema`, `completeSchema`): [`SchemaFacade`](SchemaFacade.md)
 
 #### Parameters
 
@@ -42,10 +43,11 @@
 | `mapping` | [`MappingsConfigService`](MappingsConfigService.md) |
 | `stage` | [`StageConfigService`](StageConfigService.md) |
 | `view` | [`ViewsConfigService`](ViewsConfigService.md) |
-| `createService` | [`SchemaCreateService`](SchemaCreateService.md) |
+| `schemaService` | [`SchemaService`](SchemaService.md) |
 | `routeService` | [`RouteService`](RouteService.md) |
 | `extender` | [`SchemaExtender`](SchemaExtender.md) |
 | `createSchema` | [`CreateSchema`](CreateSchema.md) |
+| `updateSchema` | [`UpdateSchema`](UpdateSchema.md) |
 | `loadSchema` | [`LoadSchema`](LoadSchema.md) |
 | `getSchema` | [`GetSchema`](GetSchema.md) |
 | `completeSchema` | [`CompleteSchema`](CompleteSchema.md) |
@@ -56,19 +58,9 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:28
+node_modules/lambdaorm-base/schema/application/facade.d.ts:30
 
 ## Properties
-
-### createService
-
-• `Readonly` **createService**: [`SchemaCreateService`](SchemaCreateService.md)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:20
-
-___
 
 ### domain
 
@@ -76,7 +68,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:16
+node_modules/lambdaorm-base/schema/application/facade.d.ts:17
 
 ___
 
@@ -86,7 +78,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:17
+node_modules/lambdaorm-base/schema/application/facade.d.ts:18
 
 ___
 
@@ -96,7 +88,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:27
+node_modules/lambdaorm-base/schema/application/facade.d.ts:29
+
+___
+
+### schemaService
+
+• `Readonly` **schemaService**: [`SchemaService`](SchemaService.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/facade.d.ts:21
 
 ___
 
@@ -106,7 +108,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:15
+node_modules/lambdaorm-base/schema/application/facade.d.ts:16
 
 ___
 
@@ -116,7 +118,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:18
+node_modules/lambdaorm-base/schema/application/facade.d.ts:19
 
 ___
 
@@ -126,7 +128,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:19
+node_modules/lambdaorm-base/schema/application/facade.d.ts:20
 
 ## Methods
 
@@ -146,21 +148,44 @@ node_modules/lambdaorm-base/schema/application/facade.d.ts:19
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:34
+node_modules/lambdaorm-base/schema/application/facade.d.ts:38
 
 ___
 
 ### create
 
-▸ **create**(): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
+▸ **create**(`data`): [`Schema`](../interfaces/Schema.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `any` |
 
 #### Returns
 
-`Promise`\<[`Schema`](../interfaces/Schema.md)\>
+[`Schema`](../interfaces/Schema.md)
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:31
+node_modules/lambdaorm-base/schema/application/facade.d.ts:33
+
+▸ **create**(`data`, `name`): [`Schema`](../interfaces/Schema.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `any`[] |
+| `name` | `string` |
+
+#### Returns
+
+[`Schema`](../interfaces/Schema.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/facade.d.ts:34
 
 ___
 
@@ -181,7 +206,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:29
+node_modules/lambdaorm-base/schema/application/facade.d.ts:31
 
 ___
 
@@ -201,7 +226,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:32
+node_modules/lambdaorm-base/schema/application/facade.d.ts:36
 
 ___
 
@@ -222,7 +247,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:30
+node_modules/lambdaorm-base/schema/application/facade.d.ts:32
 
 ___
 
@@ -242,4 +267,25 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:33
+node_modules/lambdaorm-base/schema/application/facade.d.ts:37
+
+___
+
+### update
+
+▸ **update**(`schema`, `types`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `schema` | [`Schema`](../interfaces/Schema.md) |
+| `types` | [`EntityType`](../interfaces/EntityType.md)[] |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/facade.d.ts:35

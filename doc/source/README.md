@@ -77,11 +77,11 @@ Lambda ORM
 - [ReleaseConnection](classes/ReleaseConnection.md)
 - [Repository](classes/Repository.md)
 - [RouteService](classes/RouteService.md)
-- [SchemaCreateService](classes/SchemaCreateService.md)
 - [SchemaError](classes/SchemaError.md)
 - [SchemaExtender](classes/SchemaExtender.md)
 - [SchemaFacade](classes/SchemaFacade.md)
 - [SchemaFacadeBuilder](classes/SchemaFacadeBuilder.md)
+- [SchemaService](classes/SchemaService.md)
 - [Sentence](classes/Sentence.md)
 - [SentenceFacade](classes/SentenceFacade.md)
 - [SentenceInclude](classes/SentenceInclude.md)
@@ -102,6 +102,7 @@ Lambda ORM
 - [StageTruncate](classes/StageTruncate.md)
 - [Transaction](classes/Transaction.md)
 - [Update](classes/Update.md)
+- [UpdateSchema](classes/UpdateSchema.md)
 - [ValidationError](classes/ValidationError.md)
 - [ViewConfigService](classes/ViewConfigService.md)
 - [ViewsConfigService](classes/ViewsConfigService.md)
@@ -126,6 +127,7 @@ Lambda ORM
 - [DomainSchema](interfaces/DomainSchema.md)
 - [Entity](interfaces/Entity.md)
 - [EntityMapping](interfaces/EntityMapping.md)
+- [EntityType](interfaces/EntityType.md)
 - [EntityView](interfaces/EntityView.md)
 - [Enum](interfaces/Enum.md)
 - [EnumValue](interfaces/EnumValue.md)
@@ -331,7 +333,7 @@ node_modules/lambdaorm-base/repository/domain/queryable.d.ts:142
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:3
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:4
 
 ___
 
@@ -341,7 +343,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:262](https://github.com/lambda-orm/lambdaorm/blob/81b20e4e/src/lib/orm/infrastructure/orm.ts#L262)
+[src/lib/orm/infrastructure/orm.ts:262](https://github.com/lambda-orm/lambdaorm/blob/b4a803de/src/lib/orm/infrastructure/orm.ts#L262)
 
 ## Functions
 

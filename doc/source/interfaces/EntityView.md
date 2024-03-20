@@ -18,7 +18,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:116
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:118
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:115
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:117
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:117
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:119
