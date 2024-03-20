@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## [1.4.0](https://github.com/lambda-orm/lambdaorm/compare/v1.3.2...v1.4.0) (2024-03-20)
+
+
+### Features
+
+* **sentence:** remove sentence service ([4320540](https://github.com/lambda-orm/lambdaorm/commit/432054010c945f1c91317649de7a46a50a72070c)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+
 ### [1.3.2](https://github.com/lambda-orm/lambdaorm/compare/v1.3.1...v1.3.2) (2024-01-01)
 
 ### [1.3.1](https://github.com/lambda-orm/lambdaorm/compare/v1.3.0...v1.3.1) (2023-12-28)

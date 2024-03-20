@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "1.3.2",
+	"version": "1.4.0",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@proton.me>",
 	"license": "MIT",
@@ -45,15 +45,15 @@
 		"countries-create-test-suite": "grunt countries-create-test-suite"
 	},
 	"dependencies": {
-		"3xpr": "^1.15.0",
+		"3xpr": "^1.15.10",
 		"crypto-js": "^4.1.1",
-		"h3lp": "^1.5.1",
+		"h3lp": "^1.6.1",
 		"js-yaml": "^4.1.0",
-		"lambdaorm-base": "^0.1.16",
+		"lambdaorm-base": "^0.1.20",
 		"lambdaorm-cli": "^0.9.33",
 		"luxon": "^3.4.4",
 		"sqlstring": "^2.3.3",
-		"typ3s": "^0.1.0"
+		"typ3s": "^0.1.16"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.23.3",
@@ -62,11 +62,11 @@
 		"@types/node": "^20.11.30",
 		"@types/yargs": "^17.0.24",
 		"@typescript-eslint/eslint-plugin": "^7.0.0",
-		"@typescript-eslint/parser": "^6.14.0",
+		"@typescript-eslint/parser": "^7.3.1",
 		"concurrently": "^8.2.0",
 		"config-extends": "2.0.6",
 		"dotenv": "^16.3.1",
-		"eslint": "^8.56.0",
+		"eslint": "^8.57.0",
 		"eslint-config-standard": "^17.1.0",
 		"eslint-plugin-import": "^2.27.5",
 		"eslint-plugin-n": "^16.6.0",
