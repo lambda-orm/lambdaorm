@@ -8,6 +8,10 @@ ddl:
   dropUk: "DROP CONSTRAINT {name}"
   dropFk: "DROP CONSTRAINT {name}"
   dropIndex: "DROP INDEX {name} ON {table}"
+  alterProperty: 'ALTER COLUMN {columnDefine}'
+  alterPropertyType: '{name} {type}'
+  alterPropertyNullable: '{name} NULL'
+  alterPropertyNotNullable: '{name} NOT NULL'
 dml:
   insert: INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoIncrementField} VALUES({values})
   # insert: INSERT INTO {name}({fields}) VALUES({values})

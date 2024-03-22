@@ -92,8 +92,35 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		return new Query({ action: SentenceAction.createIndex, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
 	}
 
+	/**
+	 * @deprecated This method is obsolete, since to alter a property you must call alterPropertyType or alterPropertyNullable
+	 */
 	public alterProperty (entity: EntityMapping, property: Property): Query | undefined {
 		let text = this.property(entity, property)
+		text = this.dialect.ddl('alterProperty').replace('{columnDefine}', text)
+		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
+		return new Query({ action: SentenceAction.alterProperty, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+	}
+
+	public alterPropertyType (entity: EntityMapping, property: Property): Query | undefined {
+		const propertyMapping = this.mapping.getProperty(entity.name, property.name)
+		let type = this.dialect.type(property.type)
+		if (type === undefined) {
+			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
+		}
+		type = property.length ? type.replace('{0}', property.length.toString()) : type
+		let text = this.dialect.ddl('alterPropertyType')
+		text = text.replace('{name}', this.dialect.delimiter(propertyMapping.mapping))
+		text = text.replace('{type}', type)
+		text = this.dialect.ddl('alterProperty').replace('{columnDefine}', text)
+		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
+		return new Query({ action: SentenceAction.alterProperty, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })
+	}
+
+	public alterPropertyRequired (entity: EntityMapping, property: PropertyMapping): Query | undefined {
+		const propertyMapping = this.mapping.getProperty(entity.name, property.name)
+		let text = property.required ? this.dialect.ddl('alterPropertyNotNullable') : this.dialect.ddl('alterPropertyNullable')
+		text = text.replace('{name}', this.dialect.delimiter(propertyMapping.mapping))
 		text = this.dialect.ddl('alterProperty').replace('{columnDefine}', text)
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping))
 		return new Query({ action: SentenceAction.alterProperty, dialect: this.source.dialect, source: this.source.name, sentence: alterEntity + ' ' + text, entity: entity.name })

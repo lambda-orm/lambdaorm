@@ -12,7 +12,12 @@ export interface DDLBuilderPort {
 	dropUk(entity: EntityMapping): Query | undefined
 	createEntity(entity: EntityMapping): Query | undefined
 	addProperty(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	/**
+	 * @deprecated Use alterPropertyType or alterPropertyRequired
+	 */
 	alterProperty(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	alterPropertyType(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	alterPropertyRequired(entity: EntityMapping, property: PropertyMapping): Query | undefined
 	dropProperty(entity: EntityMapping, property: PropertyMapping): Query | undefined
 	addPk(entity: EntityMapping, primaryKey: string[]): Query | undefined
 	addUk(entity: EntityMapping, uniqueKey: string[]): Query | undefined

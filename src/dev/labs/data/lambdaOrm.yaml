@@ -1,128 +1,7 @@
 version: 0.0.1
-application:
-  start: []
-  end: []
-  listeners: []
 domain:
   version: 0.0.1
-  enums: []
   entities:
-    - intermediate: true
-      name: countriesLanguages
-      primaryKey:
-        - id
-      properties:
-        - name: id
-          type: integer
-          required: true
-          autoIncrement: true
-        - name: languageCode
-          type: string
-          required: true
-        - name: countriesName
-          type: string
-          required: true
-      uniqueKey:
-        - countriesName
-        - languageCode
-      required: []
-      indexes: []
-      relations:
-        - name: countries
-          type: oneToMany
-          from: countriesName
-          entity: countries
-          to: name
-          target: countriesLanguages
-        - name: languages
-          type: oneToMany
-          from: languageCode
-          entity: Languages
-          to: code
-          target: countriesLanguages
-      dependents: []
-    - name: Languages
-      primaryKey: []
-      properties:
-        - name: code
-          type: string
-          required: true
-          length: 4
-        - name: name
-          type: string
-          required: true
-          length: 16
-      uniqueKey: []
-      required: []
-      indexes: []
-      relations: []
-      dependents: []
-    - name: Region
-      primaryKey:
-        - code
-      properties:
-        - name: code
-          type: string
-          required: true
-          length: 2
-        - name: name
-          type: string
-          required: true
-          length: 32
-      uniqueKey: []
-      required: []
-      indexes: []
-      relations: []
-      dependents: []
-    - name: Pos
-      primaryKey:
-        - lat
-      properties:
-        - name: lat
-          type: decimal
-          required: true
-        - name: log
-          type: decimal
-          required: true
-      uniqueKey:
-        - log
-      required: []
-      indexes: []
-      relations: []
-      dependents: []
-    - name: Timezones
-      primaryKey:
-        - name
-      properties:
-        - name: GmtOffset
-          type: integer
-          required: false
-        - name: name
-          type: string
-          required: true
-          length: 32
-        - name: posLat
-          type: decimal
-          required: true
-        - name: countriesName
-          type: string
-          required: true
-      uniqueKey: []
-      required: []
-      indexes: []
-      relations:
-        - name: pos
-          type: oneToMany
-          from: posLat
-          entity: Pos
-          to: lat
-        - name: countries
-          type: oneToMany
-          from: countriesName
-          entity: countries
-          to: name
-          target: timezones
-      dependents: []
     - name: countries
       primaryKey:
         - name
@@ -137,21 +16,12 @@ domain:
         - name: priority
           type: integer
           required: true
-        - name: regionCode
+        - name: region
           type: string
           required: true
-          length: 2
+          length: 16
       uniqueKey:
         - phoneCode
-      required: []
-      indexes: []
-      relations:
-        - name: region
-          type: oneToMany
-          from: regionCode
-          entity: Region
-          to: code
-      dependents: []
 infrastructure:
   paths:
     src: src
@@ -159,11 +29,8 @@ infrastructure:
     domain: domain
   mappings:
     - name: default
-      entities: []
   sources:
     - name: default
       mapping: default
       dialect: PostgreSQL
       connection: $CNX_POSTGRES
-  stages: []
-  views: []

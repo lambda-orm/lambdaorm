@@ -55,18 +55,29 @@ export class DDLBuilderService {
 			const currentMapping = this.schemaFacade.mapping.mappings.find(p => p.name === source.mapping)
 			const currentEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
 			const delta = this.helper.obj.delta(currentEntities, oldEntities)
-			// remove for entities changes
-			this._syncRemoveForEntitiesChanges(source, ruleDataSource, oldEntities || [], delta, queries)
-			// remove for entities removed
-			this._syncRemoveForRemovedEntities(source, ruleDataSource, delta, queries)
-			// create entities
-			this._syncCreateEntities(source, ruleDataSource, delta, queries)
-			// create for entities changes
-			this._syncCreateForEntitiesChanges(source, ruleDataSource, delta, queries)
-			// create for new entities
-			this._syncCreateForNewEntities(source, ruleDataSource, currentEntities || [], delta, queries)
+			if (delta.children && delta.children.length > 0) {
+				for (const child of delta.children) {
+					if (!child.change) continue
+					this._sync(source, ruleDataSource, currentEntities || [], oldEntities || [], child.delta, queries)
+				}
+			} else {
+				this._sync(source, ruleDataSource, currentEntities || [], oldEntities || [], delta, queries)
+			}
 		}
 		return queries
+	}
+
+	private _sync (source: Source, ruleDataSource: SourceRule, currentEntities:EntityMapping[], oldEntities: EntityMapping[], delta:Delta, queries: Query[]):void {
+		// remove for entities changes
+		this._syncRemoveForEntitiesChanges(source, ruleDataSource, oldEntities || [], delta, queries)
+		// remove for entities removed
+		this._syncRemoveForRemovedEntities(source, ruleDataSource, delta, queries)
+		// create entities
+		this._syncCreateEntities(source, ruleDataSource, delta, queries)
+		// create for entities changes
+		this._syncCreateForEntitiesChanges(source, ruleDataSource, delta, queries)
+		// create for new entities
+		this._syncCreateForNewEntities(source, ruleDataSource, currentEntities || [], delta, queries)
 	}
 
 	private _drop (source: Source, sourceRule: SourceRule, entitiesMapping: EntityMapping[], queries: Query[]): void {
@@ -285,31 +296,46 @@ export class DDLBuilderService {
 	private _syncCreateForEntitiesChanges (source: Source, sourceRule: SourceRule, delta: Delta, queries: Query[]): void {
 		if (delta.changed === undefined) return
 		for (const entityChanged of delta.changed) {
-			// if entity is view is excluded
-			// evaluate if entity apply in source
-			if (!entityChanged.delta || !entityChanged.delta.changed || (entityChanged.new as EntityMapping).view || (!this.evalDataSource(sourceRule, entityChanged.name))) continue
-			for (const changed of entityChanged.delta.changed) {
-				if (!changed.delta) continue
-				switch (changed.name) {
-				case 'property':
-					this._syncAddPropertyForEntitiesChanges(source, entityChanged, changed.delta, queries)
-					this._syncRemovePropertyForEntityChanges(source, entityChanged, changed.delta, queries)
-					break
-				case 'primaryKey':
-					this._syncCreatePkForChangesInEntity(source, entityChanged, changed.delta, queries)
-					break
-				case 'uniqueKey':
-					this._syncCreateUkForChangesInEntity(source, entityChanged, changed.delta, queries)
-					break
-				case 'index':
-					this._syncCreateIndexesForChangesInEntity(source, entityChanged, changed.delta, queries)
-					break
-				case 'relation':
-					this._syncCreateFksForChangesInEntity(source, sourceRule, entityChanged, changed.delta, queries)
-					break
-				case 'sequence':
-					this._syncCreateSequencesForChangesInEntity(source, entityChanged, queries)
-					break
+			// if entity is view is excluded & evaluate if entity apply in source
+			if ((entityChanged.new as EntityMapping).view || (!this.evalDataSource(sourceRule, entityChanged.name))) continue
+
+			if (entityChanged.delta && entityChanged.delta.children && entityChanged.delta.children.length > 0) {
+				for (const child of entityChanged.delta.children) {
+					if (!child.change || !child.delta || !child.delta.changed) continue
+					for (const changed of child.delta.changed) {
+						if (!changed.delta) continue
+						const propertyChanged = changed.new as PropertyMapping
+						switch (changed.name) {
+						case 'properties':
+							this._syncModifyPropertyForEntitiesChanges(source, entityChanged, propertyChanged, changed.delta, queries)
+							break
+						}
+					}
+				}
+			} else if (entityChanged.delta && entityChanged.delta.changed) {
+				for (const changed of entityChanged.delta.changed) {
+					if (!changed.delta) continue
+					switch (changed.name) {
+					case 'property':
+						this._syncAddPropertyForEntitiesChanges(source, entityChanged, changed.delta, queries)
+						this._syncRemovePropertyForEntityChanges(source, entityChanged, changed.delta, queries)
+						break
+					case 'primaryKey':
+						this._syncCreatePkForChangesInEntity(source, entityChanged, changed.delta, queries)
+						break
+					case 'uniqueKey':
+						this._syncCreateUkForChangesInEntity(source, entityChanged, changed.delta, queries)
+						break
+					case 'index':
+						this._syncCreateIndexesForChangesInEntity(source, entityChanged, changed.delta, queries)
+						break
+					case 'relation':
+						this._syncCreateFksForChangesInEntity(source, sourceRule, entityChanged, changed.delta, queries)
+						break
+					case 'sequence':
+						this._syncCreateSequencesForChangesInEntity(source, entityChanged, queries)
+						break
+					}
 				}
 			}
 		}
@@ -333,6 +359,21 @@ export class DDLBuilderService {
 				if (newProperty.mapping === oldProperty.mapping && !newProperty.view) {
 					this.addQuery(queries, this.builder(source).alterProperty(entityChanged.new, newProperty))
 				}
+			}
+		}
+	}
+
+	private _syncModifyPropertyForEntitiesChanges (source: Source, entityChanged:ChangedValue, propertyChanged:PropertyMapping, delta: Delta, queries: Query[]): void {
+		if (!delta.changed) return
+		for (const changed of delta.changed) {
+			switch (changed.name) {
+			case 'length':
+			case 'type':
+				this.addQuery(queries, this.builder(source).alterPropertyType(entityChanged.new, propertyChanged))
+				break
+			case 'required':
+				this.addQuery(queries, this.builder(source).alterPropertyRequired(entityChanged.new, propertyChanged))
+				break
 			}
 		}
 	}

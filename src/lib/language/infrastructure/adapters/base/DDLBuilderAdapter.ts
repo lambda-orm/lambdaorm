@@ -21,7 +21,12 @@ export abstract class DDLBuilderAdapter implements DDLBuilderPort {
 	abstract dropUk(entity: EntityMapping): Query | undefined
 	abstract createEntity(entity: EntityMapping): Query | undefined
 	abstract addProperty(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	/**
+	 * @deprecated Use alterPropertyType or alterPropertyNullable
+	 */
 	abstract alterProperty(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	abstract alterPropertyType(entity: EntityMapping, property: PropertyMapping): Query | undefined
+	abstract alterPropertyRequired (entity: EntityMapping, property: PropertyMapping): Query | undefined
 	abstract dropProperty(entity: EntityMapping, property: PropertyMapping): Query | undefined
 	abstract addPk(entity: EntityMapping, primaryKey: string[]): Query | undefined
 	abstract addUk(entity: EntityMapping, uniqueKey: string[]): Query | undefined

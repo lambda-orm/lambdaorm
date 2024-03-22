@@ -1,0 +1,1 @@
+ALTER TABLE countries ALTER COLUMN phoneCode DROP NOT NULL;

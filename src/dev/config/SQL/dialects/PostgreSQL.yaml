@@ -3,10 +3,14 @@ types:
   dateTime: TIMESTAMP
 ddl:
   incrementalColumDefine: "{name} serial"
-  dropPk: "DROP CONSTRAINT {name}"
-  dropUk: "DROP CONSTRAINT {name}"
-  dropFk: "DROP CONSTRAINT {name}"
-  dropIndex: "DROP INDEX {name}"
+  dropPk: "DROP CONSTRAINT IF EXISTS {name}"
+  dropUk: "DROP CONSTRAINT IF EXISTS {name}"
+  dropFk: "DROP CONSTRAINT IF EXISTS {name}"
+  dropIndex: "DROP INDEX IF EXISTS {name}"
+  alterProperty: 'ALTER COLUMN {columnDefine}'
+  alterPropertyType: '{name} SET DATA TYPE {type}'
+  alterPropertyNullable: '{name} DROP NOT NULL'
+  alterPropertyNotNullable: '{name} SET NOT NULL'
 dml:
   page: "{sentence} OFFSET {offset} LIMIT {records}"
   insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoIncrementField} AS id

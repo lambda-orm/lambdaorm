@@ -44,6 +44,14 @@ export class NoSqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		return undefined
 	}
 
+	public alterPropertyType (entity: EntityMapping, property: Property): Query | undefined {
+		return undefined
+	}
+
+	public alterPropertyRequired (_entity: EntityMapping, _property: Property): Query | undefined {
+		return undefined
+	}
+
 	public addProperty (_entity: EntityMapping, _property: Property): Query | undefined {
 		return undefined
 	}
