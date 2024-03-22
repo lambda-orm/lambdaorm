@@ -15,6 +15,16 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
+			"name": "data lab",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/data/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/data/countries.env"
+		},
+		{
 			"name": "mongo lab",
 			"type": "node",
 			"request": "launch",

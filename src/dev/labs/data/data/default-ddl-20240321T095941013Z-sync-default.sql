@@ -1,0 +1,14 @@
+CREATE TABLE countriesLanguages (id serial,languageCode VARCHAR(80) NOT NULL ,countriesName VARCHAR(80) NOT NULL ,CONSTRAINT countriesLanguages_PK PRIMARY KEY (id));
+ALTER TABLE countriesLanguages ADD CONSTRAINT countriesLanguages_UK UNIQUE (countriesName,languageCode);
+CREATE TABLE Languages (code VARCHAR(80) NOT NULL ,name VARCHAR(80) NOT NULL );
+CREATE TABLE Region (code VARCHAR(80) NOT NULL ,name VARCHAR(80) NOT NULL ,CONSTRAINT Region_PK PRIMARY KEY (code));
+CREATE TABLE Pos (lat DECIMAL(10,4) NOT NULL ,log DECIMAL(10,4) NOT NULL ,CONSTRAINT Pos_PK PRIMARY KEY (lat));
+ALTER TABLE Pos ADD CONSTRAINT Pos_UK UNIQUE (log);
+CREATE TABLE Timezones (GmtOffset INTEGER  ,name VARCHAR(80) NOT NULL ,posLat DECIMAL(10,4) NOT NULL ,countriesName VARCHAR(80) NOT NULL ,CONSTRAINT Timezones_PK PRIMARY KEY (name));
+CREATE TABLE countries (name VARCHAR(80) NOT NULL ,phoneCode INTEGER NOT NULL ,priority INTEGER NOT NULL ,regionCode VARCHAR(80) NOT NULL ,CONSTRAINT countries_PK PRIMARY KEY (name));
+ALTER TABLE countries ADD CONSTRAINT countries_UK UNIQUE (phoneCode);
+ALTER TABLE countriesLanguages ADD CONSTRAINT countriesLanguages_countries_FK FOREIGN KEY (countriesName) REFERENCES countries (name);
+ALTER TABLE countriesLanguages ADD CONSTRAINT countriesLanguages_languages_FK FOREIGN KEY (languageCode) REFERENCES Languages (code);
+ALTER TABLE Timezones ADD CONSTRAINT Timezones_pos_FK FOREIGN KEY (posLat) REFERENCES Pos (lat);
+ALTER TABLE Timezones ADD CONSTRAINT Timezones_countries_FK FOREIGN KEY (countriesName) REFERENCES countries (name);
+ALTER TABLE countries ADD CONSTRAINT countries_region_FK FOREIGN KEY (regionCode) REFERENCES Region (code);
