@@ -7,8 +7,8 @@ domain:
   version: 0.0.1
   enums: []
   entities:
-    - intermediate: true
-      name: countriesLanguages
+    - name: countriesLanguages
+      intermediate: true
       primaryKey:
         - id
       properties:
@@ -18,9 +18,11 @@ domain:
           autoIncrement: true
         - name: languageCode
           type: string
+          length: 4
           required: true
         - name: countriesName
           type: string
+          length: 32
           required: true
       uniqueKey:
         - countriesName
@@ -42,7 +44,8 @@ domain:
           target: countriesLanguages
       dependents: []
     - name: Languages
-      primaryKey: []
+      primaryKey:
+        - code
       properties:
         - name: code
           type: string

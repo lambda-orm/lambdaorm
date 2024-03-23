@@ -1,2 +1,0 @@
-CREATE TABLE countries (name VARCHAR(32) NOT NULL ,phoneCode INTEGER NOT NULL ,priority INTEGER NOT NULL ,region VARCHAR(32) NOT NULL ,CONSTRAINT countries_PK PRIMARY KEY (name));
-ALTER TABLE countries ADD CONSTRAINT countries_UK UNIQUE (phoneCode);

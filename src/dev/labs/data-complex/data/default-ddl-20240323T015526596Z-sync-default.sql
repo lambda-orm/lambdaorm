@@ -1,11 +1,11 @@
-CREATE TABLE countriesLanguages (id serial,languageCode VARCHAR(80) NOT NULL ,countriesName VARCHAR(80) NOT NULL ,CONSTRAINT countriesLanguages_PK PRIMARY KEY (id));
+CREATE TABLE countriesLanguages (id serial,languageCode VARCHAR(4) NOT NULL ,countriesName VARCHAR(32) NOT NULL ,CONSTRAINT countriesLanguages_PK PRIMARY KEY (id));
 ALTER TABLE countriesLanguages ADD CONSTRAINT countriesLanguages_UK UNIQUE (countriesName,languageCode);
-CREATE TABLE Languages (code VARCHAR(80) NOT NULL ,name VARCHAR(80) NOT NULL );
-CREATE TABLE Region (code VARCHAR(80) NOT NULL ,name VARCHAR(80) NOT NULL ,CONSTRAINT Region_PK PRIMARY KEY (code));
+CREATE TABLE Languages (code VARCHAR(4) NOT NULL ,name VARCHAR(16) NOT NULL ,CONSTRAINT Languages_PK PRIMARY KEY (code));
+CREATE TABLE Region (code VARCHAR(2) NOT NULL ,name VARCHAR(32) NOT NULL ,CONSTRAINT Region_PK PRIMARY KEY (code));
 CREATE TABLE Pos (lat DECIMAL(10,4) NOT NULL ,log DECIMAL(10,4) NOT NULL ,CONSTRAINT Pos_PK PRIMARY KEY (lat));
 ALTER TABLE Pos ADD CONSTRAINT Pos_UK UNIQUE (log);
-CREATE TABLE Timezones (GmtOffset INTEGER  ,name VARCHAR(80) NOT NULL ,posLat DECIMAL(10,4) NOT NULL ,countriesName VARCHAR(80) NOT NULL ,CONSTRAINT Timezones_PK PRIMARY KEY (name));
-CREATE TABLE countries (name VARCHAR(80) NOT NULL ,phoneCode INTEGER NOT NULL ,priority INTEGER NOT NULL ,regionCode VARCHAR(80) NOT NULL ,CONSTRAINT countries_PK PRIMARY KEY (name));
+CREATE TABLE Timezones (GmtOffset INTEGER  ,name VARCHAR(32) NOT NULL ,posLat DECIMAL(10,4) NOT NULL ,countriesName VARCHAR(80) NOT NULL ,CONSTRAINT Timezones_PK PRIMARY KEY (name));
+CREATE TABLE countries (name VARCHAR(32) NOT NULL ,phoneCode INTEGER NOT NULL ,priority INTEGER NOT NULL ,regionCode VARCHAR(2) NOT NULL ,CONSTRAINT countries_PK PRIMARY KEY (name));
 ALTER TABLE countries ADD CONSTRAINT countries_UK UNIQUE (phoneCode);
 ALTER TABLE countriesLanguages ADD CONSTRAINT countriesLanguages_countries_FK FOREIGN KEY (countriesName) REFERENCES countries (name);
 ALTER TABLE countriesLanguages ADD CONSTRAINT countriesLanguages_languages_FK FOREIGN KEY (languageCode) REFERENCES Languages (code);

@@ -17,13 +17,24 @@ const createSchema = async(workspace:string): Promise<Schema> => {
 	return schema
 }
 
-(async () => {
-	const workspace = __dirname.replace('/build/', '/src/')
+const syncFromData = async(workspace:string): Promise<void> => {
 	const schema = await createSchema(workspace)	
 	const orm = new Orm(workspace)
 	await orm.init(schema)		
-	await orm.stage.sync({stage:'default', tryAllCan:true }).execute()
+	await orm.stage.sync({stage:'default'}).execute()
 	await h3lp.fs.write(workspace + '/lambdaOrm.yaml', yaml.dump(schema))
-	orm.end()
-	
+	orm.end()	
+}
+
+const syncFromSchema = async(workspace:string): Promise<void> => {
+	const schema = yaml.load(await h3lp.fs.read(workspace + '/lambdaOrm.yaml'))
+	const orm = new Orm(workspace)
+	await orm.init(schema)		
+	await orm.stage.sync({stage:'default' }).execute()
+	orm.end()	
+}
+
+(async () => {
+	const workspace = __dirname.replace('/build/', '/src/')
+	await syncFromData(workspace)
 })()
