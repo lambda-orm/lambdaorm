@@ -64,6 +64,14 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 }
 export class OracleConnectionAdapter extends ConnectionAdapter {
+	public merge (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		throw new Error('Method not implemented.')
+	}
+
+	public bulkMerge (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]> {
+		throw new Error('Method not implemented.')
+	}
+
 	constructor (private readonly lib:any, cnx: any, pool: any, helper:Helper) {
 		super(cnx, pool, helper)
 		this.maxChunkSizeIdsOnSelect = 999

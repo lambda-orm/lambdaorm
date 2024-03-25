@@ -18,6 +18,8 @@ export interface Connection {
 	bulkInsert(mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]>
 	update(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number>
 	delete(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number>
+	merge(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	bulkMerge(mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]>
 	execute(query: Query): Promise<any>
 	executeDDL(query: Query): Promise<any>
 	executeSentence(sentence: any): Promise<any>

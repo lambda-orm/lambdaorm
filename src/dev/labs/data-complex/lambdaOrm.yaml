@@ -7,7 +7,7 @@ domain:
   version: 0.0.1
   enums: []
   entities:
-    - name: countriesLanguages
+    - name: CountriesLanguages
       intermediate: true
       primaryKey:
         - id
@@ -33,7 +33,7 @@ domain:
         - name: countries
           type: oneToMany
           from: countriesName
-          entity: countries
+          entity: Countries
           to: name
           target: countriesLanguages
         - name: languages
@@ -60,7 +60,7 @@ domain:
       indexes: []
       relations: []
       dependents: []
-    - name: Region
+    - name: Regions
       primaryKey:
         - code
       properties:
@@ -77,18 +77,18 @@ domain:
       indexes: []
       relations: []
       dependents: []
-    - name: Pos
+    - name: Positions
       primaryKey:
         - lat
       properties:
         - name: lat
           type: decimal
           required: true
-        - name: log
+        - name: long
           type: decimal
           required: true
       uniqueKey:
-        - log
+        - long
       required: []
       indexes: []
       relations: []
@@ -104,7 +104,7 @@ domain:
           type: string
           required: true
           length: 32
-        - name: posLat
+        - name: positionLat
           type: decimal
           required: true
         - name: countriesName
@@ -114,19 +114,19 @@ domain:
       required: []
       indexes: []
       relations:
-        - name: pos
+        - name: position
           type: oneToMany
-          from: posLat
-          entity: Pos
+          from: positionLat
+          entity: Positions
           to: lat
         - name: countries
           type: oneToMany
           from: countriesName
-          entity: countries
+          entity: Countries
           to: name
           target: timezones
       dependents: []
-    - name: countries
+    - name: Countries
       primaryKey:
         - name
       properties:
@@ -152,7 +152,7 @@ domain:
         - name: region
           type: oneToMany
           from: regionCode
-          entity: Region
+          entity: Regions
           to: code
       dependents: []
 infrastructure:

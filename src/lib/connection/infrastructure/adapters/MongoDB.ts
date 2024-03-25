@@ -42,6 +42,14 @@ export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 }
 
 export class MongodbConnectionAdapter extends ConnectionAdapter {
+	public merge (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		throw new Error('Method not implemented.')
+	}
+
+	public bulkMerge (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]> {
+		throw new Error('Method not implemented.')
+	}
+
 	private session?: any
 
 	public async select (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {

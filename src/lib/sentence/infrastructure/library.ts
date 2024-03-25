@@ -14,6 +14,8 @@ export class SentenceLibrary implements Library {
 		model.addFunction('update(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
 		model.addFunction('updateAll(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
 		model.addFunction('deleteAll(list: any[]):any', ():void => { throw new Error('NotImplemented') })
+		model.addFunction('merge(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
+		model.addFunction('bulkMerge(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
 		model.addFunction('having(list: T[], predicate: boolean):T[]', ():void => { throw new Error('NotImplemented') })
 		model.addFunction('include(list: any[], predicate: any):any', ():void => { throw new Error('NotImplemented') })
 		model.addFunction('desc(value:any):void', ():void => { throw new Error('NotImplemented') })

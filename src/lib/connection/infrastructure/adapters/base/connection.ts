@@ -122,6 +122,8 @@ export abstract class ConnectionAdapter implements Connection {
 	public abstract bulkInsert(mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]>
 	public abstract update(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number>
 	public abstract delete(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number>
+	public abstract merge(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	public abstract bulkMerge(mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]>
 	public abstract execute(query: Query): Promise<any>
 	public abstract executeDDL(query: Query): Promise<any>
 	public abstract executeSentence(sentence: any): Promise<any>

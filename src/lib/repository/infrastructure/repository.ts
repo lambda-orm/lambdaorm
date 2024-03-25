@@ -7,6 +7,13 @@ import { IRepository, Queryable } from 'lambdaorm-base'
 export class Repository<TEntity, TQuery> implements IRepository<TEntity, TQuery> {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (public readonly name: string, public stage?:string, private readonly orm:IOrm = _orm) {}
+	bulkMerge(entities: TEntity[]): Promise<any[]>
+	bulkMerge(entities: TEntity[], include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any[]>
+	bulkMerge(entities: TEntity[], include?: ((value: TQuery, index: number, array: TQuery[]) => unknown) | undefined): Promise<any[]>
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	bulkMerge (entities: unknown, include?: unknown): Promise<any[]> {
+		throw new Error('Method not implemented.')
+	}
 
 	protected async _execute (
 		head: string,

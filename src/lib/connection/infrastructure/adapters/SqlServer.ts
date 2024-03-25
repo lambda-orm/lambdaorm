@@ -56,6 +56,14 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 }
 
 export class SqlServerConnectionAdapter extends ConnectionAdapter {
+	public merge (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		throw new Error('Method not implemented.')
+	}
+
+	public bulkMerge (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]> {
+		throw new Error('Method not implemented.')
+	}
+
 	constructor (cnx: any, pool: any, helper:Helper) {
 		super(cnx, pool, helper)
 		this.maxChunkSizeOnBulkInsert = 1000

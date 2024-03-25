@@ -27,24 +27,24 @@
       {
         "name": "Madrid",
         "GmtOffset": 1,
-        "pos": {
+        "position": {
           "lat": 40.4165,
-          "log": -3.70256
+          "long": -3.70256
         }
       },
       {
         "name": "Ceuta",
-        "pos": {
+        "position": {
           "lat": 35.8883,
-          "log": -5.3162
+          "long": -5.3162
         }
       },
       {
         "name": "Canary",
         "GmtOffset": 0,
-        "pos": {
+        "position": {
           "lat": 28.1248,
-          "log": -15.43
+          "long": -15.43
         }
       }
     ],
@@ -67,25 +67,25 @@
       {
         "name": "Paris",
         "GmtOffset": 1,
-        "pos": {
+        "position": {
           "lat": 48.8566,
-          "log": 2.3522
+          "long": 2.3522
         }
       },
       {
         "name": "Reunion",
         "GmtOffset": 4,
-        "pos": {
+        "position": {
           "lat": -20.8823,
-          "log": 55.4504
+          "long": 55.4504
         }
       },
       {
         "name": "Guadeloupe",
         "GmtOffset": -4,
-        "pos": {
+        "position": {
           "lat": 16.265,
-          "log": -61.551
+          "long": -61.551
         }
       }
     ],
@@ -108,17 +108,17 @@
       {
         "name": "Berlin",
         "GmtOffset": 1,
-        "pos": {
+        "position": {
           "lat": 52.52,
-          "log": 13.405
+          "long": 13.405
         }
       },
       {
         "name": "Busingen",
         "GmtOffset": 1,
-        "pos": {
+        "position": {
           "lat": 47.6963,
-          "log": 8.6927
+          "long": 8.6927
         }
       }
     ],
@@ -141,25 +141,25 @@
       {
         "name": "Lisbon",
         "GmtOffset": 0,
-        "pos": {
+        "position": {
           "lat": 38.7223,
-          "log": -9.1393
+          "long": -9.1393
         }
       },
       {
         "name": "Madeira",
         "GmtOffset": 0,
-        "pos": {
+        "position": {
           "lat": 32.7607,
-          "log": -16.9595
+          "long": -16.9595
         }
       },
       {
         "name": "Azores",
         "GmtOffset": -1,
-        "pos": {
+        "position": {
           "lat": 37.7412,
-          "log": -25.6756
+          "long": -25.6756
         }
       }
     ],
@@ -182,49 +182,49 @@
       {
         "name": "New York",
         "GmtOffset": -5,
-        "pos": {
+        "position": {
           "lat": 40.7128,
-          "log": -74.006
+          "long": -74.006
         }
       },
       {
         "name": "Los Angeles",
         "GmtOffset": -8,
-        "pos": {
+        "position": {
           "lat": 34.0522,
-          "log": -118.2437
+          "long": -118.2437
         }
       },
       {
         "name": "Chicago",
         "GmtOffset": -6,
-        "pos": {
+        "position": {
           "lat": 41.8781,
-          "log": -87.6298
+          "long": -87.6298
         }
       },
       {
         "name": "Denver",
         "GmtOffset": -7,
-        "pos": {
+        "position": {
           "lat": 39.7392,
-          "log": -104.9903
+          "long": -104.9903
         }
       },
       {
         "name": "Anchorage",
         "GmtOffset": -9,
-        "pos": {
+        "position": {
           "lat": 61.2181,
-          "log": -149.9003
+          "long": -149.9003
         }
       },
       {
         "name": "Honolulu",
         "GmtOffset": -10,
-        "pos": {
+        "position": {
           "lat": 21.3069,
-          "log": -157.8583
+          "long": -157.8583
         }
       }
     ],
@@ -251,49 +251,49 @@
       {
         "name": "Toronto",
         "GmtOffset": -5,
-        "pos": {
+        "position": {
           "lat": 43.6532,
-          "log": -79.3832
+          "long": -79.3832
         }
       },
       {
         "name": "Vancouver",
         "GmtOffset": -8,
-        "pos": {
+        "position": {
           "lat": 49.2827,
-          "log": -123.1207
+          "long": -123.1207
         }
       },
       {
         "name": "Edmonton",
         "GmtOffset": -7,
-        "pos": {
+        "position": {
           "lat": 53.5461,
-          "log": -113.4938
+          "long": -113.4938
         }
       },
       {
         "name": "Winnipeg",
         "GmtOffset": -6,
-        "pos": {
+        "position": {
           "lat": 49.8951,
-          "log": -97.1384
+          "long": -97.1384
         }
       },
       {
         "name": "Yellowknife",
         "GmtOffset": -7,
-        "pos": {
+        "position": {
           "lat": 62.454,
-          "log": -114.3718
+          "long": -114.3718
         }
       },
       {
         "name": "Iqaluit",
         "GmtOffset": -5,
-        "pos": {
+        "position": {
           "lat": 63.7467,
-          "log": -68.517
+          "long": -68.517
         }
       }
     ],
@@ -316,49 +316,49 @@
       {
         "name": "Sao Paulo",
         "GmtOffset": -3,
-        "pos": {
+        "position": {
           "lat": -23.5505,
-          "log": -46.6333
+          "long": -46.6333
         }
       },
       {
         "name": "Rio de Janeiro",
         "GmtOffset": -3,
-        "pos": {
+        "position": {
           "lat": -22.9068,
-          "log": -43.1729
+          "long": -43.1729
         }
       },
       {
         "name": "Manaus",
         "GmtOffset": -4,
-        "pos": {
+        "position": {
           "lat": -3.119,
-          "log": -60.0217
+          "long": -60.0217
         }
       },
       {
         "name": "Porto Alegre",
         "GmtOffset": -3,
-        "pos": {
+        "position": {
           "lat": -30.0346,
-          "log": -51.2177
+          "long": -51.2177
         }
       },
       {
         "name": "Fortaleza",
         "GmtOffset": -3,
-        "pos": {
+        "position": {
           "lat": -3.7319,
-          "log": -38.5267
+          "long": -38.5267
         }
       },
       {
         "name": "Belem",
         "GmtOffset": -3,
-        "pos": {
+        "position": {
           "lat": -1.4558,
-          "log": -48.4902
+          "long": -48.4902
         }
       }
     ],
@@ -381,9 +381,9 @@
       {
         "name": "Buenos Aires",
         "GmtOffset": -3,
-        "pos": {
+        "position": {
           "lat": -34.6037,
-          "log": -58.3816
+          "long": -58.3816
         }
       }
     ],

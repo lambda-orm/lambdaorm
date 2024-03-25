@@ -54,7 +54,7 @@ export class DDLBuilderService {
 			const oldEntities = oldMapping !== undefined && oldMapping.entities !== undefined ? oldMapping.entities : null
 			const currentMapping = this.schemaFacade.mapping.mappings.find(p => p.name === source.mapping)
 			const currentEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
-			const delta = this.helper.obj.delta(currentEntities, oldEntities)
+			const delta = this.helper.obj.delta(currentEntities, oldEntities, { ignore: ['dependents'] })
 			if (delta.children && delta.children.length > 0) {
 				for (const child of delta.children) {
 					if (!child.change) continue

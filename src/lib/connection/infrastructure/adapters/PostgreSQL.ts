@@ -63,6 +63,16 @@ export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 }
 export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	public merge (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		throw new Error('Method not implemented.')
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	public bulkMerge (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]> {
+		throw new Error('Method not implemented.')
+	}
+
 	public async select (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		const result = await this._execute(mapping, dialect, query, data)
 		return result.rows

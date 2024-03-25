@@ -34,7 +34,34 @@ const syncFromSchema = async(workspace:string): Promise<void> => {
 	orm.end()	
 }
 
+const importData = async(workspace:string): Promise<void> => {
+	const schema = yaml.load(await h3lp.fs.read(workspace + '/lambdaOrm.yaml'))
+	const orm = new Orm(workspace)
+	await orm.init(schema)
+	let query = `Countries.bulkInsert()
+									.include(p=> 
+										p.region,
+										p.timezones
+											.include(p=> 
+												p.position
+											)
+									)`
+	query = `Countries.bulkInsert()
+	.include(p=> 
+		p.region
+	)`								
+	query = h3lp.str.replace(h3lp.str.replace(query, '\t',''), '\n','')
+	const dataSerialized = await h3lp.fs.read(workspace + '/countries.json')
+	if (dataSerialized === null) {
+		throw new Error('data is null')
+	}
+	const data:any[] = JSON.parse(dataSerialized)		
+	await orm.execute(query, data)
+	orm.end()	
+}
+
 (async () => {
 	const workspace = __dirname.replace('/build/', '/src/')
-	await syncFromData(workspace)
+	// await syncFromSchema(workspace)
+	await importData(workspace)
 })()
