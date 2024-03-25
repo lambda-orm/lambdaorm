@@ -69,7 +69,7 @@ Operand.constructor
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:56
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:60
 
 ## Properties
 
@@ -79,7 +79,7 @@ node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:56
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:51
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:55
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:50
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:54
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:47
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:51
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:53
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:57
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:52
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:56
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:55
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:59
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:49
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:53
 
 ___
 
@@ -219,7 +219,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:48
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:52
 
 ___
 
@@ -271,7 +271,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:54
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:58
 
 ## Methods
 
@@ -333,7 +333,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:58
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:62
 
 ___
 
@@ -347,7 +347,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:57
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:61
 
 ___
 

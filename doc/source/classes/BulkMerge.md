@@ -1,72 +1,44 @@
-[Lambda ORM](../README.md) / Clause
+[Lambda ORM](../README.md) / BulkMerge
 
-# Class: Clause
+# Class: BulkMerge
 
 ## Hierarchy
 
-- `Operand`
+- [`Clause`](Clause.md)
 
-  ↳ **`Clause`**
-
-  ↳↳ [`Map`](Map.md)
-
-  ↳↳ [`Filter`](Filter.md)
-
-  ↳↳ [`GroupBy`](GroupBy.md)
-
-  ↳↳ [`Having`](Having.md)
-
-  ↳↳ [`Sort`](Sort.md)
-
-  ↳↳ [`Page`](Page.md)
-
-  ↳↳ [`From`](From.md)
-
-  ↳↳ [`Join`](Join.md)
-
-  ↳↳ [`Insert`](Insert.md)
-
-  ↳↳ [`BulkInsert`](BulkInsert.md)
-
-  ↳↳ [`Update`](Update.md)
-
-  ↳↳ [`Delete`](Delete.md)
-
-  ↳↳ [`Merge`](Merge.md)
-
-  ↳↳ [`BulkMerge`](BulkMerge.md)
+  ↳ **`BulkMerge`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](Clause.md#constructor)
+- [constructor](BulkMerge.md#constructor)
 
 ### Properties
 
-- [alias](Clause.md#alias)
-- [children](Clause.md#children)
-- [entity](Clause.md#entity)
-- [evaluator](Clause.md#evaluator)
-- [id](Clause.md#id)
-- [name](Clause.md#name)
-- [number](Clause.md#number)
-- [pos](Clause.md#pos)
-- [returnType](Clause.md#returntype)
-- [type](Clause.md#type)
+- [alias](BulkMerge.md#alias)
+- [children](BulkMerge.md#children)
+- [entity](BulkMerge.md#entity)
+- [evaluator](BulkMerge.md#evaluator)
+- [id](BulkMerge.md#id)
+- [name](BulkMerge.md#name)
+- [number](BulkMerge.md#number)
+- [pos](BulkMerge.md#pos)
+- [returnType](BulkMerge.md#returntype)
+- [type](BulkMerge.md#type)
 
 ### Methods
 
-- [eval](Clause.md#eval)
-- [evalAsync](Clause.md#evalasync)
-- [isAsync](Clause.md#isasync)
-- [solve](Clause.md#solve)
+- [eval](BulkMerge.md#eval)
+- [evalAsync](BulkMerge.md#evalasync)
+- [isAsync](BulkMerge.md#isasync)
+- [solve](BulkMerge.md#solve)
 
 ## Constructors
 
 ### constructor
 
-• **new Clause**(`pos`, `name`, `children`, `entity`, `alias`): [`Clause`](Clause.md)
+• **new BulkMerge**(`pos`, `name`, `children`, `entity`, `alias`): [`BulkMerge`](BulkMerge.md)
 
 #### Parameters
 
@@ -80,11 +52,11 @@
 
 #### Returns
 
-[`Clause`](Clause.md)
+[`BulkMerge`](BulkMerge.md)
 
-#### Overrides
+#### Inherited from
 
-Operand.constructor
+[Clause](Clause.md).[constructor](Clause.md#constructor)
 
 #### Defined in
 
@@ -95,6 +67,10 @@ node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:20
 ### alias
 
 • **alias**: `string`
+
+#### Inherited from
+
+[Clause](Clause.md).[alias](Clause.md#alias)
 
 #### Defined in
 
@@ -108,7 +84,7 @@ ___
 
 #### Inherited from
 
-Operand.children
+[Clause](Clause.md).[children](Clause.md#children)
 
 #### Defined in
 
@@ -119,6 +95,10 @@ ___
 ### entity
 
 • **entity**: `string`
+
+#### Inherited from
+
+[Clause](Clause.md).[entity](Clause.md#entity)
 
 #### Defined in
 
@@ -132,7 +112,7 @@ ___
 
 #### Inherited from
 
-Operand.evaluator
+[Clause](Clause.md).[evaluator](Clause.md#evaluator)
 
 #### Defined in
 
@@ -146,7 +126,7 @@ ___
 
 #### Inherited from
 
-Operand.id
+[Clause](Clause.md).[id](Clause.md#id)
 
 #### Defined in
 
@@ -160,7 +140,7 @@ ___
 
 #### Inherited from
 
-Operand.name
+[Clause](Clause.md).[name](Clause.md#name)
 
 #### Defined in
 
@@ -174,7 +154,7 @@ ___
 
 #### Inherited from
 
-Operand.number
+[Clause](Clause.md).[number](Clause.md#number)
 
 #### Defined in
 
@@ -188,7 +168,7 @@ ___
 
 #### Inherited from
 
-Operand.pos
+[Clause](Clause.md).[pos](Clause.md#pos)
 
 #### Defined in
 
@@ -202,7 +182,7 @@ ___
 
 #### Inherited from
 
-Operand.returnType
+[Clause](Clause.md).[returnType](Clause.md#returntype)
 
 #### Defined in
 
@@ -216,7 +196,7 @@ ___
 
 #### Inherited from
 
-Operand.type
+[Clause](Clause.md).[type](Clause.md#type)
 
 #### Defined in
 
@@ -240,7 +220,7 @@ node_modules/3xpr/shared/domain/operand.d.ts:43
 
 #### Inherited from
 
-Operand.eval
+[Clause](Clause.md).[eval](Clause.md#eval)
 
 #### Defined in
 
@@ -264,7 +244,7 @@ ___
 
 #### Inherited from
 
-Operand.evalAsync
+[Clause](Clause.md).[evalAsync](Clause.md#evalasync)
 
 #### Defined in
 
@@ -282,7 +262,7 @@ ___
 
 #### Inherited from
 
-Operand.isAsync
+[Clause](Clause.md).[isAsync](Clause.md#isasync)
 
 #### Defined in
 
@@ -306,7 +286,7 @@ ___
 
 #### Inherited from
 
-Operand.solve
+[Clause](Clause.md).[solve](Clause.md#solve)
 
 #### Defined in
 

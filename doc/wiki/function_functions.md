@@ -165,6 +165,8 @@
 |undefined|undefined|
 |undefined|undefined|
 |undefined|undefined|
+|undefined|undefined|
+|undefined|undefined|
 
 ## Definition
 
@@ -1391,6 +1393,24 @@
 - return: undefined
 - params:
 	- list: any[]
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- list: any[]
+	- predicate: any
+
+### undefined
+
+- description: undefined
+- deterministic: true
+- return: undefined
+- params:
+	- list: any[]
+	- predicate: any
 
 ### undefined
 

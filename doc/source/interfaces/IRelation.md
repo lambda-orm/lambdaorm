@@ -46,7 +46,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:132
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:135
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:139
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:142
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:128
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:131
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:134
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:137
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:138
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:141
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:130
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:133
 
 ___
 
@@ -189,7 +189,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:126
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:129
 
 ___
 
@@ -209,4 +209,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:136
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:139

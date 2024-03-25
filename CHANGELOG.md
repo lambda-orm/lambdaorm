@@ -6,14 +6,12 @@ All notable changes to this project will be documented in this file.
 
 ## [1.5.0](https://github.com/lambda-orm/lambdaorm/compare/v1.4.0...v1.5.0) (2024-03-25)
 
-
-### Features
+**Features:**
 
 * **ddl-builder:** update h3lp dependence and adjusts for delta ([18796ae](https://github.com/lambda-orm/lambdaorm/commit/18796aeb817f393bed170345ae221044e0169435)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 * **schema:** complete sync from data ([de3ec08](https://github.com/lambda-orm/lambdaorm/commit/de3ec08694525cbf8c8f6cb23495bd31af506536)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * **sync:** bugfix in sync ([4700706](https://github.com/lambda-orm/lambdaorm/commit/4700706c05a60951bf8bf1d1db14ece581dde3ab)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 * **sync:** bugfix sync from data ([ce4c795](https://github.com/lambda-orm/lambdaorm/commit/ce4c7956a7574dd98a7eebeedca16b0c4c25cd26)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)

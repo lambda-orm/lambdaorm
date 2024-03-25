@@ -8,6 +8,7 @@
 
 - [delete](SentenceCrudAction.md#delete)
 - [insert](SentenceCrudAction.md#insert)
+- [merge](SentenceCrudAction.md#merge)
 - [select](SentenceCrudAction.md#select)
 - [undefined](SentenceCrudAction.md#undefined)
 - [update](SentenceCrudAction.md#update)
@@ -31,6 +32,16 @@ ___
 #### Defined in
 
 node_modules/lambdaorm-base/schema/domain/actions.d.ts:12
+
+___
+
+### merge
+
+• **merge** = ``"merge"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:15
 
 ___
 

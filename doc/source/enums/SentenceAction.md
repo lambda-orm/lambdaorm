@@ -12,6 +12,7 @@
 - [addUk](SentenceAction.md#adduk)
 - [alterProperty](SentenceAction.md#alterproperty)
 - [bulkInsert](SentenceAction.md#bulkinsert)
+- [bulkMerge](SentenceAction.md#bulkmerge)
 - [createEntity](SentenceAction.md#createentity)
 - [createFk](SentenceAction.md#createfk)
 - [createIndex](SentenceAction.md#createindex)
@@ -26,6 +27,7 @@
 - [dropSequence](SentenceAction.md#dropsequence)
 - [dropUk](SentenceAction.md#dropuk)
 - [insert](SentenceAction.md#insert)
+- [merge](SentenceAction.md#merge)
 - [select](SentenceAction.md#select)
 - [truncateEntity](SentenceAction.md#truncateentity)
 - [update](SentenceAction.md#update)
@@ -38,7 +40,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:31
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:34
 
 ___
 
@@ -48,7 +50,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:29
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:32
 
 ___
 
@@ -58,7 +60,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:28
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:31
 
 ___
 
@@ -68,7 +70,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:30
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:33
 
 ___
 
@@ -78,7 +80,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:27
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:30
 
 ___
 
@@ -88,7 +90,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:19
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:20
+
+___
+
+### bulkMerge
+
+• **bulkMerge** = ``"bulkMerge"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:24
 
 ___
 
@@ -98,7 +110,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:23
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:26
 
 ___
 
@@ -108,7 +120,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:25
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:28
 
 ___
 
@@ -118,7 +130,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:26
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:29
 
 ___
 
@@ -128,7 +140,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:24
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:27
 
 ___
 
@@ -138,7 +150,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:39
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:42
 
 ___
 
@@ -148,7 +160,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:21
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:22
 
 ___
 
@@ -158,7 +170,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:33
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:36
 
 ___
 
@@ -168,7 +180,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:37
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:40
 
 ___
 
@@ -178,7 +190,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:38
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:41
 
 ___
 
@@ -188,7 +200,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:35
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:38
 
 ___
 
@@ -198,7 +210,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:34
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:37
 
 ___
 
@@ -208,7 +220,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:32
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:35
 
 ___
 
@@ -218,7 +230,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:36
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:39
 
 ___
 
@@ -228,7 +240,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:18
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:19
+
+___
+
+### merge
+
+• **merge** = ``"merge"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:23
 
 ___
 
@@ -238,7 +260,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:17
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:18
 
 ___
 
@@ -248,7 +270,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:22
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:25
 
 ___
 
@@ -258,4 +280,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:20
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:21

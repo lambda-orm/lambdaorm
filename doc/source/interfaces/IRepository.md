@@ -18,6 +18,7 @@
 ### Methods
 
 - [bulkInsert](IRepository.md#bulkinsert)
+- [bulkMerge](IRepository.md#bulkmerge)
 - [delete](IRepository.md#delete)
 - [deleteAll](IRepository.md#deleteall)
 - [distinct](IRepository.md#distinct)
@@ -87,6 +88,60 @@ node_modules/lambdaorm-base/repository/application/repository.d.ts:9
 
 ___
 
+### bulkMerge
+
+▸ **bulkMerge**(`entities`): `Promise`\<`any`[]\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entities` | `TEntity`[] |
+
+#### Returns
+
+`Promise`\<`any`[]\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/repository/application/repository.d.ts:17
+
+▸ **bulkMerge**(`entities`, `include`): `Promise`\<`any`[]\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entities` | `TEntity`[] |
+| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+
+#### Returns
+
+`Promise`\<`any`[]\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/repository/application/repository.d.ts:18
+
+▸ **bulkMerge**(`entities`, `include?`): `Promise`\<`any`[]\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entities` | `TEntity`[] |
+| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+
+#### Returns
+
+`Promise`\<`any`[]\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/repository/application/repository.d.ts:19
+
+___
+
 ### delete
 
 ▸ **delete**(`entity`): `Promise`\<`number`\>
@@ -103,7 +158,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:17
+node_modules/lambdaorm-base/repository/application/repository.d.ts:20
 
 ▸ **delete**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -120,7 +175,7 @@ node_modules/lambdaorm-base/repository/application/repository.d.ts:17
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:18
+node_modules/lambdaorm-base/repository/application/repository.d.ts:21
 
 ▸ **delete**(`entity`, `include?`): `Promise`\<`number`\>
 
@@ -137,7 +192,7 @@ node_modules/lambdaorm-base/repository/application/repository.d.ts:18
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:19
+node_modules/lambdaorm-base/repository/application/repository.d.ts:22
 
 ___
 
@@ -159,7 +214,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:20
+node_modules/lambdaorm-base/repository/application/repository.d.ts:23
 
 ___
 
@@ -181,7 +236,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:22
+node_modules/lambdaorm-base/repository/application/repository.d.ts:25
 
 ___
 
@@ -224,7 +279,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:23
+node_modules/lambdaorm-base/repository/application/repository.d.ts:26
 
 ___
 
@@ -300,7 +355,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:24
+node_modules/lambdaorm-base/repository/application/repository.d.ts:27
 
 ___
 
@@ -322,7 +377,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:21
+node_modules/lambdaorm-base/repository/application/repository.d.ts:24
 
 ___
 
@@ -390,7 +445,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:25
+node_modules/lambdaorm-base/repository/application/repository.d.ts:28
 
 ___
 
