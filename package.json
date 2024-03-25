@@ -47,7 +47,7 @@
 	"dependencies": {
 		"3xpr": "^1.15.10",
 		"crypto-js": "^4.1.1",
-		"h3lp": "^1.6.4",
+		"h3lp": "^1.7.0",
 		"js-yaml": "^4.1.0",
 		"lambdaorm-base": "^0.1.23",
 		"lambdaorm-cli": "^0.9.33",
