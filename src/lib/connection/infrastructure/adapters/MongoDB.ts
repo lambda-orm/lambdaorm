@@ -117,7 +117,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 
 	private async getInsertList (mapping: MappingConfigService, dialect: DialectService, query: Query, entity:EntityMapping, array: any[]): Promise<any[]> {
 		const list = this.arrayToList(mapping, dialect, query, query.sentence, array)
-		if (entity.sequence && entity.primaryKey.length === 1) {
+		if (entity.sequence && entity.primaryKey && entity.primaryKey.length === 1) {
 			const propertyPk = entity.primaryKey[0]
 			const mappingPk = entity.properties.find(p => p.name === propertyPk)
 			if (mappingPk) {

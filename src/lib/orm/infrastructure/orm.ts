@@ -2,7 +2,7 @@
 
 import { Helper } from '../../shared/application'
 import { h3lp } from 'h3lp'
-import { QueryOptions, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Dialect, Schema, Stage, QueryPlan, SchemaFacade, SchemaFacadeBuilder } from 'lambdaorm-base'
+import { QueryOptions, MetadataParameter, MetadataConstraint, MetadataModel, SchemaData, Metadata, Dialect, Schema, Stage, QueryPlan, SchemaFacade, SchemaFacadeBuilder } from 'lambdaorm-base'
 import { ConnectionFacade } from '../../connection/application'
 import { LanguagesService } from '../../language/application'
 import { StageFacade } from '../../stage/application'
@@ -249,6 +249,17 @@ export class Orm implements IOrm {
 
 	private toExpression (expression:string|Function):string {
 		return typeof expression !== 'string' ? this.expressions.convert(expression, 'function')[0] : expression
+	}
+
+	public async syncAndImport (data: any|any[], name:string, options?:QueryOptions): Promise<[Schema, SchemaData]> {
+		const schema = this.schema.schema
+		const schemaData = this.schema.updateAndSchemaData(schema, data, name)
+		if (this.schema.schemaPath) {
+			this.schema.write(schema)
+		}
+		await this.stage.sync(options).execute()
+		await this.stage.import(options).execute(schemaData)
+		return [schema, schemaData]
 	}
 
 	public subscribe (observer:ActionObserver):void {

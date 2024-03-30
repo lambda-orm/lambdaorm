@@ -1,12 +1,12 @@
 import { StageActionDML } from './base/actionDML'
-import { Entity, SchemaConfig } from 'lambdaorm-base'
+import { Entity, SchemaData } from 'lambdaorm-base'
 import { Query } from '../../../query/domain'
 
 export class StageExport extends StageActionDML {
-	public async execute (): Promise<SchemaConfig> {
+	public async execute (): Promise<SchemaData> {
 		const queries = this.queries()
 		const data = {}
-		const schemaExport: SchemaConfig = { entities: [] }
+		const schemaExport: SchemaData = { entities: [] }
 		await this.executor.transaction(this.options, async (tr) => {
 			for (const query of queries) {
 				const rows = await tr.execute(query, data)

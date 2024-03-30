@@ -106,7 +106,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			throw new SchemaError(`parent entity  ${parentEntityName} not found in ${entity.name}`)
 		}
 		const relationName = parts[parts.length - 1]
-		const relation = parentEntity.relations.find(p => p.name === relationName)
+		const relation = parentEntity.relations ? parentEntity.relations.find(p => p.name === relationName) : undefined
 		if (relation === undefined) {
 			throw new SchemaError(`relation ${relationName} not found in ${parentEntityName}`)
 		}

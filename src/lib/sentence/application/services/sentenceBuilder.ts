@@ -557,7 +557,7 @@ export class SentenceBuilder implements ISentenceBuilder {
 		if (property) {
 			return new Field(pos, info.entity.name, property.name, Type.to(property.type), relationAlias, false)
 		} else {
-			const childRelation = info.entity.relations.find(p => p.name === propertyName)
+			const childRelation = info.entity.relations ? info.entity.relations.find(p => p.name === propertyName) : undefined
 			if (childRelation) {
 				const relation2 = this.addJoins(parts, parts.length, expressionContext)
 				const relationAlias2 = expressionContext.current.joins[relation2]

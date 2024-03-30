@@ -8,7 +8,7 @@ const createSchema = async(workspace:string): Promise<Schema> => {
 		throw new Error('data is null')
 	}
 	const array:any[] = JSON.parse(data)
-	const schema = orm.schema.create(array, 'countries')
+	const [schema, type] = orm.schema.create(array, 'countries')
 	if (schema.infrastructure === undefined) {
 		schema.infrastructure = { }
 	}

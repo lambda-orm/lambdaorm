@@ -454,7 +454,7 @@ export class OrmOperandNormalizer {
 					// p.details
 					const parts = current.name.split('.')
 					const relationName = parts[1]
-					relation = entity.relations.find(p => p.name === relationName) as Relation
+					relation = entity.relations ? entity.relations.find(p => p.name === relationName) as Relation : undefined
 					break
 				}
 				if (current.children.length > 0) { current = current.children[0] } else { break }
@@ -471,7 +471,7 @@ export class OrmOperandNormalizer {
 			const varAll = new Operand(operand.pos, 'p', OperandType.Var, [])
 			const parts = operand.name.split('.')
 			const relationName = parts[1]
-			relation = entity.relations.find(p => p.name === relationName)
+			relation = entity.relations ? entity.relations.find(p => p.name === relationName) : undefined
 			if (relation === undefined) {
 				throw Error('Relation not found')
 			}
@@ -528,7 +528,7 @@ export class OrmOperandNormalizer {
 					// p.details
 					const parts = current.name.split('.')
 					const relationName = parts[1]
-					return entity.relations.find(p => p.name === relationName)
+					return entity.relations ? entity.relations.find(p => p.name === relationName) : undefined
 				}
 				if (current.children.length > 0) { current = current.children[0] } else { break }
 			}
@@ -537,7 +537,7 @@ export class OrmOperandNormalizer {
 			// entones agregar map(p=>p) a la variable convirtiéndolo en Details.insert()
 			const parts = operand.name.split('.')
 			const relationName = parts[1]
-			return entity.relations.find(p => p.name === relationName)
+			return entity.relations ? entity.relations.find(p => p.name === relationName) : undefined
 		} else {
 			throw new SchemaError('not found relation in include operand ' + operand.type + ':' + operand.name)
 		}

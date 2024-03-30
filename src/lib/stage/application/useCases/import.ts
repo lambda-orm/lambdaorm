@@ -1,10 +1,10 @@
 import { StageActionDML } from './base/actionDML'
-import { SchemaConfig, MappingConfig, Entity, SchemaError, Relation, QueryOptions } from 'lambdaorm-base'
+import { SchemaData, MappingConfig, Entity, SchemaError, Relation, QueryOptions } from 'lambdaorm-base'
 import { Query } from '../../../query/domain'
 import { Transaction } from '../../../execution/domain'
 
 export class StageImport extends StageActionDML {
-	public async execute (data: SchemaConfig): Promise<void> {
+	public async execute (data: SchemaData): Promise<void> {
 		const state = await this.stageMappingService.get(this.options.stage as string)
 		const _queries = this.queries()
 		const queries = this.sort(_queries)
@@ -25,7 +25,7 @@ export class StageImport extends StageActionDML {
 				if (entity === undefined) {
 					throw new SchemaError(`Entity ${pending.entity} not found`)
 				}
-				const relation = entity.relations.find(p => p.name === pending.relation)
+				const relation = entity.relations ? entity.relations.find(p => p.name === pending.relation) : undefined
 				if (relation === undefined) {
 					throw new SchemaError(`Relation ${pending.relation} not found`)
 				}
@@ -68,11 +68,13 @@ export class StageImport extends StageActionDML {
 		if (entity === undefined) {
 			throw new SchemaError(`Entity ${entityName} not found`)
 		}
-		for (const relation of entity.relations) {
-			if ((relation.type === 'oneToOne' || relation.type === 'oneToMany') && (parentEntity === null || parentEntity !== relation.entity)) {
-				this.solveInternalsIdsOne(entity, relation, state, rows)
-			} else if (relation.type === 'manyToOne') {
-				this.solveInternalsIdsMany(entityName, relation, state, rows)
+		if (entity.relations) {
+			for (const relation of entity.relations) {
+				if ((relation.type === 'oneToOne' || relation.type === 'oneToMany') && (parentEntity === null || parentEntity !== relation.entity)) {
+					this.solveInternalsIdsOne(entity, relation, state, rows)
+				} else if (relation.type === 'manyToOne') {
+					this.solveInternalsIdsMany(entityName, relation, state, rows)
+				}
 			}
 		}
 	}
@@ -142,11 +144,13 @@ export class StageImport extends StageActionDML {
 				aux[entityName][autoIncrement.name][i] = row[autoIncrement.name]
 			}
 		}
-		for (const relation of entity.relations) {
-			if (relation.type === 'manyToOne') {
-				for (const row of rows) {
-					const children = row[relation.name]
-					this.loadExternalIds(relation.entity, children || [], aux || {})
+		if (entity.relations) {
+			for (const relation of entity.relations) {
+				if (relation.type === 'manyToOne') {
+					for (const row of rows) {
+						const children = row[relation.name]
+						this.loadExternalIds(relation.entity, children || [], aux || {})
+					}
 				}
 			}
 		}
@@ -171,13 +175,15 @@ export class StageImport extends StageActionDML {
 				state.mapping[entityName][autoIncrement.name][externalId] = row[autoIncrement.name]
 			}
 		}
-		for (const relation of entity.relations) {
-			if (relation.type !== 'manyToOne') {
-				continue
-			}
-			for (const row of rows) {
-				const children = row[relation.name]
-				this.completeMapping(relation.entity, children || [], aux, state)
+		if (entity.relations) {
+			for (const relation of entity.relations) {
+				if (relation.type !== 'manyToOne') {
+					continue
+				}
+				for (const row of rows) {
+					const children = row[relation.name]
+					this.completeMapping(relation.entity, children || [], aux, state)
+				}
 			}
 		}
 	}
