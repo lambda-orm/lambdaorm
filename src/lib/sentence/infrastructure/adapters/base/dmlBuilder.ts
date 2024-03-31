@@ -140,7 +140,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 			if (entity === undefined) {
 				throw new SchemaError(`not found mapping for ${join.name}`)
 			}
-			let joinText = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
+			let joinText = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
 			joinText = this.helper.str.replace(joinText, '{alias}', join.alias)
 			joinText = this.helper.str.replace(joinText, '{relation}', this.buildOperand(join.children[0])).trim()
 			list.push(joinText)
@@ -185,7 +185,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 				values.push(this.buildOperand(keyVal.children[0]))
 			}
 		}
-		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
 		template = this.helper.str.replace(template, '{fields}', fields.join(','))
 		template = this.helper.str.replace(template, '{values}', values.join(','))
 		template = this.helper.str.replace(template, '{autoIncrementField}', autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : '0')
@@ -215,7 +215,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 				assigns.push(assign)
 			}
 		}
-		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
 		template = this.helper.str.replace(template, '{alias}', operand.alias)
 		template = this.helper.str.replace(template, '{assigns}', assigns.join(','))
 		return template.trim() + ' '
@@ -223,7 +223,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 
 	protected buildDelete (operand: Delete, entity: EntityMapping): string {
 		let template = this.dialect.dml('delete')
-		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping))
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
 		template = this.helper.str.replace(template, '{alias}', operand.alias)
 		return template.trim() + ' '
 	}

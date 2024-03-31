@@ -1,40 +1,29 @@
+import { Type } from 'typ3s';
 import { orm, Orm, Dialect, Schema} from '../../../lib'
 import { h3lp } from 'h3lp'
 const yaml = require('js-yaml');
 
-const createSchema = async(workspace:string): Promise<Schema> => {	
-	const data = await h3lp.fs.read(workspace + '/countries.json')
-	if (data === null) {
-		throw new Error('data is null')
+const createSchemaIfNotExists = async(schemaPath:string): Promise<void> => {
+	if( !await h3lp.fs.exists(schemaPath)) {
+		const schema = orm.schema.create(Dialect.PostgreSQL, '$CNX_POSTGRES' )
+		await h3lp.fs.write(schemaPath, yaml.dump(schema))
 	}
-	const array:any[] = JSON.parse(data)
-	const [schema, type] = orm.schema.create(array, 'countries')
-	if (schema.infrastructure === undefined) {
-		schema.infrastructure = { }
-	}
-	schema.infrastructure.mappings = [ { name: 'default', entities:[] }]
-	schema.infrastructure.sources = [ { name: 'default', mapping: 'default', dialect: Dialect.PostgreSQL, connection: '$CNX_POSTGRES' }]
-	return schema
-}
-
-const syncFromData = async(workspace:string): Promise<void> => {
-	const schema = await createSchema(workspace)	
-	const orm = new Orm(workspace)
-	await orm.init(schema)		
-	await orm.stage.sync({stage:'default' }).execute()
-	await h3lp.fs.write(workspace + '/lambdaOrm.yaml', yaml.dump(schema))
-	orm.end()	
-}
-
-const syncFromSchema = async(workspace:string): Promise<void> => {
-	const schema = yaml.load(await h3lp.fs.read(workspace + '/lambdaOrm.yaml'))
-	const orm = new Orm(workspace)
-	await orm.init(schema)		
-	await orm.stage.sync({stage:'default' }).execute()
-	orm.end()	
 }
 
 (async () => {
 	const workspace = __dirname.replace('/build/', '/src/')
-	await syncFromSchema(workspace)
+	const schemaPath = workspace + '/lambdaOrm.yaml'		
+	const orm = new Orm(workspace)
+	try{
+		await createSchemaIfNotExists(schemaPath)
+		const data = JSON.parse( await h3lp.fs.read(workspace + '/countries.json') || '{}')
+		await orm.init(schemaPath)	
+		await orm.stage.drop({ tryAllCan: true }).execute()
+		const schemaData =  await orm.syncAndImport(data, 'countries')		
+		await h3lp.fs.write(workspace + '/schemaData.json', JSON.stringify(schemaData, null, 2))
+	}catch(e){
+		console.log(e)
+	} finally {
+		orm.end()
+	}	
 })()

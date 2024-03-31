@@ -1,6 +1,6 @@
 import { MemoryCache } from 'h3lp'
 import { LanguagesService } from '../../language/application'
-import { SchemaFacade } from 'lambdaorm-base'
+import { SchemaState } from 'lambdaorm-base'
 import { SentenceFacade } from '../../sentence/application'
 import { Expressions } from '3xpr'
 import { ExpressionFacade } from '../application'
@@ -16,8 +16,8 @@ export class ExpressionFacadeBuilder {
 		private readonly helper:Helper
 	) {}
 
-	public build (sentence: SentenceFacade, schema: SchemaFacade):ExpressionFacade {
+	public build (sentence: SentenceFacade, schemaState: SchemaState):ExpressionFacade {
 		const queryCache = new MemoryCache<string, string>()
-		return new ExpressionFacade(sentence, schema, this.languages, this.executor, this.expressions, queryCache, this.helper)
+		return new ExpressionFacade(sentence, schemaState, this.languages, this.executor, this.expressions, queryCache, this.helper)
 	}
 }

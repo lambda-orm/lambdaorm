@@ -1,7 +1,7 @@
 import { OperandFacade } from '../../operand/application'
 import {
 	ISentenceBuilder, ISentenceCompleteBuilder, Metadata, MetadataConstraint, MetadataModel, MetadataParameter, Sentence, SentenceSerializer,
-	SchemaFacade, ViewConfigService, Source
+	SchemaState, ViewConfigService, Source
 } from 'lambdaorm-base'
 import { SentenceBuilder } from './services/sentenceBuilder'
 import { SentenceCompleteBuilder } from './services/sentenceCompleteBuilder'
@@ -24,17 +24,17 @@ export class SentenceFacade {
 	private getParameters:GetParameters
 	private sentenceHelper:SentenceHelper
 
-	constructor (private readonly schemaFacade: SchemaFacade,
+	constructor (private readonly schemaState: SchemaState,
 		private readonly operandFacade:OperandFacade,
 		private readonly expressions:Expressions,
 		cache: ICache<string, string>,
 		serializer:SentenceSerializer,
 		helper:Helper
 	) {
-		this.sentenceHelper = new SentenceHelper(this.schemaFacade)
-		this.builder = new SentenceBuilder(this.schemaFacade, this.operandFacade, this.expressions)
+		this.sentenceHelper = new SentenceHelper(this.schemaState)
+		this.builder = new SentenceBuilder(this.schemaState, this.operandFacade, this.expressions)
 		this.builderComplete = new SentenceCompleteBuilderCacheDecorator(
-			new SentenceCompleteBuilder(this.builder, this.schemaFacade, this.sentenceHelper, this.expressions), cache, serializer, helper)
+			new SentenceCompleteBuilder(this.builder, this.schemaState, this.sentenceHelper, this.expressions), cache, serializer, helper)
 		this.getConstraints = new GetConstraints(this.builder)
 		this.getMetadata = new GetMetadata(this.builder)
 		this.getModel = new GetModel(this.builder)

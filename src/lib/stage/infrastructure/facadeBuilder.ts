@@ -1,4 +1,4 @@
-import { SchemaFacade } from 'lambdaorm-base'
+import { SchemaState } from 'lambdaorm-base'
 import { LanguagesService } from '../../language/application'
 import { ExpressionFacade } from '../../expressions/application'
 import { StageFacade } from '../application'
@@ -13,7 +13,7 @@ export class StageFacadeBuilder {
 		private readonly helper:Helper
 	) {}
 
-	public build (workspace:string, schemaFacade: SchemaFacade, expressionFacade: ExpressionFacade):StageFacade {
-		return new StageFacade(workspace, schemaFacade, expressionFacade, this.executor, this.languages, this.helper)
+	public build (workspace:string, schemaState: SchemaState, expressionFacade: ExpressionFacade):StageFacade {
+		return new StageFacade(workspace, schemaState, expressionFacade, this.executor, this.languages, this.helper)
 	}
 }

@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import {
 	Field, Sentence, From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update, Delete, SentenceInclude,
-	SintaxisError, DomainConfigService, SchemaFacade, ISentenceBuilder, SentenceAction, Property, Behavior, Constraint, Entity
+	SintaxisError, DomainConfigService, SchemaState, ISentenceBuilder, SentenceAction, Property, Behavior, Constraint, Entity
 } from 'lambdaorm-base'
 import { Operand, Parameter, OperandType, Position, TypeService, Expressions } from '3xpr'
 import { SentenceTypeService } from './typeService'
@@ -215,14 +215,14 @@ export class SentenceBuilder implements ISentenceBuilder {
 	private solveConstraints : SentenceSolveConstraints
 	private domainConfigService: DomainConfigService
 
-	constructor (private readonly schemaFacade: SchemaFacade,
+	constructor (private readonly schemaState: SchemaState,
 		private readonly operandFacade:OperandFacade,
 		private readonly expressions:Expressions
 	) {
-		this.domainConfigService = this.schemaFacade.domain
-		this.typeService = new SentenceTypeService(expressions, this.schemaFacade.domain)
-		this.helper = new SentenceHelper(this.schemaFacade)
-		this.solveBehaviors = new SentenceSolveBehaviors(this.schemaFacade.domain, this.helper)
+		this.domainConfigService = this.schemaState.domain
+		this.typeService = new SentenceTypeService(expressions, this.schemaState.domain)
+		this.helper = new SentenceHelper(this.schemaState)
+		this.solveBehaviors = new SentenceSolveBehaviors(this.schemaState.domain, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.domainConfigService, this.helper, this.expressions)
 	}
 

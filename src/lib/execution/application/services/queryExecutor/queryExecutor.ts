@@ -1,4 +1,4 @@
-import { QueryOptions, RelationType, SentenceAction, SchemaFacade, Data } from 'lambdaorm-base'
+import { QueryOptions, RelationType, SentenceAction, SchemaState, Data } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
 import { Helper } from '../../../../shared/application'
 import { ExecutionError } from '../../../../connection/domain'
@@ -24,7 +24,7 @@ export class QueryExecutorImpl implements QueryExecutor, QueryInternalExecutor {
 	constructor (
 		private readonly connectionFacade: ConnectionFacade,
 		private readonly languages: LanguagesService,
-		private readonly schemaFacade: SchemaFacade,
+		private readonly schemaState: SchemaState,
 		private readonly expressions: Expressions,
 		private readonly _options: QueryOptions,
 		private readonly helper: Helper,
@@ -109,8 +109,8 @@ export class QueryExecutorImpl implements QueryExecutor, QueryInternalExecutor {
 
 	public async _execute (query: Query, data: Data): Promise<any> {
 		let result: any
-		const source = this.schemaFacade.source.get(query.source)
-		const mapping = this.schemaFacade.mapping.getInstance(source.mapping)
+		const source = this.schemaState.source.get(query.source)
+		const mapping = this.schemaState.mapping.getInstance(source.mapping)
 		const connection = await this.getConnection(source.name)
 		const dialect = this.languages.getDialect(query.dialect)
 		try {

@@ -2,7 +2,7 @@
 
 import { SentenceFacade } from '../../sentence/application'
 import { Query } from '../../query/domain'
-import { QueryPlan, SchemaFacade, QueryOptions } from 'lambdaorm-base'
+import { QueryPlan, SchemaState, QueryOptions } from 'lambdaorm-base'
 import { QueryHelper } from './services/queryHelper'
 import { GeQueryPlan } from './useCases/plan'
 import { LanguagesService } from '../../language/application'
@@ -23,15 +23,15 @@ export class ExpressionFacade {
 	private expressionExecute:ExpressionExecute
 	constructor (
 		private readonly sentenceFacade: SentenceFacade,
-		private readonly schemaFacade: SchemaFacade,
+		private readonly schemaState: SchemaState,
 		private readonly languages: LanguagesService,
 		executor:Executor,
 		expressions: Expressions,
 		cache: ICache<string, string>,
 		helper:Helper) {
-		this.builder = new QueryBuilderCacheDecorator(new QueryBuilder(this.sentenceFacade, this.schemaFacade, this.languages), cache, helper)
+		this.builder = new QueryBuilderCacheDecorator(new QueryBuilder(this.sentenceFacade, this.schemaState, this.languages), cache, helper)
 		this.getQueryPlan = new GeQueryPlan(this.builder)
-		this.queryHelper = new QueryHelper(this.schemaFacade.stage, this.schemaFacade.view)
+		this.queryHelper = new QueryHelper(this.schemaState.stage, this.schemaState.view)
 		this.expressionExecute = new ExpressionExecute(this.builder, executor, expressions)
 	}
 

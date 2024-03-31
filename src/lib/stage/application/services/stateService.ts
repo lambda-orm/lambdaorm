@@ -1,11 +1,11 @@
 import { Query } from '../../../query/domain'
 import { Helper } from '../../../shared/application'
-import { SchemaFacade, ModelConfig, MappingConfig, Dialect } from 'lambdaorm-base'
+import { ModelConfig, MappingConfig, Dialect, SchemaState } from 'lambdaorm-base'
 const path = require('path')
 
 abstract class StageStateService<T> {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (protected workspace:string, protected readonly schemaFacade:SchemaFacade, protected readonly helper:Helper) {}
+	constructor (protected workspace:string, protected readonly schemaState:SchemaState, protected readonly helper:Helper) {}
 
 	public async get (name:string):Promise<T> {
 		const file = this.getFile(name)
@@ -40,7 +40,7 @@ export class StageMappingService extends StageStateService<MappingConfig> {
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.workspace, this.schemaFacade.schema.infrastructure?.paths?.data || 'data', `${name}-data.json`)
+		return path.join(this.workspace, this.schemaState.schema.infrastructure?.paths?.data || 'data', `${name}-data.json`)
 	}
 }
 
@@ -50,7 +50,7 @@ export class StageModelService extends StageStateService<ModelConfig> {
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.workspace, this.schemaFacade.schema.infrastructure?.paths?.data || 'data', `${name}-model.json`)
+		return path.join(this.workspace, this.schemaState.schema.infrastructure?.paths?.data || 'data', `${name}-model.json`)
 	}
 
 	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
@@ -78,6 +78,6 @@ export class StageModelService extends StageStateService<ModelConfig> {
 		date = this.helper.str.replace(date, ':', '')
 		date = this.helper.str.replace(date, '.', '')
 		date = this.helper.str.replace(date, '-', '')
-		return path.join(this.workspace, this.schemaFacade.schema.infrastructure?.paths?.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
+		return path.join(this.workspace, this.schemaState.schema.infrastructure?.paths?.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
 	}
 }

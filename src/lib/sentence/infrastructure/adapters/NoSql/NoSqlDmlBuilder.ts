@@ -98,7 +98,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			if (childEntity === undefined) {
 				throw new SchemaError(`child entity  ${childEntityName} not found in ${entity.name}`)
 			}
-			mappings.push(this.dialect.delimiter(childEntity.mapping))
+			mappings.push(this.dialect.delimiter(childEntity.mapping || childEntity.name, true))
 		}
 		const parentEntityName = parts.slice(0, parts.length - 1).join('.')
 		const parentEntity = this.mapping.getEntity(parentEntityName)
@@ -260,7 +260,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			const localField = join.children[0].children[1] as Field
 
 			const alias = entity.name !== join.entity ? localField.alias : undefined
-			let joinTemplate = this.helper.str.replace(template, '{name}', this.dialect.delimiter(joinEntity.mapping, true))
+			let joinTemplate = this.helper.str.replace(template, '{name}', this.dialect.delimiter(joinEntity.mapping || joinEntity.name, true))
 			joinTemplate = this.helper.str.replace(joinTemplate, '{fromProperty}', this.getFieldMapping(localField))
 			joinTemplate = this.helper.str.replace(joinTemplate, '{toProperty}', this.getFieldMapping(foreignField, alias))
 			joinTemplate = this.helper.str.replace(joinTemplate, '{alias}', this.dialect.delimiter(join.alias, true))

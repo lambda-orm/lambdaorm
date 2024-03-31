@@ -19,6 +19,9 @@ export class NoSqlDDLBuilderAdapter extends DDLBuilderAdapter {
 
 	public createSequence (entity: EntityMapping): Query | undefined {
 		// https://www.tutorialspoint.com/MongoDB/mongodb_autoincrement_sequence.htm
+		if (entity.sequence === undefined) {
+			return undefined
+		}
 		const sentence = `{ "_id" : "${this.dialect.delimiter(entity.sequence)}", "sequence_value": 1 }`
 		return new Query({ action: SentenceAction.createSequence, dialect: this.source.dialect, source: this.source.name, sentence, entity: entity.name })
 	}
@@ -132,6 +135,9 @@ export class NoSqlDDLBuilderAdapter extends DDLBuilderAdapter {
 	}
 
 	public dropSequence (entity: EntityMapping): Query | undefined {
+		if (entity.sequence === undefined) {
+			return undefined
+		}
 		const sentence = JSON.stringify({
 			_id: this.dialect.delimiter(entity.sequence)
 		})

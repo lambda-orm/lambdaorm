@@ -1,5 +1,5 @@
 import { Query, ExecuteResult } from '../../../query/domain'
-import { QueryOptions, SchemaFacade } from 'lambdaorm-base'
+import { QueryOptions, SchemaState } from 'lambdaorm-base'
 import { LanguagesService } from '../../../language/application'
 import { QueryExecutorImpl } from './queryExecutor/queryExecutor'
 import { Transaction, Executor, QueryExecutor, ActionObserver, ObservableExecutor } from '../../domain'
@@ -11,7 +11,7 @@ export class ExecutorImpl implements Executor, ObservableExecutor {
 	private observers:ActionObserver[]
 	constructor (private readonly connectionFacade: ConnectionFacade,
 		private readonly languages: LanguagesService,
-		private readonly schemaFacade: SchemaFacade,
+		private readonly schemaState: SchemaState,
 		private readonly expressions: Expressions,
 		private readonly helper: Helper
 	) {
@@ -103,7 +103,7 @@ export class ExecutorImpl implements Executor, ObservableExecutor {
 	}
 
 	private createQueryExecutor (options: QueryOptions, transactional:boolean): QueryExecutor {
-		const queryExecutor = new QueryExecutorImpl(this.connectionFacade, this.languages, this.schemaFacade, this.expressions, options, this.helper, transactional)
+		const queryExecutor = new QueryExecutorImpl(this.connectionFacade, this.languages, this.schemaState, this.expressions, options, this.helper, transactional)
 		return new QueryExecutorObservableDecorator(this.expressions, queryExecutor, this.observers)
 	}
 }

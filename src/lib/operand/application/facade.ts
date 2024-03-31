@@ -1,5 +1,5 @@
 import { OperandBuilder, Operand, OperandSerializer, Expressions } from '3xpr'
-import { SchemaFacade } from 'lambdaorm-base'
+import { SchemaState } from 'lambdaorm-base'
 import { OperandBuilderCacheDecorator } from './services/operandBuilderCacheDecorator'
 import { OrmOperandBuilder } from './services/operandBuilder'
 import { OperandNormalize } from './usesCases/normalize'
@@ -11,14 +11,14 @@ export class OperandFacade {
 	private builder:OperandBuilder
 	private operandNormalize:OperandNormalize
 	constructor (private readonly expressions: Expressions,
-		private readonly schema:SchemaFacade,
+		private readonly schemaState:SchemaState,
 		cache: ICache<string, string>,
 		operandSerializer:OperandSerializer,
 		private readonly operandHelper:OrmOperandHelper,
 		private readonly helper:Helper
 	) {
 		this.builder = new OperandBuilderCacheDecorator(
-			new OrmOperandBuilder(this.expressions, this.schema.domain, this.helper),
+			new OrmOperandBuilder(this.expressions, this.schemaState.domain, this.helper),
 			cache,
 			operandSerializer, this.helper)
 		this.operandNormalize = new OperandNormalize(this.builder, operandHelper)

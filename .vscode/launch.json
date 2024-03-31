@@ -25,16 +25,6 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/data/countries.env"
 		},
 		{
-			"name": "data complex lab",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/labs/data-complex/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/data-complex/countries.env"
-		},
-		{
 			"name": "mongo lab",
 			"type": "node",
 			"request": "launch",

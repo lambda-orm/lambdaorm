@@ -2,7 +2,184 @@ version: 0.0.1
 domain:
   version: 0.0.1
   entities:
-    - name: countries
+    - name: CountriesLanguages
+      intermediate: true
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: languageCode
+          type: string
+          length: 4
+          required: true
+        - name: countriesName
+          type: string
+          length: 32
+          required: true
+      uniqueKey:
+        - countriesName
+        - languageCode
+      relations:
+        - &ref_3
+          name: countries
+          type: oneToMany
+          from: countriesName
+          entity: Countries
+          to: name
+          target: countriesLanguages
+        - &ref_0
+          name: languages
+          type: oneToMany
+          from: languageCode
+          entity: Languages
+          to: code
+          target: countriesLanguages
+      required: []
+      indexes: []
+      dependents: []
+      constraints: []
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: false
+      hadViewReadExp: false
+    - name: Languages
+      primaryKey:
+        - code
+      properties:
+        - name: code
+          type: string
+          required: true
+          length: 4
+        - name: name
+          type: string
+          required: true
+          length: 16
+      uniqueKey: []
+      required: []
+      indexes: []
+      relations:
+        - name: countriesLanguages
+          type: manyToOne
+          composite: false
+          from: code
+          entity: CountriesLanguages
+          weak: true
+          to: languageCode
+          target: languages
+      dependents:
+        - entity: CountriesLanguages
+          relation: *ref_0
+      constraints: []
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: false
+      hadViewReadExp: false
+    - name: Regions
+      primaryKey:
+        - code
+      properties:
+        - name: code
+          type: string
+          required: true
+          length: 2
+        - name: name
+          type: string
+          required: true
+          length: 32
+      uniqueKey: []
+      required: []
+      indexes: []
+      relations: []
+      dependents:
+        - entity: Countries
+          relation: &ref_2
+            name: region
+            type: oneToMany
+            from: regionCode
+            entity: Regions
+            to: code
+      constraints: []
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: false
+      hadViewReadExp: false
+    - name: Positions
+      primaryKey:
+        - lat
+      properties:
+        - name: lat
+          type: decimal
+          required: true
+        - name: long
+          type: decimal
+          required: true
+      uniqueKey:
+        - long
+      required: []
+      indexes: []
+      relations: []
+      dependents:
+        - entity: Timezones
+          relation: &ref_1
+            name: position
+            type: oneToMany
+            from: positionLat
+            entity: Positions
+            to: lat
+            composite: true
+      constraints: []
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: false
+      hadViewReadExp: false
+    - name: Timezones
+      primaryKey:
+        - name
+      properties:
+        - name: GmtOffset
+          type: integer
+          required: false
+        - name: name
+          type: string
+          required: true
+          length: 32
+        - name: positionLat
+          type: decimal
+          required: true
+        - name: countriesName
+          type: string
+          required: true
+      relations:
+        - *ref_1
+        - &ref_4
+          name: countries
+          type: oneToMany
+          from: countriesName
+          entity: Countries
+          to: name
+      uniqueKey: []
+      required: []
+      indexes: []
+      dependents: []
+      constraints: []
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: false
+      hadViewReadExp: false
+    - name: Countries
       primaryKey:
         - name
       properties:
@@ -16,12 +193,43 @@ domain:
         - name: priority
           type: integer
           required: true
-        - name: region
+        - name: regionCode
           type: string
           required: true
-          length: 16
+          length: 2
       uniqueKey:
         - phoneCode
+      relations:
+        - *ref_2
+        - name: timezones
+          type: manyToOne
+          from: name
+          entity: Timezones
+          to: countriesName
+          composite: true
+        - name: countriesLanguages
+          type: manyToOne
+          composite: false
+          from: name
+          entity: CountriesLanguages
+          weak: true
+          to: countriesName
+          target: countries
+      required: []
+      indexes: []
+      dependents:
+        - entity: CountriesLanguages
+          relation: *ref_3
+        - entity: Timezones
+          relation: *ref_4
+      constraints: []
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: false
+      hadViewReadExp: false
+  enums: []
 infrastructure:
   paths:
     src: src
@@ -29,8 +237,318 @@ infrastructure:
     domain: domain
   mappings:
     - name: default
+      entities:
+        - name: CountriesLanguages
+          intermediate: true
+          primaryKey:
+            - id
+          properties:
+            - name: id
+              type: integer
+              required: false
+              autoIncrement: true
+              mapping: id
+            - name: languageCode
+              type: string
+              length: 4
+              required: true
+              mapping: languageCode
+            - name: countriesName
+              type: string
+              length: 32
+              required: true
+              mapping: countriesName
+          uniqueKey:
+            - countriesName
+            - languageCode
+          relations:
+            - name: countries
+              type: oneToMany
+              from: countriesName
+              entity: Countries
+              to: name
+              target: countriesLanguages
+              weak: false
+            - name: languages
+              type: oneToMany
+              from: languageCode
+              entity: Languages
+              to: code
+              target: countriesLanguages
+              weak: false
+          required: []
+          indexes: []
+          dependents: []
+          constraints: []
+          composite: false
+          hadReadExps: false
+          hadWriteExps: false
+          hadReadValues: false
+          hadWriteValues: false
+          hadDefaults: false
+          hadViewReadExp: false
+          mapping: CountriesLanguages
+          hadKeys: false
+        - name: Languages
+          primaryKey:
+            - code
+          properties:
+            - name: code
+              type: string
+              required: true
+              length: 4
+              mapping: code
+            - name: name
+              type: string
+              required: true
+              length: 16
+              mapping: name
+          uniqueKey: []
+          required: []
+          indexes: []
+          relations:
+            - name: countriesLanguages
+              type: manyToOne
+              composite: false
+              from: code
+              entity: CountriesLanguages
+              weak: true
+              to: languageCode
+              target: languages
+          dependents:
+            - entity: CountriesLanguages
+              relation:
+                name: languages
+                type: oneToMany
+                from: languageCode
+                entity: Languages
+                to: code
+                target: countriesLanguages
+                weak: false
+          constraints: []
+          composite: false
+          hadReadExps: false
+          hadWriteExps: false
+          hadReadValues: false
+          hadWriteValues: false
+          hadDefaults: false
+          hadViewReadExp: false
+          mapping: Languages
+          hadKeys: false
+        - name: Regions
+          primaryKey:
+            - code
+          properties:
+            - name: code
+              type: string
+              required: true
+              length: 2
+              mapping: code
+            - name: name
+              type: string
+              required: true
+              length: 32
+              mapping: name
+          uniqueKey: []
+          required: []
+          indexes: []
+          relations: []
+          dependents:
+            - entity: Countries
+              relation:
+                name: region
+                type: oneToMany
+                from: regionCode
+                entity: Regions
+                to: code
+                weak: false
+          constraints: []
+          composite: false
+          hadReadExps: false
+          hadWriteExps: false
+          hadReadValues: false
+          hadWriteValues: false
+          hadDefaults: false
+          hadViewReadExp: false
+          mapping: Regions
+          hadKeys: false
+        - name: Positions
+          primaryKey:
+            - lat
+          properties:
+            - name: lat
+              type: decimal
+              required: true
+              mapping: lat
+            - name: long
+              type: decimal
+              required: true
+              mapping: long
+          uniqueKey:
+            - long
+          required: []
+          indexes: []
+          relations: []
+          dependents:
+            - entity: Timezones
+              relation:
+                name: position
+                type: oneToMany
+                from: positionLat
+                entity: Positions
+                to: lat
+                composite: true
+                weak: false
+          constraints: []
+          composite: false
+          hadReadExps: false
+          hadWriteExps: false
+          hadReadValues: false
+          hadWriteValues: false
+          hadDefaults: false
+          hadViewReadExp: false
+          mapping: Positions
+          hadKeys: false
+        - name: Timezones
+          primaryKey:
+            - name
+          properties:
+            - name: GmtOffset
+              type: integer
+              required: false
+              mapping: GmtOffset
+            - name: name
+              type: string
+              required: true
+              length: 32
+              mapping: name
+            - name: positionLat
+              type: decimal
+              required: true
+              mapping: positionLat
+            - name: countriesName
+              type: string
+              required: true
+              length: 80
+              mapping: countriesName
+          relations:
+            - name: position
+              type: oneToMany
+              from: positionLat
+              entity: Positions
+              to: lat
+              composite: true
+              weak: false
+            - name: countries
+              type: oneToMany
+              from: countriesName
+              entity: Countries
+              to: name
+              weak: false
+          uniqueKey: []
+          required: []
+          indexes: []
+          dependents: []
+          constraints: []
+          composite: false
+          hadReadExps: false
+          hadWriteExps: false
+          hadReadValues: false
+          hadWriteValues: false
+          hadDefaults: false
+          hadViewReadExp: false
+          mapping: Timezones
+          hadKeys: false
+        - name: Countries
+          primaryKey:
+            - name
+          properties:
+            - name: name
+              type: string
+              required: true
+              length: 32
+              mapping: name
+            - name: phoneCode
+              type: integer
+              required: true
+              mapping: phoneCode
+            - name: priority
+              type: integer
+              required: true
+              mapping: priority
+            - name: regionCode
+              type: string
+              required: true
+              length: 2
+              mapping: regionCode
+          uniqueKey:
+            - phoneCode
+          relations:
+            - name: region
+              type: oneToMany
+              from: regionCode
+              entity: Regions
+              to: code
+              weak: false
+            - name: timezones
+              type: manyToOne
+              from: name
+              entity: Timezones
+              to: countriesName
+              composite: true
+              weak: true
+            - name: countriesLanguages
+              type: manyToOne
+              composite: false
+              from: name
+              entity: CountriesLanguages
+              weak: true
+              to: countriesName
+              target: countries
+          required: []
+          indexes: []
+          dependents:
+            - entity: CountriesLanguages
+              relation:
+                name: countries
+                type: oneToMany
+                from: countriesName
+                entity: Countries
+                to: name
+                target: countriesLanguages
+                weak: false
+            - entity: Timezones
+              relation:
+                name: countries
+                type: oneToMany
+                from: countriesName
+                entity: Countries
+                to: name
+                weak: false
+          constraints: []
+          composite: false
+          hadReadExps: false
+          hadWriteExps: false
+          hadReadValues: false
+          hadWriteValues: false
+          hadDefaults: false
+          hadViewReadExp: false
+          mapping: Countries
+          hadKeys: false
   sources:
     - name: default
       mapping: default
       dialect: PostgreSQL
-      connection: $CNX_POSTGRES
+      connection:
+        host: 0.0.0.0
+        port: 5432
+        user: countries
+        password: countries
+        database: countries
+  stages:
+    - name: default
+      sources:
+        - name: default
+  views:
+    - name: default
+      entities: []

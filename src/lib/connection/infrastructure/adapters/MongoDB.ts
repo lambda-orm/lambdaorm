@@ -145,6 +145,9 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 	}
 
 	private async getInsertListInclude (mapping: MappingConfigService, dialect: DialectService, query: Query, include:Include, relationEntity:EntityMapping, array: any[], list:any[]):Promise<void> {
+		if (relationEntity.mapping === undefined) {
+			throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
+		}
 		const relationEntityMapping = dialect.delimiter(relationEntity.mapping)
 		for (let i = 0; i < array.length; i++) {
 			const source = array[i]
@@ -197,6 +200,9 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 			}
 			const relationEntity = mapping.getEntity(include.relation.entity)
 			if (relationEntity === undefined) {
+				throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
+			}
+			if (relationEntity.mapping === undefined) {
 				throw new SchemaError(`EntityMapping ${include.relation.entity} not found`)
 			}
 			const relationProperty = dialect.delimiter(relationEntity.mapping)

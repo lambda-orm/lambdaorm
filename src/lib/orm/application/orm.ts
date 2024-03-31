@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata, QueryPlan, Schema, Dialect, SchemaFacade, QueryOptions } from 'lambdaorm-base'
+import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata, QueryPlan, Schema, Dialect, SchemaFacade, SchemaState, QueryOptions } from 'lambdaorm-base'
 import { StageFacade } from '../../stage/application'
 import { ExpressionTransaction } from '../../expressions/application'
 import { Expressions } from '3xpr'
@@ -8,6 +8,7 @@ export interface IOrm
 	get workspace(): string
 	stage: StageFacade
 	schema: SchemaFacade
+	state: SchemaState
 	expressions: Expressions
 
 	dialect (source:string): Dialect

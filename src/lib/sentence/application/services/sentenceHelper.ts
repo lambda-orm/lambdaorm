@@ -1,5 +1,5 @@
 import {
-	ObservableAction, Property, SentenceCrudAction, Source, ClauseInfo, SintaxisError, SchemaFacade,
+	ObservableAction, Property, SentenceCrudAction, Source, ClauseInfo, SintaxisError, SchemaState,
 	Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete
 } from 'lambdaorm-base'
 import { Operand, Parameter, OperandType } from '3xpr'
@@ -8,16 +8,16 @@ import { Type, Primitive } from 'typ3s'
 export class SentenceHelper {
 	// private model: ModelConfigService
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly schemaFacade: SchemaFacade) {}
+	constructor (private readonly schemaState: SchemaState) {}
 
 	public getSource (sentence: Sentence, stage: string): Source {
 		const sentenceInfo: ClauseInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
-		const sourceName = this.schemaFacade.getSource(sentenceInfo, stage)
-		return this.schemaFacade.source.get(sourceName)
+		const sourceName = this.schemaState.getSource(sentenceInfo, stage)
+		return this.schemaState.source.get(sourceName)
 	}
 
 	public getPropertiesFromParameters (entityName: string, parameters: Parameter[]): Property[] {
-		const entity = this.schemaFacade.domain.getEntity(entityName)
+		const entity = this.schemaState.domain.getEntity(entityName)
 		const properties: Property[] = []
 		if (entity && entity.properties && parameters) {
 			for (const parameter of parameters) {
@@ -79,14 +79,14 @@ export class SentenceHelper {
 				const obj = operand.children[0]
 				for (const p in obj.children) {
 					const keyVal = obj.children[p]
-					const property = this.schemaFacade.domain.getProperty(entityName, keyVal.name)
+					const property = this.schemaState.domain.getProperty(entityName, keyVal.name)
 					const field = { name: keyVal.name, type: property.type }
 					fields.push(field)
 				}
 			}
 		}
 		if (addAutoIncrement) {
-			const autoIncrement = this.schemaFacade.domain.getAutoIncrement(entityName)
+			const autoIncrement = this.schemaState.domain.getAutoIncrement(entityName)
 			if (autoIncrement) {
 				fields.unshift(autoIncrement)
 			}

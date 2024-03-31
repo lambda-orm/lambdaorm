@@ -110,7 +110,7 @@ function getDevices () {
 		// // console.log(JSON.stringify(await orm.execute('Components.deleteAll()')))
 		// // console.log(JSON.stringify(await orm.execute('Devices.deleteAll()')))
 
-		h3lp.fs.write(path.join(workspace, 'schema.json'), JSON.stringify(orm.schema.schema, null, 2))
+		h3lp.fs.write(path.join(workspace, 'schema.json'), JSON.stringify(orm.state.schema, null, 2))
 
 		// await orm.stage.clean(orm.defaultStage.name).execute()
 	} catch (error:any) {

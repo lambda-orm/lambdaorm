@@ -5,7 +5,7 @@ export class StageTruncate extends StageActionDDL {
 	public override async queries (): Promise<Query[]> {
 		const state = await this.stageModelService.get(this.options.stage as string)
 		if (state && state.mappings) {
-			return new DDLBuilderService(this.schemaFacade, this.languages, this.options.stage as string, this.helper).truncate(state.mappings)
+			return new DDLBuilderService(this.schemaState, this.languages, this.options.stage as string, this.helper).truncate(state.mappings)
 		}
 		return []
 	}

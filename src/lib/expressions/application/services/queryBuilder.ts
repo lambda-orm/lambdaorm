@@ -1,5 +1,5 @@
 import { Query, Include } from '../../../query/domain'
-import { SchemaFacade, ViewConfigService, Sentence, QueryOptions } from 'lambdaorm-base'
+import { SchemaState, ViewConfigService, Sentence, QueryOptions } from 'lambdaorm-base'
 import { LanguagesService } from '../../../language/application'
 import { SentenceFacade } from '../../../sentence/application'
 import { IQueryBuilder } from '../../domain/services'
@@ -10,12 +10,12 @@ export class QueryBuilder implements IQueryBuilder {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (
 		private readonly sentenceFacade: SentenceFacade,
-		private readonly schema: SchemaFacade,
+		private readonly schemaState: SchemaState,
 		private readonly languages: LanguagesService) {}
 
 	public build (expression: string, options: QueryOptions): Query {
-		const _view = this.schema.view.get(options.view)
-		const view = this.schema.view.getInstance(_view.name)
+		const _view = this.schemaState.view.get(options.view)
+		const view = this.schemaState.view.getInstance(_view.name)
 		const sentence = this.sentenceFacade.build(expression, view, options.stage as string)
 		const query = this.dmlBuild(sentence, view, options.stage as string)
 		query.expression = expression
@@ -27,7 +27,7 @@ export class QueryBuilder implements IQueryBuilder {
 		const source = this.sentenceFacade.getSource(sentence, stage)
 		const language = this.languages.getByDialect(source.dialect)
 		// const dialect = this.languages.getDialect(source.dialect)
-		const mapping = this.schema.mapping.getInstance(source.mapping)
+		const mapping = this.schemaState.mapping.getInstance(source.mapping)
 		const sentenceIncludes = sentence.getIncludes()
 		for (const p in sentenceIncludes) {
 			const sentenceInclude = sentenceIncludes[p]

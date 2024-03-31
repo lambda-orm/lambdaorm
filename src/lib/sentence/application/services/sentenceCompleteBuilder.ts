@@ -1,5 +1,5 @@
 import { Expressions } from '3xpr'
-import { ISentenceBuilder, ISentenceCompleteBuilder, Sentence, SchemaFacade, ViewConfigService } from 'lambdaorm-base'
+import { ISentenceBuilder, ISentenceCompleteBuilder, Sentence, SchemaState, ViewConfigService } from 'lambdaorm-base'
 import { SentenceCompleter } from './sentenceCompleter'
 import { SentenceHelper } from './sentenceHelper'
 
@@ -7,7 +7,7 @@ export class SentenceCompleteBuilder implements ISentenceCompleteBuilder {
 	private completer: SentenceCompleter
 	constructor (
 		private readonly sentenceBuilder:ISentenceBuilder,
-		private readonly schemaFacade: SchemaFacade,
+		private readonly schemaState: SchemaState,
 		private readonly sentenceHelper: SentenceHelper,
 		private readonly expressions: Expressions
 	) {
@@ -27,7 +27,7 @@ export class SentenceCompleteBuilder implements ISentenceCompleteBuilder {
 			this.completeSentence(sentenceInclude.children[0] as Sentence, view, stage)
 		}
 		const source = this.sentenceHelper.getSource(sentence, stage)
-		const mapping = this.schemaFacade.mapping.getInstance(source.mapping)
+		const mapping = this.schemaState.mapping.getInstance(source.mapping)
 		this.completer.complete(mapping, view, sentence)
 	}
 }

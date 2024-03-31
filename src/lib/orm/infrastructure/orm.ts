@@ -2,7 +2,7 @@
 
 import { Helper } from '../../shared/application'
 import { h3lp } from 'h3lp'
-import { QueryOptions, MetadataParameter, MetadataConstraint, MetadataModel, SchemaData, Metadata, Dialect, Schema, Stage, QueryPlan, SchemaFacade, SchemaFacadeBuilder } from 'lambdaorm-base'
+import { QueryOptions, MetadataParameter, MetadataConstraint, MetadataModel, SchemaData, Metadata, Dialect, Schema, Stage, QueryPlan, SchemaFacade, SchemaFacadeBuilder, SchemaState, SchemaStateBuilder } from 'lambdaorm-base'
 import { ConnectionFacade } from '../../connection/application'
 import { LanguagesService } from '../../language/application'
 import { StageFacade } from '../../stage/application'
@@ -31,6 +31,7 @@ export class Orm implements IOrm {
 	public language: LanguagesService
 	public expressions:Expressions
 	public schema: SchemaFacade
+	public state: SchemaState
 	public stage: StageFacade
 	private helper: Helper
 	private operand: OperandFacade
@@ -45,11 +46,12 @@ export class Orm implements IOrm {
 		this.language = new SentenceLanguageServiceBuilder(this.helper).build()
 		this.connection = new ConnectionFacadeBuilder(this.helper).build()
 		this.schema = new SchemaFacadeBuilder(this.expressions, this.helper).build()
-		this.executor = new ExecutorBuilder(this.connection, this.language, this.expressions, this.helper).build(this.schema)
-		this.operand = new OperandFacadeBuilder(this.expressions, this.helper).build(this.schema)
-		this.sentence = new SentenceFacadeBuilder(this.expressions, this.helper).build(this.schema, this.operand)
-		this.expression = new ExpressionFacadeBuilder(this.language, this.executor, this.expressions, this.helper).build(this.sentence, this.schema)
-		this.stage = new StageFacadeBuilder(this.language, this.executor, this.helper).build(_workspace, this.schema, this.expression)
+		this.state = new SchemaStateBuilder(this.expressions, this.schema, this.helper).build()
+		this.executor = new ExecutorBuilder(this.connection, this.language, this.expressions, this.helper).build(this.state)
+		this.operand = new OperandFacadeBuilder(this.expressions, this.helper).build(this.state)
+		this.sentence = new SentenceFacadeBuilder(this.expressions, this.helper).build(this.state, this.operand)
+		this.expression = new ExpressionFacadeBuilder(this.language, this.executor, this.expressions, this.helper).build(this.sentence, this.state)
+		this.stage = new StageFacadeBuilder(this.language, this.executor, this.helper).build(_workspace, this.state, this.expression)
 	}
 
 	// eslint-disable-next-line no-use-before-define
@@ -65,7 +67,7 @@ export class Orm implements IOrm {
 	}
 
 	public get defaultStage ():Stage {
-		return this.schema.stage.get()
+		return this.state.stage.get()
 	}
 
 	/**
@@ -74,7 +76,7 @@ export class Orm implements IOrm {
  * @returns promise void
  */
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
-		const schema = await this.schema.initialize(source || this._workspace)
+		const schema = await this.state.load(source || this._workspace)
 		// set connections
 		if (connect && schema.infrastructure?.sources) {
 			for (const source of schema.infrastructure.sources.filter(p => this.helper.val.isNotEmpty(p.connection))) {
@@ -116,7 +118,7 @@ export class Orm implements IOrm {
   */
 	public async end (): Promise<void> {
 		// ends task
-		const schema = this.schema.schema
+		const schema = this.state.schema
 		if (schema.application?.end) {
 			for (const task of schema.application.end) {
 				if (task.condition === undefined || this.expressions.eval(task.condition)) {
@@ -140,7 +142,7 @@ export class Orm implements IOrm {
 	 * @returns
 	 */
 	public dialect (source:string): Dialect {
-		return this.schema.source.get(source).dialect
+		return this.state.source.get(source).dialect
 	}
 
 	/**
@@ -251,15 +253,11 @@ export class Orm implements IOrm {
 		return typeof expression !== 'string' ? this.expressions.convert(expression, 'function')[0] : expression
 	}
 
-	public async syncAndImport (data: any|any[], name:string, options?:QueryOptions): Promise<[Schema, SchemaData]> {
-		const schema = this.schema.schema
-		const schemaData = this.schema.updateAndSchemaData(schema, data, name)
-		if (this.schema.schemaPath) {
-			this.schema.write(schema)
-		}
+	public async syncAndImport (data: any|any[], name:string, options?:QueryOptions): Promise<SchemaData> {
+		const schemaData = await this.state.updateFromData(data, name)
 		await this.stage.sync(options).execute()
 		await this.stage.import(options).execute(schemaData)
-		return [schema, schemaData]
+		return schemaData
 	}
 
 	public subscribe (observer:ActionObserver):void {

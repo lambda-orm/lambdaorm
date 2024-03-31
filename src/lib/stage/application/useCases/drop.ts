@@ -1,5 +1,5 @@
 import { Query, ExecuteResult } from '../../../query/domain'
-import { SchemaFacade, QueryOptions } from 'lambdaorm-base'
+import { SchemaState, QueryOptions } from 'lambdaorm-base'
 import { LanguagesService, DDLBuilderService } from '../../../language/application'
 import { StageMappingService, StageModelService } from '../services/stateService'
 import { StageActionDDL } from './base/actionDDL'
@@ -8,15 +8,15 @@ import { Helper } from '../../../shared/application'
 
 export class StageDrop extends StageActionDDL {
 	private mappingService: StageMappingService
-	constructor (executor: Executor, stateService:StageModelService, mappingService:StageMappingService, schemaFacade: SchemaFacade, languages: LanguagesService, options:QueryOptions, helper:Helper) {
-		super(executor, stateService, schemaFacade, languages, options, helper)
+	constructor (executor: Executor, stateService:StageModelService, mappingService:StageMappingService, schemaState: SchemaState, languages: LanguagesService, options:QueryOptions, helper:Helper) {
+		super(executor, stateService, schemaState, languages, options, helper)
 		this.mappingService = mappingService
 	}
 
 	public override async queries (): Promise<Query[]> {
 		const state = await this.stageModelService.get(this.options.stage as string)
 		if (state && state.mappings) {
-			return new DDLBuilderService(this.schemaFacade, this.languages, this.options.stage as string, this.helper).drop(state.mappings)
+			return new DDLBuilderService(this.schemaState, this.languages, this.options.stage as string, this.helper).drop(state.mappings)
 		}
 		return []
 	}
