@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## [1.6.0](https://github.com/lambda-orm/lambdaorm/compare/v1.5.0...v1.6.0) (2024-03-31)
+
+
+### Features
+
+* add schema update from data ([d92bf3e](https://github.com/lambda-orm/lambdaorm/commit/d92bf3e1c5c30734c21ace5454e2b7dcaa22bd9a)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+
 ## [1.5.0](https://github.com/lambda-orm/lambdaorm/compare/v1.4.0...v1.5.0) (2024-03-25)
 
 **Features:**
