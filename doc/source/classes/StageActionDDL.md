@@ -28,7 +28,7 @@
 
 ### constructor
 
-• **new StageActionDDL**(`executor`, `stageModelService`, `schemaFacade`, `languages`, `options`, `helper`): [`StageActionDDL`](StageActionDDL.md)
+• **new StageActionDDL**(`executor`, `stageModelService`, `schemaState`, `languages`, `options`, `helper`): [`StageActionDDL`](StageActionDDL.md)
 
 #### Parameters
 
@@ -36,7 +36,7 @@
 | :------ | :------ |
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `stageModelService` | [`StageModelService`](StageModelService.md) |
-| `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
+| `schemaState` | [`SchemaState`](SchemaState.md) |
 | `languages` | [`LanguagesService`](LanguagesService.md) |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 | `helper` | [`Helper`](Helper.md) |
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 ## Methods
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
+[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
+[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
 
 ___
 
@@ -89,4 +89,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

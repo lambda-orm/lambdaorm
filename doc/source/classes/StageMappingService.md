@@ -25,14 +25,14 @@
 
 ### constructor
 
-• **new StageMappingService**(`workspace`, `schemaFacade`, `helper`): [`StageMappingService`](StageMappingService.md)
+• **new StageMappingService**(`workspace`, `schemaState`, `helper`): [`StageMappingService`](StageMappingService.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `workspace` | `string` |
-| `schemaFacade` | [`SchemaFacade`](SchemaFacade.md) |
+| `schemaState` | [`SchemaState`](SchemaState.md) |
 | `helper` | [`Helper`](Helper.md) |
 
 #### Returns
@@ -45,7 +45,7 @@ StageStateService\<MappingConfig\>.constructor
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/services/stateService.ts#L8)
+[src/lib/stage/application/services/stateService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/services/stateService.ts#L8)
 
 ## Methods
 
@@ -69,7 +69,7 @@ StageStateService.get
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/services/stateService.ts#L10)
+[src/lib/stage/application/services/stateService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/services/stateService.ts#L10)
 
 ___
 
@@ -93,7 +93,7 @@ StageStateService.getFile
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:42](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/services/stateService.ts#L42)
+[src/lib/stage/application/services/stateService.ts:42](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/services/stateService.ts#L42)
 
 ___
 
@@ -117,7 +117,7 @@ StageStateService.remove
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:27](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/services/stateService.ts#L27)
+[src/lib/stage/application/services/stateService.ts:27](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/services/stateService.ts#L27)
 
 ___
 
@@ -142,4 +142,4 @@ StageStateService.update
 
 #### Defined in
 
-[src/lib/stage/application/services/stateService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/services/stateService.ts#L22)
+[src/lib/stage/application/services/stateService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/services/stateService.ts#L22)

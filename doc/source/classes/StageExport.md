@@ -46,21 +46,21 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/useCases/base/actionDML.ts#L15)
+[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/useCases/base/actionDML.ts#L15)
 
 ## Methods
 
 ### execute
 
-▸ **execute**(): `Promise`\<[`SchemaConfig`](../interfaces/SchemaConfig.md)\>
+▸ **execute**(): `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
 
 #### Returns
 
-`Promise`\<[`SchemaConfig`](../interfaces/SchemaConfig.md)\>
+`Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
 
 #### Defined in
 
-[src/lib/stage/application/useCases/export.ts:6](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/useCases/export.ts#L6)
+[src/lib/stage/application/useCases/export.ts:6](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/useCases/export.ts#L6)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/useCases/base/actionDML.ts#L33)
+[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/useCases/base/actionDML.ts#L33)
 
 ___
 
@@ -96,4 +96,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/stage/application/useCases/base/actionDML.ts#L24)
+[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/useCases/base/actionDML.ts#L24)

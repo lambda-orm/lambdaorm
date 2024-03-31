@@ -62,7 +62,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L6)
+[src/lib/connection/application/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L6)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L8)
+[src/lib/connection/application/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L8)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L10)
+[src/lib/connection/application/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L10)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L11)
+[src/lib/connection/application/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L11)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L9)
+[src/lib/connection/application/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L9)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L7)
+[src/lib/connection/application/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L7)
 
 ## Accessors
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L12)
+[src/lib/connection/application/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L12)
 
 ## Methods
 
@@ -147,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L41)
+[src/lib/connection/application/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L41)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L39)
+[src/lib/connection/application/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L39)
 
 ___
 
@@ -189,7 +189,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L38)
+[src/lib/connection/application/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L38)
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L40)
+[src/lib/connection/application/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L40)
 
 ___
 
@@ -231,7 +231,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L37)
+[src/lib/connection/application/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L37)
 
 ___
 
@@ -245,7 +245,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L26)
+[src/lib/connection/application/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L26)
 
 ___
 
@@ -268,7 +268,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L30)
+[src/lib/connection/application/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L30)
 
 ___
 
@@ -291,7 +291,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L18)
+[src/lib/connection/application/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L18)
 
 ___
 
@@ -314,7 +314,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L22)
+[src/lib/connection/application/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L22)
 
 ___
 
@@ -337,7 +337,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L31)
+[src/lib/connection/application/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L31)
 
 ___
 
@@ -351,7 +351,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:27](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L27)
+[src/lib/connection/application/ports/connection.ts:27](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L27)
 
 ___
 
@@ -372,7 +372,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:33](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L33)
+[src/lib/connection/application/ports/connection.ts:33](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L33)
 
 ___
 
@@ -393,7 +393,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:35](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L35)
+[src/lib/connection/application/ports/connection.ts:35](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L35)
 
 ___
 
@@ -414,7 +414,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L36)
+[src/lib/connection/application/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L36)
 
 ___
 
@@ -435,7 +435,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L34)
+[src/lib/connection/application/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L34)
 
 ___
 
@@ -458,7 +458,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L20)
+[src/lib/connection/application/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L20)
 
 ___
 
@@ -479,7 +479,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L43)
+[src/lib/connection/application/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L43)
 
 ___
 
@@ -500,7 +500,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:47](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L47)
+[src/lib/connection/application/ports/connection.ts:47](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L47)
 
 ___
 
@@ -521,7 +521,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:48](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L48)
+[src/lib/connection/application/ports/connection.ts:48](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L48)
 
 ___
 
@@ -542,7 +542,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L45)
+[src/lib/connection/application/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L45)
 
 ___
 
@@ -563,7 +563,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L44)
+[src/lib/connection/application/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L44)
 
 ___
 
@@ -584,7 +584,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L42)
+[src/lib/connection/application/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L42)
 
 ___
 
@@ -605,7 +605,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L46)
+[src/lib/connection/application/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L46)
 
 ___
 
@@ -625,7 +625,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L23)
+[src/lib/connection/application/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L23)
 
 ___
 
@@ -645,7 +645,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L24)
+[src/lib/connection/application/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L24)
 
 ___
 
@@ -665,7 +665,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L25)
+[src/lib/connection/application/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L25)
 
 ___
 
@@ -688,7 +688,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:17](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L17)
+[src/lib/connection/application/ports/connection.ts:17](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L17)
 
 ___
 
@@ -711,7 +711,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L21)
+[src/lib/connection/application/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L21)
 
 ___
 
@@ -725,7 +725,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L28)
+[src/lib/connection/application/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L28)
 
 ___
 
@@ -748,7 +748,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L16)
+[src/lib/connection/application/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L16)
 
 ___
 
@@ -769,7 +769,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L32)
+[src/lib/connection/application/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L32)
 
 ___
 
@@ -792,7 +792,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L19)
+[src/lib/connection/application/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L19)
 
 ___
 
@@ -814,7 +814,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L13)
+[src/lib/connection/application/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L13)
 
 ___
 
@@ -836,4 +836,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/connection/application/ports/connection.ts#L14)
+[src/lib/connection/application/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/connection/application/ports/connection.ts#L14)

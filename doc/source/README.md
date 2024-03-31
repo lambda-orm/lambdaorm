@@ -19,11 +19,11 @@ Lambda ORM
 - [BulkInsert](classes/BulkInsert.md)
 - [BulkMerge](classes/BulkMerge.md)
 - [Clause](classes/Clause.md)
-- [CompleteSchema](classes/CompleteSchema.md)
 - [ConnectionError](classes/ConnectionError.md)
 - [ConnectionFacade](classes/ConnectionFacade.md)
 - [ConnectionPoolService](classes/ConnectionPoolService.md)
 - [Constant](classes/Constant.md)
+- [CreateEntitiesService](classes/CreateEntitiesService.md)
 - [CreateSchema](classes/CreateSchema.md)
 - [DDLBuilderService](classes/DDLBuilderService.md)
 - [Data](classes/Data.md)
@@ -44,7 +44,7 @@ Lambda ORM
 - [FilterClauses](classes/FilterClauses.md)
 - [FilterIncludeClauses](classes/FilterIncludeClauses.md)
 - [From](classes/From.md)
-- [GetSchema](classes/GetSchema.md)
+- [GetSchemaSchema](classes/GetSchemaSchema.md)
 - [GroupBy](classes/GroupBy.md)
 - [Having](classes/Having.md)
 - [HavingClauses](classes/HavingClauses.md)
@@ -83,7 +83,8 @@ Lambda ORM
 - [SchemaExtender](classes/SchemaExtender.md)
 - [SchemaFacade](classes/SchemaFacade.md)
 - [SchemaFacadeBuilder](classes/SchemaFacadeBuilder.md)
-- [SchemaService](classes/SchemaService.md)
+- [SchemaState](classes/SchemaState.md)
+- [SchemaStateBuilder](classes/SchemaStateBuilder.md)
 - [Sentence](classes/Sentence.md)
 - [SentenceFacade](classes/SentenceFacade.md)
 - [SentenceInclude](classes/SentenceInclude.md)
@@ -129,7 +130,6 @@ Lambda ORM
 - [DomainSchema](interfaces/DomainSchema.md)
 - [Entity](interfaces/Entity.md)
 - [EntityMapping](interfaces/EntityMapping.md)
-- [EntityType](interfaces/EntityType.md)
 - [EntityView](interfaces/EntityView.md)
 - [Enum](interfaces/Enum.md)
 - [EnumValue](interfaces/EnumValue.md)
@@ -137,7 +137,7 @@ Lambda ORM
 - [Executor](interfaces/Executor.md)
 - [ExpressionActions](interfaces/ExpressionActions.md)
 - [FormatMapping](interfaces/FormatMapping.md)
-- [IFileSchemaReader](interfaces/IFileSchemaReader.md)
+- [IFileSchemaService](interfaces/IFileSchemaService.md)
 - [IOrm](interfaces/IOrm.md)
 - [IQueryBuilder](interfaces/IQueryBuilder.md)
 - [IRelation](interfaces/IRelation.md)
@@ -175,8 +175,9 @@ Lambda ORM
 - [RelationInfo](interfaces/RelationInfo.md)
 - [RelationMapClauses](interfaces/RelationMapClauses.md)
 - [Schema](interfaces/Schema.md)
-- [SchemaConfig](interfaces/SchemaConfig.md)
-- [SchemaConfigEntity](interfaces/SchemaConfigEntity.md)
+- [SchemaData](interfaces/SchemaData.md)
+- [SchemaEntityData](interfaces/SchemaEntityData.md)
+- [SchemaInfo](interfaces/SchemaInfo.md)
 - [SentenceSerializer](interfaces/SentenceSerializer.md)
 - [Source](interfaces/Source.md)
 - [SourceRule](interfaces/SourceRule.md)
@@ -335,7 +336,7 @@ node_modules/lambdaorm-base/repository/domain/queryable.d.ts:145
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:4
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:3
 
 ___
 
@@ -345,7 +346,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:262](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/orm/infrastructure/orm.ts#L262)
+[src/lib/orm/infrastructure/orm.ts:271](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/orm/infrastructure/orm.ts#L271)
 
 ## Functions
 

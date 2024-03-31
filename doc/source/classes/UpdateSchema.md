@@ -16,13 +16,14 @@
 
 ### constructor
 
-• **new UpdateSchema**(`schemaService`): [`UpdateSchema`](UpdateSchema.md)
+• **new UpdateSchema**(`schemaService`, `createEntitiesService`): [`UpdateSchema`](UpdateSchema.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `schemaService` | [`SchemaService`](SchemaService.md) |
+| `schemaService` | `SchemaService` |
+| `createEntitiesService` | [`CreateEntitiesService`](CreateEntitiesService.md) |
 
 #### Returns
 
@@ -30,25 +31,26 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/useCases/update.d.ts:5
+node_modules/lambdaorm-base/schema/application/useCases/update.d.ts:8
 
 ## Methods
 
 ### update
 
-▸ **update**(`schema`, `types`): `void`
+▸ **update**(`schema`, `data`, `name`): `Type`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `schema` | [`Schema`](../interfaces/Schema.md) |
-| `types` | [`EntityType`](../interfaces/EntityType.md)[] |
+| `data` | `any` |
+| `name` | `string` |
 
 #### Returns
 
-`void`
+`Type`
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/useCases/update.d.ts:6
+node_modules/lambdaorm-base/schema/application/useCases/update.d.ts:9

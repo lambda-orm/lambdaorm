@@ -16,11 +16,11 @@
 
 ### entities
 
-• **entities**: [`EntityMapping`](EntityMapping.md)[]
+• `Optional` **entities**: [`EntityMapping`](EntityMapping.md)[]
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:108
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:107
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:105
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:104
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:109
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:108
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:106
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:105
 
 ___
 
@@ -60,4 +60,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:107
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:106

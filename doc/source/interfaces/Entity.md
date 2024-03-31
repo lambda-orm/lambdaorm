@@ -44,7 +44,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:61
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:60
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:78
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:77
 
 ___
 
@@ -64,17 +64,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:71
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:70
 
 ___
 
 ### dependents
 
-• **dependents**: [`Dependent`](Dependent.md)[]
+• `Optional` **dependents**: [`Dependent`](Dependent.md)[]
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:70
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:69
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:60
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:59
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:76
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:75
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:72
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:71
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:74
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:73
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:77
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:76
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:73
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:72
 
 ___
 
@@ -144,17 +144,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:75
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:74
 
 ___
 
 ### indexes
 
-• **indexes**: [`Index`](Index.md)[]
+• `Optional` **indexes**: [`Index`](Index.md)[]
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:67
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:68
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:79
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:78
 
 ___
 
@@ -174,17 +174,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:59
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:58
 
 ___
 
 ### primaryKey
 
-• **primaryKey**: `string`[]
+• `Optional` **primaryKey**: `string`[]
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:64
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:63
 
 ___
 
@@ -194,27 +194,27 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:68
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:65
 
 ___
 
 ### relations
 
-• **relations**: [`Relation`](Relation.md)[]
+• `Optional` **relations**: [`Relation`](Relation.md)[]
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:69
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:66
 
 ___
 
 ### required
 
-• **required**: `string`[]
+• `Optional` **required**: `string`[]
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:66
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:67
 
 ___
 
@@ -224,17 +224,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:62
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:61
 
 ___
 
 ### uniqueKey
 
-• **uniqueKey**: `string`[]
+• `Optional` **uniqueKey**: `string`[]
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:65
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:64
 
 ___
 
@@ -244,4 +244,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:63
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:62

@@ -18,14 +18,14 @@
 
 ### constructor
 
-• **new OperandFacade**(`expressions`, `schema`, `cache`, `operandSerializer`, `operandHelper`, `helper`): [`OperandFacade`](OperandFacade.md)
+• **new OperandFacade**(`expressions`, `schemaState`, `cache`, `operandSerializer`, `operandHelper`, `helper`): [`OperandFacade`](OperandFacade.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `expressions` | `Expressions` |
-| `schema` | [`SchemaFacade`](SchemaFacade.md) |
+| `schemaState` | [`SchemaState`](SchemaState.md) |
 | `cache` | `ICache`\<`string`, `string`\> |
 | `operandSerializer` | `OperandSerializer` |
 | `operandHelper` | [`OrmOperandHelper`](OrmOperandHelper.md) |
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/operand/application/facade.ts#L13)
+[src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/operand/application/facade.ts#L13)
 
 ## Methods
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/operand/application/facade.ts#L27)
+[src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/operand/application/facade.ts#L27)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/operand/application/facade.ts#L35)
+[src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/operand/application/facade.ts#L35)
 
 ___
 
@@ -97,4 +97,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/de3ec086/src/lib/operand/application/facade.ts#L31)
+[src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/operand/application/facade.ts#L31)

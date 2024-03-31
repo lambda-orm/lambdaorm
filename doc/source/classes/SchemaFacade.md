@@ -10,47 +10,30 @@
 
 ### Properties
 
-- [domain](SchemaFacade.md#domain)
-- [mapping](SchemaFacade.md#mapping)
-- [schema](SchemaFacade.md#schema)
 - [schemaService](SchemaFacade.md#schemaservice)
-- [source](SchemaFacade.md#source)
-- [stage](SchemaFacade.md#stage)
-- [view](SchemaFacade.md#view)
 
 ### Methods
 
 - [complete](SchemaFacade.md#complete)
 - [create](SchemaFacade.md#create)
-- [evalSourceRule](SchemaFacade.md#evalsourcerule)
-- [get](SchemaFacade.md#get)
-- [getSource](SchemaFacade.md#getsource)
-- [initialize](SchemaFacade.md#initialize)
-- [update](SchemaFacade.md#update)
+- [schemaData](SchemaFacade.md#schemadata)
+- [updateFromData](SchemaFacade.md#updatefromdata)
 
 ## Constructors
 
 ### constructor
 
-• **new SchemaFacade**(`source`, `domain`, `mapping`, `stage`, `view`, `schemaService`, `routeService`, `extender`, `createSchema`, `updateSchema`, `loadSchema`, `getSchema`, `completeSchema`): [`SchemaFacade`](SchemaFacade.md)
+• **new SchemaFacade**(`schemaService`, `getSchemaData`, `extender`, `createSchema`, `updateSchema`): [`SchemaFacade`](SchemaFacade.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `source` | [`DataSourceConfigService`](DataSourceConfigService.md) |
-| `domain` | [`DomainConfigService`](DomainConfigService.md) |
-| `mapping` | [`MappingsConfigService`](MappingsConfigService.md) |
-| `stage` | [`StageConfigService`](StageConfigService.md) |
-| `view` | [`ViewsConfigService`](ViewsConfigService.md) |
-| `schemaService` | [`SchemaService`](SchemaService.md) |
-| `routeService` | [`RouteService`](RouteService.md) |
+| `schemaService` | `SchemaService` |
+| `getSchemaData` | [`GetSchemaSchema`](GetSchemaSchema.md) |
 | `extender` | [`SchemaExtender`](SchemaExtender.md) |
 | `createSchema` | [`CreateSchema`](CreateSchema.md) |
 | `updateSchema` | [`UpdateSchema`](UpdateSchema.md) |
-| `loadSchema` | [`LoadSchema`](LoadSchema.md) |
-| `getSchema` | [`GetSchema`](GetSchema.md) |
-| `completeSchema` | [`CompleteSchema`](CompleteSchema.md) |
 
 #### Returns
 
@@ -58,77 +41,17 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:30
+node_modules/lambdaorm-base/schema/application/facade.d.ts:14
 
 ## Properties
 
-### domain
-
-• `Readonly` **domain**: [`DomainConfigService`](DomainConfigService.md)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:17
-
-___
-
-### mapping
-
-• `Readonly` **mapping**: [`MappingsConfigService`](MappingsConfigService.md)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:18
-
-___
-
-### schema
-
-• **schema**: [`Schema`](../interfaces/Schema.md)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:29
-
-___
-
 ### schemaService
 
-• `Readonly` **schemaService**: [`SchemaService`](SchemaService.md)
+• `Readonly` **schemaService**: `SchemaService`
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:21
-
-___
-
-### source
-
-• `Readonly` **source**: [`DataSourceConfigService`](DataSourceConfigService.md)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:16
-
-___
-
-### stage
-
-• `Readonly` **stage**: [`StageConfigService`](StageConfigService.md)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:19
-
-___
-
-### view
-
-• `Readonly` **view**: [`ViewsConfigService`](ViewsConfigService.md)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:20
+node_modules/lambdaorm-base/schema/application/facade.d.ts:9
 
 ## Methods
 
@@ -148,19 +71,20 @@ node_modules/lambdaorm-base/schema/application/facade.d.ts:20
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:38
+node_modules/lambdaorm-base/schema/application/facade.d.ts:18
 
 ___
 
 ### create
 
-▸ **create**(`data`): [`Schema`](../interfaces/Schema.md)
+▸ **create**(`dialect?`, `connection?`): [`Schema`](../interfaces/Schema.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `data` | `any` |
+| `dialect?` | [`Dialect`](../enums/Dialect.md) |
+| `connection?` | `any` |
 
 #### Returns
 
@@ -168,124 +92,48 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:33
+node_modules/lambdaorm-base/schema/application/facade.d.ts:15
 
-▸ **create**(`data`, `name`): [`Schema`](../interfaces/Schema.md)
+___
+
+### schemaData
+
+▸ **schemaData**(`source`, `name`, `type`): [`SchemaData`](../interfaces/SchemaData.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `data` | `any`[] |
+| `source` | `any` |
 | `name` | `string` |
+| `type` | `Type` |
 
 #### Returns
 
-[`Schema`](../interfaces/Schema.md)
+[`SchemaData`](../interfaces/SchemaData.md)
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:34
+node_modules/lambdaorm-base/schema/application/facade.d.ts:17
 
 ___
 
-### evalSourceRule
+### updateFromData
 
-▸ **evalSourceRule**(`rule`, `clauseInfo`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `rule` | [`SourceRule`](../interfaces/SourceRule.md) |
-| `clauseInfo` | [`ClauseInfo`](../interfaces/ClauseInfo.md) |
-
-#### Returns
-
-`boolean`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:31
-
-___
-
-### get
-
-▸ **get**(`source`): `Promise`\<``null`` \| [`Schema`](../interfaces/Schema.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `source` | `string` |
-
-#### Returns
-
-`Promise`\<``null`` \| [`Schema`](../interfaces/Schema.md)\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:36
-
-___
-
-### getSource
-
-▸ **getSource**(`clauseInfo`, `stage?`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `clauseInfo` | [`ClauseInfo`](../interfaces/ClauseInfo.md) |
-| `stage?` | `string` |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:32
-
-___
-
-### initialize
-
-▸ **initialize**(`source`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `source` | `string` \| [`Schema`](../interfaces/Schema.md) |
-
-#### Returns
-
-`Promise`\<[`Schema`](../interfaces/Schema.md)\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:37
-
-___
-
-### update
-
-▸ **update**(`schema`, `types`): `void`
+▸ **updateFromData**(`schema`, `data`, `name`): [`SchemaData`](../interfaces/SchemaData.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `schema` | [`Schema`](../interfaces/Schema.md) |
-| `types` | [`EntityType`](../interfaces/EntityType.md)[] |
+| `data` | `any` |
+| `name` | `string` |
 
 #### Returns
 
-`void`
+[`SchemaData`](../interfaces/SchemaData.md)
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/facade.d.ts:35
+node_modules/lambdaorm-base/schema/application/facade.d.ts:16

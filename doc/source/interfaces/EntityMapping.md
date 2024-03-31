@@ -51,7 +51,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:61
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:60
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:78
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:77
 
 ___
 
@@ -79,13 +79,13 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:71
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:70
 
 ___
 
 ### dependents
 
-• **dependents**: [`Dependent`](Dependent.md)[]
+• `Optional` **dependents**: [`Dependent`](Dependent.md)[]
 
 #### Inherited from
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:70
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:69
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:60
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:59
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:95
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:94
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:76
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:75
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:96
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:95
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:72
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:71
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:97
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:96
 
 ___
 
@@ -179,7 +179,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:74
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:73
 
 ___
 
@@ -193,7 +193,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:77
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:76
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:73
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:72
 
 ___
 
@@ -221,13 +221,13 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:75
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:74
 
 ___
 
 ### indexes
 
-• **indexes**: [`Index`](Index.md)[]
+• `Optional` **indexes**: [`Index`](Index.md)[]
 
 #### Inherited from
 
@@ -235,7 +235,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:67
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:68
 
 ___
 
@@ -249,17 +249,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:79
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:78
 
 ___
 
 ### mapping
 
-• **mapping**: `string`
+• `Optional` **mapping**: `string`
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:92
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:91
 
 ___
 
@@ -273,13 +273,13 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:59
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:58
 
 ___
 
 ### primaryKey
 
-• **primaryKey**: `string`[]
+• `Optional` **primaryKey**: `string`[]
 
 #### Inherited from
 
@@ -287,7 +287,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:64
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:63
 
 ___
 
@@ -301,13 +301,13 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:94
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:93
 
 ___
 
 ### relations
 
-• **relations**: [`Relation`](Relation.md)[]
+• `Optional` **relations**: [`Relation`](Relation.md)[]
 
 #### Inherited from
 
@@ -315,13 +315,13 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:69
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:66
 
 ___
 
 ### required
 
-• **required**: `string`[]
+• `Optional` **required**: `string`[]
 
 #### Inherited from
 
@@ -329,17 +329,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:66
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:67
 
 ___
 
 ### sequence
 
-• **sequence**: `string`
+• `Optional` **sequence**: `string`
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:93
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:92
 
 ___
 
@@ -353,13 +353,13 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:62
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:61
 
 ___
 
 ### uniqueKey
 
-• **uniqueKey**: `string`[]
+• `Optional` **uniqueKey**: `string`[]
 
 #### Inherited from
 
@@ -367,7 +367,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:65
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:64
 
 ___
 
@@ -381,4 +381,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:63
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:62

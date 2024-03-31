@@ -18,17 +18,17 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:159
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:158
 
 ___
 
 ### enums
 
-• **enums**: [`Enum`](Enum.md)[]
+• `Optional` **enums**: [`Enum`](Enum.md)[]
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:160
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:159
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:158
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:157
