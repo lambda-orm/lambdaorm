@@ -8,6 +8,7 @@ export class DialectService {
 	private _others?: any = {}
 	private _dml?: any = {}
 	private _ddl?: any = {}
+	private _dbTypes?: any = {}
 	private _types?: any = {}
 	constructor (name: string, data: any) {
 		this.name = name
@@ -29,9 +30,13 @@ export class DialectService {
 			const template = data.ddl[name]
 			this._ddl[name] = template
 		}
+		for (const name in data.dbTypes) {
+			const type = data.dbTypes[name]
+			this._dbTypes[name] = type
+		}
 		for (const name in data.types) {
-			const template = data.types[name]
-			this._types[name] = template
+			const dbType = data.types[name]
+			this._types[name] = dbType
 		}
 	}
 
@@ -84,8 +89,12 @@ export class DialectService {
 		return this._ddl[name]
 	}
 
+	public dbType (name: string): string {
+		return this._dbTypes[name]
+	}
+
 	public type (name: string): string {
-		return this._types[name]
+		return this._types[name] || 'any'
 	}
 
 	public delimiter (name: string, force = false, excludeUnderscore = false): string {

@@ -25,4 +25,12 @@ export interface DDLBuilderPort {
 	createFk(entity: EntityMapping, relation: Relation): Query | undefined
 	createIndex(entity: EntityMapping, index: Index): Query | undefined
 	createSequence(entity: EntityMapping): Query | undefined
+	objects (): Query
+	tables (names:string[]): Query
+	views (names:string[]): Query
+	primaryKeys (tableNames:string[]): Query
+	uniqueKeys (tableNames:string[]): Query
+	foreignKeys (tableNames:string[]): Query
+	indexes (tableNames:string[]): Query
+	sequences (sequenceNames:string[]): Query
 }

@@ -8,6 +8,7 @@ import { Connection } from '../../application'
 import { MappingConfigService, Data } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
 import { Query } from '../../../query/domain'
+
 // https://node-postgres.com/features/connecting
 
 export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {

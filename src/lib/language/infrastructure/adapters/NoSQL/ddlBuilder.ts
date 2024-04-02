@@ -143,4 +143,36 @@ export class NoSqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		})
 		return new Query({ action: SentenceAction.dropSequence, dialect: this.source.dialect, source: this.source.name, sentence, entity: entity.name })
 	}
+
+	public objects (): Query {
+		throw new Error('Method not implemented.')
+	}
+
+	public tables (names: string[]): Query {
+		throw new Error('Method not implemented.')
+	}
+
+	public views (names: string[]): Query {
+		throw new Error('Method not implemented.')
+	}
+
+	public primaryKeys (tableNames: string[]): Query {
+		throw new Error('Method not implemented.')
+	}
+
+	public uniqueKeys (tableNames: string[]): Query {
+		throw new Error('Method not implemented.')
+	}
+
+	public foreignKeys (tableNames: string[]): Query {
+		throw new Error('Method not implemented.')
+	}
+
+	public indexes (tableNames: string[]): Query {
+		throw new Error('Method not implemented.')
+	}
+
+	public sequences (sequenceNames: string[]): Query {
+		throw new Error('Method not implemented.')
+	}
 }

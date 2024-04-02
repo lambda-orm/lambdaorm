@@ -1,5 +1,5 @@
 _extends: [SQL]
-types:
+dbTypes:
   text: LONGTEXT
 ddl:
   dropIndex: "DROP INDEX {name} ON {table}"

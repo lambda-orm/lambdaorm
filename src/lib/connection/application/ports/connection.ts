@@ -17,7 +17,9 @@ export interface Connection {
 	insert(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
 	bulkInsert(mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]>
 	update(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number>
+	bulkUpdate (_mapping: MappingConfigService, _dialect: DialectService, _query: Query, _array: any[]): Promise<number>
 	delete(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number>
+	bulkDelete (_mapping: MappingConfigService, _dialect: DialectService, _query: Query, _array: any[]): Promise<number>
 	merge(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
 	bulkMerge(mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]>
 	execute(query: Query): Promise<any>
@@ -27,8 +29,6 @@ export interface Connection {
 	commit(): Promise<void>
 	rollback(): Promise<void>
 
-	bulkDelete (_mapping: MappingConfigService, _dialect: DialectService, _query: Query, _array: any[]): Promise<number>
-	bulkUpdate (_mapping: MappingConfigService, _dialect: DialectService, _query: Query, _array: any[]): Promise<number>
 	truncateEntity (_mapping: MappingConfigService, query: Query): Promise<any>
 	createEntity (_mapping: MappingConfigService, query: Query): Promise<any>
 	createSequence (_mapping: MappingConfigService, query: Query): Promise<any>
@@ -46,4 +46,6 @@ export interface Connection {
 	dropUk (_mapping: MappingConfigService, query: Query): Promise<any>
 	dropFk (_mapping: MappingConfigService, query: Query): Promise<any>
 	dropIndex (_mapping: MappingConfigService, query: Query): Promise<any>
+
+	// introspect (names?:string[]): Promise<EntityMapping[]>
 }

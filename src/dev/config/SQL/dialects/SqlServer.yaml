@@ -1,5 +1,5 @@
 _extends: [SQL]
-types:
+dbTypes:
   boolean: BIT
 ddl:
   createPk: "PRIMARY KEY ({columns})"

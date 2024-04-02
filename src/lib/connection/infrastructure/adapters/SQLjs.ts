@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-tabs */
 
 import { ConnectionPoolAdapter } from './base/connectionPool'
@@ -5,7 +6,7 @@ import { ConnectionAdapter } from './base/connection'
 import { ConnectionConfig } from '../../domain'
 import { Helper } from '../../../shared/application'
 import { Connection } from '../../application'
-import { MappingConfigService, Data } from 'lambdaorm-base'
+import { MappingConfigService, Data, EntityMapping } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
 import { Query } from '../../../query/domain'
 

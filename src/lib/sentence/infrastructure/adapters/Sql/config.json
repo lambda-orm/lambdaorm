@@ -1,6 +1,6 @@
 {
   "SQL": {
-    "types": {
+    "dbTypes": {
       "boolean": "BOOLEAN",
       "integer": "INTEGER",
       "decimal": "DECIMAL(10,4)",
@@ -244,7 +244,7 @@
   },
   "dialects": {
     "MariaDB": {
-      "types": {
+      "dbTypes": {
         "text": "LONGTEXT",
         "boolean": "BOOLEAN",
         "integer": "INTEGER",
@@ -496,7 +496,7 @@
       }
     },
     "MySQL": {
-      "types": {
+      "dbTypes": {
         "text": "LONGTEXT",
         "boolean": "BOOLEAN",
         "integer": "INTEGER",
@@ -748,7 +748,7 @@
       }
     },
     "Oracle": {
-      "types": {
+      "dbTypes": {
         "boolean": "CHAR(1)",
         "integer": "NUMBER(10)",
         "decimal": "NUMBER(19,4)",
@@ -991,7 +991,7 @@
       }
     },
     "PostgreSQL": {
-      "types": {
+      "dbTypes": {
         "dateTime": "TIMESTAMP",
         "boolean": "BOOLEAN",
         "integer": "INTEGER",
@@ -1000,6 +1000,26 @@
         "date": "DATE",
         "time": "TIME",
         "text": "TEXT"
+      },
+      "types": {
+        "integer": "integer",
+        "bigint": "integer",
+        "smallint": "integer",
+        "decimal": "decimal",
+        "numeric": "decimal",
+        "real": "decimal",
+        "double": "decimal",
+        "double precision": "decimal",
+        "character varying": "string",
+        "uuid": "string",
+        "text": "string",
+        "timestamp without time zone": "dateTime",
+        "timestamp with time zone": "dateTime",
+        "date": "date",
+        "time": "time",
+        "time without time zone": "time",
+        "time with time zone": "time",
+        "boolean": "boolean"
       },
       "ddl": {
         "incrementalColumDefine": "{name} serial",
@@ -1011,6 +1031,14 @@
         "alterPropertyType": "{name} SET DATA TYPE {type}",
         "alterPropertyNullable": "{name} DROP NOT NULL",
         "alterPropertyNotNullable": "{name} SET NOT NULL",
+        "objects": "SELECT\n  CASE\n    WHEN t.table_type = 'BASE TABLE' THEN 'table'\n    WHEN t.table_type = 'VIEW' THEN 'view'\n    ELSE 'unknown'\n  END AS \"type\",\n  t.table_name AS \"name\",\n  ts.tablespace_name AS \"tablespace\",\n  pg_catalog.obj_description(t.table_name::regclass, 'pg_class') AS \"comment\"\nFROM information_schema.tables t\nJOIN (SELECT tablename AS table_name,\n  COALESCE(tablespace,'pg_default') AS tablespace_name\n  FROM pg_tables \n  WHERE schemaname = current_schema\n  ) as ts ON ts.table_name = t.table_name\nWHERE t.table_catalog = current_catalog\n  AND t.table_schema = current_schema\n  AND t.table_type IN ('BASE TABLE', 'VIEW')  \n",
+        "tables": "SELECT\n  t.table_name AS \"tableName\",\n  ts.tablespace_name AS \"tablespace\",\n  c.column_name AS \"columnName\",\n  c.data_type AS \"dbType\",\n  c.is_nullable = 'YES' AS \"required\",\n  c.is_identity AS \"isIdentity\",\n  (pg_get_serial_sequence(t.table_name,lower(c.column_name)) IS NOT NULL) AS \"autoIncrement\",\n  c.character_maximum_length AS \"length\",\n  c.numeric_precision AS \"precision\",\n  c.numeric_scale AS \"scale\",\n  c.datetime_precision AS \"time\"    \nFROM information_schema.tables t\nJOIN information_schema.columns c ON t.table_name = c.table_name\nJOIN (SELECT tablename AS table_name,\n  COALESCE(tablespace,'pg_default') AS tablespace_name\n  FROM pg_tables \n  WHERE schemaname = current_schema\n  ) as ts ON ts.table_name = t.table_name\nWHERE t.table_catalog = current_catalog\n  AND t.table_schema = current_schema\n  AND c.table_catalog = current_catalog\n  AND c.table_schema = current_schema\n  AND t.table_type = 'BASE TABLE'\n  AND t.table_name IN ({{names}})\n",
+        "views": "SELECT\n  t.table_name AS \"tableName\",\n  ts.tablespace_name AS \"tablespace\",\n  c.column_name AS \"columnName\",\n  c.data_type AS \"dbType\",\n  c.is_nullable = 'YES' AS \"required\",\n  c.is_identity AS \"isIdentity\",\n  (pg_get_serial_sequence(t.table_name,lower(c.column_name)) IS NOT NULL) AS \"autoIncrement\",\n  c.character_maximum_length AS \"length\",\n  c.numeric_precision AS \"precision\",\n  c.numeric_scale AS \"scale\",\n  c.datetime_precision AS \"time\"    \nFROM information_schema.tables t\nJOIN information_schema.columns c ON t.table_name = c.table_name\nJOIN (SELECT tablename AS table_name,\n  COALESCE(tablespace,'pg_default') AS tablespace_name\n  FROM pg_tables \n  WHERE schemaname = current_schema\n  ) as ts ON ts.table_name = t.table_name\nWHERE t.table_catalog = current_catalog\n  AND t.table_schema = current_schema\n  AND c.table_catalog = current_catalog\n  AND c.table_schema = current_schema\n  AND t.table_type = 'VIEW'\n  AND t.table_name IN ({{names}})\n",
+        "primaryKeys": "SELECT\n  tc.table_name AS \"tableName\",\n  kcu.column_name AS \"columnName\",\n  tc.constraint_name AS \"constraintName\"\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nWHERE tc.constraint_type = 'PRIMARY KEY'\n  AND tc.table_catalog = current_catalog\n  AND tc.table_schema = current_schema\n  AND tc.table_name IN ({{tableNames}})\n",
+        "uniqueKeys": "SELECT\n  tc.table_name AS \"tableName\",\n  kcu.column_name AS \"columnName\",\n  tc.constraint_name AS \"constraintName\"\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nWHERE tc.constraint_type = 'UNIQUE'\n  AND tc.table_catalog = current_catalog\n  AND tc.table_schema = current_schema\n  AND tc.table_name IN ({{tableNames}})\n",
+        "foreignKeys": "SELECT\n  tc.table_name AS \"tableName\",\n  kcu.column_name AS \"columnName\",\n  ccu.table_name AS \"refTableName\",\n  ccu.column_name AS \"refColumnName\",\n  tc.constraint_name AS \"constraintName\"\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nJOIN information_schema.constraint_column_usage ccu ON tc.constraint_name = ccu.constraint_name\nWHERE tc.constraint_type = 'FOREIGN KEY'\n  AND tc.table_catalog = current_catalog\n  AND tc.table_schema = current_schema\n  AND tc.table_name IN ({{tableNames}})\n",
+        "indexes": "SELECT\n  t.relname AS \"tableName\",\n  i.relname AS \"indexName\",\n  a.attname AS \"columnName\",\n  ix.indisunique AS \"isUnique\",\n  ix.indisprimary AS \"isPrimary\"\nFROM pg_class t\nJOIN pg_index ix ON t.oid = ix.indrelid\nJOIN pg_class i ON i.oid = ix.indexrelid\nJOIN pg_attribute a ON a.attrelid = t.oid\nWHERE t.relkind = 'r'\n  AND t.relname IN ({{tableNames}})\n  AND a.attnum = ANY(ix.indkey)\n",
+        "sequences": "SELECT\n  sequence_name AS \"sequenceName\",\n  start_value AS \"startValue\",\n  increment AS \"increment\"\nFROM information_schema.sequences\nWHERE sequence_catalog = current_catalog\n  AND sequence_schema = current_schema\n  AND sequence_name IN ({{sequenceNames}})\n",
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createEntity": "CREATE TABLE {name} ({define})",
         "createSequence": "CREATE SEQUENCE {name} START WITH 1 INCREMENT BY 1 MAXVALUE 999999999999 MINVALUE 1",
@@ -1234,7 +1262,7 @@
       }
     },
     "SQLjs": {
-      "types": {
+      "dbTypes": {
         "boolean": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
@@ -1477,7 +1505,7 @@
       }
     },
     "SqlServer": {
-      "types": {
+      "dbTypes": {
         "boolean": "BIT",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",

@@ -8,7 +8,7 @@ import { Helper } from '../../../shared/application'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
-import { MappingConfigService, Data } from 'lambdaorm-base'
+import { MappingConfigService, Data, EntityMapping } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
 
 export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {

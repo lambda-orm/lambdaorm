@@ -5,14 +5,13 @@ import { Helper } from '../../../../shared/application'
 import { Parameter } from '3xpr'
 import { Primitive } from 'typ3s'
 import { Connection } from '../../../application'
-import { MappingConfigService, MethodNotImplemented, Data } from 'lambdaorm-base'
+import { MappingConfigService, MethodNotImplemented, Data, EntityMapping } from 'lambdaorm-base'
 import { DialectService } from '../../../../language/application'
 
 export abstract class ConnectionAdapter implements Connection {
 	public cnx: any
 	public pool: any
 	public inTransaction: boolean
-
 	public maxChunkSizeOnSelect: number
 	public maxChunkSizeIdsOnSelect: number
 	public maxChunkSizeOnBulkInsert: number
@@ -206,4 +205,19 @@ export abstract class ConnectionAdapter implements Connection {
 	public async dropIndex (_mapping: MappingConfigService, query: Query): Promise<any> {
 		return this.executeDDL(query)
 	}
+
+	// public async introspect (names?:string[]): Promise<EntityMapping[]> {
+	// const entities = await this.entities(names)
+	// await this.solvePrimaryKeys(entities)
+	// await this.solveUniqueKeys(entities)
+	// await this.solveIndexes(entities)
+	// const views = await this.views(names)
+	// return entities.concat(views)
+	// }
+	// protected abstract entities (name?:string[]): Promise<EntityMapping[]>
+	// protected abstract solvePrimaryKeys (entities:EntityMapping[]) : Promise<void>
+	// protected abstract solveUniqueKeys (entities:EntityMapping[]): Promise<void>
+	// protected abstract solveIndexes (entities:EntityMapping[]): Promise<void>
+	// protected abstract views (name?:string[]): Promise<EntityMapping[]>
+	// protected abstract columnTypeToType (columnType:string): string
 }

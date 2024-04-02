@@ -1,4 +1,4 @@
-import { QueryOptions, SchemaState } from 'lambdaorm-base'
+import { Mapping, QueryOptions, SchemaData, SchemaState } from 'lambdaorm-base'
 import { ExpressionFacade } from '../../expressions/application'
 import { LanguagesService } from '../../language/application'
 import { StageMappingService, StageModelService } from './services/stateService'
@@ -11,6 +11,8 @@ import { StageImport } from './useCases/import'
 import { StageTruncate } from './useCases/truncate'
 import { StageSync } from './useCases/sync'
 import { Executor } from '../../execution/domain'
+import { StageMatch } from './useCases/match'
+import { StageIntrospect } from './useCases/introspect'
 
 export class StageFacade {
 	private stageModelService: StageModelService
@@ -59,5 +61,24 @@ export class StageFacade {
 	public import (options?:QueryOptions):StageImport {
 		const _options = this.expression.solveOptions(options)
 		return new StageImport(this.stageMappingService, this.schemaState.domain, this.expression, this.executor, _options)
+	}
+
+	public async introspect (options?:QueryOptions): Promise<Mapping[]> {
+		const _options = this.expression.solveOptions(options)
+		return await new StageIntrospect(this.executor, this.schemaState, this.languages, _options).execute()
+	}
+
+	public async match (options?:QueryOptions): Promise<void> {
+		const _options = this.expression.solveOptions(options)
+		const mappings = await this.introspect(_options)
+		await this.schemaState.updateFromMapping(mappings)
+		await new StageMatch(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper).execute()
+	}
+
+	public async syncAndImport (data: any|any[], name:string, options?:QueryOptions): Promise<SchemaData> {
+		const schemaData = await this.schemaState.updateFromData(data, name)
+		await this.sync(options).execute()
+		await this.import(options).execute(schemaData)
+		return schemaData
 	}
 }

@@ -3,13 +3,13 @@
 ## Start
 
 ```sh
-docker-compose -p data up -d
+docker-compose -p lab up -d
 ```
 
 ## Stop
 
 ```sh
-docker-compose -p data down
+docker-compose -p lab down
 ```
 
 ## References

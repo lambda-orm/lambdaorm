@@ -1,5 +1,5 @@
 _extends: [SQL]
-types:
+dbTypes:
   boolean: CHAR(1)
   integer: NUMBER(10)
   decimal: NUMBER(19,4)

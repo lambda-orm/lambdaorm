@@ -33,7 +33,7 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 	}
 
 	private createColumn (entity: EntityMapping, property: PropertyMapping): string {
-		let type = this.dialect.type(property.type)
+		let type = this.dialect.dbType(property.type)
 		if (type === undefined) {
 			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
 		}
@@ -110,7 +110,7 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 
 	public alterPropertyType (entity: EntityMapping, property: Property): Query | undefined {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name)
-		let type = this.dialect.type(property.type)
+		let type = this.dialect.dbType(property.type)
 		if (type === undefined) {
 			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
 		}
@@ -141,7 +141,7 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 
 	private property (entity: EntityMapping, property: Property):string {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name)
-		let type = this.dialect.type(property.type)
+		let type = this.dialect.dbType(property.type)
 		if (type === undefined) {
 			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
 		}
@@ -268,5 +268,52 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		let text = this.dialect.ddl(SentenceAction.dropSequence)
 		text = text.replace('{name}', this.dialect.delimiter(entity.sequence))
 		return new Query({ action: SentenceAction.dropSequence, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: entity.name })
+	}
+
+	public objects (): Query {
+		const text = this.dialect.ddl(SentenceAction.objects)
+		return new Query({ action: SentenceAction.objects, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public tables (names:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.tables)
+		text = text.replace('{names}', names.map(p => this.dialect.delimiter(p)).join(','))
+		return new Query({ action: SentenceAction.tables, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public views (names:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.views)
+		text = text.replace('{names}', names.map(p => this.dialect.delimiter(p)).join(','))
+		return new Query({ action: SentenceAction.views, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public primaryKeys (tableNames:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.primaryKeys)
+		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.delimiter(p)).join(','))
+		return new Query({ action: SentenceAction.primaryKeys, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public uniqueKeys (tableNames:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.uniqueKeys)
+		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.delimiter(p)).join(','))
+		return new Query({ action: SentenceAction.uniqueKeys, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public foreignKeys (tableNames:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.foreignKeys)
+		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.delimiter(p)).join(','))
+		return new Query({ action: SentenceAction.foreignKeys, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public indexes (tableNames:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.indexes)
+		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.delimiter(p)).join(','))
+		return new Query({ action: SentenceAction.indexes, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public sequences (sequenceNames:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.sequences)
+		text = text.replace('{sequenceNames}', sequenceNames.map(p => this.dialect.delimiter(p)).join(','))
+		return new Query({ action: SentenceAction.sequences, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
 	}
 }

@@ -15,14 +15,24 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
-			"name": "data lab",
+			"name": "sync from data",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/data/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/data/countries.env"
+			"program": "${workspaceFolder}/src/dev/labs/syncFromData/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/syncFromData/countries.env"
+		},
+		{
+			"name": "match",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/match/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/match/countries.env"
 		},
 		{
 			"name": "mongo lab",

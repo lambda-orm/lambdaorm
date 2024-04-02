@@ -34,4 +34,12 @@ export abstract class DDLBuilderAdapter implements DDLBuilderPort {
 	abstract createFk(entity: EntityMapping, relation: Relation): Query | undefined
 	abstract createIndex(entity: EntityMapping, index: Index): Query | undefined
 	abstract createSequence(entity: EntityMapping): Query | undefined
+	abstract objects (): Query
+	abstract tables (names:string[]): Query
+	abstract views (names:string[]): Query
+	abstract primaryKeys (tableNames:string[]): Query
+	abstract uniqueKeys (tableNames:string[]): Query
+	abstract foreignKeys (tableNames:string[]): Query
+	abstract indexes (tableNames:string[]): Query
+	abstract sequences (sequenceNames:string[]): Query
 }
