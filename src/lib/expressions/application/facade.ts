@@ -36,26 +36,26 @@ export class ExpressionFacade {
 	}
 
 	public build (expression: string, options?: QueryOptions): Query {
-		return this.builder.build(expression, this.solveOptions(options))
+		return this.builder.build(expression, this.solveQueryOptions(options))
 	}
 
 	public plan (expression: string, options?: QueryOptions): QueryPlan {
-		return this.getQueryPlan.plan(expression, this.solveOptions(options))
+		return this.getQueryPlan.plan(expression, this.solveQueryOptions(options))
 	}
 
-	public solveOptions (options?: QueryOptions):QueryOptions {
-		return this.queryHelper.solveOptions(options)
+	public solveQueryOptions (options?: QueryOptions):QueryOptions {
+		return this.queryHelper.solveQueryOptions(options)
 	}
 
 	public async execute (expression: string, data: any = {}, options?: QueryOptions): Promise<any> {
-		return this.expressionExecute.execute(expression, data, this.solveOptions(options))
+		return this.expressionExecute.execute(expression, data, this.solveQueryOptions(options))
 	}
 
 	public async executeList (expressions: string[], options?: QueryOptions): Promise<any> {
-		return this.expressionExecute.executeList(expressions, this.solveOptions(options))
+		return this.expressionExecute.executeList(expressions, this.solveQueryOptions(options))
 	}
 
 	public async transaction (options: QueryOptions|undefined = undefined, callback: { (tr: ExpressionTransaction): Promise<void> }): Promise<void> {
-		return this.expressionExecute.transaction(this.solveOptions(options), callback)
+		return this.expressionExecute.transaction(this.solveQueryOptions(options), callback)
 	}
 }

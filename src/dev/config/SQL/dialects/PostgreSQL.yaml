@@ -74,7 +74,7 @@ ddl:
           AND c.table_catalog = current_catalog
           AND c.table_schema = current_schema
           AND t.table_type = 'BASE TABLE'
-          AND t.table_name IN ({{names}})
+          AND t.table_name IN ({names})
   views: |
     SELECT
       t.table_name AS "tableName",
@@ -100,7 +100,7 @@ ddl:
       AND c.table_catalog = current_catalog
       AND c.table_schema = current_schema
       AND t.table_type = 'VIEW'
-      AND t.table_name IN ({{names}})
+      AND t.table_name IN ({names})
   primaryKeys: |
     SELECT
       tc.table_name AS "tableName",
@@ -111,7 +111,7 @@ ddl:
     WHERE tc.constraint_type = 'PRIMARY KEY'
       AND tc.table_catalog = current_catalog
       AND tc.table_schema = current_schema
-      AND tc.table_name IN ({{tableNames}})
+      AND tc.table_name IN ({tableNames})
   uniqueKeys: |
     SELECT
       tc.table_name AS "tableName",
@@ -122,7 +122,7 @@ ddl:
     WHERE tc.constraint_type = 'UNIQUE'
       AND tc.table_catalog = current_catalog
       AND tc.table_schema = current_schema
-      AND tc.table_name IN ({{tableNames}})
+      AND tc.table_name IN ({tableNames})
   foreignKeys: |
     SELECT
       tc.table_name AS "tableName",
@@ -136,7 +136,7 @@ ddl:
     WHERE tc.constraint_type = 'FOREIGN KEY'
       AND tc.table_catalog = current_catalog
       AND tc.table_schema = current_schema
-      AND tc.table_name IN ({{tableNames}})
+      AND tc.table_name IN ({tableNames})
   indexes: |
     SELECT
       t.relname AS "tableName",
@@ -149,7 +149,7 @@ ddl:
     JOIN pg_class i ON i.oid = ix.indexrelid
     JOIN pg_attribute a ON a.attrelid = t.oid
     WHERE t.relkind = 'r'
-      AND t.relname IN ({{tableNames}})
+      AND t.relname IN ({tableNames})
       AND a.attnum = ANY(ix.indkey)
   sequences: |
     SELECT
@@ -159,7 +159,7 @@ ddl:
     FROM information_schema.sequences
     WHERE sequence_catalog = current_catalog
       AND sequence_schema = current_schema
-      AND sequence_name IN ({{sequenceNames}})
+      AND sequence_name IN ({sequenceNames})
 dml:
   page: "{sentence} OFFSET {offset} LIMIT {records}"
   insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoIncrementField} AS id

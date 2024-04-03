@@ -8,7 +8,7 @@ export class QueryHelper {
 		private readonly viewsConfigService:ViewsConfigService
 	) {}
 
-	public solveOptions (options?: QueryOptions):QueryOptions {
+	public solveQueryOptions (options?: QueryOptions):QueryOptions {
 		if (!options) {
 			options = {}
 		}

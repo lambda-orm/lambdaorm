@@ -105,6 +105,11 @@ export class DialectService {
 		return template.replace('{name}', name)
 	}
 
+	public string (name: string): string {
+		const template = this._others.string
+		return template.replace('{name}', name)
+	}
+
 	public getOperatorMetadata (name: string, operands: number): string | null {
 		try {
 			if (this._operators[name]) {

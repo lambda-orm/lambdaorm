@@ -22,12 +22,14 @@ export class QuerySelectExecutor {
 
 	public async select (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<any> {
 		const mainResult = await connection.select(mapping, dialect, query, data)
-		const entity = mapping.getEntity(query.entity) as EntityMapping
 		if (mainResult.length > 0) {
-			// get rows for include relations
-			if (entity.hadReadValues) {
-				this.solveReadValues.solve(query, mainResult)
+			if (query.entity) {
+				const entity = mapping.getEntity(query.entity) as EntityMapping
+				if (entity && entity.hadReadValues) {
+					this.solveReadValues.solve(query, mainResult)
+				}
 			}
+			// get rows for include relations
 			await this.selectIncludes(query, data, mainResult, dialect, connection)
 		}
 		return mainResult

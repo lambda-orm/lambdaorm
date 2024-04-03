@@ -60,6 +60,7 @@ dml:
   join: 'INNER JOIN {name} {alias} ON {relation}'
 others:
   delimiter: '"{name}"'
+  string: "'{name}'"
   separatorSql: ;
   notNullable: NOT NULL
   variable: ':{name}'

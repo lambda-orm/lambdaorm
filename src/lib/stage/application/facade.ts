@@ -13,6 +13,7 @@ import { StageSync } from './useCases/sync'
 import { Executor } from '../../execution/domain'
 import { StageMatch } from './useCases/match'
 import { StageIntrospect } from './useCases/introspect'
+import { StageMatchOptions } from '../domain'
 
 export class StageFacade {
 	private stageModelService: StageModelService
@@ -34,44 +35,44 @@ export class StageFacade {
 	}
 
 	public sync (options?:QueryOptions):StageActionDDL {
-		const _options = this.expression.solveOptions(options)
+		const _options = this.expression.solveQueryOptions(options)
 		return new StageSync(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper)
 	}
 
 	public drop (options?:QueryOptions):StageActionDDL {
-		const _options = this.expression.solveOptions(options)
+		const _options = this.expression.solveQueryOptions(options)
 		return new StageDrop(this.executor, this.stageModelService, this.stageMappingService, this.schemaState, this.languages, _options, this.helper)
 	}
 
 	public truncate (options?:QueryOptions):StageActionDDL {
-		const _options = this.expression.solveOptions(options)
+		const _options = this.expression.solveQueryOptions(options)
 		return new StageTruncate(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper)
 	}
 
 	public delete (options?:QueryOptions):StageDelete {
-		const _options = this.expression.solveOptions(options)
+		const _options = this.expression.solveQueryOptions(options)
 		return new StageDelete(this.stageMappingService, this.schemaState.domain, this.expression, this.executor, _options)
 	}
 
 	public export (options?:QueryOptions):StageExport {
-		const _options = this.expression.solveOptions(options)
+		const _options = this.expression.solveQueryOptions(options)
 		return new StageExport(this.stageMappingService, this.schemaState.domain, this.expression, this.executor, _options)
 	}
 
 	public import (options?:QueryOptions):StageImport {
-		const _options = this.expression.solveOptions(options)
+		const _options = this.expression.solveQueryOptions(options)
 		return new StageImport(this.stageMappingService, this.schemaState.domain, this.expression, this.executor, _options)
 	}
 
 	public async introspect (options?:QueryOptions): Promise<Mapping[]> {
-		const _options = this.expression.solveOptions(options)
+		const _options = this.expression.solveQueryOptions(options)
 		return await new StageIntrospect(this.executor, this.schemaState, this.languages, _options).execute()
 	}
 
-	public async match (options?:QueryOptions): Promise<void> {
-		const _options = this.expression.solveOptions(options)
+	public async match (options?:StageMatchOptions): Promise<void> {
+		const _options = this.expression.solveQueryOptions(options) as StageMatchOptions
 		const mappings = await this.introspect(_options)
-		await this.schemaState.updateFromMapping(mappings)
+		await this.schemaState.updateFromMapping(mappings, _options)
 		await new StageMatch(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper).execute()
 	}
 

@@ -16,7 +16,7 @@ const createSchemaIfNotExists = async(schemaPath:string): Promise<void> => {
 	try{
 		await createSchemaIfNotExists(schemaPath)
 		await orm.init(schemaPath)	
-		await orm.stage.match({ })
+		await orm.stage.match({ removeEntities: true, removeProperties: true})
 	}catch(e){
 		console.log(e)
 	} finally {

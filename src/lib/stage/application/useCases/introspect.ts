@@ -32,8 +32,12 @@ export class StageIntrospect {
 		const rows = await this.sourceObjects(source)
 		const tableNames = rows.filter((row: any) => row.type === 'table').map((row: any) => row.name)
 		const viewNames = rows.filter((row: any) => row.type === 'view').map((row: any) => row.name)
-		await this.introspectEntities(source, tableNames, entities)
-		await this.introspectViews(source, viewNames, entities)
+		if (tableNames.length > 0) {
+			await this.introspectEntities(source, tableNames, entities)
+		}
+		if (viewNames.length > 0) {
+			await this.introspectViews(source, viewNames, entities)
+		}
 	}
 
 	private async sourceObjects (source: Source): Promise<any[]> {
