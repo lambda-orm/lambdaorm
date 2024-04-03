@@ -151,6 +151,8 @@ ddl:
     WHERE t.relkind = 'r'
       AND t.relname IN ({tableNames})
       AND a.attnum = ANY(ix.indkey)
+      AND ix.indisunique = false
+    	AND ix.indisprimary = false
   sequences: |
     SELECT
       sequence_name AS "sequenceName",

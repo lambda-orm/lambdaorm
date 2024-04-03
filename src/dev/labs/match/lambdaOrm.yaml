@@ -76,8 +76,7 @@ domain:
         - name
       properties:
         - name: GmtOffset
-          type: integer
-          required: false
+          type: integer          
         - name: name
           type: string
           required: true
