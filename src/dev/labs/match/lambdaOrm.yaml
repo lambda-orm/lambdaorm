@@ -72,12 +72,20 @@ domain:
         - name: countriesName
           type: string
           required: true
+        - name: positionlat
+          type: decimal
+          required: true
       relations:
         - name: countries
           type: oneToMany
           from: countriesName
           entity: Countries
           to: name
+        - name: position
+          from: positionlat
+          entity: Positions
+          to: lat
+          type: oneToMany
     - name: Countries
       primaryKey:
         - name
@@ -110,6 +118,19 @@ domain:
           entity: Timezones
           to: countriesName
           composite: true
+    - name: Positions
+      properties:
+        - name: lat
+          type: decimal
+          required: true
+          primaryKey: true
+        - name: long
+          type: decimal
+          required: true
+      primaryKey:
+        - lat
+      uniqueKey:
+        - long
 infrastructure:
   paths:
     src: src

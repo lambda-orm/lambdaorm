@@ -311,9 +311,8 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		return new Query({ action: SentenceAction.indexes, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
 	}
 
-	public sequences (sequenceNames:string[]): Query {
-		let text = this.dialect.ddl(SentenceAction.sequences)
-		text = text.replace('{sequenceNames}', sequenceNames.map(p => this.dialect.string(p)).join(','))
+	public sequences (): Query {
+		const text = this.dialect.ddl(SentenceAction.sequences)
 		return new Query({ action: SentenceAction.sequences, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
 	}
 }
