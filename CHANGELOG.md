@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## [1.7.0](https://github.com/lambda-orm/lambdaorm/compare/v1.6.0...v1.7.0) (2024-04-04)
+
+
+### Features
+
+* **schema:** test match with postgres ([b927db0](https://github.com/lambda-orm/lambdaorm/commit/b927db0b8eaab1facac2bf38e88d06454725b270)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* **schema:** test schema match ([2f1a445](https://github.com/lambda-orm/lambdaorm/commit/2f1a445cdbfa755384e48eeddc144bd11e861705)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* **schema:** test schema match ([106c0f7](https://github.com/lambda-orm/lambdaorm/commit/106c0f7c9beb80491d0722c921aa47dc5d7af594)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* **schema:** test schema match ([001ed30](https://github.com/lambda-orm/lambdaorm/commit/001ed30969012a5fa5137aa88a777fc2b2ad40b5)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* **stage:** add match usecase ([1b45586](https://github.com/lambda-orm/lambdaorm/commit/1b45586c18df94f453b9a2a0a63d722a31023ab6)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+
 ## [1.6.0](https://github.com/lambda-orm/lambdaorm/compare/v1.5.0...v1.6.0) (2024-03-31)
 
 **Features:**
