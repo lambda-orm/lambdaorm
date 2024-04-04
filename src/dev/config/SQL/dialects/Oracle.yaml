@@ -19,6 +19,161 @@ ddl:
   dropUk: "DROP CONSTRAINT {name}"
   dropFk: "DROP CONSTRAINT {name}"
   dropIndex: "DROP INDEX {name} ON {table}"
+  objects: |
+      SELECT 
+          CASE 
+              WHEN t.table_type = 'BASE TABLE' THEN 'table'
+              WHEN t.table_type = 'VIEW' THEN 'view'
+              ELSE 'unknown'
+          END AS "type",
+          t.table_name AS "name",
+          ts.tablespace_name AS "tablespace",
+          COMMENT ON TABLE t.table_name IS pg_catalog.obj_description(t.table_name, 'pg_class')
+      FROM 
+          user_tables t
+      JOIN (SELECT 
+              table_name,
+              NVL(tablespace_name, 'USERS') AS tablespace_name
+          FROM user_tables ) ts 
+      ON ts.table_name = t.table_name
+  tables: |
+        SELECT 
+            t.table_name AS "tableName",
+            ts.tablespace_name AS "tablespace",
+            c.column_name AS "columnName",
+            c.data_type AS "dbType",
+            CASE WHEN c.nullable = 'N' THEN 'NO' ELSE 'YES' END AS "required",
+            CASE WHEN c.column_name IN (
+                SELECT column_name
+                FROM user_tab_identity_cols
+                WHERE table_name = t.table_name
+            ) THEN 'YES' ELSE 'NO' END AS "isIdentity",
+            CASE 
+                WHEN c.column_name IN (
+                    SELECT column_name
+                    FROM user_tab_identity_cols
+                    WHERE table_name = t.table_name
+                ) THEN 'YES' 
+                ELSE 
+                    CASE 
+                        WHEN (SELECT COUNT(*) 
+                              FROM user_sequences 
+                              WHERE sequence_name = 'SEQ_' || t.table_name) > 0 
+                        THEN 'YES' 
+                        ELSE 'NO' 
+                    END 
+            END AS "autoIncrement",
+            c.char_col_decl_length AS "length",
+            c.data_precision AS "precision",
+            c.data_scale AS "scale",
+            c.data_length AS "time"
+        FROM 
+            user_tables t
+        JOIN 
+            user_tab_columns c ON t.table_name = c.table_name
+        JOIN 
+            (SELECT 
+                table_name,
+                NVL(tablespace_name, 'USERS') AS tablespace_name
+            FROM 
+                user_tables
+            ) ts 
+        ON 
+            ts.table_name = t.table_name
+        WHERE 
+            t.table_name IN ({names})
+  views: |
+    SELECT 
+        t.table_name AS "tableName",
+        ts.tablespace_name AS "tablespace",
+        c.column_name AS "columnName",
+        c.data_type AS "dbType",
+        CASE WHEN c.nullable = 'N' THEN 'NO' ELSE 'YES' END AS "required",
+        NULL AS "isIdentity", -- Oracle no tiene el concepto de "is_identity" para columnas en vistas
+        NULL AS "autoIncrement", -- Las secuencias en PostgreSQL no se traducen directamente a Oracle, es necesario implementarlas manualmente
+        c.data_length AS "length",
+        c.data_precision AS "precision",
+        c.data_scale AS "scale",
+        NULL AS "time" -- Oracle no tiene el concepto de "datetime_precision" para columnas en vistas
+    FROM 
+        user_views t
+    JOIN 
+        user_tab_columns c ON t.view_name = c.table_name
+    JOIN 
+        (SELECT 
+            table_name,
+            NVL(tablespace_name, 'USERS') AS tablespace_name
+        FROM 
+            user_tables
+        ) ts 
+    ON 
+        ts.table_name = t.table_name
+    WHERE 
+        t.table_name IN ({names})
+  primaryKeys: |
+    SELECT
+        tc.table_name AS "tableName",
+        kcu.column_name AS "columnName",
+        tc.constraint_name AS "constraintName"
+    FROM 
+        user_constraints tc
+    JOIN 
+        user_cons_columns kcu ON tc.constraint_name = kcu.constraint_name
+    WHERE 
+        tc.constraint_type = 'P'
+        AND tc.table_name IN ({tableNames})
+  uniqueKeys: |
+    SELECT
+        tc.table_name AS "tableName",
+        kcu.column_name AS "columnName",
+        tc.constraint_name AS "constraintName"
+    FROM 
+        user_constraints tc
+    JOIN 
+        user_cons_columns kcu ON tc.constraint_name = kcu.constraint_name
+    WHERE 
+        tc.constraint_type = 'U'
+        AND tc.table_name IN ({tableNames})
+  foreignKeys: |
+    SELECT
+        tc.table_name AS "tableName",
+        kcu.column_name AS "columnName",
+        ccu.table_name AS "refTableName",
+        ccu.column_name AS "refColumnName",
+        tc.constraint_name AS "constraintName"
+    FROM 
+        user_constraints tc
+    JOIN 
+        user_cons_columns kcu ON tc.constraint_name = kcu.constraint_name
+    JOIN 
+        user_cons_columns ccu ON tc.r_constraint_name = ccu.constraint_name
+    WHERE 
+        tc.constraint_type = 'R'
+        AND tc.table_name IN ({tableNames})
+  indexes: |
+    SELECT
+        t.table_name AS "tableName",
+        i.index_name AS "indexName",
+        a.column_name AS "columnName",
+        CASE WHEN i.uniqueness = 'UNIQUE' THEN 'true' ELSE 'false' END AS "isUnique",
+        CASE WHEN i.index_type = 'NORMAL' THEN 'false' ELSE 'true' END AS "isPrimary"
+    FROM 
+        user_indexes i
+    JOIN 
+        user_ind_columns a ON i.index_name = a.index_name
+    JOIN 
+        user_tables t ON t.table_name = a.table_name
+    WHERE 
+        t.table_name IN ({tableNames})
+        AND i.uniqueness != 'UNIQUE'
+        AND i.index_type != 'NORMAL'
+  sequences: |
+    SELECT
+        sequence_name AS "sequenceName",
+        min_value AS "startValue",
+        increment_by AS "increment"
+    FROM 
+        user_sequences
 dml:
   page: "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY"
   bulkInsert: INSERT INTO {name}({fields}) VALUES({values})

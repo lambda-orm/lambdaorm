@@ -3,6 +3,136 @@ dbTypes:
   text: LONGTEXT
 ddl:
   dropIndex: "DROP INDEX {name} ON {table}"
+  objects: |
+    SELECT CASE
+        WHEN t.table_type = 'BASE TABLE' THEN 'table'
+        WHEN t.table_type = 'VIEW' THEN 'view'
+        ELSE 'unknown'
+      END AS type,
+      t.table_name AS name,
+      IFNULL(ts.tablespace_name, 'pg_default') AS tablespace,
+      CAST(obj_description(CONCAT('public.', t.table_name), 'pg_class') AS CHAR) AS comment
+    FROM information_schema.tables t
+    JOIN (SELECT tablename AS table_name,
+          COALESCE(tablespace_name, 'pg_default') AS tablespace_name
+          FROM information_schema.tables 
+          WHERE table_schema = DATABASE()
+      ) as ts ON ts.table_name = t.table_name
+    WHERE t.table_schema = DATABASE()
+      AND t.table_type IN ('BASE TABLE', 'VIEW')
+  tables: |
+        SELECT
+          t.table_name AS tableName,
+          ts.tablespace_name AS tablespace,
+          c.column_name AS columnName,
+          c.data_type AS dbType,
+          c.is_nullable = 'NO' AS required,
+          c.extra = 'auto_increment' AS isIdentity,
+          (EXISTS(SELECT column_default 
+                   FROM information_schema.columns 
+                   WHERE table_name = t.table_name 
+                   AND column_name = c.column_name 
+                   AND column_default LIKE 'nextval%')) AS autoIncrement,
+          c.character_maximum_length AS length,
+          c.numeric_precision AS precision,
+          c.numeric_scale AS scale,
+          c.datetime_precision AS time
+        FROM information_schema.tables t
+        JOIN information_schema.columns c ON t.table_name = c.table_name
+        JOIN (SELECT tablename AS table_name,
+          COALESCE(tablespace_name, 'pg_default') AS tablespace_name
+          FROM information_schema.tables 
+          WHERE table_schema = DATABASE()
+          ) as ts ON ts.table_name = t.table_name
+        WHERE t.table_schema = DATABASE()
+          AND t.table_type = 'BASE TABLE'
+          AND t.table_name IN ({names})
+  views: |
+    SELECT
+      t.table_name AS tableName,
+      ts.tablespace_name AS tablespace,
+      c.column_name AS columnName,
+      c.data_type AS dbType,
+      c.is_nullable = 'NO' AS required,
+      c.extra = 'auto_increment' AS isIdentity,
+      (EXISTS(SELECT column_default 
+               FROM information_schema.columns 
+               WHERE table_name = t.table_name 
+               AND column_name = c.column_name 
+               AND column_default LIKE 'nextval%')) AS autoIncrement,
+      c.character_maximum_length AS length,
+      c.numeric_precision AS precision,
+      c.numeric_scale AS scale,
+      c.datetime_precision AS time    
+    FROM information_schema.tables t
+    JOIN information_schema.columns c ON t.table_name = c.table_name
+    JOIN (SELECT tablename AS table_name,
+      COALESCE(tablespace_name, 'pg_default') AS tablespace_name
+      FROM information_schema.tables 
+      WHERE table_schema = DATABASE()
+      ) as ts ON ts.table_name = t.table_name
+    WHERE t.table_schema = DATABASE()
+      AND t.table_type = 'VIEW'
+      AND t.table_name IN ({names})
+  primaryKeys: |
+    SELECT
+      tc.table_name AS tableName,
+      kcu.column_name AS columnName,
+      tc.constraint_name AS constraintName
+    FROM information_schema.table_constraints tc
+    JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name
+    WHERE tc.constraint_type = 'PRIMARY KEY'
+      AND tc.table_schema = DATABASE()
+      AND tc.table_name IN ({tableNames})
+  uniqueKeys: |
+    SELECT
+      tc.table_name AS tableName,
+      kcu.column_name AS columnName,
+      tc.constraint_name AS constraintName
+    FROM information_schema.table_constraints tc
+    JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name
+    WHERE tc.constraint_type = 'UNIQUE'
+      AND tc.table_schema = DATABASE()
+      AND tc.table_name IN ({tableNames})
+  foreignKeys: |
+    SELECT
+      tc.table_name AS "tableName",
+      kcu.column_name AS "columnName",
+      ccu.table_name AS "refTableName",
+      ccu.column_name AS "refColumnName",
+      tc.constraint_name AS "constraintName"
+    FROM information_schema.table_constraints tc
+    JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name
+    JOIN information_schema.constraint_column_usage ccu ON tc.constraint_name = ccu.constraint_name
+    WHERE tc.constraint_type = 'FOREIGN KEY'
+      AND tc.table_catalog = current_catalog
+      AND tc.table_schema = current_schema
+      AND tc.table_name IN ({tableNames})
+  indexes: |
+    SELECT
+      t.table_name AS tableName,
+      i.index_name AS indexName,
+      a.column_name AS columnName,
+      NOT i.non_unique AS isUnique,
+      CASE
+        WHEN i.index_name = 'PRIMARY' THEN TRUE
+        ELSE FALSE
+      END AS isPrimary
+    FROM information_schema.tables t
+    JOIN information_schema.statistics i ON t.table_schema = i.table_schema AND t.table_name = i.table_name
+    JOIN information_schema.columns a ON t.table_schema = a.table_schema AND t.table_name = a.table_name
+    WHERE t.table_type = 'BASE TABLE'
+      AND t.table_name IN ({tableNames})
+      AND FIND_IN_SET(a.ordinal_position, i.column_name) > 0
+      AND i.non_unique = 1
+      AND i.index_name != 'PRIMARY'
+  sequences: |
+    SELECT
+      sequence_name AS sequenceName,
+      start_value AS startValue,
+      increment AS increment
+    FROM information_schema.SEQUENCES
+    WHERE sequence_schema = DATABASE()
 dml:
   delete: DELETE {alias} FROM {name} AS {alias}
   bulkInsert: INSERT INTO {name}({fields}) VALUES ?

@@ -12,6 +12,188 @@ ddl:
   alterPropertyType: '{name} {type}'
   alterPropertyNullable: '{name} NULL'
   alterPropertyNotNullable: '{name} NOT NULL'
+  objects: |
+    SELECT 
+        CASE 
+            WHEN t.TABLE_TYPE = 'BASE TABLE' THEN 'table'
+            WHEN t.TABLE_TYPE = 'VIEW' THEN 'view'
+            ELSE 'unknown' 
+        END AS [type],
+        t.TABLE_NAME AS [name],
+        COALESCE(ts.tablespace_name, 'pg_default') AS [tablespace],
+        CAST(ep.value AS NVARCHAR(MAX)) AS [comment]
+    FROM 
+        INFORMATION_SCHEMA.TABLES t
+    JOIN (
+        SELECT 
+            tablename AS table_name,
+            COALESCE(tablespace, 'pg_default') AS tablespace_name
+        FROM 
+            pg_tables 
+        WHERE 
+            schemaname = current_schema
+    ) AS ts ON ts.table_name = t.TABLE_NAME
+    LEFT JOIN 
+        sys.extended_properties ep ON ep.major_id = OBJECT_ID(t.TABLE_NAME) AND ep.minor_id = 0 AND ep.class = 1 AND ep.name = 'MS_Description'
+    WHERE 
+        t.TABLE_CATALOG = DB_NAME()
+        AND t.TABLE_SCHEMA = SCHEMA_NAME()
+        AND t.TABLE_TYPE IN ('BASE TABLE', 'VIEW')  
+  tables: |
+        SELECT
+            t.TABLE_NAME AS tableName,
+            COALESCE(ts.tablespace_name, 'pg_default') AS tablespace,
+            c.COLUMN_NAME AS columnName,
+            c.DATA_TYPE AS dbType,
+            CASE WHEN c.IS_NULLABLE = 'NO' THEN 1 ELSE 0 END AS required,
+            CASE WHEN c.COLUMNPROPERTY(OBJECT_ID(c.TABLE_NAME), c.COLUMN_NAME, 'IsIdentity') = 1 THEN 1 ELSE 0 END AS isIdentity,
+            CASE WHEN OBJECTPROPERTY(OBJECT_ID(t.TABLE_NAME), 'TableHasIdentity') = 1 
+                    AND c.COLUMN_NAME = (
+                        SELECT COLUMN_NAME
+                        FROM INFORMATION_SCHEMA.COLUMNS
+                        WHERE TABLE_NAME = t.TABLE_NAME
+                          AND COLUMN_NAME = c.COLUMN_NAME
+                          AND COLUMNPROPERTY(OBJECT_ID(t.TABLE_NAME), COLUMN_NAME, 'IsIdentity') = 1
+                    ) THEN 1 ELSE 0 END AS autoIncrement,
+            c.CHARACTER_MAXIMUM_LENGTH AS [length],
+            c.NUMERIC_PRECISION AS [precision],
+            c.NUMERIC_SCALE AS scale,
+            c.DATETIME_PRECISION AS [time]
+        FROM 
+            INFORMATION_SCHEMA.TABLES t
+        JOIN 
+            INFORMATION_SCHEMA.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME
+        JOIN (
+            SELECT 
+                tablename AS table_name,
+                COALESCE(tablespace, 'pg_default') AS tablespace_name
+            FROM 
+                pg_tables 
+            WHERE 
+                schemaname = SCHEMA_NAME()
+        ) AS ts ON ts.table_name = t.TABLE_NAME
+        WHERE 
+            t.TABLE_CATALOG = DB_NAME()
+            AND t.TABLE_SCHEMA = SCHEMA_NAME()
+            AND c.TABLE_CATALOG = DB_NAME()
+            AND c.TABLE_SCHEMA = SCHEMA_NAME()
+            AND t.TABLE_TYPE = 'BASE TABLE'
+            AND t.TABLE_NAME IN ('nombre_tabla1', 'nombre_tabla2', 'nombre_tabla3')
+  views: |
+    SELECT
+        t.TABLE_NAME AS tableName,
+        COALESCE(ts.tablespace_name, 'pg_default') AS tablespace,
+        c.COLUMN_NAME AS columnName,
+        c.DATA_TYPE AS dbType,
+        CASE WHEN c.IS_NULLABLE = 'NO' THEN 1 ELSE 0 END AS required,
+        CASE WHEN c.COLUMNPROPERTY(OBJECT_ID(c.TABLE_NAME), c.COLUMN_NAME, 'IsIdentity') = 1 THEN 1 ELSE 0 END AS isIdentity,
+        CASE WHEN OBJECTPROPERTY(OBJECT_ID(t.TABLE_NAME), 'TableHasIdentity') = 1 
+                AND c.COLUMN_NAME = (
+                    SELECT COLUMN_NAME
+                    FROM INFORMATION_SCHEMA.COLUMNS
+                    WHERE TABLE_NAME = t.TABLE_NAME
+                      AND COLUMN_NAME = c.COLUMN_NAME
+                      AND COLUMNPROPERTY(OBJECT_ID(t.TABLE_NAME), COLUMN_NAME, 'IsIdentity') = 1
+                ) THEN 1 ELSE 0 END AS autoIncrement,
+        c.CHARACTER_MAXIMUM_LENGTH AS [length],
+        c.NUMERIC_PRECISION AS [precision],
+        c.NUMERIC_SCALE AS scale,
+        c.DATETIME_PRECISION AS [time]
+    FROM 
+        INFORMATION_SCHEMA.TABLES t
+    JOIN 
+        INFORMATION_SCHEMA.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME
+    JOIN (
+        SELECT 
+            tablename AS table_name,
+            COALESCE(tablespace, 'pg_default') AS tablespace_name
+        FROM 
+            pg_tables 
+        WHERE 
+            schemaname = SCHEMA_NAME()
+    ) AS ts ON ts.table_name = t.TABLE_NAME
+    WHERE 
+        t.TABLE_CATALOG = DB_NAME()
+        AND t.TABLE_SCHEMA = SCHEMA_NAME()
+        AND c.TABLE_CATALOG = DB_NAME()
+        AND c.TABLE_SCHEMA = SCHEMA_NAME()
+        AND t.TABLE_TYPE = 'VIEW'
+        AND t.TABLE_NAME IN ('nombre_vista1', 'nombre_vista2', 'nombre_vista3')
+  primaryKeys: |
+    SELECT
+        tc.TABLE_NAME AS tableName,
+        kcu.COLUMN_NAME AS columnName,
+        tc.CONSTRAINT_NAME AS constraintName
+    FROM 
+        INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
+    JOIN 
+        INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu ON tc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME
+    WHERE 
+        tc.CONSTRAINT_TYPE = 'PRIMARY KEY'
+        AND tc.TABLE_CATALOG = DB_NAME()
+        AND tc.TABLE_SCHEMA = SCHEMA_NAME()
+        AND tc.TABLE_NAME IN ('nombre_tabla1', 'nombre_tabla2', 'nombre_tabla3')
+  uniqueKeys: |
+    SELECT
+        tc.TABLE_NAME AS tableName,
+        kcu.COLUMN_NAME AS columnName,
+        tc.CONSTRAINT_NAME AS constraintName
+    FROM 
+        INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
+    JOIN 
+        INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu ON tc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME
+    WHERE 
+        tc.CONSTRAINT_TYPE = 'UNIQUE'
+        AND tc.TABLE_CATALOG = DB_NAME()
+        AND tc.TABLE_SCHEMA = SCHEMA_NAME()
+        AND tc.TABLE_NAME IN ('nombre_tabla1', 'nombre_tabla2', 'nombre_tabla3')
+  foreignKeys: |
+    SELECT
+        tc.TABLE_NAME AS tableName,
+        kcu.COLUMN_NAME AS columnName,
+        ccu.TABLE_NAME AS refTableName,
+        ccu.COLUMN_NAME AS refColumnName,
+        tc.CONSTRAINT_NAME AS constraintName
+    FROM 
+        INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
+    JOIN 
+        INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu ON tc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME
+    JOIN 
+        INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu ON tc.CONSTRAINT_NAME = ccu.CONSTRAINT_NAME
+    WHERE 
+        tc.CONSTRAINT_TYPE = 'FOREIGN KEY'
+        AND tc.TABLE_CATALOG = DB_NAME()
+        AND tc.TABLE_SCHEMA = SCHEMA_NAME()
+        AND tc.TABLE_NAME IN ('nombre_tabla1', 'nombre_tabla2', 'nombre_tabla3')
+  indexes: |
+   SELECT
+        t.name AS tableName,
+        i.name AS indexName,
+        c.name AS columnName,
+        CASE WHEN i.is_unique = 1 THEN 'true' ELSE 'false' END AS isUnique,
+        CASE WHEN i.is_primary_key = 1 THEN 'true' ELSE 'false' END AS isPrimary
+    FROM 
+        sys.tables t
+    JOIN 
+        sys.indexes i ON t.object_id = i.object_id
+    JOIN 
+        sys.index_columns ic ON i.object_id = ic.object_id AND i.index_id = ic.index_id
+    JOIN 
+        sys.columns c ON ic.object_id = c.object_id AND ic.column_id = c.column_id
+    WHERE 
+        t.type = 'U'
+        AND t.name IN ('nombre_tabla1', 'nombre_tabla2', 'nombre_tabla3')
+        AND i.is_unique = 0
+        AND i.is_primary_key = 0
+  sequences: |
+    SELECT
+        name AS sequenceName,
+        start_value AS startValue,
+        increment AS increment
+    FROM 
+        sys.sequences
+    WHERE 
+        object_id = OBJECT_ID('sequence_schema.sequence_name')
 dml:
   insert: INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoIncrementField} VALUES({values})
   # insert: INSERT INTO {name}({fields}) VALUES({values})

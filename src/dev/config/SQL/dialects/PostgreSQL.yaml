@@ -31,8 +31,7 @@ ddl:
   alterPropertyNullable: '{name} DROP NOT NULL'
   alterPropertyNotNullable: '{name} SET NOT NULL'
   objects: |
-    SELECT
-      CASE
+    SELECT CASE
         WHEN t.table_type = 'BASE TABLE' THEN 'table'
         WHEN t.table_type = 'VIEW' THEN 'view'
         ELSE 'unknown'
