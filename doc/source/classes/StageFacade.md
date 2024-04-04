@@ -15,7 +15,10 @@
 - [exists](StageFacade.md#exists)
 - [export](StageFacade.md#export)
 - [import](StageFacade.md#import)
+- [introspect](StageFacade.md#introspect)
+- [match](StageFacade.md#match)
 - [sync](StageFacade.md#sync)
+- [syncAndImport](StageFacade.md#syncandimport)
 - [truncate](StageFacade.md#truncate)
 
 ## Constructors
@@ -41,7 +44,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:19](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/facade.ts#L19)
+[src/lib/stage/application/facade.ts:22](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L22)
 
 ## Methods
 
@@ -61,7 +64,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:49](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/facade.ts#L49)
+[src/lib/stage/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L52)
 
 ___
 
@@ -81,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:39](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/facade.ts#L39)
+[src/lib/stage/application/facade.ts:42](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L42)
 
 ___
 
@@ -101,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:29](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/facade.ts#L29)
+[src/lib/stage/application/facade.ts:32](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L32)
 
 ___
 
@@ -121,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/facade.ts#L54)
+[src/lib/stage/application/facade.ts:57](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L57)
 
 ___
 
@@ -141,7 +144,47 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:59](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/facade.ts#L59)
+[src/lib/stage/application/facade.ts:62](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L62)
+
+___
+
+### introspect
+
+▸ **introspect**(`options?`): `Promise`\<[`Mapping`](../interfaces/Mapping.md)[]\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+
+#### Returns
+
+`Promise`\<[`Mapping`](../interfaces/Mapping.md)[]\>
+
+#### Defined in
+
+[src/lib/stage/application/facade.ts:67](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L67)
+
+___
+
+### match
+
+▸ **match**(`options?`): `Promise`\<`void`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | `StageMatchOptions` |
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Defined in
+
+[src/lib/stage/application/facade.ts:72](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L72)
 
 ___
 
@@ -161,7 +204,29 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:34](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/facade.ts#L34)
+[src/lib/stage/application/facade.ts:37](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L37)
+
+___
+
+### syncAndImport
+
+▸ **syncAndImport**(`data`, `name`, `options?`): `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `any` |
+| `name` | `string` |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+
+#### Returns
+
+`Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
+
+#### Defined in
+
+[src/lib/stage/application/facade.ts:79](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L79)
 
 ___
 
@@ -181,4 +246,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/stage/application/facade.ts#L44)
+[src/lib/stage/application/facade.ts:47](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/facade.ts#L47)

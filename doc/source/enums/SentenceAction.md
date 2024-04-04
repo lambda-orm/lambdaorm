@@ -26,11 +26,20 @@
 - [dropProperty](SentenceAction.md#dropproperty)
 - [dropSequence](SentenceAction.md#dropsequence)
 - [dropUk](SentenceAction.md#dropuk)
+- [foreignKeys](SentenceAction.md#foreignkeys)
+- [indexes](SentenceAction.md#indexes)
 - [insert](SentenceAction.md#insert)
 - [merge](SentenceAction.md#merge)
+- [objects](SentenceAction.md#objects)
+- [partitions](SentenceAction.md#partitions)
+- [primaryKeys](SentenceAction.md#primarykeys)
 - [select](SentenceAction.md#select)
+- [sequences](SentenceAction.md#sequences)
+- [tables](SentenceAction.md#tables)
 - [truncateEntity](SentenceAction.md#truncateentity)
+- [uniqueKeys](SentenceAction.md#uniquekeys)
 - [update](SentenceAction.md#update)
+- [views](SentenceAction.md#views)
 
 ## Enumeration Members
 
@@ -234,6 +243,26 @@ node_modules/lambdaorm-base/schema/domain/actions.d.ts:39
 
 ___
 
+### foreignKeys
+
+• **foreignKeys** = ``"foreignKeys"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:50
+
+___
+
+### indexes
+
+• **indexes** = ``"indexes"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:47
+
+___
+
 ### insert
 
 • **insert** = ``"insert"``
@@ -254,6 +283,36 @@ node_modules/lambdaorm-base/schema/domain/actions.d.ts:23
 
 ___
 
+### objects
+
+• **objects** = ``"objects"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:43
+
+___
+
+### partitions
+
+• **partitions** = ``"partitions"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:51
+
+___
+
+### primaryKeys
+
+• **primaryKeys** = ``"primaryKeys"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:48
+
+___
+
 ### select
 
 • **select** = ``"select"``
@@ -261,6 +320,26 @@ ___
 #### Defined in
 
 node_modules/lambdaorm-base/schema/domain/actions.d.ts:18
+
+___
+
+### sequences
+
+• **sequences** = ``"sequences"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:46
+
+___
+
+### tables
+
+• **tables** = ``"tables"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:44
 
 ___
 
@@ -274,6 +353,16 @@ node_modules/lambdaorm-base/schema/domain/actions.d.ts:25
 
 ___
 
+### uniqueKeys
+
+• **uniqueKeys** = ``"uniqueKeys"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:49
+
+___
+
 ### update
 
 • **update** = ``"update"``
@@ -281,3 +370,13 @@ ___
 #### Defined in
 
 node_modules/lambdaorm-base/schema/domain/actions.d.ts:21
+
+___
+
+### views
+
+• **views** = ``"views"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:45

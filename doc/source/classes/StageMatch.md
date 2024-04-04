@@ -1,30 +1,30 @@
-[Lambda ORM](../README.md) / StageTruncate
+[Lambda ORM](../README.md) / StageMatch
 
-# Class: StageTruncate
+# Class: StageMatch
 
 ## Hierarchy
 
 - [`StageActionDDL`](StageActionDDL.md)
 
-  ↳ **`StageTruncate`**
+  ↳ **`StageMatch`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](StageTruncate.md#constructor)
+- [constructor](StageMatch.md#constructor)
 
 ### Methods
 
-- [execute](StageTruncate.md#execute)
-- [queries](StageTruncate.md#queries)
-- [sentence](StageTruncate.md#sentence)
+- [execute](StageMatch.md#execute)
+- [queries](StageMatch.md#queries)
+- [sentence](StageMatch.md#sentence)
 
 ## Constructors
 
 ### constructor
 
-• **new StageTruncate**(`executor`, `stageModelService`, `schemaState`, `languages`, `options`, `helper`): [`StageTruncate`](StageTruncate.md)
+• **new StageMatch**(`executor`, `stageModelService`, `schemaState`, `languages`, `options`, `helper`): [`StageMatch`](StageMatch.md)
 
 #### Parameters
 
@@ -39,7 +39,7 @@
 
 #### Returns
 
-[`StageTruncate`](StageTruncate.md)
+[`StageMatch`](StageMatch.md)
 
 #### Inherited from
 
@@ -65,7 +65,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/truncate.ts:13](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/useCases/truncate.ts#L13)
+[src/lib/stage/application/useCases/match.ts:11](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/useCases/match.ts#L11)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/truncate.ts:5](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/useCases/truncate.ts#L5)
+[src/lib/stage/application/useCases/match.ts:6](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/useCases/match.ts#L6)
 
 ___
 

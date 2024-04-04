@@ -14,7 +14,7 @@
 - [execute](ExpressionFacade.md#execute)
 - [executeList](ExpressionFacade.md#executelist)
 - [plan](ExpressionFacade.md#plan)
-- [solveOptions](ExpressionFacade.md#solveoptions)
+- [solveQueryOptions](ExpressionFacade.md#solvequeryoptions)
 - [transaction](ExpressionFacade.md#transaction)
 
 ## Constructors
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:24](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/expressions/application/facade.ts#L24)
+[src/lib/expressions/application/facade.ts:24](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/expressions/application/facade.ts#L24)
 
 ## Methods
 
@@ -62,7 +62,7 @@
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:38](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/expressions/application/facade.ts#L38)
+[src/lib/expressions/application/facade.ts:38](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/expressions/application/facade.ts#L38)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:50](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/expressions/application/facade.ts#L50)
+[src/lib/expressions/application/facade.ts:50](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/expressions/application/facade.ts#L50)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/expressions/application/facade.ts#L54)
+[src/lib/expressions/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/expressions/application/facade.ts#L54)
 
 ___
 
@@ -126,13 +126,13 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:42](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/expressions/application/facade.ts#L42)
+[src/lib/expressions/application/facade.ts:42](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/expressions/application/facade.ts#L42)
 
 ___
 
-### solveOptions
+### solveQueryOptions
 
-▸ **solveOptions**(`options?`): [`QueryOptions`](../interfaces/QueryOptions.md)
+▸ **solveQueryOptions**(`options?`): [`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Parameters
 
@@ -146,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:46](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/expressions/application/facade.ts#L46)
+[src/lib/expressions/application/facade.ts:46](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/expressions/application/facade.ts#L46)
 
 ___
 
@@ -167,4 +167,4 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:58](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/expressions/application/facade.ts#L58)
+[src/lib/expressions/application/facade.ts:58](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/expressions/application/facade.ts#L58)

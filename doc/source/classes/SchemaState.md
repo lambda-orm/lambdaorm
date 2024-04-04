@@ -25,6 +25,7 @@
 - [getSource](SchemaState.md#getsource)
 - [load](SchemaState.md#load)
 - [updateFromData](SchemaState.md#updatefromdata)
+- [updateFromMapping](SchemaState.md#updatefrommapping)
 
 ## Constructors
 
@@ -155,7 +156,7 @@ node_modules/lambdaorm-base/schema/application/state.d.ts:18
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:31
+node_modules/lambdaorm-base/schema/application/state.d.ts:32
 
 ___
 
@@ -176,7 +177,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:32
+node_modules/lambdaorm-base/schema/application/state.d.ts:33
 
 ___
 
@@ -218,3 +219,24 @@ ___
 #### Defined in
 
 node_modules/lambdaorm-base/schema/application/state.d.ts:30
+
+___
+
+### updateFromMapping
+
+▸ **updateFromMapping**(`mappings`, `options?`): `Promise`\<`void`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mappings` | [`Mapping`](../interfaces/Mapping.md)[] |
+| `options?` | [`MatchOptions`](../interfaces/MatchOptions.md) |
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:31

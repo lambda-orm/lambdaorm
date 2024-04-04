@@ -62,6 +62,7 @@ Lambda ORM
 - [MapClauses](classes/MapClauses.md)
 - [MappingConfigService](classes/MappingConfigService.md)
 - [MappingsConfigService](classes/MappingsConfigService.md)
+- [MatchSchema](classes/MatchSchema.md)
 - [Merge](classes/Merge.md)
 - [MethodNotImplemented](classes/MethodNotImplemented.md)
 - [ModificableClauses](classes/ModificableClauses.md)
@@ -99,7 +100,9 @@ Lambda ORM
 - [StageExport](classes/StageExport.md)
 - [StageFacade](classes/StageFacade.md)
 - [StageImport](classes/StageImport.md)
+- [StageIntrospect](classes/StageIntrospect.md)
 - [StageMappingService](classes/StageMappingService.md)
+- [StageMatch](classes/StageMatch.md)
 - [StageModelService](classes/StageModelService.md)
 - [StageSync](classes/StageSync.md)
 - [StageTruncate](classes/StageTruncate.md)
@@ -151,6 +154,7 @@ Lambda ORM
 - [ListenerConfig](interfaces/ListenerConfig.md)
 - [Mapping](interfaces/Mapping.md)
 - [MappingConfig](interfaces/MappingConfig.md)
+- [MatchOptions](interfaces/MatchOptions.md)
 - [Metadata](interfaces/Metadata.md)
 - [MetadataConstraint](interfaces/MetadataConstraint.md)
 - [MetadataModel](interfaces/MetadataModel.md)
@@ -346,7 +350,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:271](https://github.com/lambda-orm/lambdaorm/blob/4ecf1f81/src/lib/orm/infrastructure/orm.ts#L271)
+[src/lib/orm/infrastructure/orm.ts:264](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/orm/infrastructure/orm.ts#L264)
 
 ## Functions
 
