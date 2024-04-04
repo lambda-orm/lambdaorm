@@ -59,41 +59,20 @@ domain:
           type: string
           required: true
           length: 32
-    - name: Positions
-      primaryKey:
-        - lat
-      properties:
-        - name: lat
-          type: decimal
-          required: true
-        - name: long
-          type: decimal
-          required: true
-      uniqueKey:
-        - long
     - name: Timezones
       primaryKey:
         - name
       properties:
         - name: GmtOffset
-          type: integer          
+          type: integer
         - name: name
           type: string
           required: true
           length: 32
-        - name: positionLat
-          type: decimal
-          required: true
         - name: countriesName
           type: string
           required: true
       relations:
-        - name: position
-          type: oneToMany
-          from: positionLat
-          entity: Positions
-          to: lat
-          composite: true
         - name: countries
           type: oneToMany
           from: countriesName

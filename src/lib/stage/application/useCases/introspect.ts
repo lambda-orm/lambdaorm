@@ -1,5 +1,5 @@
 import { DDLBuilderPort, LanguagesService } from '../../../language/application'
-import { SchemaState, QueryOptions, Source, EntityMapping, Mapping } from 'lambdaorm-base'
+import { SchemaState, QueryOptions, Source, EntityMapping, Mapping, RelationType } from 'lambdaorm-base'
 import { Executor } from '../../../execution/domain'
 
 export class StageIntrospect {
@@ -57,6 +57,7 @@ export class StageIntrospect {
 		await this.solvePrimaryKeys(source, names, entities)
 		await this.solveUniqueKeys(source, names, entities)
 		await this.solveIndexes(source, names, entities)
+		await this.solveRelations(source, names, entities)
 	}
 
 	private async introspectViews (source: Source, names:string[], entities:EntityMapping[]): Promise<void> {
@@ -85,21 +86,23 @@ export class StageIntrospect {
 				entities.push(entity)
 			}
 			let property = entity.properties.find(p => p.mapping === row.columnName)
+			const _type = dialect.type(row.dbType)
+			const _length = row.length && row.length !== 80 ? row.length : undefined
 			if (property === undefined) {
 				property = {
 					name: row.columnName,
 					mapping: row.columnName,
-					type: dialect.type(row.dbType),
-					required: row.required,
-					autoIncrement: row.autoIncrement,
-					length: row.length || undefined
+					type: _type,
+					required: row.required ? true : undefined,
+					autoIncrement: row.autoIncrement ? true : undefined,
+					length: _length
 				}
 				entity.properties.push(property)
 			} else {
-				property.required = row.required
-				property.autoIncrement = row.autoIncrement
-				property.length = row.length || undefined
-				property.type = dialect.type(row.dbType)
+				property.required = row.required ? true : undefined
+				property.autoIncrement = row.autoIncrement ? true : undefined
+				property.length = _length
+				property.type = _type
 			}
 		}
 	}
@@ -150,6 +153,31 @@ export class StageIntrospect {
 					} else {
 						entity.indexes.push({ name: row.indexName, fields: [row.columnName] })
 					}
+				}
+			}
+		}
+	}
+
+	private async solveRelations (source: Source, names:string[], entities:EntityMapping[]): Promise<void> {
+		const query = this.builder(source).foreignKeys(names)
+		const rows = await this.executor.execute(query, {}, this.options)
+		for (const row of rows) {
+			const entity = entities.find(e => e.mapping === row.tableName)
+			const referenceEntity = entities.find(e => e.mapping === row.refTableName)
+			if (entity && referenceEntity) {
+				const property = entity.properties.find(p => p.mapping === row.columnName)
+				const referenceProperty = referenceEntity?.properties.find(p => p.mapping === row.refColumnName)
+				if (property && referenceProperty) {
+					if (entity.relations === undefined) entity.relations = []
+					const relationName = row.constraintName.split('_')[1]
+					const relation = {
+						name: relationName,
+						from: property.name,
+						entity: referenceEntity.name,
+						to: referenceProperty.name,
+						type: RelationType.oneToMany
+					}
+					entity.relations.push(relation)
 				}
 			}
 		}
