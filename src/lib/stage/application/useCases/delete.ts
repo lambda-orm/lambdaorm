@@ -42,7 +42,7 @@ export class StageDelete extends StageActionDML {
 			}
 			if (entity.relations) {
 				for (const relation of entity.relations) {
-					const fromProperty = entity.properties.find(p => p.name === relation.from)
+					const fromProperty = entity.properties?.find(p => p.name === relation.from)
 					if (fromProperty === undefined) {
 						throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
 					}

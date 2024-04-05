@@ -118,7 +118,7 @@ export class SentenceTypeService extends TypeServiceImpl {
 				// Users.map(=> { name: firstname + ", " + lastname }).sort(p=> p.username)
 				const property = this.config.getProperty(entityName, operand.name)
 				if (property) {
-					operand.returnType = Type.to(property.type)
+					operand.returnType = Type.to(property.type || 'string')
 				}
 			}
 		} else {
@@ -133,10 +133,10 @@ export class SentenceTypeService extends TypeServiceImpl {
 			for (const keyVal of operand.children) {
 				const property = this.config.getProperty(entityName, keyVal.name)
 				if (keyVal.returnType === undefined || keyVal.returnType === Type.any) {
-					keyVal.returnType = Type.to(property.type)
+					keyVal.returnType = Type.to(property.type || 'string')
 				}
 				if (keyVal.children[0].returnType === undefined || keyVal.children[0].returnType === Type.any) {
-					keyVal.children[0].returnType = Type.to(property.type)
+					keyVal.children[0].returnType = Type.to(property.type || 'string')
 				}
 			}
 		}

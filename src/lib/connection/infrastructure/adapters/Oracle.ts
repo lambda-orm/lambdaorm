@@ -256,7 +256,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		const key = 'lbdOrm_' + fieldId.name
 		// oracledb.BIND_OUT 3003
 		let bindDef:any
-		const oracleType = this.oracleType(Primitive[fieldId.type])
+		const oracleType = this.oracleType(Primitive[fieldId.type || 'string'])
 		if (fieldId.type === Primitive.string) {
 			const property = mapping.getProperty(query.entity, fieldId.name)
 			bindDef = { dir: 3003, type: oracleType, maxSize: property.length }

@@ -12,20 +12,18 @@ domain:
           required: true
           autoIncrement: true
         - name: languageCode
-          type: string
           length: 4
           required: true
-        - name: countriesName
-          type: string
+        - name: countryName
           length: 32
           required: true
       uniqueKey:
-        - countriesName
+        - countryName
         - languageCode
       relations:
         - name: countries
           type: oneToMany
-          from: countriesName
+          from: countryName
           entity: Countries
           to: name
           target: countriesLanguages
@@ -40,11 +38,9 @@ domain:
         - code
       properties:
         - name: code
-          type: string
           required: true
           length: 4
         - name: name
-          type: string
           required: true
           length: 16
     - name: Regions
@@ -52,11 +48,9 @@ domain:
         - code
       properties:
         - name: code
-          type: string
           required: true
           length: 2
         - name: name
-          type: string
           required: true
           length: 32
     - name: Positions
@@ -79,14 +73,13 @@ domain:
           type: integer
           required: false
         - name: name
-          type: string
           required: true
           length: 32
         - name: positionLat
           type: decimal
           required: true
-        - name: countriesName
-          type: string
+        - name: countryName
+          length: 32
           required: true
       relations:
         - name: position
@@ -97,7 +90,7 @@ domain:
           composite: true
         - name: countries
           type: oneToMany
-          from: countriesName
+          from: countryName
           entity: Countries
           to: name
     - name: Countries
@@ -105,7 +98,6 @@ domain:
         - name
       properties:
         - name: name
-          type: string
           required: true
           length: 32
         - name: phoneCode
@@ -115,7 +107,6 @@ domain:
           type: integer
           required: true
         - name: regionCode
-          type: string
           required: true
           length: 2
       uniqueKey:
@@ -130,7 +121,7 @@ domain:
           type: manyToOne
           from: name
           entity: Timezones
-          to: countriesName
+          to: countryName
           composite: true
 infrastructure:
   paths:

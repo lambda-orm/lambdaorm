@@ -54,7 +54,7 @@ export class QueryBulkInsertExecutor {
 	private async bulkInsertIncludesBefore (query: Query, data: Data, entity: EntityMapping, dialect: DialectService): Promise<void> {
 		for (const include of query.includes) {
 			if (!include.relation.composite || !dialect.solveComposite) {
-				const relationProperty = entity.properties.find(q => q.name === include.relation.from)
+				const relationProperty = entity.properties?.find(q => q.name === include.relation.from)
 				if (include.relation.type === RelationType.oneToMany) {
 					await this.bulkInsertIncludeBeforeOneToMany(include, data)
 				} else if (include.relation.type === RelationType.oneToOne && relationProperty && relationProperty.required) {

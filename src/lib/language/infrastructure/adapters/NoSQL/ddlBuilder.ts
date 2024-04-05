@@ -29,7 +29,7 @@ export class NoSqlDDLBuilderAdapter extends DDLBuilderAdapter {
 	public createIndex (entity: EntityMapping, index: Index): Query | undefined {
 		const columns: string[] = []
 		for (const field of index.fields) {
-			const propertyMapping = entity.properties.find(p => p.name === field) as PropertyMapping
+			const propertyMapping = entity.properties?.find(p => p.name === field) as PropertyMapping
 			columns.push(this.dialect.delimiter(propertyMapping.mapping))
 		}
 		const properties: any = {}
@@ -62,7 +62,7 @@ export class NoSqlDDLBuilderAdapter extends DDLBuilderAdapter {
 	public addPk (entity: EntityMapping, primaryKey: string[]): Query | undefined {
 		const columns: string[] = []
 		for (const primaryKeyItem of primaryKey) {
-			const property = entity.properties.find(p => p.name === primaryKeyItem) as PropertyMapping
+			const property = entity.properties?.find(p => p.name === primaryKeyItem) as PropertyMapping
 			columns.push(this.dialect.delimiter(property.mapping))
 		}
 		const properties: any = {}
@@ -82,7 +82,7 @@ export class NoSqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		// https://www.MongoDB.com/docs/drivers/node/current/fundamentals/indexes/#:~:text=By%20default%2C%20MongoDB%20creates%20a,the%20unique%20option%20to%20true%20.
 		const columns: string[] = []
 		for (const uniqueKeyItem of uniqueKey) {
-			const property = entity.properties.find(p => p.name === uniqueKeyItem) as PropertyMapping
+			const property = entity.properties?.find(p => p.name === uniqueKeyItem) as PropertyMapping
 			columns.push(this.dialect.delimiter(property.mapping))
 		}
 		const properties: any = {}

@@ -1,5 +1,5 @@
 import { DDLBuilderPort, LanguagesService } from '../../../language/application'
-import { SchemaState, QueryOptions, Source, EntityMapping, Mapping, RelationType } from 'lambdaorm-base'
+import { SchemaState, QueryOptions, Source, EntityMapping, Mapping, RelationType, SchemaHelper } from 'lambdaorm-base'
 import { Executor } from '../../../execution/domain'
 
 export class StageIntrospect {
@@ -8,6 +8,7 @@ export class StageIntrospect {
 		private readonly executor: Executor,
 		private readonly schemaState: SchemaState,
 		private readonly languages: LanguagesService,
+		private readonly helper: SchemaHelper,
 		private readonly options:QueryOptions
 	) {}
 
@@ -17,7 +18,7 @@ export class StageIntrospect {
 		const mappings:Mapping[] = []
 		for (const ruleDataSource of stage.sources) {
 			const source = this.schemaState.source.get(ruleDataSource.name)
-			let mapping = mappings.find(p => p.name === source.mapping)
+			let mapping = mappings.find(p => this.helper.equalName(p.name, source.mapping))
 			if (mapping === undefined) {
 				mapping = { name: source.mapping, entities: [] }
 				mappings.push(mapping)
@@ -80,24 +81,24 @@ export class StageIntrospect {
 				columnsByTable[row.tableName] = []
 			}
 			columnsByTable[row.tableName].push(row.columnName)
-			let entity = entities.find(e => e.mapping === row.tableName)
+			let entity = entities.find(e => this.helper.equalName(e.mapping, row.tableName))
 			if (entity === undefined) {
-				entity = { name: row.tableName, mapping: row.tableName, properties: [] }
+				entity = { name: this.helper.entityName(row.tableName), mapping: row.tableName, properties: [] }
 				entities.push(entity)
 			}
-			let property = entity.properties.find(p => p.mapping === row.columnName)
+			let property = entity.properties?.find(p => this.helper.equalName(p.mapping, row.columnName))
 			const _type = dialect.type(row.dbType)
 			const _length = row.length && row.length !== 80 ? row.length : undefined
 			if (property === undefined) {
 				property = {
-					name: row.columnName,
+					name: this.helper.propertyName(row.columnName),
 					mapping: row.columnName,
 					type: _type,
 					required: row.required ? true : undefined,
 					autoIncrement: row.autoIncrement ? true : undefined,
 					length: _length
 				}
-				entity.properties.push(property)
+				entity.properties?.push(property)
 			} else {
 				property.required = row.required ? true : undefined
 				property.autoIncrement = row.autoIncrement ? true : undefined
@@ -111,12 +112,12 @@ export class StageIntrospect {
 		const query = this.builder(source).primaryKeys(names)
 		const rows = await this.executor.execute(query, {}, this.options)
 		for (const row of rows) {
-			const entity = entities.find(e => e.mapping === row.tableName)
+			const entity = entities.find(e => this.helper.equalName(e.mapping, row.tableName))
 			if (entity) {
-				const property = entity.properties.find(p => p.mapping === row.columnName)
+				const property = entity.properties?.find(p => this.helper.equalName(p.mapping, row.columnName))
 				if (property) {
 					if (entity.primaryKey === undefined) entity.primaryKey = []
-					entity.primaryKey.push(row.columnName)
+					entity.primaryKey.push(this.helper.propertyName(row.columnName))
 					property.primaryKey = true
 				}
 			}
@@ -127,12 +128,12 @@ export class StageIntrospect {
 		const query = this.builder(source).uniqueKeys(names)
 		const rows = await this.executor.execute(query, {}, this.options)
 		for (const row of rows) {
-			const entity = entities.find(e => e.mapping === row.tableName)
+			const entity = entities.find(e => this.helper.equalName(e.mapping, row.tableName))
 			if (entity) {
-				const property = entity.properties.find(p => p.mapping === row.columnName)
+				const property = entity.properties?.find(p => this.helper.equalName(p.mapping, row.columnName))
 				if (property) {
 					if (entity.uniqueKey === undefined) entity.uniqueKey = []
-					entity.uniqueKey.push(row.columnName)
+					entity.uniqueKey.push(this.helper.propertyName(row.columnName))
 				}
 			}
 		}
@@ -142,16 +143,16 @@ export class StageIntrospect {
 		const query = this.builder(source).indexes(names)
 		const rows = await this.executor.execute(query, {}, this.options)
 		for (const row of rows) {
-			const entity = entities.find(e => e.mapping === row.tableName)
+			const entity = entities.find(e => this.helper.equalName(e.mapping, row.tableName))
 			if (entity) {
-				const property = entity.properties.find(p => p.mapping === row.columnName)
+				const property = entity.properties?.find(p => this.helper.equalName(p.mapping, row.columnName))
 				if (property) {
 					if (entity.indexes === undefined) entity.indexes = []
-					const index = entity.indexes.find(i => i.name === row.indexName)
+					const index = entity.indexes.find(i => this.helper.equalName(i.name, row.indexName))
 					if (index) {
-						index.fields.push(row.columnName)
+						index.fields.push(this.helper.propertyName(row.columnName))
 					} else {
-						entity.indexes.push({ name: row.indexName, fields: [row.columnName] })
+						entity.indexes.push({ name: this.helper.indexName(row.indexName), fields: [this.helper.propertyName(row.columnName)] })
 					}
 				}
 			}
@@ -163,13 +164,13 @@ export class StageIntrospect {
 		const rows = await this.executor.execute(query, {}, this.options)
 		for (const row of rows) {
 			const entity = entities.find(e => e.mapping === row.tableName)
-			const referenceEntity = entities.find(e => e.mapping === row.refTableName)
+			const referenceEntity = entities.find(e => this.helper.equalName(e.mapping, row.refTableName))
 			if (entity && referenceEntity) {
-				const property = entity.properties.find(p => p.mapping === row.columnName)
-				const referenceProperty = referenceEntity?.properties.find(p => p.mapping === row.refColumnName)
+				const property = entity.properties?.find(p => this.helper.equalName(p.mapping, row.columnName))
+				const referenceProperty = referenceEntity?.properties?.find(p => this.helper.equalName(p.mapping, row.refColumnName))
 				if (property && referenceProperty) {
 					if (entity.relations === undefined) entity.relations = []
-					const relationName = row.constraintName.split('_')[1]
+					const relationName = this.helper.relationName(row.constraintName.split('_')[1])
 					const relation = {
 						name: relationName,
 						from: property.name,

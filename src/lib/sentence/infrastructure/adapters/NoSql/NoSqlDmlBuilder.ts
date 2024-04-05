@@ -372,7 +372,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			for (const p in obj.children) {
 				const keyVal = obj.children[p]
 				let name: string
-				const property = entity.properties.find(q => q.name === keyVal.name)
+				const property = entity.properties?.find(q => q.name === keyVal.name)
 				if (property) {
 					name = property.mapping
 				} else {
@@ -427,7 +427,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			for (const p in obj.children) {
 				const keyVal = obj.children[p]
 				let name: string
-				const property = entity.properties.find(q => q.name === keyVal.name)
+				const property = entity.properties?.find(q => q.name === keyVal.name)
 				if (property) {
 					name = property.mapping
 				} else {

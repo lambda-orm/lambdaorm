@@ -174,7 +174,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 			const obj = operand.children[0]
 			for (const p in obj.children) {
 				const keyVal = obj.children[p]
-				const property = entity.properties.find(q => q.name === keyVal.name)
+				const property = entity.properties?.find(q => q.name === keyVal.name)
 				let name: string
 				if (property) {
 					name = property.mapping
@@ -202,7 +202,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 			for (const p in obj.children) {
 				const keyVal = obj.children[p]
 				let name: string
-				const property = entity.properties.find(q => q.name === keyVal.name)
+				const property = entity.properties?.find(q => q.name === keyVal.name)
 				if (property) {
 					name = property.mapping
 				} else {

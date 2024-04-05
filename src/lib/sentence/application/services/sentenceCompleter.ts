@@ -148,7 +148,7 @@ export class SentenceCompleter {
 			if (child instanceof Field) {
 				const alias = child.alias
 				const entity = mapping.getEntity(child.entity)
-				const property = entity?.properties.find(p => p.name === child.name)
+				const property = entity?.properties?.find(p => p.name === child.name)
 				if (entity === undefined || property === undefined || alias === undefined) {
 					continue
 				}
@@ -184,12 +184,12 @@ export class SentenceCompleter {
 		for (const i in operand.children) {
 			const child = operand.children[i]
 			if (child.type === OperandType.Var) {
-				const property = entity.properties.find(p => p.name === child.name)
+				const property = entity.properties?.find(p => p.name === child.name)
 				if (property) {
 					if (sourceName && source && property.name === sourceName) {
 						operand.children[i] = source
 					} else {
-						operand.children[i] = new Field(operand.pos, entity.name, child.name, Type.to(property.type), alias)
+						operand.children[i] = new Field(operand.pos, entity.name, child.name, Type.to(property.type || 'string'), alias)
 					}
 				}
 			} else if (child.children && child.children.length > 0) {

@@ -16,7 +16,7 @@
                 "lat": 40.4165,
                 "long": -3.70256
               },
-              "countriesName": "Spain",
+              "countryName": "Spain",
               "positionLat": 40.4165
             },
             {
@@ -25,7 +25,7 @@
                 "lat": 35.8883,
                 "long": -5.3162
               },
-              "countriesName": "Spain",
+              "countryName": "Spain",
               "positionLat": 35.8883
             },
             {
@@ -35,7 +35,7 @@
                 "lat": 28.1248,
                 "long": -15.43
               },
-              "countriesName": "Spain",
+              "countryName": "Spain",
               "positionLat": 28.1248
             }
           ]
@@ -53,7 +53,7 @@
                 "lat": 48.8566,
                 "long": 2.3522
               },
-              "countriesName": "France",
+              "countryName": "France",
               "positionLat": 48.8566
             },
             {
@@ -63,7 +63,7 @@
                 "lat": -20.8823,
                 "long": 55.4504
               },
-              "countriesName": "France",
+              "countryName": "France",
               "positionLat": -20.8823
             },
             {
@@ -73,7 +73,7 @@
                 "lat": 16.265,
                 "long": -61.551
               },
-              "countriesName": "France",
+              "countryName": "France",
               "positionLat": 16.265
             }
           ]
@@ -91,7 +91,7 @@
                 "lat": 52.52,
                 "long": 13.405
               },
-              "countriesName": "Germany",
+              "countryName": "Germany",
               "positionLat": 52.52
             },
             {
@@ -101,7 +101,7 @@
                 "lat": 47.6963,
                 "long": 8.6927
               },
-              "countriesName": "Germany",
+              "countryName": "Germany",
               "positionLat": 47.6963
             }
           ]
@@ -119,7 +119,7 @@
                 "lat": 38.7223,
                 "long": -9.1393
               },
-              "countriesName": "Portugal",
+              "countryName": "Portugal",
               "positionLat": 38.7223
             },
             {
@@ -129,7 +129,7 @@
                 "lat": 32.7607,
                 "long": -16.9595
               },
-              "countriesName": "Portugal",
+              "countryName": "Portugal",
               "positionLat": 32.7607
             },
             {
@@ -139,7 +139,7 @@
                 "lat": 37.7412,
                 "long": -25.6756
               },
-              "countriesName": "Portugal",
+              "countryName": "Portugal",
               "positionLat": 37.7412
             }
           ]
@@ -157,7 +157,7 @@
                 "lat": 40.7128,
                 "long": -74.006
               },
-              "countriesName": "United States",
+              "countryName": "United States",
               "positionLat": 40.7128
             },
             {
@@ -167,7 +167,7 @@
                 "lat": 34.0522,
                 "long": -118.2437
               },
-              "countriesName": "United States",
+              "countryName": "United States",
               "positionLat": 34.0522
             },
             {
@@ -177,7 +177,7 @@
                 "lat": 41.8781,
                 "long": -87.6298
               },
-              "countriesName": "United States",
+              "countryName": "United States",
               "positionLat": 41.8781
             },
             {
@@ -187,7 +187,7 @@
                 "lat": 39.7392,
                 "long": -104.9903
               },
-              "countriesName": "United States",
+              "countryName": "United States",
               "positionLat": 39.7392
             },
             {
@@ -197,7 +197,7 @@
                 "lat": 61.2181,
                 "long": -149.9003
               },
-              "countriesName": "United States",
+              "countryName": "United States",
               "positionLat": 61.2181
             },
             {
@@ -207,7 +207,7 @@
                 "lat": 21.3069,
                 "long": -157.8583
               },
-              "countriesName": "United States",
+              "countryName": "United States",
               "positionLat": 21.3069
             }
           ]
@@ -225,7 +225,7 @@
                 "lat": 43.6532,
                 "long": -79.3832
               },
-              "countriesName": "Canada",
+              "countryName": "Canada",
               "positionLat": 43.6532
             },
             {
@@ -235,7 +235,7 @@
                 "lat": 49.2827,
                 "long": -123.1207
               },
-              "countriesName": "Canada",
+              "countryName": "Canada",
               "positionLat": 49.2827
             },
             {
@@ -245,7 +245,7 @@
                 "lat": 53.5461,
                 "long": -113.4938
               },
-              "countriesName": "Canada",
+              "countryName": "Canada",
               "positionLat": 53.5461
             },
             {
@@ -255,7 +255,7 @@
                 "lat": 49.8951,
                 "long": -97.1384
               },
-              "countriesName": "Canada",
+              "countryName": "Canada",
               "positionLat": 49.8951
             },
             {
@@ -265,7 +265,7 @@
                 "lat": 62.454,
                 "long": -114.3718
               },
-              "countriesName": "Canada",
+              "countryName": "Canada",
               "positionLat": 62.454
             },
             {
@@ -275,7 +275,7 @@
                 "lat": 63.7467,
                 "long": -68.517
               },
-              "countriesName": "Canada",
+              "countryName": "Canada",
               "positionLat": 63.7467
             }
           ]
@@ -293,7 +293,7 @@
                 "lat": -23.5505,
                 "long": -46.6333
               },
-              "countriesName": "Brasil",
+              "countryName": "Brasil",
               "positionLat": -23.5505
             },
             {
@@ -303,7 +303,7 @@
                 "lat": -22.9068,
                 "long": -43.1729
               },
-              "countriesName": "Brasil",
+              "countryName": "Brasil",
               "positionLat": -22.9068
             },
             {
@@ -313,7 +313,7 @@
                 "lat": -3.119,
                 "long": -60.0217
               },
-              "countriesName": "Brasil",
+              "countryName": "Brasil",
               "positionLat": -3.119
             },
             {
@@ -323,7 +323,7 @@
                 "lat": -30.0346,
                 "long": -51.2177
               },
-              "countriesName": "Brasil",
+              "countryName": "Brasil",
               "positionLat": -30.0346
             },
             {
@@ -333,7 +333,7 @@
                 "lat": -3.7319,
                 "long": -38.5267
               },
-              "countriesName": "Brasil",
+              "countryName": "Brasil",
               "positionLat": -3.7319
             },
             {
@@ -343,7 +343,7 @@
                 "lat": -1.4558,
                 "long": -48.4902
               },
-              "countriesName": "Brasil",
+              "countryName": "Brasil",
               "positionLat": -1.4558
             }
           ]
@@ -361,7 +361,7 @@
                 "lat": -34.6037,
                 "long": -58.3816
               },
-              "countriesName": "Argentina",
+              "countryName": "Argentina",
               "positionLat": -34.6037
             }
           ]
@@ -373,62 +373,62 @@
       "rows": [
         {
           "languageCode": "SP",
-          "countriesName": "Spain",
+          "countryName": "Spain",
           "id": 1
         },
         {
           "languageCode": "CAT",
-          "countriesName": "Spain",
+          "countryName": "Spain",
           "id": 2
         },
         {
           "languageCode": "GAL",
-          "countriesName": "Spain",
+          "countryName": "Spain",
           "id": 3
         },
         {
           "languageCode": "BSQ",
-          "countriesName": "Spain",
+          "countryName": "Spain",
           "id": 4
         },
         {
           "languageCode": "FR",
-          "countriesName": "France",
+          "countryName": "France",
           "id": 5
         },
         {
           "languageCode": "GER",
-          "countriesName": "Germany",
+          "countryName": "Germany",
           "id": 6
         },
         {
           "languageCode": "PT",
-          "countriesName": "Portugal",
+          "countryName": "Portugal",
           "id": 7
         },
         {
           "languageCode": "EN",
-          "countriesName": "United States",
+          "countryName": "United States",
           "id": 8
         },
         {
           "languageCode": "EN",
-          "countriesName": "Canada",
+          "countryName": "Canada",
           "id": 9
         },
         {
           "languageCode": "FR",
-          "countriesName": "Canada",
+          "countryName": "Canada",
           "id": 10
         },
         {
           "languageCode": "PT",
-          "countriesName": "Brasil",
+          "countryName": "Brasil",
           "id": 11
         },
         {
           "languageCode": "SP",
-          "countriesName": "Argentina",
+          "countryName": "Argentina",
           "id": 12
         }
       ]

@@ -356,11 +356,11 @@ export class OrmOperandNormalizer {
 
 	private createReadFields (pos:Position, entity: Entity, parent?: string): Operand {
 		const obj = new Operand(pos, OperandType.Obj, OperandType.Obj, [])
-		for (const property of entity.properties) {
+		for (const property of entity.properties || []) {
 			// const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [], Type.to(property.type))
 			const name = parent ? parent + '.' + property.name : property.name
-			const field = new Field(pos, entity.name, name, Type.to(property.type), parent, true)
-			const type = Type.to(property.type)
+			const field = new Field(pos, entity.name, name, Type.to(property.type || 'string'), parent, true)
+			const type = Type.to(property.type || 'string')
 			const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [field], type)
 			obj.children.push(keyVal)
 		}
@@ -369,12 +369,12 @@ export class OrmOperandNormalizer {
 
 	private createWriteVars (pos:Position, entity: Entity, parent?: string, excludePrimaryKey = false, excludeAutoIncrement = false): Operand {
 		const obj = new Operand(pos, OperandType.Obj, OperandType.Obj, [])
-		for (const property of entity.properties) {
+		for (const property of entity.properties || []) {
 			if ((!property.autoIncrement || !excludeAutoIncrement) && ((entity.primaryKey !== undefined && !entity.primaryKey.includes(property.name)) || !excludePrimaryKey)) {
 				// const field = new Operand(pos, parent ? parent + '.' + property.name : property.name, OperandType.Var, [], Type.to(property.type))
 				const name = parent ? parent + '.' + property.name : property.name
-				const variable = new Operand(pos, name, OperandType.Var, [], Type.to(property.type))
-				const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [variable], Type.to(property.type))
+				const variable = new Operand(pos, name, OperandType.Var, [], Type.to(property.type || 'string'))
+				const keyVal = new Operand(pos, property.name, OperandType.KeyVal, [variable], Type.to(property.type || 'string'))
 				obj.children.push(keyVal)
 			}
 		}
@@ -384,12 +384,12 @@ export class OrmOperandNormalizer {
 	private writeVarsFromList (entity: Entity, list:Operand):Operand {
 		const obj = new Operand(list.pos, OperandType.Obj, OperandType.Obj, [])
 		for (const child of list.children) {
-			const property = entity.properties.find(p => p.name === child.name)
+			const property = entity.properties?.find(p => p.name === child.name)
 			if (property === undefined) {
 				throw new Error(`${entity.name}.${child.name} not found`)
 			}
-			const variable = new Operand(list.pos, property.name, OperandType.Var, [], Type.to(property.type))
-			const keyVal = new Operand(list.pos, property.name, OperandType.KeyVal, [variable], Type.to(property.type))
+			const variable = new Operand(list.pos, property.name, OperandType.Var, [], Type.to(property.type || 'string'))
+			const keyVal = new Operand(list.pos, property.name, OperandType.KeyVal, [variable], Type.to(property.type || 'string'))
 			obj.children.push(keyVal)
 		}
 		return obj
@@ -428,12 +428,12 @@ export class OrmOperandNormalizer {
 		}
 		let condition
 		for (const name of entity.primaryKey) {
-			const field = entity.properties.find(p => p.name === name)
+			const field = entity.properties?.find(p => p.name === name)
 			if (field === undefined) {
 				throw new SchemaError(`Entity ${entity.name} not found property ${name} defined in primary key`)
 			}
-			const fieldOperand = new Operand(pos, parent ? parent + '.' + field.name : field.name, OperandType.Var, [], Type.to(field.type))
-			const variableOperand = new Operand(pos, parentVariable ? parentVariable + '.' + name : name, OperandType.Var, [], Type.to(field.type))
+			const fieldOperand = new Operand(pos, parent ? parent + '.' + field.name : field.name, OperandType.Var, [], Type.to(field.type || 'string'))
+			const variableOperand = new Operand(pos, parentVariable ? parentVariable + '.' + name : name, OperandType.Var, [], Type.to(field.type || 'string'))
 			const equal = new Operand(pos, '==', OperandType.Operator, [fieldOperand, variableOperand], Type.boolean)
 			condition = condition ? new Operand(pos, '&&', OperandType.Operator, [condition, equal], Type.boolean) : equal
 		}
@@ -485,9 +485,9 @@ export class OrmOperandNormalizer {
 		const childFilter = clauses.filter
 		const arrowFilterVar = childFilter ? childFilter.children[1].name : 'p'
 		const propertyTo = this.modelConfigService.getProperty(relation.entity, relation.to)
-		const fieldRelation = new Field(operand.pos, relation.entity, arrowFilterVar + '.' + relation.to, Type.to(propertyTo.type))
+		const fieldRelation = new Field(operand.pos, relation.entity, arrowFilterVar + '.' + relation.to, Type.to(propertyTo.type || 'string'))
 		// new SqlField(relation.entity,relation.to,toField.type,child.alias + '.' + toField.mapping)
-		const varRelation = new Operand(operand.pos, 'LambdaOrmParentId', OperandType.Var, [], Type.List(Type.to(propertyTo.type)))
+		const varRelation = new Operand(operand.pos, 'LambdaOrmParentId', OperandType.Var, [], Type.List(Type.to(propertyTo.type || 'string')))
 		const filterInclude = new Operand(operand.pos, 'in', OperandType.CallFunc, [fieldRelation, varRelation])
 		if (!childFilter) {
 			const varFilterArrowNode = new Operand(operand.pos, arrowFilterVar, OperandType.Var, [])
@@ -498,7 +498,7 @@ export class OrmOperandNormalizer {
 		// If the column for which the include is to be resolved is not in the select, it must be added
 		const arrowSelect = clauses.map.children[1].name
 		// const field = new Operand(operand.pos, arrowSelect + '.' + relation.to, OperandType.Var)
-		const field = new Field(operand.pos, relation.target as string, arrowSelect + '.' + relation.to, Type.to(propertyTo.type))
+		const field = new Field(operand.pos, relation.target as string, arrowSelect + '.' + relation.to, Type.to(propertyTo.type || 'string'))
 		clauses.map.children[2].children.push(new Operand(operand.pos, 'LambdaOrmParentId', OperandType.KeyVal, [field]))
 		return map
 	}

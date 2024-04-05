@@ -1,6 +1,6 @@
 import { H3lp, IStringHelper } from 'h3lp'
 import { expressions, OperandHelper } from '3xpr'
-// import { QueryPlan } from './domain'
+import { SchemaH3lp } from 'lambdaorm-base'
 const { DateTime } = require('luxon')
 const SqlString = require('sqlstring')
 
@@ -28,10 +28,10 @@ export class QueryHelper {
 	}
 }
 
-export class Helper extends H3lp {
+export class Helper extends SchemaH3lp {
 	public query:QueryHelper
 	constructor (public readonly operand: OperandHelper, h3lp: H3lp) {
-		super(h3lp.utils, h3lp.val, h3lp.fs, h3lp.http, h3lp.obj, h3lp.str, h3lp.test, h3lp.array)
+		super(h3lp)
 		this.operand = new OperandHelper(expressions.constBuilder)
 		this.query = new QueryHelper(this.str)
 	}

@@ -124,7 +124,7 @@ export class DDLBuilderService {
 	private _dropRelation (source: Source, entity:EntityMapping, relation:Relation, queries: Query[]) {
 		if (!relation.weak) {
 			// look for the related property to see if the relation is not required
-			const fromProperty = entity.properties.find(r => r.name === relation.from)
+			const fromProperty = entity.properties?.find(r => r.name === relation.from)
 			if (fromProperty === undefined) {
 				throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
 			}

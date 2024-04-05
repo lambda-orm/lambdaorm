@@ -84,7 +84,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		const obj = list[0]
 		if (entity.sequence && entity.primaryKey && entity.primaryKey.length === 1) {
 			const propertyPk = entity.primaryKey[0]
-			const mappingPk = entity.properties.find(p => p.name === propertyPk)
+			const mappingPk = entity.properties?.find(p => p.name === propertyPk)
 			if (mappingPk) {
 				obj[mappingPk.mapping] = await this.getNextSequenceValue(entity.sequence)
 			}
@@ -119,7 +119,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		const list = this.arrayToList(mapping, dialect, query, query.sentence, array)
 		if (entity.sequence && entity.primaryKey && entity.primaryKey.length === 1) {
 			const propertyPk = entity.primaryKey[0]
-			const mappingPk = entity.properties.find(p => p.name === propertyPk)
+			const mappingPk = entity.properties?.find(p => p.name === propertyPk)
 			if (mappingPk) {
 				const first = await this.getNextSequenceValue(entity.sequence, list.length)
 				for (let i = 0; i < list.length; i++) {

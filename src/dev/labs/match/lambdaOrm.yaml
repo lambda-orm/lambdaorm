@@ -12,20 +12,18 @@ domain:
           required: true
           autoIncrement: true
         - name: languageCode
-          type: string
           length: 4
           required: true
-        - name: countriesName
-          type: string
+        - name: countryName
           length: 32
           required: true
       uniqueKey:
-        - countriesName
+        - countryName
         - languageCode
       relations:
         - name: countries
           type: oneToMany
-          from: countriesName
+          from: countryName
           entity: Countries
           to: name
           target: countriesLanguages
@@ -40,11 +38,9 @@ domain:
         - code
       properties:
         - name: code
-          type: string
           required: true
           length: 4
         - name: name
-          type: string
           required: true
           length: 16
     - name: Regions
@@ -52,46 +48,56 @@ domain:
         - code
       properties:
         - name: code
-          type: string
           required: true
           length: 2
         - name: name
-          type: string
           required: true
           length: 32
+    - name: Positions
+      primaryKey:
+        - lat
+      properties:
+        - name: lat
+          type: decimal
+          required: true
+        - name: long
+          type: decimal
+          required: true
+      uniqueKey:
+        - long
     - name: Timezones
       primaryKey:
         - name
       properties:
         - name: GmtOffset
           type: integer
+          required: false
         - name: name
-          type: string
           required: true
           length: 32
-        - name: countriesName
-          type: string
-          required: true
-        - name: positionlat
+        - name: positionLat
           type: decimal
           required: true
+        - name: countryName
+          length: 32
+          required: true
       relations:
-        - name: countries
-          type: oneToMany
-          from: countriesName
-          entity: Countries
-          to: name
         - name: position
-          from: positionlat
+          type: oneToMany
+          from: positionLat
           entity: Positions
           to: lat
+          composite: true
+        - name: countries
           type: oneToMany
+          from: countryName
+          entity: Countries
+          to: name
     - name: Countries
       primaryKey:
         - name
       properties:
         - name: name
-          type: string
           required: true
           length: 32
         - name: phoneCode
@@ -101,7 +107,6 @@ domain:
           type: integer
           required: true
         - name: regionCode
-          type: string
           required: true
           length: 2
       uniqueKey:
@@ -116,21 +121,8 @@ domain:
           type: manyToOne
           from: name
           entity: Timezones
-          to: countriesName
+          to: countryName
           composite: true
-    - name: Positions
-      properties:
-        - name: lat
-          type: decimal
-          required: true
-          primaryKey: true
-        - name: long
-          type: decimal
-          required: true
-      primaryKey:
-        - lat
-      uniqueKey:
-        - long
 infrastructure:
   paths:
     src: src

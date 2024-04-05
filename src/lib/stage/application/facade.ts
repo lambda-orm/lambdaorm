@@ -66,7 +66,7 @@ export class StageFacade {
 
 	public async introspect (options?:QueryOptions): Promise<Mapping[]> {
 		const _options = this.expression.solveQueryOptions(options)
-		return await new StageIntrospect(this.executor, this.schemaState, this.languages, _options).execute()
+		return await new StageIntrospect(this.executor, this.schemaState, this.languages, this.helper.schema, _options).execute()
 	}
 
 	public async match (options?:StageMatchOptions): Promise<void> {

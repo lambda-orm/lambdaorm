@@ -186,7 +186,7 @@ class SentenceSolveBehaviors {
 				continue
 			}
 			const field = keyVal.children[0]
-			const property = entity.properties.find(q => q.name === field.name)
+			const property = entity.properties?.find(q => q.name === field.name)
 			if (property && property.readValue) {
 				const behavior = { alias: keyVal.name, property: property.name, expression: property.readValue }
 				behaviors.push(behavior)
@@ -397,14 +397,14 @@ export class SentenceBuilder implements ISentenceBuilder {
 			const info = this.domainConfigService.getRelation(expressionContext.current.entityName, key)
 			const relatedEntity = info.previousEntity.name
 			const relatedAlias = info.previousRelation !== '' ? expressionContext.current.joins[info.previousRelation] : expressionContext.current.alias
-			const relatedProperty = info.previousEntity.properties.find(p => p.name === info.relation.from) as Property
+			const relatedProperty = info.previousEntity.properties?.find(p => p.name === info.relation.from) as Property
 			const relationEntity = info.entity.name
 			const relationAlias = expressionContext.current.joins[key]
-			const relationProperty = info.entity.properties.find(p => p.name === info.relation.to) as Property
+			const relationProperty = info.entity.properties?.find(p => p.name === info.relation.to) as Property
 			// TODO: Here use the key to add the corresponding filter
 			// if an entity has one or more properties with a key, a filter must be added by the key
-			const relatedField = new Field(pos, relatedEntity, info.relation.from, Type.to(relatedProperty.type), relatedAlias)
-			const relationField = new Field(pos, relationEntity, info.relation.to, Type.to(relationProperty.type), relationAlias)
+			const relatedField = new Field(pos, relatedEntity, info.relation.from, Type.to(relatedProperty.type || 'string'), relatedAlias)
+			const relationField = new Field(pos, relationEntity, info.relation.to, Type.to(relationProperty.type || 'string'), relationAlias)
 			const equal = new Operand(pos, '==', OperandType.Operator, [relationField, relatedField], Type.boolean)
 			const operand = new Join(pos, relationEntity, [equal], relatedEntity, relationAlias)
 			children.push(operand)
@@ -527,11 +527,11 @@ export class SentenceBuilder implements ISentenceBuilder {
 	private createSimpleField (pos: Position, parts: string[], expressionContext: ExpressionContext, enableAsteriskField:boolean): Operand {
 		const _field = expressionContext.current.fields.find(p => p.name === parts[1])
 		if (_field) {
-			return new Field(pos, expressionContext.current.entityName, _field.name, Type.to(_field.type), expressionContext.current.alias, true)
+			return new Field(pos, expressionContext.current.entityName, _field.name, Type.to(_field.type || 'string'), expressionContext.current.alias, true)
 		} else {
 			if (this.domainConfigService.existsProperty(expressionContext.current.entityName, parts[1])) {
 				const property = this.domainConfigService.getProperty(expressionContext.current.entityName, parts[1])
-				return new Field(pos, expressionContext.current.entityName, property.name, Type.to(property.type), expressionContext.current.alias, true)
+				return new Field(pos, expressionContext.current.entityName, property.name, Type.to(property.type || 'string'), expressionContext.current.alias, true)
 			} else {
 				const relationInfo = this.domainConfigService.getRelation(expressionContext.current.entityName, parts[1])
 				if (relationInfo) {
@@ -553,9 +553,9 @@ export class SentenceBuilder implements ISentenceBuilder {
 		const relation = this.addJoins(parts, parts.length - 1, expressionContext)
 		const info = this.domainConfigService.getRelation(expressionContext.current.entityName, relation)
 		const relationAlias = expressionContext.current.joins[relation]
-		const property = info.entity.properties.find(p => p.name === propertyName)
+		const property = info.entity.properties?.find(p => p.name === propertyName)
 		if (property) {
-			return new Field(pos, info.entity.name, property.name, Type.to(property.type), relationAlias, false)
+			return new Field(pos, info.entity.name, property.name, Type.to(property.type || 'string'), relationAlias, false)
 		} else {
 			const childRelation = info.entity.relations ? info.entity.relations.find(p => p.name === propertyName) : undefined
 			if (childRelation) {
@@ -585,16 +585,16 @@ export class SentenceBuilder implements ISentenceBuilder {
 						if (entity === undefined) {
 							throw new SintaxisError(`entity ${expressionContext.current.entityName} not found`)
 						}
-						for (const property of entity.properties) {
-							const newField = new Field(field.pos, entity.name, property.name, Type.to(property.type), field.alias, false)
+						for (const property of entity.properties || []) {
+							const newField = new Field(field.pos, entity.name, property.name, Type.to(property.type || 'string'), field.alias, false)
 							asteriskField.fields.push(newField)
 						}
 						asteriskFields.push(asteriskField)
 					} else {
 						const asteriskField:AsteriskField = { index: i, relation: field.entity, fields: [] }
 						const relationInfo = this.domainConfigService.getRelation(expressionContext.current.entityName, field.entity)
-						for (const relationProperty of relationInfo.entity.properties) {
-							const newField = new Field(field.pos, relationInfo.entity.name, relationProperty.name, Type.to(relationProperty.type), field.alias, false)
+						for (const relationProperty of relationInfo.entity.properties || []) {
+							const newField = new Field(field.pos, relationInfo.entity.name, relationProperty.name, Type.to(relationProperty.type || 'string'), field.alias, false)
 							asteriskField.fields.push(newField)
 						}
 						asteriskFields.push(asteriskField)

@@ -18,7 +18,7 @@ export class GetModel {
 		const result: MetadataModel[] = []
 		for (const column of sentence.columns) {
 			if (!column.name.startsWith('__')) {
-				result.push({ name: column.name, type: column.type })
+				result.push({ name: column.name, type: column.type || 'string' })
 			}
 		}
 		const includes = sentence.getIncludes()
