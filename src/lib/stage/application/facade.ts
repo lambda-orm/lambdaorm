@@ -69,7 +69,7 @@ export class StageFacade {
 		return await new StageIntrospect(this.executor, this.schemaState, this.languages, this.helper.schema, _options).execute()
 	}
 
-	public async match (options?:StageMatchOptions): Promise<void> {
+	public async match (options:StageMatchOptions = { removeEntities: true, removeProperties: true, removeRelations: true }): Promise<void> {
 		const _options = this.expression.solveQueryOptions(options) as StageMatchOptions
 		const mappings = await this.introspect(_options)
 		await this.schemaState.updateFromMapping(mappings, _options)

@@ -51,7 +51,10 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		const columns: string[] = []
 		const columnTemplate = this.dialect.other('column')
 		for (const primaryKeyItem of primaryKey) {
-			const property = entity.properties?.find(p => p.name === primaryKeyItem) as PropertyMapping
+			const property = entity.properties?.find(p => p.name === primaryKeyItem)
+			if (!property) {
+				throw new SchemaError(`Property ${primaryKeyItem} not found in entity ${entity.name}`)
+			}
 			columns.push(columnTemplate.replace('{name}', this.dialect.delimiter(property.mapping)))
 		}
 		let text = this.dialect.ddl('createPk')

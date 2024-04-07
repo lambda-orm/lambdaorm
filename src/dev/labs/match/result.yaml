@@ -71,7 +71,6 @@ domain:
       properties:
         - name: GmtOffset
           type: integer
-          required: false
         - name: name
           required: true
           length: 32
@@ -130,7 +129,36 @@ infrastructure:
     domain: domain
   mappings:
     - name: postgresql
-      entities: []
+      entities:
+        - name: Languages
+          mapping: languages
+        - name: CountriesLanguages
+          mapping: countrieslanguages
+          properties:
+            - name: languageCode
+              mapping: languagecode
+            - name: countryName
+              mapping: countryname
+        - name: Positions
+          mapping: positions
+        - name: Timezones
+          mapping: timezones
+          properties:
+            - name: GmtOffset
+              mapping: gmtoffset
+            - name: positionLat
+              mapping: positionlat
+            - name: countryName
+              mapping: countryname
+        - name: Regions
+          mapping: regions
+        - name: Countries
+          mapping: countries
+          properties:
+            - name: phoneCode
+              mapping: phonecode
+            - name: regionCode
+              mapping: regioncode
   sources:
     - name: default
       mapping: postgresql
