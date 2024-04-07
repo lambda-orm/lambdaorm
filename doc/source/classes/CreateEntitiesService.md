@@ -16,14 +16,13 @@
 
 ### constructor
 
-• **new CreateEntitiesService**(`schemaService`, `helper`): [`CreateEntitiesService`](CreateEntitiesService.md)
+• **new CreateEntitiesService**(`helper`): [`CreateEntitiesService`](CreateEntitiesService.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `schemaService` | `SchemaService` |
-| `helper` | `H3lp` |
+| `helper` | [`SchemaHelper`](SchemaHelper.md) |
 
 #### Returns
 
@@ -31,7 +30,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/createEntitiesService.d.ts:8
+node_modules/lambdaorm-base/schema/application/services/createEntitiesService.d.ts:6
 
 ## Methods
 
@@ -52,4 +51,4 @@ node_modules/lambdaorm-base/schema/application/services/createEntitiesService.d.
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/createEntitiesService.d.ts:9
+node_modules/lambdaorm-base/schema/application/services/createEntitiesService.d.ts:7

@@ -23,7 +23,7 @@
 | Name | Type |
 | :------ | :------ |
 | `expressions` | `Expressions` |
-| `helper` | `H3lp` |
+| `helper` | [`SchemaH3lp`](SchemaH3lp.md) |
 
 #### Returns
 

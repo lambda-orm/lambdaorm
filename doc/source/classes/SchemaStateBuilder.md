@@ -24,7 +24,7 @@
 | :------ | :------ |
 | `expressions` | `Expressions` |
 | `facade` | [`SchemaFacade`](SchemaFacade.md) |
-| `helper` | `H3lp` |
+| `helper` | [`SchemaH3lp`](SchemaH3lp.md) |
 
 #### Returns
 

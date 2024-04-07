@@ -6,13 +6,11 @@ All notable changes to this project will be documented in this file.
 
 ## [1.8.0](https://github.com/lambda-orm/lambdaorm/compare/v1.7.0...v1.8.0) (2024-04-07)
 
-
-### Features
+**Features:**
 
 * **queries:** add metadata queries ([eb20164](https://github.com/lambda-orm/lambdaorm/commit/eb20164236736cab502eb891374d75a206771545)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * **schema:** bugfix match schema ([cce4c9e](https://github.com/lambda-orm/lambdaorm/commit/cce4c9e7f3796f5278e27e266a8355b6ae832cf4)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 

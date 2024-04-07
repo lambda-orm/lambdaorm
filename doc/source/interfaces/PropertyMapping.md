@@ -193,7 +193,7 @@ ___
 
 ### type
 
-• **type**: `string`
+• `Optional` **type**: `string`
 
 #### Inherited from
 

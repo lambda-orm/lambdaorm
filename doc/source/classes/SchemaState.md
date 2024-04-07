@@ -31,7 +31,7 @@
 
 ### constructor
 
-• **new SchemaState**(`source`, `domain`, `mapping`, `stage`, `view`, `routeService`, `loadSchema`, `facade`, `schemaService`, `fileService`, `helper`): [`SchemaState`](SchemaState.md)
+• **new SchemaState**(`source`, `domain`, `mapping`, `stage`, `view`, `routeService`, `facade`, `loadSchema`, `fileService`, `helper`): [`SchemaState`](SchemaState.md)
 
 #### Parameters
 
@@ -43,9 +43,8 @@
 | `stage` | [`StageConfigService`](StageConfigService.md) |
 | `view` | [`ViewsConfigService`](ViewsConfigService.md) |
 | `routeService` | [`RouteService`](RouteService.md) |
-| `loadSchema` | [`LoadSchema`](LoadSchema.md) |
 | `facade` | [`SchemaFacade`](SchemaFacade.md) |
-| `schemaService` | `SchemaService` |
+| `loadSchema` | [`LoadSchema`](LoadSchema.md) |
 | `fileService` | [`IFileSchemaService`](../interfaces/IFileSchemaService.md) |
 | `helper` | `H3lp` |
 
@@ -55,7 +54,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:28
+node_modules/lambdaorm-base/schema/application/state.d.ts:26
 
 ## Properties
 
@@ -65,7 +64,7 @@ node_modules/lambdaorm-base/schema/application/state.d.ts:28
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:15
+node_modules/lambdaorm-base/schema/application/state.d.ts:14
 
 ___
 
@@ -75,7 +74,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:16
+node_modules/lambdaorm-base/schema/application/state.d.ts:15
 
 ___
 
@@ -85,7 +84,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:26
+node_modules/lambdaorm-base/schema/application/state.d.ts:24
 
 ___
 
@@ -95,7 +94,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:25
+node_modules/lambdaorm-base/schema/application/state.d.ts:23
 
 ___
 
@@ -105,7 +104,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:27
+node_modules/lambdaorm-base/schema/application/state.d.ts:25
 
 ___
 
@@ -115,7 +114,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:14
+node_modules/lambdaorm-base/schema/application/state.d.ts:13
 
 ___
 
@@ -125,7 +124,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:17
+node_modules/lambdaorm-base/schema/application/state.d.ts:16
 
 ___
 
@@ -135,7 +134,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:18
+node_modules/lambdaorm-base/schema/application/state.d.ts:17
 
 ## Methods
 
@@ -156,7 +155,7 @@ node_modules/lambdaorm-base/schema/application/state.d.ts:18
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:32
+node_modules/lambdaorm-base/schema/application/state.d.ts:30
 
 ___
 
@@ -177,7 +176,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:33
+node_modules/lambdaorm-base/schema/application/state.d.ts:31
 
 ___
 
@@ -197,7 +196,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:29
+node_modules/lambdaorm-base/schema/application/state.d.ts:27
 
 ___
 
@@ -218,7 +217,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:30
+node_modules/lambdaorm-base/schema/application/state.d.ts:28
 
 ___
 
@@ -239,4 +238,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:31
+node_modules/lambdaorm-base/schema/application/state.d.ts:29

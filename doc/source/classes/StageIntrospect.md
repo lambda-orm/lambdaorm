@@ -16,7 +16,7 @@
 
 ### constructor
 
-• **new StageIntrospect**(`executor`, `schemaState`, `languages`, `options`): [`StageIntrospect`](StageIntrospect.md)
+• **new StageIntrospect**(`executor`, `schemaState`, `languages`, `helper`, `options`): [`StageIntrospect`](StageIntrospect.md)
 
 #### Parameters
 
@@ -25,6 +25,7 @@
 | `executor` | [`Executor`](../interfaces/Executor.md) |
 | `schemaState` | [`SchemaState`](SchemaState.md) |
 | `languages` | [`LanguagesService`](LanguagesService.md) |
+| `helper` | [`SchemaHelper`](SchemaHelper.md) |
 | `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 
 #### Returns
@@ -33,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/introspect.ts:7](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/useCases/introspect.ts#L7)
+[src/lib/stage/application/useCases/introspect.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/stage/application/useCases/introspect.ts#L7)
 
 ## Methods
 
@@ -47,4 +48,4 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/introspect.ts:14](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/stage/application/useCases/introspect.ts#L14)
+[src/lib/stage/application/useCases/introspect.ts:15](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/stage/application/useCases/introspect.ts#L15)

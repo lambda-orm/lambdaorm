@@ -23,7 +23,7 @@
 | Name | Type |
 | :------ | :------ |
 | `schemaService` | `SchemaService` |
-| `helper` | `H3lp` |
+| `helper` | [`SchemaHelper`](SchemaHelper.md) |
 
 #### Returns
 

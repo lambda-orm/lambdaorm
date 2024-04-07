@@ -68,7 +68,7 @@
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:9](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L9)
+[src/lib/repository/infrastructure/repository.ts:9](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L9)
 
 ## Properties
 
@@ -78,7 +78,7 @@
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:9](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L9)
+[src/lib/repository/infrastructure/repository.ts:9](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L9)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:9](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L9)
+[src/lib/repository/infrastructure/repository.ts:9](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L9)
 
 ## Methods
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:47](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L47)
+[src/lib/repository/infrastructure/repository.ts:47](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L47)
 
 ▸ **bulkInsert**(`entities`, `include`): `Promise`\<`any`[]\>
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:49](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L49)
+[src/lib/repository/infrastructure/repository.ts:49](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L49)
 
 ___
 
@@ -157,7 +157,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L10)
+[src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L10)
 
 ▸ **bulkMerge**(`entities`, `include`): `Promise`\<`any`[]\>
 
@@ -178,7 +178,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:11](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L11)
+[src/lib/repository/infrastructure/repository.ts:11](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L11)
 
 ▸ **bulkMerge**(`entities`, `include?`): `Promise`\<`any`[]\>
 
@@ -199,7 +199,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:12](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L12)
+[src/lib/repository/infrastructure/repository.ts:12](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L12)
 
 ___
 
@@ -223,7 +223,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:79](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L79)
+[src/lib/repository/infrastructure/repository.ts:79](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L79)
 
 ▸ **delete**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -244,7 +244,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:81](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L81)
+[src/lib/repository/infrastructure/repository.ts:81](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L81)
 
 ___
 
@@ -270,7 +270,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:86](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L86)
+[src/lib/repository/infrastructure/repository.ts:86](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L86)
 
 ___
 
@@ -296,7 +296,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:100](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L100)
+[src/lib/repository/infrastructure/repository.ts:100](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L100)
 
 ___
 
@@ -321,7 +321,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:34](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L34)
+[src/lib/repository/infrastructure/repository.ts:34](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L34)
 
 ___
 
@@ -347,7 +347,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:107](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L107)
+[src/lib/repository/infrastructure/repository.ts:107](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L107)
 
 ___
 
@@ -371,7 +371,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:39](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L39)
+[src/lib/repository/infrastructure/repository.ts:39](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L39)
 
 ▸ **insert**(`entity`, `include`): `Promise`\<`any`\>
 
@@ -392,7 +392,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:41](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L41)
+[src/lib/repository/infrastructure/repository.ts:41](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L41)
 
 ___
 
@@ -418,7 +418,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:119](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L119)
+[src/lib/repository/infrastructure/repository.ts:119](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L119)
 
 ___
 
@@ -444,7 +444,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:93](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L93)
+[src/lib/repository/infrastructure/repository.ts:93](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L93)
 
 ___
 
@@ -468,7 +468,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:71](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L71)
+[src/lib/repository/infrastructure/repository.ts:71](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L71)
 
 ▸ **merge**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -489,7 +489,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:73](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L73)
+[src/lib/repository/infrastructure/repository.ts:73](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L73)
 
 ___
 
@@ -507,7 +507,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:131](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L131)
+[src/lib/repository/infrastructure/repository.ts:131](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L131)
 
 ___
 
@@ -531,7 +531,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:55](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L55)
+[src/lib/repository/infrastructure/repository.ts:55](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L55)
 
 ▸ **update**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -552,7 +552,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:57](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L57)
+[src/lib/repository/infrastructure/repository.ts:57](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L57)
 
 ___
 
@@ -579,4 +579,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/infrastructure/repository.ts:62](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/repository/infrastructure/repository.ts#L62)
+[src/lib/repository/infrastructure/repository.ts:62](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/infrastructure/repository.ts#L62)

@@ -84,6 +84,8 @@ Lambda ORM
 - [SchemaExtender](classes/SchemaExtender.md)
 - [SchemaFacade](classes/SchemaFacade.md)
 - [SchemaFacadeBuilder](classes/SchemaFacadeBuilder.md)
+- [SchemaH3lp](classes/SchemaH3lp.md)
+- [SchemaHelper](classes/SchemaHelper.md)
 - [SchemaState](classes/SchemaState.md)
 - [SchemaStateBuilder](classes/SchemaStateBuilder.md)
 - [Sentence](classes/Sentence.md)
@@ -350,7 +352,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:264](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/orm/infrastructure/orm.ts#L264)
+[src/lib/orm/infrastructure/orm.ts:264](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/orm/infrastructure/orm.ts#L264)
 
 ## Functions
 

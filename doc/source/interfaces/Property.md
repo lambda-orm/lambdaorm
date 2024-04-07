@@ -131,7 +131,7 @@ ___
 
 ### type
 
-• **type**: `string`
+• `Optional` **type**: `string`
 
 #### Defined in
 

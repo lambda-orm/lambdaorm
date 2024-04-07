@@ -51,7 +51,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:60
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:61
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:59
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:60
 
 ___
 
@@ -287,13 +287,13 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:63
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:64
 
 ___
 
 ### properties
 
-• **properties**: [`PropertyMapping`](PropertyMapping.md)[]
+• `Optional` **properties**: [`PropertyMapping`](PropertyMapping.md)[]
 
 #### Overrides
 
@@ -353,7 +353,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:61
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:62
 
 ___
 
@@ -367,7 +367,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:64
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:65
 
 ___
 
@@ -381,4 +381,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:62
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:63

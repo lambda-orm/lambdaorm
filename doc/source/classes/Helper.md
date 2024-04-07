@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-- `H3lp`
+- [`SchemaH3lp`](SchemaH3lp.md)
 
   ↳ **`Helper`**
 
@@ -22,6 +22,7 @@
 - [obj](Helper.md#obj)
 - [operand](Helper.md#operand)
 - [query](Helper.md#query)
+- [schema](Helper.md#schema)
 - [str](Helper.md#str)
 - [test](Helper.md#test)
 - [utils](Helper.md#utils)
@@ -46,11 +47,11 @@
 
 #### Overrides
 
-H3lp.constructor
+[SchemaH3lp](SchemaH3lp.md).[constructor](SchemaH3lp.md#constructor)
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/shared/application/helper.ts#L33)
+[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/shared/application/helper.ts#L33)
 
 ## Properties
 
@@ -60,7 +61,7 @@ H3lp.constructor
 
 #### Inherited from
 
-H3lp.array
+[SchemaH3lp](SchemaH3lp.md).[array](SchemaH3lp.md#array)
 
 #### Defined in
 
@@ -74,7 +75,7 @@ ___
 
 #### Inherited from
 
-H3lp.fs
+[SchemaH3lp](SchemaH3lp.md).[fs](SchemaH3lp.md#fs)
 
 #### Defined in
 
@@ -88,7 +89,7 @@ ___
 
 #### Inherited from
 
-H3lp.http
+[SchemaH3lp](SchemaH3lp.md).[http](SchemaH3lp.md#http)
 
 #### Defined in
 
@@ -102,7 +103,7 @@ ___
 
 #### Inherited from
 
-H3lp.obj
+[SchemaH3lp](SchemaH3lp.md).[obj](SchemaH3lp.md#obj)
 
 #### Defined in
 
@@ -116,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/shared/application/helper.ts#L33)
+[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/shared/application/helper.ts#L33)
 
 ___
 
@@ -126,7 +127,21 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:32](https://github.com/lambda-orm/lambdaorm/blob/b927db0b/src/lib/shared/application/helper.ts#L32)
+[src/lib/shared/application/helper.ts:32](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/shared/application/helper.ts#L32)
+
+___
+
+### schema
+
+• **schema**: [`SchemaHelper`](SchemaHelper.md)
+
+#### Inherited from
+
+[SchemaH3lp](SchemaH3lp.md).[schema](SchemaH3lp.md#schema)
+
+#### Defined in
+
+node_modules/lambdaorm-base/shared/application/helper.d.ts:4
 
 ___
 
@@ -136,7 +151,7 @@ ___
 
 #### Inherited from
 
-H3lp.str
+[SchemaH3lp](SchemaH3lp.md).[str](SchemaH3lp.md#str)
 
 #### Defined in
 
@@ -150,7 +165,7 @@ ___
 
 #### Inherited from
 
-H3lp.test
+[SchemaH3lp](SchemaH3lp.md).[test](SchemaH3lp.md#test)
 
 #### Defined in
 
@@ -164,7 +179,7 @@ ___
 
 #### Inherited from
 
-H3lp.utils
+[SchemaH3lp](SchemaH3lp.md).[utils](SchemaH3lp.md#utils)
 
 #### Defined in
 
@@ -178,7 +193,7 @@ ___
 
 #### Inherited from
 
-H3lp.val
+[SchemaH3lp](SchemaH3lp.md).[val](SchemaH3lp.md#val)
 
 #### Defined in
 

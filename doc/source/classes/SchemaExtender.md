@@ -25,7 +25,7 @@
 | Name | Type |
 | :------ | :------ |
 | `expressions` | `Expressions` |
-| `helper` | `H3lp` |
+| `helper` | [`SchemaH3lp`](SchemaH3lp.md) |
 
 #### Returns
 
@@ -59,17 +59,17 @@ ___
 
 ### extend
 
-▸ **extend**(`source`): [`Schema`](../interfaces/Schema.md)
+▸ **extend**(`schema`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `source` | [`Schema`](../interfaces/Schema.md) |
+| `schema` | [`Schema`](../interfaces/Schema.md) |
 
 #### Returns
 
-[`Schema`](../interfaces/Schema.md)
+`void`
 
 #### Defined in
 
