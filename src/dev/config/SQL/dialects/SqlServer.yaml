@@ -1,6 +1,23 @@
 _extends: [SQL]
 dbTypes:
   boolean: BIT
+types:
+  int: integer 
+  tinyint: integer
+  nvarchar: string
+  ntext: string
+  binary: buffer
+  varbinary:  buffer
+  image:  buffer
+  datetime2: dateTime
+  datetimeoffset: dateTime
+  smalldatetime: dateTime
+  bit: boolean
+  uniqueidentifier: string
+  sql_variant: any
+  xml: string
+  cursor: any
+  table: any  
 ddl:
   createPk: "PRIMARY KEY ({columns})"
   incrementalColumDefine: "{name} {type} {required} IDENTITY (1, 1)"
@@ -20,8 +37,7 @@ ddl:
             ELSE 'unknown' 
         END AS [type],
         t.TABLE_NAME AS [name],
-        COALESCE(ts.tablespace_name, 'pg_default') AS [tablespace],
-        CAST(ep.value AS NVARCHAR(MAX)) AS [comment]
+        COALESCE(ts.tablespace_name, 'pg_default') AS [tablespace]
     FROM 
         INFORMATION_SCHEMA.TABLES t
     JOIN (

@@ -1,0 +1,45 @@
+domain:
+  entities: []
+application:  
+infrastructure:
+  paths:
+    src: src
+    data: data
+    model: model    
+  mappings:
+    - name: mySql
+    - name: postgreSql
+    - name: sqlServer
+    - name: oracle
+  sources:
+    - name: MySQL
+      mapping: mySql
+      dialect: MySQL
+      connection: ${ORM_CNN_MYSQL}
+    - name: PostgreSQL
+      mapping: postgreSql
+      dialect: PostgreSQL
+      connection: ${ORM_CNN_POSTGRES}
+    - name: SqlServer
+      mapping: sqlServer
+      dialect: SqlServer
+      connection: ${ORM_CNN_MSSQL}
+    - name: Oracle
+      mapping: oracle
+      dialect: Oracle
+      connection: ${ORM_CNN_ORACLE}
+  stages:
+  - name: MySQL
+    sources:
+      - name: MySQL
+  - name: PostgreSQL
+    sources:
+      - name: PostgreSQL
+  - name: SqlServer
+    sources:
+      - name: SqlServer
+  - name: Oracle
+    sources:
+      - name: Oracle
+  views:
+    - name: default

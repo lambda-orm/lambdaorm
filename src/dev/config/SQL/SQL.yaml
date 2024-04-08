@@ -8,10 +8,37 @@ dbTypes:
   date: DATE
   time: TIME
   text: TEXT
+types:
+  integer: integer
+  bigint: integer
+  smallint: integers
+  decimal: decimal
+  numeric: decimal
+  number: decimal
+  real: decimal
+  float: decimal 
+  double: decimal
+  'double precision': decimal
+  'character varying': string
+  char: string
+  varchar: string
+  uuid: string
+  text: string
+  timestamp: dateTime
+  datetime: dateTime
+  date: date
+  time: time
+  boolean: boolean
 format:
   dateTime: 'yyyy-LL-dd HH:mm:ss'
   date: 'yyyy-LL-dd'
-  time: 'HH:mm:ss'  
+  time: 'HH:mm:ss'
+support:
+  sequences: true
+  tablespaces: true
+  partitions: true
+  pkTablespaces: true
+  ukTablespaces: true   
 ddl:  
   createDatabase: 'CREATE DATABASE IF NOT EXISTS {name}'
   createEntity: 'CREATE TABLE {name} ({define})'

@@ -1,0 +1,288 @@
+domain:
+  entities:
+    - name: Categories
+      properties:
+        - name: categoryid
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: categoryname
+          required: true
+        - name: description
+          length: 1000
+      relations: []
+      primaryKey:
+        - categoryid
+      uniqueKey:
+        - categoryname
+    - name: Customers
+      properties:
+        - name: customerid
+          length: 5
+          required: true
+        - name: companyname
+          required: true
+        - name: contactname
+        - name: contacttitle
+        - name: address
+        - name: city
+        - name: region
+        - name: postalcode
+          length: 20
+        - name: country
+      relations: []
+      primaryKey:
+        - customerid
+    - name: Suppliers
+      properties:
+        - name: supplierid
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: companyname
+          required: true
+        - name: contactname
+        - name: phone
+          length: 20
+        - name: homepage
+          length: 200
+        - name: address
+        - name: city
+        - name: region
+        - name: postalcode
+          length: 20
+        - name: country
+      relations: []
+      primaryKey:
+        - supplierid
+      uniqueKey:
+        - companyname
+    - name: Employees
+      properties:
+        - name: employeeid
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: lastname
+          required: true
+        - name: firstname
+          required: true
+        - name: title
+        - name: titleofcourtesy
+        - name: birthdate
+          type: dateTime
+        - name: hiredate
+          type: dateTime
+        - name: homephone
+        - name: reportsto
+          type: integer
+        - name: address
+        - name: city
+        - name: region
+        - name: postalcode
+          length: 20
+        - name: country
+      relations:
+        - name: reportsto
+          type: oneToMany
+          from: reportsto
+          entity: Employees
+          to: employeeid
+      primaryKey:
+        - employeeid
+      uniqueKey:
+        - lastname
+        - firstname
+    - name: Orders
+      properties:
+        - name: orderid
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: customerid
+          length: 5
+          required: true
+        - name: employeeid
+          type: integer
+          required: true
+        - name: orderdate
+          type: dateTime
+        - name: requireddate
+          type: date
+        - name: shippeddate
+          type: date
+        - name: shipvia
+          type: integer
+        - name: freight
+          type: decimal
+        - name: shipname
+        - name: shipaddress
+        - name: shipcity
+        - name: shipregion
+        - name: shippostalcode
+          length: 20
+        - name: shipcountry
+      relations:
+        - name: employee
+          type: oneToMany
+          from: employeeid
+          entity: Employees
+          to: employeeid
+        - name: customer
+          type: oneToMany
+          from: customerid
+          entity: Customers
+          to: customerid
+      primaryKey:
+        - orderid
+    - name: Shippers
+      properties:
+        - name: shipperid
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: companyname
+          required: true
+        - name: phone
+          length: 20
+      relations: []
+      primaryKey:
+        - shipperid
+      uniqueKey:
+        - companyname
+    - name: Products
+      properties:
+        - name: productid
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: productname
+          required: true
+        - name: supplierid
+          type: integer
+          required: true
+        - name: categoryid
+          type: integer
+        - name: quantityperunit
+        - name: unitprice
+          type: decimal
+        - name: unitsinstock
+          type: decimal
+        - name: unitsonorder
+          type: decimal
+        - name: reorderlevel
+          type: decimal
+        - name: discontinued
+          type: boolean
+      relations:
+        - name: category
+          type: oneToMany
+          from: categoryid
+          entity: Categories
+          to: categoryid
+        - name: supplier
+          type: oneToMany
+          from: supplierid
+          entity: Suppliers
+          to: supplierid
+      primaryKey:
+        - productid
+      uniqueKey:
+        - productname
+        - supplierid
+    - name: OrderDetails
+      properties:
+        - name: orderid
+          type: integer
+          required: true
+        - name: productid
+          type: integer
+          required: true
+        - name: unitprice
+          type: decimal
+        - name: quantity
+          type: decimal
+        - name: discount
+          type: decimal
+      relations:
+        - name: product
+          type: oneToMany
+          from: productid
+          entity: Products
+          to: productid
+        - name: order
+          type: oneToMany
+          from: orderid
+          entity: Orders
+          to: orderid
+      primaryKey:
+        - orderid
+        - productid
+application: null
+infrastructure:
+  paths:
+    src: src
+    data: data
+    model: model
+  mappings:
+    - name: mySql
+    - name: postgreSql
+      entities:
+        - name: Categories
+          mapping: categories
+          properties: []
+        - name: Customers
+          mapping: customers
+          properties: []
+        - name: Suppliers
+          mapping: suppliers
+          properties: []
+        - name: Employees
+          mapping: employees
+          properties: []
+        - name: Orders
+          mapping: orders
+          properties: []
+        - name: Shippers
+          mapping: shippers
+          properties: []
+        - name: Products
+          mapping: products
+          properties: []
+        - name: OrderDetails
+          mapping: Order Details
+          properties: []
+    - name: sqlServer
+    - name: oracle
+  sources:
+    - name: MySQL
+      mapping: mySql
+      dialect: MySQL
+      connection: ${ORM_CNN_MYSQL}
+    - name: PostgreSQL
+      mapping: postgreSql
+      dialect: PostgreSQL
+      connection: ${ORM_CNN_POSTGRES}
+    - name: SqlServer
+      mapping: sqlServer
+      dialect: SqlServer
+      connection: ${ORM_CNN_MSSQL}
+    - name: Oracle
+      mapping: oracle
+      dialect: Oracle
+      connection: ${ORM_CNN_ORACLE}
+  stages:
+    - name: MySQL
+      sources:
+        - name: MySQL
+    - name: PostgreSQL
+      sources:
+        - name: PostgreSQL
+    - name: SqlServer
+      sources:
+        - name: SqlServer
+    - name: Oracle
+      sources:
+        - name: Oracle
+  views:
+    - name: default

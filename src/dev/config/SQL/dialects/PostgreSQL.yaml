@@ -2,24 +2,14 @@ _extends: [SQL]
 dbTypes:
   dateTime: TIMESTAMP
 types:
-  integer: integer
-  bigint: integer
-  smallint: integer
-  decimal: decimal
-  numeric: decimal
-  real: decimal
-  double: decimal
-  'double precision': decimal
-  'character varying': string
-  uuid: string
-  text: string
   'timestamp without time zone': dateTime
   'timestamp with time zone': dateTime
-  date: date
-  time: time
   'time without time zone': time
   'time with time zone': time
   boolean: boolean
+support:
+  pkTablespaces: false
+  ukTablespaces: false   
 ddl:
   incrementalColumDefine: "{name} serial"
   dropPk: "DROP CONSTRAINT IF EXISTS {name}"
@@ -37,8 +27,7 @@ ddl:
         ELSE 'unknown'
       END AS "type",
       t.table_name AS "name",
-      ts.tablespace_name AS "tablespace",
-      pg_catalog.obj_description(t.table_name::regclass, 'pg_class') AS "comment"
+      ts.tablespace_name AS "tablespace"
     FROM information_schema.tables t
     JOIN (SELECT tablename AS table_name,
       COALESCE(tablespace,'pg_default') AS tablespace_name
@@ -56,7 +45,7 @@ ddl:
           c.data_type AS "dbType",
           c.is_nullable = 'NO' AS "required",
           c.is_identity AS "isIdentity",
-          (pg_get_serial_sequence(t.table_name,lower(c.column_name)) IS NOT NULL) AS "autoIncrement",
+          (pg_get_serial_sequence(quote_ident(t.table_name),quote_ident(c.column_name)) IS NOT NULL) AS "autoIncrement",
           c.character_maximum_length AS "length",
           c.numeric_precision AS "precision",
           c.numeric_scale AS "scale",
@@ -82,7 +71,7 @@ ddl:
       c.data_type AS "dbType",
       c.is_nullable = 'NO' AS "required",
       c.is_identity AS "isIdentity",
-      (pg_get_serial_sequence(t.table_name,lower(c.column_name)) IS NOT NULL) AS "autoIncrement",
+      false AS "autoIncrement",
       c.character_maximum_length AS "length",
       c.numeric_precision AS "precision",
       c.numeric_scale AS "scale",

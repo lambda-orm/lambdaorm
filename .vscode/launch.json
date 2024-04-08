@@ -32,7 +32,17 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/labs/match/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/match/countries.env"
+			"envFile": "${workspaceFolder}/src/dev/labs/match/.env"
+		},
+		{
+			"name": "match multiple",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/match-multiples/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/match-multiples/.env"
 		},
 		{
 			"name": "mongo lab",
