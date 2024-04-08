@@ -43,38 +43,19 @@ ddl:
       null AS "tablespace"
     FROM user_views t
   tables: |
-        SELECT 
-            t.table_name AS "tableName",
-            NVL(t.tablespace_name, 'USERS') AS "tablespace",
-            c.column_name AS "columnName",
-            c.data_type AS "dbType",
-            CASE WHEN c.nullable = 'N' THEN 'NO' ELSE 'YES' END AS "required",
-            CASE WHEN c.column_name IN (
-                SELECT column_name
-                FROM user_tab_identity_cols
-                WHERE table_name = t.table_name
-            ) THEN 'YES' ELSE 'NO' END AS "isIdentity",
-            CASE 
-                WHEN c.column_name IN (
-                    SELECT column_name
-                    FROM user_tab_identity_cols
-                    WHERE table_name = t.table_name
-                ) THEN 'YES' 
-                ELSE 
-                    CASE 
-                        WHEN (SELECT COUNT(*) 
-                              FROM user_sequences 
-                              WHERE sequence_name = 'SEQ_' || t.table_name) > 0 
-                        THEN 'YES' 
-                        ELSE 'NO' 
-                    END 
-            END AS "autoIncrement",
-            c.char_col_decl_length AS "length",
-            c.data_precision AS "precision",
-            c.data_scale AS "scale",
-            c.data_length AS "time"
-        FROM user_tables t
-        JOIN user_tab_columns c ON t.table_name = c.table_name
+    SELECT 
+      t.table_name AS "tableName",
+      NVL(t.tablespace_name, 'USERS') AS "tablespace",
+      c.column_name AS "columnName",
+      c.data_type AS "dbType",
+      CASE WHEN c.nullable = 'N' THEN 'NO' ELSE 'YES' END AS "required",
+      NULL AS  "autoIncrement",
+      c.char_col_decl_length AS "length",
+      c.data_precision AS "precision",
+      c.data_scale AS "scale",
+      c.data_length AS "time"
+    FROM user_tables t
+    JOIN user_tab_columns c ON t.table_name = c.table_name
         WHERE t.table_name IN ({names})
   views: |
     SELECT 
@@ -83,8 +64,7 @@ ddl:
         c.column_name AS "columnName",
         c.data_type AS "dbType",
         CASE WHEN c.nullable = 'N' THEN 'NO' ELSE 'YES' END AS "required",
-        NULL AS "isIdentity", -- Oracle no tiene el concepto de "is_identity" para columnas en vistas
-        NULL AS "autoIncrement", -- Las secuencias en PostgreSQL no se traducen directamente a Oracle, es necesario implementarlas manualmente
+        NULL AS "autoIncrement", 
         c.data_length AS "length",
         c.data_precision AS "precision",
         c.data_scale AS "scale",

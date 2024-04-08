@@ -27,12 +27,7 @@ ddl:
       c.column_name AS columnName,
       c.data_type AS dbType,
       c.is_nullable = 'NO' AS required,
-      c.extra = 'auto_increment' AS isIdentity,
-      (EXISTS(SELECT column_default 
-          FROM information_schema.columns 
-          WHERE table_name = t.table_name 
-          AND column_name = c.column_name 
-          AND column_default LIKE 'nextval%')) AS autoIncrement,
+      c.extra = 'auto_increment' AS autoIncrement,
       c.character_maximum_length AS length,
       c.numeric_precision AS "precision",
       c.numeric_scale AS scale,
@@ -49,12 +44,7 @@ ddl:
       c.column_name AS columnName,
       c.data_type AS dbType,
       c.is_nullable = 'NO' AS required,
-      c.extra = 'auto_increment' AS isIdentity,
-      (EXISTS(SELECT column_default 
-          FROM information_schema.columns 
-          WHERE table_name = t.table_name 
-            AND column_name = c.column_name 
-            AND column_default LIKE 'nextval%')) AS autoIncrement,
+      c.extra = 'auto_increment' AS autoIncrement,
       c.character_maximum_length AS length,
       c.numeric_precision AS "precision",
       c.numeric_scale AS scale,
