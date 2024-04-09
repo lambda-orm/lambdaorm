@@ -51,7 +51,7 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		const columns: string[] = []
 		const columnTemplate = this.dialect.other('column')
 		for (const primaryKeyItem of primaryKey) {
-			const property = entity.properties?.find(p => p.name === primaryKeyItem)
+			const property = entity.properties?.find(p => this.equal(p.name, primaryKeyItem))
 			if (!property) {
 				throw new SchemaError(`Property ${primaryKeyItem} not found in entity ${entity.name}`)
 			}
@@ -64,9 +64,9 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 	}
 
 	public createFk (entity: EntityMapping, relation: Relation): Query | undefined {
-		const column = entity.properties?.find(p => p.name === relation.from) as PropertyMapping
+		const column = entity.properties?.find(p => this.equal(p.name, relation.from)) as PropertyMapping
 		const fEntity = this.mapping.getEntity(relation.entity) as EntityMapping
-		const fColumn = fEntity.properties?.find(p => p.name === relation.to) as PropertyMapping
+		const fColumn = fEntity.properties?.find(p => this.equal(p.name, relation.to)) as PropertyMapping
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
 		let text = this.dialect.ddl('createFk')
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_' + relation.name + '_FK'))
@@ -89,7 +89,7 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		const columns: string[] = []
 		const columnTemplate = this.dialect.other('column')
 		for (const field of index.fields) {
-			const propertyMapping = entity.properties?.find(p => p.name === field)
+			const propertyMapping = entity.properties?.find(p => this.equal(p.name, field))
 			if (propertyMapping) {
 				columns.push(columnTemplate.replace('{name}', this.dialect.delimiter(propertyMapping.mapping)))
 			}
@@ -169,7 +169,7 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		const columns: string[] = []
 		const columnTemplate = this.dialect.other('column')
 		for (const key of keys) {
-			const property = entity.properties?.find(p => p.name === key)
+			const property = entity.properties?.find(p => this.equal(p.name, key))
 			if (property) {
 				columns.push(columnTemplate.replace('{name}', this.dialect.delimiter(property.mapping)))
 			}
@@ -182,7 +182,7 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 	}
 
 	public addFk (entity: EntityMapping, relation: Relation): Query | undefined {
-		const column = entity.properties?.find(p => p.name === relation.from)
+		const column = entity.properties?.find(p => this.equal(p.name, relation.from))
 		if (!column) {
 			throw new SchemaError(`Property ${relation.from} not found in entity ${entity.name}`)
 		}
@@ -190,7 +190,7 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 		if (!fEntity) {
 			throw new SchemaError(`Entity ${relation.entity} not found`)
 		}
-		const fColumn = fEntity.properties?.find(p => p.name === relation.to)
+		const fColumn = fEntity.properties?.find(p => this.equal(p.name, relation.to))
 		if (!fColumn) {
 			throw new SchemaError(`Property ${relation.to} not found in entity ${fEntity.name}`)
 		}
@@ -234,7 +234,7 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 	public setNull (entity: EntityMapping, relation: Relation): Query | undefined {
 		const alias = 'a'
 		const templateColumn = this.dialect.other('column')
-		const propertyFrom = entity.properties?.find(p => p.name === relation.from)
+		const propertyFrom = entity.properties?.find(p => this.equal(p.name, relation.from))
 		if (!propertyFrom) {
 			throw new SchemaError(`not found relation form ${entity.name}.${relation.name}.${relation.from} `)
 		}
@@ -317,5 +317,9 @@ export class SqlDDLBuilderAdapter extends DDLBuilderAdapter {
 	public sequences (): Query {
 		const text = this.dialect.ddl(SentenceAction.sequences)
 		return new Query({ action: SentenceAction.sequences, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	private equal (a:string, b:string): boolean {
+		return this.helper.schema.equalName(a, b)
 	}
 }

@@ -35,8 +35,8 @@ export class DialectService {
 			this._dbTypes[name] = type
 		}
 		for (const name in data.types) {
-			const dbType = data.types[name]
-			this._types[name] = dbType
+			const type = data.types[name]
+			this._types[name.toLowerCase()] = type
 		}
 	}
 
@@ -94,7 +94,11 @@ export class DialectService {
 	}
 
 	public type (name: string): string {
-		return this._types[name] || 'any'
+		const type = this._types[name.toLowerCase()]
+		if (type === undefined) {
+			throw new LanguageError('error with type: ' + name)
+		}
+		return type
 	}
 
 	public delimiter (name: string, force = false, excludeUnderscore = false): string {

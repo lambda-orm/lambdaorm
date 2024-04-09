@@ -9,6 +9,8 @@ dbTypes:
   time: TIME
   text: TEXT
 types:
+  tinyint: integer
+  int: integer
   integer: integer
   bigint: integer
   smallint: integers
