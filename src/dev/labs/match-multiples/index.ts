@@ -12,7 +12,7 @@ const yaml = require('js-yaml');
 		const originalSchema = yaml.load(await h3lp.fs.read(schemaPath))
 		const schema = h3lp.obj.clone(originalSchema)
 		await orm.init(schema)
-		for(const stage of ['MySQL','SqlServer','PostgreSQL','Oracle']){	 //'SqlServer', 'MySQL','Oracle','PostgreSQL'
+		for(const stage of ['MySQL','SqlServer','PostgreSQL','Oracle']){
 			await orm.stage.match({stage, removeEntities: true, removeProperties: true, removeRelations: true })
 		}
 		await h3lp.fs.write(schemaResultPath, yaml.dump(schema))
