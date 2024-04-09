@@ -40,7 +40,8 @@ support:
   tablespaces: true
   partitions: true
   pkTablespaces: true
-  ukTablespaces: true   
+  ukTablespaces: true
+  composite: false   
 ddl:  
   createDatabase: 'CREATE DATABASE IF NOT EXISTS {name}'
   createEntity: 'CREATE TABLE {name} ({define})'
@@ -81,12 +82,20 @@ dml:
   order: ORDER BY {0}
   page: "{sentence} LIMIT {offset},{records}" 
   insert: INSERT INTO {name}({fields}) VALUES({values})
-  update: UPDATE {name} {alias} SET {assigns} 
+  insertConditional: INSERT INTO {name}({fields}) SELECT {values} FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition})
+  update: UPDATE {name} {alias} SET {assigns}
+  upsert: INSERT INTO {name}({fields}) VALUES({values}) ON DUPLICATE KEY UPDATE {assigns} 
   remove: DELETE FROM {name} {alias} 
   delete: DELETE FROM {name} {alias} 
   bulkInsert: INSERT INTO {name}({fields}) VALUES {values}  
-  from: 'FROM {name} {alias} '
-  join: 'INNER JOIN {name} {alias} ON {relation}'
+  from: FROM {name} {alias}
+  join: INNER JOIN {name} {alias} ON {relation}
+  bulkMerge: |
+    INSERT INTO {name} ({fields})
+    VALUES {values}
+    ON DUPLICATE KEY UPDATE {assigns}
+  # TODO: chequear que los valores en la asignación deben usar VALUES({field})   
+  callStoredProcedure: call {name}({parameters})
 others:
   delimiter: '"{name}"'
   string: "'{name}'"
@@ -99,7 +108,6 @@ others:
   true: 'TRUE'
   null: 'NULL'
   sequenceNextVal : '{name}.nextval'
-  solveComposite: false
 operators:
   unary:
     '-': '- {0}'

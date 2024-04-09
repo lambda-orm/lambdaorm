@@ -150,7 +150,21 @@ ddl:
 dml:
   page: "{sentence} OFFSET {offset} LIMIT {records}"
   insert: INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoIncrementField} AS id
+  insertConditional: |
+    INSERT INTO {name} ({fields}) 
+    SELECT {values} WHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition})
+    RETURNING {autoIncrementField} AS id
   bulkInsert: INSERT INTO {name}({fields}) VALUES
+  upsert: |
+    INSERT INTO {name}({fields}) VALUES({values})
+    ON CONFLICT ({pkFields}) DO UPDATE SET {assigns}
+    RETURNING {autoIncrementField} AS id
+  bulkMerge: |
+    INSERT INTO {name}({fields}) 
+    SELECT {fields}
+    FROM (VALUES {values}) AS source ({fields})
+    ON CONFLICT ({pkFields}) DO UPDATE SET {assigns}
+# TODO: resolver que los valores de asignación deben tener el prefijo EXCLUDED. 
 others:
   variable: "${number}"
 operators:

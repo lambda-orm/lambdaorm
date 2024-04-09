@@ -124,6 +124,25 @@ ddl:
 dml:
   page: "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY"
   bulkInsert: INSERT INTO {name}({fields}) VALUES({values})
+  insertConditional: |
+    BEGIN 
+      INSERT INTO {name} ({fields}) 
+      SELECT {values} FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition});
+      SELECT {autoIncrementField} AS id FROM {name} WHERE {condition} AND ROWNUM = 1;
+    END;
+  upsert: |
+    BEGIN
+      INSERT INTO {name}({fields}) VALUES({values});
+      EXCEPTION
+        WHEN DUP_VAL_ON_INDEX THEN
+          UPDATE {name} SET {assigns} WHERE {condition};
+    END;
+  bulkMerge: |
+    MERGE INTO {name} AS t USING 
+    (SELECT {values} FROM DUAL) AS s ON ({condition})
+    WHEN MATCHED THEN UPDATE SET {assigns}
+    WHEN NOT MATCHED THEN INSERT ({fields}) VALUES ({values})  
+  callStoredProcedure: BEGIN {name}({parameters}); END;  
 operators:
   binary:  
     '&': 'BITAND({0},{1})'

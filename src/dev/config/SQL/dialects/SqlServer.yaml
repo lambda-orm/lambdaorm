@@ -129,11 +129,24 @@ ddl:
     WHERE object_id = OBJECT_ID('sequence_schema.sequence_name')
 dml:
   insert: INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoIncrementField} VALUES({values})
-  # insert: INSERT INTO {name}({fields}) VALUES({values})
+  insertConditional: |
+    INSERT INTO {name} ({fields}) OUTPUT INSERTED.{autoIncrementField}
+    SELECT {values}
+    WHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition})
   update: UPDATE {alias} SET {assigns} FROM {name} {alias}
+  upsert: |
+    MERGE INTO {name} AS target
+    USING (VALUES {values}) AS source ({fields})
+    ON {condition}
+    WHEN MATCHED THEN
+        UPDATE SET {assigns}
+    WHEN NOT MATCHED THEN
+        INSERT ({fields}) VALUES ({values})
+        OUTPUT INSERTED.{autoIncrementField}
   delete: DELETE FROM {name} {alias}
   bulkInsert: INSERT INTO {name}({fields})
   page: "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY"
+  callStoredProcedure: EXEC {name} {parameters};  
 others:
   delimiter: "[{name}]"
   separatorSql: ' \nGO'

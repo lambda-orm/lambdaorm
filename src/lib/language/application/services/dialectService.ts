@@ -6,6 +6,7 @@ export class DialectService {
 	private _operators?: any = {}
 	private _functions?: any = {}
 	private _others?: any = {}
+	private _support?: any = {}
 	private _dml?: any = {}
 	private _ddl?: any = {}
 	private _dbTypes?: any = {}
@@ -18,6 +19,10 @@ export class DialectService {
 		this.addOperators(data)
 		this.addFunctions(data)
 
+		for (const name in data.support) {
+			const value = data.support[name]
+			this._support[name] = value
+		}
 		for (const name in data.others) {
 			const template = data.others[name]
 			this._others[name] = template
@@ -66,7 +71,7 @@ export class DialectService {
 	}
 
 	public get solveComposite (): boolean {
-		return this._others.solveComposite || false
+		return this._support.composite || false
 	}
 
 	public operator (name: string, operands: number): string {
@@ -75,6 +80,10 @@ export class DialectService {
 
 	public function (name: string): any {
 		return this._functions[name]
+	}
+
+	public support (name: string): string {
+		return this._support[name]
 	}
 
 	public dml (name: string): string {

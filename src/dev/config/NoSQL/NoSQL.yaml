@@ -10,7 +10,14 @@ types:
 format:
   dateTime: 'ISO'
   date: 'yyyy-LL-dd'
-  time: 'HH:mm:ss' 
+  time: 'HH:mm:ss'
+support:
+  sequences: false
+  tablespaces: false
+  partitions: false
+  pkTablespaces: false
+  ukTablespaces: false
+  composite: true    
 ddl:
   # createEntity: "createCollection({name})"
   # createIndex: "createIndex({index})"
@@ -52,7 +59,6 @@ others:
   column: '"{name}": 1'
   false: "false"
   true: "true"
-  solveComposite: true
 operators:
   unary:
     "-": '{ "$multiply" :[{0},-1] }'
