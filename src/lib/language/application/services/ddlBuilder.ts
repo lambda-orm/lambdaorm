@@ -24,7 +24,7 @@ export class DDLBuilderService {
 		const stage = this.schemaState.stage.get(this.stage)
 		for (const ruleDataSource of stage.sources) {
 			const source = this.schemaState.source.get(ruleDataSource.name)
-			const mapping = mappings.find(p => p.name === source.mapping)
+			const mapping = mappings.find(p => this.equal(p.name, source.mapping))
 			if (mapping !== undefined && mapping.entities !== undefined) {
 				this._drop(source, ruleDataSource, mapping.entities, queries)
 			}
@@ -37,7 +37,7 @@ export class DDLBuilderService {
 		const stage = this.schemaState.stage.get(this.stage)
 		for (const ruleDataSource of stage.sources) {
 			const source = this.schemaState.source.get(ruleDataSource.name)
-			const mapping = mappings.find(p => p.name === source.mapping)
+			const mapping = mappings.find(p => this.equal(p.name, source.mapping))
 			if (mapping !== undefined && mapping.entities !== undefined) {
 				this._truncate(source, ruleDataSource, mapping.entities, queries)
 			}
@@ -50,9 +50,9 @@ export class DDLBuilderService {
 		const stage = this.schemaState.stage.get(this.stage)
 		for (const ruleDataSource of stage.sources) {
 			const source = this.schemaState.source.get(ruleDataSource.name)
-			const oldMapping = mappings.find(p => p.name === source.mapping)
+			const oldMapping = mappings.find(p => this.equal(p.name, source.mapping))
 			const oldEntities = oldMapping !== undefined && oldMapping.entities !== undefined ? oldMapping.entities : null
-			const currentMapping = this.schemaState.mapping.mappings.find(p => p.name === source.mapping)
+			const currentMapping = this.schemaState.mapping.mappings.find(p => this.equal(p.name, source.mapping))
 			const currentEntities = currentMapping !== undefined && currentMapping.entities !== undefined ? currentMapping.entities : null
 			const delta = this.helper.obj.delta(currentEntities, oldEntities, { ignore: ['dependents'] })
 			if (delta.children && delta.children.length > 0) {
@@ -88,7 +88,7 @@ export class DDLBuilderService {
 		for (const entityName of sortedEntities) {
 			// evaluate if entity apply in source
 			if (this.evalDataSource(sourceRule, entityName)) {
-				const entity = entitiesMapping.find(q => q.name === entityName)
+				const entity = entitiesMapping.find(q => this.equal(q.name, entityName))
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop constraint action`)
 				}
@@ -100,7 +100,7 @@ export class DDLBuilderService {
 			// evaluate if entity apply in source
 			if (this.evalDataSource(sourceRule, entityName)) {
 				// const entity = this.domain.getEntity(entityName) as Entity
-				const entity = entitiesMapping.find(p => p.name === entityName)
+				const entity = entitiesMapping.find(p => this.equal(p.name, entityName))
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for drop indexes action`)
 				}
@@ -112,7 +112,7 @@ export class DDLBuilderService {
 	private _dropRelations (source: Source, sourceRule: SourceRule, entity:EntityMapping, entitiesMapping: EntityMapping[], dialect:DialectService, queries: Query[]) {
 		if (entity.relations && !entity.view && (!entity.composite || !dialect.solveComposite)) {
 			for (const relation of entity.relations) {
-				const relationEntity = entitiesMapping.find(r => r.name === relation.entity)
+				const relationEntity = entitiesMapping.find(r => this.equal(r.name, relation.entity))
 				// evaluate if entity relation is not view and apply in source
 				if (relationEntity && !relationEntity.view && (!relationEntity.composite || !dialect.solveComposite) && this.evalDataSource(sourceRule, relation.entity)) {
 					this._dropRelation(source, entity, relation, queries)
@@ -124,7 +124,7 @@ export class DDLBuilderService {
 	private _dropRelation (source: Source, entity:EntityMapping, relation:Relation, queries: Query[]) {
 		if (!relation.weak) {
 			// look for the related property to see if the relation is not required
-			const fromProperty = entity.properties?.find(r => r.name === relation.from)
+			const fromProperty = entity.properties?.find(r => this.equal(r.name, relation.from))
 			if (fromProperty === undefined) {
 				throw new SchemaError(`property ${relation.from} not found in ${entity.name} `)
 			}
@@ -162,7 +162,7 @@ export class DDLBuilderService {
 			// evaluate if entity apply in source
 			if (this.evalDataSource(sourceRule, entityName)) {
 				// const entity = this.domain.getEntity(entityName) as Entity
-				const entity = entitiesMapping.find(p => p.name === entityName)
+				const entity = entitiesMapping.find(p => this.equal(p.name, entityName))
 				if (entity === undefined) {
 					throw new SchemaError(`entity ${entityName} not found in mapping for truncate action`)
 				}
@@ -235,7 +235,7 @@ export class DDLBuilderService {
 			for (const changedItem of delta.changed) {
 				const newRelation = changedItem.new as Relation
 				const oldRelation = changedItem.old as Relation
-				const oldRelationEntity = oldMapping.find(r => r.name === oldRelation.entity)
+				const oldRelationEntity = oldMapping.find(r => this.equal(r.name, oldRelation.entity))
 				// evaluate if entity relation apply in source
 				if ((oldRelationEntity && !oldRelationEntity.view) && this.evalDataSource(sourceRule, newRelation.entity) && this.changeRelation(oldRelation, newRelation) && !oldRelation.weak) {
 					this.addQuery(queries, this.builder(source).dropFk(entityChanged.new, oldRelation))
@@ -245,7 +245,7 @@ export class DDLBuilderService {
 		if (delta.remove) {
 			for (const removeItem of delta.remove) {
 				const removeRelation = removeItem.old as Relation
-				const oldRelationEntity = oldMapping.find(s => s.name === removeRelation.entity)
+				const oldRelationEntity = oldMapping.find(s => this.equal(s.name, removeRelation.entity))
 				// evaluate if entity relation apply in source
 				if ((oldRelationEntity && !oldRelationEntity.view) && this.evalDataSource(sourceRule, removeRelation.entity)) {
 					this.addQuery(queries, this.builder(source).dropFk(entityChanged.new, removeRelation))
@@ -356,7 +356,7 @@ export class DDLBuilderService {
 			for (const changedItem of delta.changed) {
 				const newProperty = changedItem.new as PropertyMapping
 				const oldProperty = changedItem.old as PropertyMapping
-				if (newProperty.mapping === oldProperty.mapping && !newProperty.view) {
+				if (this.equal(newProperty.mapping, oldProperty.mapping) && !newProperty.view) {
 					this.addQuery(queries, this.builder(source).alterProperty(entityChanged.new, newProperty))
 				}
 			}
@@ -476,7 +476,7 @@ export class DDLBuilderService {
 	private _syncCreateFksForNewEntity (source: Source, sourceRule: SourceRule, newMapping: EntityMapping[], newEntity: EntityMapping, queries: Query[]): void {
 		if (newEntity.relations) {
 			for (const relation of newEntity.relations) {
-				const relationEntity = newMapping.find(q => q.name === relation.entity)
+				const relationEntity = newMapping.find(q => this.equal(q.name, relation.entity))
 				// evaluate if entity relation apply in source
 				if ((relationEntity && relationEntity.view) || (!this.evalDataSource(sourceRule, relation.entity)) || relation.weak) continue
 				this.addQuery(queries, this.builder(source).addFk(newEntity, relation))
@@ -507,6 +507,10 @@ export class DDLBuilderService {
 	}
 
 	private changeRelation (a: Relation, b: Relation): boolean {
-		return a.entity !== b.entity || a.from !== b.from || a.name !== b.name || a.to !== b.to || a.type !== b.type
+		return !this.equal(a.entity, b.entity) || !this.equal(a.from, b.from) || !this.equal(a.name, b.name) || !this.equal(a.to, b.to) || !this.equal(a.type, b.type)
+	}
+
+	private equal (a:string, b:string) {
+		return this.helper.schema.equalName(a, b)
 	}
 }

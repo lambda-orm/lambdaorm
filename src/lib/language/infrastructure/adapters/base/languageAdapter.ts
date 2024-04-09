@@ -27,5 +27,4 @@ export abstract class LanguageAdapter implements LanguagePort {
 
 	public abstract ddlBuilder(source: Source, mapping: MappingConfigService): DDLBuilderPort
 	public abstract dmlBuilder(source: Source, mapping: MappingConfigService): DMLBuilderPort
-	// public abstract dmlBuild(source: Source, mapping: MappingConfigService, sentence: Sentence): Query
 }
