@@ -6,6 +6,14 @@
       "date": "yyyy-LL-dd",
       "time": "HH:mm:ss"
     },
+    "support": {
+      "sequences": false,
+      "tablespaces": false,
+      "partitions": false,
+      "pkTablespaces": false,
+      "ukTablespaces": false,
+      "composite": true
+    },
     "ddl": null,
     "dml": {
       "rootMap": "{ \"$project\" :{ \"_id\": 0 , {0} }} ",
@@ -34,8 +42,7 @@
       "projectJoinField": "{ \"$arrayElemAt\": [\"{prefix}{entityAlias}.{name}\", 0] }",
       "column": "\"{name}\": 1",
       "false": "false",
-      "true": "true",
-      "solveComposite": true
+      "true": "true"
     },
     "operators": {
       "unary": {
@@ -173,6 +180,14 @@
         "date": "yyyy-LL-dd",
         "time": "HH:mm:ss"
       },
+      "support": {
+        "sequences": false,
+        "tablespaces": false,
+        "partitions": false,
+        "pkTablespaces": false,
+        "ukTablespaces": false,
+        "composite": true
+      },
       "dml": {
         "rootMap": "{ \"$project\" :{ \"_id\": 0 , {0} }} ",
         "map": "{0}",
@@ -200,8 +215,7 @@
         "projectJoinField": "{ \"$arrayElemAt\": [\"{prefix}{entityAlias}.{name}\", 0] }",
         "column": "\"{name}\": 1",
         "false": "false",
-        "true": "true",
-        "solveComposite": true
+        "true": "true"
       },
       "operators": {
         "unary": {

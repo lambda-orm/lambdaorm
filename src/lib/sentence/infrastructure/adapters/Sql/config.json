@@ -44,7 +44,8 @@
       "tablespaces": true,
       "partitions": true,
       "pkTablespaces": true,
-      "ukTablespaces": true
+      "ukTablespaces": true,
+      "composite": false
     },
     "ddl": {
       "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
@@ -87,12 +88,16 @@
       "order": "ORDER BY {0}",
       "page": "{sentence} LIMIT {offset},{records}",
       "insert": "INSERT INTO {name}({fields}) VALUES({values})",
+      "insertConditional": "INSERT INTO {name}({fields}) SELECT {values} FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition})",
       "update": "UPDATE {name} {alias} SET {assigns}",
+      "upsert": "INSERT INTO {name}({fields}) VALUES({values}) ON DUPLICATE KEY UPDATE {assigns}",
       "remove": "DELETE FROM {name} {alias}",
       "delete": "DELETE FROM {name} {alias}",
       "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
-      "from": "FROM {name} {alias} ",
-      "join": "INNER JOIN {name} {alias} ON {relation}"
+      "from": "FROM {name} {alias}",
+      "join": "INNER JOIN {name} {alias} ON {relation}",
+      "bulkMerge": "INSERT INTO {name} ({fields})\nVALUES {values}\nON DUPLICATE KEY UPDATE {assigns}\n",
+      "callStoredProcedure": "call {name}({parameters})"
     },
     "others": {
       "delimiter": "\"{name}\"",
@@ -105,8 +110,7 @@
       "false": "FALSE",
       "true": "TRUE",
       "null": "NULL",
-      "sequenceNextVal": "{name}.nextval",
-      "solveComposite": false
+      "sequenceNextVal": "{name}.nextval"
     },
     "operators": {
       "unary": {
@@ -291,7 +295,8 @@
         "tablespaces": false,
         "partitions": false,
         "pkTablespaces": false,
-        "ukTablespaces": false
+        "ukTablespaces": false,
+        "composite": false
       },
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
@@ -344,10 +349,14 @@
         "order": "ORDER BY {0}",
         "page": "{sentence} LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
+        "insertConditional": "INSERT INTO {name}({fields}) SELECT {values} FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition})",
         "update": "UPDATE {name} {alias} SET {assigns}",
+        "upsert": "INSERT INTO {name}({fields}) VALUES({values}) ON DUPLICATE KEY UPDATE {assigns}",
         "remove": "DELETE FROM {name} {alias}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "from": "FROM {name} {alias}",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "bulkMerge": "INSERT INTO {name} ({fields})\nVALUES {values}\nON DUPLICATE KEY UPDATE {assigns}\n",
+        "callStoredProcedure": "call {name}({parameters})"
       },
       "others": {
         "delimiter": "`{name}`",
@@ -360,8 +369,7 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval",
-        "solveComposite": false
+        "sequenceNextVal": "{name}.nextval"
       },
       "functions": {
         "numeric": {
@@ -583,7 +591,8 @@
         "tablespaces": false,
         "partitions": false,
         "pkTablespaces": false,
-        "ukTablespaces": false
+        "ukTablespaces": false,
+        "composite": false
       },
       "ddl": {
         "dropIndex": "DROP INDEX {name} ON {table}",
@@ -636,10 +645,14 @@
         "order": "ORDER BY {0}",
         "page": "{sentence} LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
+        "insertConditional": "INSERT INTO {name}({fields}) SELECT {values} FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition})",
         "update": "UPDATE {name} {alias} SET {assigns}",
+        "upsert": "INSERT INTO {name}({fields}) VALUES({values}) ON DUPLICATE KEY UPDATE {assigns}",
         "remove": "DELETE FROM {name} {alias}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "from": "FROM {name} {alias}",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "bulkMerge": "INSERT INTO {name} ({fields})\nVALUES {values}\nON DUPLICATE KEY UPDATE {assigns}\n",
+        "callStoredProcedure": "call {name}({parameters})"
       },
       "others": {
         "delimiter": "`{name}`",
@@ -652,8 +665,7 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval",
-        "solveComposite": false
+        "sequenceNextVal": "{name}.nextval"
       },
       "functions": {
         "numeric": {
@@ -916,8 +928,7 @@
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval",
-        "solveComposite": false
+        "sequenceNextVal": "{name}.nextval"
       },
       "ddl": {
         "createEntity": "CREATE TABLE {name} ({define})",
@@ -959,6 +970,10 @@
       "dml": {
         "page": "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY",
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES({values})",
+        "insertConditional": "BEGIN \n  INSERT INTO {name} ({fields}) \n  SELECT {values} FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition});\n  SELECT {autoIncrementField} AS id FROM {name} WHERE {condition} AND ROWNUM = 1;\nEND;\n",
+        "upsert": "BEGIN\n  INSERT INTO {name}({fields}) VALUES({values});\n  EXCEPTION\n    WHEN DUP_VAL_ON_INDEX THEN\n      UPDATE {name} SET {assigns} WHERE {condition};\nEND;\n",
+        "bulkMerge": "MERGE INTO {name} AS t USING \n(SELECT {values} FROM DUAL) AS s ON ({condition})\nWHEN MATCHED THEN UPDATE SET {assigns}\nWHEN NOT MATCHED THEN INSERT ({fields}) VALUES ({values})  \n",
+        "callStoredProcedure": "BEGIN {name}({parameters}); END;",
         "map": "SELECT {0}",
         "select": "SELECT {0}",
         "distinct": "SELECT DISTINCT {0}",
@@ -972,7 +987,7 @@
         "update": "UPDATE {name} {alias} SET {assigns}",
         "remove": "DELETE FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
-        "from": "FROM {name} {alias} ",
+        "from": "FROM {name} {alias}",
         "join": "INNER JOIN {name} {alias} ON {relation}"
       },
       "operators": {
@@ -1150,7 +1165,8 @@
         "tablespaces": true,
         "partitions": true,
         "pkTablespaces": true,
-        "ukTablespaces": true
+        "ukTablespaces": true,
+        "composite": false
       }
     },
     "PostgreSQL": {
@@ -1197,7 +1213,8 @@
         "ukTablespaces": false,
         "sequences": true,
         "tablespaces": true,
-        "partitions": true
+        "partitions": true,
+        "composite": false
       },
       "ddl": {
         "incrementalColumDefine": "{name} serial",
@@ -1239,7 +1256,10 @@
       "dml": {
         "page": "{sentence} OFFSET {offset} LIMIT {records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values}) RETURNING {autoIncrementField} AS id",
+        "insertConditional": "INSERT INTO {name} ({fields}) \nSELECT {values} WHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition})\nRETURNING {autoIncrementField} AS id\n",
         "bulkInsert": "INSERT INTO {name}({fields}) VALUES",
+        "upsert": "INSERT INTO {name}({fields}) VALUES({values})\nON CONFLICT ({pkFields}) DO UPDATE SET {assigns}\nRETURNING {autoIncrementField} AS id\n",
+        "bulkMerge": "INSERT INTO {name}({fields}) \nSELECT {fields}\nFROM (VALUES {values}) AS source ({fields})\nON CONFLICT ({pkFields}) DO UPDATE SET {assigns}\n",
         "map": "SELECT {0}",
         "select": "SELECT {0}",
         "distinct": "SELECT DISTINCT {0}",
@@ -1252,8 +1272,9 @@
         "update": "UPDATE {name} {alias} SET {assigns}",
         "remove": "DELETE FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "from": "FROM {name} {alias}",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "callStoredProcedure": "call {name}({parameters})"
       },
       "others": {
         "variable": "${number}",
@@ -1266,8 +1287,7 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval",
-        "solveComposite": false
+        "sequenceNextVal": "{name}.nextval"
       },
       "operators": {
         "binary": {
@@ -1446,7 +1466,8 @@
         "tablespaces": false,
         "partitions": false,
         "pkTablespaces": false,
-        "ukTablespaces": false
+        "ukTablespaces": false,
+        "composite": false
       },
       "ddl": {
         "objects": null,
@@ -1509,10 +1530,14 @@
         "order": "ORDER BY {0}",
         "page": "{sentence} LIMIT {offset},{records}",
         "insert": "INSERT INTO {name}({fields}) VALUES({values})",
+        "insertConditional": "INSERT INTO {name}({fields}) SELECT {values} FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition})",
         "update": "UPDATE {name} {alias} SET {assigns}",
+        "upsert": "INSERT INTO {name}({fields}) VALUES({values}) ON DUPLICATE KEY UPDATE {assigns}",
         "remove": "DELETE FROM {name} {alias}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "from": "FROM {name} {alias}",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "bulkMerge": "INSERT INTO {name} ({fields})\nVALUES {values}\nON DUPLICATE KEY UPDATE {assigns}\n",
+        "callStoredProcedure": "call {name}({parameters})"
       },
       "others": {
         "delimiter": "`{name}`",
@@ -1525,8 +1550,7 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval",
-        "solveComposite": false
+        "sequenceNextVal": "{name}.nextval"
       },
       "functions": {
         "numeric": {
@@ -1786,7 +1810,8 @@
         "ukTablespaces": false,
         "sequences": true,
         "tablespaces": true,
-        "partitions": true
+        "partitions": true,
+        "composite": false
       },
       "ddl": {
         "createPk": "PRIMARY KEY ({columns})",
@@ -1827,10 +1852,13 @@
       },
       "dml": {
         "insert": "INSERT INTO {name}({fields}) OUTPUT INSERTED.{autoIncrementField} VALUES({values})",
+        "insertConditional": "INSERT INTO {name} ({fields}) OUTPUT INSERTED.{autoIncrementField}\nSELECT {values}\nWHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition})\n",
         "update": "UPDATE {alias} SET {assigns} FROM {name} {alias}",
+        "upsert": "MERGE INTO {name} AS target\nUSING (VALUES {values}) AS source ({fields})\nON {condition}\nWHEN MATCHED THEN\n    UPDATE SET {assigns}\nWHEN NOT MATCHED THEN\n    INSERT ({fields}) VALUES ({values})\n    OUTPUT INSERTED.{autoIncrementField}\n",
         "delete": "DELETE FROM {name} {alias}",
         "bulkInsert": "INSERT INTO {name}({fields})",
         "page": "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY",
+        "callStoredProcedure": "EXEC {name} {parameters};",
         "map": "SELECT {0}",
         "select": "SELECT {0}",
         "distinct": "SELECT DISTINCT {0}",
@@ -1841,8 +1869,9 @@
         "sort": "ORDER BY {0}",
         "order": "ORDER BY {0}",
         "remove": "DELETE FROM {name} {alias}",
-        "from": "FROM {name} {alias} ",
-        "join": "INNER JOIN {name} {alias} ON {relation}"
+        "from": "FROM {name} {alias}",
+        "join": "INNER JOIN {name} {alias} ON {relation}",
+        "bulkMerge": "INSERT INTO {name} ({fields})\nVALUES {values}\nON DUPLICATE KEY UPDATE {assigns}\n"
       },
       "others": {
         "delimiter": "[{name}]",
@@ -1855,8 +1884,7 @@
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval",
-        "solveComposite": false
+        "sequenceNextVal": "{name}.nextval"
       },
       "functions": {
         "numeric": {
