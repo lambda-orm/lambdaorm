@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## [1.9.0](https://github.com/lambda-orm/lambdaorm/compare/v1.8.0...v1.9.0) (2024-04-10)
+
+
+### Features
+
+* **language:** begin working in upsert, insertConditonal and bulkMerge ([2a89d7c](https://github.com/lambda-orm/lambdaorm/commit/2a89d7cd7cbe7413c229e534c91a03daaa0ba527)), closes [#167](https://github.com/lambda-orm/lambdaorm/issues/167)
+* **language:** begin working in upsert, insertConditonal and bulkMerge ([694c8c0](https://github.com/lambda-orm/lambdaorm/commit/694c8c0ec7ddb517e455515cd4aca68e7a064512)), closes [#167](https://github.com/lambda-orm/lambdaorm/issues/167)
+* **language:** working in no case sensitive ([ee7c62c](https://github.com/lambda-orm/lambdaorm/commit/ee7c62cdfcd88210bd1a1a025fe46b099c5c2c4e)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* **log:** add logger ([0f8ae68](https://github.com/lambda-orm/lambdaorm/commit/0f8ae6806463b72012b18925feb072efd3f01065)), closes [#164](https://github.com/lambda-orm/lambdaorm/issues/164)
+* rename Helper for OrmH3lp ([f39561e](https://github.com/lambda-orm/lambdaorm/commit/f39561e57ff4620f6d277265dfde16890475ab2c)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* **schema:** adjust in ddl scripts ([e4a4f67](https://github.com/lambda-orm/lambdaorm/commit/e4a4f67d24534d3202feee051012ca2877dc9092)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* **schema:** complete match multiples lab ([f514f0d](https://github.com/lambda-orm/lambdaorm/commit/f514f0df8c2e1f49a8f96856501d73de452138b3)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* **sentences:** add upsert, bulkMerge and bulkDelete clausules ([14bde00](https://github.com/lambda-orm/lambdaorm/commit/14bde00a9c10285d2b7e776ce9bdc854b9f91fe2)), closes [#167](https://github.com/lambda-orm/lambdaorm/issues/167)
+* **sql:** adjust ddl info ([2ae8121](https://github.com/lambda-orm/lambdaorm/commit/2ae812111fd60e8ec5e27049304674a22615976f)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+
 ## [1.8.0](https://github.com/lambda-orm/lambdaorm/compare/v1.7.0...v1.8.0) (2024-04-07)
 
 **Features:**
