@@ -35,7 +35,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:113
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:116
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:115
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:118
 
 ___
 
@@ -77,4 +77,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:111
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:114

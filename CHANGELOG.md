@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.9.0](https://github.com/lambda-orm/lambdaorm/compare/v1.8.0...v1.9.0) (2024-04-10)
 
-
-### Features
+**Features:**
 
 * **language:** begin working in upsert, insertConditonal and bulkMerge ([2a89d7c](https://github.com/lambda-orm/lambdaorm/commit/2a89d7cd7cbe7413c229e534c91a03daaa0ba527)), closes [#167](https://github.com/lambda-orm/lambdaorm/issues/167)
 * **language:** begin working in upsert, insertConditonal and bulkMerge ([694c8c0](https://github.com/lambda-orm/lambdaorm/commit/694c8c0ec7ddb517e455515cd4aca68e7a064512)), closes [#167](https://github.com/lambda-orm/lambdaorm/issues/167)

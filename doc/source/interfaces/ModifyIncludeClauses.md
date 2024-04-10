@@ -33,4 +33,4 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:97
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:100

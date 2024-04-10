@@ -1,43 +1,44 @@
-[Lambda ORM](../README.md) / SentenceInclude
+[Lambda ORM](../README.md) / BulkDelete
 
-# Class: SentenceInclude
+# Class: BulkDelete
 
 ## Hierarchy
 
-- `Operand`
+- [`Clause`](Clause.md)
 
-  ↳ **`SentenceInclude`**
+  ↳ **`BulkDelete`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](SentenceInclude.md#constructor)
+- [constructor](BulkDelete.md#constructor)
 
 ### Properties
 
-- [children](SentenceInclude.md#children)
-- [evaluator](SentenceInclude.md#evaluator)
-- [id](SentenceInclude.md#id)
-- [name](SentenceInclude.md#name)
-- [number](SentenceInclude.md#number)
-- [pos](SentenceInclude.md#pos)
-- [relation](SentenceInclude.md#relation)
-- [returnType](SentenceInclude.md#returntype)
-- [type](SentenceInclude.md#type)
+- [alias](BulkDelete.md#alias)
+- [children](BulkDelete.md#children)
+- [entity](BulkDelete.md#entity)
+- [evaluator](BulkDelete.md#evaluator)
+- [id](BulkDelete.md#id)
+- [name](BulkDelete.md#name)
+- [number](BulkDelete.md#number)
+- [pos](BulkDelete.md#pos)
+- [returnType](BulkDelete.md#returntype)
+- [type](BulkDelete.md#type)
 
 ### Methods
 
-- [eval](SentenceInclude.md#eval)
-- [evalAsync](SentenceInclude.md#evalasync)
-- [isAsync](SentenceInclude.md#isasync)
-- [solve](SentenceInclude.md#solve)
+- [eval](BulkDelete.md#eval)
+- [evalAsync](BulkDelete.md#evalasync)
+- [isAsync](BulkDelete.md#isasync)
+- [solve](BulkDelete.md#solve)
 
 ## Constructors
 
 ### constructor
 
-• **new SentenceInclude**(`pos`, `name`, `children`, `relation`): [`SentenceInclude`](SentenceInclude.md)
+• **new BulkDelete**(`pos`, `name`, `children`, `entity`, `alias`): [`BulkDelete`](BulkDelete.md)
 
 #### Parameters
 
@@ -46,21 +47,36 @@
 | `pos` | `Position` |
 | `name` | `string` |
 | `children` | `Operand`[] |
-| `relation` | [`Relation`](../interfaces/Relation.md) |
+| `entity` | `string` |
+| `alias` | `string` |
 
 #### Returns
 
-[`SentenceInclude`](SentenceInclude.md)
+[`BulkDelete`](BulkDelete.md)
 
-#### Overrides
+#### Inherited from
 
-Operand.constructor
+[Clause](Clause.md).[constructor](Clause.md#constructor)
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:69
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:20
 
 ## Properties
+
+### alias
+
+• **alias**: `string`
+
+#### Inherited from
+
+[Clause](Clause.md).[alias](Clause.md#alias)
+
+#### Defined in
+
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:18
+
+___
 
 ### children
 
@@ -68,11 +84,25 @@ node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:69
 
 #### Inherited from
 
-Operand.children
+[Clause](Clause.md).[children](Clause.md#children)
 
 #### Defined in
 
 node_modules/3xpr/shared/domain/operand.d.ts:44
+
+___
+
+### entity
+
+• **entity**: `string`
+
+#### Inherited from
+
+[Clause](Clause.md).[entity](Clause.md#entity)
+
+#### Defined in
+
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:19
 
 ___
 
@@ -82,7 +112,7 @@ ___
 
 #### Inherited from
 
-Operand.evaluator
+[Clause](Clause.md).[evaluator](Clause.md#evaluator)
 
 #### Defined in
 
@@ -96,7 +126,7 @@ ___
 
 #### Inherited from
 
-Operand.id
+[Clause](Clause.md).[id](Clause.md#id)
 
 #### Defined in
 
@@ -110,7 +140,7 @@ ___
 
 #### Inherited from
 
-Operand.name
+[Clause](Clause.md).[name](Clause.md#name)
 
 #### Defined in
 
@@ -124,7 +154,7 @@ ___
 
 #### Inherited from
 
-Operand.number
+[Clause](Clause.md).[number](Clause.md#number)
 
 #### Defined in
 
@@ -138,21 +168,11 @@ ___
 
 #### Inherited from
 
-Operand.pos
+[Clause](Clause.md).[pos](Clause.md#pos)
 
 #### Defined in
 
 node_modules/3xpr/shared/domain/operand.d.ts:41
-
-___
-
-### relation
-
-• **relation**: [`Relation`](../interfaces/Relation.md)
-
-#### Defined in
-
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:68
 
 ___
 
@@ -162,7 +182,7 @@ ___
 
 #### Inherited from
 
-Operand.returnType
+[Clause](Clause.md).[returnType](Clause.md#returntype)
 
 #### Defined in
 
@@ -176,7 +196,7 @@ ___
 
 #### Inherited from
 
-Operand.type
+[Clause](Clause.md).[type](Clause.md#type)
 
 #### Defined in
 
@@ -200,7 +220,7 @@ node_modules/3xpr/shared/domain/operand.d.ts:43
 
 #### Inherited from
 
-Operand.eval
+[Clause](Clause.md).[eval](Clause.md#eval)
 
 #### Defined in
 
@@ -224,7 +244,7 @@ ___
 
 #### Inherited from
 
-Operand.evalAsync
+[Clause](Clause.md).[evalAsync](Clause.md#evalasync)
 
 #### Defined in
 
@@ -242,7 +262,7 @@ ___
 
 #### Inherited from
 
-Operand.isAsync
+[Clause](Clause.md).[isAsync](Clause.md#isasync)
 
 #### Defined in
 
@@ -266,7 +286,7 @@ ___
 
 #### Inherited from
 
-Operand.solve
+[Clause](Clause.md).[solve](Clause.md#solve)
 
 #### Defined in
 

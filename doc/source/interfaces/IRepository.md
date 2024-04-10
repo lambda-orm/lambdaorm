@@ -17,6 +17,7 @@
 
 ### Methods
 
+- [bulkDelete](IRepository.md#bulkdelete)
 - [bulkInsert](IRepository.md#bulkinsert)
 - [bulkMerge](IRepository.md#bulkmerge)
 - [delete](IRepository.md#delete)
@@ -31,8 +32,63 @@
 - [query](IRepository.md#query)
 - [update](IRepository.md#update)
 - [updateAll](IRepository.md#updateall)
+- [upsert](IRepository.md#upsert)
 
 ## Methods
+
+### bulkDelete
+
+▸ **bulkDelete**(`entities`): `Promise`\<`any`[]\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entities` | `TEntity`[] |
+
+#### Returns
+
+`Promise`\<`any`[]\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/repository/application/repository.d.ts:26
+
+▸ **bulkDelete**(`entities`, `include`): `Promise`\<`any`[]\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entities` | `TEntity`[] |
+| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+
+#### Returns
+
+`Promise`\<`any`[]\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/repository/application/repository.d.ts:27
+
+▸ **bulkDelete**(`entities`, `include?`): `Promise`\<`any`[]\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entities` | `TEntity`[] |
+| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+
+#### Returns
+
+`Promise`\<`any`[]\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/repository/application/repository.d.ts:28
+
+___
 
 ### bulkInsert
 
@@ -104,7 +160,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:17
+node_modules/lambdaorm-base/repository/application/repository.d.ts:20
 
 ▸ **bulkMerge**(`entities`, `include`): `Promise`\<`any`[]\>
 
@@ -121,7 +177,7 @@ node_modules/lambdaorm-base/repository/application/repository.d.ts:17
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:18
+node_modules/lambdaorm-base/repository/application/repository.d.ts:21
 
 ▸ **bulkMerge**(`entities`, `include?`): `Promise`\<`any`[]\>
 
@@ -138,7 +194,7 @@ node_modules/lambdaorm-base/repository/application/repository.d.ts:18
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:19
+node_modules/lambdaorm-base/repository/application/repository.d.ts:22
 
 ___
 
@@ -158,7 +214,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:20
+node_modules/lambdaorm-base/repository/application/repository.d.ts:23
 
 ▸ **delete**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -175,7 +231,7 @@ node_modules/lambdaorm-base/repository/application/repository.d.ts:20
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:21
+node_modules/lambdaorm-base/repository/application/repository.d.ts:24
 
 ▸ **delete**(`entity`, `include?`): `Promise`\<`number`\>
 
@@ -192,7 +248,7 @@ node_modules/lambdaorm-base/repository/application/repository.d.ts:21
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:22
+node_modules/lambdaorm-base/repository/application/repository.d.ts:25
 
 ___
 
@@ -214,7 +270,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:23
+node_modules/lambdaorm-base/repository/application/repository.d.ts:29
 
 ___
 
@@ -236,7 +292,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:25
+node_modules/lambdaorm-base/repository/application/repository.d.ts:31
 
 ___
 
@@ -279,7 +335,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:26
+node_modules/lambdaorm-base/repository/application/repository.d.ts:32
 
 ___
 
@@ -355,7 +411,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:27
+node_modules/lambdaorm-base/repository/application/repository.d.ts:33
 
 ___
 
@@ -377,7 +433,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:24
+node_modules/lambdaorm-base/repository/application/repository.d.ts:30
 
 ___
 
@@ -397,7 +453,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:14
+node_modules/lambdaorm-base/repository/application/repository.d.ts:17
 
 ▸ **merge**(`entity`, `include`): `Promise`\<`number`\>
 
@@ -414,7 +470,7 @@ node_modules/lambdaorm-base/repository/application/repository.d.ts:14
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:15
+node_modules/lambdaorm-base/repository/application/repository.d.ts:18
 
 ▸ **merge**(`entity`, `include?`): `Promise`\<`number`\>
 
@@ -431,7 +487,7 @@ node_modules/lambdaorm-base/repository/application/repository.d.ts:15
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:16
+node_modules/lambdaorm-base/repository/application/repository.d.ts:19
 
 ___
 
@@ -445,7 +501,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:28
+node_modules/lambdaorm-base/repository/application/repository.d.ts:34
 
 ___
 
@@ -522,4 +578,58 @@ ___
 
 #### Defined in
 
+node_modules/lambdaorm-base/repository/application/repository.d.ts:16
+
+___
+
+### upsert
+
+▸ **upsert**(`entity`): `Promise`\<`number`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entity` | `TEntity` |
+
+#### Returns
+
+`Promise`\<`number`\>
+
+#### Defined in
+
 node_modules/lambdaorm-base/repository/application/repository.d.ts:13
+
+▸ **upsert**(`entity`, `include`): `Promise`\<`number`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entity` | `TEntity` |
+| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+
+#### Returns
+
+`Promise`\<`number`\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/repository/application/repository.d.ts:14
+
+▸ **upsert**(`entity`, `include?`): `Promise`\<`number`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entity` | `TEntity` |
+| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+
+#### Returns
+
+`Promise`\<`number`\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/repository/application/repository.d.ts:15

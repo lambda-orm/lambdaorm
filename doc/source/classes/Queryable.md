@@ -22,6 +22,7 @@
 
 ### Methods
 
+- [bulkDelete](Queryable.md#bulkdelete)
 - [bulkInsert](Queryable.md#bulkinsert)
 - [bulkMerge](Queryable.md#bulkmerge)
 - [constraints](Queryable.md#constraints)
@@ -46,6 +47,7 @@
 - [sort](Queryable.md#sort)
 - [update](Queryable.md#update)
 - [updateAll](Queryable.md#updateall)
+- [upsert](Queryable.md#upsert)
 
 ## Constructors
 
@@ -80,6 +82,26 @@ node_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
 
 ## Methods
 
+### bulkDelete
+
+▸ **bulkDelete**(`value?`): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value?` | `T` |
+
+#### Returns
+
+[`ModificableClauses`](ModificableClauses.md)\<`T`\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:88
+
+___
+
 ### bulkInsert
 
 ▸ **bulkInsert**(`value?`): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
@@ -96,7 +118,7 @@ node_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:78
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:79
 
 ___
 
@@ -116,7 +138,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:85
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:86
 
 ___
 
@@ -154,7 +176,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:87
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:90
 
 ___
 
@@ -168,7 +190,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:89
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:92
 
 ___
 
@@ -412,7 +434,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:83
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:84
 
 ___
 
@@ -571,7 +593,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:80
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:81
 
 ___
 
@@ -591,4 +613,24 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:82
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:83
+
+___
+
+### upsert
+
+▸ **upsert**(`predicate?`): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `predicate?` | (`value`: `T`) => `unknown` |
+
+#### Returns
+
+[`ModificableClauses`](ModificableClauses.md)\<`T`\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/repository/domain/queryable.d.ts:77

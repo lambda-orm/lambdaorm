@@ -6,24 +6,14 @@
 
 ### Enumeration Members
 
-- [bulkInsert](ObservableAction.md#bulkinsert)
 - [ddl](ObservableAction.md#ddl)
 - [delete](ObservableAction.md#delete)
 - [insert](ObservableAction.md#insert)
+- [merge](ObservableAction.md#merge)
 - [select](ObservableAction.md#select)
 - [update](ObservableAction.md#update)
 
 ## Enumeration Members
-
-### bulkInsert
-
-• **bulkInsert** = ``"bulkInsert"``
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:4
-
-___
 
 ### ddl
 
@@ -52,6 +42,16 @@ ___
 #### Defined in
 
 node_modules/lambdaorm-base/schema/domain/actions.d.ts:3
+
+___
+
+### merge
+
+• **merge** = ``"merge"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/actions.d.ts:4
 
 ___
 

@@ -29,6 +29,7 @@
 - [operator](DialectService.md#operator)
 - [other](DialectService.md#other)
 - [string](DialectService.md#string)
+- [support](DialectService.md#support)
 - [type](DialectService.md#type)
 
 ## Constructors
@@ -50,7 +51,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:13](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L13)
+[src/lib/language/application/services/dialectService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L14)
 
 ## Properties
 
@@ -60,7 +61,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:5](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L5)
+[src/lib/language/application/services/dialectService.ts:5](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L5)
 
 ___
 
@@ -70,7 +71,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:4](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L4)
+[src/lib/language/application/services/dialectService.ts:4](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L4)
 
 ## Accessors
 
@@ -84,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:68](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L68)
+[src/lib/language/application/services/dialectService.ts:73](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L73)
 
 ## Methods
 
@@ -104,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:92](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L92)
+[src/lib/language/application/services/dialectService.ts:101](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L101)
 
 ___
 
@@ -124,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:88](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L88)
+[src/lib/language/application/services/dialectService.ts:97](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L97)
 
 ___
 
@@ -146,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:100](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L100)
+[src/lib/language/application/services/dialectService.ts:113](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L113)
 
 ___
 
@@ -166,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:80](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L80)
+[src/lib/language/application/services/dialectService.ts:89](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L89)
 
 ___
 
@@ -186,7 +187,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:76](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L76)
+[src/lib/language/application/services/dialectService.ts:81](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L81)
 
 ___
 
@@ -206,7 +207,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:125](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L125)
+[src/lib/language/application/services/dialectService.ts:138](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L138)
 
 ___
 
@@ -227,7 +228,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:113](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L113)
+[src/lib/language/application/services/dialectService.ts:126](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L126)
 
 ___
 
@@ -248,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:72](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L72)
+[src/lib/language/application/services/dialectService.ts:77](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L77)
 
 ___
 
@@ -268,7 +269,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:84](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L84)
+[src/lib/language/application/services/dialectService.ts:93](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L93)
 
 ___
 
@@ -288,7 +289,27 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:108](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L108)
+[src/lib/language/application/services/dialectService.ts:121](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L121)
+
+___
+
+### support
+
+▸ **support**(`name`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/lib/language/application/services/dialectService.ts:85](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L85)
 
 ___
 
@@ -308,4 +329,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/dialectService.ts:96](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/language/application/services/dialectService.ts#L96)
+[src/lib/language/application/services/dialectService.ts:105](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/language/application/services/dialectService.ts#L105)

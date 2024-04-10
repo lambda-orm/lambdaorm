@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/domain/actions.ts#L7)
+[src/lib/repository/domain/actions.ts:7](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/repository/domain/actions.ts#L7)
 
 ## Methods
 
@@ -66,7 +66,7 @@
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:29](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/domain/actions.ts#L29)
+[src/lib/repository/domain/actions.ts:29](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/repository/domain/actions.ts#L29)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:13](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/domain/actions.ts#L13)
+[src/lib/repository/domain/actions.ts:13](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/repository/domain/actions.ts#L13)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/domain/actions.ts#L33)
+[src/lib/repository/domain/actions.ts:33](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/repository/domain/actions.ts#L33)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:21](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/domain/actions.ts#L21)
+[src/lib/repository/domain/actions.ts:21](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/repository/domain/actions.ts#L21)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:17](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/domain/actions.ts#L17)
+[src/lib/repository/domain/actions.ts:17](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/repository/domain/actions.ts#L17)
 
 ___
 
@@ -187,7 +187,7 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:25](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/domain/actions.ts#L25)
+[src/lib/repository/domain/actions.ts:25](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/repository/domain/actions.ts#L25)
 
 ___
 
@@ -211,4 +211,4 @@ ___
 
 #### Defined in
 
-[src/lib/repository/domain/actions.ts:37](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/repository/domain/actions.ts#L37)
+[src/lib/repository/domain/actions.ts:37](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/repository/domain/actions.ts#L37)

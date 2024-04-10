@@ -1,38 +1,39 @@
-[Lambda ORM](../README.md) / Helper
+[Lambda ORM](../README.md) / OrmH3lp
 
-# Class: Helper
+# Class: OrmH3lp
 
 ## Hierarchy
 
 - [`SchemaH3lp`](SchemaH3lp.md)
 
-  ↳ **`Helper`**
+  ↳ **`OrmH3lp`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](Helper.md#constructor)
+- [constructor](OrmH3lp.md#constructor)
 
 ### Properties
 
-- [array](Helper.md#array)
-- [fs](Helper.md#fs)
-- [http](Helper.md#http)
-- [obj](Helper.md#obj)
-- [operand](Helper.md#operand)
-- [query](Helper.md#query)
-- [schema](Helper.md#schema)
-- [str](Helper.md#str)
-- [test](Helper.md#test)
-- [utils](Helper.md#utils)
-- [val](Helper.md#val)
+- [array](OrmH3lp.md#array)
+- [fs](OrmH3lp.md#fs)
+- [http](OrmH3lp.md#http)
+- [logger](OrmH3lp.md#logger)
+- [obj](OrmH3lp.md#obj)
+- [operand](OrmH3lp.md#operand)
+- [query](OrmH3lp.md#query)
+- [schema](OrmH3lp.md#schema)
+- [str](OrmH3lp.md#str)
+- [test](OrmH3lp.md#test)
+- [utils](OrmH3lp.md#utils)
+- [val](OrmH3lp.md#val)
 
 ## Constructors
 
 ### constructor
 
-• **new Helper**(`operand`, `h3lp`): [`Helper`](Helper.md)
+• **new OrmH3lp**(`operand`, `h3lp`, `logger`): [`OrmH3lp`](OrmH3lp.md)
 
 #### Parameters
 
@@ -40,10 +41,11 @@
 | :------ | :------ |
 | `operand` | `OperandHelper` |
 | `h3lp` | `H3lp` |
+| `logger` | [`Logger`](Logger.md) |
 
 #### Returns
 
-[`Helper`](Helper.md)
+[`OrmH3lp`](OrmH3lp.md)
 
 #### Overrides
 
@@ -51,7 +53,7 @@
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/shared/application/helper.ts#L33)
+[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/shared/application/helper.ts#L33)
 
 ## Properties
 
@@ -97,6 +99,20 @@ node_modules/h3lp/application/h3lp.d.ts:6
 
 ___
 
+### logger
+
+• `Readonly` **logger**: [`Logger`](Logger.md)
+
+#### Inherited from
+
+[SchemaH3lp](SchemaH3lp.md).[logger](SchemaH3lp.md#logger)
+
+#### Defined in
+
+node_modules/lambdaorm-base/shared/application/helper.d.ts:5
+
+___
+
 ### obj
 
 • `Readonly` **obj**: `IObjectHelper`
@@ -117,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/shared/application/helper.ts#L33)
+[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/shared/application/helper.ts#L33)
 
 ___
 
@@ -127,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:32](https://github.com/lambda-orm/lambdaorm/blob/cce4c9e7/src/lib/shared/application/helper.ts#L32)
+[src/lib/shared/application/helper.ts:32](https://github.com/lambda-orm/lambdaorm/blob/14bde00a/src/lib/shared/application/helper.ts#L32)
 
 ___
 
@@ -141,7 +157,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/application/helper.d.ts:4
+node_modules/lambdaorm-base/shared/application/helper.d.ts:6
 
 ___
 

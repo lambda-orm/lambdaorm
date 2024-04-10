@@ -1,44 +1,44 @@
-[Lambda ORM](../README.md) / Merge
+[Lambda ORM](../README.md) / Upsert
 
-# Class: Merge
+# Class: Upsert
 
 ## Hierarchy
 
 - [`Clause`](Clause.md)
 
-  ↳ **`Merge`**
+  ↳ **`Upsert`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](Merge.md#constructor)
+- [constructor](Upsert.md#constructor)
 
 ### Properties
 
-- [alias](Merge.md#alias)
-- [children](Merge.md#children)
-- [entity](Merge.md#entity)
-- [evaluator](Merge.md#evaluator)
-- [id](Merge.md#id)
-- [name](Merge.md#name)
-- [number](Merge.md#number)
-- [pos](Merge.md#pos)
-- [returnType](Merge.md#returntype)
-- [type](Merge.md#type)
+- [alias](Upsert.md#alias)
+- [children](Upsert.md#children)
+- [entity](Upsert.md#entity)
+- [evaluator](Upsert.md#evaluator)
+- [id](Upsert.md#id)
+- [name](Upsert.md#name)
+- [number](Upsert.md#number)
+- [pos](Upsert.md#pos)
+- [returnType](Upsert.md#returntype)
+- [type](Upsert.md#type)
 
 ### Methods
 
-- [eval](Merge.md#eval)
-- [evalAsync](Merge.md#evalasync)
-- [isAsync](Merge.md#isasync)
-- [solve](Merge.md#solve)
+- [eval](Upsert.md#eval)
+- [evalAsync](Upsert.md#evalasync)
+- [isAsync](Upsert.md#isasync)
+- [solve](Upsert.md#solve)
 
 ## Constructors
 
 ### constructor
 
-• **new Merge**(`pos`, `name`, `children`, `entity`, `alias`): [`Merge`](Merge.md)
+• **new Upsert**(`pos`, `name`, `children`, `entity`, `alias`): [`Upsert`](Upsert.md)
 
 #### Parameters
 
@@ -52,7 +52,7 @@
 
 #### Returns
 
-[`Merge`](Merge.md)
+[`Upsert`](Upsert.md)
 
 #### Inherited from
 
