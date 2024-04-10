@@ -21,7 +21,7 @@ export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 
 	public async init (): Promise<void> {
-		console.log(`connection MongoDB: ${this.config.name} initialized`)
+		await this.helper.logger.log(`connection MongoDB: ${this.config.name} initialized`)
 	}
 
 	public async acquire (): Promise<Connection> {
@@ -37,7 +37,7 @@ export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 
 	public async end (): Promise<void> {
-		// console.log(`connection MongoDB: ${this.config.name} finalized`)
+		await this.helper.logger.log(`connection MongoDB: ${this.config.name} finalized`)
 	}
 }
 
@@ -60,7 +60,6 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		const collection = mapping.entityMapping(collectionName)
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		const aggregate = this.parseTemplate(mapping, dialect, query.sentence, params)
-		// console.log(JSON.stringify(aggregate, null, 2))
 
 		// TODO:solve transaction
 		// const result = this.session

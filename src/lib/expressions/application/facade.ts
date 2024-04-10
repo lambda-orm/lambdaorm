@@ -32,7 +32,7 @@ export class ExpressionFacade {
 		this.builder = new QueryBuilderCacheDecorator(new QueryBuilder(this.sentenceFacade, this.schemaState, this.languages), cache, helper)
 		this.getQueryPlan = new GeQueryPlan(this.builder)
 		this.queryHelper = new QueryHelper(this.schemaState.stage, this.schemaState.view)
-		this.expressionExecute = new ExpressionExecute(this.builder, executor, expressions)
+		this.expressionExecute = new ExpressionExecute(this.builder, executor, expressions, helper)
 	}
 
 	public build (expression: string, options?: QueryOptions): Query {

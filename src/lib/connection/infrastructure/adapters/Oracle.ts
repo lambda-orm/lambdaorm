@@ -60,7 +60,7 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 
 	public async end (): Promise<void> {
-		// console.info('Oracle end pool not Implemented')
+		await this.helper.logger.log('Oracle end pool not Implemented')
 	}
 }
 export class OracleConnectionAdapter extends ConnectionAdapter {

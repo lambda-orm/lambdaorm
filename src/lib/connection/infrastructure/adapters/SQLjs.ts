@@ -41,7 +41,7 @@ export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public async release (_connection: Connection): Promise<void> {
-		console.info('SQLjs release pool not Implemented')
+		await this.helper.logger.log('SQLjs release pool not Implemented')
 	}
 
 	public async end (): Promise<void> {

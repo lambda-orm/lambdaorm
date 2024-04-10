@@ -5,7 +5,7 @@ import { OrmH3lp } from '../../../shared/application'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
-import { MappingConfigService, Data } from 'lambdaorm-base'
+import { MappingConfigService, Data, LogLevel } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
 import { Query } from '../../../query/domain'
 
@@ -46,7 +46,7 @@ export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 
 	public async init (): Promise<void> {
-		// console.info('PostgreSQL init pool not Implemented')
+		await this.helper.logger.log('PostgreSQL init pool not Implemented')
 	}
 
 	public async acquire (): Promise<Connection> {
@@ -60,7 +60,7 @@ export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 
 	public async end (): Promise<void> {
-		// console.info('PostgreSQL end pool not Implemented')
+		await this.helper.logger.log('PostgreSQL end pool not Implemented')
 	}
 }
 export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
@@ -84,7 +84,7 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 			const result = await this._execute(mapping, dialect, query, data)
 			return result.rows.length > 0 ? result.rows[0].id : null
 		} catch (error) {
-			console.error(error)
+			await this.helper.logger.log(error, LogLevel.ERROR)
 			throw error
 		}
 	}
@@ -108,8 +108,7 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 			}
 			return ids
 		} catch (error) {
-			console.log(_query)
-			console.error(error)
+			await this.helper.logger.log(_query, LogLevel.ERROR)
 			throw error
 		}
 	}
@@ -242,7 +241,7 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 			}
 			return result
 		} catch (error) {
-			console.error(error)
+			await this.helper.logger.log(error, LogLevel.ERROR)
 			throw error
 		}
 	}

@@ -8,7 +8,7 @@ import { OrmH3lp } from '../../../shared/application'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
-import { MappingConfigService, Data, EntityMapping } from 'lambdaorm-base'
+import { MappingConfigService, Data, EntityMapping, LogLevel } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
 
 export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
@@ -21,7 +21,7 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 
 	public async init (): Promise<void> {
-		console.log('init')
+		await this.helper.logger.log('init')
 	}
 
 	public async acquire (): Promise<Connection> {
@@ -38,7 +38,7 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 			})
 			return new SqlServerConnectionAdapter(cnx, this, this.helper)
 		} catch (error) {
-			console.error(error)
+			await this.helper.logger.log(error, LogLevel.ERROR)
 			throw error
 		}
 	}
@@ -51,7 +51,7 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 
 	public async end (): Promise<void> {
-		// console.log('end')
+		await this.helper.logger.log('end')
 	}
 }
 
