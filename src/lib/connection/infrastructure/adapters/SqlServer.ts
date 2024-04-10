@@ -56,10 +56,22 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 }
 
 export class SqlServerConnectionAdapter extends ConnectionAdapter {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	public insertConditional (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		throw new Error('Method not implemented.')
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	public upsert (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		throw new Error('Method not implemented.')
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public merge (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new Error('Method not implemented.')
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public bulkMerge (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]> {
 		throw new Error('Method not implemented.')
 	}

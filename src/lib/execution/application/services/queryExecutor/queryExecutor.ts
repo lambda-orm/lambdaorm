@@ -12,13 +12,21 @@ import { QueryInsertExecutor } from './queryInsertExecutor'
 import { QuerySelectExecutor } from './querySelectExecutor'
 import { QueryUpdateExecutor } from './queryUpdateExecutor'
 import { QueryExecutor } from '../../../domain'
+import { QueryBulkMergeExecutor } from './queryBulkMergeExecutor'
+import { QueryUpsertExecutor } from './queryUpsertExecutor'
+import { QueryInsertConditionalExecutor } from './queryInsertConditionalExecutor'
+import { QueryBulkDeleteExecutor } from './queryBulkDeleteExecutor'
 
 export class QueryExecutorImpl implements QueryExecutor, QueryInternalExecutor {
 	private connections: any
 	private selectExecutor: QuerySelectExecutor
 	private insertExecutor: QueryInsertExecutor
+	private insertConditionalExecutor: QueryInsertConditionalExecutor
 	private bulkInsertExecutor: QueryBulkInsertExecutor
+	private bulkMergeExecutor: QueryBulkMergeExecutor
+	private bulkDeleteExecutor: QueryBulkDeleteExecutor
 	private updateExecutor: QueryUpdateExecutor
+	private upsertExecutor: QueryUpsertExecutor
 	private deleteExecutor: QueryDeleteExecutor
 
 	constructor (
@@ -33,8 +41,12 @@ export class QueryExecutorImpl implements QueryExecutor, QueryInternalExecutor {
 		this.connections = {}
 		this.selectExecutor = new QuerySelectExecutor(this, this.expressions, this.options, this.helper)
 		this.insertExecutor = new QueryInsertExecutor(this, this.expressions, this.options)
+		this.insertConditionalExecutor = new QueryInsertConditionalExecutor(this, this.expressions, this.options)
 		this.bulkInsertExecutor = new QueryBulkInsertExecutor(this, this.expressions, this.options)
+		this.bulkMergeExecutor = new QueryBulkMergeExecutor(this, this.expressions, this.options)
+		this.bulkDeleteExecutor = new QueryBulkDeleteExecutor(this, this.options)
 		this.updateExecutor = new QueryUpdateExecutor(this, this.expressions, this.options)
+		this.upsertExecutor = new QueryUpsertExecutor(this, this.expressions, this.options)
 		this.deleteExecutor = new QueryDeleteExecutor(this, this.options)
 	}
 
@@ -117,8 +129,12 @@ export class QueryExecutorImpl implements QueryExecutor, QueryInternalExecutor {
 			switch (query.action) {
 			case SentenceAction.select: result = await this.selectExecutor.select(query, data, mapping, dialect, connection); break
 			case SentenceAction.insert: result = await this.insertExecutor.insert(query, data, mapping, dialect, connection); break
+			case SentenceAction.insertConditional: result = await this.insertConditionalExecutor.insertConditional(query, data, mapping, dialect, connection); break
 			case SentenceAction.bulkInsert: result = await this.bulkInsertExecutor.bulkInsert(query, data, mapping, dialect, connection); break
+			case SentenceAction.bulkMerge: result = await this.bulkMergeExecutor.bulkMerge(query, data, mapping, dialect, connection); break
+			case SentenceAction.bulkDelete: result = await this.bulkDeleteExecutor.bulkDelete(query, data, mapping, dialect, connection); break
 			case SentenceAction.update: result = await this.updateExecutor.update(query, data, mapping, dialect, connection); break
+			case SentenceAction.upsert: result = await this.upsertExecutor.upsert(query, data, mapping, dialect, connection); break
 			case SentenceAction.delete: result = await this.deleteExecutor.delete(query, data, mapping, dialect, connection); break
 			case SentenceAction.truncateEntity: result = await connection.truncateEntity(mapping, query); break
 			case SentenceAction.createEntity: result = await connection.createEntity(mapping, query); break

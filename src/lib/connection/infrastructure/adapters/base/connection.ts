@@ -118,8 +118,10 @@ export abstract class ConnectionAdapter implements Connection {
 
 	public abstract select(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
 	public abstract insert(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	public abstract insertConditional(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
 	public abstract bulkInsert(mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]>
 	public abstract update(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number>
+	public abstract upsert(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
 	public abstract delete(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number>
 	public abstract merge(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
 	public abstract bulkMerge(mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]>
@@ -205,19 +207,4 @@ export abstract class ConnectionAdapter implements Connection {
 	public async dropIndex (_mapping: MappingConfigService, query: Query): Promise<any> {
 		return this.executeDDL(query)
 	}
-
-	// public async introspect (names?:string[]): Promise<EntityMapping[]> {
-	// const entities = await this.entities(names)
-	// await this.solvePrimaryKeys(entities)
-	// await this.solveUniqueKeys(entities)
-	// await this.solveIndexes(entities)
-	// const views = await this.views(names)
-	// return entities.concat(views)
-	// }
-	// protected abstract entities (name?:string[]): Promise<EntityMapping[]>
-	// protected abstract solvePrimaryKeys (entities:EntityMapping[]) : Promise<void>
-	// protected abstract solveUniqueKeys (entities:EntityMapping[]): Promise<void>
-	// protected abstract solveIndexes (entities:EntityMapping[]): Promise<void>
-	// protected abstract views (name?:string[]): Promise<EntityMapping[]>
-	// protected abstract columnTypeToType (columnType:string): string
 }

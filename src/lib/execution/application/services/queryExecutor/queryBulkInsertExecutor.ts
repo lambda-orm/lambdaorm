@@ -11,10 +11,10 @@ import { QuerySolveWriteValues } from './querySolveWriteValues'
 
 export class QueryBulkInsertExecutor {
 	public options: QueryOptions
-	private solveDefaults:QuerySolveDefaults
-	private solveWriteValues: QuerySolveWriteValues
-	private constraints: QueryEvalConstraints
-	private executor: QueryInternalExecutor
+	protected solveDefaults:QuerySolveDefaults
+	protected solveWriteValues: QuerySolveWriteValues
+	protected constraints: QueryEvalConstraints
+	protected executor: QueryInternalExecutor
 	constructor (executor: QueryInternalExecutor, expressions: Expressions, options: QueryOptions) {
 		this.options = options
 		this.executor = executor
@@ -28,14 +28,14 @@ export class QueryBulkInsertExecutor {
 		const entity = mapping.getEntity(query.entity) as EntityMapping
 
 		// before insert the relationships of the type oneToMany and oneToOne with relation required
-		await this.bulkInsertIncludesBefore(query, data, entity, dialect)
+		await this.bulkIncludesBefore(query, data, entity, dialect)
 
 		// insert data
 		const chunkSize = this.options.chunkSize ? Math.min(connection.maxChunkSizeOnBulkInsert, this.options.chunkSize) : connection.maxChunkSizeOnBulkInsert
 		let ids: any[] = []
 		for (let i = 0; i < data.data.length; i += chunkSize) {
 			const chunk = data.data.slice(i, i + chunkSize)
-			const result = await this._chunkInsert(query, entity, chunk, mapping, dialect, connection)
+			const result = await this._chunk(query, entity, chunk, mapping, dialect, connection)
 			ids = ids.concat(result)
 		}
 		const autoIncrement = mapping.getAutoIncrement(query.entity)
@@ -46,25 +46,24 @@ export class QueryBulkInsertExecutor {
 		}
 
 		// after insert the relationships of the type manyToOne and oneToOne with relation not required
-		await this.bulkInsertIncludesAfter(query, data, mapping, dialect)
-
+		await this.bulkIncludesAfter(query, data, mapping, dialect)
 		return ids
 	}
 
-	private async bulkInsertIncludesBefore (query: Query, data: Data, entity: EntityMapping, dialect: DialectService): Promise<void> {
+	protected async bulkIncludesBefore (query: Query, data: Data, entity: EntityMapping, dialect: DialectService): Promise<void> {
 		for (const include of query.includes) {
 			if (!include.relation.composite || !dialect.solveComposite) {
 				const relationProperty = entity.properties?.find(q => q.name === include.relation.from)
 				if (include.relation.type === RelationType.oneToMany) {
-					await this.bulkInsertIncludeBeforeOneToMany(include, data)
+					await this.bulkIncludeBeforeOneToMany(include, data)
 				} else if (include.relation.type === RelationType.oneToOne && relationProperty && relationProperty.required) {
-					await this.bulkInsertIncludeBeforeOneToOne(include, data)
+					await this.bulkIncludeBeforeOneToOne(include, data)
 				}
 			}
 		}
 	}
 
-	private async bulkInsertIncludeBeforeOneToMany (include: Include, data: Data): Promise<void> {
+	protected async bulkIncludeBeforeOneToMany (include: Include, data: Data): Promise<void> {
 		const allChildren: any[] = []
 		const items: any[] = []
 		for (const item of data.data) {
@@ -84,7 +83,7 @@ export class QueryBulkInsertExecutor {
 		}
 	}
 
-	private async bulkInsertIncludeBeforeOneToOne (include: Include, data: Data): Promise<void> {
+	protected async bulkIncludeBeforeOneToOne (include: Include, data: Data): Promise<void> {
 		const allChildren: any[] = []
 		const items: any[] = []
 		for (const item of data.data) {
@@ -106,21 +105,21 @@ export class QueryBulkInsertExecutor {
 		}
 	}
 
-	private async bulkInsertIncludesAfter (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService): Promise<void> {
+	protected async bulkIncludesAfter (query: Query, data: Data, mapping: MappingConfigService, dialect: DialectService): Promise<void> {
 		for (const p in query.includes) {
 			const include = query.includes[p]
 			if (!include.relation.composite || !dialect.solveComposite) {
 				const relationProperty = mapping.getProperty(query.entity, include.relation.from)
 				if (include.relation.type === RelationType.manyToOne) {
-					await this.bulkInsertIncludeAfterManyToOne(include, data)
+					await this.bulkIncludeAfterManyToOne(include, data)
 				} else if (include.relation.type === RelationType.oneToOne && !relationProperty.required) {
-					await this.bulkInsertIncludeAfterOneToOne(query, include, data)
+					await this.bulkIncludeAfterOneToOne(query, include, data)
 				}
 			}
 		}
 	}
 
-	private async bulkInsertIncludeAfterManyToOne (include: Include, data: Data): Promise<void> {
+	protected async bulkIncludeAfterManyToOne (include: Include, data: Data): Promise<void> {
 		const allChildren: any[] = []
 		for (const item of data.data) {
 			const parentId = item[include.relation.from]
@@ -136,7 +135,7 @@ export class QueryBulkInsertExecutor {
 		await this.executor._execute(include.query, childData)
 	}
 
-	private async bulkInsertIncludeAfterOneToOne (query: Query, include: Include, data: Data): Promise<void> {
+	protected async bulkIncludeAfterOneToOne (query: Query, include: Include, data: Data): Promise<void> {
 		const allChildren: any[] = []
 		const items: any[] = []
 		for (const item of data.data) {
@@ -163,7 +162,7 @@ export class QueryBulkInsertExecutor {
 		}
 	}
 
-	private async _chunkInsert (query: Query, entity: EntityMapping, chunk: any[], mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<any[]> {
+	protected async _chunk (query: Query, entity: EntityMapping, chunk: any[], mapping: MappingConfigService, dialect: DialectService, connection: Connection): Promise<any[]> {
 		// solve default properties
 		if (entity.hadDefaults) {
 			this.solveDefaults.solve(query, chunk)

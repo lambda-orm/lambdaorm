@@ -15,8 +15,10 @@ export interface Connection {
 
 	select(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
 	insert(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	insertConditional(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
 	bulkInsert(mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]>
 	update(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number>
+	upsert(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
 	bulkUpdate (_mapping: MappingConfigService, _dialect: DialectService, _query: Query, _array: any[]): Promise<number>
 	delete(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<number>
 	bulkDelete (_mapping: MappingConfigService, _dialect: DialectService, _query: Query, _array: any[]): Promise<number>

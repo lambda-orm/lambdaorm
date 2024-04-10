@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: solve
 import { orm as _orm } from '../../'
 import { IOrm } from '../../orm/application'
@@ -7,12 +8,22 @@ import { IRepository, Queryable } from 'lambdaorm-base'
 export class Repository<TEntity, TQuery> implements IRepository<TEntity, TQuery> {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (public readonly name: string, public stage?:string, private readonly orm:IOrm = _orm) {}
+	upsert(entity: TEntity): Promise<number>
+	upsert(entity: TEntity, include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<number>
+	upsert (entity: TEntity, include?: ((value: TQuery, index: number, array: TQuery[]) => unknown) | undefined): Promise<number> {
+		return this._execute(`${this.name}.upsert()`, undefined, include, entity)
+	}
+
+	bulkDelete(entities: TEntity[]): Promise<any[]>
+	bulkDelete(entities: TEntity[], include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any[]>
+	bulkDelete (entities: TEntity[], include?: ((value: TQuery, index: number, array: TQuery[]) => unknown) | undefined): Promise<any[]> {
+		return this._execute(`${this.name}.bulkDelete()`, undefined, include, entities)
+	}
+
 	bulkMerge(entities: TEntity[]): Promise<any[]>
 	bulkMerge(entities: TEntity[], include: (value: TQuery, index: number, array: TQuery[]) => unknown): Promise<any[]>
-	bulkMerge(entities: TEntity[], include?: ((value: TQuery, index: number, array: TQuery[]) => unknown) | undefined): Promise<any[]>
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	bulkMerge (entities: unknown, include?: unknown): Promise<any[]> {
-		throw new Error('Method not implemented.')
+	bulkMerge (entities: TEntity[], include?: ((value: TQuery, index: number, array: TQuery[]) => unknown) | undefined): Promise<any[]> {
+		return this._execute(`${this.name}.bulkMerge()`, undefined, include, entities)
 	}
 
 	protected async _execute (
