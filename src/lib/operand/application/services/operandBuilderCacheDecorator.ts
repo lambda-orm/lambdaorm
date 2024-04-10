@@ -1,13 +1,13 @@
 import { OperandBuilder, Operand, OperandSerializer, EvaluatorFactory } from '3xpr'
 import { ICache } from 'h3lp'
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 
 export class OperandBuilderCacheDecorator implements OperandBuilder {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly operandBuilder: OperandBuilder,
 		private readonly cache: ICache<string, string>,
 		private readonly serializer :OperandSerializer,
-		private readonly helper:Helper
+		private readonly helper:OrmH3lp
 	) {}
 
 	public get evaluatorFactory (): EvaluatorFactory {

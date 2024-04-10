@@ -9,11 +9,11 @@ import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
 import { DialectService } from '../../../language/application'
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 
 export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any
-	constructor (config: ConnectionConfig, helper:Helper) {
+	constructor (config: ConnectionConfig, helper:OrmH3lp) {
 		super(config, helper)
 		if (!MongoDBConnectionPoolAdapter.lib) {
 			MongoDBConnectionPoolAdapter.lib = require('mongodb')

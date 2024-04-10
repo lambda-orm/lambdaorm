@@ -8,7 +8,7 @@ import { ConnectionConfig } from '../../domain'
 import { Connection } from '../../application'
 import { MappingConfigService, Data, EntityMapping } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 
 const DECIMAL = 0
 const TINY = 1
@@ -28,7 +28,7 @@ const NEWDECIMAL = 246
 export class MySQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 	protected static lib: any
 	protected pool: any
-	constructor (config: ConnectionConfig, helper:Helper) {
+	constructor (config: ConnectionConfig, helper:OrmH3lp) {
 		super(config, helper)
 		if (!MySQLConnectionPoolAdapter.lib) {
 			MySQLConnectionPoolAdapter.lib = require('mysql2/promise')

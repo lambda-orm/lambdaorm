@@ -3,13 +3,13 @@ import { OperandFacade } from '../../operand/application'
 import { SchemaState } from 'lambdaorm-base'
 import { SentenceFacade, SentenceSerializerImp } from '../application'
 import { MemoryCache } from 'h3lp'
-import { Helper } from '../../shared/application'
+import { OrmH3lp } from '../../shared/application'
 
 export class SentenceFacadeBuilder {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (
 		private readonly expressions:Expressions,
-		private readonly helper:Helper) {}
+		private readonly helper:OrmH3lp) {}
 
 	public build (schemaState: SchemaState, operand:OperandFacade): SentenceFacade {
 		const sentenceCache = new MemoryCache<string, string>()

@@ -2,7 +2,7 @@
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query } from '../../../query/domain'
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 import { SchemaError, PropertyMapping, Data, MappingConfigService, EntityMapping } from 'lambdaorm-base'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
@@ -72,7 +72,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		throw new Error('Method not implemented.')
 	}
 
-	constructor (private readonly lib:any, cnx: any, pool: any, helper:Helper) {
+	constructor (private readonly lib:any, cnx: any, pool: any, helper:OrmH3lp) {
 		super(cnx, pool, helper)
 		this.maxChunkSizeIdsOnSelect = 999
 	}

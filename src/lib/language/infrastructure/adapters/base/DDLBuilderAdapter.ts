@@ -1,7 +1,7 @@
 import { Query } from '../../../../query/domain'
 import { Index, Source, Relation, EntityMapping, PropertyMapping, MappingConfigService } from 'lambdaorm-base'
 import { DialectService, DDLBuilderPort } from '../../../application'
-import { Helper } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/application'
 
 export abstract class DDLBuilderAdapter implements DDLBuilderPort {
 	// eslint-disable-next-line no-useless-constructor
@@ -9,7 +9,7 @@ export abstract class DDLBuilderAdapter implements DDLBuilderPort {
 		protected readonly source: Source,
 		protected readonly mapping: MappingConfigService,
 		protected readonly dialect: DialectService,
-		protected readonly helper:Helper) {}
+		protected readonly helper:OrmH3lp) {}
 
 	abstract truncateEntity(entity: EntityMapping): Query | undefined
 	abstract setNull(entity: EntityMapping, relation: Relation): Query | undefined

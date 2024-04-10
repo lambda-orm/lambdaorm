@@ -5,7 +5,7 @@ import { OrmOperandBuilder } from './services/operandBuilder'
 import { OperandNormalize } from './usesCases/normalize'
 import { ICache } from 'h3lp'
 import { OrmOperandHelper } from './services/operandHelper'
-import { Helper } from '../../shared/application'
+import { OrmH3lp } from '../../shared/application'
 
 export class OperandFacade {
 	private builder:OperandBuilder
@@ -15,7 +15,7 @@ export class OperandFacade {
 		cache: ICache<string, string>,
 		operandSerializer:OperandSerializer,
 		private readonly operandHelper:OrmOperandHelper,
-		private readonly helper:Helper
+		private readonly helper:OrmH3lp
 	) {
 		this.builder = new OperandBuilderCacheDecorator(
 			new OrmOperandBuilder(this.expressions, this.schemaState.domain, this.helper),

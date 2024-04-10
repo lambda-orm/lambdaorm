@@ -3,7 +3,7 @@ import { StageModelService } from '../../services/stateService'
 import { Query, ExecuteResult } from '../../../../query/domain'
 import { SchemaState, QueryOptions } from 'lambdaorm-base'
 import { Executor } from '../../../../execution/domain'
-import { Helper } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/application'
 
 export abstract class StageActionDDL {
 	// eslint-disable-next-line no-useless-constructor
@@ -12,7 +12,7 @@ export abstract class StageActionDDL {
 		protected readonly schemaState: SchemaState,
 		protected readonly languages: LanguagesService,
 		protected readonly options:QueryOptions,
-		protected readonly helper:Helper) {}
+		protected readonly helper:OrmH3lp) {}
 
 	public abstract execute(): Promise<ExecuteResult[]>
 	public abstract queries(): Promise<Query[]>

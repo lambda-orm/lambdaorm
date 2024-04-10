@@ -1,4 +1,4 @@
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 import { Field, DomainConfigService, Relation, SchemaError, Entity, SintaxisError } from 'lambdaorm-base'
 import { Expressions, Operand, OperandCloner, OperandType, Position } from '3xpr'
 import { Type, Primitive } from 'typ3s'
@@ -11,7 +11,7 @@ export class OrmOperandNormalizer {
 		private readonly modelConfigService: DomainConfigService,
 		private readonly expressions:Expressions,
 		private readonly cloner:OperandCloner,
-		private readonly helper:Helper
+		private readonly helper:OrmH3lp
 	) {}
 
 	public normalize (operand: Operand): Operand {

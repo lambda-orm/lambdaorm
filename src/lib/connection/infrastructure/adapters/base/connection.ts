@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Query } from '../../../../query/domain'
 import { ConnectionConfig } from '../../../domain'
-import { Helper } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/application'
 import { Parameter } from '3xpr'
 import { Primitive } from 'typ3s'
 import { Connection } from '../../../application'
@@ -16,7 +16,7 @@ export abstract class ConnectionAdapter implements Connection {
 	public maxChunkSizeIdsOnSelect: number
 	public maxChunkSizeOnBulkInsert: number
 
-	constructor (cnx: any, pool: any, protected readonly helper:Helper) {
+	constructor (cnx: any, pool: any, protected readonly helper:OrmH3lp) {
 		this.cnx = cnx
 		this.pool = pool
 		this.inTransaction = false

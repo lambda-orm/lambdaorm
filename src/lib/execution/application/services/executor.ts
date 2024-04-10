@@ -5,7 +5,7 @@ import { QueryExecutorImpl } from './queryExecutor/queryExecutor'
 import { Transaction, Executor, QueryExecutor, ActionObserver, ObservableExecutor } from '../../domain'
 import { ConnectionFacade } from '../../../connection/application'
 import { Expressions } from '3xpr'
-import { Helper } from '../../../shared/application/helper'
+import { OrmH3lp } from '../../../shared/application/helper'
 import { QueryExecutorObservableDecorator } from './queryExecutor/queryExecutorObservableDecorator'
 export class ExecutorImpl implements Executor, ObservableExecutor {
 	private observers:ActionObserver[]
@@ -13,7 +13,7 @@ export class ExecutorImpl implements Executor, ObservableExecutor {
 		private readonly languages: LanguagesService,
 		private readonly schemaState: SchemaState,
 		private readonly expressions: Expressions,
-		private readonly helper: Helper
+		private readonly helper: OrmH3lp
 	) {
 		this.observers = []
 	}

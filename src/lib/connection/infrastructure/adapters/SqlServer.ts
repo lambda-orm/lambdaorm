@@ -4,7 +4,7 @@ import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
@@ -13,7 +13,7 @@ import { DialectService } from '../../../language/application'
 
 export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 	public static lib: any
-	constructor (config: ConnectionConfig, helper:Helper) {
+	constructor (config: ConnectionConfig, helper:OrmH3lp) {
 		super(config, helper)
 		if (!SqlServerConnectionPoolAdapter.lib) {
 			SqlServerConnectionPoolAdapter.lib = require('tedious')
@@ -64,7 +64,7 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 		throw new Error('Method not implemented.')
 	}
 
-	constructor (cnx: any, pool: any, helper:Helper) {
+	constructor (cnx: any, pool: any, helper:OrmH3lp) {
 		super(cnx, pool, helper)
 		this.maxChunkSizeOnBulkInsert = 1000
 	}

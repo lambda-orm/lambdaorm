@@ -1,11 +1,11 @@
 import { LanguagesService } from '../../language/application'
 import { NoSqlLanguageAdapter } from './adapters/NoSql/language'
 import { SqlLanguageAdapter } from './adapters/Sql/language'
-import { Helper } from '../../shared/application'
+import { OrmH3lp } from '../../shared/application'
 
 export class SentenceLanguageServiceBuilder {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly helper:Helper) {}
+	constructor (private readonly helper:OrmH3lp) {}
 
 	public build ():LanguagesService {
 		return new LanguagesService()

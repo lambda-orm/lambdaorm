@@ -5,7 +5,7 @@ import {
 	From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, BulkInsert, MappingConfigService
 } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
-import { Helper } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/application'
 import { DialectService } from '../../../../language/application'
 import { DmlBuilderPort } from '../../../application'
 
@@ -17,7 +17,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 		protected readonly source: Source,
 		protected readonly mapping: MappingConfigService,
 		protected readonly dialect: DialectService,
-		protected readonly helper:Helper) {}
+		protected readonly helper:OrmH3lp) {}
 
 	public build (sentence: Sentence): Query {
 		return new Query({

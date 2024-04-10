@@ -4,7 +4,7 @@
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { ConnectionConfig } from '../../domain'
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 import { Connection } from '../../application'
 import { MappingConfigService, Data, EntityMapping } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
@@ -13,7 +13,7 @@ import { Query } from '../../../query/domain'
 export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any
 	private db: any
-	constructor (config: ConnectionConfig, helper:Helper) {
+	constructor (config: ConnectionConfig, helper:OrmH3lp) {
 		super(config, helper)
 		if (!SQLjsConnectionPoolAdapter.lib) { SQLjsConnectionPoolAdapter.lib = require('sql.js') }
 	}

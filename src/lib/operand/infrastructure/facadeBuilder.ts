@@ -2,13 +2,13 @@ import { MemoryCache } from 'h3lp'
 import { SchemaState } from 'lambdaorm-base'
 import { OperandFacade, OrmOperandHelper } from '../application'
 import { Expressions, OperandSerializerImpl } from '3xpr'
-import { Helper } from '../../shared/application'
+import { OrmH3lp } from '../../shared/application'
 
 export class OperandFacadeBuilder {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (
 		private readonly expressions: Expressions
-		, private readonly helper: Helper
+		, private readonly helper: OrmH3lp
 	) { }
 
 	public build (schemaState:SchemaState):OperandFacade {

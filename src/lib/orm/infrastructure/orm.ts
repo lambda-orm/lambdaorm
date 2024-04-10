@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { Helper } from '../../shared/application'
+import { OrmH3lp } from '../../shared/application'
 import { h3lp } from 'h3lp'
-import { QueryOptions, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Dialect, Schema, Stage, QueryPlan, SchemaFacade, SchemaFacadeBuilder, SchemaState, SchemaStateBuilder } from 'lambdaorm-base'
+import { QueryOptions, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Dialect, Schema, Stage, QueryPlan, SchemaFacade, SchemaFacadeBuilder, SchemaState, SchemaStateBuilder, Logger, LoggerBuilder } from 'lambdaorm-base'
 import { ConnectionFacade } from '../../connection/application'
 import { LanguagesService } from '../../language/application'
 import { StageFacade } from '../../stage/application'
@@ -33,16 +33,17 @@ export class Orm implements IOrm {
 	public schema: SchemaFacade
 	public state: SchemaState
 	public stage: StageFacade
-	private helper: Helper
+	private helper: OrmH3lp
 	private operand: OperandFacade
 	private sentence: SentenceFacade
 	private expression: ExpressionFacade
 	private executor:ObservableExecutorDecorator
 
-	constructor (private _workspace: string = process.cwd()) {
+	constructor (private _workspace: string = process.cwd(), logger?: Logger) {
+		const _logger = logger || new LoggerBuilder().build()
 		this.expressions = new OrmExpressionsBuilder().build()
 		new OrmLibrary(this).load()
-		this.helper = new Helper(new OperandHelper(this.expressions.constBuilder), h3lp)
+		this.helper = new OrmH3lp(new OperandHelper(this.expressions.constBuilder), h3lp, _logger)
 		this.language = new SentenceLanguageServiceBuilder(this.helper).build()
 		this.connection = new ConnectionFacadeBuilder(this.helper).build()
 		this.schema = new SchemaFacadeBuilder(this.expressions, this.helper).build()

@@ -1,10 +1,10 @@
 import { Query } from '../../../../query/domain'
-import { Helper } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/application'
 import { Expressions } from '3xpr'
 
 export class QuerySolveReadValues {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly expressions: Expressions, private readonly helper:Helper) {}
+	constructor (private readonly expressions: Expressions, private readonly helper:OrmH3lp) {}
 
 	public solve (query: Query, data: any[]): void {
 		for (const valueBehavior of query.values) {

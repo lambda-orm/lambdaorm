@@ -1,7 +1,7 @@
 import { EvaluatorFactory, ExpressionNormalizer, ExpressionParse, OperandBuilder, Operand, OperandNormalize, OperandReduce, Expressions } from '3xpr'
 import { DomainConfigService } from 'lambdaorm-base'
 import { OrmOperandNormalizer } from './operandNormalizer'
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 import { OrmOperandComplete } from '../usesCases/complete'
 import { OrmOperandClone } from '../usesCases/clone'
 
@@ -16,7 +16,7 @@ export class OrmOperandBuilder implements OperandBuilder {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly expressions: Expressions,
 		private readonly modelConfigService: DomainConfigService,
-		private readonly helper:Helper
+		private readonly helper:OrmH3lp
 	) {
 		const cloner = new OrmOperandClone()
 		this.ormOperandNormalizer = new OrmOperandNormalizer(this.modelConfigService, this.expressions, cloner, this.helper)

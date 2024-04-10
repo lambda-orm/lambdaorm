@@ -3,10 +3,10 @@ import { MappingConfigService, Source } from 'lambdaorm-base'
 import { LanguageAdapter, NoSqlDDLBuilderAdapter } from '../../../../language/infrastructure'
 import config from './config.json'
 import { NoSqlDMLBuilderAdapter } from './NoSqlDmlBuilder'
-import { Helper } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/application'
 
 export class NoSqlLanguageAdapter extends LanguageAdapter {
-	constructor (private readonly helper:Helper) {
+	constructor (private readonly helper:OrmH3lp) {
 		super('NoSQL', config.dialects)
 		this.solveComposite = true
 	}

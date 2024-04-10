@@ -1,6 +1,6 @@
 import { QueryOptions, RelationType, SentenceAction, SchemaState, Data } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
-import { Helper } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/application'
 import { ExecutionError } from '../../../../connection/domain'
 import { ConnectionFacade, Connection } from '../../../../connection/application'
 import { LanguagesService } from '../../../../language/application'
@@ -27,7 +27,7 @@ export class QueryExecutorImpl implements QueryExecutor, QueryInternalExecutor {
 		private readonly schemaState: SchemaState,
 		private readonly expressions: Expressions,
 		private readonly _options: QueryOptions,
-		private readonly helper: Helper,
+		private readonly helper: OrmH3lp,
 		private transactional = false
 	) {
 		this.connections = {}

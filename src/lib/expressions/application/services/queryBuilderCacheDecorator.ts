@@ -1,7 +1,7 @@
 import { ICache } from 'h3lp'
 import { Query } from '../../../query/domain'
 import { IQueryBuilder } from '../../domain/services'
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 import { QueryOptions } from 'lambdaorm-base'
 
 export class QueryBuilderCacheDecorator implements IQueryBuilder {
@@ -9,7 +9,7 @@ export class QueryBuilderCacheDecorator implements IQueryBuilder {
 	constructor (
 		private readonly builder: IQueryBuilder
 		, private readonly cache: ICache<string, string>,
-		private readonly helper: Helper
+		private readonly helper: OrmH3lp
 	) {}
 
 	public build (expression: string, options: QueryOptions): Query {

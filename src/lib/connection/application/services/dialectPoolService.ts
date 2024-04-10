@@ -1,10 +1,10 @@
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 import { ConnectionConfig, ConnectionError } from '../../domain'
 import { ConnectionPool } from '../ports/connectionPool'
 
 export class DialectPoolService {
 	private dialectsPool:any
-	constructor (private readonly helper:Helper) {
+	constructor (private readonly helper:OrmH3lp) {
 		this.dialectsPool = {}
 	}
 

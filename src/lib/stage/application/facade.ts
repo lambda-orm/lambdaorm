@@ -2,7 +2,7 @@ import { Mapping, QueryOptions, SchemaData, SchemaState } from 'lambdaorm-base'
 import { ExpressionFacade } from '../../expressions/application'
 import { LanguagesService } from '../../language/application'
 import { StageMappingService, StageModelService } from './services/stateService'
-import { Helper } from '../../shared/application'
+import { OrmH3lp } from '../../shared/application'
 import { StageActionDDL } from './useCases/base/actionDDL'
 import { StageDrop } from './useCases/drop'
 import { StageDelete } from './useCases/delete'
@@ -24,7 +24,7 @@ export class StageFacade {
 		private readonly expression: ExpressionFacade,
 		private readonly executor: Executor,
 		private readonly languages: LanguagesService,
-		private readonly helper:Helper) {
+		private readonly helper:OrmH3lp) {
 		this.stageMappingService = new StageMappingService(workspace, schemaState, this.helper)
 		this.stageModelService = new StageModelService(workspace, schemaState, this.helper)
 	}

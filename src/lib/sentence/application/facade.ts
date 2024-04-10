@@ -13,7 +13,7 @@ import { GetModel } from './useCases/getModel'
 import { GetParameters } from './useCases/getParameters'
 import { ICache } from 'h3lp'
 import { Expressions } from '3xpr'
-import { Helper } from '../../shared/application'
+import { OrmH3lp } from '../../shared/application'
 
 export class SentenceFacade {
 	private getConstraints: GetConstraints
@@ -29,7 +29,7 @@ export class SentenceFacade {
 		private readonly expressions:Expressions,
 		cache: ICache<string, string>,
 		serializer:SentenceSerializer,
-		helper:Helper
+		helper:OrmH3lp
 	) {
 		this.sentenceHelper = new SentenceHelper(this.schemaState)
 		this.builder = new SentenceBuilder(this.schemaState, this.operandFacade, this.expressions)

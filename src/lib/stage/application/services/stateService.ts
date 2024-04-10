@@ -1,11 +1,11 @@
 import { Query } from '../../../query/domain'
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 import { ModelConfig, MappingConfig, Dialect, SchemaState } from 'lambdaorm-base'
 const path = require('path')
 
 abstract class StageStateService<T> {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (protected workspace:string, protected readonly schemaState:SchemaState, protected readonly helper:Helper) {}
+	constructor (protected workspace:string, protected readonly schemaState:SchemaState, protected readonly helper:OrmH3lp) {}
 
 	public async get (name:string):Promise<T> {
 		const file = this.getFile(name)

@@ -1,5 +1,5 @@
 import { Query, Include } from '../../../../query/domain'
-import { Helper } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/application'
 import { Connection } from '../../../../connection/application'
 import { DialectService } from '../../../../language/application'
 import { QueryOptions, MappingConfigService, RelationType, EntityMapping, Data } from 'lambdaorm-base'
@@ -14,7 +14,7 @@ export class QuerySelectExecutor {
 		private readonly executor: QueryInternalExecutor,
 		expressions: Expressions,
 		public readonly options: QueryOptions,
-		private readonly helper:Helper) {
+		private readonly helper:OrmH3lp) {
 		this.options = options
 		this.executor = executor
 		this.solveReadValues = new QuerySolveReadValues(expressions, this.helper)

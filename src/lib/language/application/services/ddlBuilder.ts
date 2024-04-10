@@ -5,7 +5,7 @@ import {
 import { Query } from '../../../query/domain'
 import { Delta, ChangedValue } from 'h3lp'
 import { DDLBuilderPort } from '../ports/ddlBuilderPort'
-import { Helper } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/application'
 import { LanguagesService } from './languagesService'
 import { DialectService } from './dialectService'
 
@@ -14,7 +14,7 @@ export class DDLBuilderService {
 	constructor (private readonly schemaState: SchemaState,
 	private readonly languages: LanguagesService,
 	public readonly stage: string,
-	private readonly helper:Helper
+	private readonly helper:OrmH3lp
 	) {
 		this.domain = schemaState.domain
 	}

@@ -14,7 +14,7 @@ import { ExpressionTransaction } from './useCases/transaction'
 import { ICache } from 'h3lp'
 import { Expressions } from '3xpr'
 import { Executor } from '../../execution/domain'
-import { Helper } from '../../shared/application'
+import { OrmH3lp } from '../../shared/application'
 
 export class ExpressionFacade {
 	private queryHelper:QueryHelper
@@ -28,7 +28,7 @@ export class ExpressionFacade {
 		executor:Executor,
 		expressions: Expressions,
 		cache: ICache<string, string>,
-		helper:Helper) {
+		helper:OrmH3lp) {
 		this.builder = new QueryBuilderCacheDecorator(new QueryBuilder(this.sentenceFacade, this.schemaState, this.languages), cache, helper)
 		this.getQueryPlan = new GeQueryPlan(this.builder)
 		this.queryHelper = new QueryHelper(this.schemaState.stage, this.schemaState.view)

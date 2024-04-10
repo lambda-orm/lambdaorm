@@ -4,10 +4,10 @@ import { MappingConfigService, Source } from 'lambdaorm-base'
 import { SqlDMLBuilderAdapter } from './SqlDmlBuilder'
 import config from './config.json'
 import { SqlDDLBuilderAdapter } from '../../../../language/infrastructure/adapters/SQL/ddlBuilder'
-import { Helper } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/application'
 
 export class SqlLanguageAdapter extends LanguageAdapter {
-	constructor (private readonly helper:Helper) {
+	constructor (private readonly helper:OrmH3lp) {
 		super('SQL', config.dialects)
 		this.solveComposite = false
 	}
