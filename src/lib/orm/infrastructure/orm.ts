@@ -12,7 +12,7 @@ import { IOrm } from '../application'
 import { ConnectionFacadeBuilder } from '../../connection/infrastructure'
 import { OperandFacade } from '../../operand/application'
 import { OrmExpressionsBuilder } from './expressionsBuilder'
-import { Expressions, OperandHelper } from '3xpr'
+import { Expressions } from '3xpr'
 import { OperandFacadeBuilder } from '../../operand/infrastructure'
 import { SentenceFacadeBuilder } from '../../sentence/infrastructure/facadeBuilder'
 import { ExpressionFacadeBuilder } from '../../expressions/infrastructure'
@@ -43,7 +43,7 @@ export class Orm implements IOrm {
 		const _logger = logger || new LoggerBuilder().build()
 		this.expressions = new OrmExpressionsBuilder().build()
 		new OrmLibrary(this).load()
-		this.helper = new OrmH3lp(new OperandHelper(this.expressions.constBuilder), h3lp, _logger)
+		this.helper = new OrmH3lp(h3lp, _logger)
 		this.language = new SentenceLanguageServiceBuilder(this.helper).build()
 		this.connection = new ConnectionFacadeBuilder(this.helper).build()
 		this.schema = new SchemaFacadeBuilder(this.expressions, this.helper).build()

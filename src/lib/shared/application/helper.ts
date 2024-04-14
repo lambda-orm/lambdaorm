@@ -30,7 +30,8 @@ export class QueryHelper {
 
 export class OrmH3lp extends SchemaH3lp {
 	public query:QueryHelper
-	constructor (public readonly operand: OperandHelper, h3lp: H3lp, logger:Logger) {
+	public operand: OperandHelper
+	constructor (h3lp: H3lp, logger:Logger) {
 		super(h3lp, logger)
 		this.operand = new OperandHelper(expressions.constBuilder)
 		this.query = new QueryHelper(this.str)
