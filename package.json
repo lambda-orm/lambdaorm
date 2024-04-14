@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "1.9.0",
+	"version": "1.9.1",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@proton.me>",
 	"license": "MIT",
@@ -50,7 +50,7 @@
 		"typ3s": "^0.1.17",
 		"lambdaorm-base": "^1.0.1",
 		"crypto-js": "^4.1.1",
-		"js-yaml": "^4.1.0",		
+		"js-yaml": "^4.1.0",
 		"luxon": "^3.4.4",
 		"sqlstring": "^2.3.3"
 	},
