@@ -45,15 +45,15 @@
 		"countries-create-test-suite": "grunt countries-create-test-suite"
 	},
 	"dependencies": {
-		"3xpr": "^1.15.10",
+		"3xpr": "^1.15.11",
+		"h3lp": "^1.8.4",
+		"typ3s": "^0.1.17",
 		"crypto-js": "^4.1.1",
-		"h3lp": "^1.8.2",
 		"js-yaml": "^4.1.0",
-		"lambdaorm-base": "^0.1.55",
+		"lambdaorm-base": "^1.0.1",
 		"lambdaorm-cli": "^0.9.33",
 		"luxon": "^3.4.4",
-		"sqlstring": "^2.3.3",
-		"typ3s": "^0.1.16"
+		"sqlstring": "^2.3.3"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.23.3",
@@ -82,7 +82,7 @@
 		"jest": "^29.5.0",
 		"load-grunt-tasks": "^5.1.0",
 		"mongodb": "^6.3.0",
-		"mysql2": "^3.9.2",
+		"mysql2": "^3.9.4",
 		"oracledb": "^6.0.1",
 		"pg": "^8.11.5",
 		"sql.js": "^1.9.0",
