@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/introspect.ts:7](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/stage/application/useCases/introspect.ts#L7)
+[src/lib/stage/application/useCases/introspect.ts:7](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/stage/application/useCases/introspect.ts#L7)
 
 ## Methods
 
@@ -48,4 +48,4 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/introspect.ts:15](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/stage/application/useCases/introspect.ts#L15)
+[src/lib/stage/application/useCases/introspect.ts:15](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/stage/application/useCases/introspect.ts#L15)

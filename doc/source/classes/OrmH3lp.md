@@ -33,13 +33,12 @@
 
 ### constructor
 
-• **new OrmH3lp**(`operand`, `h3lp`, `logger`): [`OrmH3lp`](OrmH3lp.md)
+• **new OrmH3lp**(`h3lp`, `logger`): [`OrmH3lp`](OrmH3lp.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `operand` | `OperandHelper` |
 | `h3lp` | `H3lp` |
 | `logger` | [`Logger`](Logger.md) |
 
@@ -53,7 +52,7 @@
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/shared/application/helper.ts#L33)
+[src/lib/shared/application/helper.ts:34](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/shared/application/helper.ts#L34)
 
 ## Properties
 
@@ -129,11 +128,11 @@ ___
 
 ### operand
 
-• `Readonly` **operand**: `OperandHelper`
+• **operand**: `OperandHelper`
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/shared/application/helper.ts#L33)
+[src/lib/shared/application/helper.ts:33](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/shared/application/helper.ts#L33)
 
 ___
 
@@ -143,7 +142,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper.ts:32](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/shared/application/helper.ts#L32)
+[src/lib/shared/application/helper.ts:32](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/shared/application/helper.ts#L32)
 
 ___
 

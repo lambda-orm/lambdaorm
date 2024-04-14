@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.10.0](https://github.com/lambda-orm/lambdaorm/compare/v1.9.1...v1.10.0) (2024-04-14)
 
-
-### Features
+**Features:**
 
 * change on OrmH3lp ([6a9e7c6](https://github.com/lambda-orm/lambdaorm/commit/6a9e7c63aa1833b63c113d350d6e0a15d73f40ad)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 

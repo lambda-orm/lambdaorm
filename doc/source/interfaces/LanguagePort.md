@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:7](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/language/application/ports/languagePort.ts#L7)
+[src/lib/language/application/ports/languagePort.ts:7](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/language/application/ports/languagePort.ts#L7)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:8](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/language/application/ports/languagePort.ts#L8)
+[src/lib/language/application/ports/languagePort.ts:8](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/language/application/ports/languagePort.ts#L8)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:9](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/language/application/ports/languagePort.ts#L9)
+[src/lib/language/application/ports/languagePort.ts:9](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/language/application/ports/languagePort.ts#L9)
 
 ## Methods
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:11](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/language/application/ports/languagePort.ts#L11)
+[src/lib/language/application/ports/languagePort.ts:11](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/language/application/ports/languagePort.ts#L11)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:12](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/language/application/ports/languagePort.ts#L12)
+[src/lib/language/application/ports/languagePort.ts:12](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/language/application/ports/languagePort.ts#L12)
 
 ___
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/languagePort.ts:10](https://github.com/lambda-orm/lambdaorm/blob/c3ea7840/src/lib/language/application/ports/languagePort.ts#L10)
+[src/lib/language/application/ports/languagePort.ts:10](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/language/application/ports/languagePort.ts#L10)
