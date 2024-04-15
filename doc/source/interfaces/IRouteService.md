@@ -32,7 +32,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:4
+node_modules/lambdaorm-base/schema/domain/services.d.ts:5
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:5
+node_modules/lambdaorm-base/schema/domain/services.d.ts:6

@@ -12,6 +12,7 @@
 - [Oracle](Dialect.md#oracle)
 - [PostgreSQL](Dialect.md#postgresql)
 - [SQLjs](Dialect.md#sqljs)
+- [SqlLite](Dialect.md#sqllite)
 - [SqlServer](Dialect.md#sqlserver)
 
 ## Enumeration Members
@@ -73,6 +74,16 @@ ___
 #### Defined in
 
 node_modules/lambdaorm-base/schema/domain/dialect.d.ts:6
+
+___
+
+### SqlLite
+
+• **SqlLite** = ``"SqlLite"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/dialect.d.ts:9
 
 ___
 

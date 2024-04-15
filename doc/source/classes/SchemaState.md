@@ -23,6 +23,7 @@
 
 - [evalSourceRule](SchemaState.md#evalsourcerule)
 - [getSource](SchemaState.md#getsource)
+- [initialize](SchemaState.md#initialize)
 - [load](SchemaState.md#load)
 - [updateFromData](SchemaState.md#updatefromdata)
 - [updateFromMapping](SchemaState.md#updatefrommapping)
@@ -31,7 +32,7 @@
 
 ### constructor
 
-• **new SchemaState**(`source`, `domain`, `mapping`, `stage`, `view`, `routeService`, `facade`, `loadSchema`, `fileService`, `helper`): [`SchemaState`](SchemaState.md)
+• **new SchemaState**(`source`, `domain`, `mapping`, `stage`, `view`, `routeService`, `facade`, `loadSchema`, `helper`): [`SchemaState`](SchemaState.md)
 
 #### Parameters
 
@@ -45,8 +46,7 @@
 | `routeService` | [`RouteService`](RouteService.md) |
 | `facade` | [`SchemaFacade`](SchemaFacade.md) |
 | `loadSchema` | [`LoadSchema`](LoadSchema.md) |
-| `fileService` | [`IFileSchemaService`](../interfaces/IFileSchemaService.md) |
-| `helper` | `H3lp` |
+| `helper` | [`SchemaH3lp`](SchemaH3lp.md) |
 
 #### Returns
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:26
+node_modules/lambdaorm-base/schema/application/state.d.ts:24
 
 ## Properties
 
@@ -64,7 +64,7 @@ node_modules/lambdaorm-base/schema/application/state.d.ts:26
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:14
+node_modules/lambdaorm-base/schema/application/state.d.ts:13
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:15
+node_modules/lambdaorm-base/schema/application/state.d.ts:14
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:24
+node_modules/lambdaorm-base/schema/application/state.d.ts:22
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:23
+node_modules/lambdaorm-base/schema/application/state.d.ts:21
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:25
+node_modules/lambdaorm-base/schema/application/state.d.ts:23
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:13
+node_modules/lambdaorm-base/schema/application/state.d.ts:12
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:16
+node_modules/lambdaorm-base/schema/application/state.d.ts:15
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:17
+node_modules/lambdaorm-base/schema/application/state.d.ts:16
 
 ## Methods
 
@@ -155,7 +155,7 @@ node_modules/lambdaorm-base/schema/application/state.d.ts:17
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:30
+node_modules/lambdaorm-base/schema/application/state.d.ts:29
 
 ___
 
@@ -176,7 +176,27 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:31
+node_modules/lambdaorm-base/schema/application/state.d.ts:30
+
+___
+
+### initialize
+
+▸ **initialize**(`args`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | [`InitializeSchemaArgs`](../interfaces/InitializeSchemaArgs.md) |
+
+#### Returns
+
+`Promise`\<[`Schema`](../interfaces/Schema.md)\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:25
 
 ___
 
@@ -196,7 +216,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:27
+node_modules/lambdaorm-base/schema/application/state.d.ts:26
 
 ___
 
@@ -217,7 +237,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:28
+node_modules/lambdaorm-base/schema/application/state.d.ts:27
 
 ___
 
@@ -238,4 +258,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:29
+node_modules/lambdaorm-base/schema/application/state.d.ts:28

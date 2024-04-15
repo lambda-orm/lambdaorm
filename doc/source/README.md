@@ -53,6 +53,7 @@ Lambda ORM
 - [Include](classes/Include.md)
 - [IncludeAction](classes/IncludeAction.md)
 - [IncludeClauses](classes/IncludeClauses.md)
+- [InitializeSchema](classes/InitializeSchema.md)
 - [Insert](classes/Insert.md)
 - [Join](classes/Join.md)
 - [LanguageError](classes/LanguageError.md)
@@ -156,6 +157,7 @@ Lambda ORM
 - [ISentenceCompleteBuilder](interfaces/ISentenceCompleteBuilder.md)
 - [Index](interfaces/Index.md)
 - [InfrastructureSchema](interfaces/InfrastructureSchema.md)
+- [InitializeSchemaArgs](interfaces/InitializeSchemaArgs.md)
 - [LanguagePort](interfaces/LanguagePort.md)
 - [ListenerConfig](interfaces/ListenerConfig.md)
 - [Mapping](interfaces/Mapping.md)
@@ -356,7 +358,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:265](https://github.com/lambda-orm/lambdaorm/blob/6a9e7c63/src/lib/orm/infrastructure/orm.ts#L265)
+[src/lib/orm/infrastructure/orm.ts:265](https://github.com/lambda-orm/lambdaorm/blob/326b72e7/src/lib/orm/infrastructure/orm.ts#L265)
 
 ## Functions
 
