@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm",
-	"version": "1.10.0",
+	"version": "1.10.1",
 	"description": "ORM",
 	"author": "Flavio Lionel Rita <flaviolrita@proton.me>",
 	"license": "MIT",
@@ -45,10 +45,10 @@
 		"countries-create-test-suite": "grunt countries-create-test-suite"
 	},
 	"dependencies": {
-		"3xpr": "^1.15.11",
-		"h3lp": "^1.8.4",
-		"typ3s": "^0.1.17",
-		"lambdaorm-base": "^1.0.1",
+		"3xpr": "^1.15.12",
+		"h3lp": "^1.9.1",
+		"typ3s": "^0.1.18",
+		"lambdaorm-base": "^1.1.1",
 		"crypto-js": "^4.1.1",
 		"js-yaml": "^4.1.0",
 		"luxon": "^3.4.4",
