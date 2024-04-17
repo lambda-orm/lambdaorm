@@ -17,10 +17,10 @@
 - [complete](SchemaFacade.md#complete)
 - [create](SchemaFacade.md#create)
 - [initialize](SchemaFacade.md#initialize)
+- [introspect](SchemaFacade.md#introspect)
+- [match](SchemaFacade.md#match)
 - [read](SchemaFacade.md#read)
 - [schemaData](SchemaFacade.md#schemadata)
-- [updateFromData](SchemaFacade.md#updatefromdata)
-- [updateFromMapping](SchemaFacade.md#updatefrommapping)
 - [write](SchemaFacade.md#write)
 
 ## Constructors
@@ -124,6 +124,50 @@ node_modules/lambdaorm-base/schema/application/facade.d.ts:22
 
 ___
 
+### introspect
+
+▸ **introspect**(`schema`, `data`, `name`): [`SchemaData`](../interfaces/SchemaData.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `schema` | [`Schema`](../interfaces/Schema.md) |
+| `data` | `any` |
+| `name` | `string` |
+
+#### Returns
+
+[`SchemaData`](../interfaces/SchemaData.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/facade.d.ts:23
+
+___
+
+### match
+
+▸ **match**(`schema`, `mappings`, `options?`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `schema` | [`Schema`](../interfaces/Schema.md) |
+| `mappings` | [`Mapping`](../interfaces/Mapping.md)[] |
+| `options?` | [`MatchOptions`](../interfaces/MatchOptions.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/facade.d.ts:24
+
+___
+
 ### read
 
 ▸ **read**(`workspace`): `Promise`\<``null`` \| [`SchemaInfo`](../interfaces/SchemaInfo.md)\>
@@ -163,50 +207,6 @@ ___
 #### Defined in
 
 node_modules/lambdaorm-base/schema/application/facade.d.ts:25
-
-___
-
-### updateFromData
-
-▸ **updateFromData**(`schema`, `data`, `name`): [`SchemaData`](../interfaces/SchemaData.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `schema` | [`Schema`](../interfaces/Schema.md) |
-| `data` | `any` |
-| `name` | `string` |
-
-#### Returns
-
-[`SchemaData`](../interfaces/SchemaData.md)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:23
-
-___
-
-### updateFromMapping
-
-▸ **updateFromMapping**(`schema`, `mappings`, `options?`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `schema` | [`Schema`](../interfaces/Schema.md) |
-| `mappings` | [`Mapping`](../interfaces/Mapping.md)[] |
-| `options?` | [`MatchOptions`](../interfaces/MatchOptions.md) |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/facade.d.ts:24
 
 ___
 

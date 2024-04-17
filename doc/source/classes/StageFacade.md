@@ -14,11 +14,11 @@
 - [drop](StageFacade.md#drop)
 - [exists](StageFacade.md#exists)
 - [export](StageFacade.md#export)
+- [fetch](StageFacade.md#fetch)
 - [import](StageFacade.md#import)
-- [introspect](StageFacade.md#introspect)
+- [incorporate](StageFacade.md#incorporate)
 - [match](StageFacade.md#match)
 - [sync](StageFacade.md#sync)
-- [syncAndImport](StageFacade.md#syncandimport)
 - [truncate](StageFacade.md#truncate)
 
 ## Constructors
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:22](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L22)
+[src/lib/stage/application/facade.ts:22](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L22)
 
 ## Methods
 
@@ -52,11 +52,13 @@
 
 ▸ **delete**(`options?`): [`StageDelete`](StageDelete.md)
 
+Delete source entities related to the stage
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
 
 #### Returns
 
@@ -64,7 +66,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L52)
+[src/lib/stage/application/facade.ts:81](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L81)
 
 ___
 
@@ -72,11 +74,13 @@ ___
 
 ▸ **drop**(`options?`): [`StageActionDDL`](StageActionDDL.md)
 
+Drop source entities related to the stage
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
 
 #### Returns
 
@@ -84,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:42](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L42)
+[src/lib/stage/application/facade.ts:59](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L59)
 
 ___
 
@@ -92,11 +96,13 @@ ___
 
 ▸ **exists**(`name`): `Promise`\<`boolean`\>
 
+Check if the stage exists
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `name` | `string` | string |
 
 #### Returns
 
@@ -104,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:32](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L32)
+[src/lib/stage/application/facade.ts:37](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L37)
 
 ___
 
@@ -112,11 +118,13 @@ ___
 
 ▸ **export**(`options?`): [`StageExport`](StageExport.md)
 
+Export source entities related to the stage
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
 
 #### Returns
 
@@ -124,39 +132,21 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:57](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L57)
+[src/lib/stage/application/facade.ts:92](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L92)
 
 ___
 
-### import
+### fetch
 
-▸ **import**(`options?`): [`StageImport`](StageImport.md)
+▸ **fetch**(`options?`): `Promise`\<[`Mapping`](../interfaces/Mapping.md)[]\>
 
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
-
-#### Returns
-
-[`StageImport`](StageImport.md)
-
-#### Defined in
-
-[src/lib/stage/application/facade.ts:62](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L62)
-
-___
-
-### introspect
-
-▸ **introspect**(`options?`): `Promise`\<[`Mapping`](../interfaces/Mapping.md)[]\>
+Fetch all mappings from the stage
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
 
 #### Returns
 
@@ -164,61 +154,45 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:67](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L67)
+[src/lib/stage/application/facade.ts:113](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L113)
 
 ___
 
-### match
+### import
 
-▸ **match**(`options?`): `Promise`\<`void`\>
+▸ **import**(`options?`): [`StageImport`](StageImport.md)
+
+Import data into source entities related to the stage
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options` | `StageMatchOptions` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
 
 #### Returns
 
-`Promise`\<`void`\>
+[`StageImport`](StageImport.md)
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:72](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L72)
+[src/lib/stage/application/facade.ts:103](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L103)
 
 ___
 
-### sync
+### incorporate
 
-▸ **sync**(`options?`): [`StageActionDDL`](StageActionDDL.md)
+▸ **incorporate**(`data`, `name`, `options?`): `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
 
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
-
-#### Returns
-
-[`StageActionDDL`](StageActionDDL.md)
-
-#### Defined in
-
-[src/lib/stage/application/facade.ts:37](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L37)
-
-___
-
-### syncAndImport
-
-▸ **syncAndImport**(`data`, `name`, `options?`): `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
+Update and Sync Schema and import data
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `name` | `string` |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `any` | any\|any[] |
+| `name` | `string` | string |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
 
 #### Returns
 
@@ -226,19 +200,43 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:79](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L79)
+[src/lib/stage/application/facade.ts:137](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L137)
 
 ___
 
-### truncate
+### match
 
-▸ **truncate**(`options?`): [`StageActionDDL`](StageActionDDL.md)
+▸ **match**(`options?`): `Promise`\<`void`\>
+
+Match the stage with the sources
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options` | `StageMatchOptions` | StageMatchOptions |
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Defined in
+
+[src/lib/stage/application/facade.ts:123](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L123)
+
+___
+
+### sync
+
+▸ **sync**(`options?`): [`StageActionDDL`](StageActionDDL.md)
+
+Sync the stage with sources
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
 
 #### Returns
 
@@ -246,4 +244,26 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:47](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/stage/application/facade.ts#L47)
+[src/lib/stage/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L48)
+
+___
+
+### truncate
+
+▸ **truncate**(`options?`): [`StageActionDDL`](StageActionDDL.md)
+
+Truncate source entities related to the stage
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
+
+#### Returns
+
+[`StageActionDDL`](StageActionDDL.md)
+
+#### Defined in
+
+[src/lib/stage/application/facade.ts:70](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/stage/application/facade.ts#L70)

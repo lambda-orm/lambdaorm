@@ -105,8 +105,8 @@ Lambda ORM
 - [StageDrop](classes/StageDrop.md)
 - [StageExport](classes/StageExport.md)
 - [StageFacade](classes/StageFacade.md)
+- [StageFetch](classes/StageFetch.md)
 - [StageImport](classes/StageImport.md)
-- [StageIntrospect](classes/StageIntrospect.md)
 - [StageMappingService](classes/StageMappingService.md)
 - [StageMatch](classes/StageMatch.md)
 - [StageModelService](classes/StageModelService.md)
@@ -359,7 +359,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:265](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/orm/infrastructure/orm.ts#L265)
+[src/lib/orm/infrastructure/orm.ts:265](https://github.com/lambda-orm/lambdaorm/blob/4962287d/src/lib/orm/infrastructure/orm.ts#L265)
 
 ## Functions
 

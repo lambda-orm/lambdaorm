@@ -12,7 +12,7 @@ import { StageTruncate } from './useCases/truncate'
 import { StageSync } from './useCases/sync'
 import { Executor } from '../../execution/domain'
 import { StageMatch } from './useCases/match'
-import { StageIntrospect } from './useCases/introspect'
+import { StageFetch } from './useCases/fetch'
 import { StageMatchOptions } from '../domain'
 
 export class StageFacade {
@@ -29,53 +29,111 @@ export class StageFacade {
 		this.stageModelService = new StageModelService(workspace, schemaState, this.helper)
 	}
 
-	public async exists (name:string) {
+	/**
+	 * Check if the stage exists
+	 * @param name string
+	 * @returns {Promise<boolean>}
+	 */
+	public async exists (name:string) : Promise<boolean> {
 		const file = this.stageModelService.getFile(name)
 		return this.helper.fs.exists(file)
 	}
 
+	/**
+	 * Sync the stage with sources
+	 * @param name string
+	 * @param options QueryOptions
+	 * @returns {StageActionDDL}
+	 */
 	public sync (options?:QueryOptions):StageActionDDL {
 		const _options = this.expression.solveQueryOptions(options)
 		return new StageSync(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper)
 	}
 
+	/**
+	 * Drop source entities related to the stage
+	 * @param name string
+	 * @param options QueryOptions
+	 * @returns {StageActionDDL}
+	 */
 	public drop (options?:QueryOptions):StageActionDDL {
 		const _options = this.expression.solveQueryOptions(options)
 		return new StageDrop(this.executor, this.stageModelService, this.stageMappingService, this.schemaState, this.languages, _options, this.helper)
 	}
 
+	/**
+	 * Truncate source entities related to the stage
+	 * @param name string
+	 * @param options QueryOptions
+	 * @returns {StageActionDDL}
+	 */
 	public truncate (options?:QueryOptions):StageActionDDL {
 		const _options = this.expression.solveQueryOptions(options)
 		return new StageTruncate(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper)
 	}
 
+	/**
+	 * Delete source entities related to the stage
+	 * @param name string
+	 * @param options QueryOptions
+	 * @returns {StageActionDDL}
+	 */
 	public delete (options?:QueryOptions):StageDelete {
 		const _options = this.expression.solveQueryOptions(options)
 		return new StageDelete(this.stageMappingService, this.schemaState.domain, this.expression, this.executor, _options)
 	}
 
+	/**
+	 * Export source entities related to the stage
+	 * @param name string
+	 * @param options QueryOptions
+	 * @returns {StageActionDDL}
+	 */
 	public export (options?:QueryOptions):StageExport {
 		const _options = this.expression.solveQueryOptions(options)
 		return new StageExport(this.stageMappingService, this.schemaState.domain, this.expression, this.executor, _options)
 	}
 
+	/**
+	 * Import data into source entities related to the stage
+	 * @param name string
+	 * @param options QueryOptions
+	 * @returns {StageActionDDL}
+	 */
 	public import (options?:QueryOptions):StageImport {
 		const _options = this.expression.solveQueryOptions(options)
 		return new StageImport(this.stageMappingService, this.schemaState.domain, this.expression, this.executor, _options)
 	}
 
-	public async introspect (options?:QueryOptions): Promise<Mapping[]> {
+	/**
+	 * Fetch all mappings from the stage
+	 * @param options QueryOptions
+	 * @returns {Promise<Mapping[]>}
+	 */
+	public async fetch (options?:QueryOptions): Promise<Mapping[]> {
 		const _options = this.expression.solveQueryOptions(options)
-		return await new StageIntrospect(this.executor, this.schemaState, this.languages, this.helper.schema, _options).execute()
+		return await new StageFetch(this.executor, this.schemaState, this.languages, this.helper.schema, _options).execute()
 	}
 
+	/**
+	 * Match the stage with the sources
+	 * @param options StageMatchOptions
+	 * @returns {Promise<void>}
+	 */
 	public async match (options:StageMatchOptions = { removeEntities: true, removeProperties: true, removeRelations: true }): Promise<void> {
 		const _options = this.expression.solveQueryOptions(options) as StageMatchOptions
-		const mappings = await this.introspect(_options)
-		await this.schemaState.updateFromMapping(mappings, _options)
+		const mappings = await this.fetch(_options)
+		await this.schemaState.match(mappings, _options)
 		await new StageMatch(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper).execute()
 	}
 
+	/**
+	 * Update and Sync Schema and import data
+	 * @param data any|any[]
+	 * @param name string
+	 * @param options QueryOptions
+	 * @returns {Promise<SchemaData>}
+	 */
 	public async incorporate (data: any|any[], name:string, options?:QueryOptions): Promise<SchemaData> {
 		const schemaData = await this.schemaState.introspect(data, name)
 		await this.sync(options).execute()

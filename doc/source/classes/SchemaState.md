@@ -38,9 +38,9 @@
 - [getSchemaViews](SchemaState.md#getschemaviews)
 - [getSource](SchemaState.md#getsource)
 - [initialize](SchemaState.md#initialize)
+- [introspect](SchemaState.md#introspect)
 - [load](SchemaState.md#load)
-- [updateFromData](SchemaState.md#updatefromdata)
-- [updateFromMapping](SchemaState.md#updatefrommapping)
+- [match](SchemaState.md#match)
 
 ## Constructors
 
@@ -456,6 +456,27 @@ node_modules/lambdaorm-base/schema/application/state.d.ts:25
 
 ___
 
+### introspect
+
+▸ **introspect**(`data`, `name`): `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `any` |
+| `name` | `string` |
+
+#### Returns
+
+`Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:27
+
+___
+
 ### load
 
 ▸ **load**(`source`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
@@ -476,30 +497,9 @@ node_modules/lambdaorm-base/schema/application/state.d.ts:26
 
 ___
 
-### updateFromData
+### match
 
-▸ **updateFromData**(`data`, `name`): `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `name` | `string` |
-
-#### Returns
-
-`Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/state.d.ts:27
-
-___
-
-### updateFromMapping
-
-▸ **updateFromMapping**(`mappings`, `options?`): `Promise`\<`void`\>
+▸ **match**(`mappings`, `options?`): `Promise`\<`void`\>
 
 #### Parameters
 

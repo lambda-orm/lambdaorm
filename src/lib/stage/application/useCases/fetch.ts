@@ -2,7 +2,7 @@ import { DDLBuilderPort, LanguagesService } from '../../../language/application'
 import { SchemaState, QueryOptions, Source, EntityMapping, Mapping, RelationType, SchemaHelper } from 'lambdaorm-base'
 import { Executor } from '../../../execution/domain'
 
-export class StageIntrospect {
+export class StageFetch {
 // eslint-disable-next-line no-useless-constructor
 	constructor (
 		private readonly executor: Executor,
