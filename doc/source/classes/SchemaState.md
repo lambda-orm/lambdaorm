@@ -22,6 +22,20 @@
 ### Methods
 
 - [evalSourceRule](SchemaState.md#evalsourcerule)
+- [getSchemaDomain](SchemaState.md#getschemadomain)
+- [getSchemaEntities](SchemaState.md#getschemaentities)
+- [getSchemaEntity](SchemaState.md#getschemaentity)
+- [getSchemaEntityMapping](SchemaState.md#getschemaentitymapping)
+- [getSchemaEnum](SchemaState.md#getschemaenum)
+- [getSchemaEnums](SchemaState.md#getschemaenums)
+- [getSchemaMapping](SchemaState.md#getschemamapping)
+- [getSchemaMappings](SchemaState.md#getschemamappings)
+- [getSchemaSource](SchemaState.md#getschemasource)
+- [getSchemaSources](SchemaState.md#getschemasources)
+- [getSchemaStage](SchemaState.md#getschemastage)
+- [getSchemaStages](SchemaState.md#getschemastages)
+- [getSchemaVersion](SchemaState.md#getschemaversion)
+- [getSchemaViews](SchemaState.md#getschemaviews)
 - [getSource](SchemaState.md#getsource)
 - [initialize](SchemaState.md#initialize)
 - [load](SchemaState.md#load)
@@ -156,6 +170,248 @@ node_modules/lambdaorm-base/schema/application/state.d.ts:16
 #### Defined in
 
 node_modules/lambdaorm-base/schema/application/state.d.ts:29
+
+___
+
+### getSchemaDomain
+
+▸ **getSchemaDomain**(): [`DomainSchema`](../interfaces/DomainSchema.md)
+
+#### Returns
+
+[`DomainSchema`](../interfaces/DomainSchema.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:42
+
+___
+
+### getSchemaEntities
+
+▸ **getSchemaEntities**(): [`Entity`](../interfaces/Entity.md)[]
+
+#### Returns
+
+[`Entity`](../interfaces/Entity.md)[]
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:43
+
+___
+
+### getSchemaEntity
+
+▸ **getSchemaEntity**(`entity`): `undefined` \| [`Entity`](../interfaces/Entity.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entity` | `string` |
+
+#### Returns
+
+`undefined` \| [`Entity`](../interfaces/Entity.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:44
+
+___
+
+### getSchemaEntityMapping
+
+▸ **getSchemaEntityMapping**(`mapping`, `entity`): `undefined` \| [`EntityMapping`](../interfaces/EntityMapping.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | `string` |
+| `entity` | `string` |
+
+#### Returns
+
+`undefined` \| [`EntityMapping`](../interfaces/EntityMapping.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:49
+
+___
+
+### getSchemaEnum
+
+▸ **getSchemaEnum**(`_enum`): `undefined` \| [`Enum`](../interfaces/Enum.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_enum` | `string` |
+
+#### Returns
+
+`undefined` \| [`Enum`](../interfaces/Enum.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:46
+
+___
+
+### getSchemaEnums
+
+▸ **getSchemaEnums**(): [`Enum`](../interfaces/Enum.md)[]
+
+#### Returns
+
+[`Enum`](../interfaces/Enum.md)[]
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:45
+
+___
+
+### getSchemaMapping
+
+▸ **getSchemaMapping**(`mapping`): `undefined` \| [`Mapping`](../interfaces/Mapping.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | `string` |
+
+#### Returns
+
+`undefined` \| [`Mapping`](../interfaces/Mapping.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:48
+
+___
+
+### getSchemaMappings
+
+▸ **getSchemaMappings**(): [`Mapping`](../interfaces/Mapping.md)[]
+
+#### Returns
+
+[`Mapping`](../interfaces/Mapping.md)[]
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:47
+
+___
+
+### getSchemaSource
+
+▸ **getSchemaSource**(`source`): `Object`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `source` | `string` |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `dialect` | `string` |
+| `name` | `string` |
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:35
+
+___
+
+### getSchemaSources
+
+▸ **getSchemaSources**(): \{ `dialect`: `string` ; `name`: `string`  }[]
+
+#### Returns
+
+\{ `dialect`: `string` ; `name`: `string`  }[]
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:31
+
+___
+
+### getSchemaStage
+
+▸ **getSchemaStage**(`stage`): `undefined` \| [`Stage`](../interfaces/Stage.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `stage` | `string` |
+
+#### Returns
+
+`undefined` \| [`Stage`](../interfaces/Stage.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:51
+
+___
+
+### getSchemaStages
+
+▸ **getSchemaStages**(): [`Stage`](../interfaces/Stage.md)[]
+
+#### Returns
+
+[`Stage`](../interfaces/Stage.md)[]
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:50
+
+___
+
+### getSchemaVersion
+
+▸ **getSchemaVersion**(): `Object`
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `version` | `undefined` \| `string` |
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:39
+
+___
+
+### getSchemaViews
+
+▸ **getSchemaViews**(): `string`[]
+
+#### Returns
+
+`string`[]
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/application/state.d.ts:52
 
 ___
 

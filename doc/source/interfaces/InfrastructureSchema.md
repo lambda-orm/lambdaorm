@@ -8,6 +8,7 @@
 
 - [mappings](InfrastructureSchema.md#mappings)
 - [paths](InfrastructureSchema.md#paths)
+- [server](InfrastructureSchema.md#server)
 - [sources](InfrastructureSchema.md#sources)
 - [stages](InfrastructureSchema.md#stages)
 - [views](InfrastructureSchema.md#views)
@@ -20,7 +21,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:163
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:166
 
 ___
 
@@ -30,7 +31,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:162
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:165
+
+___
+
+### server
+
+• `Optional` **server**: [`ServerConfig`](ServerConfig.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:170
 
 ___
 
@@ -40,7 +51,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:165
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:168
 
 ___
 
@@ -50,7 +61,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:166
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:169
 
 ___
 
@@ -60,4 +71,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:164
+node_modules/lambdaorm-base/schema/domain/schema.d.ts:167

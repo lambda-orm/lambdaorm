@@ -191,6 +191,7 @@ Lambda ORM
 - [SchemaEntityData](interfaces/SchemaEntityData.md)
 - [SchemaInfo](interfaces/SchemaInfo.md)
 - [SentenceSerializer](interfaces/SentenceSerializer.md)
+- [ServerConfig](interfaces/ServerConfig.md)
 - [Source](interfaces/Source.md)
 - [SourceRule](interfaces/SourceRule.md)
 - [Stage](interfaces/Stage.md)
@@ -358,7 +359,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:265](https://github.com/lambda-orm/lambdaorm/blob/326b72e7/src/lib/orm/infrastructure/orm.ts#L265)
+[src/lib/orm/infrastructure/orm.ts:265](https://github.com/lambda-orm/lambdaorm/blob/9f602cbc/src/lib/orm/infrastructure/orm.ts#L265)
 
 ## Functions
 
