@@ -48,7 +48,7 @@
 		"3xpr": "^1.15.12",
 		"h3lp": "^1.9.1",
 		"typ3s": "^0.1.18",
-		"lambdaorm-base": "^1.2.1",
+		"lambdaorm-base": "^1.2.2",
 		"crypto-js": "^4.1.1",
 		"js-yaml": "^4.1.0",
 		"luxon": "^3.4.4",

@@ -19,7 +19,7 @@ const createSchemaIfNotExists = async(schemaPath:string): Promise<void> => {
 		const data = JSON.parse( await h3lp.fs.read(workspace + '/countries.json') || '{}')
 		await orm.init(schemaPath)	
 		await orm.stage.drop({ tryAllCan: true }).execute()
-		const schemaData =  await orm.stage.syncAndImport(data, 'countries')		
+		const schemaData =  await orm.stage.incorporate(data, 'countries')		
 		await h3lp.fs.write(workspace + '/schemaData.json', JSON.stringify(schemaData, null, 2))
 	}catch(e){
 		console.log(e)

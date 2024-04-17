@@ -76,8 +76,8 @@ export class StageFacade {
 		await new StageMatch(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper).execute()
 	}
 
-	public async syncAndImport (data: any|any[], name:string, options?:QueryOptions): Promise<SchemaData> {
-		const schemaData = await this.schemaState.updateFromData(data, name)
+	public async incorporate (data: any|any[], name:string, options?:QueryOptions): Promise<SchemaData> {
+		const schemaData = await this.schemaState.introspect(data, name)
 		await this.sync(options).execute()
 		await this.import(options).execute(schemaData)
 		return schemaData

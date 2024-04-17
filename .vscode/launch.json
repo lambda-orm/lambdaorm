@@ -15,14 +15,14 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
-			"name": "sync from data",
+			"name": "incorporate",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/syncFromData/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/syncFromData/countries.env"
+			"program": "${workspaceFolder}/src/dev/labs/incorporate/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/incorporate/countries.env"
 		},
 		{
 			"name": "match",
