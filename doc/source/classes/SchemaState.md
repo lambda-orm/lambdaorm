@@ -393,7 +393,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `version` | `undefined` \| `string` |
+| `version` | `string` |
 
 #### Defined in
 
