@@ -48,6 +48,13 @@ export interface Connection {
 	dropUk (_mapping: MappingConfigService, query: Query): Promise<any>
 	dropFk (_mapping: MappingConfigService, query: Query): Promise<any>
 	dropIndex (_mapping: MappingConfigService, query: Query): Promise<any>
-
-	// introspect (names?:string[]): Promise<EntityMapping[]>
+	objects (_mapping: MappingConfigService, query: Query): Promise<any>
+	tables (_mapping: MappingConfigService, query: Query): Promise<any>
+	views (_mapping: MappingConfigService, query: Query): Promise<any>
+	partitions (_mapping: MappingConfigService, query: Query): Promise<any>
+	sequences (_mapping: MappingConfigService, query: Query): Promise<any>
+	foreignKeys (_mapping: MappingConfigService, query: Query): Promise<any>
+	primaryKeys (_mapping: MappingConfigService, query: Query): Promise<any>
+	uniqueKeys (_mapping: MappingConfigService, query: Query): Promise<any>
+	indexes (_mapping: MappingConfigService, query: Query): Promise<any>
 }

@@ -1,4 +1,4 @@
-import { orm, Orm, Dialect} from '../../../lib'
+import { Orm} from '../../../lib'
 import { h3lp } from 'h3lp'
 const yaml = require('js-yaml');
 

@@ -372,7 +372,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 	protected buildVariable (operand: Operand): string {
 		const number = operand.number ? operand.number : 0
 		let text = this.dialect.other('variable')
-		text = this.helper.str.replace(text, '{name}', this.helper.query.transformParameter(operand.name))
+		text = this.helper.str.replace(text, '{name}', this.helper.sqlString.transformParameter(operand.name))
 		text = this.helper.str.replace(text, '{number}', number.toString())
 		return text
 	}

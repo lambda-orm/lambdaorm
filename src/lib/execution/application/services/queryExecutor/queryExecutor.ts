@@ -153,16 +153,15 @@ export class QueryExecutorImpl implements QueryExecutor, QueryInternalExecutor {
 			case SentenceAction.dropUk: result = await connection.dropUk(mapping, query); break
 			case SentenceAction.dropFk: result = await connection.dropFk(mapping, query); break
 			case SentenceAction.dropIndex: result = await connection.dropIndex(mapping, query); break
-			case SentenceAction.objects:
-			case SentenceAction.tables:
-			case SentenceAction.views:
-			case SentenceAction.foreignKeys:
-			case SentenceAction.primaryKeys:
-			case SentenceAction.uniqueKeys:
-			case SentenceAction.indexes:
-			case SentenceAction.partitions:
-			case SentenceAction.sequences:
-				result = await this.selectExecutor.select(query, data, mapping, dialect, connection); break
+			case SentenceAction.objects: result = await connection.objects(mapping, query); break
+			case SentenceAction.tables: result = await connection.tables(mapping, query); break
+			case SentenceAction.views: result = await connection.views(mapping, query); break
+			case SentenceAction.foreignKeys: result = await connection.foreignKeys(mapping, query); break
+			case SentenceAction.primaryKeys: result = await connection.primaryKeys(mapping, query); break
+			case SentenceAction.uniqueKeys: result = await connection.uniqueKeys(mapping, query); break
+			case SentenceAction.indexes: result = await connection.indexes(mapping, query); break
+			case SentenceAction.partitions: result = await connection.partitions(mapping, query); break
+			case SentenceAction.sequences: result = await connection.sequences(mapping, query); break
 			default:
 				throw new Error(`query action ${query.action} undefined`)
 			}

@@ -1,8 +1,8 @@
-import { IOperandHelper, Operand, OperandType } from '3xpr'
+import { OperandHelper, Operand, OperandType } from '3xpr'
 import { Type } from 'typ3s'
 export class OrmOperandHelper {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly operandHelper:IOperandHelper) {}
+	constructor (private readonly operandHelper:OperandHelper) {}
 
 	public toExpression (operand: Operand): string {
 		const clauses: any = this.getClauses(operand)

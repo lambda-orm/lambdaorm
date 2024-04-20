@@ -243,7 +243,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 					const list:string[] = []
 					for (const _item of param.value) {
 						let item = _item
-						item = this.helper.query.escape(item)
+						item = this.helper.sqlString.escape(item)
 						item = this.helper.str.replace(item, '\\\'', '\\\'\'')
 						list.push(item)
 					}

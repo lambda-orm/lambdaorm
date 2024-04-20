@@ -96,24 +96,24 @@ export abstract class ConnectionAdapter implements Connection {
 			} else {
 				value = null
 			}
-			parameters.push({ name: this.helper.query.transformParameter(parameter.name), type: parameter.type, value })
+			parameters.push({ name: this.helper.sqlString.transformParameter(parameter.name), type: parameter.type, value })
 		}
 		return parameters
 	}
 
 	protected writeDateTime (value: any, mapping: MappingConfigService, dialect: DialectService): any {
 		const format = mapping.format?.dateTime || dialect.format.dateTime
-		return format ? this.helper.query.dateFormat(value, format) : value
+		return format ? this.helper.sqlString.dateFormat(value, format) : value
 	}
 
 	public writeDate (value: any, mapping: MappingConfigService, dialect: DialectService): any {
 		const format = mapping.format?.date || dialect.format.date
-		return format ? this.helper.query.dateFormat(value, format) : value
+		return format ? this.helper.sqlString.dateFormat(value, format) : value
 	}
 
 	public writeTime (value: any, mapping: MappingConfigService, dialect: DialectService): any {
 		const format = mapping.format?.time || dialect.format.time
-		return format ? this.helper.query.dateFormat(value, format) : value
+		return format ? this.helper.sqlString.dateFormat(value, format) : value
 	}
 
 	public abstract select(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
@@ -205,6 +205,42 @@ export abstract class ConnectionAdapter implements Connection {
 	}
 
 	public async dropIndex (_mapping: MappingConfigService, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async objects (_mapping: MappingConfigService, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async tables (_mapping: MappingConfigService, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async views (_mapping: MappingConfigService, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async partitions (_mapping: MappingConfigService, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async sequences (_mapping: MappingConfigService, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async foreignKeys (_mapping: MappingConfigService, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async primaryKeys (_mapping: MappingConfigService, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async uniqueKeys (_mapping: MappingConfigService, query: Query): Promise<any> {
+		return this.executeDDL(query)
+	}
+
+	public async indexes (_mapping: MappingConfigService, query: Query): Promise<any> {
 		return this.executeDDL(query)
 	}
 }
