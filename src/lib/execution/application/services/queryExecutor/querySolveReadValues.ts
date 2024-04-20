@@ -1,5 +1,5 @@
 import { Query } from '../../../../query/domain'
-import { OrmH3lp } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/infrastructure'
 import { Expressions } from '3xpr'
 
 export class QuerySolveReadValues {

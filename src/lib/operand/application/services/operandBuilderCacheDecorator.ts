@@ -1,6 +1,6 @@
 import { OperandBuilder, Operand, OperandSerializer, EvaluatorFactory } from '3xpr'
 import { ICache } from 'h3lp'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 
 export class OperandBuilderCacheDecorator implements OperandBuilder {
 	// eslint-disable-next-line no-useless-constructor

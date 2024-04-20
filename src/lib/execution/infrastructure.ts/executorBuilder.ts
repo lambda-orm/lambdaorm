@@ -3,7 +3,7 @@ import { LanguagesService } from '../../language/application'
 import { Expressions } from '3xpr'
 import { SchemaState } from 'lambdaorm-base'
 import { ExecutorImpl } from '../application'
-import { OrmH3lp } from '../../shared/application'
+import { OrmH3lp } from '../../shared/infrastructure'
 import { ObservableExecutorDecorator } from '../domain'
 
 export class ExecutorBuilder {

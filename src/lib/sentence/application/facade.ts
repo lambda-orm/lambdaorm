@@ -13,7 +13,7 @@ import { GetModel } from './useCases/getModel'
 import { GetParameters } from './useCases/getParameters'
 import { ICache } from 'h3lp'
 import { Expressions } from '3xpr'
-import { OrmH3lp } from '../../shared/application'
+import { OrmH3lp } from '../../shared/infrastructure'
 
 export class SentenceFacade {
 	private getConstraints: GetConstraints

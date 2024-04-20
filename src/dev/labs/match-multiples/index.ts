@@ -1,21 +1,17 @@
-import { Orm } from '../../../lib'
+import { LoggerBuilder, Orm, OrmH3lp } from '../../../lib'
 import { h3lp } from 'h3lp'
-const yaml = require('js-yaml');
-
 (async () => {
 	const workspace = __dirname.replace('/build/', '/src/')
-	const schemaPath = workspace + '/lambdaOrm.yaml'
-	const schemaResultPath = workspace + '/result.yaml'		
+	const helper = new OrmH3lp(h3lp, new LoggerBuilder().build())			
 	const orm = new Orm(workspace)
-	try{
-		await h3lp.fs.removeDir(workspace + '/data')
-		const originalSchema = yaml.load(await h3lp.fs.read(schemaPath))
-		const schema = h3lp.obj.clone(originalSchema)
-		await orm.init(schema)
+	try{			
+		await helper.fs.removeDir(workspace + '/data')
+		const originalSchema = helper.yaml.load(await helper.fs.read(workspace + '/lambdaOrm.yaml'))
+		await orm.init(originalSchema)
 		for(const stage of ['MySQL','SqlServer','PostgreSQL','Oracle']){
 			await orm.stage.match({stage, removeEntities: true, removeProperties: true, removeRelations: true })
 		}
-		await h3lp.fs.write(schemaResultPath, yaml.dump(schema))
+		await helper.fs.write(workspace + '/result.yaml', helper.yaml.dump(orm.state.originalSchema))
 	}catch(e){
 		console.log(e)
 	} finally {

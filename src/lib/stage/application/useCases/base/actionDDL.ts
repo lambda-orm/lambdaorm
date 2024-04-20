@@ -3,7 +3,7 @@ import { StageModelService } from '../../services/stateService'
 import { Query, ExecuteResult } from '../../../../query/domain'
 import { SchemaState, QueryOptions } from 'lambdaorm-base'
 import { Executor } from '../../../../execution/domain'
-import { OrmH3lp } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/infrastructure'
 
 export abstract class StageActionDDL {
 	// eslint-disable-next-line no-useless-constructor

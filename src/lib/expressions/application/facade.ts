@@ -14,7 +14,7 @@ import { ExpressionTransaction } from './useCases/transaction'
 import { ICache } from 'h3lp'
 import { Expressions } from '3xpr'
 import { Executor } from '../../execution/domain'
-import { OrmH3lp } from '../../shared/application'
+import { OrmH3lp } from '../../shared/infrastructure'
 
 export class ExpressionFacade {
 	private queryHelper:QueryHelper

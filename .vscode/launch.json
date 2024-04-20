@@ -25,6 +25,16 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/incorporate/countries.env"
 		},
 		{
+			"name": "fetch",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/fetch/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/fetch/.env"
+		},
+		{
 			"name": "match",
 			"type": "node",
 			"request": "launch",

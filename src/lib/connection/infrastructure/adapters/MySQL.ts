@@ -8,7 +8,7 @@ import { ConnectionConfig } from '../../domain'
 import { Connection } from '../../application'
 import { MappingConfigService, Data, EntityMapping } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 
 const DECIMAL = 0
 const TINY = 1

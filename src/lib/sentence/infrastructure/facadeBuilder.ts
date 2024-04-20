@@ -3,7 +3,7 @@ import { OperandFacade } from '../../operand/application'
 import { SchemaState } from 'lambdaorm-base'
 import { SentenceFacade, SentenceSerializerImp } from '../application'
 import { MemoryCache } from 'h3lp'
-import { OrmH3lp } from '../../shared/application'
+import { OrmH3lp } from '../../shared/infrastructure'
 
 export class SentenceFacadeBuilder {
 	// eslint-disable-next-line no-useless-constructor

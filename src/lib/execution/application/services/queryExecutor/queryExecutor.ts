@@ -1,6 +1,6 @@
 import { QueryOptions, RelationType, SentenceAction, SchemaState, Data } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
-import { OrmH3lp } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/infrastructure'
 import { ExecutionError } from '../../../../connection/domain'
 import { ConnectionFacade, Connection } from '../../../../connection/application'
 import { LanguagesService } from '../../../../language/application'
@@ -153,15 +153,15 @@ export class QueryExecutorImpl implements QueryExecutor, QueryInternalExecutor {
 			case SentenceAction.dropUk: result = await connection.dropUk(mapping, query); break
 			case SentenceAction.dropFk: result = await connection.dropFk(mapping, query); break
 			case SentenceAction.dropIndex: result = await connection.dropIndex(mapping, query); break
-			case SentenceAction.objects: result = await connection.objects(mapping, query); break
-			case SentenceAction.tables: result = await connection.tables(mapping, query); break
-			case SentenceAction.views: result = await connection.views(mapping, query); break
-			case SentenceAction.foreignKeys: result = await connection.foreignKeys(mapping, query); break
-			case SentenceAction.primaryKeys: result = await connection.primaryKeys(mapping, query); break
-			case SentenceAction.uniqueKeys: result = await connection.uniqueKeys(mapping, query); break
-			case SentenceAction.indexes: result = await connection.indexes(mapping, query); break
-			case SentenceAction.partitions: result = await connection.partitions(mapping, query); break
-			case SentenceAction.sequences: result = await connection.sequences(mapping, query); break
+			case SentenceAction.objects: result = await connection.objects(mapping, dialect, query, data); break
+			case SentenceAction.tables: result = await connection.tables(mapping, dialect, query, data); break
+			case SentenceAction.views: result = await connection.views(mapping, dialect, query, data); break
+			case SentenceAction.foreignKeys: result = await connection.foreignKeys(mapping, dialect, query, data); break
+			case SentenceAction.primaryKeys: result = await connection.primaryKeys(mapping, dialect, query, data); break
+			case SentenceAction.uniqueKeys: result = await connection.uniqueKeys(mapping, dialect, query, data); break
+			case SentenceAction.indexes: result = await connection.indexes(mapping, dialect, query, data); break
+			case SentenceAction.partitions: result = await connection.partitions(mapping, dialect, query, data); break
+			case SentenceAction.sequences: result = await connection.sequences(mapping, dialect, query, data); break
 			default:
 				throw new Error(`query action ${query.action} undefined`)
 			}

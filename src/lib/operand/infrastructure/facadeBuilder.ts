@@ -2,7 +2,7 @@ import { MemoryCache } from 'h3lp'
 import { SchemaState } from 'lambdaorm-base'
 import { OperandFacade, OrmOperandHelper } from '../application'
 import { Expressions, OperandSerializerImpl } from '3xpr'
-import { OrmH3lp } from '../../shared/application'
+import { OrmH3lp } from '../../shared/infrastructure'
 
 export class OperandFacadeBuilder {
 	// eslint-disable-next-line no-useless-constructor

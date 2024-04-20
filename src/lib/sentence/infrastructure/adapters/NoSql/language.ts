@@ -3,7 +3,7 @@ import { MappingConfigService, Source } from 'lambdaorm-base'
 import { LanguageAdapter, NoSqlDDLBuilderAdapter } from '../../../../language/infrastructure'
 import config from './config.json'
 import { NoSqlDMLBuilderAdapter } from './NoSqlDmlBuilder'
-import { OrmH3lp } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/infrastructure'
 
 export class NoSqlLanguageAdapter extends LanguageAdapter {
 	constructor (private readonly helper:OrmH3lp) {

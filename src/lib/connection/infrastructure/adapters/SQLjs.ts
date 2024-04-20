@@ -4,7 +4,7 @@
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { ConnectionConfig } from '../../domain'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 import { Connection } from '../../application'
 import { MappingConfigService, Data, EntityMapping } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'

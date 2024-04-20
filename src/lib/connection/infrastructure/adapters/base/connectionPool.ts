@@ -1,6 +1,6 @@
 import { ConnectionConfig } from '../../../domain'
 import { Connection, ConnectionPool } from '../../../application'
-import { OrmH3lp } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/infrastructure'
 export abstract class ConnectionPoolAdapter implements ConnectionPool {
 	public config:ConnectionConfig
 	constructor (config:ConnectionConfig, protected readonly helper:OrmH3lp) {

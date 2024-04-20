@@ -5,7 +5,7 @@ import { OrmOperandBuilder } from './services/operandBuilder'
 import { OperandNormalize } from './usesCases/normalize'
 import { ICache } from 'h3lp'
 import { OrmOperandHelper } from './services/operandHelper'
-import { OrmH3lp } from '../../shared/application'
+import { OrmH3lp } from '../../shared/infrastructure'
 
 export class OperandFacade {
 	private builder:OperandBuilder

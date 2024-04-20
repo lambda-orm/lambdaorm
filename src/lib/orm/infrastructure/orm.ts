@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { OrmH3lp } from '../../shared/application'
+import { OrmH3lp } from '../../shared/infrastructure'
 import { h3lp } from 'h3lp'
 import { QueryOptions, MetadataParameter, MetadataConstraint, MetadataModel, Metadata, Dialect, Schema, Stage, QueryPlan, SchemaFacade, SchemaFacadeBuilder, SchemaState, SchemaStateBuilder, Logger, LoggerBuilder } from 'lambdaorm-base'
 import { ConnectionFacade } from '../../connection/application'
@@ -41,9 +41,9 @@ export class Orm implements IOrm {
 
 	constructor (private _workspace: string = process.cwd(), logger?: Logger) {
 		const _logger = logger || new LoggerBuilder().build()
-		this.expressions = new OrmExpressionsBuilder().build()
-		new OrmLibrary(this).load()
 		this.helper = new OrmH3lp(h3lp, _logger)
+		this.expressions = new OrmExpressionsBuilder(this.helper).build()
+		new OrmLibrary(this).load()
 		this.language = new SentenceLanguageServiceBuilder(this.helper).build()
 		this.connection = new ConnectionFacadeBuilder(this.helper).build()
 		this.schema = new SchemaFacadeBuilder(this.expressions, this.helper).build()

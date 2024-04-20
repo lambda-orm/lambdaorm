@@ -9,7 +9,7 @@ import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
 import { DialectService } from '../../../language/application'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 
 export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 	private static lib: any
@@ -422,39 +422,39 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		await this.cnx.db.collection(collection).dropIndex(query.sentence)
 	}
 
-	public async objects (_mapping: MappingConfigService, query: Query): Promise<any> {
+	public async objects (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'objects')
 	}
 
-	public async tables (_mapping: MappingConfigService, query: Query): Promise<any> {
+	public async tables (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'tables')
 	}
 
-	public async views (_mapping: MappingConfigService, query: Query): Promise<any> {
+	public async views (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw	new MethodNotImplemented('MongodbConnection', 'views')
 	}
 
-	public async partitions (_mapping: MappingConfigService, query: Query): Promise<any> {
+	public async partitions (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'partitions')
 	}
 
-	public async sequences (_mapping: MappingConfigService, query: Query): Promise<any> {
+	public async sequences (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'sequences')
 	}
 
-	public async foreignKeys (_mapping: MappingConfigService, query: Query): Promise<any> {
+	public async foreignKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'foreignKeys')
 	}
 
-	public async primaryKeys (_mapping: MappingConfigService, query: Query): Promise<any> {
+	public async primaryKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'primaryKeys')
 	}
 
-	public async uniqueKeys (_mapping: MappingConfigService, query: Query): Promise<any> {
+	public async uniqueKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'uniqueKeys')
 	}
 
-	public async indexes (_mapping: MappingConfigService, query: Query): Promise<any> {
+	public async indexes (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new MethodNotImplemented('MongodbConnection', 'indexes')
 	}
 }

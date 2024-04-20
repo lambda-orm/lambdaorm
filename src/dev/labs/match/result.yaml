@@ -1,10 +1,396 @@
 domain:
-  entities: []
+  entities:
+    - name: Categories
+      properties:
+        - name: categoryId
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: categoryName
+          required: true
+        - name: description
+          length: 1000
+      relations: []
+      primaryKey:
+        - categoryId
+      uniqueKey:
+        - categoryName
+    - name: Customers
+      properties:
+        - name: customerId
+          length: 5
+          required: true
+        - name: companyName
+          required: true
+        - name: contactName
+        - name: contactTitle
+        - name: address
+        - name: city
+        - name: region
+        - name: postalCode
+          length: 20
+        - name: country
+      relations: []
+      primaryKey:
+        - customerId
+    - name: Employees
+      properties:
+        - name: employeeId
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: lastName
+          required: true
+        - name: firstName
+          required: true
+        - name: title
+        - name: titleOfCourtesy
+        - name: birthDate
+          type: dateTime
+        - name: hireDate
+          type: dateTime
+        - name: homePhone
+        - name: reportsTo
+          type: integer
+        - name: address
+        - name: city
+        - name: region
+        - name: postalCode
+          length: 20
+        - name: country
+      relations:
+        - name: reportsTo
+          type: oneToMany
+          from: reportsTo
+          entity: Employees
+          to: employeeId
+      primaryKey:
+        - employeeId
+      uniqueKey:
+        - lastName
+        - firstName
+    - name: OrderDetails
+      properties:
+        - name: orderId
+          type: integer
+          required: true
+        - name: productId
+          type: integer
+          required: true
+        - name: unitPrice
+          type: decimal
+        - name: quantity
+          type: decimal
+        - name: discount
+          type: decimal
+      relations:
+        - name: order
+          type: oneToMany
+          from: orderId
+          entity: Orders
+          to: orderId
+        - name: product
+          type: oneToMany
+          from: productId
+          entity: Products
+          to: productId
+      primaryKey:
+        - orderId
+        - productId
+        - orderId
+        - productId
+    - name: Orders
+      properties:
+        - name: orderId
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: customerId
+          length: 5
+          required: true
+        - name: employeeId
+          type: integer
+          required: true
+        - name: orderDate
+          type: dateTime
+        - name: requiredDate
+          type: date
+        - name: shippedDate
+          type: date
+        - name: shipVia
+          type: integer
+        - name: freight
+          type: decimal
+        - name: shipName
+        - name: shipAddress
+        - name: shipCity
+        - name: shipRegion
+        - name: shipPostalCode
+          length: 20
+        - name: shipCountry
+      relations:
+        - name: customer
+          type: oneToMany
+          from: customerId
+          entity: Customers
+          to: customerId
+        - name: employee
+          type: oneToMany
+          from: employeeId
+          entity: Employees
+          to: employeeId
+      primaryKey:
+        - customerId
+        - employeeId
+        - orderId
+        - orderId
+    - name: Products
+      properties:
+        - name: productId
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: productName
+          required: true
+        - name: supplierId
+          type: integer
+          required: true
+        - name: categoryId
+          type: integer
+        - name: quantityPerUnit
+        - name: unitPrice
+          type: decimal
+        - name: unitsInStock
+          type: decimal
+        - name: unitsOnOrder
+          type: decimal
+        - name: reorderLevel
+          type: decimal
+        - name: discontinued
+          type: integer
+      relations:
+        - name: category
+          type: oneToMany
+          from: categoryId
+          entity: Categories
+          to: categoryId
+        - name: supplier
+          type: oneToMany
+          from: supplierId
+          entity: Suppliers
+          to: supplierId
+      primaryKey:
+        - categoryId
+        - productId
+        - productId
+        - supplierId
+      uniqueKey:
+        - productName
+        - supplierId
+    - name: Shippers
+      properties:
+        - name: shipperId
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: companyName
+          required: true
+        - name: phone
+          length: 20
+      relations: []
+      primaryKey:
+        - shipperId
+      uniqueKey:
+        - companyName
+    - name: Suppliers
+      properties:
+        - name: supplierId
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: companyName
+          required: true
+        - name: contactName
+        - name: phone
+          length: 20
+        - name: homePage
+          length: 200
+        - name: address
+        - name: city
+        - name: region
+        - name: postalCode
+          length: 20
+        - name: country
+      relations: []
+      primaryKey:
+        - supplierId
+      uniqueKey:
+        - companyName
 infrastructure:
   sources:
     - name: MySQL
       dialect: MySQL
       connection: ${ORM_CNN_MYSQL}
   mappings:
-    - name: default
-      entities: []
+    - name: MySQL
+      entities:
+        - name: Categories
+          mapping: Categories
+          properties:
+            - name: categoryId
+              mapping: CategoryID
+            - name: categoryName
+              mapping: CategoryName
+            - name: description
+              mapping: Description
+        - name: Customers
+          mapping: Customers
+          properties:
+            - name: customerId
+              mapping: CustomerID
+            - name: companyName
+              mapping: CompanyName
+            - name: contactName
+              mapping: ContactName
+            - name: contactTitle
+              mapping: ContactTitle
+            - name: address
+              mapping: Address
+            - name: city
+              mapping: City
+            - name: region
+              mapping: Region
+            - name: postalCode
+              mapping: PostalCode
+            - name: country
+              mapping: Country
+        - name: Employees
+          mapping: Employees
+          properties:
+            - name: employeeId
+              mapping: EmployeeID
+            - name: lastName
+              mapping: LastName
+            - name: firstName
+              mapping: FirstName
+            - name: title
+              mapping: Title
+            - name: titleOfCourtesy
+              mapping: TitleOfCourtesy
+            - name: birthDate
+              mapping: BirthDate
+            - name: hireDate
+              mapping: HireDate
+            - name: homePhone
+              mapping: HomePhone
+            - name: reportsTo
+              mapping: ReportsTo
+            - name: address
+              mapping: Address
+            - name: city
+              mapping: City
+            - name: region
+              mapping: Region
+            - name: postalCode
+              mapping: PostalCode
+            - name: country
+              mapping: Country
+        - name: OrderDetails
+          mapping: Order Details
+          properties:
+            - name: orderId
+              mapping: OrderID
+            - name: productId
+              mapping: ProductID
+            - name: unitPrice
+              mapping: UnitPrice
+            - name: quantity
+              mapping: Quantity
+            - name: discount
+              mapping: Discount
+        - name: Orders
+          mapping: Orders
+          properties:
+            - name: orderId
+              mapping: OrderID
+            - name: customerId
+              mapping: CustomerID
+            - name: employeeId
+              mapping: EmployeeID
+            - name: orderDate
+              mapping: OrderDate
+            - name: requiredDate
+              mapping: RequiredDate
+            - name: shippedDate
+              mapping: ShippedDate
+            - name: shipVia
+              mapping: ShipVia
+            - name: freight
+              mapping: Freight
+            - name: shipName
+              mapping: ShipName
+            - name: shipAddress
+              mapping: ShipAddress
+            - name: shipCity
+              mapping: ShipCity
+            - name: shipRegion
+              mapping: ShipRegion
+            - name: shipPostalCode
+              mapping: ShipPostalCode
+            - name: shipCountry
+              mapping: ShipCountry
+        - name: Products
+          mapping: Products
+          properties:
+            - name: productId
+              mapping: ProductID
+            - name: productName
+              mapping: ProductName
+            - name: supplierId
+              mapping: SupplierID
+            - name: categoryId
+              mapping: CategoryID
+            - name: quantityPerUnit
+              mapping: QuantityPerUnit
+            - name: unitPrice
+              mapping: UnitPrice
+            - name: unitsInStock
+              mapping: UnitsInStock
+            - name: unitsOnOrder
+              mapping: UnitsOnOrder
+            - name: reorderLevel
+              mapping: ReorderLevel
+            - name: discontinued
+              mapping: Discontinued
+        - name: Shippers
+          mapping: Shippers
+          properties:
+            - name: shipperId
+              mapping: ShipperID
+            - name: companyName
+              mapping: CompanyName
+            - name: phone
+              mapping: Phone
+        - name: Suppliers
+          mapping: Suppliers
+          properties:
+            - name: supplierId
+              mapping: SupplierID
+            - name: companyName
+              mapping: CompanyName
+            - name: contactName
+              mapping: ContactName
+            - name: phone
+              mapping: Phone
+            - name: homePage
+              mapping: HomePage
+            - name: address
+              mapping: Address
+            - name: city
+              mapping: City
+            - name: region
+              mapping: Region
+            - name: postalCode
+              mapping: PostalCode
+            - name: country
+              mapping: Country

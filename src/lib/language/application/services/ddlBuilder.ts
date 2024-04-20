@@ -5,7 +5,7 @@ import {
 import { Query } from '../../../query/domain'
 import { Delta, ChangedValue } from 'h3lp'
 import { DDLBuilderPort } from '../ports/ddlBuilderPort'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 import { LanguagesService } from './languagesService'
 import { DialectService } from './dialectService'
 

@@ -3,7 +3,7 @@ import { LanguagesService } from '../../language/application'
 import { ExpressionFacade } from '../../expressions/application'
 import { StageFacade } from '../application'
 import { Executor } from '../../execution/domain'
-import { OrmH3lp } from '../../shared/application'
+import { OrmH3lp } from '../../shared/infrastructure'
 
 export class StageFacadeBuilder {
 	// eslint-disable-next-line no-useless-constructor

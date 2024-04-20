@@ -2,7 +2,7 @@
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query } from '../../../query/domain'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 import { SchemaError, PropertyMapping, Data, MappingConfigService, EntityMapping } from 'lambdaorm-base'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'

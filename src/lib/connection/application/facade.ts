@@ -27,7 +27,7 @@ export class ConnectionFacade {
 	}
 
 	public async end ():Promise<void> {
-		this.poolService.endAll()
+		return this.poolService.endAll()
 	}
 
 	public async acquire (name:string):Promise<Connection> {

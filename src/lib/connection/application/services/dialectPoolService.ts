@@ -1,4 +1,4 @@
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 import { ConnectionConfig, ConnectionError } from '../../domain'
 import { ConnectionPool } from '../ports/connectionPool'
 

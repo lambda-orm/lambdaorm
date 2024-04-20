@@ -1,6 +1,6 @@
 import { ICache } from 'h3lp'
 import { ISentenceCompleteBuilder, Sentence, SentenceSerializer, ViewConfigService } from 'lambdaorm-base'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 
 export class SentenceCompleteBuilderCacheDecorator implements ISentenceCompleteBuilder {
 	// eslint-disable-next-line no-useless-constructor

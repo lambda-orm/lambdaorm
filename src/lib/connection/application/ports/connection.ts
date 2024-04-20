@@ -48,13 +48,13 @@ export interface Connection {
 	dropUk (_mapping: MappingConfigService, query: Query): Promise<any>
 	dropFk (_mapping: MappingConfigService, query: Query): Promise<any>
 	dropIndex (_mapping: MappingConfigService, query: Query): Promise<any>
-	objects (_mapping: MappingConfigService, query: Query): Promise<any>
-	tables (_mapping: MappingConfigService, query: Query): Promise<any>
-	views (_mapping: MappingConfigService, query: Query): Promise<any>
-	partitions (_mapping: MappingConfigService, query: Query): Promise<any>
-	sequences (_mapping: MappingConfigService, query: Query): Promise<any>
-	foreignKeys (_mapping: MappingConfigService, query: Query): Promise<any>
-	primaryKeys (_mapping: MappingConfigService, query: Query): Promise<any>
-	uniqueKeys (_mapping: MappingConfigService, query: Query): Promise<any>
-	indexes (_mapping: MappingConfigService, query: Query): Promise<any>
+	objects (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	tables (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	views (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	partitions (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	sequences (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	foreignKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	primaryKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	uniqueKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
+	indexes (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>
 }

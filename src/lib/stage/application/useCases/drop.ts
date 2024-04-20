@@ -4,7 +4,7 @@ import { LanguagesService, DDLBuilderService } from '../../../language/applicati
 import { StageMappingService, StageModelService } from '../services/stateService'
 import { StageActionDDL } from './base/actionDDL'
 import { Executor } from '../../../execution/domain'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 
 export class StageDrop extends StageActionDDL {
 	private mappingService: StageMappingService

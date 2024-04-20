@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../../../syntax.d.ts" />
-import { orm, QueryPlan } from '../../../lib'
+import { LoggerBuilder, orm, OrmH3lp, QueryPlan } from '../../../lib'
 import { Categories, Customers, Products, Orders } from '../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
 import { h3lp } from 'h3lp'
 
 const fs = require('fs')
 const path = require('path')
-const yaml = require('js-yaml')
+
+const helper = new OrmH3lp(h3lp, new LoggerBuilder().build())
 
 async function exec (fn: any) {
 	const t1 = Date.now()
@@ -105,14 +106,14 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 		category.errors += expressionTest.errors
 	}
 	try {
-		const yamlStr = yaml.dump(JSON.parse(JSON.stringify(category)))
+		const yamlStr = helper.yaml.dump(JSON.parse(JSON.stringify(category)))
 		fs.writeFileSync(path.join('src/dev/northwind/test/data', category.name.replace(' ', '_') + '.yaml'), yamlStr)
 	} catch (error) {
 		console.error(error)
 		for (const q in category.test) {
 			try {
 				const expressionTest = category.test[q] as ExpressionTest
-				const yamlStr = yaml.dump(expressionTest)
+				const yamlStr = helper.yaml.dump(expressionTest)
 			} catch (error) {
 				console.error(error)
 			}

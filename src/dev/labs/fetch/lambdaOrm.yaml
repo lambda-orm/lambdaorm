@@ -1,0 +1,8 @@
+domain:
+  entities: []
+infrastructure:
+  sources:
+    - name: MySQL
+      dialect: MySQL
+      connection: ${ORM_CNN_MYSQL}
+

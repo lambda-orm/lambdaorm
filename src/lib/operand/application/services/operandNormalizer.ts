@@ -1,4 +1,4 @@
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 import { Field, DomainConfigService, Relation, SchemaError, Entity, SintaxisError } from 'lambdaorm-base'
 import { Expressions, Operand, OperandCloner, OperandType, Position } from '3xpr'
 import { Type, Primitive } from 'typ3s'

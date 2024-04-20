@@ -1,5 +1,5 @@
 import { Query, Include } from '../../../../query/domain'
-import { OrmH3lp } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/infrastructure'
 import { Connection } from '../../../../connection/application'
 import { DialectService } from '../../../../language/application'
 import { QueryOptions, MappingConfigService, RelationType, EntityMapping, Data } from 'lambdaorm-base'

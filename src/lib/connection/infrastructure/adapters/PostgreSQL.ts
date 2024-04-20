@@ -1,7 +1,7 @@
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { ConnectionConfig } from '../../domain'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'

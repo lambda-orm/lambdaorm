@@ -3,7 +3,7 @@ import { QueryOptions } from 'lambdaorm-base'
 import { IQueryBuilder } from '../../domain/services'
 import { ExpressionTransaction } from './transaction'
 import { Expressions } from '3xpr'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 
 export class ExpressionExecute {
 	// eslint-disable-next-line no-useless-constructor

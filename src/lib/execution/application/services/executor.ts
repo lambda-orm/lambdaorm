@@ -5,7 +5,7 @@ import { QueryExecutorImpl } from './queryExecutor/queryExecutor'
 import { Transaction, Executor, QueryExecutor, ActionObserver, ObservableExecutor } from '../../domain'
 import { ConnectionFacade } from '../../../connection/application'
 import { Expressions } from '3xpr'
-import { OrmH3lp } from '../../../shared/application/helper'
+import { OrmH3lp } from '../../../shared/infrastructure/helper'
 import { QueryExecutorObservableDecorator } from './queryExecutor/queryExecutorObservableDecorator'
 export class ExecutorImpl implements Executor, ObservableExecutor {
 	private observers:ActionObserver[]

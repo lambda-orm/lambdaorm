@@ -11,7 +11,7 @@ import { SQLjsConnectionPoolAdapter } from './adapters/SQLjs'
 import { SqlServerConnectionPoolAdapter } from './adapters/SqlServer'
 import { OracleConnectionPoolAdapter } from './adapters/Oracle'
 import { MongoDBConnectionPoolAdapter } from './adapters/MongoDB'
-import { OrmH3lp } from '../../shared/application'
+import { OrmH3lp } from '../../shared/infrastructure'
 
 export class ConnectionFacadeBuilder {
 	// eslint-disable-next-line no-useless-constructor

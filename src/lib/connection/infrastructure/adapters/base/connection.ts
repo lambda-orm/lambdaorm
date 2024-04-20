@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Query } from '../../../../query/domain'
 import { ConnectionConfig } from '../../../domain'
-import { OrmH3lp } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/infrastructure'
 import { Parameter } from '3xpr'
 import { Primitive } from 'typ3s'
 import { Connection } from '../../../application'
@@ -208,39 +208,39 @@ export abstract class ConnectionAdapter implements Connection {
 		return this.executeDDL(query)
 	}
 
-	public async objects (_mapping: MappingConfigService, query: Query): Promise<any> {
-		return this.executeDDL(query)
+	public async objects (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		return this.select(mapping, dialect, query, data)
 	}
 
-	public async tables (_mapping: MappingConfigService, query: Query): Promise<any> {
-		return this.executeDDL(query)
+	public async tables (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		return this.select(mapping, dialect, query, data)
 	}
 
-	public async views (_mapping: MappingConfigService, query: Query): Promise<any> {
-		return this.executeDDL(query)
+	public async views (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		return this.select(mapping, dialect, query, data)
 	}
 
-	public async partitions (_mapping: MappingConfigService, query: Query): Promise<any> {
-		return this.executeDDL(query)
+	public async partitions (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		return this.select(mapping, dialect, query, data)
 	}
 
-	public async sequences (_mapping: MappingConfigService, query: Query): Promise<any> {
-		return this.executeDDL(query)
+	public async sequences (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		return this.select(mapping, dialect, query, data)
 	}
 
-	public async foreignKeys (_mapping: MappingConfigService, query: Query): Promise<any> {
-		return this.executeDDL(query)
+	public async foreignKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		return this.select(mapping, dialect, query, data)
 	}
 
-	public async primaryKeys (_mapping: MappingConfigService, query: Query): Promise<any> {
-		return this.executeDDL(query)
+	public async primaryKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		return this.select(mapping, dialect, query, data)
 	}
 
-	public async uniqueKeys (_mapping: MappingConfigService, query: Query): Promise<any> {
-		return this.executeDDL(query)
+	public async uniqueKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		return this.select(mapping, dialect, query, data)
 	}
 
-	public async indexes (_mapping: MappingConfigService, query: Query): Promise<any> {
-		return this.executeDDL(query)
+	public async indexes (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
+		return this.select(mapping, dialect, query, data)
 	}
 }

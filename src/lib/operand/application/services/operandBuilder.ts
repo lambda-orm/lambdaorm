@@ -1,7 +1,7 @@
 import { EvaluatorFactory, ExpressionNormalizer, ExpressionParse, OperandBuilder, Operand, OperandNormalize, OperandReduce, Expressions } from '3xpr'
 import { DomainConfigService } from 'lambdaorm-base'
 import { OrmOperandNormalizer } from './operandNormalizer'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 import { OrmOperandComplete } from '../usesCases/complete'
 import { OrmOperandClone } from '../usesCases/clone'
 

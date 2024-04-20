@@ -1,5 +1,5 @@
 import { Query } from '../../../query/domain'
-import { OrmH3lp } from '../../../shared/application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 import { ModelConfig, MappingConfig, Dialect, SchemaState } from 'lambdaorm-base'
 const path = require('path')
 

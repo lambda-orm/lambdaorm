@@ -5,7 +5,7 @@ import {
 	From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, BulkInsert, MappingConfigService
 } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
-import { OrmH3lp } from '../../../../shared/application'
+import { OrmH3lp } from '../../../../shared/infrastructure'
 import { DialectService } from '../../../../language/application'
 import { DmlBuilderPort } from '../../../application'
 

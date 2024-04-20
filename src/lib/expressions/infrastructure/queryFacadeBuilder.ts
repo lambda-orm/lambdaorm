@@ -5,7 +5,7 @@ import { SentenceFacade } from '../../sentence/application'
 import { Expressions } from '3xpr'
 import { ExpressionFacade } from '../application'
 import { Executor } from '../../execution/domain'
-import { OrmH3lp } from '../../shared/application'
+import { OrmH3lp } from '../../shared/infrastructure'
 
 export class ExpressionFacadeBuilder {
 	// eslint-disable-next-line no-useless-constructor
