@@ -96,24 +96,24 @@ export abstract class ConnectionAdapter implements Connection {
 			} else {
 				value = null
 			}
-			parameters.push({ name: this.helper.sqlString.transformParameter(parameter.name), type: parameter.type, value })
+			parameters.push({ name: this.helper.sql.transformParameter(parameter.name), type: parameter.type, value })
 		}
 		return parameters
 	}
 
 	protected writeDateTime (value: any, mapping: MappingConfigService, dialect: DialectService): any {
 		const format = mapping.format?.dateTime || dialect.format.dateTime
-		return format ? this.helper.sqlString.dateFormat(value, format) : value
+		return format ? this.helper.sql.dateFormat(value, format) : value
 	}
 
 	public writeDate (value: any, mapping: MappingConfigService, dialect: DialectService): any {
 		const format = mapping.format?.date || dialect.format.date
-		return format ? this.helper.sqlString.dateFormat(value, format) : value
+		return format ? this.helper.sql.dateFormat(value, format) : value
 	}
 
 	public writeTime (value: any, mapping: MappingConfigService, dialect: DialectService): any {
 		const format = mapping.format?.time || dialect.format.time
-		return format ? this.helper.sqlString.dateFormat(value, format) : value
+		return format ? this.helper.sql.dateFormat(value, format) : value
 	}
 
 	public abstract select(mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any>

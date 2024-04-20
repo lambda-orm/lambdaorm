@@ -2,11 +2,12 @@ import { ModelService, Operand, OperandType, TypeServiceImpl } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import {
 	Sentence, SentenceInclude, Field, Map, From, Join, Filter, GroupBy, Having, Sort, Page, Insert, BulkInsert, Update,
-	SentenceCrudAction, SintaxisError, DomainConfigService
+	SintaxisError, DomainConfigService, SentenceType
 } from 'lambdaorm-base'
+import { OrmH3lp } from '../../../shared/infrastructure'
 
 export class SentenceTypeService extends TypeServiceImpl {
-	constructor (model: ModelService, private readonly config: DomainConfigService) {
+	constructor (model: ModelService, private readonly config: DomainConfigService, private readonly helper: OrmH3lp) {
 		super(model)
 	}
 
@@ -29,17 +30,16 @@ export class SentenceTypeService extends TypeServiceImpl {
 	}
 
 	private solveSentence (sentence: Sentence): void {
-		switch (sentence.crudAction) {
-		case SentenceCrudAction.select:
+		const info = this.helper.sql.getInfo(sentence.action, sentence.entity)
+		switch (info.type) {
+		case SentenceType.dql:
 			this.solveSelect(sentence)
 			break
-		case SentenceCrudAction.insert:
-		case SentenceCrudAction.update:
-		case SentenceCrudAction.delete:
+		case SentenceType.dml:
 			this.solveModify(sentence)
 			break
 		default:
-			throw new SintaxisError(`sentence crud action ${sentence.crudAction} not found`)
+			throw new SintaxisError(`sentence ${info.type} type not found`)
 		}
 	}
 

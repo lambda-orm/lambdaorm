@@ -31,8 +31,8 @@ export class SentenceFacade {
 		serializer:SentenceSerializer,
 		helper:OrmH3lp
 	) {
-		this.sentenceHelper = new SentenceHelper(this.schemaState)
-		this.builder = new SentenceBuilder(this.schemaState, this.operandFacade, this.expressions)
+		this.sentenceHelper = new SentenceHelper(this.schemaState, helper)
+		this.builder = new SentenceBuilder(this.schemaState, this.operandFacade, this.expressions, helper)
 		this.builderComplete = new SentenceCompleteBuilderCacheDecorator(
 			new SentenceCompleteBuilder(this.builder, this.schemaState, this.sentenceHelper, this.expressions), cache, serializer, helper)
 		this.getConstraints = new GetConstraints(this.builder)

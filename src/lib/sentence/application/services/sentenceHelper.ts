@@ -1,17 +1,19 @@
 import {
-	ObservableAction, Property, SentenceCrudAction, Source, ClauseInfo, SintaxisError, SchemaState,
-	Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete
+	Property, Source, SintaxisError, SchemaState,
+	Field, Sentence, Map, Filter, GroupBy, Having, Sort, Insert, BulkInsert, Update, Delete,
+	SentenceCategory
 } from 'lambdaorm-base'
 import { Operand, Parameter, OperandType } from '3xpr'
 import { Type, Primitive } from 'typ3s'
+import { OrmH3lp } from 'lib/shared/infrastructure'
 
 export class SentenceHelper {
 	// private model: ModelConfigService
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly schemaState: SchemaState) {}
+	constructor (private readonly schemaState: SchemaState, private readonly helper: OrmH3lp) {}
 
 	public getSource (sentence: Sentence, stage: string): Source {
-		const sentenceInfo: ClauseInfo = { entity: sentence.entity, action: ObservableAction[sentence.action] }
+		const sentenceInfo = this.helper.sql.getInfo(sentence.action, sentence.entity)
 		const sourceName = this.schemaState.getSource(sentenceInfo, stage)
 		return this.schemaState.source.get(sourceName)
 	}
@@ -95,27 +97,28 @@ export class SentenceHelper {
 	}
 
 	public getColumns (sentence: Sentence): Property[] {
-		switch (sentence.crudAction) {
-		case SentenceCrudAction.select:
+		const sentenceInfo = this.helper.sql.getInfo(sentence.action, sentence.entity)
+		switch (sentenceInfo.category) {
+		case SentenceCategory.select:
 			// eslint-disable-next-line no-case-declarations
 			const map = sentence.children.find(p => p.name === 'map') as Map
 			return this.fieldsInSelect(map)
-		case SentenceCrudAction.insert:
+		case SentenceCategory.insert:
 			// eslint-disable-next-line no-case-declarations
 			const insert = sentence.action === 'bulkInsert'
 				? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert
 				: sentence.children.find(p => p instanceof Insert) as Insert
 			return this.fieldsInModify(insert, sentence.entity, true)
-		case SentenceCrudAction.update:
+		case SentenceCategory.update:
 			// eslint-disable-next-line no-case-declarations
 			const update = sentence.children.find(p => p instanceof Update) as Update
 			return this.fieldsInModify(update, sentence.entity)
-		case SentenceCrudAction.delete:
+		case SentenceCategory.delete:
 			// eslint-disable-next-line no-case-declarations
 			const _delete = sentence.children.find(p => p instanceof Delete) as Delete
 			return this.fieldsInModify(_delete, sentence.entity)
 		default:
-			throw new SintaxisError(`sentence crud action ${sentence.crudAction} not found`)
+			throw new SintaxisError(`sentence ${sentenceInfo.category} category not found`)
 		}
 	}
 

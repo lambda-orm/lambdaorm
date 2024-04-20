@@ -1,16 +1,18 @@
 /* eslint-disable no-tabs */
 import { Operand, OperandType } from '3xpr'
 import {
-	SentenceCrudAction, SentenceAction, SchemaError, EntityMapping, RelationType, SintaxisError,
+	SentenceAction, SchemaError, EntityMapping, RelationType, SintaxisError, SentenceType,
 	Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update
+
 } from 'lambdaorm-base'
 import { Query, Include } from '../../../../query/domain'
 import { DmlBuilderAdapter } from '../base/dmlBuilder'
 
 export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 	public override build (sentence: Sentence): Query {
+		const info = this.helper.sql.getInfo(sentence.action, sentence.entity)
 		const includes:Include[] = []
-		if (sentence.crudAction !== SentenceCrudAction.select) {
+		if (info.type !== SentenceType.dql) {
 			const sentenceIncludes = sentence.getCompositeIncludes()
 			for (const sentenceInclude of sentenceIncludes) {
 				const childSentence = sentenceInclude.children[0] as Sentence

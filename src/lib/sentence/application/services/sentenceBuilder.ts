@@ -8,6 +8,7 @@ import { SentenceTypeService } from './typeService'
 import { SentenceHelper } from './sentenceHelper'
 import { OperandFacade } from '../../../operand/application'
 import { Type } from 'typ3s'
+import { OrmH3lp } from '../../../shared/infrastructure'
 
 interface AsteriskField {
 	index:number
@@ -217,11 +218,12 @@ export class SentenceBuilder implements ISentenceBuilder {
 
 	constructor (private readonly schemaState: SchemaState,
 		private readonly operandFacade:OperandFacade,
-		private readonly expressions:Expressions
+		private readonly expressions:Expressions,
+		ormHelper:OrmH3lp
 	) {
 		this.domainConfigService = this.schemaState.domain
-		this.typeService = new SentenceTypeService(expressions, this.schemaState.domain)
-		this.helper = new SentenceHelper(this.schemaState)
+		this.typeService = new SentenceTypeService(expressions, this.schemaState.domain, ormHelper)
+		this.helper = new SentenceHelper(this.schemaState, ormHelper)
 		this.solveBehaviors = new SentenceSolveBehaviors(this.schemaState.domain, this.helper)
 		this.solveConstraints = new SentenceSolveConstraints(this.domainConfigService, this.helper, this.expressions)
 	}

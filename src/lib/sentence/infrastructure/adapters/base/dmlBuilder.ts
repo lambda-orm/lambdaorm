@@ -1,7 +1,7 @@
 import { Operand, OperandType } from '3xpr'
 import { Primitive } from 'typ3s'
 import {
-	SentenceCrudAction, Source, SchemaError, EntityMapping, SintaxisError, Field, Sentence,
+	SentenceCategory, Source, SchemaError, EntityMapping, SintaxisError, Field, Sentence,
 	From, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update, Delete, BulkInsert, MappingConfigService
 } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
@@ -35,17 +35,18 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 	}
 
 	protected buildSentence (sentence: Sentence): string {
-		switch (sentence.crudAction) {
-		case SentenceCrudAction.select:
+		const info = this.helper.sql.getInfo(sentence.action, sentence.entity)
+		switch (info.category) {
+		case SentenceCategory.select:
 			return this.buildSelectSentence(sentence)
-		case SentenceCrudAction.insert:
+		case SentenceCategory.insert:
 			return this.buildInsertSentence(sentence)
-		case SentenceCrudAction.update:
+		case SentenceCategory.update:
 			return this.buildUpdateSentence(sentence)
-		case SentenceCrudAction.delete:
+		case SentenceCategory.delete:
 			return this.buildDeleteSentence(sentence)
 		default:
-			throw new SintaxisError(`sentence crud action ${sentence.crudAction} not found`)
+			throw new SintaxisError(`sentence ${info.category} category not supported`)
 		}
 	}
 
@@ -372,7 +373,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 	protected buildVariable (operand: Operand): string {
 		const number = operand.number ? operand.number : 0
 		let text = this.dialect.other('variable')
-		text = this.helper.str.replace(text, '{name}', this.helper.sqlString.transformParameter(operand.name))
+		text = this.helper.str.replace(text, '{name}', this.helper.sql.transformParameter(operand.name))
 		text = this.helper.str.replace(text, '{number}', number.toString())
 		return text
 	}
