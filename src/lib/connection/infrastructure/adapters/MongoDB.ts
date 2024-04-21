@@ -24,24 +24,19 @@ export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {
 		await this.helper.logger.log(`connection MongoDB: ${this.config.name} initialized`)
 	}
 
-	public async acquire (): Promise<Connection> {
+	public async create (id:string): Promise<Connection> {
 		const client = await MongoDBConnectionPoolAdapter.lib.MongoClient.connect(this.config.connection.url)
 		const db = client.db(this.config.connection.database)
 		const cnx = { client, db }
-		return new MongodbConnectionAdapter(cnx, this, this.helper)
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async release (connection: Connection): Promise<void> {
-		connection.cnx.client.close()
-	}
-
-	public async end (): Promise<void> {
-		await this.helper.logger.log(`connection MongoDB: ${this.config.name} finalized`)
+		return new MongodbConnectionAdapter(id, cnx, this, this.helper)
 	}
 }
 
 export class MongodbConnectionAdapter extends ConnectionAdapter {
+	public async end (): Promise<void> {
+		this.cnx.client.close()
+	}
+
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public insertConditional (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new Error('Method not implemented.')

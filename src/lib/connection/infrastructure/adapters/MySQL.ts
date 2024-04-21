@@ -50,19 +50,16 @@ export class MySQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 		this.pool = MySQLConnectionPoolAdapter.lib.createPool({ ...this.config.connection, ...casts })
 	}
 
-	public async acquire (): Promise<Connection> {
+	public async create (id:string): Promise<Connection> {
 		if (this.pool === undefined) {
 			await this.init()
 		}
 		const cnx = await this.pool.getConnection()
-		return new MySqlConnectionAdapter(cnx, this, this.helper)
-	}
-
-	public async release (connection: Connection): Promise<void> {
-		await connection.cnx.release()
+		return new MySqlConnectionAdapter(id, cnx, this, this.helper)
 	}
 
 	public async end (): Promise<void> {
+		super.end()
 		if (this.pool !== undefined) {
 			this.pool.end()
 		}

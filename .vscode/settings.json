@@ -153,6 +153,7 @@
 		"uroot",
 		"USERENV",
 		"uuid",
+		"uuidv",
 		"varbinary",
 		"varchar",
 		"VARCHAR"

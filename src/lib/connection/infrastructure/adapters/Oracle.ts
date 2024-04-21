@@ -44,7 +44,7 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 		}
 	}
 
-	public async acquire (): Promise<Connection> {
+	protected async create (id:string): Promise<Connection> {
 		if (!this.pool) {
 			if (!OracleConnectionPoolAdapter.lib) {
 				await this.init()
@@ -52,15 +52,7 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 			this.pool = await OracleConnectionPoolAdapter.lib.createPool(this.config.connection)
 		}
 		const cnx = await this.pool.getConnection()
-		return new OracleConnectionAdapter(OracleConnectionPoolAdapter.lib, cnx, this, this.helper)
-	}
-
-	public async release (connection: Connection): Promise<void> {
-		await connection.cnx.close()
-	}
-
-	public async end (): Promise<void> {
-		await this.helper.logger.log('Oracle end pool not Implemented')
+		return new OracleConnectionAdapter(OracleConnectionPoolAdapter.lib, id, cnx, this, this.helper)
 	}
 }
 export class OracleConnectionAdapter extends ConnectionAdapter {
@@ -84,8 +76,8 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		throw new Error('Method not implemented.')
 	}
 
-	constructor (private readonly lib:any, cnx: any, pool: any, helper:OrmH3lp) {
-		super(cnx, pool, helper)
+	constructor (private readonly lib:any, id:string, cnx: any, pool: any, helper:OrmH3lp) {
+		super(id, cnx, pool, helper)
 		this.maxChunkSizeIdsOnSelect = 999
 	}
 

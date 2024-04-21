@@ -49,10 +49,10 @@ export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 		await this.helper.logger.log('PostgreSQL init pool not Implemented')
 	}
 
-	public async acquire (): Promise<Connection> {
+	protected async create (id:string): Promise<Connection> {
 		const cnx = new PostgreSQLConnectionPoolAdapter.lib.Client(this.config.connection)
 		cnx.connect()
-		return new PostgreSQLConnectionAdapter(cnx, this, this.helper)
+		return new PostgreSQLConnectionAdapter(id, cnx, this, this.helper)
 	}
 
 	public async release (connection: Connection): Promise<void> {

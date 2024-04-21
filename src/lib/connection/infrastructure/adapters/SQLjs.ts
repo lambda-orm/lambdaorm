@@ -35,22 +35,20 @@ export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {
 		})
 	}
 
-	public async acquire (): Promise<Connection> {
-		return new SQLjsConnectionAdapter(this.db, this, this.helper)
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public async release (_connection: Connection): Promise<void> {
-		await this.helper.logger.log('SQLjs release pool not Implemented')
+	protected async create (id:string): Promise<Connection> {
+		return new SQLjsConnectionAdapter(id, null, this, this.helper)
 	}
 
 	public async end (): Promise<void> {
+		await super.end()
 		const data = this.db.export()
 		await this.helper.fs.write(this.config.connection, data)
 	}
 }
 
 export class SQLjsConnectionAdapter extends ConnectionAdapter {
+	public async end (): Promise<void> { 	}
+
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public insertConditional (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new Error('Method not implemented.')

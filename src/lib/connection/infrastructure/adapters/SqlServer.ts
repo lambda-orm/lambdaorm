@@ -24,7 +24,7 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 		await this.helper.logger.log('init')
 	}
 
-	public async acquire (): Promise<Connection> {
+	protected async create (id:string): Promise<Connection> {
 		try {
 			const cnx = await new Promise<Connection>((resolve, reject) => {
 				const connection = new SqlServerConnectionPoolAdapter.lib.Connection(this.config.connection)
@@ -36,26 +36,23 @@ export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 					resolve(connection)
 				})
 			})
-			return new SqlServerConnectionAdapter(cnx, this, this.helper)
+
+			return new SqlServerConnectionAdapter(id, cnx, this, this.helper)
 		} catch (error) {
 			await this.helper.logger.log(error, LogLevel.ERROR)
 			throw error
 		}
 	}
-
-	public async release (connection: Connection): Promise<void> {
-		if (connection.cnx.closed) {
-			return
-		}
-		connection.cnx.close()
-	}
-
-	public async end (): Promise<void> {
-		await this.helper.logger.log('end')
-	}
 }
 
 export class SqlServerConnectionAdapter extends ConnectionAdapter {
+	public async end () : Promise<void> {
+		if (this.cnx.closed) {
+			return
+		}
+		await this.cnx.close()
+	}
+
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public insertConditional (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new Error('Method not implemented.')
@@ -76,8 +73,8 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 		throw new Error('Method not implemented.')
 	}
 
-	constructor (cnx: any, pool: any, helper:OrmH3lp) {
-		super(cnx, pool, helper)
+	constructor (id:string, cnx: any, pool: any, helper:OrmH3lp) {
+		super(id, cnx, pool, helper)
 		this.maxChunkSizeOnBulkInsert = 1000
 	}
 

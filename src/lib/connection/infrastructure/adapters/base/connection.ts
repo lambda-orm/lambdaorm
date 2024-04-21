@@ -9,16 +9,16 @@ import { MappingConfigService, MethodNotImplemented, Data, EntityMapping } from 
 import { DialectService } from '../../../../language/application'
 
 export abstract class ConnectionAdapter implements Connection {
-	public cnx: any
-	public pool: any
 	public inTransaction: boolean
 	public maxChunkSizeOnSelect: number
 	public maxChunkSizeIdsOnSelect: number
 	public maxChunkSizeOnBulkInsert: number
 
-	constructor (cnx: any, pool: any, protected readonly helper:OrmH3lp) {
-		this.cnx = cnx
-		this.pool = pool
+	constructor (
+			public readonly id:string,
+			public readonly cnx: any,
+			public readonly pool: any,
+			protected readonly helper:OrmH3lp) {
 		this.inTransaction = false
 		this.maxChunkSizeOnSelect = 10000
 		this.maxChunkSizeIdsOnSelect = 7000
@@ -27,6 +27,10 @@ export abstract class ConnectionAdapter implements Connection {
 
 	public get config (): ConnectionConfig {
 		return this.pool.config
+	}
+
+	public async end (): Promise<void> {
+		await this.cnx.end()
 	}
 
 	protected arrayToRows (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): any[] {

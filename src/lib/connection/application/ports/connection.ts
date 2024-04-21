@@ -3,6 +3,7 @@ import { ConnectionConfig } from '../../domain'
 import { MappingConfigService, Data } from 'lambdaorm-base'
 import { DialectService } from '../../../language/application'
 export interface Connection {
+	id: string
 	cnx: any
 	pool: any
 	inTransaction: boolean
@@ -10,6 +11,7 @@ export interface Connection {
 	maxChunkSizeIdsOnSelect: number
 	maxChunkSizeOnBulkInsert: number
 	get config (): ConnectionConfig
+	end(): Promise<void>
 	writeDate (value: any, mapping: MappingConfigService, dialect: DialectService): any
 	writeTime (value: any, mapping: MappingConfigService, dialect: DialectService): any
 
