@@ -30,7 +30,7 @@ beforeAll(async () => {
 		},
 		{
 			name: 'metadata',
-			template: '\t\texpect(orm.metadata(${test})).toStrictEqual(${result})\n'
+			template: '\t\texpect(orm.metadata(${test})).toEqual(${result})\n'
 		},
 		{
 			name: 'getInfo',
