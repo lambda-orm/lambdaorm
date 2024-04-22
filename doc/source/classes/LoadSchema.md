@@ -27,7 +27,7 @@
 | `mapping` | [`MappingsConfigService`](MappingsConfigService.md) |
 | `stage` | [`StageConfigService`](StageConfigService.md) |
 | `view` | [`ViewsConfigService`](ViewsConfigService.md) |
-| `helper` | [`SchemaH3lp`](SchemaH3lp.md) |
+| `helper` | [`OrmBaseH3lp`](OrmBaseH3lp.md) |
 
 #### Returns
 

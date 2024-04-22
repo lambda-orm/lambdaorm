@@ -7,6 +7,7 @@
 ### Properties
 
 - [cnx](Connection.md#cnx)
+- [id](Connection.md#id)
 - [inTransaction](Connection.md#intransaction)
 - [maxChunkSizeIdsOnSelect](Connection.md#maxchunksizeidsonselect)
 - [maxChunkSizeOnBulkInsert](Connection.md#maxchunksizeonbulkinsert)
@@ -42,17 +43,27 @@
 - [dropProperty](Connection.md#dropproperty)
 - [dropSequence](Connection.md#dropsequence)
 - [dropUk](Connection.md#dropuk)
+- [end](Connection.md#end)
 - [execute](Connection.md#execute)
 - [executeDDL](Connection.md#executeddl)
 - [executeSentence](Connection.md#executesentence)
+- [foreignKeys](Connection.md#foreignkeys)
+- [indexes](Connection.md#indexes)
 - [insert](Connection.md#insert)
 - [insertConditional](Connection.md#insertconditional)
 - [merge](Connection.md#merge)
+- [objects](Connection.md#objects)
+- [partitions](Connection.md#partitions)
+- [primaryKeys](Connection.md#primarykeys)
 - [rollback](Connection.md#rollback)
 - [select](Connection.md#select)
+- [sequences](Connection.md#sequences)
+- [tables](Connection.md#tables)
 - [truncateEntity](Connection.md#truncateentity)
+- [uniqueKeys](Connection.md#uniquekeys)
 - [update](Connection.md#update)
 - [upsert](Connection.md#upsert)
+- [views](Connection.md#views)
 - [writeDate](Connection.md#writedate)
 - [writeTime](Connection.md#writetime)
 
@@ -64,7 +75,17 @@
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L6)
+[src/lib/connection/application/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L7)
+
+___
+
+### id
+
+• **id**: `string`
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L6)
 
 ___
 
@@ -74,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L8)
+[src/lib/connection/application/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L9)
 
 ___
 
@@ -84,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L10)
+[src/lib/connection/application/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L11)
 
 ___
 
@@ -94,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L11)
+[src/lib/connection/application/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L12)
 
 ___
 
@@ -104,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L9)
+[src/lib/connection/application/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L10)
 
 ___
 
@@ -114,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L7)
+[src/lib/connection/application/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L8)
 
 ## Accessors
 
@@ -128,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L12)
+[src/lib/connection/application/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L13)
 
 ## Methods
 
@@ -149,7 +170,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L43)
+[src/lib/connection/application/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L45)
 
 ___
 
@@ -170,7 +191,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L41)
+[src/lib/connection/application/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L43)
 
 ___
 
@@ -191,7 +212,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L40)
+[src/lib/connection/application/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L42)
 
 ___
 
@@ -212,7 +233,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L42)
+[src/lib/connection/application/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L44)
 
 ___
 
@@ -233,7 +254,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L39)
+[src/lib/connection/application/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L41)
 
 ___
 
@@ -247,7 +268,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L30)
+[src/lib/connection/application/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L32)
 
 ___
 
@@ -270,7 +291,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L24)
+[src/lib/connection/application/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L26)
 
 ___
 
@@ -293,7 +314,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L19)
+[src/lib/connection/application/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L21)
 
 ___
 
@@ -316,7 +337,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L26)
+[src/lib/connection/application/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L28)
 
 ___
 
@@ -339,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L22)
+[src/lib/connection/application/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L24)
 
 ___
 
@@ -353,7 +374,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L31)
+[src/lib/connection/application/ports/connection.ts:33](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L33)
 
 ___
 
@@ -374,7 +395,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:35](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L35)
+[src/lib/connection/application/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L37)
 
 ___
 
@@ -395,7 +416,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L37)
+[src/lib/connection/application/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L39)
 
 ___
 
@@ -416,7 +437,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L38)
+[src/lib/connection/application/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L40)
 
 ___
 
@@ -437,7 +458,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L36)
+[src/lib/connection/application/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L38)
 
 ___
 
@@ -460,7 +481,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L23)
+[src/lib/connection/application/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L25)
 
 ___
 
@@ -481,7 +502,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L45)
+[src/lib/connection/application/ports/connection.ts:47](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L47)
 
 ___
 
@@ -502,7 +523,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:49](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L49)
+[src/lib/connection/application/ports/connection.ts:51](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L51)
 
 ___
 
@@ -523,7 +544,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:50](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L50)
+[src/lib/connection/application/ports/connection.ts:52](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L52)
 
 ___
 
@@ -544,7 +565,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:47](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L47)
+[src/lib/connection/application/ports/connection.ts:49](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L49)
 
 ___
 
@@ -565,7 +586,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L46)
+[src/lib/connection/application/ports/connection.ts:48](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L48)
 
 ___
 
@@ -586,7 +607,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L44)
+[src/lib/connection/application/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L46)
 
 ___
 
@@ -607,7 +628,21 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:48](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L48)
+[src/lib/connection/application/ports/connection.ts:50](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L50)
+
+___
+
+### end
+
+▸ **end**(): `Promise`\<`void`\>
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L14)
 
 ___
 
@@ -627,7 +662,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:27](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L27)
+[src/lib/connection/application/ports/connection.ts:29](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L29)
 
 ___
 
@@ -647,7 +682,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L28)
+[src/lib/connection/application/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L30)
 
 ___
 
@@ -667,7 +702,53 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:29](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L29)
+[src/lib/connection/application/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L31)
+
+___
+
+### foreignKeys
+
+▸ **foreignKeys**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `dialect` | [`DialectService`](../classes/DialectService.md) |
+| `query` | [`Query`](../classes/Query.md) |
+| `data` | [`Data`](../classes/Data.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:58](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L58)
+
+___
+
+### indexes
+
+▸ **indexes**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `dialect` | [`DialectService`](../classes/DialectService.md) |
+| `query` | [`Query`](../classes/Query.md) |
+| `data` | [`Data`](../classes/Data.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:61](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L61)
 
 ___
 
@@ -690,7 +771,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:17](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L17)
+[src/lib/connection/application/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L19)
 
 ___
 
@@ -713,7 +794,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L18)
+[src/lib/connection/application/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L20)
 
 ___
 
@@ -736,7 +817,76 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L25)
+[src/lib/connection/application/ports/connection.ts:27](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L27)
+
+___
+
+### objects
+
+▸ **objects**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `dialect` | [`DialectService`](../classes/DialectService.md) |
+| `query` | [`Query`](../classes/Query.md) |
+| `data` | [`Data`](../classes/Data.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:53](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L53)
+
+___
+
+### partitions
+
+▸ **partitions**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `dialect` | [`DialectService`](../classes/DialectService.md) |
+| `query` | [`Query`](../classes/Query.md) |
+| `data` | [`Data`](../classes/Data.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:56](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L56)
+
+___
+
+### primaryKeys
+
+▸ **primaryKeys**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `dialect` | [`DialectService`](../classes/DialectService.md) |
+| `query` | [`Query`](../classes/Query.md) |
+| `data` | [`Data`](../classes/Data.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:59](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L59)
 
 ___
 
@@ -750,7 +900,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L32)
+[src/lib/connection/application/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L34)
 
 ___
 
@@ -773,7 +923,53 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L16)
+[src/lib/connection/application/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L18)
+
+___
+
+### sequences
+
+▸ **sequences**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `dialect` | [`DialectService`](../classes/DialectService.md) |
+| `query` | [`Query`](../classes/Query.md) |
+| `data` | [`Data`](../classes/Data.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:57](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L57)
+
+___
+
+### tables
+
+▸ **tables**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `dialect` | [`DialectService`](../classes/DialectService.md) |
+| `query` | [`Query`](../classes/Query.md) |
+| `data` | [`Data`](../classes/Data.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:54](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L54)
 
 ___
 
@@ -794,7 +990,30 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L34)
+[src/lib/connection/application/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L36)
+
+___
+
+### uniqueKeys
+
+▸ **uniqueKeys**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `dialect` | [`DialectService`](../classes/DialectService.md) |
+| `query` | [`Query`](../classes/Query.md) |
+| `data` | [`Data`](../classes/Data.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:60](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L60)
 
 ___
 
@@ -817,7 +1036,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L20)
+[src/lib/connection/application/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L22)
 
 ___
 
@@ -840,7 +1059,30 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L21)
+[src/lib/connection/application/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L23)
+
+___
+
+### views
+
+▸ **views**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mapping` | [`MappingConfigService`](../classes/MappingConfigService.md) |
+| `dialect` | [`DialectService`](../classes/DialectService.md) |
+| `query` | [`Query`](../classes/Query.md) |
+| `data` | [`Data`](../classes/Data.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/connection/application/ports/connection.ts:55](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L55)
 
 ___
 
@@ -862,7 +1104,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L13)
+[src/lib/connection/application/ports/connection.ts:15](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L15)
 
 ___
 
@@ -884,4 +1126,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/application/ports/connection.ts#L14)
+[src/lib/connection/application/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/application/ports/connection.ts#L16)

@@ -60,7 +60,7 @@
 | `routeService` | [`RouteService`](RouteService.md) |
 | `facade` | [`SchemaFacade`](SchemaFacade.md) |
 | `loadSchema` | [`LoadSchema`](LoadSchema.md) |
-| `helper` | [`SchemaH3lp`](SchemaH3lp.md) |
+| `helper` | [`OrmBaseH3lp`](OrmBaseH3lp.md) |
 
 #### Returns
 
@@ -154,14 +154,14 @@ node_modules/lambdaorm-base/schema/application/state.d.ts:16
 
 ### evalSourceRule
 
-▸ **evalSourceRule**(`rule`, `clauseInfo`): `boolean`
+▸ **evalSourceRule**(`rule`, `info`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `rule` | [`SourceRule`](../interfaces/SourceRule.md) |
-| `clauseInfo` | [`ClauseInfo`](../interfaces/ClauseInfo.md) |
+| `info` | [`SentenceInfo`](../interfaces/SentenceInfo.md) |
 
 #### Returns
 
@@ -417,13 +417,13 @@ ___
 
 ### getSource
 
-▸ **getSource**(`clauseInfo`, `stage?`): `string`
+▸ **getSource**(`info`, `stage?`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `clauseInfo` | [`ClauseInfo`](../interfaces/ClauseInfo.md) |
+| `info` | [`SentenceInfo`](../interfaces/SentenceInfo.md) |
 | `stage?` | `string` |
 
 #### Returns

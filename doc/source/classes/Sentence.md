@@ -21,7 +21,6 @@
 - [children](Sentence.md#children)
 - [columns](Sentence.md#columns)
 - [constraints](Sentence.md#constraints)
-- [crudAction](Sentence.md#crudaction)
 - [defaults](Sentence.md#defaults)
 - [entity](Sentence.md#entity)
 - [evaluator](Sentence.md#evaluator)
@@ -69,7 +68,7 @@ Operand.constructor
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:62
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:61
 
 ## Properties
 
@@ -123,16 +122,6 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:59
-
-___
-
-### crudAction
-
-• **crudAction**: [`SentenceCrudAction`](../enums/SentenceCrudAction.md)
-
-#### Defined in
-
 node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:58
 
 ___
@@ -143,7 +132,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:61
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:60
 
 ___
 
@@ -271,7 +260,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:60
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:59
 
 ## Methods
 
@@ -333,7 +322,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:64
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:63
 
 ___
 
@@ -347,7 +336,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:63
+node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:62
 
 ___
 

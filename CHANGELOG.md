@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [1.10.5](https://github.com/lambda-orm/lambdaorm/compare/v1.10.4...v1.10.5) (2024-04-22)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * **test:** bugfix in generate test ([38a3b3f](https://github.com/lambda-orm/lambdaorm/commit/38a3b3fd8601d2b144e87924095663d3e9c0d4e4)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 * **test:** set toEqual in metadata test ([3a79940](https://github.com/lambda-orm/lambdaorm/commit/3a79940e5d210908a3ae425c5f0e458704e6a47a)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)

@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:14](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/language/application/services/ddlBuilder.ts#L14)
+[src/lib/language/application/services/ddlBuilder.ts:17](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/language/application/services/ddlBuilder.ts#L17)
 
 ## Properties
 
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:16](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/language/application/services/ddlBuilder.ts#L16)
+[src/lib/language/application/services/ddlBuilder.ts:19](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/language/application/services/ddlBuilder.ts#L19)
 
 ## Methods
 
@@ -69,7 +69,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:22](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/language/application/services/ddlBuilder.ts#L22)
+[src/lib/language/application/services/ddlBuilder.ts:25](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/language/application/services/ddlBuilder.ts#L25)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:48](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/language/application/services/ddlBuilder.ts#L48)
+[src/lib/language/application/services/ddlBuilder.ts:51](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/language/application/services/ddlBuilder.ts#L51)
 
 ___
 
@@ -109,4 +109,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/ddlBuilder.ts:35](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/language/application/services/ddlBuilder.ts#L35)
+[src/lib/language/application/services/ddlBuilder.ts:38](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/language/application/services/ddlBuilder.ts#L38)

@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/lib/connection/domain/connection.ts:4](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/domain/connection.ts#L4)
+[src/lib/connection/domain/connection.ts:4](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/domain/connection.ts#L4)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/lib/connection/domain/connection.ts:3](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/domain/connection.ts#L3)
+[src/lib/connection/domain/connection.ts:3](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/domain/connection.ts#L3)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/domain/connection.ts:2](https://github.com/lambda-orm/lambdaorm/blob/079bc3ad3afe6a7b1c8792b859a578ff58119003/src/lib/connection/domain/connection.ts#L2)
+[src/lib/connection/domain/connection.ts:2](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/connection/domain/connection.ts#L2)

@@ -1,43 +1,44 @@
-[Lambda ORM](../README.md) / OrmH3lp
+[Lambda ORM](../README.md) / OrmBaseH3lp
 
-# Class: OrmH3lp
+# Class: OrmBaseH3lp
 
 ## Hierarchy
 
-- [`OrmBaseH3lp`](OrmBaseH3lp.md)
+- `ExprH3lp`
 
-  ↳ **`OrmH3lp`**
+  ↳ **`OrmBaseH3lp`**
+
+  ↳↳ [`OrmH3lp`](OrmH3lp.md)
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](OrmH3lp.md#constructor)
+- [constructor](OrmBaseH3lp.md#constructor)
 
 ### Properties
 
-- [array](OrmH3lp.md#array)
-- [crypto](OrmH3lp.md#crypto)
-- [expression](OrmH3lp.md#expression)
-- [fs](OrmH3lp.md#fs)
-- [http](OrmH3lp.md#http)
-- [logger](OrmH3lp.md#logger)
-- [obj](OrmH3lp.md#obj)
-- [operand](OrmH3lp.md#operand)
-- [schema](OrmH3lp.md#schema)
-- [sql](OrmH3lp.md#sql)
-- [str](OrmH3lp.md#str)
-- [test](OrmH3lp.md#test)
-- [utils](OrmH3lp.md#utils)
-- [uuid](OrmH3lp.md#uuid)
-- [val](OrmH3lp.md#val)
-- [yaml](OrmH3lp.md#yaml)
+- [array](OrmBaseH3lp.md#array)
+- [expression](OrmBaseH3lp.md#expression)
+- [fs](OrmBaseH3lp.md#fs)
+- [http](OrmBaseH3lp.md#http)
+- [logger](OrmBaseH3lp.md#logger)
+- [obj](OrmBaseH3lp.md#obj)
+- [operand](OrmBaseH3lp.md#operand)
+- [schema](OrmBaseH3lp.md#schema)
+- [sql](OrmBaseH3lp.md#sql)
+- [str](OrmBaseH3lp.md#str)
+- [test](OrmBaseH3lp.md#test)
+- [utils](OrmBaseH3lp.md#utils)
+- [uuid](OrmBaseH3lp.md#uuid)
+- [val](OrmBaseH3lp.md#val)
+- [yaml](OrmBaseH3lp.md#yaml)
 
 ## Constructors
 
 ### constructor
 
-• **new OrmH3lp**(`h3lp`, `logger`): [`OrmH3lp`](OrmH3lp.md)
+• **new OrmBaseH3lp**(`h3lp`, `logger`): [`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Parameters
 
@@ -48,15 +49,15 @@
 
 #### Returns
 
-[`OrmH3lp`](OrmH3lp.md)
+[`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Overrides
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[constructor](OrmBaseH3lp.md#constructor)
+ExprH3lp.constructor
 
 #### Defined in
 
-[src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/shared/infrastructure/helper.ts#L25)
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:38
 
 ## Properties
 
@@ -66,21 +67,11 @@
 
 #### Inherited from
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[array](OrmBaseH3lp.md#array)
+ExprH3lp.array
 
 #### Defined in
 
 node_modules/h3lp/application/h3lp.d.ts:10
-
-___
-
-### crypto
-
-• **crypto**: `CryptoHelper`
-
-#### Defined in
-
-[src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/shared/infrastructure/helper.ts#L24)
 
 ___
 
@@ -90,7 +81,7 @@ ___
 
 #### Inherited from
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[expression](OrmBaseH3lp.md#expression)
+ExprH3lp.expression
 
 #### Defined in
 
@@ -104,7 +95,7 @@ ___
 
 #### Inherited from
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[fs](OrmBaseH3lp.md#fs)
+ExprH3lp.fs
 
 #### Defined in
 
@@ -118,7 +109,7 @@ ___
 
 #### Inherited from
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[http](OrmBaseH3lp.md#http)
+ExprH3lp.http
 
 #### Defined in
 
@@ -129,10 +120,6 @@ ___
 ### logger
 
 • `Readonly` **logger**: [`Logger`](Logger.md)
-
-#### Inherited from
-
-[OrmBaseH3lp](OrmBaseH3lp.md).[logger](OrmBaseH3lp.md#logger)
 
 #### Defined in
 
@@ -146,7 +133,7 @@ ___
 
 #### Inherited from
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[obj](OrmBaseH3lp.md#obj)
+ExprH3lp.obj
 
 #### Defined in
 
@@ -160,7 +147,7 @@ ___
 
 #### Inherited from
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[operand](OrmBaseH3lp.md#operand)
+ExprH3lp.operand
 
 #### Defined in
 
@@ -172,10 +159,6 @@ ___
 
 • **schema**: [`SchemaHelper`](SchemaHelper.md)
 
-#### Inherited from
-
-[OrmBaseH3lp](OrmBaseH3lp.md).[schema](OrmBaseH3lp.md#schema)
-
 #### Defined in
 
 node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:34
@@ -185,10 +168,6 @@ ___
 ### sql
 
 • **sql**: `SqlHelper`
-
-#### Inherited from
-
-[OrmBaseH3lp](OrmBaseH3lp.md).[sql](OrmBaseH3lp.md#sql)
 
 #### Defined in
 
@@ -202,7 +181,7 @@ ___
 
 #### Inherited from
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[str](OrmBaseH3lp.md#str)
+ExprH3lp.str
 
 #### Defined in
 
@@ -216,7 +195,7 @@ ___
 
 #### Inherited from
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[test](OrmBaseH3lp.md#test)
+ExprH3lp.test
 
 #### Defined in
 
@@ -230,7 +209,7 @@ ___
 
 #### Inherited from
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[utils](OrmBaseH3lp.md#utils)
+ExprH3lp.utils
 
 #### Defined in
 
@@ -241,10 +220,6 @@ ___
 ### uuid
 
 • **uuid**: `UUIDWrapper`
-
-#### Inherited from
-
-[OrmBaseH3lp](OrmBaseH3lp.md).[uuid](OrmBaseH3lp.md#uuid)
 
 #### Defined in
 
@@ -258,7 +233,7 @@ ___
 
 #### Inherited from
 
-[OrmBaseH3lp](OrmBaseH3lp.md).[val](OrmBaseH3lp.md#val)
+ExprH3lp.val
 
 #### Defined in
 
@@ -269,10 +244,6 @@ ___
 ### yaml
 
 • **yaml**: `YamlWrapper`
-
-#### Inherited from
-
-[OrmBaseH3lp](OrmBaseH3lp.md).[yaml](OrmBaseH3lp.md#yaml)
 
 #### Defined in
 

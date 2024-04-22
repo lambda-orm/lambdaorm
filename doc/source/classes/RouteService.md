@@ -42,14 +42,14 @@ node_modules/lambdaorm-base/schema/application/services/routeService.d.ts:7
 
 ### eval
 
-▸ **eval**(`source`, `clauseInfo`): `boolean`
+▸ **eval**(`source`, `info`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `source` | [`SourceRule`](../interfaces/SourceRule.md) |
-| `clauseInfo` | [`ClauseInfo`](../interfaces/ClauseInfo.md) |
+| `info` | [`SentenceInfo`](../interfaces/SentenceInfo.md) |
 
 #### Returns
 
@@ -67,13 +67,13 @@ ___
 
 ### getSource
 
-▸ **getSource**(`clauseInfo`, `stage?`): `string`
+▸ **getSource**(`info`, `stage?`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `clauseInfo` | [`ClauseInfo`](../interfaces/ClauseInfo.md) |
+| `info` | [`SentenceInfo`](../interfaces/SentenceInfo.md) |
 | `stage?` | `string` |
 
 #### Returns
@@ -86,4 +86,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/routeService.d.ts:10
+node_modules/lambdaorm-base/schema/application/services/routeService.d.ts:9

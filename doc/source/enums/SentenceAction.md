@@ -18,7 +18,6 @@
 - [createFk](SentenceAction.md#createfk)
 - [createIndex](SentenceAction.md#createindex)
 - [createSequence](SentenceAction.md#createsequence)
-- [ddl](SentenceAction.md#ddl)
 - [delete](SentenceAction.md#delete)
 - [dropEntity](SentenceAction.md#dropentity)
 - [dropFk](SentenceAction.md#dropfk)
@@ -39,6 +38,7 @@
 - [sequences](SentenceAction.md#sequences)
 - [tables](SentenceAction.md#tables)
 - [truncateEntity](SentenceAction.md#truncateentity)
+- [undefined](SentenceAction.md#undefined)
 - [uniqueKeys](SentenceAction.md#uniquekeys)
 - [update](SentenceAction.md#update)
 - [upsert](SentenceAction.md#upsert)
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:37
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:41
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:35
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:39
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:34
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:38
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:36
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:40
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:33
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:37
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:22
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:26
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:21
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:25
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:27
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:31
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:29
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:33
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:31
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:35
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:32
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:36
 
 ___
 
@@ -162,17 +162,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:30
-
-___
-
-### ddl
-
-• **ddl** = ``"ddl"``
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:45
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:34
 
 ___
 
@@ -182,7 +172,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:25
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:29
 
 ___
 
@@ -192,7 +182,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:39
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:43
 
 ___
 
@@ -202,7 +192,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:43
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:47
 
 ___
 
@@ -212,7 +202,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:44
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:48
 
 ___
 
@@ -222,7 +212,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:41
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:45
 
 ___
 
@@ -232,7 +222,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:40
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:44
 
 ___
 
@@ -242,7 +232,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:38
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:42
 
 ___
 
@@ -252,7 +242,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:42
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:46
 
 ___
 
@@ -262,7 +252,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:53
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:56
 
 ___
 
@@ -272,7 +262,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:50
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:53
 
 ___
 
@@ -282,7 +272,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:19
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:23
 
 ___
 
@@ -292,7 +282,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:20
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:24
 
 ___
 
@@ -302,7 +292,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:26
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:30
 
 ___
 
@@ -312,7 +302,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:46
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:49
 
 ___
 
@@ -322,7 +312,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:54
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:57
 
 ___
 
@@ -332,7 +322,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:51
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:54
 
 ___
 
@@ -342,7 +332,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:18
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:22
 
 ___
 
@@ -352,7 +342,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:49
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:52
 
 ___
 
@@ -362,7 +352,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:47
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:50
 
 ___
 
@@ -372,7 +362,17 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:28
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:32
+
+___
+
+### undefined
+
+• **undefined** = ``"undefined"``
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:21
 
 ___
 
@@ -382,7 +382,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:52
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:55
 
 ___
 
@@ -392,7 +392,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:23
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:27
 
 ___
 
@@ -402,7 +402,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:24
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:28
 
 ___
 
@@ -412,4 +412,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/domain/actions.d.ts:48
+node_modules/lambdaorm-base/schema/domain/sentence.d.ts:51

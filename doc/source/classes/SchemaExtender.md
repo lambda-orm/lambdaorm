@@ -25,7 +25,7 @@
 | Name | Type |
 | :------ | :------ |
 | `expressions` | `Expressions` |
-| `helper` | [`SchemaH3lp`](SchemaH3lp.md) |
+| `helper` | [`OrmBaseH3lp`](OrmBaseH3lp.md) |
 
 #### Returns
 

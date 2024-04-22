@@ -25,11 +25,11 @@
 - [indexName](SchemaHelper.md#indexname)
 - [length](SchemaHelper.md#length)
 - [lengthFromType](SchemaHelper.md#lengthfromtype)
+- [newId](SchemaHelper.md#newid)
 - [propertyName](SchemaHelper.md#propertyname)
 - [refPropertyName](SchemaHelper.md#refpropertyname)
 - [relationName](SchemaHelper.md#relationname)
 - [type](SchemaHelper.md#type)
-- [uuid](SchemaHelper.md#uuid)
 
 ## Constructors
 
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:7
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:7
 
 ## Properties
 
@@ -59,7 +59,7 @@ node_modules/lambdaorm-base/schema/application/services/helper.d.ts:7
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:6
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:6
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:5
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:5
 
 ## Methods
 
@@ -89,7 +89,7 @@ node_modules/lambdaorm-base/schema/application/services/helper.d.ts:5
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:13
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:13
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:10
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:10
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:9
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:9
 
 ___
 
@@ -150,7 +150,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:18
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:18
 
 ___
 
@@ -170,7 +170,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:19
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:19
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:16
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:16
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:17
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:17
 
 ___
 
@@ -230,7 +230,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:14
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:14
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:21
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:21
 
 ___
 
@@ -270,7 +270,21 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:22
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:22
+
+___
+
+### newId
+
+▸ **newId**(): `string`
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:8
 
 ___
 
@@ -290,7 +304,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:11
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:11
 
 ___
 
@@ -311,7 +325,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:12
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:12
 
 ___
 
@@ -331,7 +345,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:15
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:15
 
 ___
 
@@ -352,18 +366,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:20
-
-___
-
-### uuid
-
-▸ **uuid**(): `string`
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/services/helper.d.ts:8
+node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:20

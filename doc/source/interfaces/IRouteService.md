@@ -17,14 +17,14 @@
 
 ### eval
 
-▸ **eval**(`source`, `clauseInfo`): `boolean`
+▸ **eval**(`source`, `info`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `source` | [`SourceRule`](SourceRule.md) |
-| `clauseInfo` | [`ClauseInfo`](ClauseInfo.md) |
+| `info` | [`SentenceInfo`](SentenceInfo.md) |
 
 #### Returns
 
@@ -38,13 +38,13 @@ ___
 
 ### getSource
 
-▸ **getSource**(`clauseInfo`, `stage?`): `string`
+▸ **getSource**(`info`, `stage?`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `clauseInfo` | [`ClauseInfo`](ClauseInfo.md) |
+| `info` | [`SentenceInfo`](SentenceInfo.md) |
 | `stage?` | `string` |
 
 #### Returns
