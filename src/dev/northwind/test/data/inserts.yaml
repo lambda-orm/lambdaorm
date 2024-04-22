@@ -86,7 +86,7 @@ test:
           entity: Categories
           dialect: MongoDB
           source: MongoDB
-          sentence: '{ "CategoryName":{{name}},"Description":{{description}} }'
+          sentence: '{"CategoryName":{{name}},"Description":{{description}}}'
       - stage: Oracle
         info:
           entity: Categories
@@ -193,7 +193,7 @@ test:
           entity: Categories
           dialect: MongoDB
           source: MongoDB
-          sentence: '{ "CategoryName":{{name}},"Description":{{description}} }'
+          sentence: '{"CategoryName":{{name}},"Description":{{description}}}'
       - stage: Oracle
         info:
           entity: Categories
@@ -301,9 +301,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {
-            "CategoryName":{{entity_name}},"Description":{{entity_description}}
-            }
+            {"CategoryName":{{entity_name}},"Description":{{entity_description}}}
       - stage: Oracle
         info:
           entity: Categories
@@ -408,9 +406,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {
-            "CategoryName":{{entity_name}},"Description":{{entity_description}}
-            }
+            {"CategoryName":{{entity_name}},"Description":{{entity_description}}}
       - stage: Oracle
         info:
           entity: Categories
@@ -525,9 +521,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {
-            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
-            }
+            {"CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}}
       - stage: Oracle
         info:
           entity: Orders
@@ -799,24 +793,18 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {
-            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
-            }
+            {"CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}}
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {
-                "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
-                }
+                {"OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}}
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {
-                "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
-                }
+                {"OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}}
       - stage: Oracle
         info:
           entity: Orders
@@ -1197,31 +1185,23 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {
-            "CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}
-            }
+            {"CustomerID":{{customerId}},"EmployeeID":{{employeeId}},"OrderDate":{{orderDate}},"RequiredDate":{{requiredDate}},"ShippedDate":{{shippedDate}},"ShipVia":{{shipViaId}},"Freight":{{freight}},"ShipName":{{name}},"ShipAddress":{{address}},"ShipCity":{{city}},"ShipRegion":{{region}},"ShipPostalCode":{{postalCode}},"ShipCountry":{{country}}}
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {
-                "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
-                }
+                {"OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}}
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {
-                "OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}
-                }
+                {"OrderID":{{orderId}},"ProductID":{{productId}},"UnitPrice":{{unitPrice}},"Quantity":{{quantity}},"Discount":{{discount}}}
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {
-                "_id":{{id}},"CompanyName":{{name}},"ContactName":{{contact}},"ContactTitle":{{phone}},"Address":{{address}},"City":{{city}},"Region":{{region}},"PostalCode":{{postalCode}},"Country":{{country}}
-                }
+                {"_id":{{id}},"CompanyName":{{name}},"ContactName":{{contact}},"ContactTitle":{{phone}},"Address":{{address}},"City":{{city}},"Region":{{region}},"PostalCode":{{postalCode}},"Country":{{country}}}
       - stage: Oracle
         info:
           entity: Orders

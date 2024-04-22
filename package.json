@@ -48,7 +48,7 @@
     "3xpr": "^1.15.12",
     "h3lp": "^1.9.1",
     "typ3s": "^0.1.18",
-    "lambdaorm-base": "^1.4.4",
+    "lambdaorm-base": "^1.4.5",
     "crypto-js": "^4.1.1"
   },
   "devDependencies": {

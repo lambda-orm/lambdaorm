@@ -56,6 +56,10 @@ export class OracleConnectionPoolAdapter extends ConnectionPoolAdapter {
 	}
 }
 export class OracleConnectionAdapter extends ConnectionAdapter {
+	public async end (): Promise<void> {
+		await this.cnx.close()
+	}
+
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public insertConditional (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		throw new Error('Method not implemented.')

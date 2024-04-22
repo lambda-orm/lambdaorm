@@ -64,15 +64,16 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			text = this.addAggregate(text, this.buildFilter(filter))
 		}
 		if (groupBy) {
-			text = this.addAggregate(text, this.getGroupBy(map, groupBy, sentence))
+			const groupByStringClause = this.getGroupBy(map, groupBy, sentence)
+			text = this.addAggregate(text, groupByStringClause)
+			if (having) {
+				// TODO: solve:bugs with round(avg(
+				// Example: Products.map(p => ({ average: round(avg(p.price), 4) }))
+				// this.setPrefixToField(having, '$')
+				text = this.addAggregate(text, this.getHaving(groupByStringClause, having))
+			}
 		} else {
 			text = this.addAggregate(text, this.getMap(map, sentence))
-		}
-		if (having) {
-			// TODO: solve:bugs with round(avg(
-			// Example: Products.map(p => ({ average: round(avg(p.price), 4) }))
-			// this.setPrefixToField(having, '$')
-			text = this.addAggregate(text, this.buildArrowFunction(having))
 		}
 		if (sort) {
 			text = this.addAggregate(text, this.buildArrowFunction(sort))
@@ -82,7 +83,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		}
 		// Although hiding the _id field is useful in some queries such as groupBy, this field is used in sequences
 		if (!text.includes('"$project":')) {
-			text = `${text}, { "$project": { "_id": 0 } }`
+			text = `${text}, {"$project":{"_id":0}}`
 		}
 		return `[${text}]`
 	}
@@ -137,7 +138,46 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		return JSON.stringify(data)
 	}
 
-	protected getGroupBy (map:Map, _groupBy:GroupBy, sentence: Sentence): any {
+	protected getHaving (groupByStringClause:string, having: Having): string {
+		const groupByClause = JSON.parse('[' + groupByStringClause + ']')
+		const groupKeyValues = Object.entries(groupByClause[0].$group) as [string, string][]
+		const toReplaces:[string, string][] = []
+		this.solveHaving(having.children[0], groupKeyValues, toReplaces)
+		let havingStringClause = this.buildArrowFunction(having)
+		for (const toReplace of toReplaces) {
+			havingStringClause = this.helper.str.replace(havingStringClause, toReplace[0], `"${toReplace[1]}"`)
+		}
+		havingStringClause = this.helper.str.replace(havingStringClause, '{ {', '{')
+		havingStringClause = this.helper.str.replace(havingStringClause, '} }', '}')
+		return havingStringClause
+	}
+
+	/* Solve the problem of having with groupBy
+	/ example: Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+	/ { "$match" : { "max(p.price)": { "$gt": 100 } } }
+	/ replace for
+	/ { "$match" : { "largestPrice": { "$gt": 100 } } }
+	*/
+	protected solveHaving (operand: Operand, groupKeyValues:[string, string][], toReplaces:[string, string][]): void {
+		for (let i = 0, length = operand.children.length; i < length; i++) {
+			const child = operand.children[i]
+			if (this.hadGroupFunction(child)) {
+				const clause = this.buildOperand(child)
+				const groupKeyValue = groupKeyValues.find(p => this.normalizeEqual(JSON.stringify(p[1]), clause))
+				if (groupKeyValue) {
+					toReplaces.push([clause, groupKeyValue[0]])
+				}
+			} else if (child.children && child.children.length > 0) {
+				this.solveHaving(child, groupKeyValues, toReplaces)
+			}
+		}
+	}
+
+	protected normalizeEqual (a: string, b: string): boolean {
+		return this.helper.str.normalize(a) === this.helper.str.normalize(b)
+	}
+
+	protected getGroupBy (map:Map, _groupBy:GroupBy, sentence: Sentence): string {
 		this.setPrefixToField(map, '$')
 
 		let projectColumns = ''

@@ -369,7 +369,7 @@ export class SentenceBuilder implements ISentenceBuilder {
 		}
 		return new Sentence(
 			pos,
-			SentenceAction.update,
+			SentenceAction.delete,
 			children,
 			expressionContext.current.entityName,
 			expressionContext.current.alias

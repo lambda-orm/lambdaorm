@@ -337,7 +337,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, (p.UnitPrice * -1) AS source, ROUND(ABS((p.UnitPrice * -1)),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":{ \"$multiply\" :[\"$UnitPrice\",-1] }, \"result\":{ \"$round\" :[{ \"$abs\" :{ \"$multiply\" :[\"$UnitPrice\",-1] } },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":{\"$multiply\":[\"$UnitPrice\",-1]}, \"result\":{\"$round\":[{\"$abs\":{\"$multiply\":[\"$UnitPrice\",-1]}},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", (p.UnitPrice * -1) AS \"source\", ROUND(ABS((p.UnitPrice * -1)),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -358,7 +358,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 0.25 AS source, ROUND(ACOS(0.25),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":0.25, \"result\":{ \"$round\" :[{ \"$acos\" :0.25 },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":0.25, \"result\":{\"$round\":[{\"$acos\":0.25},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 0.25 AS \"source\", ROUND(ACOS(0.25),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -379,7 +379,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 0.25 AS source, ROUND(ASIN(0.25),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":0.25, \"result\":{ \"$round\" :[{ \"$asin\" :0.25 },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":0.25, \"result\":{\"$round\":[{\"$asin\":0.25},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 0.25 AS \"source\", ROUND(ASIN(0.25),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -400,7 +400,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 0.25 AS source, ROUND(ATAN(0.25),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":0.25, \"result\":{ \"$round\" :[{ \"$atan\" :0.25 },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":0.25, \"result\":{\"$round\":[{\"$atan\":0.25},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 0.25 AS \"source\", ROUND(ATAN(0.25),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -421,7 +421,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 0.5 AS source, ROUND(ATN2(0.25,1),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":0.5, \"result\":{ \"$round\" :[{ \"$atan2\":[0.25,1] },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":0.5, \"result\":{\"$round\":[{\"$atan2\":[0.25,1]},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 0.5 AS \"source\", ROUND(ATAN2(0.25,1),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -442,7 +442,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 25.75 AS source, ROUND(CEILING(25.75),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":25.75, \"result\":{ \"$round\" :[{ \"$ceil\" :25.75 },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":25.75, \"result\":{\"$round\":[{\"$ceil\":25.75},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 25.75 AS \"source\", ROUND(CEIL(25.75),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -463,7 +463,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 2 AS source, ROUND(COS(2),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":2, \"result\":{ \"$round\" :[{ \"$cos\" :2 },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":2, \"result\":{\"$round\":[{\"$cos\":2},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 2 AS \"source\", ROUND(COS(2),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -484,7 +484,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 1 AS source, ROUND(EXP(1),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":1, \"result\":{ \"$round\" :[{ \"$exp\" :1 },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":1, \"result\":{\"$round\":[{\"$exp\":1},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 1 AS \"source\", ROUND(EXP(1),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -505,7 +505,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 25.75 AS source, ROUND(FLOOR(25.75),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":25.75, \"result\":{ \"$round\" :[{ \"$floor\" :25.75 },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":25.75, \"result\":{\"$round\":[{\"$floor\":25.75},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 25.75 AS \"source\", ROUND(FLOOR(25.75),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -526,7 +526,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 2 AS source, ROUND(LOG(2),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":2, \"result\":{ \"$round\" :[{ \"$ln\" :2 },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":2, \"result\":{\"$round\":[{\"$ln\":2},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 2 AS \"source\", ROUND(LN(2),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -547,7 +547,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 10 AS m, 20 AS n, ROUND(LOG(20,10),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"m\":10, \"n\":20, \"result\":{ \"$round\" :[{ \"$log\":[10,20] },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"m\":10, \"n\":20, \"result\":{\"$round\":[{\"$log\":[10,20]},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 10 AS \"m\", 20 AS \"n\", ROUND(LOG(10,20),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -568,7 +568,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 135.375 AS source, ROUND(135.375,2) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":135.375, \"result\":{ \"$round\" :[135.375,2] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":135.375, \"result\":{\"$round\":[135.375,2]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 135.375 AS \"source\", ROUND(135.375,2) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -589,7 +589,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 255.5 AS source, ROUND(SIGN(255.5),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":255.5, \"result\":{ \"$round\" :[{\"$cond\":{\"if\":{\"$gt\":[255.5,0]},\"then\":1,\"else\":{\"if\":{\"$lt\":[255.5,0]},\"then\":-1,\"else\":0}}},10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":255.5, \"result\":{\"$round\":[{\"$cond\":{\"if\":{\"$gt\":[255.5,0]},\"then\":1,\"else\":{\"if\":{\"$lt\":[255.5,0]},\"then\":-1,\"else\":0}}},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 255.5 AS \"source\", ROUND(SIGN(255.5),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -610,7 +610,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 1.75 AS source, ROUND(TAN(1.75),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":1.75, \"result\":{ \"$round\" :[{ \"$tan\" :1.75 },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":1.75, \"result\":{\"$round\":[{\"$tan\":1.75},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 1.75 AS \"source\", ROUND(TAN(1.75),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}
@@ -631,7 +631,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductName AS name, 135.375 AS source, ROUND(ROUND(135.375,2,1),10) AS result FROM Products p  WHERE p.ProductID = @id "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{ \"$match\" : { \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$ProductName\", \"source\":135.375, \"result\":{ \"$round\" :[{ \"$trunc\" :135.375 },10] } }} , { \"$project\": { \"_id\": 0 } }]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"_id\":{{id}}}}, {\"$project\":{\"_id\":0,\"name\":\"$ProductName\", \"source\":135.375, \"result\":{\"$round\":[{\"$trunc\":135.375},10]}}} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductName AS \"name\", 135.375 AS \"source\", ROUND(TRUNC(135.375,2),10) AS \"result\" FROM Products p  WHERE p.ProductID = :id "}

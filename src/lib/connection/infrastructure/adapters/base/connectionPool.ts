@@ -9,7 +9,7 @@ export abstract class ConnectionPoolAdapter implements ConnectionPool {
 	}
 
 	public async acquire (): Promise<Connection> {
-		const id = this.helper.uuid.uuidv4()
+		const id = this.helper.uuid.v4()
 		const connection = await this.create(id)
 		this.connections.push(connection)
 		return connection

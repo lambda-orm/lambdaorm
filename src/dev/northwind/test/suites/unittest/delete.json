@@ -417,16 +417,7 @@
             "children": [
               {
                 "entity": "Orders.details",
-                "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
-                  }
-                ]
+                "constraints": []
               }
             ]
           }
@@ -439,16 +430,7 @@
             "children": [
               {
                 "entity": "Orders.details",
-                "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
-                  }
-                ]
+                "constraints": []
               }
             ]
           }
@@ -461,16 +443,7 @@
             "children": [
               {
                 "entity": "Orders.details",
-                "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
-                  }
-                ]
+                "constraints": []
               }
             ]
           }
@@ -490,16 +463,7 @@
             "children": [
               {
                 "entity": "Orders.details",
-                "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
-                  }
-                ]
+                "constraints": []
               }
             ]
           }
@@ -525,7 +489,7 @@
               "ln": 0,
               "col": 18
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Categories",
@@ -539,7 +503,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "c"
           }
         },
@@ -551,7 +515,7 @@
               "ln": 0,
               "col": 18
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Categories",
@@ -565,7 +529,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "c"
           }
         },
@@ -577,7 +541,7 @@
               "ln": 0,
               "col": 18
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Categories",
@@ -591,7 +555,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "c"
           }
         },
@@ -603,7 +567,7 @@
               "ln": 0,
               "col": 18
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Categories",
@@ -617,7 +581,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "c"
           }
         },
@@ -629,7 +593,7 @@
               "ln": 0,
               "col": 27
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Categories",
@@ -643,7 +607,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "c"
           }
         },
@@ -655,7 +619,7 @@
               "ln": 0,
               "col": 27
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Categories",
@@ -669,7 +633,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "c"
           }
         },
@@ -681,7 +645,7 @@
               "ln": 0,
               "col": 21
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Categories",
@@ -690,7 +654,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "c"
           }
         },
@@ -702,7 +666,7 @@
               "ln": 0,
               "col": 30
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Categories",
@@ -711,7 +675,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "c"
           }
         },
@@ -723,7 +687,7 @@
               "ln": 0,
               "col": 31
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Orders.details",
@@ -737,7 +701,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "o"
           }
         },
@@ -749,7 +713,7 @@
               "ln": 0,
               "col": 24
             },
-            "name": "update",
+            "name": "delete",
             "children": [
               {
                 "classtype": "Sentence",
@@ -757,7 +721,7 @@
                   "ln": 0,
                   "col": 29
                 },
-                "name": "update",
+                "name": "delete",
                 "children": [],
                 "type": "any",
                 "entity": "Orders.details",
@@ -772,19 +736,10 @@
                     "type": "integer"
                   }
                 ],
-                "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
-                  }
-                ],
+                "constraints": [],
                 "values": [],
                 "defaults": [],
-                "clause": "update",
+                "clause": "delete",
                 "alias": "o1"
               }
             ],
@@ -800,7 +755,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "o"
           }
         },
@@ -812,7 +767,7 @@
               "ln": 0,
               "col": 49
             },
-            "name": "update",
+            "name": "delete",
             "children": [
               {
                 "classtype": "Sentence",
@@ -820,7 +775,7 @@
                   "ln": 0,
                   "col": 54
                 },
-                "name": "update",
+                "name": "delete",
                 "children": [],
                 "type": "any",
                 "entity": "Orders.details",
@@ -835,19 +790,10 @@
                     "type": "integer"
                   }
                 ],
-                "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
-                  }
-                ],
+                "constraints": [],
                 "values": [],
                 "defaults": [],
-                "clause": "update",
+                "clause": "delete",
                 "alias": "o1"
               }
             ],
@@ -863,7 +809,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "o"
           }
         },
@@ -875,7 +821,7 @@
               "ln": 0,
               "col": 24
             },
-            "name": "update",
+            "name": "delete",
             "children": [
               {
                 "classtype": "Sentence",
@@ -883,7 +829,7 @@
                   "ln": 0,
                   "col": 29
                 },
-                "name": "update",
+                "name": "delete",
                 "children": [],
                 "type": "any",
                 "entity": "Orders.details",
@@ -898,19 +844,10 @@
                     "type": "integer"
                   }
                 ],
-                "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
-                  }
-                ],
+                "constraints": [],
                 "values": [],
                 "defaults": [],
-                "clause": "update",
+                "clause": "delete",
                 "alias": "o1"
               }
             ],
@@ -926,7 +863,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "o"
           }
         },
@@ -938,7 +875,7 @@
               "ln": 0,
               "col": 22
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Orders.details",
@@ -956,7 +893,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "o"
           }
         },
@@ -968,7 +905,7 @@
               "ln": 0,
               "col": 30
             },
-            "name": "update",
+            "name": "delete",
             "children": [
               {
                 "classtype": "Sentence",
@@ -976,7 +913,7 @@
                   "ln": 0,
                   "col": 35
                 },
-                "name": "update",
+                "name": "delete",
                 "children": [],
                 "type": "any",
                 "entity": "Orders.details",
@@ -991,19 +928,10 @@
                     "type": "integer"
                   }
                 ],
-                "constraints": [
-                  {
-                    "message": "Cannot be null property orderId in entity Orders.details",
-                    "condition": "isNotNull(orderId)"
-                  },
-                  {
-                    "message": "Cannot be null property productId in entity Orders.details",
-                    "condition": "isNotNull(productId)"
-                  }
-                ],
+                "constraints": [],
                 "values": [],
                 "defaults": [],
-                "clause": "update",
+                "clause": "delete",
                 "alias": "o1"
               }
             ],
@@ -1019,7 +947,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "o"
           }
         },
@@ -1031,7 +959,7 @@
               "ln": 0,
               "col": 25
             },
-            "name": "update",
+            "name": "delete",
             "children": [],
             "type": "any",
             "entity": "Orders.details",
@@ -1040,7 +968,7 @@
             "constraints": [],
             "values": [],
             "defaults": [],
-            "clause": "update",
+            "clause": "delete",
             "alias": "o"
           }
         }

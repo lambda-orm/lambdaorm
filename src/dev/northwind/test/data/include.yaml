@@ -106,25 +106,25 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
-            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            [{"$match":{"_id":{{id}}}}, {"$project":{"_id":0,"id":"$_id",
+            "customerId":"$CustomerID", "employeeId":"$EmployeeID",
             "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
             "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
             "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
             "city":"$ShipCity", "region":"$ShipRegion",
             "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
-            "__customerId":"$CustomerID" }} , { "$project": { "_id": 0 } }]
+            "__customerId":"$CustomerID"}} ]
           children:
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
-                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
+                "LambdaOrmParentId":"$_id"}} ]
       - stage: Oracle
         info:
           entity: Orders
@@ -308,27 +308,26 @@ test:
     executions:
       - stage: MongoDB
         error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V', ..."{ "$in"
-          :[VINET]} } "... is not valid JSON SOURCE: MongoDB ENTITY: Customers
-          QUERY: "[{ \"$match\" : { \"_id\":{ \"$in\" :[{{LambdaOrmParentId}}]}
-          } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
-          \"name\":\"$CompanyName\", \"contact\":\"$ContactName\",
-          \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
-          \"city\":\"$City\", \"region\":\"$Region\",
+          ExecutionError: ERROR: ERROR: Unexpected token 'V',
+          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
+          Customers QUERY:
+          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
+          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
+          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
-          }]" 
+          \"LambdaOrmParentId\":\"$_id\"}} ]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
-          \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
+          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
           \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
           \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
           \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
           \"freight\":\"$Freight\", \"name\":\"$ShipName\",
           \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
           \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
-          \"country\":\"$ShipCountry\", \"__customerId\":\"$CustomerID\" }} , {
-          \"$project\": { \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
+          \"country\":\"$ShipCountry\", \"__customerId\":\"$CustomerID\"}} ]" 
+          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -482,30 +481,30 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
-            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            [{"$match":{"_id":{{id}}}}, {"$project":{"_id":0,"id":"$_id",
+            "customerId":"$CustomerID", "employeeId":"$EmployeeID",
             "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
             "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
             "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
             "city":"$ShipCity", "region":"$ShipRegion",
             "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
-            "__id":"$_id" ,"details": { "$map":{ "input": "$\"Order Details\"",
-            "in": { "orderId":"$$this.OrderID", "productId":"$$this.ProductID",
-            "unitPrice":"$$this.UnitPrice", "quantity":"$$this.Quantity",
-            "discount":"$$this.Discount", "LambdaOrmParentId":"$$this.OrderID" }
-            }} }} , { "$project": { "_id": 0 } }]
+            "__id":"$_id" ,"details":{"$map":{"input":"$\"Order
+            Details\"","in":{"orderId":"$$this.OrderID",
+            "productId":"$$this.ProductID", "unitPrice":"$$this.UnitPrice",
+            "quantity":"$$this.Quantity", "discount":"$$this.Discount",
+            "LambdaOrmParentId":"$$this.OrderID"}}}}} ]
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
-                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
-                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
-                "orderId":"$OrderID", "productId":"$ProductID",
-                "unitPrice":"$UnitPrice", "quantity":"$Quantity",
-                "discount":"$Discount", "LambdaOrmParentId":"$OrderID" }} , {
-                "$project": { "_id": 0 } }]
+                [{"$unwind":"$\"Order Details\""},
+                {"$replaceRoot":{"newRoot":"$\"Order Details\""}},
+                {"$match":{"OrderID":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"orderId":"$OrderID",
+                "productId":"$ProductID", "unitPrice":"$UnitPrice",
+                "quantity":"$Quantity", "discount":"$Discount",
+                "LambdaOrmParentId":"$OrderID"}} ]
       - stage: Oracle
         info:
           entity: Orders
@@ -900,41 +899,41 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
-            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            [{"$match":{"_id":{{id}}}}, {"$project":{"_id":0,"id":"$_id",
+            "customerId":"$CustomerID", "employeeId":"$EmployeeID",
             "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
             "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
             "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
             "city":"$ShipCity", "region":"$ShipRegion",
             "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
-            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
-            "input": "$\"Order Details\"", "in": { "orderId":"$$this.OrderID",
+            "__id":"$_id", "__customerId":"$CustomerID"
+            ,"details":{"$map":{"input":"$\"Order
+            Details\"","in":{"orderId":"$$this.OrderID",
             "productId":"$$this.ProductID", "unitPrice":"$$this.UnitPrice",
             "quantity":"$$this.Quantity", "discount":"$$this.Discount",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
-            "_id": 0 } }]
+            "LambdaOrmParentId":"$$this.OrderID"}}}}} ]
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
-                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
-                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
-                "orderId":"$OrderID", "productId":"$ProductID",
-                "unitPrice":"$UnitPrice", "quantity":"$Quantity",
-                "discount":"$Discount", "LambdaOrmParentId":"$OrderID" }} , {
-                "$project": { "_id": 0 } }]
+                [{"$unwind":"$\"Order Details\""},
+                {"$replaceRoot":{"newRoot":"$\"Order Details\""}},
+                {"$match":{"OrderID":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"orderId":"$OrderID",
+                "productId":"$ProductID", "unitPrice":"$UnitPrice",
+                "quantity":"$Quantity", "discount":"$Discount",
+                "LambdaOrmParentId":"$OrderID"}} ]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
-                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
+                "LambdaOrmParentId":"$_id"}} ]
       - stage: Oracle
         info:
           entity: Orders
@@ -1180,19 +1179,18 @@ test:
     executions:
       - stage: MongoDB
         error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V', ..."{ "$in"
-          :[VINET]} } "... is not valid JSON SOURCE: MongoDB ENTITY: Customers
-          QUERY: "[{ \"$match\" : { \"_id\":{ \"$in\" :[{{LambdaOrmParentId}}]}
-          } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
-          \"name\":\"$CompanyName\", \"contact\":\"$ContactName\",
-          \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
-          \"city\":\"$City\", \"region\":\"$Region\",
+          ExecutionError: ERROR: ERROR: Unexpected token 'V',
+          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
+          Customers QUERY:
+          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
+          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
+          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
-          }]" 
+          \"LambdaOrmParentId\":\"$_id\"}} ]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
-          \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
+          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
           \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
           \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
           \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
@@ -1200,13 +1198,14 @@ test:
           \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
           \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
           \"country\":\"$ShipCountry\", \"__id\":\"$_id\",
-          \"__customerId\":\"$CustomerID\" ,\"details\": { \"$map\":{ \"input\":
-          \"$\\\"Order Details\\\"\", \"in\": { \"orderId\":\"$$this.OrderID\",
+          \"__customerId\":\"$CustomerID\"
+          ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
+          Details\\\"\",\"in\":{\"orderId\":\"$$this.OrderID\",
           \"productId\":\"$$this.ProductID\",
           \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
           \"discount\":\"$$this.Discount\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
-          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
+          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -1477,56 +1476,55 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
-            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            [{"$match":{"_id":{{id}}}}, {"$project":{"_id":0,"id":"$_id",
+            "customerId":"$CustomerID", "employeeId":"$EmployeeID",
             "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
             "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
             "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
             "city":"$ShipCity", "region":"$ShipRegion",
             "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
-            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
-            "input": "$\"Order Details\"", "in": { "orderId":"$$this.OrderID",
+            "__id":"$_id", "__customerId":"$CustomerID"
+            ,"details":{"$map":{"input":"$\"Order
+            Details\"","in":{"orderId":"$$this.OrderID",
             "productId":"$$this.ProductID", "unitPrice":"$$this.UnitPrice",
             "quantity":"$$this.Quantity", "discount":"$$this.Discount",
             "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
-            "_id": 0 } }]
+            "LambdaOrmParentId":"$$this.OrderID"}}}}} ]
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
-                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
-                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
-                "orderId":"$OrderID", "productId":"$ProductID",
-                "unitPrice":"$UnitPrice", "quantity":"$Quantity",
-                "discount":"$Discount", "__productId":"$ProductID",
-                "LambdaOrmParentId":"$OrderID" }} , { "$project": { "_id": 0 }
-                }]
+                [{"$unwind":"$\"Order Details\""},
+                {"$replaceRoot":{"newRoot":"$\"Order Details\""}},
+                {"$match":{"OrderID":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"orderId":"$OrderID",
+                "productId":"$ProductID", "unitPrice":"$UnitPrice",
+                "quantity":"$Quantity", "discount":"$Discount",
+                "__productId":"$ProductID", "LambdaOrmParentId":"$OrderID"}} ]
               children:
                 - entity: Products
                   dialect: MongoDB
                   source: MongoDB
                   sentence: >-
-                    [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } },
-                    { "$project" :{ "_id": 0 , "id":"$_id",
-                    "name":"$ProductName", "supplierId":"$SupplierID",
-                    "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
-                    "price":"$UnitPrice", "inStock":"$UnitsInStock",
-                    "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
-                    "discontinued":"$Discontinued", "LambdaOrmParentId":"$_id"
-                    }} , { "$project": { "_id": 0 } }]
+                    [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                    {"$project":{"_id":0,"id":"$_id", "name":"$ProductName",
+                    "supplierId":"$SupplierID", "categoryId":"$CategoryID",
+                    "quantity":"$QuantityPerUnit", "price":"$UnitPrice",
+                    "inStock":"$UnitsInStock", "onOrder":"$UnitsOnOrder",
+                    "reorderLevel":"$ReorderLevel",
+                    "discontinued":"$Discontinued", "LambdaOrmParentId":"$_id"}}
+                    ]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
-                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
+                "LambdaOrmParentId":"$_id"}} ]
       - stage: Oracle
         info:
           entity: Orders
@@ -1860,19 +1858,18 @@ test:
     executions:
       - stage: MongoDB
         error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V', ..."{ "$in"
-          :[VINET]} } "... is not valid JSON SOURCE: MongoDB ENTITY: Customers
-          QUERY: "[{ \"$match\" : { \"_id\":{ \"$in\" :[{{LambdaOrmParentId}}]}
-          } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
-          \"name\":\"$CompanyName\", \"contact\":\"$ContactName\",
-          \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
-          \"city\":\"$City\", \"region\":\"$Region\",
+          ExecutionError: ERROR: ERROR: Unexpected token 'V',
+          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
+          Customers QUERY:
+          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
+          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
+          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
-          }]" 
+          \"LambdaOrmParentId\":\"$_id\"}} ]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
-          \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
+          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
           \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
           \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
           \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
@@ -1880,14 +1877,15 @@ test:
           \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
           \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
           \"country\":\"$ShipCountry\", \"__id\":\"$_id\",
-          \"__customerId\":\"$CustomerID\" ,\"details\": { \"$map\":{ \"input\":
-          \"$\\\"Order Details\\\"\", \"in\": { \"orderId\":\"$$this.OrderID\",
+          \"__customerId\":\"$CustomerID\"
+          ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
+          Details\\\"\",\"in\":{\"orderId\":\"$$this.OrderID\",
           \"productId\":\"$$this.ProductID\",
           \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
           \"discount\":\"$$this.Discount\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
-          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
+          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -2256,67 +2254,64 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
-            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            [{"$match":{"_id":{{id}}}}, {"$project":{"_id":0,"id":"$_id",
+            "customerId":"$CustomerID", "employeeId":"$EmployeeID",
             "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
             "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
             "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
             "city":"$ShipCity", "region":"$ShipRegion",
             "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
-            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
-            "input": "$\"Order Details\"", "in": { "orderId":"$$this.OrderID",
+            "__id":"$_id", "__customerId":"$CustomerID"
+            ,"details":{"$map":{"input":"$\"Order
+            Details\"","in":{"orderId":"$$this.OrderID",
             "productId":"$$this.ProductID", "unitPrice":"$$this.UnitPrice",
             "quantity":"$$this.Quantity", "discount":"$$this.Discount",
             "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
-            "_id": 0 } }]
+            "LambdaOrmParentId":"$$this.OrderID"}}}}} ]
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
-                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
-                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
-                "orderId":"$OrderID", "productId":"$ProductID",
-                "unitPrice":"$UnitPrice", "quantity":"$Quantity",
-                "discount":"$Discount", "__productId":"$ProductID",
-                "LambdaOrmParentId":"$OrderID" }} , { "$project": { "_id": 0 }
-                }]
+                [{"$unwind":"$\"Order Details\""},
+                {"$replaceRoot":{"newRoot":"$\"Order Details\""}},
+                {"$match":{"OrderID":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"orderId":"$OrderID",
+                "productId":"$ProductID", "unitPrice":"$UnitPrice",
+                "quantity":"$Quantity", "discount":"$Discount",
+                "__productId":"$ProductID", "LambdaOrmParentId":"$OrderID"}} ]
               children:
                 - entity: Products
                   dialect: MongoDB
                   source: MongoDB
                   sentence: >-
-                    [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } },
-                    { "$project" :{ "_id": 0 , "id":"$_id",
-                    "name":"$ProductName", "supplierId":"$SupplierID",
-                    "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
-                    "price":"$UnitPrice", "inStock":"$UnitsInStock",
-                    "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
+                    [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                    {"$project":{"_id":0,"id":"$_id", "name":"$ProductName",
+                    "supplierId":"$SupplierID", "categoryId":"$CategoryID",
+                    "quantity":"$QuantityPerUnit", "price":"$UnitPrice",
+                    "inStock":"$UnitsInStock", "onOrder":"$UnitsOnOrder",
+                    "reorderLevel":"$ReorderLevel",
                     "discontinued":"$Discontinued",
-                    "__categoryId":"$CategoryID", "LambdaOrmParentId":"$_id" }}
-                    , { "$project": { "_id": 0 } }]
+                    "__categoryId":"$CategoryID", "LambdaOrmParentId":"$_id"}} ]
                   children:
                     - entity: Categories
                       dialect: MongoDB
                       source: MongoDB
                       sentence: >-
-                        [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]}
-                        } }, { "$project" :{ "_id": 0 , "id":"$_id",
+                        [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                        {"$project":{"_id":0,"id":"$_id",
                         "name":"$CategoryName", "description":"$Description",
-                        "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0
-                        } }]
+                        "LambdaOrmParentId":"$_id"}} ]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
-                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
+                "LambdaOrmParentId":"$_id"}} ]
       - stage: Oracle
         info:
           entity: Orders
@@ -2706,19 +2701,18 @@ test:
     executions:
       - stage: MongoDB
         error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V', ..."{ "$in"
-          :[VINET]} } "... is not valid JSON SOURCE: MongoDB ENTITY: Customers
-          QUERY: "[{ \"$match\" : { \"_id\":{ \"$in\" :[{{LambdaOrmParentId}}]}
-          } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
-          \"name\":\"$CompanyName\", \"contact\":\"$ContactName\",
-          \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
-          \"city\":\"$City\", \"region\":\"$Region\",
+          ExecutionError: ERROR: ERROR: Unexpected token 'V',
+          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
+          Customers QUERY:
+          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
+          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
+          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
-          }]" 
+          \"LambdaOrmParentId\":\"$_id\"}} ]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
-          \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
+          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
           \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
           \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
           \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
@@ -2726,14 +2720,15 @@ test:
           \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
           \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
           \"country\":\"$ShipCountry\", \"__id\":\"$_id\",
-          \"__customerId\":\"$CustomerID\" ,\"details\": { \"$map\":{ \"input\":
-          \"$\\\"Order Details\\\"\", \"in\": { \"orderId\":\"$$this.OrderID\",
+          \"__customerId\":\"$CustomerID\"
+          ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
+          Details\\\"\",\"in\":{\"orderId\":\"$$this.OrderID\",
           \"productId\":\"$$this.ProductID\",
           \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
           \"discount\":\"$$this.Discount\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
-          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
+          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -3023,39 +3018,39 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
-            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            [{"$match":{"_id":{{id}}}}, {"$project":{"_id":0,"id":"$_id",
+            "customerId":"$CustomerID", "employeeId":"$EmployeeID",
             "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
             "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
             "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
             "city":"$ShipCity", "region":"$ShipRegion",
             "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
-            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
-            "input": "$\"Order Details\"", "in": { "quantity":"$$this.Quantity",
+            "__id":"$_id", "__customerId":"$CustomerID"
+            ,"details":{"$map":{"input":"$\"Order
+            Details\"","in":{"quantity":"$$this.Quantity",
             "unitPrice":"$$this.UnitPrice", "productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
-            "_id": 0 } }]
+            "LambdaOrmParentId":"$$this.OrderID"}}}}} ]
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
-                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
-                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
-                "quantity":"$Quantity", "unitPrice":"$UnitPrice",
-                "productId":"$ProductID", "LambdaOrmParentId":"$OrderID" }} , {
-                "$project": { "_id": 0 } }]
+                [{"$unwind":"$\"Order Details\""},
+                {"$replaceRoot":{"newRoot":"$\"Order Details\""}},
+                {"$match":{"OrderID":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"quantity":"$Quantity",
+                "unitPrice":"$UnitPrice", "productId":"$ProductID",
+                "LambdaOrmParentId":"$OrderID"}} ]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
-                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
+                "LambdaOrmParentId":"$_id"}} ]
       - stage: Oracle
         info:
           entity: Orders
@@ -3295,19 +3290,18 @@ test:
     executions:
       - stage: MongoDB
         error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V', ..."{ "$in"
-          :[VINET]} } "... is not valid JSON SOURCE: MongoDB ENTITY: Customers
-          QUERY: "[{ \"$match\" : { \"_id\":{ \"$in\" :[{{LambdaOrmParentId}}]}
-          } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
-          \"name\":\"$CompanyName\", \"contact\":\"$ContactName\",
-          \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
-          \"city\":\"$City\", \"region\":\"$Region\",
+          ExecutionError: ERROR: ERROR: Unexpected token 'V',
+          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
+          Customers QUERY:
+          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
+          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
+          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
-          }]" 
+          \"LambdaOrmParentId\":\"$_id\"}} ]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
-          \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
+          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
           \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
           \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
           \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
@@ -3315,12 +3309,13 @@ test:
           \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
           \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
           \"country\":\"$ShipCountry\", \"__id\":\"$_id\",
-          \"__customerId\":\"$CustomerID\" ,\"details\": { \"$map\":{ \"input\":
-          \"$\\\"Order Details\\\"\", \"in\": {
-          \"quantity\":\"$$this.Quantity\", \"unitPrice\":\"$$this.UnitPrice\",
+          \"__customerId\":\"$CustomerID\"
+          ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
+          Details\\\"\",\"in\":{\"quantity\":\"$$this.Quantity\",
+          \"unitPrice\":\"$$this.UnitPrice\",
           \"productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
-          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
+          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -3577,54 +3572,53 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
-            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            [{"$match":{"_id":{{id}}}}, {"$project":{"_id":0,"id":"$_id",
+            "customerId":"$CustomerID", "employeeId":"$EmployeeID",
             "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
             "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
             "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
             "city":"$ShipCity", "region":"$ShipRegion",
             "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
-            "__id":"$_id", "__customerId":"$CustomerID" ,"details": { "$map":{
-            "input": "$\"Order Details\"", "in": { "quantity":"$$this.Quantity",
+            "__id":"$_id", "__customerId":"$CustomerID"
+            ,"details":{"$map":{"input":"$\"Order
+            Details\"","in":{"quantity":"$$this.Quantity",
             "unitPrice":"$$this.UnitPrice", "productId":"$$this.ProductID",
             "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
-            "_id": 0 } }]
+            "LambdaOrmParentId":"$$this.OrderID"}}}}} ]
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
-                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
-                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
-                "quantity":"$Quantity", "unitPrice":"$UnitPrice",
-                "productId":"$ProductID", "__productId":"$ProductID",
-                "LambdaOrmParentId":"$OrderID" }} , { "$project": { "_id": 0 }
-                }]
+                [{"$unwind":"$\"Order Details\""},
+                {"$replaceRoot":{"newRoot":"$\"Order Details\""}},
+                {"$match":{"OrderID":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"quantity":"$Quantity",
+                "unitPrice":"$UnitPrice", "productId":"$ProductID",
+                "__productId":"$ProductID", "LambdaOrmParentId":"$OrderID"}} ]
               children:
                 - entity: Products
                   dialect: MongoDB
                   source: MongoDB
                   sentence: >-
-                    [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } },
-                    { "$project" :{ "_id": 0 , "id":"$_id",
-                    "name":"$ProductName", "supplierId":"$SupplierID",
-                    "categoryId":"$CategoryID", "quantity":"$QuantityPerUnit",
-                    "price":"$UnitPrice", "inStock":"$UnitsInStock",
-                    "onOrder":"$UnitsOnOrder", "reorderLevel":"$ReorderLevel",
-                    "discontinued":"$Discontinued", "LambdaOrmParentId":"$_id"
-                    }} , { "$project": { "_id": 0 } }]
+                    [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                    {"$project":{"_id":0,"id":"$_id", "name":"$ProductName",
+                    "supplierId":"$SupplierID", "categoryId":"$CategoryID",
+                    "quantity":"$QuantityPerUnit", "price":"$UnitPrice",
+                    "inStock":"$UnitsInStock", "onOrder":"$UnitsOnOrder",
+                    "reorderLevel":"$ReorderLevel",
+                    "discontinued":"$Discontinued", "LambdaOrmParentId":"$_id"}}
+                    ]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
-                "$project" :{ "_id": 0 , "id":"$_id", "name":"$CompanyName",
+                [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"id":"$_id", "name":"$CompanyName",
                 "contact":"$ContactName", "phone":"$ContactTitle",
                 "address":"$Address", "city":"$City", "region":"$Region",
                 "postalCode":"$PostalCode", "country":"$Country",
-                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
+                "LambdaOrmParentId":"$_id"}} ]
       - stage: Oracle
         info:
           entity: Orders
@@ -3950,19 +3944,18 @@ test:
     executions:
       - stage: MongoDB
         error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V', ..."{ "$in"
-          :[VINET]} } "... is not valid JSON SOURCE: MongoDB ENTITY: Customers
-          QUERY: "[{ \"$match\" : { \"_id\":{ \"$in\" :[{{LambdaOrmParentId}}]}
-          } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
-          \"name\":\"$CompanyName\", \"contact\":\"$ContactName\",
-          \"phone\":\"$ContactTitle\", \"address\":\"$Address\",
-          \"city\":\"$City\", \"region\":\"$Region\",
+          ExecutionError: ERROR: ERROR: Unexpected token 'V',
+          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
+          Customers QUERY:
+          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
+          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
+          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
           \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
-          }]" 
+          \"LambdaOrmParentId\":\"$_id\"}} ]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
-          \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
+          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
           \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
           \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
           \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
@@ -3970,13 +3963,14 @@ test:
           \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
           \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
           \"country\":\"$ShipCountry\", \"__id\":\"$_id\",
-          \"__customerId\":\"$CustomerID\" ,\"details\": { \"$map\":{ \"input\":
-          \"$\\\"Order Details\\\"\", \"in\": {
-          \"quantity\":\"$$this.Quantity\", \"unitPrice\":\"$$this.UnitPrice\",
+          \"__customerId\":\"$CustomerID\"
+          ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
+          Details\\\"\",\"in\":{\"quantity\":\"$$this.Quantity\",
+          \"unitPrice\":\"$$this.UnitPrice\",
           \"productId\":\"$$this.ProductID\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
-          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
+          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -4292,54 +4286,52 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{ "$match" : { "_id":{{id}} } }, { "$project" :{ "_id": 0 ,
-            "id":"$_id", "customerId":"$CustomerID", "employeeId":"$EmployeeID",
+            [{"$match":{"_id":{{id}}}}, {"$project":{"_id":0,"id":"$_id",
+            "customerId":"$CustomerID", "employeeId":"$EmployeeID",
             "orderDate":"$OrderDate", "requiredDate":"$RequiredDate",
             "shippedDate":"$ShippedDate", "shipViaId":"$ShipVia",
             "freight":"$Freight", "name":"$ShipName", "address":"$ShipAddress",
             "city":"$ShipCity", "region":"$ShipRegion",
             "postalCode":"$ShipPostalCode", "country":"$ShipCountry",
-            "__customerId":"$CustomerID", "__id":"$_id" ,"details": { "$map":{
-            "input": "$\"Order Details\"", "in": { "quantity":"$$this.Quantity",
+            "__customerId":"$CustomerID", "__id":"$_id"
+            ,"details":{"$map":{"input":"$\"Order
+            Details\"","in":{"quantity":"$$this.Quantity",
             "unitPrice":"$$this.UnitPrice", "__productId":"$$this.ProductID",
-            "LambdaOrmParentId":"$$this.OrderID" } }} }} , { "$project": {
-            "_id": 0 } }]
+            "LambdaOrmParentId":"$$this.OrderID"}}}}} ]
           children:
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } }, {
-                "$project" :{ "_id": 0 , "name":"$CompanyName",
-                "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0 } }]
+                [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"name":"$CompanyName",
+                "LambdaOrmParentId":"$_id"}} ]
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{ "$unwind" : "$\"Order Details\"" }, { "$replaceRoot": {
-                "newRoot": "$\"Order Details\"" } }, { "$match" : { "OrderID":{
-                "$in" :[{{LambdaOrmParentId}}]} } }, { "$project" :{ "_id": 0 ,
-                "quantity":"$Quantity", "unitPrice":"$UnitPrice",
-                "__productId":"$ProductID", "LambdaOrmParentId":"$OrderID" }} ,
-                { "$project": { "_id": 0 } }]
+                [{"$unwind":"$\"Order Details\""},
+                {"$replaceRoot":{"newRoot":"$\"Order Details\""}},
+                {"$match":{"OrderID":{"$in":[{{LambdaOrmParentId}}]} }},
+                {"$project":{"_id":0,"quantity":"$Quantity",
+                "unitPrice":"$UnitPrice", "__productId":"$ProductID",
+                "LambdaOrmParentId":"$OrderID"}} ]
               children:
                 - entity: Products
                   dialect: MongoDB
                   source: MongoDB
                   sentence: >-
-                    [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]} } },
-                    { "$project" :{ "_id": 0 , "name":"$ProductName",
-                    "__categoryId":"$CategoryID", "LambdaOrmParentId":"$_id" }}
-                    , { "$project": { "_id": 0 } }]
+                    [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                    {"$project":{"_id":0,"name":"$ProductName",
+                    "__categoryId":"$CategoryID", "LambdaOrmParentId":"$_id"}} ]
                   children:
                     - entity: Categories
                       dialect: MongoDB
                       source: MongoDB
                       sentence: >-
-                        [{ "$match" : { "_id":{ "$in" :[{{LambdaOrmParentId}}]}
-                        } }, { "$project" :{ "_id": 0 , "name":"$CategoryName",
-                        "LambdaOrmParentId":"$_id" }} , { "$project": { "_id": 0
-                        } }]
+                        [{"$match":{"_id":{"$in":[{{LambdaOrmParentId}}]} }},
+                        {"$project":{"_id":0,"name":"$CategoryName",
+                        "LambdaOrmParentId":"$_id"}} ]
       - stage: Oracle
         info:
           entity: Orders
@@ -4632,15 +4624,15 @@ test:
     executions:
       - stage: MongoDB
         error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V', ..."{ "$in"
-          :[VINET]} } "... is not valid JSON SOURCE: MongoDB ENTITY: Customers
-          QUERY: "[{ \"$match\" : { \"_id\":{ \"$in\" :[{{LambdaOrmParentId}}]}
-          } }, { \"$project\" :{ \"_id\": 0 , \"name\":\"$CompanyName\",
-          \"LambdaOrmParentId\":\"$_id\" }} , { \"$project\": { \"_id\": 0 }
-          }]" 
+          ExecutionError: ERROR: ERROR: Unexpected token 'V',
+          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
+          Customers QUERY:
+          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
+          {\"$project\":{\"_id\":0,\"name\":\"$CompanyName\",
+          \"LambdaOrmParentId\":\"$_id\"}} ]" 
           DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{ \"$match\" : {
-          \"_id\":{{id}} } }, { \"$project\" :{ \"_id\": 0 , \"id\":\"$_id\",
+          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
+          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
           \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
           \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
           \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
@@ -4648,12 +4640,12 @@ test:
           \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
           \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
           \"country\":\"$ShipCountry\", \"__customerId\":\"$CustomerID\",
-          \"__id\":\"$_id\" ,\"details\": { \"$map\":{ \"input\": \"$\\\"Order
-          Details\\\"\", \"in\": { \"quantity\":\"$$this.Quantity\",
+          \"__id\":\"$_id\" ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
+          Details\\\"\",\"in\":{\"quantity\":\"$$this.Quantity\",
           \"unitPrice\":\"$$this.UnitPrice\",
           \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\" } }} }} , { \"$project\": {
-          \"_id\": 0 } }]"  DATA:{"data":{"id":1}}
+          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
+          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL

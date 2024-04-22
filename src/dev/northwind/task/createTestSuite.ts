@@ -28,10 +28,10 @@ beforeAll(async () => {
 			name: 'constraints',
 			template: '\t\texpect(orm.constraints(${test})).toStrictEqual(${result})\n'
 		},
-		// {
-		// name: 'metadata',
-		// template: '\t\texpect(orm.metadata(${test})).toStrictEqual(${result})\n'
-		// },
+		{
+			name: 'metadata',
+			template: '\t\texpect(orm.metadata(${test})).toStrictEqual(${result})\n'
+		},
 		{
 			name: 'getInfo',
 			template: '\t\texpect(orm.plan(${test},{ stage: \'MySQL\' })).toStrictEqual(${result})\n'

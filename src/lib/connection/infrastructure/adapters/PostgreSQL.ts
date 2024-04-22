@@ -54,14 +54,6 @@ export class PostgreSQLConnectionPoolAdapter extends ConnectionPoolAdapter {
 		cnx.connect()
 		return new PostgreSQLConnectionAdapter(id, cnx, this, this.helper)
 	}
-
-	public async release (connection: Connection): Promise<void> {
-		await connection.cnx.end()
-	}
-
-	public async end (): Promise<void> {
-		await this.helper.logger.log('PostgreSQL end pool not Implemented')
-	}
 }
 export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
