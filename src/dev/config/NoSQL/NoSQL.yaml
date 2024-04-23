@@ -51,7 +51,7 @@ others:
   delimiter: '"{name}"'
   separatorSql: ;
   # notNullable: NOT NULL
-  variable: "{{{name}}}"
+  variable: '"${name}$"'
   # field: "{entityAlias}.{name}"
   field: '"{prefix}{name}"'
   joinField: '"{entityAlias}.{name}"'

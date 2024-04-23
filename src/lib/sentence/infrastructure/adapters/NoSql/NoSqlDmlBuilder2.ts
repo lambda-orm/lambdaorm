@@ -53,41 +53,46 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			throw new SchemaError('map operator not found')
 		}
 
-		const query:any[] = []
+		let text = ''
 		if (entity.composite) {
-			query.push(...this.buildReplaceRoot(entity))
+			text = this.addAggregate(text, this.buildReplaceRoot(entity))
 		}
 		if (joins.length > 0) {
-			query.push(...this.buildJoins2(entity, joins))
+			text = this.addAggregate(text, this.buildJoins(entity, joins))
 		}
 		if (filter) {
-			query.push(...this.buildFilter(filter))
+			text = this.addAggregate(text, this.buildFilter(filter))
 		}
 		if (groupBy) {
-			query.push(...this.getGroupBy(map, groupBy, sentence))
+			const groupByStringClause = this.getGroupBy(map, groupBy, sentence)
+			text = this.addAggregate(text, groupByStringClause)
 			if (having) {
-				query.push(...this.getHaving(query, having))
+				// TODO: solve:bugs with round(avg(
+				// Example: Products.map(p => ({ average: round(avg(p.price), 4) }))
+				// this.setPrefixToField(having, '$')
+				text = this.addAggregate(text, this.getHaving(groupByStringClause, having))
 			}
 		} else {
-			query.push(...this.getMap(map, sentence))
+			text = this.addAggregate(text, this.getMap(map, sentence))
 		}
 		if (sort) {
-			const sortText = this.buildArrowFunction(sort)
-			query.push(JSON.parse('[' + sortText + ']'))
+			text = this.addAggregate(text, this.buildArrowFunction(sort))
+		}
+		if (page) {
+			text = this.buildPage(text, page)
 		}
 		// Although hiding the _id field is useful in some queries such as groupBy, this field is used in sequences
-		if (!query.some(p => p.$project !== undefined)) {
-			query.push([{ $project: { _id: 0 } }])
+		if (!text.includes('"$project":')) {
+			text = `${text}, {"$project":{"_id":0}}`
 		}
-		const text = JSON.stringify(query)
-		if (page) {
-			return this.buildPage(text, page)
-		} else {
-			return text
-		}
+		return `[${text}]`
 	}
 
-	protected buildReplaceRoot (entity:EntityMapping): any[] {
+	private addAggregate (previous:string, toAdd:string) {
+		return previous !== '' ? `${previous}, ${toAdd}` : toAdd
+	}
+
+	protected buildReplaceRoot (entity:EntityMapping) {
 		const parts = entity.name.split('.')
 		const mappings:string[] = []
 		for (let i = 1; i < parts.length; i++) {
@@ -117,7 +122,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		const replaceRootTemplate = this.dialect.dml('replaceRoot')
 		newRoot = this.helper.str.replace(replaceRootTemplate, '{0}', newRoot)
 		text = text !== '' ? `${text}, ${newRoot}` : newRoot
-		return JSON.parse('[' + text + ']')
+		return text
 	}
 
 	protected override buildDeleteSentence (sentence: Sentence): string {
@@ -133,10 +138,9 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		return JSON.stringify(data)
 	}
 
-	protected getHaving (query:any, having: Having): any[] {
-		// const groupByClause = JSON.parse('[' + groupByStringClause + ']')
-		const groupByClause = query.find((p:any) => p.$group !== undefined)
-		const groupKeyValues = Object.entries(groupByClause.$group) as [string, string][]
+	protected getHaving (groupByStringClause:string, having: Having): string {
+		const groupByClause = JSON.parse('[' + groupByStringClause + ']')
+		const groupKeyValues = Object.entries(groupByClause[0].$group) as [string, string][]
 		const toReplaces:[string, string][] = []
 		this.solveHaving(having.children[0], groupKeyValues, toReplaces)
 		let havingStringClause = this.buildArrowFunction(having)
@@ -145,7 +149,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		}
 		havingStringClause = this.helper.str.replace(havingStringClause, '{ {', '{')
 		havingStringClause = this.helper.str.replace(havingStringClause, '} }', '}')
-		return JSON.parse('[' + havingStringClause + ']')
+		return havingStringClause
 	}
 
 	/* Solve the problem of having with groupBy
@@ -173,7 +177,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		return this.helper.str.normalize(a) === this.helper.str.normalize(b)
 	}
 
-	protected getGroupBy (map:Map, _groupBy:GroupBy, sentence: Sentence): any[] {
+	protected getGroupBy (map:Map, _groupBy:GroupBy, sentence: Sentence): string {
 		this.setPrefixToField(map, '$')
 
 		let projectColumns = ''
@@ -210,11 +214,10 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		text = this.helper.str.replace(text, '{1}', groupColumnsText)
 		text = text + ', ' + this.helper.str.replace(templateProject, '{0}', projectColumns)
 		// In the templates process $$ is being replaced by $, for this $this is replaced. for $$this.
-		text = this.helper.str.replace(text, '"$this.', '"$$this.')
-		return JSON.parse('[' + text + ']')
+		return this.helper.str.replace(text, '"$this.', '"$$this.')
 	}
 
-	protected getMap (map:Map, sentence: Sentence): any[] {
+	protected getMap (map:Map, sentence: Sentence): any {
 		this.setPrefixToField(map, '$')
 		let mapText = this.buildArrowFunction(map)
 		const composite = this.getComposite(sentence)
@@ -223,11 +226,11 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		}
 		if (map.children[0].type === OperandType.CallFunc && map.children[0].name === 'distinct') {
 			// https://www.MongoDB.com/docs/manual/reference/operator/aggregation/group/
-			return JSON.parse('[' + mapText + ']')
+			return mapText
 		} else {
 			const template = this.hadGroupFunction(map) ? this.dialect.dml('mapGroup') : this.dialect.dml('rootMap')
-			const text = this.helper.str.replace(template, '{0}', mapText)
-			return JSON.parse('[' + text + ']')
+			const result = this.helper.str.replace(template, '{0}', mapText)
+			return result
 			// 			$map: {
 			// 				input: '$"Order Details"',
 			// 				in: {
@@ -283,7 +286,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		return map
 	}
 
-	protected buildJoins2 (entity: EntityMapping, joins: Join[]): any[] {
+	protected override buildJoins (entity: EntityMapping, joins: Join[]): string {
 		// Example: https://www.w3schools.com/nodejs/nodejs_mongodb_join.asp
 		// Example: https://stackoverflow.com/questions/69097870/how-to-join-multiple-collection-in-MongoDB
 		// https://javascript.tutorialink.com/MongoDB-get-sum-of-fields-in-last-stage-of-aggregate/
@@ -305,7 +308,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			joinTemplate = this.helper.str.replace(joinTemplate, '{alias}', this.dialect.delimiter(join.alias, true))
 			text = text !== '' ? `${text}, ${joinTemplate}` : joinTemplate
 		}
-		return JSON.parse('[' + text + ']')
+		return text
 		// Example
 		// {
 		// 	$lookup: {
@@ -379,12 +382,11 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		// ]
 	}
 
-	protected buildFilter (operand: Filter): any[] {
+	protected buildFilter (operand: Filter): string {
 		// TODO: It remains to be resolved if the fields to filter correspond to an include composite.
 		// this.setPrefixToField(operand, '$')
 		const template = this.dialect.dml('rootFilter')
-		const text = this.helper.str.replace(template, '{0}', this.buildArrowFunction(operand))
-		return JSON.parse('[' + text + ']')
+		return this.helper.str.replace(template, '{0}', this.buildArrowFunction(operand))
 	}
 
 	protected getFieldMapping (operand: Field, alias?:string): string {

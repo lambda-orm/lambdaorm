@@ -36,7 +36,7 @@
     "others": {
       "delimiter": "\"{name}\"",
       "separatorSql": ";",
-      "variable": "{{{name}}}",
+      "variable": "\"${name}$\"",
       "field": "\"{prefix}{name}\"",
       "joinField": "\"{entityAlias}.{name}\"",
       "projectJoinField": "{\"$arrayElemAt\":[\"{prefix}{entityAlias}.{name}\",0]}",
@@ -209,7 +209,7 @@
       "others": {
         "delimiter": "\"{name}\"",
         "separatorSql": ";",
-        "variable": "{{{name}}}",
+        "variable": "\"${name}$\"",
         "field": "\"{prefix}{name}\"",
         "joinField": "\"{entityAlias}.{name}\"",
         "projectJoinField": "{\"$arrayElemAt\":[\"{prefix}{entityAlias}.{name}\",0]}",
