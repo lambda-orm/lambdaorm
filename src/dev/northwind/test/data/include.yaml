@@ -150,7 +150,7 @@ test:
                 c.PostalCode AS "postalCode", c.Country AS "country",
                 c.CustomerID AS "LambdaOrmParentId" FROM Customers c  WHERE 
                 c.CustomerID IN (:LambdaOrmParentId) 
-    errors: 2
+    errors: 1
     expression: Orders.filter(p => p.id === id).include(p => p.customer)
     normalizeExpression: >-
       Orders.map(p=>{id:p.id,customerId:p.customerId,employeeId:p.employeeId,orderDate:p.orderDate,requiredDate:p.requiredDate,shippedDate:p.shippedDate,shipViaId:p.shipViaId,freight:p.freight,name:p.name,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,__customerId:p.customerId}).filter(p=>(p.id==id)).include(p=>p.customer.map(p=>{id:p.id,name:p.name,contact:p.contact,phone:p.phone,address:p.address,city:p.city,region:p.region,postalCode:p.postalCode,country:p.country,LambdaOrmParentId:p.id}).filter(p=>in(p.id,LambdaOrmParentId)))
@@ -306,40 +306,19 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: MongoDB
-        error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V',
-          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
-          Customers QUERY:
-          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
-          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
-          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
-          \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\"}} ]" 
-          DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
-          \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
-          \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
-          \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
-          \"freight\":\"$Freight\", \"name\":\"$ShipName\",
-          \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
-          \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
-          \"country\":\"$ShipCountry\", \"__customerId\":\"$CustomerID\"}} ]" 
-          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
       - stage: SqlServer
+      - stage: MongoDB
         error: not equal MySQL
         result:
           - id: 1
             customerId: VINET
             employeeId: 5
-            orderDate: '1996-07-04T00:00:00.000Z'
-            requiredDate: '1996-08-01T00:00:00.000Z'
-            shippedDate: '1996-07-16T00:00:00.000Z'
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
             shipViaId: 3
             freight: 32.38
             name: Vins et alcools Chevalier
@@ -1177,35 +1156,6 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: MongoDB
-        error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V',
-          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
-          Customers QUERY:
-          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
-          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
-          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
-          \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\"}} ]" 
-          DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
-          \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
-          \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
-          \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
-          \"freight\":\"$Freight\", \"name\":\"$ShipName\",
-          \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
-          \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
-          \"country\":\"$ShipCountry\", \"__id\":\"$_id\",
-          \"__customerId\":\"$CustomerID\"
-          ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
-          Details\\\"\",\"in\":{\"orderId\":\"$$this.OrderID\",
-          \"productId\":\"$$this.ProductID\",
-          \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
-          \"discount\":\"$$this.Discount\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
-          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -1236,6 +1186,49 @@ test:
                 productId: 29
                 unitPrice: 123.79
                 quantity: 20
+                discount: 0
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 11
+                unitPrice: 14
+                quantity: 12
+                discount: 0
+              - orderId: 1
+                productId: 42
+                unitPrice: 9.8
+                quantity: 10
+                discount: 0
+              - orderId: 1
+                productId: 72
+                unitPrice: 34.8
+                quantity: 5
                 discount: 0
             customer:
               id: VINET
@@ -1856,36 +1849,6 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: MongoDB
-        error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V',
-          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
-          Customers QUERY:
-          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
-          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
-          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
-          \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\"}} ]" 
-          DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
-          \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
-          \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
-          \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
-          \"freight\":\"$Freight\", \"name\":\"$ShipName\",
-          \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
-          \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
-          \"country\":\"$ShipCountry\", \"__id\":\"$_id\",
-          \"__customerId\":\"$CustomerID\"
-          ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
-          Details\\\"\",\"in\":{\"orderId\":\"$$this.OrderID\",
-          \"productId\":\"$$this.ProductID\",
-          \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
-          \"discount\":\"$$this.Discount\",
-          \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
-          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -1939,6 +1902,82 @@ test:
                   onOrder: 0
                   reorderLevel: 0
                   discontinued: true
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 11
+                unitPrice: 14
+                quantity: 12
+                discount: 0
+                product:
+                  id: 11
+                  name: Queso Cabrales
+                  supplierId: 5
+                  categoryId: 4
+                  quantity: 1 kg pkg.
+                  price: 21
+                  inStock: 22
+                  onOrder: 30
+                  reorderLevel: 30
+                  discontinued: false
+              - orderId: 1
+                productId: 42
+                unitPrice: 9.8
+                quantity: 10
+                discount: 0
+                product:
+                  id: 42
+                  name: Singaporean Hokkien Fried Mee
+                  supplierId: 20
+                  categoryId: 5
+                  quantity: 32 - 1 kg pkgs.
+                  price: 14
+                  inStock: 26
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: true
+              - orderId: 1
+                productId: 72
+                unitPrice: 34.8
+                quantity: 5
+                discount: 0
+                product:
+                  id: 72
+                  name: Mozzarella di Giovanni
+                  supplierId: 14
+                  categoryId: 4
+                  quantity: 24 - 200 g pkgs.
+                  price: 34.8
+                  inStock: 14
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: false
             customer:
               id: VINET
               name: Vins et alcools Chevalier
@@ -2699,36 +2738,6 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: MongoDB
-        error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V',
-          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
-          Customers QUERY:
-          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
-          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
-          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
-          \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\"}} ]" 
-          DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
-          \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
-          \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
-          \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
-          \"freight\":\"$Freight\", \"name\":\"$ShipName\",
-          \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
-          \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
-          \"country\":\"$ShipCountry\", \"__id\":\"$_id\",
-          \"__customerId\":\"$CustomerID\"
-          ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
-          Details\\\"\",\"in\":{\"orderId\":\"$$this.OrderID\",
-          \"productId\":\"$$this.ProductID\",
-          \"unitPrice\":\"$$this.UnitPrice\", \"quantity\":\"$$this.Quantity\",
-          \"discount\":\"$$this.Discount\",
-          \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
-          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -2790,6 +2799,94 @@ test:
                     id: 6
                     name: Meat/Poultry
                     description: Prepared meats
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - orderId: 1
+                productId: 11
+                unitPrice: 14
+                quantity: 12
+                discount: 0
+                product:
+                  id: 11
+                  name: Queso Cabrales
+                  supplierId: 5
+                  categoryId: 4
+                  quantity: 1 kg pkg.
+                  price: 21
+                  inStock: 22
+                  onOrder: 30
+                  reorderLevel: 30
+                  discontinued: false
+                  category:
+                    id: 4
+                    name: Dairy Products
+                    description: Cheeses
+              - orderId: 1
+                productId: 42
+                unitPrice: 9.8
+                quantity: 10
+                discount: 0
+                product:
+                  id: 42
+                  name: Singaporean Hokkien Fried Mee
+                  supplierId: 20
+                  categoryId: 5
+                  quantity: 32 - 1 kg pkgs.
+                  price: 14
+                  inStock: 26
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: true
+                  category:
+                    id: 5
+                    name: Grains/Cereals
+                    description: Breads, crackers, pasta, and cereal
+              - orderId: 1
+                productId: 72
+                unitPrice: 34.8
+                quantity: 5
+                discount: 0
+                product:
+                  id: 72
+                  name: Mozzarella di Giovanni
+                  supplierId: 14
+                  categoryId: 4
+                  quantity: 24 - 200 g pkgs.
+                  price: 34.8
+                  inStock: 14
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: false
+                  category:
+                    id: 4
+                    name: Dairy Products
+                    description: Cheeses
             customer:
               id: VINET
               name: Vins et alcools Chevalier
@@ -3288,34 +3385,6 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: MongoDB
-        error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V',
-          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
-          Customers QUERY:
-          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
-          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
-          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
-          \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\"}} ]" 
-          DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
-          \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
-          \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
-          \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
-          \"freight\":\"$Freight\", \"name\":\"$ShipName\",
-          \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
-          \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
-          \"country\":\"$ShipCountry\", \"__id\":\"$_id\",
-          \"__customerId\":\"$CustomerID\"
-          ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
-          Details\\\"\",\"in\":{\"quantity\":\"$$this.Quantity\",
-          \"unitPrice\":\"$$this.UnitPrice\",
-          \"productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
-          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -3353,6 +3422,43 @@ test:
               region: null
               postalCode: '51100'
               country: France
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - quantity: 10
+                unitPrice: 9.8
+                productId: 42
+              - quantity: 12
+                unitPrice: 14
+                productId: 11
+              - quantity: 5
+                unitPrice: 34.8
+                productId: 72
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
       - stage: Oracle
     result:
       - id: 1
@@ -3370,12 +3476,12 @@ test:
         postalCode: '51100'
         country: France
         details:
-          - quantity: 12
-            unitPrice: 14
-            productId: 11
           - quantity: 10
             unitPrice: 9.8
             productId: 42
+          - quantity: 12
+            unitPrice: 14
+            productId: 11
           - quantity: 5
             unitPrice: 34.8
             productId: 72
@@ -3942,35 +4048,6 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: MongoDB
-        error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V',
-          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
-          Customers QUERY:
-          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\", \"name\":\"$CompanyName\",
-          \"contact\":\"$ContactName\", \"phone\":\"$ContactTitle\",
-          \"address\":\"$Address\", \"city\":\"$City\", \"region\":\"$Region\",
-          \"postalCode\":\"$PostalCode\", \"country\":\"$Country\",
-          \"LambdaOrmParentId\":\"$_id\"}} ]" 
-          DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
-          \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
-          \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
-          \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
-          \"freight\":\"$Freight\", \"name\":\"$ShipName\",
-          \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
-          \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
-          \"country\":\"$ShipCountry\", \"__id\":\"$_id\",
-          \"__customerId\":\"$CustomerID\"
-          ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
-          Details\\\"\",\"in\":{\"quantity\":\"$$this.Quantity\",
-          \"unitPrice\":\"$$this.UnitPrice\",
-          \"productId\":\"$$this.ProductID\",
-          \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
-          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -4030,6 +4107,76 @@ test:
               region: null
               postalCode: '51100'
               country: France
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - quantity: 10
+                unitPrice: 9.8
+                productId: 42
+                product:
+                  id: 42
+                  name: Singaporean Hokkien Fried Mee
+                  supplierId: 20
+                  categoryId: 5
+                  quantity: 32 - 1 kg pkgs.
+                  price: 14
+                  inStock: 26
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: true
+              - quantity: 12
+                unitPrice: 14
+                productId: 11
+                product:
+                  id: 11
+                  name: Queso Cabrales
+                  supplierId: 5
+                  categoryId: 4
+                  quantity: 1 kg pkg.
+                  price: 21
+                  inStock: 22
+                  onOrder: 30
+                  reorderLevel: 30
+                  discontinued: false
+              - quantity: 5
+                unitPrice: 34.8
+                productId: 72
+                product:
+                  id: 72
+                  name: Mozzarella di Giovanni
+                  supplierId: 14
+                  categoryId: 4
+                  quantity: 24 - 200 g pkgs.
+                  price: 34.8
+                  inStock: 14
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: false
+            customer:
+              id: VINET
+              name: Vins et alcools Chevalier
+              contact: Paul Henriot
+              phone: Accounting Manager
+              address: 59 rue de l'Abbaye
+              city: Reims
+              region: null
+              postalCode: '51100'
+              country: France
       - stage: Oracle
     result:
       - id: 1
@@ -4047,20 +4194,6 @@ test:
         postalCode: '51100'
         country: France
         details:
-          - quantity: 12
-            unitPrice: 14
-            productId: 11
-            product:
-              id: 11
-              name: Queso Cabrales
-              supplierId: 5
-              categoryId: 4
-              quantity: 1 kg pkg.
-              price: 21
-              inStock: 22
-              onOrder: 30
-              reorderLevel: 30
-              discontinued: false
           - quantity: 10
             unitPrice: 9.8
             productId: 42
@@ -4075,6 +4208,20 @@ test:
               onOrder: 0
               reorderLevel: 0
               discontinued: true
+          - quantity: 12
+            unitPrice: 14
+            productId: 11
+            product:
+              id: 11
+              name: Queso Cabrales
+              supplierId: 5
+              categoryId: 4
+              quantity: 1 kg pkg.
+              price: 21
+              inStock: 22
+              onOrder: 30
+              reorderLevel: 30
+              discontinued: false
           - quantity: 5
             unitPrice: 34.8
             productId: 72
@@ -4622,30 +4769,6 @@ test:
       clause: select
       alias: o
     executions:
-      - stage: MongoDB
-        error: >-
-          ExecutionError: ERROR: ERROR: Unexpected token 'V',
-          ..."":{"$in":[VINET]} }}"... is not valid JSON SOURCE: MongoDB ENTITY:
-          Customers QUERY:
-          "[{\"$match\":{\"_id\":{\"$in\":[{{LambdaOrmParentId}}]} }},
-          {\"$project\":{\"_id\":0,\"name\":\"$CompanyName\",
-          \"LambdaOrmParentId\":\"$_id\"}} ]" 
-          DATA:{"data":{"id":1,"LambdaOrmParentId":["VINET"]},"parent":null}
-          SOURCE: MongoDB ENTITY: Orders QUERY: "[{\"$match\":{\"_id\":{{id}}}},
-          {\"$project\":{\"_id\":0,\"id\":\"$_id\",
-          \"customerId\":\"$CustomerID\", \"employeeId\":\"$EmployeeID\",
-          \"orderDate\":\"$OrderDate\", \"requiredDate\":\"$RequiredDate\",
-          \"shippedDate\":\"$ShippedDate\", \"shipViaId\":\"$ShipVia\",
-          \"freight\":\"$Freight\", \"name\":\"$ShipName\",
-          \"address\":\"$ShipAddress\", \"city\":\"$ShipCity\",
-          \"region\":\"$ShipRegion\", \"postalCode\":\"$ShipPostalCode\",
-          \"country\":\"$ShipCountry\", \"__customerId\":\"$CustomerID\",
-          \"__id\":\"$_id\" ,\"details\":{\"$map\":{\"input\":\"$\\\"Order
-          Details\\\"\",\"in\":{\"quantity\":\"$$this.Quantity\",
-          \"unitPrice\":\"$$this.UnitPrice\",
-          \"__productId\":\"$$this.ProductID\",
-          \"LambdaOrmParentId\":\"$$this.OrderID\"}}}}} ]" 
-          DATA:{"data":{"id":1}}
       - stage: MySQL
       - stage: MariaDB
       - stage: PostgreSQL
@@ -4681,6 +4804,44 @@ test:
                   name: Thringer Rostbratwurst
                   category:
                     name: Meat/Poultry
+      - stage: MongoDB
+        error: not equal MySQL
+        result:
+          - id: 1
+            customerId: VINET
+            employeeId: 5
+            orderDate: '1996-07-04T00:00:00.000+02:00'
+            requiredDate: '1996-08-01'
+            shippedDate: '1996-07-16'
+            shipViaId: 3
+            freight: 32.38
+            name: Vins et alcools Chevalier
+            address: 59 rue de l-Abbaye
+            city: Reims
+            region: null
+            postalCode: '51100'
+            country: France
+            details:
+              - quantity: 10
+                unitPrice: 9.8
+                product:
+                  name: Singaporean Hokkien Fried Mee
+                  category:
+                    name: Grains/Cereals
+              - quantity: 12
+                unitPrice: 14
+                product:
+                  name: Queso Cabrales
+                  category:
+                    name: Dairy Products
+              - quantity: 5
+                unitPrice: 34.8
+                product:
+                  name: Mozzarella di Giovanni
+                  category:
+                    name: Dairy Products
+            customer:
+              name: Vins et alcools Chevalier
       - stage: Oracle
     result:
       - id: 1
@@ -4700,22 +4861,22 @@ test:
         customer:
           name: Vins et alcools Chevalier
         details:
-          - quantity: 12
-            unitPrice: 14
-            product:
-              name: Queso Cabrales
-              category:
-                name: Dairy Products
           - quantity: 10
             unitPrice: 9.8
             product:
               name: Singaporean Hokkien Fried Mee
               category:
                 name: Grains/Cereals
+          - quantity: 12
+            unitPrice: 14
+            product:
+              name: Queso Cabrales
+              category:
+                name: Dairy Products
           - quantity: 5
             unitPrice: 34.8
             product:
               name: Mozzarella di Giovanni
               category:
                 name: Dairy Products
-errors: 16
+errors: 15

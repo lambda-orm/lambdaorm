@@ -317,7 +317,9 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		if (source === undefined || source === null) {
 			return 'null'
 		}
-		if (Type.isList(type)) {
+		if (type === Primitive.any) {
+			return this.getAnyValue(mapping, dialect, source)
+		} else if (Type.isList(type)) {
 			if (source.length === 0) {
 				return ''
 			}
@@ -351,6 +353,43 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 				}
 			}
 		}
+	}
+
+	private getAnyValue (mapping: MappingConfigService, dialect: DialectService, source: any): any {
+		if (source === undefined || source === null) {
+			return null
+		}
+		if (this.helper.val.isString(source)) {
+			let value = this.helper.str.replace(source, '\n', '\\n')
+			value = this.helper.str.replace(value, '"', '\\"')
+			return `"${value}"`
+		}
+		if (this.helper.val.isNumber(source)) {
+			return source
+		}
+		if (this.helper.val.isBoolean(source)) {
+			return source ? 'true' : 'false'
+		}
+		if (this.helper.val.isDateTime(source)) {
+			return `"${this.writeDateTime(source, mapping, dialect)}"`
+		}
+		if (this.helper.val.isDate(source)) {
+			return `"${this.writeDate(source, mapping, dialect)}"`
+		}
+		if (this.helper.val.isTime(source)) {
+			return `"${this.writeTime(source, mapping, dialect)}"`
+		}
+		if (this.helper.val.isObject(source)) {
+			return source
+		}
+		if (this.helper.val.isArray(source)) {
+			const value:any[] = []
+			for (const item of source) {
+				value.push(this.getAnyValue(mapping, dialect, item))
+			}
+			return value
+		}
+		return source
 	}
 
 	private async getNextSequenceValue (sequence: string, count = 1) {

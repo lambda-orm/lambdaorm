@@ -4,7 +4,7 @@
 import { LoggerBuilder, orm, OrmH3lp, QueryPlan } from '../../../lib'
 import { Categories, Customers, Products, Orders } from '../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
-import { h3lp } from 'h3lp'
+import { h3lp, ObjectEqualOptions } from 'h3lp'
 
 const fs = require('fs')
 const path = require('path')
@@ -88,10 +88,10 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 			} else if (results.length > 1) {
 				expressionTest.result = results[0].result
 				expressionTest.executions.push({ stage: results[0].stage })
-				const pattern = JSON.stringify(results[0].result)
+				const pattern = results[0].result
 				for (let i = 1; i < results.length; i++) {
-					const result = JSON.stringify(results[i].result)
-					if (result === pattern) {
+					const result = results[i].result
+					if (equal(result, pattern, { strict: false })) {
 						expressionTest.executions.push({ stage: results[i].stage })
 					} else {
 						expressionTest.executions.push({ stage: results[i].stage, error: `not equal ${results[0].stage}`, result: results[i].result })
@@ -121,6 +121,61 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 	}
 	return category.errors
 }
+
+function equal (a:any, b:any, options:ObjectEqualOptions): boolean {
+	if (!options.strict) {
+		const _a = sort(a)
+		const _b = sort(b)
+		return JSON.stringify(_a) === JSON.stringify(_b)
+	} else {
+		return JSON.stringify(a) === JSON.stringify(b)
+	}
+}
+
+function sort (source: any):any {
+	const target:any = {}
+	if (source === null) {
+		return null
+	} else if (Array.isArray(source)) {
+		const propertyKey = getKeyProperty(source[0])
+		if (propertyKey) {
+			const result = source.sort((a:any, b:any) => a[propertyKey] > b[propertyKey] ? 1 : -1).map((p:any) => sort(p))
+			return result
+		} else {
+			const result = source.sort((a:any, b:any) => JSON.stringify(a) > JSON.stringify(b) ? 1 : -1).map((p:any) => sort(p))
+			return result
+		}
+	} else if (typeof source === 'object') {
+		for (const key of Object.keys(source).sort()) {
+			if (source[key] === null) {
+				target[key] = null
+			} else if (Array.isArray(source[key])) {
+				const propertyKey = getKeyProperty(source[key][0])
+				if (propertyKey) {
+					target[key] = source[key].sort((a:any, b:any) => a[propertyKey] > b[propertyKey] ? 1 : -1).map((p:any) => sort(p))
+				} else {
+					target[key] = source[key].sort((a:any, b:any) => JSON.stringify(a) > JSON.stringify(b) ? 1 : -1).map((p:any) => sort(p))
+				}
+			} else if (typeof source[key] === 'object') {
+				target[key] = sort(source[key])
+			} else {
+				target[key] = source[key]
+			}
+		}
+	}
+	return target
+}
+
+function getKeyProperty (sources:any, alternatives:string[] = ['id', 'code', 'name', 'key']):string|undefined {
+	const propertiesName = Object.keys(sources).map(p => p.toLowerCase())
+	for (const alternative of alternatives) {
+		if (propertiesName.includes(alternative.toLowerCase())) {
+			return alternative
+		}
+	}
+	return undefined
+}
+
 async function writeQueryTest (stages: string[]): Promise<number> {
 	return await writeTest(stages, {
 		name: 'query',

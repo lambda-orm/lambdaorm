@@ -45,10 +45,10 @@
     "countries-create-test-suite": "grunt countries-create-test-suite"
   },
   "dependencies": {
-    "3xpr": "^1.15.12",
-    "h3lp": "^1.9.1",
-    "typ3s": "^0.1.18",
-    "lambdaorm-base": "^1.4.5",
+    "3xpr": "^1.15.14",
+    "h3lp": "^1.10.0",
+    "typ3s": "^1.0.2",
+    "lambdaorm-base": "^1.4.9",
     "crypto-js": "^4.1.1"
   },
   "devDependencies": {

@@ -5,7 +5,7 @@ export async function apply (callback: any) {
 	try {
 		await orm.init('./config/northwind.yaml')
 		const stage = 'MongoDB'
-		const query = () => Products.delete()
+		const query = () => Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
 		const plan = orm.plan(query, { stage })
 		console.log(JSON.stringify(plan, null, 2))
 		// const result = await orm.execute(query, {}, { stage })
