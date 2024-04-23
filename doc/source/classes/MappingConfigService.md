@@ -456,10 +456,10 @@ Sort a list of entities according to their relationships
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `mainEntities` | `string`[] |
-| `allEntities` | `string`[] |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `mainEntities` | `string`[] | - |
+| `allEntities` | `string`[] | entities to order |
 
 #### Returns
 

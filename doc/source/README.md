@@ -55,6 +55,7 @@ Lambda ORM
 - [IncludeClauses](classes/IncludeClauses.md)
 - [InitializeSchema](classes/InitializeSchema.md)
 - [Insert](classes/Insert.md)
+- [InterpretSchemaDataService](classes/InterpretSchemaDataService.md)
 - [Join](classes/Join.md)
 - [LanguageError](classes/LanguageError.md)
 - [LanguagesService](classes/LanguagesService.md)
@@ -89,6 +90,7 @@ Lambda ORM
 - [SchemaFacade](classes/SchemaFacade.md)
 - [SchemaFacadeBuilder](classes/SchemaFacadeBuilder.md)
 - [SchemaHelper](classes/SchemaHelper.md)
+- [SchemaService](classes/SchemaService.md)
 - [SchemaState](classes/SchemaState.md)
 - [SchemaStateBuilder](classes/SchemaStateBuilder.md)
 - [Sentence](classes/Sentence.md)
@@ -97,6 +99,7 @@ Lambda ORM
 - [SentenceSerializerImp](classes/SentenceSerializerImp.md)
 - [SintaxisError](classes/SintaxisError.md)
 - [Sort](classes/Sort.md)
+- [SqlHelper](classes/SqlHelper.md)
 - [StageActionDDL](classes/StageActionDDL.md)
 - [StageActionDML](classes/StageActionDML.md)
 - [StageConfigService](classes/StageConfigService.md)
@@ -112,12 +115,14 @@ Lambda ORM
 - [StageSync](classes/StageSync.md)
 - [StageTruncate](classes/StageTruncate.md)
 - [Transaction](classes/Transaction.md)
+- [UUIDWrapper](classes/UUIDWrapper.md)
 - [Update](classes/Update.md)
 - [UpdateSchema](classes/UpdateSchema.md)
 - [Upsert](classes/Upsert.md)
 - [ValidationError](classes/ValidationError.md)
 - [ViewConfigService](classes/ViewConfigService.md)
 - [ViewsConfigService](classes/ViewsConfigService.md)
+- [YamlWrapper](classes/YamlWrapper.md)
 
 ### Interfaces
 
@@ -357,7 +362,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:265](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/orm/infrastructure/orm.ts#L265)
+[src/lib/orm/infrastructure/orm.ts:265](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/orm/infrastructure/orm.ts#L265)
 
 ## Functions
 

@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/shared/infrastructure/helper.ts#L25)
+[src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/shared/infrastructure/helper.ts#L25)
 
 ## Properties
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/3a79940e5d210908a3ae425c5f0e458704e6a47a/src/lib/shared/infrastructure/helper.ts#L24)
+[src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/shared/infrastructure/helper.ts#L24)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 ### sql
 
-• **sql**: `SqlHelper`
+• **sql**: [`SqlHelper`](SqlHelper.md)
 
 #### Inherited from
 
@@ -240,7 +240,7 @@ ___
 
 ### uuid
 
-• **uuid**: `UUIDWrapper`
+• **uuid**: [`UUIDWrapper`](UUIDWrapper.md)
 
 #### Inherited from
 
@@ -268,7 +268,7 @@ ___
 
 ### yaml
 
-• **yaml**: `YamlWrapper`
+• **yaml**: [`YamlWrapper`](YamlWrapper.md)
 
 #### Inherited from
 

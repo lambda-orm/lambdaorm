@@ -33,7 +33,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `schemaService` | `SchemaService` |
+| `schemaService` | [`SchemaService`](SchemaService.md) |
 | `getSchemaData` | [`GetSchemaSchema`](GetSchemaSchema.md) |
 | `extender` | [`SchemaExtender`](SchemaExtender.md) |
 | `createSchema` | [`CreateSchema`](CreateSchema.md) |
@@ -54,7 +54,7 @@ node_modules/lambdaorm-base/schema/application/facade.d.ts:20
 
 ### schemaService
 
-• `Readonly` **schemaService**: `SchemaService`
+• `Readonly` **schemaService**: [`SchemaService`](SchemaService.md)
 
 #### Defined in
 

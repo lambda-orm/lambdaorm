@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [1.10.6](https://github.com/lambda-orm/lambdaorm/compare/v1.10.5...v1.10.6) (2024-04-23)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * **mongo:** solve any value of parameter ([eea0ea6](https://github.com/lambda-orm/lambdaorm/commit/eea0ea6aa81c217ba44fd7ff66a56721998cb5fa)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 

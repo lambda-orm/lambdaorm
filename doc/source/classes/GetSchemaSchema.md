@@ -22,7 +22,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `interpretSchemaDataService` | `InterpretSchemaDataService` |
+| `interpretSchemaDataService` | [`InterpretSchemaDataService`](InterpretSchemaDataService.md) |
 
 #### Returns
 

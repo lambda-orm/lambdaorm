@@ -167,7 +167,7 @@ ___
 
 ### sql
 
-• **sql**: `SqlHelper`
+• **sql**: [`SqlHelper`](SqlHelper.md)
 
 #### Defined in
 
@@ -219,7 +219,7 @@ ___
 
 ### uuid
 
-• **uuid**: `UUIDWrapper`
+• **uuid**: [`UUIDWrapper`](UUIDWrapper.md)
 
 #### Defined in
 
@@ -243,7 +243,7 @@ ___
 
 ### yaml
 
-• **yaml**: `YamlWrapper`
+• **yaml**: [`YamlWrapper`](YamlWrapper.md)
 
 #### Defined in
 
