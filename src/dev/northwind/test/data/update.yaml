@@ -187,14 +187,14 @@ data:
         country: Germany
         details:
           - orderId: 5
-            productId: 28
-            unitPrice: '45.6000'
-            quantity: '2.0000'
-            discount: '0.0000'
-          - orderId: 5
             productId: 6
             unitPrice: '25.0000'
             quantity: '16.0000'
+            discount: '0.0000'
+          - orderId: 5
+            productId: 28
+            unitPrice: '45.6000'
+            quantity: '2.0000'
             discount: '0.0000'
       - id: 6
         customerId: ALFKI
@@ -2635,14 +2635,14 @@ test:
             country: Germany
             details:
               - orderId: 5
-                productId: 28
-                unitPrice: '45.6000'
-                quantity: '2.0000'
-                discount: '0.0000'
-              - orderId: 5
                 productId: 6
                 unitPrice: '25.0000'
                 quantity: '16.0000'
+                discount: '0.0000'
+              - orderId: 5
+                productId: 28
+                unitPrice: '45.6000'
+                quantity: '2.0000'
                 discount: '0.0000'
           - id: 6
             customerId: ALFKI

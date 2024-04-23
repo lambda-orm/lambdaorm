@@ -124,56 +124,12 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 
 function equal (a:any, b:any, options:ObjectEqualOptions): boolean {
 	if (!options.strict) {
-		const _a = sort(a)
-		const _b = sort(b)
+		const _a = h3lp.obj.sort(a)
+		const _b = h3lp.obj.sort(b)
 		return JSON.stringify(_a) === JSON.stringify(_b)
 	} else {
 		return JSON.stringify(a) === JSON.stringify(b)
 	}
-}
-
-function sort (source: any):any {
-	const target:any = {}
-	if (source === null) {
-		return null
-	} else if (Array.isArray(source)) {
-		const propertyKey = getKeyProperty(source[0])
-		if (propertyKey) {
-			const result = source.sort((a:any, b:any) => a[propertyKey] > b[propertyKey] ? 1 : -1).map((p:any) => sort(p))
-			return result
-		} else {
-			const result = source.sort((a:any, b:any) => JSON.stringify(a) > JSON.stringify(b) ? 1 : -1).map((p:any) => sort(p))
-			return result
-		}
-	} else if (typeof source === 'object') {
-		for (const key of Object.keys(source).sort()) {
-			if (source[key] === null) {
-				target[key] = null
-			} else if (Array.isArray(source[key])) {
-				const propertyKey = getKeyProperty(source[key][0])
-				if (propertyKey) {
-					target[key] = source[key].sort((a:any, b:any) => a[propertyKey] > b[propertyKey] ? 1 : -1).map((p:any) => sort(p))
-				} else {
-					target[key] = source[key].sort((a:any, b:any) => JSON.stringify(a) > JSON.stringify(b) ? 1 : -1).map((p:any) => sort(p))
-				}
-			} else if (typeof source[key] === 'object') {
-				target[key] = sort(source[key])
-			} else {
-				target[key] = source[key]
-			}
-		}
-	}
-	return target
-}
-
-function getKeyProperty (sources:any, alternatives:string[] = ['id', 'code', 'name', 'key']):string|undefined {
-	const propertiesName = Object.keys(sources).map(p => p.toLowerCase())
-	for (const alternative of alternatives) {
-		if (propertiesName.includes(alternative.toLowerCase())) {
-			return alternative
-		}
-	}
-	return undefined
 }
 
 async function writeQueryTest (stages: string[]): Promise<number> {

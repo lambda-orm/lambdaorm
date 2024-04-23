@@ -3440,12 +3440,12 @@ test:
             postalCode: '51100'
             country: France
             details:
-              - quantity: 10
-                unitPrice: 9.8
-                productId: 42
               - quantity: 12
                 unitPrice: 14
                 productId: 11
+              - quantity: 10
+                unitPrice: 9.8
+                productId: 42
               - quantity: 5
                 unitPrice: 34.8
                 productId: 72
@@ -3476,12 +3476,12 @@ test:
         postalCode: '51100'
         country: France
         details:
-          - quantity: 10
-            unitPrice: 9.8
-            productId: 42
           - quantity: 12
             unitPrice: 14
             productId: 11
+          - quantity: 10
+            unitPrice: 9.8
+            productId: 42
           - quantity: 5
             unitPrice: 34.8
             productId: 72
@@ -4125,20 +4125,6 @@ test:
             postalCode: '51100'
             country: France
             details:
-              - quantity: 10
-                unitPrice: 9.8
-                productId: 42
-                product:
-                  id: 42
-                  name: Singaporean Hokkien Fried Mee
-                  supplierId: 20
-                  categoryId: 5
-                  quantity: 32 - 1 kg pkgs.
-                  price: 14
-                  inStock: 26
-                  onOrder: 0
-                  reorderLevel: 0
-                  discontinued: true
               - quantity: 12
                 unitPrice: 14
                 productId: 11
@@ -4153,6 +4139,20 @@ test:
                   onOrder: 30
                   reorderLevel: 30
                   discontinued: false
+              - quantity: 10
+                unitPrice: 9.8
+                productId: 42
+                product:
+                  id: 42
+                  name: Singaporean Hokkien Fried Mee
+                  supplierId: 20
+                  categoryId: 5
+                  quantity: 32 - 1 kg pkgs.
+                  price: 14
+                  inStock: 26
+                  onOrder: 0
+                  reorderLevel: 0
+                  discontinued: true
               - quantity: 5
                 unitPrice: 34.8
                 productId: 72
@@ -4194,20 +4194,6 @@ test:
         postalCode: '51100'
         country: France
         details:
-          - quantity: 10
-            unitPrice: 9.8
-            productId: 42
-            product:
-              id: 42
-              name: Singaporean Hokkien Fried Mee
-              supplierId: 20
-              categoryId: 5
-              quantity: 32 - 1 kg pkgs.
-              price: 14
-              inStock: 26
-              onOrder: 0
-              reorderLevel: 0
-              discontinued: true
           - quantity: 12
             unitPrice: 14
             productId: 11
@@ -4222,6 +4208,20 @@ test:
               onOrder: 30
               reorderLevel: 30
               discontinued: false
+          - quantity: 10
+            unitPrice: 9.8
+            productId: 42
+            product:
+              id: 42
+              name: Singaporean Hokkien Fried Mee
+              supplierId: 20
+              categoryId: 5
+              quantity: 32 - 1 kg pkgs.
+              price: 14
+              inStock: 26
+              onOrder: 0
+              reorderLevel: 0
+              discontinued: true
           - quantity: 5
             unitPrice: 34.8
             productId: 72
@@ -4822,18 +4822,18 @@ test:
             postalCode: '51100'
             country: France
             details:
-              - quantity: 10
-                unitPrice: 9.8
-                product:
-                  name: Singaporean Hokkien Fried Mee
-                  category:
-                    name: Grains/Cereals
               - quantity: 12
                 unitPrice: 14
                 product:
                   name: Queso Cabrales
                   category:
                     name: Dairy Products
+              - quantity: 10
+                unitPrice: 9.8
+                product:
+                  name: Singaporean Hokkien Fried Mee
+                  category:
+                    name: Grains/Cereals
               - quantity: 5
                 unitPrice: 34.8
                 product:
@@ -4861,18 +4861,18 @@ test:
         customer:
           name: Vins et alcools Chevalier
         details:
-          - quantity: 10
-            unitPrice: 9.8
-            product:
-              name: Singaporean Hokkien Fried Mee
-              category:
-                name: Grains/Cereals
           - quantity: 12
             unitPrice: 14
             product:
               name: Queso Cabrales
               category:
                 name: Dairy Products
+          - quantity: 10
+            unitPrice: 9.8
+            product:
+              name: Singaporean Hokkien Fried Mee
+              category:
+                name: Grains/Cereals
           - quantity: 5
             unitPrice: 34.8
             product:

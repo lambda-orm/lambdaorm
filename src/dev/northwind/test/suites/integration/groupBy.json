@@ -820,36 +820,36 @@
           "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
           "result": [
             {
-              "category": 5,
-              "largestPrice": 38
-            },
-            {
-              "category": 8,
-              "largestPrice": 62.5
-            },
-            {
               "category": 3,
               "largestPrice": 81
             },
             {
-              "category": 7,
-              "largestPrice": 53
-            },
-            {
-              "category": 2,
-              "largestPrice": 43.9
+              "category": 5,
+              "largestPrice": 38
             },
             {
               "category": 1,
               "largestPrice": 263.5
             },
             {
+              "category": 4,
+              "largestPrice": 55
+            },
+            {
               "category": 6,
               "largestPrice": 123.79
             },
             {
-              "category": 4,
-              "largestPrice": 55
+              "category": 2,
+              "largestPrice": 43.9
+            },
+            {
+              "category": 7,
+              "largestPrice": 53
+            },
+            {
+              "category": 8,
+              "largestPrice": 62.5
             }
           ]
         },
@@ -861,20 +861,20 @@
               "largestPrice": 263.5
             },
             {
-              "category": "Seafood",
-              "largestPrice": 62.5
-            },
-            {
-              "category": "Dairy Products",
-              "largestPrice": 55
+              "category": "Condiments",
+              "largestPrice": 43.9
             },
             {
               "category": "Meat/Poultry",
               "largestPrice": 123.79
             },
             {
-              "category": "Condiments",
-              "largestPrice": 43.9
+              "category": "Seafood",
+              "largestPrice": 62.5
+            },
+            {
+              "category": "Dairy Products",
+              "largestPrice": 55
             },
             {
               "category": "Grains/Cereals",
@@ -904,12 +904,12 @@
           "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
           "result": [
             {
-              "category": "Beverages",
-              "largestPrice": 263.5
-            },
-            {
               "category": "Meat/Poultry",
               "largestPrice": 123.79
+            },
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
             }
           ]
         },

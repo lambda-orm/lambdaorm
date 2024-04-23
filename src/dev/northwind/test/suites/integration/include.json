@@ -2955,8 +2955,35 @@
       "tests": [
         {
           "test": "Orders.filter(p => p.id === id).include(p => p.customer)",
-          "error": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__customerId\\\":\\\"$CustomerID\\\"}} ]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__customerId\\\":\\\"$CustomerID\\\"}} ]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
         },
         {
           "test": "Orders.filter(p => p.id === id).include(p => p.details)",
@@ -3004,33 +3031,445 @@
         },
         {
           "test": "Orders.filter(p => p.id === id).include(p => [p.details, p.customer])",
-          "error": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\", \\\"__customerId\\\":\\\"$CustomerID\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"orderId\\\":\\\"$$this.OrderID\\\", \\\"productId\\\":\\\"$$this.ProductID\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"discount\\\":\\\"$$this.Discount\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\", \\\"__customerId\\\":\\\"$CustomerID\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"orderId\\\":\\\"$$this.OrderID\\\", \\\"productId\\\":\\\"$$this.ProductID\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"discount\\\":\\\"$$this.Discount\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 28,
+                  "unitPrice": "45.6000",
+                  "quantity": "15.0000",
+                  "discount": "0.0000"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 39,
+                  "unitPrice": "18.0000",
+                  "quantity": "21.0000",
+                  "discount": "0.0000"
+                },
+                {
+                  "orderId": 1,
+                  "productId": 46,
+                  "unitPrice": "12.0000",
+                  "quantity": "2.0000",
+                  "discount": "0.0000"
+                }
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
         },
         {
           "test": "Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product), p.customer]) ",
-          "error": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\", \\\"__customerId\\\":\\\"$CustomerID\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"orderId\\\":\\\"$$this.OrderID\\\", \\\"productId\\\":\\\"$$this.ProductID\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"discount\\\":\\\"$$this.Discount\\\", \\\"__productId\\\":\\\"$$this.ProductID\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\", \\\"__customerId\\\":\\\"$CustomerID\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"orderId\\\":\\\"$$this.OrderID\\\", \\\"productId\\\":\\\"$$this.ProductID\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"discount\\\":\\\"$$this.Discount\\\", \\\"__productId\\\":\\\"$$this.ProductID\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 28,
+                  "unitPrice": "45.6000",
+                  "quantity": "15.0000",
+                  "discount": "0.0000",
+                  "product": {
+                    "id": 28,
+                    "name": "Rssle Sauerkraut",
+                    "supplierId": 12,
+                    "categoryId": 7,
+                    "quantity": "25 - 825 g cans",
+                    "price": 45.6,
+                    "inStock": 26,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": true
+                  }
+                },
+                {
+                  "orderId": 1,
+                  "productId": 39,
+                  "unitPrice": "18.0000",
+                  "quantity": "21.0000",
+                  "discount": "0.0000",
+                  "product": {
+                    "id": 39,
+                    "name": "Chartreuse verte",
+                    "supplierId": 18,
+                    "categoryId": 1,
+                    "quantity": "750 cc per bottle",
+                    "price": 18,
+                    "inStock": 69,
+                    "onOrder": 0,
+                    "reorderLevel": 5,
+                    "discontinued": false
+                  }
+                },
+                {
+                  "orderId": 1,
+                  "productId": 46,
+                  "unitPrice": "12.0000",
+                  "quantity": "2.0000",
+                  "discount": "0.0000",
+                  "product": {
+                    "id": 46,
+                    "name": "Spegesild",
+                    "supplierId": 21,
+                    "categoryId": 8,
+                    "quantity": "4 - 450 g glasses",
+                    "price": 12,
+                    "inStock": 95,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": false
+                  }
+                }
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
         },
         {
           "test": "Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product.include(p => p.category)), p.customer]) ",
-          "error": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\", \\\"__customerId\\\":\\\"$CustomerID\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"orderId\\\":\\\"$$this.OrderID\\\", \\\"productId\\\":\\\"$$this.ProductID\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"discount\\\":\\\"$$this.Discount\\\", \\\"__productId\\\":\\\"$$this.ProductID\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\", \\\"__customerId\\\":\\\"$CustomerID\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"orderId\\\":\\\"$$this.OrderID\\\", \\\"productId\\\":\\\"$$this.ProductID\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"discount\\\":\\\"$$this.Discount\\\", \\\"__productId\\\":\\\"$$this.ProductID\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "orderId": 1,
+                  "productId": 28,
+                  "unitPrice": "45.6000",
+                  "quantity": "15.0000",
+                  "discount": "0.0000",
+                  "product": {
+                    "id": 28,
+                    "name": "Rssle Sauerkraut",
+                    "supplierId": 12,
+                    "categoryId": 7,
+                    "quantity": "25 - 825 g cans",
+                    "price": 45.6,
+                    "inStock": 26,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": true,
+                    "category": {
+                      "id": 7,
+                      "name": "Produce",
+                      "description": "Dried fruit and bean curd"
+                    }
+                  }
+                },
+                {
+                  "orderId": 1,
+                  "productId": 39,
+                  "unitPrice": "18.0000",
+                  "quantity": "21.0000",
+                  "discount": "0.0000",
+                  "product": {
+                    "id": 39,
+                    "name": "Chartreuse verte",
+                    "supplierId": 18,
+                    "categoryId": 1,
+                    "quantity": "750 cc per bottle",
+                    "price": 18,
+                    "inStock": 69,
+                    "onOrder": 0,
+                    "reorderLevel": 5,
+                    "discontinued": false,
+                    "category": {
+                      "id": 1,
+                      "name": "Beverages",
+                      "description": "Soft drinks, coffees, teas, beers, and ales"
+                    }
+                  }
+                },
+                {
+                  "orderId": 1,
+                  "productId": 46,
+                  "unitPrice": "12.0000",
+                  "quantity": "2.0000",
+                  "discount": "0.0000",
+                  "product": {
+                    "id": 46,
+                    "name": "Spegesild",
+                    "supplierId": 21,
+                    "categoryId": 8,
+                    "quantity": "4 - 450 g glasses",
+                    "price": 12,
+                    "inStock": 95,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": false,
+                    "category": {
+                      "id": 8,
+                      "name": "Seafood",
+                      "description": "Seaweed and fish"
+                    }
+                  }
+                }
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
         },
         {
           "test": "Orders.filter(p => p.id === id).include(p => [p.details.map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])",
-          "error": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\", \\\"__customerId\\\":\\\"$CustomerID\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"productId\\\":\\\"$$this.ProductID\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\", \\\"__customerId\\\":\\\"$CustomerID\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"productId\\\":\\\"$$this.ProductID\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "quantity": "15.0000",
+                  "unitPrice": "45.6000",
+                  "productId": 28
+                },
+                {
+                  "quantity": "21.0000",
+                  "unitPrice": "18.0000",
+                  "productId": 39
+                },
+                {
+                  "quantity": "2.0000",
+                  "unitPrice": "12.0000",
+                  "productId": 46
+                }
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
         },
         {
           "test": "Orders.filter(p => p.id === id).include(p => [p.details.include(q => q.product).map(p => ({ quantity: p.quantity, unitPrice: p.unitPrice, productId: p.productId })), p.customer])",
-          "error": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\", \\\"__customerId\\\":\\\"$CustomerID\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"productId\\\":\\\"$$this.ProductID\\\", \\\"__productId\\\":\\\"$$this.ProductID\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"name\\\":\\\"$CompanyName\\\", \\\"contact\\\":\\\"$ContactName\\\", \\\"phone\\\":\\\"$ContactTitle\\\", \\\"address\\\":\\\"$Address\\\", \\\"city\\\":\\\"$City\\\", \\\"region\\\":\\\"$Region\\\", \\\"postalCode\\\":\\\"$PostalCode\\\", \\\"country\\\":\\\"$Country\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\", \\\"__customerId\\\":\\\"$CustomerID\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"productId\\\":\\\"$$this.ProductID\\\", \\\"__productId\\\":\\\"$$this.ProductID\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "quantity": "15.0000",
+                  "unitPrice": "45.6000",
+                  "productId": 28,
+                  "product": {
+                    "id": 28,
+                    "name": "Rssle Sauerkraut",
+                    "supplierId": 12,
+                    "categoryId": 7,
+                    "quantity": "25 - 825 g cans",
+                    "price": 45.6,
+                    "inStock": 26,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": true
+                  }
+                },
+                {
+                  "quantity": "21.0000",
+                  "unitPrice": "18.0000",
+                  "productId": 39,
+                  "product": {
+                    "id": 39,
+                    "name": "Chartreuse verte",
+                    "supplierId": 18,
+                    "categoryId": 1,
+                    "quantity": "750 cc per bottle",
+                    "price": 18,
+                    "inStock": 69,
+                    "onOrder": 0,
+                    "reorderLevel": 5,
+                    "discontinued": false
+                  }
+                },
+                {
+                  "quantity": "2.0000",
+                  "unitPrice": "12.0000",
+                  "productId": 46,
+                  "product": {
+                    "id": 46,
+                    "name": "Spegesild",
+                    "supplierId": 21,
+                    "categoryId": 8,
+                    "quantity": "4 - 450 g glasses",
+                    "price": 12,
+                    "inStock": 95,
+                    "onOrder": 0,
+                    "reorderLevel": 0,
+                    "discontinued": false
+                  }
+                }
+              ],
+              "customer": {
+                "id": "ALFKI",
+                "name": "Alfreds Futterkiste",
+                "contact": "Maria Anders",
+                "phone": "Sales Representative",
+                "address": "Obere Str. 57",
+                "city": "Berlin",
+                "region": null,
+                "postalCode": "12209",
+                "country": "Germany"
+              }
+            }
+          ]
         },
         {
           "test": "Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])",
-          "error": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"name\\\":\\\"$CompanyName\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__customerId\\\":\\\"$CustomerID\\\", \\\"__id\\\":\\\"$_id\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"__productId\\\":\\\"$$this.ProductID\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: ERROR: Unexpected token 'A', ...\"\":{\"$in\":[ALFKI]} }}\"... is not valid JSON SOURCE: MongoDB ENTITY: Customers QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{\\\"$in\\\":[{{LambdaOrmParentId}}]} }}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"name\\\":\\\"$CompanyName\\\", \\\"LambdaOrmParentId\\\":\\\"$_id\\\"}} ]\"  DATA:{\"data\":{\"id\":1,\"LambdaOrmParentId\":[\"ALFKI\"]},\"parent\":null} SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__customerId\\\":\\\"$CustomerID\\\", \\\"__id\\\":\\\"$_id\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"quantity\\\":\\\"$$this.Quantity\\\", \\\"unitPrice\\\":\\\"$$this.UnitPrice\\\", \\\"__productId\\\":\\\"$$this.ProductID\\\", \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "result": [
+            {
+              "id": 1,
+              "customerId": "ALFKI",
+              "employeeId": 6,
+              "orderDate": "1997-08-25T00:00:00.000+02:00",
+              "requiredDate": "1997-09-22",
+              "shippedDate": "1997-09-02",
+              "shipViaId": 1,
+              "freight": "29.4600",
+              "name": "Alfreds Futterkiste",
+              "address": "Obere Str. 57",
+              "city": "Berlin",
+              "region": null,
+              "postalCode": "12209",
+              "country": "Germany",
+              "details": [
+                {
+                  "quantity": "15.0000",
+                  "unitPrice": "45.6000",
+                  "product": {
+                    "name": "Rssle Sauerkraut",
+                    "category": {
+                      "name": "Produce"
+                    }
+                  }
+                },
+                {
+                  "quantity": "21.0000",
+                  "unitPrice": "18.0000",
+                  "product": {
+                    "name": "Chartreuse verte",
+                    "category": {
+                      "name": "Beverages"
+                    }
+                  }
+                },
+                {
+                  "quantity": "2.0000",
+                  "unitPrice": "12.0000",
+                  "product": {
+                    "name": "Spegesild",
+                    "category": {
+                      "name": "Seafood"
+                    }
+                  }
+                }
+              ],
+              "customer": {
+                "name": "Alfreds Futterkiste"
+              }
+            }
+          ]
         },
         {
           "test": "Orders.filter(p => p.id === id).include(p=> p.details.map(p=> [p,p.product,p.product.category])).map(p=> [p,p.customer])",
@@ -3048,7 +3487,7 @@
           "stack": "ExecutionError: ERROR: Invalid $project :: caused by :: FieldPath field names may not contain '.'. Consider using $getField or $setField. SOURCE: MongoDB ENTITY: Orders QUERY: \"[{\\\"$match\\\":{\\\"_id\\\":{{id}}}}, {\\\"$project\\\":{\\\"_id\\\":0,\\\"id\\\":\\\"$_id\\\", \\\"customerId\\\":\\\"$CustomerID\\\", \\\"employeeId\\\":\\\"$EmployeeID\\\", \\\"orderDate\\\":\\\"$OrderDate\\\", \\\"requiredDate\\\":\\\"$RequiredDate\\\", \\\"shippedDate\\\":\\\"$ShippedDate\\\", \\\"shipViaId\\\":\\\"$ShipVia\\\", \\\"freight\\\":\\\"$Freight\\\", \\\"name\\\":\\\"$ShipName\\\", \\\"address\\\":\\\"$ShipAddress\\\", \\\"city\\\":\\\"$ShipCity\\\", \\\"region\\\":\\\"$ShipRegion\\\", \\\"postalCode\\\":\\\"$ShipPostalCode\\\", \\\"country\\\":\\\"$ShipCountry\\\", \\\"__id\\\":\\\"$_id\\\" ,\\\"details\\\":{\\\"$map\\\":{\\\"input\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\",\\\"in\\\":{\\\"orderId\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.o1.OrderID\\\",0]}, \\\"productId\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.o1.ProductID\\\",0]}, \\\"unitPrice\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.o1.UnitPrice\\\",0]}, \\\"quantity\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.o1.Quantity\\\",0]}, \\\"discount\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.o1.Discount\\\",0]}, \\\"product.id\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.p._id\\\",0]}, \\\"product.name\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.p.ProductName\\\",0]}, \\\"product.supplierId\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.p.SupplierID\\\",0]}, \\\"product.categoryId\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.p.CategoryID\\\",0]}, \\\"product.quantity\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.p.QuantityPerUnit\\\",0]}, \\\"product.price\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.p.UnitPrice\\\",0]}, \\\"product.inStock\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.p.UnitsInStock\\\",0]}, \\\"product.onOrder\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.p.UnitsOnOrder\\\",0]}, \\\"product.reorderLevel\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.p.ReorderLevel\\\",0]}, \\\"product.discontinued\\\":{\\\"$arrayElemAt\\\":[\\\"$$this.p.Discontinued\\\",0]}, \\\"LambdaOrmParentId\\\":\\\"$$this.OrderID\\\"}}}}} ]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
         }
       ],
-      "errors": 10
+      "errors": 3
     },
     {
       "name": "Oracle",
@@ -3824,5 +4263,5 @@
       "errors": 0
     }
   ],
-  "errors": 10
+  "errors": 3
 }
