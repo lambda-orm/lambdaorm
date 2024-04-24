@@ -274,7 +274,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {"set":"{\"CustomerID\":\"$$customerId$$\",\"EmployeeID\":\"$$employeeId$$\",\"OrderDate\":\"$$orderDate$$\",\"RequiredDate\":\"$$requiredDate$$\",\"ShippedDate\":\"$$shippedDate$$\",\"ShipVia\":\"$$shipViaId$$\",\"Freight\":\"$$freight$$\",\"ShipName\":\"$$name$$\",\"ShipAddress\":\"$$address$$\",\"ShipCity\":\"$$city$$\",\"ShipRegion\":\"$$region$$\",\"ShipPostalCode\":\"$$postalCode$$\",\"ShipCountry\":\"$$country$$\"}","filter":"{\"_id\":\"$$id$$\"}"}
+            {"set":"{\"CustomerID\":\"$customerId$\",\"EmployeeID\":\"$employeeId$\",\"OrderDate\":\"$orderDate$\",\"RequiredDate\":\"$requiredDate$\",\"ShippedDate\":\"$shippedDate$\",\"ShipVia\":\"$shipViaId$\",\"Freight\":\"$freight$\",\"ShipName\":\"$name$\",\"ShipAddress\":\"$address$\",\"ShipCity\":\"$city$\",\"ShipRegion\":\"$region$\",\"ShipPostalCode\":\"$postalCode$\",\"ShipCountry\":\"$country$\"}","filter":"{\"_id\":\"$id$\"}"}
       - stage: Oracle
         info:
           entity: Orders
@@ -515,7 +515,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {"set":"{\"CustomerID\":\"$$entity_customerId$$\",\"EmployeeID\":\"$$entity_employeeId$$\",\"OrderDate\":\"$$entity_orderDate$$\",\"RequiredDate\":\"$$entity_requiredDate$$\",\"ShippedDate\":\"$$entity_shippedDate$$\",\"ShipVia\":\"$$entity_shipViaId$$\",\"Freight\":\"$$entity_freight$$\",\"ShipName\":\"$$entity_name$$\",\"ShipAddress\":\"$$entity_address$$\",\"ShipCity\":\"$$entity_city$$\",\"ShipRegion\":\"$$entity_region$$\",\"ShipPostalCode\":\"$$entity_postalCode$$\",\"ShipCountry\":\"$$entity_country$$\"}","filter":"{\"_id\":\"$$entity_id$$\"}"}
+            {"set":"{\"CustomerID\":\"$entity_customerId$\",\"EmployeeID\":\"$entity_employeeId$\",\"OrderDate\":\"$entity_orderDate$\",\"RequiredDate\":\"$entity_requiredDate$\",\"ShippedDate\":\"$entity_shippedDate$\",\"ShipVia\":\"$entity_shipViaId$\",\"Freight\":\"$entity_freight$\",\"ShipName\":\"$entity_name$\",\"ShipAddress\":\"$entity_address$\",\"ShipCity\":\"$entity_city$\",\"ShipRegion\":\"$entity_region$\",\"ShipPostalCode\":\"$entity_postalCode$\",\"ShipCountry\":\"$entity_country$\"}","filter":"{\"_id\":\"$entity_id$\"}"}
       - stage: Oracle
         info:
           entity: Orders
@@ -735,7 +735,7 @@ test:
           entity: Orders
           dialect: MongoDB
           source: MongoDB
-          sentence: '{"set":"{\"ShipPostalCode\":\"$$postalCode$$\"}","filter":"{}"}'
+          sentence: '{"set":"{\"ShipPostalCode\":\"$postalCode$\"}","filter":"{}"}'
       - stage: Oracle
         info:
           entity: Orders
@@ -819,7 +819,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {"set":"{\"ShipName\":\"$$entity_name$$\"}","filter":"{\"_id\":\"$$entity_id$$\"}"}
+            {"set":"{\"ShipName\":\"$entity_name$\"}","filter":"{\"_id\":\"$entity_id$\"}"}
       - stage: Oracle
         info:
           entity: Orders
@@ -974,18 +974,18 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {"set":"{\"ShipName\":\"$$entity_name$$\"}","filter":"{\"_id\":\"$$entity_id$$\"}"}
+            {"set":"{\"ShipName\":\"$entity_name$\"}","filter":"{\"_id\":\"$entity_id$\"}"}
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {"set":"{\"OrderID\":\"$$orderId$$\",\"ProductID\":\"$$productId$$\",\"UnitPrice\":\"$$unitPrice$$\",\"Quantity\":\"$$quantity$$\",\"Discount\":\"$$discount$$\"}","filter":"{\"$and\":[{\"OrderID\":\"$$orderId$$\"},{\"ProductID\":\"$$productId$$\"}]}"}
+                {"set":"{\"OrderID\":\"$orderId$\",\"ProductID\":\"$productId$\",\"UnitPrice\":\"$unitPrice$\",\"Quantity\":\"$quantity$\",\"Discount\":\"$discount$\"}","filter":"{\"$and\":[{\"OrderID\":\"$orderId$\"},{\"ProductID\":\"$productId$\"}]}"}
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {"set":"{\"OrderID\":\"$$orderId$$\",\"ProductID\":\"$$productId$$\",\"UnitPrice\":\"$$unitPrice$$\",\"Quantity\":\"$$quantity$$\",\"Discount\":\"$$discount$$\"}","filter":"{\"$and\":[{\"OrderID\":\"$$orderId$$\"},{\"ProductID\":\"$$productId$$\"}]}"}
+                {"set":"{\"OrderID\":\"$orderId$\",\"ProductID\":\"$productId$\",\"UnitPrice\":\"$unitPrice$\",\"Quantity\":\"$quantity$\",\"Discount\":\"$discount$\"}","filter":"{\"$and\":[{\"OrderID\":\"$orderId$\"},{\"ProductID\":\"$productId$\"}]}"}
       - stage: Oracle
         info:
           entity: Orders
@@ -1230,18 +1230,18 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {"set":"{\"ShipName\":\"$$entity_name$$\"}","filter":"{\"_id\":\"$$entity_id$$\"}"}
+            {"set":"{\"ShipName\":\"$entity_name$\"}","filter":"{\"_id\":\"$entity_id$\"}"}
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {"set":"{\"UnitPrice\":\"$$unitPrice$$\",\"Quantity\":\"$$quantity$$\",\"Discount\":\"$$discount$$\"}","filter":"{\"$and\":[{\"OrderID\":\"$$orderId$$\"},{\"ProductID\":\"$$productId$$\"}]}"}
+                {"set":"{\"UnitPrice\":\"$unitPrice$\",\"Quantity\":\"$quantity$\",\"Discount\":\"$discount$\"}","filter":"{\"$and\":[{\"OrderID\":\"$orderId$\"},{\"ProductID\":\"$productId$\"}]}"}
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {"set":"{\"UnitPrice\":\"$$unitPrice$$\",\"Quantity\":\"$$quantity$$\",\"Discount\":\"$$discount$$\"}","filter":"{\"$and\":[{\"OrderID\":\"$$orderId$$\"},{\"ProductID\":\"$$productId$$\"}]}"}
+                {"set":"{\"UnitPrice\":\"$unitPrice$\",\"Quantity\":\"$quantity$\",\"Discount\":\"$discount$\"}","filter":"{\"$and\":[{\"OrderID\":\"$orderId$\"},{\"ProductID\":\"$productId$\"}]}"}
       - stage: Oracle
         info:
           entity: Orders
@@ -1465,18 +1465,18 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {"set":"{\"ShipName\":\"$$entity_name$$\"}","filter":"{\"_id\":\"$$entity_id$$\"}"}
+            {"set":"{\"ShipName\":\"$entity_name$\"}","filter":"{\"_id\":\"$entity_id$\"}"}
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {"set":"{\"UnitPrice\":\"UnitPrice\",\"ProductID\":\"ProductID\"}","filter":"{\"$and\":[{\"OrderID\":\"$$orderId$$\"},{\"ProductID\":\"$$productId$$\"}]}"}
+                {"set":"{\"UnitPrice\":\"UnitPrice\",\"ProductID\":\"ProductID\"}","filter":"{\"$and\":[{\"OrderID\":\"$orderId$\"},{\"ProductID\":\"$productId$\"}]}"}
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {"set":"{\"UnitPrice\":\"UnitPrice\",\"ProductID\":\"ProductID\"}","filter":"{\"$and\":[{\"OrderID\":\"$$orderId$$\"},{\"ProductID\":\"$$productId$$\"}]}"}
+                {"set":"{\"UnitPrice\":\"UnitPrice\",\"ProductID\":\"ProductID\"}","filter":"{\"$and\":[{\"OrderID\":\"$orderId$\"},{\"ProductID\":\"$productId$\"}]}"}
       - stage: Oracle
         info:
           entity: Orders
@@ -1706,18 +1706,18 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {"set":"{\"CustomerID\":\"$$customerId$$\",\"EmployeeID\":\"$$employeeId$$\",\"OrderDate\":\"$$orderDate$$\",\"RequiredDate\":\"$$requiredDate$$\",\"ShippedDate\":\"$$shippedDate$$\",\"ShipVia\":\"$$shipViaId$$\",\"Freight\":\"$$freight$$\",\"ShipName\":\"$$name$$\",\"ShipAddress\":\"$$address$$\",\"ShipCity\":\"$$city$$\",\"ShipRegion\":\"$$region$$\",\"ShipPostalCode\":\"$$postalCode$$\",\"ShipCountry\":\"$$country$$\"}","filter":"{\"_id\":\"$$id$$\"}"}
+            {"set":"{\"CustomerID\":\"$customerId$\",\"EmployeeID\":\"$employeeId$\",\"OrderDate\":\"$orderDate$\",\"RequiredDate\":\"$requiredDate$\",\"ShippedDate\":\"$shippedDate$\",\"ShipVia\":\"$shipViaId$\",\"Freight\":\"$freight$\",\"ShipName\":\"$name$\",\"ShipAddress\":\"$address$\",\"ShipCity\":\"$city$\",\"ShipRegion\":\"$region$\",\"ShipPostalCode\":\"$postalCode$\",\"ShipCountry\":\"$country$\"}","filter":"{\"_id\":\"$id$\"}"}
           children:
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {"set":"{\"OrderID\":\"$$orderId$$\",\"ProductID\":\"$$productId$$\",\"UnitPrice\":\"$$unitPrice$$\",\"Quantity\":\"$$quantity$$\",\"Discount\":\"$$discount$$\"}","filter":"{\"$and\":[{\"OrderID\":\"$$orderId$$\"},{\"ProductID\":\"$$productId$$\"}]}"}
+                {"set":"{\"OrderID\":\"$orderId$\",\"ProductID\":\"$productId$\",\"UnitPrice\":\"$unitPrice$\",\"Quantity\":\"$quantity$\",\"Discount\":\"$discount$\"}","filter":"{\"$and\":[{\"OrderID\":\"$orderId$\"},{\"ProductID\":\"$productId$\"}]}"}
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {"set":"{\"OrderID\":\"$$orderId$$\",\"ProductID\":\"$$productId$$\",\"UnitPrice\":\"$$unitPrice$$\",\"Quantity\":\"$$quantity$$\",\"Discount\":\"$$discount$$\"}","filter":"{\"$and\":[{\"OrderID\":\"$$orderId$$\"},{\"ProductID\":\"$$productId$$\"}]}"}
+                {"set":"{\"OrderID\":\"$orderId$\",\"ProductID\":\"$productId$\",\"UnitPrice\":\"$unitPrice$\",\"Quantity\":\"$quantity$\",\"Discount\":\"$discount$\"}","filter":"{\"$and\":[{\"OrderID\":\"$orderId$\"},{\"ProductID\":\"$productId$\"}]}"}
       - stage: Oracle
         info:
           entity: Orders
@@ -2117,24 +2117,24 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            {"set":"{\"_id\":\"$$id$$\",\"CompanyName\":\"$$name$$\",\"ContactName\":\"$$contact$$\",\"ContactTitle\":\"$$phone$$\",\"Address\":\"$$address$$\",\"City\":\"$$city$$\",\"Region\":\"$$region$$\",\"PostalCode\":\"$$postalCode$$\",\"Country\":\"$$country$$\"}","filter":"{\"_id\":\"$$id$$\"}"}
+            {"set":"{\"_id\":\"$id$\",\"CompanyName\":\"$name$\",\"ContactName\":\"$contact$\",\"ContactTitle\":\"$phone$\",\"Address\":\"$address$\",\"City\":\"$city$\",\"Region\":\"$region$\",\"PostalCode\":\"$postalCode$\",\"Country\":\"$country$\"}","filter":"{\"_id\":\"$id$\"}"}
           children:
             - entity: Orders
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                {"set":"{\"CustomerID\":\"$$customerId$$\",\"EmployeeID\":\"$$employeeId$$\",\"OrderDate\":\"$$orderDate$$\",\"RequiredDate\":\"$$requiredDate$$\",\"ShippedDate\":\"$$shippedDate$$\",\"ShipVia\":\"$$shipViaId$$\",\"Freight\":\"$$freight$$\",\"ShipName\":\"$$name$$\",\"ShipAddress\":\"$$address$$\",\"ShipCity\":\"$$city$$\",\"ShipRegion\":\"$$region$$\",\"ShipPostalCode\":\"$$postalCode$$\",\"ShipCountry\":\"$$country$$\"}","filter":"{\"_id\":\"$$id$$\"}"}
+                {"set":"{\"CustomerID\":\"$customerId$\",\"EmployeeID\":\"$employeeId$\",\"OrderDate\":\"$orderDate$\",\"RequiredDate\":\"$requiredDate$\",\"ShippedDate\":\"$shippedDate$\",\"ShipVia\":\"$shipViaId$\",\"Freight\":\"$freight$\",\"ShipName\":\"$name$\",\"ShipAddress\":\"$address$\",\"ShipCity\":\"$city$\",\"ShipRegion\":\"$region$\",\"ShipPostalCode\":\"$postalCode$\",\"ShipCountry\":\"$country$\"}","filter":"{\"_id\":\"$id$\"}"}
               children:
                 - entity: Orders.details
                   dialect: MongoDB
                   source: MongoDB
                   sentence: >-
-                    {"set":"{\"OrderID\":\"$$orderId$$\",\"ProductID\":\"$$productId$$\",\"UnitPrice\":\"$$unitPrice$$\",\"Quantity\":\"$$quantity$$\",\"Discount\":\"$$discount$$\"}","filter":"{\"$and\":[{\"OrderID\":\"$$orderId$$\"},{\"ProductID\":\"$$productId$$\"}]}"}
+                    {"set":"{\"OrderID\":\"$orderId$\",\"ProductID\":\"$productId$\",\"UnitPrice\":\"$unitPrice$\",\"Quantity\":\"$quantity$\",\"Discount\":\"$discount$\"}","filter":"{\"$and\":[{\"OrderID\":\"$orderId$\"},{\"ProductID\":\"$productId$\"}]}"}
                 - entity: Orders.details
                   dialect: MongoDB
                   source: MongoDB
                   sentence: >-
-                    {"set":"{\"OrderID\":\"$$orderId$$\",\"ProductID\":\"$$productId$$\",\"UnitPrice\":\"$$unitPrice$$\",\"Quantity\":\"$$quantity$$\",\"Discount\":\"$$discount$$\"}","filter":"{\"$and\":[{\"OrderID\":\"$$orderId$$\"},{\"ProductID\":\"$$productId$$\"}]}"}
+                    {"set":"{\"OrderID\":\"$orderId$\",\"ProductID\":\"$productId$\",\"UnitPrice\":\"$unitPrice$\",\"Quantity\":\"$quantity$\",\"Discount\":\"$discount$\"}","filter":"{\"$and\":[{\"OrderID\":\"$orderId$\"},{\"ProductID\":\"$productId$\"}]}"}
       - stage: Oracle
         info:
           entity: Customers

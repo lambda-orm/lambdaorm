@@ -9,8 +9,6 @@ import { OrmH3lp } from '../../../../shared/infrastructure'
 import { DialectService } from '../../../../language/application'
 import { DmlBuilderPort } from '../../../application'
 
-const SqlString = require('sqlstring')
-
 export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (
@@ -380,11 +378,11 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 
 	protected buildConstant (operand: Operand): string {
 		if (operand.returnType === undefined) {
-			return SqlString.escape(operand.name)
+			return this.helper.sql.escape(operand.name)
 		}
 		switch (operand.returnType.primitive) {
 		case Primitive.string:
-			return SqlString.escape(operand.name)
+			return this.helper.sql.escape(operand.name)
 		case Primitive.boolean:
 			return this.dialect.other(operand.name.toString())
 		case Primitive.integer:
@@ -393,7 +391,7 @@ export abstract class DmlBuilderAdapter implements DmlBuilderPort {
 		case Primitive.decimal:
 			return parseFloat(operand.name).toString()
 		default:
-			return SqlString.escape(operand.name)
+			return this.helper.sql.escape(operand.name)
 		}
 	}
 }

@@ -106,13 +106,13 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{"$match":{"_id":"$$id$$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__customerId":"$CustomerID"}}]
+            [{"$match":{"_id":"$id$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__customerId":"$CustomerID"}}]
           children:
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
+                [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
       - stage: Oracle
         info:
           entity: Orders
@@ -448,7 +448,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{"$match":{"_id":"$$id$$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","details":{"$map":{"input":"$\"Order
+            [{"$match":{"_id":"$id$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","details":{"$map":{"input":"$\"Order
             Details\"","in":{"orderId":"$$this.OrderID","productId":"$$this.ProductID","unitPrice":"$$this.UnitPrice","quantity":"$$this.Quantity","discount":"$$this.Discount","LambdaOrmParentId":"$$this.OrderID"}}}}}]
           children:
             - entity: Orders.details
@@ -457,7 +457,7 @@ test:
               sentence: >-
                 [{"$unwind":"$\"Order
                 Details\""},{"$replaceRoot":{"newRoot":"$\"Order
-                Details\""}},{"$match":{"OrderID":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"orderId":"$OrderID","productId":"$ProductID","unitPrice":"$UnitPrice","quantity":"$Quantity","discount":"$Discount","LambdaOrmParentId":"$OrderID"}}]
+                Details\""}},{"$match":{"OrderID":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"orderId":"$OrderID","productId":"$ProductID","unitPrice":"$UnitPrice","quantity":"$Quantity","discount":"$Discount","LambdaOrmParentId":"$OrderID"}}]
       - stage: Oracle
         info:
           entity: Orders
@@ -852,7 +852,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{"$match":{"_id":"$$id$$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","__customerId":"$CustomerID","details":{"$map":{"input":"$\"Order
+            [{"$match":{"_id":"$id$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","__customerId":"$CustomerID","details":{"$map":{"input":"$\"Order
             Details\"","in":{"orderId":"$$this.OrderID","productId":"$$this.ProductID","unitPrice":"$$this.UnitPrice","quantity":"$$this.Quantity","discount":"$$this.Discount","LambdaOrmParentId":"$$this.OrderID"}}}}}]
           children:
             - entity: Orders.details
@@ -861,12 +861,12 @@ test:
               sentence: >-
                 [{"$unwind":"$\"Order
                 Details\""},{"$replaceRoot":{"newRoot":"$\"Order
-                Details\""}},{"$match":{"OrderID":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"orderId":"$OrderID","productId":"$ProductID","unitPrice":"$UnitPrice","quantity":"$Quantity","discount":"$Discount","LambdaOrmParentId":"$OrderID"}}]
+                Details\""}},{"$match":{"OrderID":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"orderId":"$OrderID","productId":"$ProductID","unitPrice":"$UnitPrice","quantity":"$Quantity","discount":"$Discount","LambdaOrmParentId":"$OrderID"}}]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
+                [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
       - stage: Oracle
         info:
           entity: Orders
@@ -1423,7 +1423,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{"$match":{"_id":"$$id$$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","__customerId":"$CustomerID","details":{"$map":{"input":"$\"Order
+            [{"$match":{"_id":"$id$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","__customerId":"$CustomerID","details":{"$map":{"input":"$\"Order
             Details\"","in":{"orderId":"$$this.OrderID","productId":"$$this.ProductID","unitPrice":"$$this.UnitPrice","quantity":"$$this.Quantity","discount":"$$this.Discount","__productId":"$$this.ProductID","LambdaOrmParentId":"$$this.OrderID"}}}}}]
           children:
             - entity: Orders.details
@@ -1432,18 +1432,18 @@ test:
               sentence: >-
                 [{"$unwind":"$\"Order
                 Details\""},{"$replaceRoot":{"newRoot":"$\"Order
-                Details\""}},{"$match":{"OrderID":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"orderId":"$OrderID","productId":"$ProductID","unitPrice":"$UnitPrice","quantity":"$Quantity","discount":"$Discount","__productId":"$ProductID","LambdaOrmParentId":"$OrderID"}}]
+                Details\""}},{"$match":{"OrderID":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"orderId":"$OrderID","productId":"$ProductID","unitPrice":"$UnitPrice","quantity":"$Quantity","discount":"$Discount","__productId":"$ProductID","LambdaOrmParentId":"$OrderID"}}]
               children:
                 - entity: Products
                   dialect: MongoDB
                   source: MongoDB
                   sentence: >-
-                    [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$ProductName","supplierId":"$SupplierID","categoryId":"$CategoryID","quantity":"$QuantityPerUnit","price":"$UnitPrice","inStock":"$UnitsInStock","onOrder":"$UnitsOnOrder","reorderLevel":"$ReorderLevel","discontinued":"$Discontinued","LambdaOrmParentId":"$_id"}}]
+                    [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$ProductName","supplierId":"$SupplierID","categoryId":"$CategoryID","quantity":"$QuantityPerUnit","price":"$UnitPrice","inStock":"$UnitsInStock","onOrder":"$UnitsOnOrder","reorderLevel":"$ReorderLevel","discontinued":"$Discontinued","LambdaOrmParentId":"$_id"}}]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
+                [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
       - stage: Oracle
         info:
           entity: Orders
@@ -2219,7 +2219,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{"$match":{"_id":"$$id$$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","__customerId":"$CustomerID","details":{"$map":{"input":"$\"Order
+            [{"$match":{"_id":"$id$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","__customerId":"$CustomerID","details":{"$map":{"input":"$\"Order
             Details\"","in":{"orderId":"$$this.OrderID","productId":"$$this.ProductID","unitPrice":"$$this.UnitPrice","quantity":"$$this.Quantity","discount":"$$this.Discount","__productId":"$$this.ProductID","LambdaOrmParentId":"$$this.OrderID"}}}}}]
           children:
             - entity: Orders.details
@@ -2228,24 +2228,24 @@ test:
               sentence: >-
                 [{"$unwind":"$\"Order
                 Details\""},{"$replaceRoot":{"newRoot":"$\"Order
-                Details\""}},{"$match":{"OrderID":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"orderId":"$OrderID","productId":"$ProductID","unitPrice":"$UnitPrice","quantity":"$Quantity","discount":"$Discount","__productId":"$ProductID","LambdaOrmParentId":"$OrderID"}}]
+                Details\""}},{"$match":{"OrderID":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"orderId":"$OrderID","productId":"$ProductID","unitPrice":"$UnitPrice","quantity":"$Quantity","discount":"$Discount","__productId":"$ProductID","LambdaOrmParentId":"$OrderID"}}]
               children:
                 - entity: Products
                   dialect: MongoDB
                   source: MongoDB
                   sentence: >-
-                    [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$ProductName","supplierId":"$SupplierID","categoryId":"$CategoryID","quantity":"$QuantityPerUnit","price":"$UnitPrice","inStock":"$UnitsInStock","onOrder":"$UnitsOnOrder","reorderLevel":"$ReorderLevel","discontinued":"$Discontinued","__categoryId":"$CategoryID","LambdaOrmParentId":"$_id"}}]
+                    [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$ProductName","supplierId":"$SupplierID","categoryId":"$CategoryID","quantity":"$QuantityPerUnit","price":"$UnitPrice","inStock":"$UnitsInStock","onOrder":"$UnitsOnOrder","reorderLevel":"$ReorderLevel","discontinued":"$Discontinued","__categoryId":"$CategoryID","LambdaOrmParentId":"$_id"}}]
                   children:
                     - entity: Categories
                       dialect: MongoDB
                       source: MongoDB
                       sentence: >-
-                        [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CategoryName","description":"$Description","LambdaOrmParentId":"$_id"}}]
+                        [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CategoryName","description":"$Description","LambdaOrmParentId":"$_id"}}]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
+                [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
       - stage: Oracle
         info:
           entity: Orders
@@ -3010,7 +3010,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{"$match":{"_id":"$$id$$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","__customerId":"$CustomerID","details":{"$map":{"input":"$\"Order
+            [{"$match":{"_id":"$id$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","__customerId":"$CustomerID","details":{"$map":{"input":"$\"Order
             Details\"","in":{"quantity":"$$this.Quantity","unitPrice":"$$this.UnitPrice","productId":"$$this.ProductID","LambdaOrmParentId":"$$this.OrderID"}}}}}]
           children:
             - entity: Orders.details
@@ -3019,12 +3019,12 @@ test:
               sentence: >-
                 [{"$unwind":"$\"Order
                 Details\""},{"$replaceRoot":{"newRoot":"$\"Order
-                Details\""}},{"$match":{"OrderID":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"quantity":"$Quantity","unitPrice":"$UnitPrice","productId":"$ProductID","LambdaOrmParentId":"$OrderID"}}]
+                Details\""}},{"$match":{"OrderID":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"quantity":"$Quantity","unitPrice":"$UnitPrice","productId":"$ProductID","LambdaOrmParentId":"$OrderID"}}]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
+                [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
       - stage: Oracle
         info:
           entity: Orders
@@ -3555,7 +3555,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{"$match":{"_id":"$$id$$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","__customerId":"$CustomerID","details":{"$map":{"input":"$\"Order
+            [{"$match":{"_id":"$id$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__id":"$_id","__customerId":"$CustomerID","details":{"$map":{"input":"$\"Order
             Details\"","in":{"quantity":"$$this.Quantity","unitPrice":"$$this.UnitPrice","productId":"$$this.ProductID","__productId":"$$this.ProductID","LambdaOrmParentId":"$$this.OrderID"}}}}}]
           children:
             - entity: Orders.details
@@ -3564,18 +3564,18 @@ test:
               sentence: >-
                 [{"$unwind":"$\"Order
                 Details\""},{"$replaceRoot":{"newRoot":"$\"Order
-                Details\""}},{"$match":{"OrderID":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"quantity":"$Quantity","unitPrice":"$UnitPrice","productId":"$ProductID","__productId":"$ProductID","LambdaOrmParentId":"$OrderID"}}]
+                Details\""}},{"$match":{"OrderID":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"quantity":"$Quantity","unitPrice":"$UnitPrice","productId":"$ProductID","__productId":"$ProductID","LambdaOrmParentId":"$OrderID"}}]
               children:
                 - entity: Products
                   dialect: MongoDB
                   source: MongoDB
                   sentence: >-
-                    [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$ProductName","supplierId":"$SupplierID","categoryId":"$CategoryID","quantity":"$QuantityPerUnit","price":"$UnitPrice","inStock":"$UnitsInStock","onOrder":"$UnitsOnOrder","reorderLevel":"$ReorderLevel","discontinued":"$Discontinued","LambdaOrmParentId":"$_id"}}]
+                    [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$ProductName","supplierId":"$SupplierID","categoryId":"$CategoryID","quantity":"$QuantityPerUnit","price":"$UnitPrice","inStock":"$UnitsInStock","onOrder":"$UnitsOnOrder","reorderLevel":"$ReorderLevel","discontinued":"$Discontinued","LambdaOrmParentId":"$_id"}}]
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
+                [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"id":"$_id","name":"$CompanyName","contact":"$ContactName","phone":"$ContactTitle","address":"$Address","city":"$City","region":"$Region","postalCode":"$PostalCode","country":"$Country","LambdaOrmParentId":"$_id"}}]
       - stage: Oracle
         info:
           entity: Orders
@@ -4284,33 +4284,33 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{"$match":{"_id":"$$id$$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__customerId":"$CustomerID","__id":"$_id","details":{"$map":{"input":"$\"Order
+            [{"$match":{"_id":"$id$"}},{"$project":{"_id":0,"id":"$_id","customerId":"$CustomerID","employeeId":"$EmployeeID","orderDate":"$OrderDate","requiredDate":"$RequiredDate","shippedDate":"$ShippedDate","shipViaId":"$ShipVia","freight":"$Freight","name":"$ShipName","address":"$ShipAddress","city":"$ShipCity","region":"$ShipRegion","postalCode":"$ShipPostalCode","country":"$ShipCountry","__customerId":"$CustomerID","__id":"$_id","details":{"$map":{"input":"$\"Order
             Details\"","in":{"quantity":"$$this.Quantity","unitPrice":"$$this.UnitPrice","__productId":"$$this.ProductID","LambdaOrmParentId":"$$this.OrderID"}}}}}]
           children:
             - entity: Customers
               dialect: MongoDB
               source: MongoDB
               sentence: >-
-                [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"name":"$CompanyName","LambdaOrmParentId":"$_id"}}]
+                [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"name":"$CompanyName","LambdaOrmParentId":"$_id"}}]
             - entity: Orders.details
               dialect: MongoDB
               source: MongoDB
               sentence: >-
                 [{"$unwind":"$\"Order
                 Details\""},{"$replaceRoot":{"newRoot":"$\"Order
-                Details\""}},{"$match":{"OrderID":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"quantity":"$Quantity","unitPrice":"$UnitPrice","__productId":"$ProductID","LambdaOrmParentId":"$OrderID"}}]
+                Details\""}},{"$match":{"OrderID":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"quantity":"$Quantity","unitPrice":"$UnitPrice","__productId":"$ProductID","LambdaOrmParentId":"$OrderID"}}]
               children:
                 - entity: Products
                   dialect: MongoDB
                   source: MongoDB
                   sentence: >-
-                    [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"name":"$ProductName","__categoryId":"$CategoryID","LambdaOrmParentId":"$_id"}}]
+                    [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"name":"$ProductName","__categoryId":"$CategoryID","LambdaOrmParentId":"$_id"}}]
                   children:
                     - entity: Categories
                       dialect: MongoDB
                       source: MongoDB
                       sentence: >-
-                        [{"$match":{"_id":{"$in":["$$LambdaOrmParentId$$"]}}},{"$project":{"_id":0,"name":"$CategoryName","LambdaOrmParentId":"$_id"}}]
+                        [{"$match":{"_id":{"$in":["$LambdaOrmParentId$"]}}},{"$project":{"_id":0,"name":"$CategoryName","LambdaOrmParentId":"$_id"}}]
       - stage: Oracle
         info:
           entity: Orders

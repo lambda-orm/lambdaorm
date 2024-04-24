@@ -4,11 +4,7 @@
 import { LoggerBuilder, orm, OrmH3lp, QueryPlan } from '../../../lib'
 import { Categories, Customers, Products, Orders } from '../model/__model'
 import { CategoryTest, ExpressionTest, ExecutionResult } from './testModel'
-import { h3lp, ObjectEqualOptions } from 'h3lp'
-
-const fs = require('fs')
-const path = require('path')
-
+import { h3lp } from 'h3lp'
 const helper = new OrmH3lp(h3lp, new LoggerBuilder().build())
 
 async function exec (fn: any) {
@@ -91,7 +87,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 				const pattern = results[0].result
 				for (let i = 1; i < results.length; i++) {
 					const result = results[i].result
-					if (equal(result, pattern, { strict: false })) {
+					if (helper.obj.equal(result, pattern, { strict: false })) {
 						expressionTest.executions.push({ stage: results[i].stage })
 					} else {
 						expressionTest.executions.push({ stage: results[i].stage, error: `not equal ${results[0].stage}`, result: results[i].result })
@@ -107,7 +103,7 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 	}
 	try {
 		const yamlStr = helper.yaml.dump(JSON.parse(JSON.stringify(category)))
-		fs.writeFileSync(path.join('src/dev/northwind/test/data', category.name.replace(' ', '_') + '.yaml'), yamlStr)
+		await helper.fs.write('src/dev/northwind/test/data/' + category.name.replace(' ', '_') + '.yaml', yamlStr)
 	} catch (error) {
 		console.error(error)
 		for (const q in category.test) {
@@ -120,16 +116,6 @@ async function writeTest (stages: string[], category: CategoryTest): Promise<num
 		}
 	}
 	return category.errors
-}
-
-function equal (a:any, b:any, options:ObjectEqualOptions): boolean {
-	if (!options.strict) {
-		const _a = h3lp.obj.sort(a)
-		const _b = h3lp.obj.sort(b)
-		return JSON.stringify(_a) === JSON.stringify(_b)
-	} else {
-		return JSON.stringify(a) === JSON.stringify(b)
-	}
 }
 
 async function writeQueryTest (stages: string[]): Promise<number> {
@@ -994,11 +980,11 @@ async function stageExport (source: string) {
 	const exportFile = 'data/' + source + '-export.json'
 	console.log(JSON.stringify(orm.stage.export({ stage: source }).sentence(), null, 2))
 	const data = await orm.stage.export({ stage: source }).execute()
-	await h3lp.fs.write(exportFile, JSON.stringify(data))
+	await helper.fs.write(exportFile, JSON.stringify(data))
 }
 async function stageImport (source: string, target: string) {
 	const sourceFile = 'data/' + source + '-export.json'
-	const content = await h3lp.fs.read(sourceFile) as string
+	const content = await helper.fs.read(sourceFile) as string
 	const data = JSON.parse(content)
 	await orm.stage.import({ stage: target }).execute(data)
 }

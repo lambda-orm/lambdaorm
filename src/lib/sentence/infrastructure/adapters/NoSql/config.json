@@ -42,11 +42,12 @@
       "projectJoinField": "{\"$arrayElemAt\":[\"{prefix}{entityAlias}.{name}\",0]}",
       "column": "\"{name}\":1",
       "false": "false",
-      "true": "true"
+      "true": "true",
+      "constant": "{\"$literal\":{value}}"
     },
     "operators": {
       "unary": {
-        "-": "{\"$multiply\":[{0},-1] }",
+        "-": "{\"$multiply\":[{0},-1]}",
         "!": "{\"$not\":[{0}]}"
       },
       "binary": {
@@ -215,11 +216,12 @@
         "projectJoinField": "{\"$arrayElemAt\":[\"{prefix}{entityAlias}.{name}\",0]}",
         "column": "\"{name}\":1",
         "false": "false",
-        "true": "true"
+        "true": "true",
+        "constant": "{\"$literal\":{value}}"
       },
       "operators": {
         "unary": {
-          "-": "{\"$multiply\":[{0},-1] }",
+          "-": "{\"$multiply\":[{0},-1]}",
           "!": "{\"$not\":[{0}]}"
         },
         "binary": {

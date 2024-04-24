@@ -63,8 +63,8 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		if (filter) {
 			query.push(...this.buildFilter(filter))
 		}
-		if (groupBy) {
-			query.push(...this.getGroupBy(map, groupBy, sentence))
+		if (groupBy || this.hadGroupFunction(map)) {
+			query.push(...this.getGroupBy(map, sentence))
 			if (having) {
 				query.push(...this.getHaving(query, having))
 			}
@@ -73,15 +73,19 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		}
 		if (sort) {
 			const sortText = this.buildArrowFunction(sort)
-			query.push(JSON.parse('[' + sortText + ']'))
+			query.push(JSON.parse(sortText))
 		}
 		// Although hiding the _id field is useful in some queries such as groupBy, this field is used in sequences
 		if (!query.some(p => p.$project !== undefined)) {
-			query.push([{ $project: { _id: 0 } }])
+			query.push({ $project: { _id: 0 } })
 		}
-		const text = JSON.stringify(query)
+		let text = JSON.stringify(query)
 		if (page) {
-			return this.buildPage(text, page)
+			// remove the first "[" and last "]" character
+			text = text.substring(1)
+			text = text.substring(0, text.length - 1)
+			text = this.buildPage(text, page)
+			return '[' + text + ']'
 		} else {
 			return text
 		}
@@ -148,12 +152,6 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		return JSON.parse('[' + havingStringClause + ']')
 	}
 
-	/* Solve the problem of having with groupBy
-	/ example: Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
-	/ { "$match" : { "max(p.price)": { "$gt": 100 } } }
-	/ replace for
-	/ { "$match" : { "largestPrice": { "$gt": 100 } } }
-	*/
 	protected solveHaving (operand: Operand, groupKeyValues:[string, string][], toReplaces:[string, string][]): void {
 		for (let i = 0, length = operand.children.length; i < length; i++) {
 			const child = operand.children[i]
@@ -167,13 +165,19 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 				this.solveHaving(child, groupKeyValues, toReplaces)
 			}
 		}
+		/* Solve the problem of having with groupBy
+		/ example: Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+		/ { "$match" : { "max(p.price)": { "$gt": 100 } } }
+		/ replace for
+		/ { "$match" : { "largestPrice": { "$gt": 100 } } }
+		*/
 	}
 
 	protected normalizeEqual (a: string, b: string): boolean {
 		return this.helper.str.normalize(a) === this.helper.str.normalize(b)
 	}
 
-	protected getGroupBy (map:Map, _groupBy:GroupBy, sentence: Sentence): any[] {
+	protected getGroupBy (map:Map, sentence: Sentence): any[] {
 		this.setPrefixToField(map, '$')
 
 		let projectColumns = ''
@@ -225,7 +229,7 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 			// https://www.MongoDB.com/docs/manual/reference/operator/aggregation/group/
 			return JSON.parse('[' + mapText + ']')
 		} else {
-			const template = this.hadGroupFunction(map) ? this.dialect.dml('mapGroup') : this.dialect.dml('rootMap')
+			const template = this.dialect.dml('rootMap')
 			const text = this.helper.str.replace(template, '{0}', mapText)
 			return JSON.parse('[' + text + ']')
 			// 			$map: {
@@ -508,13 +512,24 @@ export class NoSqlDMLBuilderAdapter extends DmlBuilderAdapter {
 		let text = ''
 		const template = this.dialect.function('as').template
 		for (let i = 0; i < operand.children.length; i++) {
-			const value = this.buildOperand(operand.children[i])
-			const alias = this.dialect.delimiter(operand.children[i].name, true)
-			let fieldText = this.helper.str.replace(template, '{value}', value)
-			fieldText = this.helper.str.replace(fieldText, '{alias}', alias)
-			text += (i > 0 ? ', ' : '') + fieldText
+			const child = operand.children[i]
+			const value = this.buildOperand(child)
+			if (child.children.length === 1 && [OperandType.List, OperandType.Obj].includes(child.children[0].type)) {
+				text = value
+			} else {
+				const alias = this.dialect.delimiter(child.name, true)
+				let fieldText = this.helper.str.replace(template, '{value}', value)
+				fieldText = this.helper.str.replace(fieldText, '{alias}', alias)
+				text += (i > 0 ? ', ' : '') + fieldText
+			}
 		}
 		return text
+	}
+
+	protected buildConstant (operand: Operand): string {
+		const value = super.buildConstant(operand)
+		const template = this.dialect.other('constant')
+		return this.helper.str.replace(template, '{value}', value)
 	}
 
 	protected setPrefixToField (operand: Operand, prefix: string) {
