@@ -7,9 +7,9 @@ import {
 import { Query } from '../../../../query/domain'
 import { OrmH3lp } from '../../../../shared/infrastructure'
 import { DialectService } from '../../../../language/application'
-import { DmlBuilderPort } from '../../../application'
+import { DmlBuilder } from '../../../application'
 
-export abstract class DmlBuilderAdapter implements DmlBuilderPort {
+export abstract class DmlBuilderBase implements DmlBuilder {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (
 		protected readonly source: Source,

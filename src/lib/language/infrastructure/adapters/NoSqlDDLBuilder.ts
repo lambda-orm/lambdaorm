@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { SentenceAction, PropertyMapping, Property, Relation, Index, EntityMapping, SchemaError } from 'lambdaorm-base'
-import { Query } from '../../../../query/domain'
-import { DDLBuilderAdapter } from '../base/DDLBuilderAdapter'
+import { Query } from '../../../query/domain'
+import { DDLBuilderBase } from './DDLBuilderBase'
 
-export class NoSqlDDLBuilderAdapter extends DDLBuilderAdapter {
+export class NoSqlDDLBuilder extends DDLBuilderBase {
 	public truncateEntity (entity: EntityMapping): Query | undefined {
 		// https://www.codegrepper.com/code-examples/c/truncate+collection+MongoDB
 		return new Query({ action: SentenceAction.truncateEntity, dialect: this.source.dialect, source: this.source.name, sentence: '', entity: entity.name })

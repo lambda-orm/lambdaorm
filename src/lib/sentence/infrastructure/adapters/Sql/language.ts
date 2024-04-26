@@ -1,22 +1,22 @@
-import { LanguageAdapter } from '../../../../language/infrastructure/adapters/base/languageAdapter'
-import { DDLBuilderPort, DMLBuilderPort } from '../../../../language/application'
+import { LanguageBase } from '../../../../language/infrastructure/adapters/languageBase'
+import { DDLBuilder, DMLBuilder } from '../../../../language/application'
 import { MappingConfigService, Source } from 'lambdaorm-base'
-import { SqlDMLBuilderAdapter } from './SqlDmlBuilder'
+import { SqlDMLBuilder } from './SqlDMLBuilder'
 import config from './config.json'
-import { SqlDDLBuilderAdapter } from '../../../../language/infrastructure/adapters/SQL/ddlBuilder'
+import { SqlDDLBuilder } from '../../../../language/infrastructure/adapters/SqlDDLBuilder'
 import { OrmH3lp } from '../../../../shared/infrastructure'
 
-export class SqlLanguageAdapter extends LanguageAdapter {
+export class SqlLanguageAdapter extends LanguageBase {
 	constructor (private readonly helper:OrmH3lp) {
 		super('SQL', config.dialects)
 		this.solveComposite = false
 	}
 
-	public override ddlBuilder (source: Source, mapping: MappingConfigService): DDLBuilderPort {
-		return new SqlDDLBuilderAdapter(source, mapping, this.getDialect(source.dialect), this.helper)
+	public override ddlBuilder (source: Source, mapping: MappingConfigService): DDLBuilder {
+		return new SqlDDLBuilder(source, mapping, this.getDialect(source.dialect), this.helper)
 	}
 
-	public override dmlBuilder (source: Source, mapping: MappingConfigService): DMLBuilderPort {
-		return new SqlDMLBuilderAdapter(source, mapping, this.getDialect(source.dialect), this.helper)
+	public override dmlBuilder (source: Source, mapping: MappingConfigService): DMLBuilder {
+		return new SqlDMLBuilder(source, mapping, this.getDialect(source.dialect), this.helper)
 	}
 }

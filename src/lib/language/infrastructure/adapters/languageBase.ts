@@ -1,7 +1,7 @@
 import { NotImplemented, Source, MappingConfigService } from 'lambdaorm-base'
-import { DialectService, LanguagePort, DDLBuilderPort, DMLBuilderPort } from '../../../application'
+import { DialectService, Language, DDLBuilder, DMLBuilder } from '../../application'
 
-export abstract class LanguageAdapter implements LanguagePort {
+export abstract class LanguageBase implements Language {
 	public dialects: DialectService[]
 	public name: string
 	public solveComposite?: boolean
@@ -25,6 +25,6 @@ export abstract class LanguageAdapter implements LanguagePort {
 		return dialect
 	}
 
-	public abstract ddlBuilder(source: Source, mapping: MappingConfigService): DDLBuilderPort
-	public abstract dmlBuilder(source: Source, mapping: MappingConfigService): DMLBuilderPort
+	public abstract ddlBuilder(source: Source, mapping: MappingConfigService): DDLBuilder
+	public abstract dmlBuilder(source: Source, mapping: MappingConfigService): DMLBuilder
 }

@@ -7,7 +7,7 @@ import {
 } from 'lambdaorm-base'
 import { Query } from '../../../query/domain'
 import { Delta, ChangedValue } from 'h3lp'
-import { DDLBuilderPort } from '../ports/ddlBuilderPort'
+import { DDLBuilder } from '../ports/DDLBuilder'
 import { OrmH3lp } from '../../../shared/infrastructure'
 import { LanguagesService } from './languagesService'
 import { DialectService } from './dialectService'
@@ -499,7 +499,7 @@ export class DDLBuilderService {
 		return this.schemaState.evalSourceRule(sourceRule, { entity, action: SentenceAction.undefined, category: SentenceCategory.undefined, type: SentenceType.dml })
 	}
 
-	private builder (source: Source): DDLBuilderPort {
+	private builder (source: Source): DDLBuilder {
 		const language = this.languages.getByDialect(source.dialect)
 		const mapping = this.schemaState.mapping.getInstance(source.mapping)
 		return language.ddlBuilder(source, mapping)

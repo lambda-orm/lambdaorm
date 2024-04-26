@@ -1,21 +1,21 @@
-import { DDLBuilderPort, DMLBuilderPort } from '../../../../language/application'
+import { DDLBuilder, DMLBuilder } from '../../../../language/application'
 import { MappingConfigService, Source } from 'lambdaorm-base'
-import { LanguageAdapter, NoSqlDDLBuilderAdapter } from '../../../../language/infrastructure'
+import { LanguageBase, NoSqlDDLBuilder } from '../../../../language/infrastructure'
 import config from './config.json'
-import { NoSqlDMLBuilderAdapter } from './NoSqlDmlBuilder'
+import { NoSqlDMLBuilder } from './NoSqlDMLBuilder'
 import { OrmH3lp } from '../../../../shared/infrastructure'
 
-export class NoSqlLanguageAdapter extends LanguageAdapter {
+export class NoSqlLanguageAdapter extends LanguageBase {
 	constructor (private readonly helper:OrmH3lp) {
 		super('NoSQL', config.dialects)
 		this.solveComposite = true
 	}
 
-	public ddlBuilder (source: Source, mapping: MappingConfigService): DDLBuilderPort {
-		return new NoSqlDDLBuilderAdapter(source, mapping, this.getDialect(source.dialect), this.helper)
+	public ddlBuilder (source: Source, mapping: MappingConfigService): DDLBuilder {
+		return new NoSqlDDLBuilder(source, mapping, this.getDialect(source.dialect), this.helper)
 	}
 
-	public override dmlBuilder (source: Source, mapping: MappingConfigService): DMLBuilderPort {
-		return new NoSqlDMLBuilderAdapter(source, mapping, this.getDialect(source.dialect), this.helper)
+	public override dmlBuilder (source: Source, mapping: MappingConfigService): DMLBuilder {
+		return new NoSqlDMLBuilder(source, mapping, this.getDialect(source.dialect), this.helper)
 	}
 }

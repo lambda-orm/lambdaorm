@@ -1,9 +1,9 @@
-import { Query } from '../../../../query/domain'
+import { Query } from '../../../query/domain'
 import { Index, Source, Relation, EntityMapping, PropertyMapping, MappingConfigService } from 'lambdaorm-base'
-import { DialectService, DDLBuilderPort } from '../../../application'
-import { OrmH3lp } from '../../../../shared/infrastructure'
+import { DialectService, DDLBuilder } from '../../application'
+import { OrmH3lp } from '../../../shared/infrastructure'
 
-export abstract class DDLBuilderAdapter implements DDLBuilderPort {
+export abstract class DDLBuilderBase implements DDLBuilder {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (
 		protected readonly source: Source,

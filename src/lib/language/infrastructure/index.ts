@@ -1,3 +1,3 @@
-export * from './adapters/NoSQL/ddlBuilder'
-export * from './adapters/SQL/ddlBuilder'
-export * from './adapters/base/languageAdapter'
+export * from './adapters/NoSqlDDLBuilder'
+export * from './adapters/SqlDDLBuilder'
+export * from './adapters/languageBase'

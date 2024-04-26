@@ -1,4 +1,4 @@
 import { Query } from '../../../query/domain'
-export interface DMLBuilderPort {
+export interface DMLBuilder {
 	build(source: any): Query
 }
