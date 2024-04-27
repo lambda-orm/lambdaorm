@@ -134,11 +134,10 @@ Lambda ORM
 - [ConnectionConfig](interfaces/ConnectionConfig.md)
 - [ConnectionPool](interfaces/ConnectionPool.md)
 - [Constraint](interfaces/Constraint.md)
-- [DDLBuilderPort](interfaces/DDLBuilderPort.md)
-- [DMLBuilderPort](interfaces/DMLBuilderPort.md)
+- [DdlBuilder](interfaces/DdlBuilder.md)
 - [Dependent](interfaces/Dependent.md)
 - [DialectFormat](interfaces/DialectFormat.md)
-- [DmlBuilderPort](interfaces/DmlBuilderPort-1.md)
+- [DmlBuilder](interfaces/DmlBuilder.md)
 - [DomainSchema](interfaces/DomainSchema.md)
 - [Entity](interfaces/Entity.md)
 - [EntityMapping](interfaces/EntityMapping.md)
@@ -160,7 +159,7 @@ Lambda ORM
 - [Index](interfaces/Index.md)
 - [InfrastructureSchema](interfaces/InfrastructureSchema.md)
 - [InitializeSchemaArgs](interfaces/InitializeSchemaArgs.md)
-- [LanguagePort](interfaces/LanguagePort.md)
+- [Language](interfaces/Language.md)
 - [ListenerConfig](interfaces/ListenerConfig.md)
 - [Mapping](interfaces/Mapping.md)
 - [MappingConfig](interfaces/MappingConfig.md)
@@ -362,7 +361,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:265](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/orm/infrastructure/orm.ts#L265)
+[src/lib/orm/infrastructure/orm.ts:265](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/orm/infrastructure/orm.ts#L265)
 
 ## Functions
 

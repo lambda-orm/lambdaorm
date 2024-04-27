@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/languagesService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/language/application/services/languagesService.ts#L9)
+[src/lib/language/application/services/languagesService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/language/application/services/languagesService.ts#L9)
 
 ## Properties
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/lib/language/application/services/languagesService.ts:6](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/language/application/services/languagesService.ts#L6)
+[src/lib/language/application/services/languagesService.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/language/application/services/languagesService.ts#L6)
 
 ## Methods
 
@@ -53,7 +53,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `language` | [`LanguagePort`](../interfaces/LanguagePort.md) |
+| `language` | [`Language`](../interfaces/Language.md) |
 
 #### Returns
 
@@ -61,13 +61,13 @@
 
 #### Defined in
 
-[src/lib/language/application/services/languagesService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/language/application/services/languagesService.ts#L14)
+[src/lib/language/application/services/languagesService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/language/application/services/languagesService.ts#L14)
 
 ___
 
 ### get
 
-▸ **get**(`name`): [`LanguagePort`](../interfaces/LanguagePort.md)
+▸ **get**(`name`): [`Language`](../interfaces/Language.md)
 
 #### Parameters
 
@@ -77,17 +77,17 @@ ___
 
 #### Returns
 
-[`LanguagePort`](../interfaces/LanguagePort.md)
+[`Language`](../interfaces/Language.md)
 
 #### Defined in
 
-[src/lib/language/application/services/languagesService.ts:24](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/language/application/services/languagesService.ts#L24)
+[src/lib/language/application/services/languagesService.ts:24](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/language/application/services/languagesService.ts#L24)
 
 ___
 
 ### getByDialect
 
-▸ **getByDialect**(`dialect`): [`LanguagePort`](../interfaces/LanguagePort.md)
+▸ **getByDialect**(`dialect`): [`Language`](../interfaces/Language.md)
 
 #### Parameters
 
@@ -97,11 +97,11 @@ ___
 
 #### Returns
 
-[`LanguagePort`](../interfaces/LanguagePort.md)
+[`Language`](../interfaces/Language.md)
 
 #### Defined in
 
-[src/lib/language/application/services/languagesService.ts:32](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/language/application/services/languagesService.ts#L32)
+[src/lib/language/application/services/languagesService.ts:32](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/language/application/services/languagesService.ts#L32)
 
 ___
 
@@ -121,4 +121,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/services/languagesService.ts:43](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/language/application/services/languagesService.ts#L43)
+[src/lib/language/application/services/languagesService.ts:43](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/language/application/services/languagesService.ts#L43)

@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/shared/infrastructure/helper.ts#L25)
+[src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/shared/infrastructure/helper.ts#L25)
 
 ## Properties
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/a1b2a8bd3335f82dbdf370484a84aa1caac0f9fa/src/lib/shared/infrastructure/helper.ts#L24)
+[src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/shared/infrastructure/helper.ts#L24)
 
 ___
 
