@@ -1,8 +1,8 @@
-import { DDLBuilder, DMLBuilder } from '../../../../language/application'
+import { DdlBuilder, DmlBuilder } from '../../../../language/application'
 import { MappingConfigService, Source } from 'lambdaorm-base'
 import { LanguageBase, NoSqlDDLBuilder } from '../../../../language/infrastructure'
 import config from './config.json'
-import { NoSqlDMLBuilder } from './NoSqlDMLBuilder'
+import { NoSqlDmlBuilder } from './NoSqlDmlBuilder'
 import { OrmH3lp } from '../../../../shared/infrastructure'
 
 export class NoSqlLanguageAdapter extends LanguageBase {
@@ -11,11 +11,11 @@ export class NoSqlLanguageAdapter extends LanguageBase {
 		this.solveComposite = true
 	}
 
-	public ddlBuilder (source: Source, mapping: MappingConfigService): DDLBuilder {
+	public ddlBuilder (source: Source, mapping: MappingConfigService): DdlBuilder {
 		return new NoSqlDDLBuilder(source, mapping, this.getDialect(source.dialect), this.helper)
 	}
 
-	public override dmlBuilder (source: Source, mapping: MappingConfigService): DMLBuilder {
-		return new NoSqlDMLBuilder(source, mapping, this.getDialect(source.dialect), this.helper)
+	public override dmlBuilder (source: Source, mapping: MappingConfigService): DmlBuilder {
+		return new NoSqlDmlBuilder(source, mapping, this.getDialect(source.dialect), this.helper)
 	}
 }

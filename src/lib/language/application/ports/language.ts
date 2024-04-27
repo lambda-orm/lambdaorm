@@ -1,13 +1,13 @@
 import { DialectService } from '../services/dialectService'
 import { MappingConfigService, Source } from 'lambdaorm-base'
-import { DDLBuilder } from './DDLBuilder'
-import { DMLBuilder } from './DMLBuilder'
+import { DdlBuilder } from './DdlBuilder'
+import { DmlBuilder } from './DmlBuilder'
 
 export interface Language {
 	dialects: DialectService[]
 	name: string
 	solveComposite?: boolean
 	getDialect (name: string): DialectService
-	ddlBuilder(source: Source, mapping: MappingConfigService): DDLBuilder
-	dmlBuilder(source: Source, mapping: MappingConfigService): DMLBuilder
+	ddlBuilder(source: Source, mapping: MappingConfigService): DdlBuilder
+	dmlBuilder(source: Source, mapping: MappingConfigService): DmlBuilder
 }

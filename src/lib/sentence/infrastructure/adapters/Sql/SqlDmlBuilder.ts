@@ -1,5 +1,5 @@
 import { DmlBuilderBase } from '../base/dmlBuilder'
 
-export class SqlDMLBuilder extends DmlBuilderBase {
+export class SqlDmlBuilder extends DmlBuilderBase {
 
 }

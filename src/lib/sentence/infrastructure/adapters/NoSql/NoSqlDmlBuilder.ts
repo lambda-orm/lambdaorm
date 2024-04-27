@@ -8,7 +8,7 @@ import {
 import { Query, Include } from '../../../../query/domain'
 import { DmlBuilderBase } from '../base/dmlBuilder'
 
-export class NoSqlDMLBuilder extends DmlBuilderBase {
+export class NoSqlDmlBuilder extends DmlBuilderBase {
 	public override build (sentence: Sentence): Query {
 		const info = this.helper.sql.getInfo(sentence.action, sentence.entity)
 		const includes:Include[] = []

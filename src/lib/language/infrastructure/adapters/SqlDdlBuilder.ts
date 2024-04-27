@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { SentenceAction, PropertyMapping, Property, Relation, Index, EntityMapping, SchemaError } from 'lambdaorm-base'
 import { Query } from '../../../query/domain'
-import { DDLBuilderBase } from './DDLBuilderBase'
+import { DdlBuilderBase } from './DdlBuilderBase'
 
-export class SqlDDLBuilder extends DDLBuilderBase {
+export class SqlDdlBuilder extends DdlBuilderBase {
 	public truncateEntity (entity: EntityMapping): Query | undefined {
 		if (entity.mapping === undefined) {
 			return undefined

@@ -1,4 +1,4 @@
-import { DDLBuilder, LanguagesService } from '../../../language/application'
+import { DdlBuilder, LanguagesService } from '../../../language/application'
 import { SchemaState, QueryOptions, Source, EntityMapping, Mapping, RelationType, SchemaHelper } from 'lambdaorm-base'
 import { Executor } from '../../../execution/domain'
 
@@ -184,7 +184,7 @@ export class StageFetch {
 		}
 	}
 
-	private builder (source: Source): DDLBuilder {
+	private builder (source: Source): DdlBuilder {
 		const language = this.languages.getByDialect(source.dialect)
 		const mapping = this.schemaState.mapping.getInstance(source.mapping)
 		return language.ddlBuilder(source, mapping)

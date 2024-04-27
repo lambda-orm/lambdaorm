@@ -1,5 +1,5 @@
 import { NotImplemented, Source, MappingConfigService } from 'lambdaorm-base'
-import { DialectService, Language, DDLBuilder, DMLBuilder } from '../../application'
+import { DialectService, Language, DdlBuilder, DmlBuilder } from '../../application'
 
 export abstract class LanguageBase implements Language {
 	public dialects: DialectService[]
@@ -25,6 +25,6 @@ export abstract class LanguageBase implements Language {
 		return dialect
 	}
 
-	public abstract ddlBuilder(source: Source, mapping: MappingConfigService): DDLBuilder
-	public abstract dmlBuilder(source: Source, mapping: MappingConfigService): DMLBuilder
+	public abstract ddlBuilder(source: Source, mapping: MappingConfigService): DdlBuilder
+	public abstract dmlBuilder(source: Source, mapping: MappingConfigService): DmlBuilder
 }

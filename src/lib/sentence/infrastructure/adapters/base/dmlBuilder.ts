@@ -6,8 +6,7 @@ import {
 } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
 import { OrmH3lp } from '../../../../shared/infrastructure'
-import { DialectService } from '../../../../language/application'
-import { DmlBuilder } from '../../../application'
+import { DialectService, DmlBuilder } from '../../../../language/application'
 
 export abstract class DmlBuilderBase implements DmlBuilder {
 	// eslint-disable-next-line no-useless-constructor
