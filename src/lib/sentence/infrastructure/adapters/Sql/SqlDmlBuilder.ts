@@ -114,7 +114,32 @@ export class SqlDmlBuilder extends DmlBuilderBase {
 		if (update === undefined) {
 			throw new SchemaError('update operand not found')
 		}
-		let text = this.buildUpdate(update, entity)
+		let template = this.dialect.dml('update')
+		const templateColumn = this.dialect.other('column')
+		const templateAssign = this.dialect.operator('=', 2)
+		const assigns: string[] = []
+		if (update.children[0] instanceof Object) {
+			const obj = update.children[0]
+			for (const p in obj.children) {
+				const keyVal = obj.children[p]
+				let name: string
+				const property = entity.properties?.find(q => q.name === keyVal.name)
+				if (property) {
+					name = property.mapping
+				} else {
+					name = keyVal.name
+				}
+				const column = this.helper.str.replace(templateColumn, '{name}', this.dialect.delimiter(name))
+				const value = this.buildOperand(keyVal.children[0])
+				let assign = this.helper.str.replace(templateAssign, '{0}', column)
+				assign = this.helper.str.replace(assign, '{1}', value)
+				assigns.push(assign)
+			}
+		}
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
+		template = this.helper.str.replace(template, '{alias}', update.alias)
+		template = this.helper.str.replace(template, '{assigns}', assigns.join(','))
+		let text = template.trim() + ' '
 		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		return text
 	}
@@ -135,35 +160,6 @@ export class SqlDmlBuilder extends DmlBuilderBase {
 		let text = template.trim() + ' '
 		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		return text
-	}
-
-	protected buildUpdate (operand: Update, entity: EntityMapping): string {
-		let template = this.dialect.dml('update')
-		const templateColumn = this.dialect.other('column')
-		const templateAssign = this.dialect.operator('=', 2)
-		const assigns: string[] = []
-		if (operand.children[0] instanceof Object) {
-			const obj = operand.children[0]
-			for (const p in obj.children) {
-				const keyVal = obj.children[p]
-				let name: string
-				const property = entity.properties?.find(q => q.name === keyVal.name)
-				if (property) {
-					name = property.mapping
-				} else {
-					name = keyVal.name
-				}
-				const column = this.helper.str.replace(templateColumn, '{name}', this.dialect.delimiter(name))
-				const value = this.buildOperand(keyVal.children[0])
-				let assign = this.helper.str.replace(templateAssign, '{0}', column)
-				assign = this.helper.str.replace(assign, '{1}', value)
-				assigns.push(assign)
-			}
-		}
-		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
-		template = this.helper.str.replace(template, '{alias}', operand.alias)
-		template = this.helper.str.replace(template, '{assigns}', assigns.join(','))
-		return template.trim() + ' '
 	}
 
 	protected buildFrom (from: From): string {

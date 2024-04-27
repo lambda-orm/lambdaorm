@@ -149,27 +149,6 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
 		// Keep in mind that when there are includes, the set must only be in the root.
 		// maybe the set should be in the connection
-		const data: any = {
-			set: this.buildUpdate(sentence),
-			filter: filter ? this.buildArrowFunction(filter) : '{}'
-		}
-		return JSON.stringify(data)
-	}
-
-	protected override buildDeleteSentence (sentence: Sentence): string {
-		const entity = this.mapping.getEntity(sentence.entity)
-		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
-		if (entity === undefined) {
-			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
-		}
-		// keep in mind that when there are includes
-		const data: any = {
-			filter: filter ? this.buildArrowFunction(filter) : {}
-		}
-		return JSON.stringify(data)
-	}
-
-	protected buildUpdate (sentence: Sentence): string {
 		const entity = this.mapping.getEntity(sentence.entity)
 		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
 		if (entity === undefined) {
@@ -178,11 +157,9 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 		if (update === undefined) {
 			throw new SintaxisError('update operand not found')
 		}
-
 		const template = this.dialect.dml('update')
 		const templateAssign = this.dialect.operator('=', 2)
 		const assigns: string[] = []
-
 		if (update.children[0].type === OperandType.Obj) {
 			const obj = update.children[0]
 			for (const p in obj.children) {
@@ -201,7 +178,25 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 				assigns.push(assign)
 			}
 		}
-		return this.helper.str.replace(template, '{assigns}', assigns.join(','))
+		const set = this.helper.str.replace(template, '{assigns}', assigns.join(','))
+		const data: any = {
+			set,
+			filter: filter ? this.buildArrowFunction(filter) : '{}'
+		}
+		return JSON.stringify(data)
+	}
+
+	protected override buildDeleteSentence (sentence: Sentence): string {
+		const entity = this.mapping.getEntity(sentence.entity)
+		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
+		if (entity === undefined) {
+			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
+		// keep in mind that when there are includes
+		const data: any = {
+			filter: filter ? this.buildArrowFunction(filter) : {}
+		}
+		return JSON.stringify(data)
 	}
 
 	protected override buildField (operand: Field): string {
