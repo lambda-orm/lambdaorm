@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.10.7](https://github.com/lambda-orm/lambdaorm/compare/v1.10.6...v1.10.7) (2024-04-27)
+
+
+### Bug Fixes
+
+* advance in bugfix mongodb queries ([0218050](https://github.com/lambda-orm/lambdaorm/commit/02180500eafeb13491b72d22d5779c231c2be4ad)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* **mongo:** solve literal in project clause ([dd4fc39](https://github.com/lambda-orm/lambdaorm/commit/dd4fc39f9d2c26132db7708bf48314831a5a6ba5)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* solve literal in project on mongodb lamguage ([3e979b3](https://github.com/lambda-orm/lambdaorm/commit/3e979b310a75f5b64a04da70990e0e1fd6feb453)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+
 ### [1.10.6](https://github.com/lambda-orm/lambdaorm/compare/v1.10.5...v1.10.6) (2024-04-23)
 
 **Bug Fixes:**
