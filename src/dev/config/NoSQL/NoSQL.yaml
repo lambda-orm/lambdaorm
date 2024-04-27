@@ -59,7 +59,6 @@ others:
   column: '"{name}":1'
   false: "false"
   true: "true"
-  constant: '{"$literal":{value}}'
 operators:
   unary:
     "-": '{"$multiply":[{0},-1]}'

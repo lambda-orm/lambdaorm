@@ -805,8 +805,8 @@
         },
         {
           "test": "Products.map(p => ({ average: round(avg(p.price), 4) }))",
-          "error": "ExecutionError: ERROR: The $round accumulator is a unary operator SOURCE: MongoDB ENTITY: Products QUERY: \"[{\\\"$group\\\":{\\\"_id\\\":{},\\\"average\\\":{\\\"$round\\\":[{\\\"$avg\\\":\\\"$UnitPrice\\\"},{\\\"$literal\\\":4}]}}},{\\\"$project\\\":{\\\"_id\\\":0,\\\"average\\\":\\\"$average\\\"}}]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: The $round accumulator is a unary operator SOURCE: MongoDB ENTITY: Products QUERY: \"[{\\\"$group\\\":{\\\"_id\\\":{},\\\"average\\\":{\\\"$round\\\":[{\\\"$avg\\\":\\\"$UnitPrice\\\"},{\\\"$literal\\\":4}]}}},{\\\"$project\\\":{\\\"_id\\\":0,\\\"average\\\":\\\"$average\\\"}}]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "error": "ExecutionError: ERROR: The $round accumulator is a unary operator SOURCE: MongoDB ENTITY: Products QUERY: \"[{\\\"$group\\\":{\\\"_id\\\":{},\\\"average\\\":{\\\"$round\\\":[{\\\"$avg\\\":\\\"$UnitPrice\\\"},4]}}},{\\\"$project\\\":{\\\"_id\\\":0,\\\"average\\\":\\\"$average\\\"}}]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: The $round accumulator is a unary operator SOURCE: MongoDB ENTITY: Products QUERY: \"[{\\\"$group\\\":{\\\"_id\\\":{},\\\"average\\\":{\\\"$round\\\":[{\\\"$avg\\\":\\\"$UnitPrice\\\"},4]}}},{\\\"$project\\\":{\\\"_id\\\":0,\\\"average\\\":\\\"$average\\\"}}]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
         },
         {
           "test": "Products.map(p => ({ count: count(1) }))",
@@ -820,24 +820,28 @@
           "test": "Products.map(p => ({ category: p.categoryId, largestPrice: max(p.price) }))",
           "result": [
             {
-              "category": 1,
-              "largestPrice": 263.5
+              "category": 7,
+              "largestPrice": 53
             },
             {
-              "category": 6,
-              "largestPrice": 123.79
-            },
-            {
-              "category": 2,
-              "largestPrice": 43.9
+              "category": 5,
+              "largestPrice": 38
             },
             {
               "category": 4,
               "largestPrice": 55
             },
             {
-              "category": 5,
-              "largestPrice": 38
+              "category": 6,
+              "largestPrice": 123.79
+            },
+            {
+              "category": 1,
+              "largestPrice": 263.5
+            },
+            {
+              "category": 2,
+              "largestPrice": 43.9
             },
             {
               "category": 8,
@@ -846,10 +850,6 @@
             {
               "category": 3,
               "largestPrice": 81
-            },
-            {
-              "category": 7,
-              "largestPrice": 53
             }
           ]
         },
@@ -857,36 +857,36 @@
           "test": "Products.map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
           "result": [
             {
-              "category": "Confections",
-              "largestPrice": 81
-            },
-            {
-              "category": "Produce",
-              "largestPrice": 53
-            },
-            {
-              "category": "Seafood",
-              "largestPrice": 62.5
-            },
-            {
               "category": "Condiments",
               "largestPrice": 43.9
-            },
-            {
-              "category": "Meat/Poultry",
-              "largestPrice": 123.79
             },
             {
               "category": "Grains/Cereals",
               "largestPrice": 38
             },
             {
-              "category": "Beverages",
-              "largestPrice": 263.5
+              "category": "Produce",
+              "largestPrice": 53
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
             },
             {
               "category": "Dairy Products",
               "largestPrice": 55
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
             }
           ]
         },
@@ -902,20 +902,63 @@
         },
         {
           "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) }))",
-          "result": []
+          "result": [
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            }
+          ]
         },
         {
           "test": "Orders.details.map(p => ({ subTotal: sum((p.unitPrice * p.quantity * (1 - p.discount / 100)) * 100) })).sort(p => p.subTotal)",
-          "error": "ExecutionError: ERROR: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string SOURCE: MongoDB ENTITY: Orders.details QUERY: \"[{\\\"$unwind\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\"},{\\\"$replaceRoot\\\":{\\\"newRoot\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\"}},{\\\"$group\\\":{\\\"_id\\\":{},\\\"subTotal\\\":{\\\"$sum\\\":{\\\"$multiply\\\":[{\\\"$multiply\\\":[{\\\"$multiply\\\":[\\\"$UnitPrice\\\",\\\"$Quantity\\\"]},{\\\"$subtract\\\":[{\\\"$literal\\\":1},{\\\"$divide\\\":[\\\"$Discount\\\",{\\\"$literal\\\":100}]}]}]},{\\\"$literal\\\":100}]}}}},{\\\"$project\\\":{\\\"_id\\\":0,\\\"subTotal\\\":\\\"$subTotal\\\"}},{\\\"$sort\\\":{\\\"subTotal\\\":1}}]\"  DATA:{\"data\":{\"id\":1}}",
-          "stack": "ExecutionError: ERROR: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string SOURCE: MongoDB ENTITY: Orders.details QUERY: \"[{\\\"$unwind\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\"},{\\\"$replaceRoot\\\":{\\\"newRoot\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\"}},{\\\"$group\\\":{\\\"_id\\\":{},\\\"subTotal\\\":{\\\"$sum\\\":{\\\"$multiply\\\":[{\\\"$multiply\\\":[{\\\"$multiply\\\":[\\\"$UnitPrice\\\",\\\"$Quantity\\\"]},{\\\"$subtract\\\":[{\\\"$literal\\\":1},{\\\"$divide\\\":[\\\"$Discount\\\",{\\\"$literal\\\":100}]}]}]},{\\\"$literal\\\":100}]}}}},{\\\"$project\\\":{\\\"_id\\\":0,\\\"subTotal\\\":\\\"$subTotal\\\"}},{\\\"$sort\\\":{\\\"subTotal\\\":1}}]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          "error": "ExecutionError: ERROR: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string SOURCE: MongoDB ENTITY: Orders.details QUERY: \"[{\\\"$unwind\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\"},{\\\"$replaceRoot\\\":{\\\"newRoot\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\"}},{\\\"$group\\\":{\\\"_id\\\":{},\\\"subTotal\\\":{\\\"$sum\\\":{\\\"$multiply\\\":[{\\\"$multiply\\\":[{\\\"$multiply\\\":[\\\"$UnitPrice\\\",\\\"$Quantity\\\"]},{\\\"$subtract\\\":[1,{\\\"$divide\\\":[\\\"$Discount\\\",100]}]}]},100]}}}},{\\\"$project\\\":{\\\"_id\\\":0,\\\"subTotal\\\":\\\"$subTotal\\\"}},{\\\"$sort\\\":{\\\"subTotal\\\":1}}]\"  DATA:{\"data\":{\"id\":1}}",
+          "stack": "ExecutionError: ERROR: PlanExecutor error during aggregation :: caused by :: $multiply only supports numeric types, not string SOURCE: MongoDB ENTITY: Orders.details QUERY: \"[{\\\"$unwind\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\"},{\\\"$replaceRoot\\\":{\\\"newRoot\\\":\\\"$\\\\\\\"Order Details\\\\\\\"\\\"}},{\\\"$group\\\":{\\\"_id\\\":{},\\\"subTotal\\\":{\\\"$sum\\\":{\\\"$multiply\\\":[{\\\"$multiply\\\":[{\\\"$multiply\\\":[\\\"$UnitPrice\\\",\\\"$Quantity\\\"]},{\\\"$subtract\\\":[1,{\\\"$divide\\\":[\\\"$Discount\\\",100]}]}]},100]}}}},{\\\"$project\\\":{\\\"_id\\\":0,\\\"subTotal\\\":\\\"$subTotal\\\"}},{\\\"$sort\\\":{\\\"subTotal\\\":1}}]\"  DATA:{\"data\":{\"id\":1}}\n    at QueryExecutorImpl.<anonymous> (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:238:23)\n    at Generator.throw (<anonymous>)\n    at rejected (/home/flavio/personal/org/lambda-orm/lambdaorm/build/lib/execution/application/services/queryExecutor/queryExecutor.js:6:65)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
         },
         {
           "test": "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
-          "result": []
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            }
+          ]
         },
         {
           "test": "Products.filter(p => p.price > 5).having(p => max(p.price) > 50).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))",
-          "result": []
+          "result": [
+            {
+              "category": "Beverages",
+              "largestPrice": 263.5
+            },
+            {
+              "category": "Meat/Poultry",
+              "largestPrice": 123.79
+            },
+            {
+              "category": "Confections",
+              "largestPrice": 81
+            },
+            {
+              "category": "Seafood",
+              "largestPrice": 62.5
+            },
+            {
+              "category": "Dairy Products",
+              "largestPrice": 55
+            },
+            {
+              "category": "Produce",
+              "largestPrice": 53
+            }
+          ]
         }
       ],
       "errors": 2

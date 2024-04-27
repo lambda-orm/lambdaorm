@@ -2,7 +2,8 @@
 import { Operand, OperandType } from '3xpr'
 import {
 	SentenceAction, SchemaError, EntityMapping, RelationType, SintaxisError, SentenceType,
-	Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update
+	Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update,
+	BulkInsert
 
 } from 'lambdaorm-base'
 import { Query, Include } from '../../../../query/domain'
@@ -75,8 +76,17 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 			const sortText = this.buildArrowFunction(sort)
 			query.push(JSON.parse(sortText))
 		}
-		// Although hiding the _id field is useful in some queries such as groupBy, this field is used in sequences
-		if (!query.some(p => p.$project !== undefined)) {
+		const projects = query.filter(p => p.$project !== undefined)
+		if (projects.length > 0) {
+			// replace the number values with $literal
+			for (const project of projects) {
+				for (const entry of Object.entries(project.$project)) {
+					if (entry[0] !== '_id' && this.helper.val.isNumber(entry[1])) {
+						project.$project[entry[0]] = { $literal: entry[1] }
+					}
+				}
+			}
+		} else {
 			query.push({ $project: { _id: 0 } })
 		}
 		let text = JSON.stringify(query)
@@ -89,6 +99,152 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 		} else {
 			return text
 		}
+	}
+
+	protected override buildInsertSentence (sentence: Sentence): string {
+		const insert = sentence.action === 'bulkInsert'
+			? sentence.children.find(p => p instanceof BulkInsert) as BulkInsert | undefined
+			: sentence.children.find(p => p instanceof Insert) as Insert | undefined
+		const entity = this.mapping.getEntity(sentence.entity)
+		if (entity === undefined) {
+			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
+		if (insert === undefined) {
+			throw new SchemaError('insert operand not found')
+		}
+		return this.buildInsert(insert, entity)
+	}
+
+	protected override buildUpdateSentence (sentence: Sentence): string {
+		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
+		// Keep in mind that when there are includes, the set must only be in the root.
+		// maybe the set should be in the connection
+		const data: any = {
+			set: this.buildUpdate(sentence),
+			filter: filter ? this.buildArrowFunction(filter) : '{}'
+		}
+		return JSON.stringify(data)
+	}
+
+	protected override buildDeleteSentence (sentence: Sentence): string {
+		const entity = this.mapping.getEntity(sentence.entity)
+		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
+		if (entity === undefined) {
+			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
+		// keep in mind that when there are includes
+		const data: any = {
+			filter: filter ? this.buildArrowFunction(filter) : {}
+		}
+		return JSON.stringify(data)
+	}
+
+	protected override buildInsert (operand: Insert, entity: EntityMapping): string {
+		const assigns: string[] = []
+		const template = this.dialect.dml('insert')
+		const templateAssign = this.dialect.operator('=', 2)
+		if (operand.children[0].type === OperandType.Obj) {
+			const obj = operand.children[0]
+			for (const p in obj.children) {
+				const keyVal = obj.children[p]
+				let name: string
+				const property = entity.properties?.find(q => q.name === keyVal.name)
+				if (property) {
+					name = property.mapping
+				} else {
+					name = keyVal.name
+				}
+				// let name: string
+				// if (keyVal.property !== undefined) {
+				// const property = entity.properties.find(q => q.name === keyVal.property)
+				// if (property === undefined) {
+				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
+				// }
+				// name = property.mapping
+				// } else {
+				// name = keyVal.name
+				// }
+				const value = this.buildOperand(keyVal.children[0])
+				let assign = this.helper.str.replace(templateAssign, '{0}', name)
+				assign = this.helper.str.replace(assign, '{1}', value)
+				assigns.push(assign)
+			}
+		}
+		return this.helper.str.replace(template, '{assigns}', assigns.join(','))
+	}
+
+	protected override buildUpdate (sentence: Sentence): string {
+		const entity = this.mapping.getEntity(sentence.entity)
+		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
+		if (entity === undefined) {
+			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
+		if (update === undefined) {
+			throw new SintaxisError('update operand not found')
+		}
+
+		const template = this.dialect.dml('update')
+		const templateAssign = this.dialect.operator('=', 2)
+		const assigns: string[] = []
+
+		if (update.children[0].type === OperandType.Obj) {
+			const obj = update.children[0]
+			for (const p in obj.children) {
+				const keyVal = obj.children[p]
+				let name: string
+				const property = entity.properties?.find(q => q.name === keyVal.name)
+				if (property) {
+					name = property.mapping
+				} else {
+					name = keyVal.name
+				}
+				const field = this.dialect.delimiter(name, false, true)
+				const value = this.buildOperand(keyVal.children[0])
+				let assign = this.helper.str.replace(templateAssign, '{0}', field)
+				assign = this.helper.str.replace(assign, '{1}', value)
+				assigns.push(assign)
+			}
+		}
+		return this.helper.str.replace(template, '{assigns}', assigns.join(','))
+	}
+
+	protected override buildField (operand: Field): string {
+		if (this.mapping.existsProperty(operand.entity, operand.name)) {
+			const property = this.mapping.getProperty(operand.entity, operand.name)
+			let templateKey:string
+			if (operand.alias === undefined) {
+				templateKey = 'column'
+			} else if (operand.isRoot) {
+				templateKey = 'field'
+			} else {
+				templateKey = operand.prefix ? 'projectJoinField' : 'joinField'
+			}
+			let text = this.dialect.other(templateKey)
+			text = this.helper.str.replace(text, '{entityAlias}', operand.alias || '')
+			text = this.helper.str.replace(text, '{prefix}', operand.prefix || '')
+			text = this.helper.str.replace(text, '{name}', property.mapping)
+			return text
+		} else {
+			return this.dialect.delimiter(operand.name, true)
+		}
+	}
+
+	protected override buildObject (operand: Operand): string {
+		let text = ''
+		const template = this.dialect.function('as').template
+		for (let i = 0; i < operand.children.length; i++) {
+			const child = operand.children[i]
+			const value = this.buildOperand(child)
+			if (child.children.length === 1 && [OperandType.List, OperandType.Obj].includes(child.children[0].type)) {
+				text = value
+			} else {
+				const alias = this.dialect.delimiter(child.name, true)
+				let fieldText = this.helper.str.replace(template, '{value}', value)
+				fieldText = this.helper.str.replace(fieldText, '{alias}', alias)
+				text += (i > 0 ? ', ' : '') + fieldText
+			}
+		}
+		return text
 	}
 
 	protected buildReplaceRoot (entity:EntityMapping): any[] {
@@ -124,19 +280,6 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 		return JSON.parse('[' + text + ']')
 	}
 
-	protected override buildDeleteSentence (sentence: Sentence): string {
-		const entity = this.mapping.getEntity(sentence.entity)
-		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
-		if (entity === undefined) {
-			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
-		}
-		// keep in mind that when there are includes
-		const data: any = {
-			filter: filter ? this.buildArrowFunction(filter) : {}
-		}
-		return JSON.stringify(data)
-	}
-
 	protected getHaving (query:any, having: Having): any[] {
 		// const groupByClause = JSON.parse('[' + groupByStringClause + ']')
 		const groupByClause = query.find((p:any) => p.$group !== undefined)
@@ -157,7 +300,7 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 			const child = operand.children[i]
 			if (this.hadGroupFunction(child)) {
 				const clause = this.buildOperand(child)
-				const groupKeyValue = groupKeyValues.find(p => this.normalizeEqual(JSON.stringify(p[1]), clause))
+				const groupKeyValue = groupKeyValues.find(p => this.helper.str.equal(JSON.stringify(p[1]), clause, { normalize: true }))
 				if (groupKeyValue) {
 					toReplaces.push([clause, groupKeyValue[0]])
 				}
@@ -171,10 +314,6 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 		/ replace for
 		/ { "$match" : { "largestPrice": { "$gt": 100 } } }
 		*/
-	}
-
-	protected normalizeEqual (a: string, b: string): boolean {
-		return this.helper.str.normalize(a) === this.helper.str.normalize(b)
 	}
 
 	protected getGroupBy (map:Map, sentence: Sentence): any[] {
@@ -405,131 +544,6 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 		} else {
 			return this.dialect.delimiter(name, true)
 		}
-	}
-
-	protected override buildInsert (operand: Insert, entity: EntityMapping): string {
-		const assigns: string[] = []
-		const template = this.dialect.dml('insert')
-		const templateAssign = this.dialect.operator('=', 2)
-		if (operand.children[0].type === OperandType.Obj) {
-			const obj = operand.children[0]
-			for (const p in obj.children) {
-				const keyVal = obj.children[p]
-				let name: string
-				const property = entity.properties?.find(q => q.name === keyVal.name)
-				if (property) {
-					name = property.mapping
-				} else {
-					name = keyVal.name
-				}
-				// let name: string
-				// if (keyVal.property !== undefined) {
-				// const property = entity.properties.find(q => q.name === keyVal.property)
-				// if (property === undefined) {
-				// throw new SchemaError(`not found property ${entity.name}.${keyVal.property}`)
-				// }
-				// name = property.mapping
-				// } else {
-				// name = keyVal.name
-				// }
-				const value = this.buildOperand(keyVal.children[0])
-				let assign = this.helper.str.replace(templateAssign, '{0}', name)
-				assign = this.helper.str.replace(assign, '{1}', value)
-				assigns.push(assign)
-			}
-		}
-		return this.helper.str.replace(template, '{assigns}', assigns.join(','))
-	}
-
-	protected buildUpdateSentence (sentence: Sentence): string {
-		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
-		// Keep in mind that when there are includes, the set must only be in the root.
-		// maybe the set should be in the connection
-		const data: any = {
-			set: this.buildUpdate(sentence),
-			filter: filter ? this.buildArrowFunction(filter) : '{}'
-		}
-		return JSON.stringify(data)
-	}
-
-	protected override buildUpdate (sentence: Sentence): string {
-		const entity = this.mapping.getEntity(sentence.entity)
-		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
-		if (entity === undefined) {
-			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
-		}
-		if (update === undefined) {
-			throw new SintaxisError('update operand not found')
-		}
-
-		const template = this.dialect.dml('update')
-		const templateAssign = this.dialect.operator('=', 2)
-		const assigns: string[] = []
-
-		if (update.children[0].type === OperandType.Obj) {
-			const obj = update.children[0]
-			for (const p in obj.children) {
-				const keyVal = obj.children[p]
-				let name: string
-				const property = entity.properties?.find(q => q.name === keyVal.name)
-				if (property) {
-					name = property.mapping
-				} else {
-					name = keyVal.name
-				}
-				const field = this.dialect.delimiter(name, false, true)
-				const value = this.buildOperand(keyVal.children[0])
-				let assign = this.helper.str.replace(templateAssign, '{0}', field)
-				assign = this.helper.str.replace(assign, '{1}', value)
-				assigns.push(assign)
-			}
-		}
-		return this.helper.str.replace(template, '{assigns}', assigns.join(','))
-	}
-
-	protected override buildField (operand: Field): string {
-		if (this.mapping.existsProperty(operand.entity, operand.name)) {
-			const property = this.mapping.getProperty(operand.entity, operand.name)
-			let templateKey:string
-			if (operand.alias === undefined) {
-				templateKey = 'column'
-			} else if (operand.isRoot) {
-				templateKey = 'field'
-			} else {
-				templateKey = operand.prefix ? 'projectJoinField' : 'joinField'
-			}
-			let text = this.dialect.other(templateKey)
-			text = this.helper.str.replace(text, '{entityAlias}', operand.alias || '')
-			text = this.helper.str.replace(text, '{prefix}', operand.prefix || '')
-			text = this.helper.str.replace(text, '{name}', property.mapping)
-			return text
-		} else {
-			return this.dialect.delimiter(operand.name, true)
-		}
-	}
-
-	protected override buildObject (operand: Operand): string {
-		let text = ''
-		const template = this.dialect.function('as').template
-		for (let i = 0; i < operand.children.length; i++) {
-			const child = operand.children[i]
-			const value = this.buildOperand(child)
-			if (child.children.length === 1 && [OperandType.List, OperandType.Obj].includes(child.children[0].type)) {
-				text = value
-			} else {
-				const alias = this.dialect.delimiter(child.name, true)
-				let fieldText = this.helper.str.replace(template, '{value}', value)
-				fieldText = this.helper.str.replace(fieldText, '{alias}', alias)
-				text += (i > 0 ? ', ' : '') + fieldText
-			}
-		}
-		return text
-	}
-
-	protected buildConstant (operand: Operand): string {
-		const value = super.buildConstant(operand)
-		const template = this.dialect.other('constant')
-		return this.helper.str.replace(template, '{value}', value)
 	}
 
 	protected setPrefixToField (operand: Operand, prefix: string) {

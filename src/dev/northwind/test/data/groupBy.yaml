@@ -265,7 +265,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{"$group":{"_id":{},"average":{"$round":[{"$avg":"$UnitPrice"},{"$literal":4}]}}},{"$project":{"_id":0,"average":"$average"}}]
+            [{"$group":{"_id":{},"average":{"$round":[{"$avg":"$UnitPrice"},4]}}},{"$project":{"_id":0,"average":"$average"}}]
       - stage: Oracle
         info:
           entity: Products
@@ -305,7 +305,7 @@ test:
         error: >-
           ExecutionError: ERROR: The $round accumulator is a unary operator
           SOURCE: MongoDB ENTITY: Products QUERY:
-          "[{\"$group\":{\"_id\":{},\"average\":{\"$round\":[{\"$avg\":\"$UnitPrice\"},{\"$literal\":4}]}}},{\"$project\":{\"_id\":0,\"average\":\"$average\"}}]" 
+          "[{\"$group\":{\"_id\":{},\"average\":{\"$round\":[{\"$avg\":\"$UnitPrice\"},4]}}},{\"$project\":{\"_id\":0,\"average\":\"$average\"}}]" 
           DATA:{"data":{}}
       - stage: MySQL
       - stage: MariaDB
@@ -760,7 +760,7 @@ test:
           dialect: MongoDB
           source: MongoDB
           sentence: >-
-            [{"$lookup":{"from":"Categories","localField":"CategoryID","foreignField":"_id","as":"c"}},{"$group":{"_id":{"category":{"$arrayElemAt":["$c.CategoryName",0]}},"largestPrice":{"$max":"$UnitPrice"}}},{"$project":{"_id":0,"category":"$_id.category","largestPrice":"$largestPrice"}},{"$match":{"largestPrice":{"$gt":{"$literal":100}}}}]
+            [{"$lookup":{"from":"Categories","localField":"CategoryID","foreignField":"_id","as":"c"}},{"$group":{"_id":{"category":{"$arrayElemAt":["$c.CategoryName",0]}},"largestPrice":{"$max":"$UnitPrice"}}},{"$project":{"_id":0,"category":"$_id.category","largestPrice":"$largestPrice"}},{"$match":{"largestPrice":{"$gt":100}}}]
       - stage: Oracle
         info:
           entity: Products
@@ -771,7 +771,7 @@ test:
             "largestPrice" FROM Products p INNER JOIN Categories c ON
             c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING
             MAX(p.UnitPrice) > 100 
-    errors: 1
+    errors: 0
     expression: >-
       Products.having(p => max(p.price) > 100).map(p => ({ category:
       p.category.name, largestPrice: max(p.price) }))
@@ -811,12 +811,13 @@ test:
       - stage: MariaDB
       - stage: PostgreSQL
       - stage: SqlServer
+      - stage: MongoDB
+      - stage: Oracle
     result:
       - category: Beverages
         largestPrice: 263.5
       - category: Meat/Poultry
         largestPrice: 123.79
-    error: 'TypeError: Cannot convert undefined or null to object'
   - name: query 10
     sentences:
       - stage: MySQL
@@ -860,7 +861,7 @@ test:
           sentence: >-
             [{"$unwind":"$\"Order
             Details\""},{"$replaceRoot":{"newRoot":"$\"Order
-            Details\""}},{"$group":{"_id":{},"subTotal":{"$sum":{"$multiply":[{"$multiply":[{"$multiply":["$UnitPrice","$Quantity"]},{"$subtract":[{"$literal":1},{"$divide":["$Discount",{"$literal":100}]}]}]},{"$literal":100}]}}}},{"$project":{"_id":0,"subTotal":"$subTotal"}},{"$sort":{"subTotal":1}}]
+            Details\""}},{"$group":{"_id":{},"subTotal":{"$sum":{"$multiply":[{"$multiply":[{"$multiply":["$UnitPrice","$Quantity"]},{"$subtract":[1,{"$divide":["$Discount",100]}]}]},100]}}}},{"$project":{"_id":0,"subTotal":"$subTotal"}},{"$sort":{"subTotal":1}}]
       - stage: Oracle
         info:
           entity: Orders.details
@@ -910,4 +911,4 @@ test:
       - stage: Oracle
     result:
       - subTotal: 135445859
-errors: 2
+errors: 1

@@ -295,7 +295,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT ROUND(AVG(p.UnitPrice),4) AS average FROM Products p  "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$group\":{\"_id\":{},\"average\":{\"$round\":[{\"$avg\":\"$UnitPrice\"},{\"$literal\":4}]}}},{\"$project\":{\"_id\":0,\"average\":\"$average\"}}]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$group\":{\"_id\":{},\"average\":{\"$round\":[{\"$avg\":\"$UnitPrice\"},4]}}},{\"$project\":{\"_id\":0,\"average\":\"$average\"}}]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT ROUND(AVG(p.UnitPrice),4) AS \"average\" FROM Products p  "}
@@ -400,7 +400,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT c.CategoryName AS category, MAX(p.UnitPrice) AS largestPrice FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$lookup\":{\"from\":\"Categories\",\"localField\":\"CategoryID\",\"foreignField\":\"_id\",\"as\":\"c\"}},{\"$group\":{\"_id\":{\"category\":{\"$arrayElemAt\":[\"$c.CategoryName\",0]}},\"largestPrice\":{\"$max\":\"$UnitPrice\"}}},{\"$project\":{\"_id\":0,\"category\":\"$_id.category\",\"largestPrice\":\"$largestPrice\"}},{\"$match\":{\"largestPrice\":{\"$gt\":{\"$literal\":100}}}}]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$lookup\":{\"from\":\"Categories\",\"localField\":\"CategoryID\",\"foreignField\":\"_id\",\"as\":\"c\"}},{\"$group\":{\"_id\":{\"category\":{\"$arrayElemAt\":[\"$c.CategoryName\",0]}},\"largestPrice\":{\"$max\":\"$UnitPrice\"}}},{\"$project\":{\"_id\":0,\"category\":\"$_id.category\",\"largestPrice\":\"$largestPrice\"}},{\"$match\":{\"largestPrice\":{\"$gt\":100}}}]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT c.CategoryName AS \"category\", MAX(p.UnitPrice) AS \"largestPrice\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID GROUP BY c.CategoryName HAVING MAX(p.UnitPrice) > 100 "}
@@ -421,7 +421,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Orders.details","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100))) * 100)) AS subTotal FROM [Order Details] o  ORDER BY subTotal asc "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Orders.details","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$unwind\":\"$\\\"Order Details\\\"\"},{\"$replaceRoot\":{\"newRoot\":\"$\\\"Order Details\\\"\"}},{\"$group\":{\"_id\":{},\"subTotal\":{\"$sum\":{\"$multiply\":[{\"$multiply\":[{\"$multiply\":[\"$UnitPrice\",\"$Quantity\"]},{\"$subtract\":[{\"$literal\":1},{\"$divide\":[\"$Discount\",{\"$literal\":100}]}]}]},{\"$literal\":100}]}}}},{\"$project\":{\"_id\":0,\"subTotal\":\"$subTotal\"}},{\"$sort\":{\"subTotal\":1}}]"}
+		const MongoDBExpected = {"entity":"Orders.details","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$unwind\":\"$\\\"Order Details\\\"\"},{\"$replaceRoot\":{\"newRoot\":\"$\\\"Order Details\\\"\"}},{\"$group\":{\"_id\":{},\"subTotal\":{\"$sum\":{\"$multiply\":[{\"$multiply\":[{\"$multiply\":[\"$UnitPrice\",\"$Quantity\"]},{\"$subtract\":[1,{\"$divide\":[\"$Discount\",100]}]}]},100]}}}},{\"$project\":{\"_id\":0,\"subTotal\":\"$subTotal\"}},{\"$sort\":{\"subTotal\":1}}]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Orders.details","dialect":"Oracle","source":"Oracle","sentence":"SELECT SUM((((o.UnitPrice * o.Quantity) * (1 - (o.Discount / 100))) * 100)) AS \"subTotal\" FROM \"Order Details\" o  ORDER BY \"subTotal\" asc "}

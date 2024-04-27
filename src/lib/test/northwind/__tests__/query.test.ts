@@ -568,7 +568,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT c.CategoryName AS category, p.ProductName AS name, p.QuantityPerUnit AS quantity, p.UnitsInStock AS inStock FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> 0 ORDER BY category asc, p.ProductName desc "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$lookup\":{\"from\":\"Categories\",\"localField\":\"CategoryID\",\"foreignField\":\"_id\",\"as\":\"c\"}},{\"$match\":{\"Discontinued\":{\"$ne\":{\"$literal\":false}}}},{\"$project\":{\"_id\":0,\"category\":{\"$arrayElemAt\":[\"$c.CategoryName\",0]},\"name\":\"$ProductName\",\"quantity\":\"$QuantityPerUnit\",\"inStock\":\"$UnitsInStock\"}},{\"$sort\":{\"category\":1,\"ProductName\":-1}}]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$lookup\":{\"from\":\"Categories\",\"localField\":\"CategoryID\",\"foreignField\":\"_id\",\"as\":\"c\"}},{\"$match\":{\"Discontinued\":{\"$ne\":false}}},{\"$project\":{\"_id\":0,\"category\":{\"$arrayElemAt\":[\"$c.CategoryName\",0]},\"name\":\"$ProductName\",\"quantity\":\"$QuantityPerUnit\",\"inStock\":\"$UnitsInStock\"}},{\"$sort\":{\"category\":1,\"ProductName\":-1}}]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT c.CategoryName AS \"category\", p.ProductName AS \"name\", p.QuantityPerUnit AS \"quantity\", p.UnitsInStock AS \"inStock\" FROM Products p INNER JOIN Categories c ON c.CategoryID = p.CategoryID WHERE p.Discontinued <> 'N' ORDER BY \"category\" asc, p.ProductName desc "}
@@ -694,7 +694,7 @@ describe('Sentences', () => {
 		const SqlServerExpected = {"entity":"Products","dialect":"SqlServer","source":"SqlServer","sentence":"SELECT p.ProductID AS id FROM Products p  WHERE p.Discontinued <> 0 ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY "}
 		let SqlServer = orm.plan(expression,{stage:'SqlServer'})
 		expect(SqlServerExpected).toStrictEqual(SqlServer)
-		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"Discontinued\":{\"$ne\":{\"$literal\":false}}}},{\"$project\":{\"_id\":0,\"id\":\"$_id\"}},{\"$sort\":{\"_id\":-1}},{\"$skip\":0},{\"$limit\":1} ]"}
+		const MongoDBExpected = {"entity":"Products","dialect":"MongoDB","source":"MongoDB","sentence":"[{\"$match\":{\"Discontinued\":{\"$ne\":false}}},{\"$project\":{\"_id\":0,\"id\":\"$_id\"}},{\"$sort\":{\"_id\":-1}},{\"$skip\":0},{\"$limit\":1} ]"}
 		let MongoDB = orm.plan(expression,{stage:'MongoDB'})
 		expect(MongoDBExpected).toStrictEqual(MongoDB)
 		const OracleExpected = {"entity":"Products","dialect":"Oracle","source":"Oracle","sentence":"SELECT p.ProductID AS \"id\" FROM Products p  WHERE p.Discontinued <> 'N' ORDER BY p.ProductID desc  OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY "}

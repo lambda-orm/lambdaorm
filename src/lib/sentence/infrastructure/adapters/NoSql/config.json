@@ -42,8 +42,7 @@
       "projectJoinField": "{\"$arrayElemAt\":[\"{prefix}{entityAlias}.{name}\",0]}",
       "column": "\"{name}\":1",
       "false": "false",
-      "true": "true",
-      "constant": "{\"$literal\":{value}}"
+      "true": "true"
     },
     "operators": {
       "unary": {
@@ -216,8 +215,7 @@
         "projectJoinField": "{\"$arrayElemAt\":[\"{prefix}{entityAlias}.{name}\",0]}",
         "column": "\"{name}\":1",
         "false": "false",
-        "true": "true",
-        "constant": "{\"$literal\":{value}}"
+        "true": "true"
       },
       "operators": {
         "unary": {
