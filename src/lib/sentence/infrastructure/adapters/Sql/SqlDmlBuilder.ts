@@ -72,7 +72,36 @@ export class SqlDmlBuilder extends DmlBuilderBase {
 		if (insert === undefined) {
 			throw new SchemaError('insert operand not found')
 		}
-		return this.buildInsert(insert, entity)
+		let template = this.dialect.dml(insert instanceof BulkInsert ? 'bulkInsert' : 'insert')
+		const templateColumn = this.dialect.other('column')
+		const fields: string[] = []
+		const values: any[] = []
+		const autoIncrement = this.mapping.getAutoIncrement(entity.name)
+		if (autoIncrement && entity.sequence) {
+			const templateSequenceNextVal = this.dialect.other('sequenceNextVal')
+			fields.push(this.helper.str.replace(templateColumn, '{name}', this.dialect.delimiter(autoIncrement.mapping)))
+			values.push(this.helper.str.replace(templateSequenceNextVal, '{name}', entity.sequence))
+		}
+		if (insert.children[0].type === OperandType.Obj) {
+			const obj = insert.children[0]
+			for (const p in obj.children) {
+				const keyVal = obj.children[p]
+				const property = entity.properties?.find(q => q.name === keyVal.name)
+				let name: string
+				if (property) {
+					name = property.mapping
+				} else {
+					name = keyVal.name
+				}
+				fields.push(this.helper.str.replace(templateColumn, '{name}', this.dialect.delimiter(name)))
+				values.push(this.buildOperand(keyVal.children[0]))
+			}
+		}
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
+		template = this.helper.str.replace(template, '{fields}', fields.join(','))
+		template = this.helper.str.replace(template, '{values}', values.join(','))
+		template = this.helper.str.replace(template, '{autoIncrementField}', autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : '0')
+		return template.trim()
 	}
 
 	protected override buildUpdateSentence (sentence: Sentence): string {
@@ -100,45 +129,15 @@ export class SqlDmlBuilder extends DmlBuilderBase {
 		if (_delete === undefined) {
 			throw new SchemaError('delete operand not found')
 		}
-		let text = this.buildDelete(_delete, entity)
+		let template = this.dialect.dml('delete')
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
+		template = this.helper.str.replace(template, '{alias}', _delete.alias)
+		let text = template.trim() + ' '
 		if (filter) text = text + this.buildArrowFunction(filter) + ' '
 		return text
 	}
 
-	protected override buildInsert (operand: Insert|BulkInsert, entity: EntityMapping): string {
-		let template = this.dialect.dml(operand instanceof BulkInsert ? 'bulkInsert' : 'insert')
-		const templateColumn = this.dialect.other('column')
-		const fields: string[] = []
-		const values: any[] = []
-		const autoIncrement = this.mapping.getAutoIncrement(entity.name)
-		if (autoIncrement && entity.sequence) {
-			const templateSequenceNextVal = this.dialect.other('sequenceNextVal')
-			fields.push(this.helper.str.replace(templateColumn, '{name}', this.dialect.delimiter(autoIncrement.mapping)))
-			values.push(this.helper.str.replace(templateSequenceNextVal, '{name}', entity.sequence))
-		}
-		if (operand.children[0].type === OperandType.Obj) {
-			const obj = operand.children[0]
-			for (const p in obj.children) {
-				const keyVal = obj.children[p]
-				const property = entity.properties?.find(q => q.name === keyVal.name)
-				let name: string
-				if (property) {
-					name = property.mapping
-				} else {
-					name = keyVal.name
-				}
-				fields.push(this.helper.str.replace(templateColumn, '{name}', this.dialect.delimiter(name)))
-				values.push(this.buildOperand(keyVal.children[0]))
-			}
-		}
-		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
-		template = this.helper.str.replace(template, '{fields}', fields.join(','))
-		template = this.helper.str.replace(template, '{values}', values.join(','))
-		template = this.helper.str.replace(template, '{autoIncrementField}', autoIncrement && autoIncrement.mapping ? autoIncrement.mapping : '0')
-		return template.trim()
-	}
-
-	protected override buildUpdate (operand: Update, entity: EntityMapping): string {
+	protected buildUpdate (operand: Update, entity: EntityMapping): string {
 		let template = this.dialect.dml('update')
 		const templateColumn = this.dialect.other('column')
 		const templateAssign = this.dialect.operator('=', 2)
@@ -165,6 +164,33 @@ export class SqlDmlBuilder extends DmlBuilderBase {
 		template = this.helper.str.replace(template, '{alias}', operand.alias)
 		template = this.helper.str.replace(template, '{assigns}', assigns.join(','))
 		return template.trim() + ' '
+	}
+
+	protected buildFrom (from: From): string {
+		let template = this.dialect.dml('from')
+		const entityMapping = this.mapping.entityMapping(from.entity)
+		if (entityMapping === undefined) {
+			throw new SchemaError(`not found mapping for ${from.entity}`)
+		}
+		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entityMapping))
+		template = this.helper.str.replace(template, '{alias}', from.alias)
+		return template.trim()
+	}
+
+	protected buildJoins (_entity: EntityMapping, joins: Join[]): string {
+		const list: string[] = []
+		const template = this.dialect.dml('join')
+		for (const join of joins) {
+			const entity = this.mapping.getEntity(join.name)
+			if (entity === undefined) {
+				throw new SchemaError(`not found mapping for ${join.name}`)
+			}
+			let joinText = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
+			joinText = this.helper.str.replace(joinText, '{alias}', join.alias)
+			joinText = this.helper.str.replace(joinText, '{relation}', this.buildOperand(join.children[0])).trim()
+			list.push(joinText)
+		}
+		return list.join(' ') + ' '
 	}
 
 	protected override buildField (field: Field): string {

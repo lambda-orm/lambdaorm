@@ -1,9 +1,6 @@
 import { Operand, OperandType } from '3xpr'
 import { Primitive } from 'typ3s'
-import {
-	SentenceCategory, Source, SchemaError, EntityMapping, SintaxisError, Field, Sentence,
-	From, Join, Page, Insert, Update, Delete, BulkInsert, MappingConfigService
-} from 'lambdaorm-base'
+import { SentenceCategory, Source, SintaxisError, Field, Sentence, Page, MappingConfigService } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
 import { OrmH3lp } from '../../../../shared/infrastructure'
 import { DialectService, DmlBuilder } from '../../../../language/application'
@@ -38,15 +35,6 @@ export abstract class DmlBuilderBase implements DmlBuilder {
 		protected abstract buildInsertSentence (sentence: Sentence): string
 		protected abstract buildUpdateSentence (sentence: Sentence): string
 		protected abstract buildDeleteSentence (sentence: Sentence): string
-		protected abstract buildInsert (operand: Insert|BulkInsert, entity: EntityMapping): string
-		protected abstract buildUpdate (operand: Update, entity: EntityMapping): string
-
-		protected buildDelete (operand: Delete, entity: EntityMapping): string {
-			let template = this.dialect.dml('delete')
-			template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
-			template = this.helper.str.replace(template, '{alias}', operand.alias)
-			return template.trim() + ' '
-		}
 
 		protected buildOperand (operand: Operand): string {
 			if (operand instanceof Sentence) {
@@ -74,33 +62,6 @@ export abstract class DmlBuilderBase implements DmlBuilder {
 			} else {
 				throw new SintaxisError(`Operand ${operand.type} ${operand.name} not supported`)
 			}
-		}
-
-		protected buildJoins (_entity: EntityMapping, joins: Join[]): string {
-			const list: string[] = []
-			const template = this.dialect.dml('join')
-			for (const join of joins) {
-				const entity = this.mapping.getEntity(join.name)
-				if (entity === undefined) {
-					throw new SchemaError(`not found mapping for ${join.name}`)
-				}
-				let joinText = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
-				joinText = this.helper.str.replace(joinText, '{alias}', join.alias)
-				joinText = this.helper.str.replace(joinText, '{relation}', this.buildOperand(join.children[0])).trim()
-				list.push(joinText)
-			}
-			return list.join(' ') + ' '
-		}
-
-		protected buildFrom (from: From): string {
-			let template = this.dialect.dml('from')
-			const entityMapping = this.mapping.entityMapping(from.entity)
-			if (entityMapping === undefined) {
-				throw new SchemaError(`not found mapping for ${from.entity}`)
-			}
-			template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entityMapping))
-			template = this.helper.str.replace(template, '{alias}', from.alias)
-			return template.trim()
 		}
 
 		protected abstract buildField (field: Field): string

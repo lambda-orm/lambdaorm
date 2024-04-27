@@ -59,7 +59,7 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 			query.push(...this.buildReplaceRoot(entity))
 		}
 		if (joins.length > 0) {
-			query.push(...this.buildJoins2(entity, joins))
+			query.push(...this.buildJoins(entity, joins))
 		}
 		if (filter) {
 			query.push(...this.buildFilter(filter))
@@ -112,39 +112,11 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 		if (insert === undefined) {
 			throw new SchemaError('insert operand not found')
 		}
-		return this.buildInsert(insert, entity)
-	}
-
-	protected override buildUpdateSentence (sentence: Sentence): string {
-		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
-		// Keep in mind that when there are includes, the set must only be in the root.
-		// maybe the set should be in the connection
-		const data: any = {
-			set: this.buildUpdate(sentence),
-			filter: filter ? this.buildArrowFunction(filter) : '{}'
-		}
-		return JSON.stringify(data)
-	}
-
-	protected override buildDeleteSentence (sentence: Sentence): string {
-		const entity = this.mapping.getEntity(sentence.entity)
-		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
-		if (entity === undefined) {
-			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
-		}
-		// keep in mind that when there are includes
-		const data: any = {
-			filter: filter ? this.buildArrowFunction(filter) : {}
-		}
-		return JSON.stringify(data)
-	}
-
-	protected override buildInsert (operand: Insert, entity: EntityMapping): string {
 		const assigns: string[] = []
 		const template = this.dialect.dml('insert')
 		const templateAssign = this.dialect.operator('=', 2)
-		if (operand.children[0].type === OperandType.Obj) {
-			const obj = operand.children[0]
+		if (insert.children[0].type === OperandType.Obj) {
+			const obj = insert.children[0]
 			for (const p in obj.children) {
 				const keyVal = obj.children[p]
 				let name: string
@@ -173,7 +145,31 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 		return this.helper.str.replace(template, '{assigns}', assigns.join(','))
 	}
 
-	protected override buildUpdate (sentence: Sentence): string {
+	protected override buildUpdateSentence (sentence: Sentence): string {
+		const filter = sentence.children.find(p => p instanceof Filter) as Filter | undefined
+		// Keep in mind that when there are includes, the set must only be in the root.
+		// maybe the set should be in the connection
+		const data: any = {
+			set: this.buildUpdate(sentence),
+			filter: filter ? this.buildArrowFunction(filter) : '{}'
+		}
+		return JSON.stringify(data)
+	}
+
+	protected override buildDeleteSentence (sentence: Sentence): string {
+		const entity = this.mapping.getEntity(sentence.entity)
+		const filter = sentence.children.find(p => p.name === 'filter') as Filter | undefined
+		if (entity === undefined) {
+			throw new SchemaError(`mapping undefined on ${sentence.entity} entity`)
+		}
+		// keep in mind that when there are includes
+		const data: any = {
+			filter: filter ? this.buildArrowFunction(filter) : {}
+		}
+		return JSON.stringify(data)
+	}
+
+	protected buildUpdate (sentence: Sentence): string {
 		const entity = this.mapping.getEntity(sentence.entity)
 		const update = sentence.children.find(p => p instanceof Update) as Update | undefined
 		if (entity === undefined) {
@@ -426,7 +422,7 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 		return map
 	}
 
-	protected buildJoins2 (entity: EntityMapping, joins: Join[]): any[] {
+	protected buildJoins (entity: EntityMapping, joins: Join[]): any[] {
 		// Example: https://www.w3schools.com/nodejs/nodejs_mongodb_join.asp
 		// Example: https://stackoverflow.com/questions/69097870/how-to-join-multiple-collection-in-MongoDB
 		// https://javascript.tutorialink.com/MongoDB-get-sum-of-fields-in-last-stage-of-aggregate/
