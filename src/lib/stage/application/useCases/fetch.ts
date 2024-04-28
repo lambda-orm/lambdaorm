@@ -24,20 +24,20 @@ export class StageFetch {
 				mappings.push(mapping)
 			}
 			if (mapping.entities === undefined) mapping.entities = []
-			await this.introspectSource(source, mapping.entities)
+			await this.source(source, mapping.entities)
 		}
 		return mappings
 	}
 
-	private async introspectSource (source: Source, entities:EntityMapping[]): Promise<void> {
+	private async source (source: Source, entities:EntityMapping[]): Promise<void> {
 		const rows = await this.sourceObjects(source)
 		const tableNames = rows.filter((row: any) => row.type === 'table').map((row: any) => row.name)
 		const viewNames = rows.filter((row: any) => row.type === 'view').map((row: any) => row.name)
 		if (tableNames.length > 0) {
-			await this.introspectEntities(source, tableNames, entities)
+			await this.entities(source, tableNames, entities)
 		}
 		if (viewNames.length > 0) {
-			await this.introspectViews(source, viewNames, entities)
+			await this.views(source, viewNames, entities)
 		}
 	}
 
@@ -46,7 +46,7 @@ export class StageFetch {
 		return await this.executor.execute(objectsQuery, {}, this.options)
 	}
 
-	private async introspectEntities (source: Source, names:string[], entities:EntityMapping[]): Promise<void> {
+	private async entities (source: Source, names:string[], entities:EntityMapping[]): Promise<void> {
 		const query = this.builder(source).tables(names)
 		const rows = await this.executor.execute(query, {}, this.options)
 		this.completeEntities(source, rows, entities)
@@ -61,7 +61,7 @@ export class StageFetch {
 		await this.solveRelations(source, names, entities)
 	}
 
-	private async introspectViews (source: Source, names:string[], entities:EntityMapping[]): Promise<void> {
+	private async views (source: Source, names:string[], entities:EntityMapping[]): Promise<void> {
 		const query = this.builder(source).views(names)
 		const rows = await this.executor.execute(query, {}, this.options)
 		this.completeEntities(source, rows, entities)

@@ -162,7 +162,7 @@
 			],
 			"program": "${workspaceFolder}/src/dev/northwind/lab.ts",
 			"envFile": "${workspaceFolder}/config/northwind.env"
-		}, 
+		}, 		
 		{
 			"name": "lib northwind populate source",
 			"type": "node",
@@ -223,6 +223,16 @@
 			],
 			"stopOnEntry": false
 		},
+		{
+			"name": "fetch northwind lab",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/northwind/fetch.ts",
+			"envFile": "${workspaceFolder}/config/northwind.env"
+		}, 
 		{
 			"name": "lib northwind drop dbs",
 			"type": "node",

@@ -1,29 +1,40 @@
 # https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions001.htm
+dbTypes:
+  boolean: boolean
+  integer: integer
+  decimal: decimal
+  string: string
+  dateTime: dateTime
+  date: date
+  time: time
 types:
-# boolean: BOOLEAN
-# integer: INTEGER
-# decimal: DECIMAL(10,4)
-# string: VARCHAR({0})
-# dateTime: DATETIME
-# date: DATE
-# time: TIME
+  boolean: boolean
+  integer: integer
+  decimal: decimal
+  string: string
+  dateTime: dateTime
+  date: date
+  time: time
 format:
   dateTime: 'ISO'
   date: 'yyyy-LL-dd'
   time: 'HH:mm:ss'
 support:
-  sequences: false
+  sequences: true
   tablespaces: false
   partitions: false
   pkTablespaces: false
   ukTablespaces: false
   composite: true    
 ddl:
-  # createEntity: "createCollection({name})"
-  # createIndex: "createIndex({index})"
-  # dropEntity: ''
-  # dropIndex: ''
-  # truncateEntity: ''
+  objects: 'show collections'
+  tables: '[{names}]'
+  views: '[{names}]'
+  primaryKeys: '[{tableNames}]'
+  uniqueKeys: '[{tableNames}]'
+  foreignKeys: '[{tableNames}]'
+  indexes: '[{tableNames}]'
+  sequences: null
 dml:
   rootMap: '{"$project":{"_id":0,{0}}} '
   map: "{0}"
@@ -49,6 +60,7 @@ dml:
 
 others:
   delimiter: '"{name}"'
+  string: '"{name}"'
   separatorSql: ;
   # notNullable: NOT NULL
   variable: '"${name}$"'

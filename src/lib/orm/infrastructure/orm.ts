@@ -33,7 +33,7 @@ export class Orm implements IOrm {
 	public schema: SchemaFacade
 	public state: SchemaState
 	public stage: StageFacade
-	private helper: OrmH3lp
+	public helper: OrmH3lp
 	private operand: OperandFacade
 	private sentence: SentenceFacade
 	private expression: ExpressionFacade
@@ -262,4 +262,3 @@ export class Orm implements IOrm {
 		this.executor.unsubscribe(observer)
 	}
 }
-export const orm = Orm.instance

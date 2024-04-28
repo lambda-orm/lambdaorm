@@ -1,5 +1,5 @@
 import { Query } from '../../../query/domain'
-import { Index, Source, Relation, EntityMapping, PropertyMapping, MappingConfigService } from 'lambdaorm-base'
+import { Index, Source, Relation, EntityMapping, PropertyMapping, MappingConfigService, SentenceAction } from 'lambdaorm-base'
 import { DialectService, DdlBuilder } from '../../application'
 import { OrmH3lp } from '../../../shared/infrastructure'
 
@@ -34,12 +34,49 @@ export abstract class DdlBuilderBase implements DdlBuilder {
 	abstract createFk(entity: EntityMapping, relation: Relation): Query | undefined
 	abstract createIndex(entity: EntityMapping, index: Index): Query | undefined
 	abstract createSequence(entity: EntityMapping): Query | undefined
-	abstract objects (): Query
-	abstract tables (names:string[]): Query
-	abstract views (names:string[]): Query
-	abstract primaryKeys (tableNames:string[]): Query
-	abstract uniqueKeys (tableNames:string[]): Query
-	abstract foreignKeys (tableNames:string[]): Query
-	abstract indexes (tableNames:string[]): Query
-	abstract sequences (sequenceNames:string[]): Query
+	public objects (): Query {
+		const text = this.dialect.ddl(SentenceAction.objects)
+		return new Query({ action: SentenceAction.objects, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public tables (names:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.tables)
+		text = text.replace('{names}', names.map(p => this.dialect.string(p)).join(','))
+		return new Query({ action: SentenceAction.tables, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public views (names:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.views)
+		text = text.replace('{names}', names.map(p => this.dialect.string(p)).join(','))
+		return new Query({ action: SentenceAction.views, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public primaryKeys (tableNames:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.primaryKeys)
+		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.string(p)).join(','))
+		return new Query({ action: SentenceAction.primaryKeys, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public uniqueKeys (tableNames:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.uniqueKeys)
+		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.string(p)).join(','))
+		return new Query({ action: SentenceAction.uniqueKeys, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public foreignKeys (tableNames:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.foreignKeys)
+		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.string(p)).join(','))
+		return new Query({ action: SentenceAction.foreignKeys, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public indexes (tableNames:string[]): Query {
+		let text = this.dialect.ddl(SentenceAction.indexes)
+		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.string(p)).join(','))
+		return new Query({ action: SentenceAction.indexes, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
+
+	public sequences (): Query {
+		const text = this.dialect.ddl(SentenceAction.sequences)
+		return new Query({ action: SentenceAction.sequences, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+	}
 }

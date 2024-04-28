@@ -13,7 +13,7 @@ types:
   int: integer
   integer: integer
   bigint: integer
-  smallint: integers
+  smallint: integer
   decimal: decimal
   numeric: decimal
   number: decimal

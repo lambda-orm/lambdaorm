@@ -1,0 +1,354 @@
+- name: default
+  entities:
+    - name: Categories
+      mapping: Categories
+      properties:
+        - name: categoryId
+          mapping: CategoryID
+          type: integer
+          required: true
+          autoIncrement: true
+          primaryKey: true
+        - name: categoryName
+          mapping: CategoryName
+          type: string
+          required: true
+        - name: description
+          mapping: Description
+          type: string
+          length: 1000
+      primaryKey:
+        - categoryId
+      uniqueKey:
+        - categoryName
+    - name: Customers
+      mapping: Customers
+      properties:
+        - name: customerId
+          mapping: CustomerID
+          type: string
+          required: true
+          length: 5
+          primaryKey: true
+        - name: companyName
+          mapping: CompanyName
+          type: string
+          required: true
+        - name: contactName
+          mapping: ContactName
+          type: string
+        - name: contactTitle
+          mapping: ContactTitle
+          type: string
+        - name: address
+          mapping: Address
+          type: string
+        - name: city
+          mapping: City
+          type: string
+        - name: region
+          mapping: Region
+          type: string
+        - name: postalCode
+          mapping: PostalCode
+          type: string
+          length: 20
+        - name: country
+          mapping: Country
+          type: string
+      primaryKey:
+        - customerId
+    - name: Employees
+      mapping: Employees
+      properties:
+        - name: employeeId
+          mapping: EmployeeID
+          type: integer
+          required: true
+          autoIncrement: true
+          primaryKey: true
+        - name: lastName
+          mapping: LastName
+          type: string
+          required: true
+        - name: firstName
+          mapping: FirstName
+          type: string
+          required: true
+        - name: title
+          mapping: Title
+          type: string
+        - name: titleOfCourtesy
+          mapping: TitleOfCourtesy
+          type: string
+        - name: birthDate
+          mapping: BirthDate
+          type: dateTime
+        - name: hireDate
+          mapping: HireDate
+          type: dateTime
+        - name: homePhone
+          mapping: HomePhone
+          type: string
+        - name: reportsTo
+          mapping: ReportsTo
+          type: integer
+        - name: address
+          mapping: Address
+          type: string
+        - name: city
+          mapping: City
+          type: string
+        - name: region
+          mapping: Region
+          type: string
+        - name: postalCode
+          mapping: PostalCode
+          type: string
+          length: 20
+        - name: country
+          mapping: Country
+          type: string
+      primaryKey:
+        - employeeId
+      uniqueKey:
+        - lastName
+        - firstName
+      relations:
+        - name: reportsTo
+          from: reportsTo
+          entity: Employees
+          to: employeeId
+          type: oneToMany
+    - name: OrderDetails
+      mapping: Order Details
+      properties:
+        - name: orderId
+          mapping: OrderID
+          type: integer
+          required: true
+          primaryKey: true
+        - name: productId
+          mapping: ProductID
+          type: integer
+          required: true
+          primaryKey: true
+        - name: unitPrice
+          mapping: UnitPrice
+          type: decimal
+        - name: quantity
+          mapping: Quantity
+          type: decimal
+        - name: discount
+          mapping: Discount
+          type: decimal
+      primaryKey:
+        - orderId
+        - productId
+        - orderId
+        - productId
+      relations:
+        - name: order
+          from: orderId
+          entity: Orders
+          to: orderId
+          type: oneToMany
+        - name: product
+          from: productId
+          entity: Products
+          to: productId
+          type: oneToMany
+    - name: Orders
+      mapping: Orders
+      properties:
+        - name: orderId
+          mapping: OrderID
+          type: integer
+          required: true
+          autoIncrement: true
+          primaryKey: true
+        - name: customerId
+          mapping: CustomerID
+          type: string
+          required: true
+          length: 5
+          primaryKey: true
+        - name: employeeId
+          mapping: EmployeeID
+          type: integer
+          required: true
+          primaryKey: true
+        - name: orderDate
+          mapping: OrderDate
+          type: dateTime
+        - name: requiredDate
+          mapping: RequiredDate
+          type: date
+        - name: shippedDate
+          mapping: ShippedDate
+          type: date
+        - name: shipVia
+          mapping: ShipVia
+          type: integer
+        - name: freight
+          mapping: Freight
+          type: decimal
+        - name: shipName
+          mapping: ShipName
+          type: string
+        - name: shipAddress
+          mapping: ShipAddress
+          type: string
+        - name: shipCity
+          mapping: ShipCity
+          type: string
+        - name: shipRegion
+          mapping: ShipRegion
+          type: string
+        - name: shipPostalCode
+          mapping: ShipPostalCode
+          type: string
+          length: 20
+        - name: shipCountry
+          mapping: ShipCountry
+          type: string
+      primaryKey:
+        - customerId
+        - employeeId
+        - orderId
+        - orderId
+      relations:
+        - name: customer
+          from: customerId
+          entity: Customers
+          to: customerId
+          type: oneToMany
+        - name: employee
+          from: employeeId
+          entity: Employees
+          to: employeeId
+          type: oneToMany
+    - name: Products
+      mapping: Products
+      properties:
+        - name: productId
+          mapping: ProductID
+          type: integer
+          required: true
+          autoIncrement: true
+          primaryKey: true
+        - name: productName
+          mapping: ProductName
+          type: string
+          required: true
+        - name: supplierId
+          mapping: SupplierID
+          type: integer
+          required: true
+          primaryKey: true
+        - name: categoryId
+          mapping: CategoryID
+          type: integer
+          primaryKey: true
+        - name: quantityPerUnit
+          mapping: QuantityPerUnit
+          type: string
+        - name: unitPrice
+          mapping: UnitPrice
+          type: decimal
+        - name: unitsInStock
+          mapping: UnitsInStock
+          type: decimal
+        - name: unitsOnOrder
+          mapping: UnitsOnOrder
+          type: decimal
+        - name: reorderLevel
+          mapping: ReorderLevel
+          type: decimal
+        - name: discontinued
+          mapping: Discontinued
+          type: integer
+      primaryKey:
+        - categoryId
+        - productId
+        - productId
+        - supplierId
+      uniqueKey:
+        - productName
+        - supplierId
+      relations:
+        - name: category
+          from: categoryId
+          entity: Categories
+          to: categoryId
+          type: oneToMany
+        - name: supplier
+          from: supplierId
+          entity: Suppliers
+          to: supplierId
+          type: oneToMany
+    - name: Shippers
+      mapping: Shippers
+      properties:
+        - name: shipperId
+          mapping: ShipperID
+          type: integer
+          required: true
+          autoIncrement: true
+          primaryKey: true
+        - name: companyName
+          mapping: CompanyName
+          type: string
+          required: true
+        - name: phone
+          mapping: Phone
+          type: string
+          length: 20
+      primaryKey:
+        - shipperId
+      uniqueKey:
+        - companyName
+    - name: Suppliers
+      mapping: Suppliers
+      properties:
+        - name: supplierId
+          mapping: SupplierID
+          type: integer
+          required: true
+          autoIncrement: true
+          primaryKey: true
+        - name: companyName
+          mapping: CompanyName
+          type: string
+          required: true
+        - name: contactName
+          mapping: ContactName
+          type: string
+        - name: phone
+          mapping: Phone
+          type: string
+          length: 20
+        - name: homePage
+          mapping: HomePage
+          type: string
+          length: 200
+        - name: address
+          mapping: Address
+          type: string
+        - name: city
+          mapping: City
+          type: string
+        - name: region
+          mapping: Region
+          type: string
+        - name: postalCode
+          mapping: PostalCode
+          type: string
+          length: 20
+        - name: country
+          mapping: Country
+          type: string
+      primaryKey:
+        - supplierId
+      uniqueKey:
+        - companyName

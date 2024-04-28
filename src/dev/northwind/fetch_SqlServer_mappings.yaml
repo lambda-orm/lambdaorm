@@ -1,0 +1,374 @@
+- name: default
+  entities:
+    - name: Categories
+      mapping: Categories
+      properties:
+        - name: categoryId
+          mapping: CategoryID
+          type: integer
+          required: true
+          length: 4
+          primaryKey: true
+        - name: categoryName
+          mapping: CategoryName
+          type: string
+          required: true
+        - name: description
+          mapping: Description
+          type: string
+          length: 1000
+      primaryKey:
+        - categoryId
+      uniqueKey:
+        - categoryName
+    - name: Customers
+      mapping: Customers
+      properties:
+        - name: customerId
+          mapping: CustomerID
+          type: string
+          required: true
+          length: 5
+          primaryKey: true
+        - name: companyName
+          mapping: CompanyName
+          type: string
+          required: true
+        - name: contactName
+          mapping: ContactName
+          type: string
+        - name: contactTitle
+          mapping: ContactTitle
+          type: string
+        - name: address
+          mapping: Address
+          type: string
+        - name: city
+          mapping: City
+          type: string
+        - name: region
+          mapping: Region
+          type: string
+        - name: postalCode
+          mapping: PostalCode
+          type: string
+          length: 20
+        - name: country
+          mapping: Country
+          type: string
+      primaryKey:
+        - customerId
+      indexes:
+        - name: customersName
+          fields:
+            - companyName
+    - name: Employees
+      mapping: Employees
+      properties:
+        - name: employeeId
+          mapping: EmployeeID
+          type: integer
+          required: true
+          length: 4
+          primaryKey: true
+        - name: lastName
+          mapping: LastName
+          type: string
+          required: true
+        - name: firstName
+          mapping: FirstName
+          type: string
+          required: true
+        - name: title
+          mapping: Title
+          type: string
+        - name: titleOfCourtesy
+          mapping: TitleOfCourtesy
+          type: string
+        - name: birthDate
+          mapping: BirthDate
+          type: dateTime
+          length: 8
+        - name: hireDate
+          mapping: HireDate
+          type: dateTime
+          length: 8
+        - name: homePhone
+          mapping: HomePhone
+          type: string
+        - name: reportsTo
+          mapping: ReportsTo
+          type: integer
+          length: 4
+        - name: address
+          mapping: Address
+          type: string
+        - name: city
+          mapping: City
+          type: string
+        - name: region
+          mapping: Region
+          type: string
+        - name: postalCode
+          mapping: PostalCode
+          type: string
+          length: 20
+        - name: country
+          mapping: Country
+          type: string
+      primaryKey:
+        - employeeId
+      uniqueKey:
+        - firstName
+        - lastName
+      relations:
+        - name: reportsTo
+          from: reportsTo
+          entity: Employees
+          to: reportsTo
+          type: oneToMany
+    - name: OrderDetails
+      mapping: Order Details
+      properties:
+        - name: orderId
+          mapping: OrderID
+          type: integer
+          required: true
+          length: 4
+          primaryKey: true
+        - name: productId
+          mapping: ProductID
+          type: integer
+          required: true
+          length: 4
+          primaryKey: true
+        - name: unitPrice
+          mapping: UnitPrice
+          type: decimal
+          length: 9
+        - name: quantity
+          mapping: Quantity
+          type: decimal
+          length: 9
+        - name: discount
+          mapping: Discount
+          type: decimal
+          length: 9
+      primaryKey:
+        - orderId
+        - productId
+      relations:
+        - name: order
+          from: orderId
+          entity: OrderDetails
+          to: orderId
+          type: oneToMany
+        - name: product
+          from: productId
+          entity: OrderDetails
+          to: productId
+          type: oneToMany
+    - name: Orders
+      mapping: Orders
+      properties:
+        - name: orderId
+          mapping: OrderID
+          type: integer
+          required: true
+          length: 4
+          primaryKey: true
+        - name: customerId
+          mapping: CustomerID
+          type: string
+          required: true
+          length: 5
+        - name: employeeId
+          mapping: EmployeeID
+          type: integer
+          required: true
+          length: 4
+        - name: orderDate
+          mapping: OrderDate
+          type: dateTime
+          length: 8
+        - name: requiredDate
+          mapping: RequiredDate
+          type: date
+          length: 3
+        - name: shippedDate
+          mapping: ShippedDate
+          type: date
+          length: 3
+        - name: shipVia
+          mapping: ShipVia
+          type: integer
+          length: 4
+        - name: freight
+          mapping: Freight
+          type: decimal
+          length: 9
+        - name: shipName
+          mapping: ShipName
+          type: string
+        - name: shipAddress
+          mapping: ShipAddress
+          type: string
+        - name: shipCity
+          mapping: ShipCity
+          type: string
+        - name: shipRegion
+          mapping: ShipRegion
+          type: string
+        - name: shipPostalCode
+          mapping: ShipPostalCode
+          type: string
+          length: 20
+        - name: shipCountry
+          mapping: ShipCountry
+          type: string
+      primaryKey:
+        - orderId
+      indexes:
+        - name: ordersOrderDate
+          fields:
+            - orderDate
+        - name: ordersShippedDate
+          fields:
+            - shippedDate
+      relations:
+        - name: customer
+          from: customerId
+          entity: Orders
+          to: customerId
+          type: oneToMany
+        - name: employee
+          from: employeeId
+          entity: Orders
+          to: employeeId
+          type: oneToMany
+    - name: Products
+      mapping: Products
+      properties:
+        - name: productId
+          mapping: ProductID
+          type: integer
+          required: true
+          length: 4
+          primaryKey: true
+        - name: productName
+          mapping: ProductName
+          type: string
+          required: true
+        - name: supplierId
+          mapping: SupplierID
+          type: integer
+          required: true
+          length: 4
+        - name: categoryId
+          mapping: CategoryID
+          type: integer
+          length: 4
+        - name: quantityPerUnit
+          mapping: QuantityPerUnit
+          type: string
+        - name: unitPrice
+          mapping: UnitPrice
+          type: decimal
+          length: 9
+        - name: unitsInStock
+          mapping: UnitsInStock
+          type: decimal
+          length: 9
+        - name: unitsOnOrder
+          mapping: UnitsOnOrder
+          type: decimal
+          length: 9
+        - name: reorderLevel
+          mapping: ReorderLevel
+          type: decimal
+          length: 9
+        - name: discontinued
+          mapping: Discontinued
+          type: boolean
+          length: 1
+      primaryKey:
+        - productId
+      uniqueKey:
+        - productName
+        - supplierId
+      relations:
+        - name: category
+          from: categoryId
+          entity: Products
+          to: categoryId
+          type: oneToMany
+        - name: supplier
+          from: supplierId
+          entity: Products
+          to: supplierId
+          type: oneToMany
+    - name: Shippers
+      mapping: Shippers
+      properties:
+        - name: shipperId
+          mapping: ShipperID
+          type: integer
+          required: true
+          length: 4
+          primaryKey: true
+        - name: companyName
+          mapping: CompanyName
+          type: string
+          required: true
+        - name: phone
+          mapping: Phone
+          type: string
+          length: 20
+      primaryKey:
+        - shipperId
+      uniqueKey:
+        - companyName
+    - name: Suppliers
+      mapping: Suppliers
+      properties:
+        - name: supplierId
+          mapping: SupplierID
+          type: integer
+          required: true
+          length: 4
+          primaryKey: true
+        - name: companyName
+          mapping: CompanyName
+          type: string
+          required: true
+        - name: contactName
+          mapping: ContactName
+          type: string
+        - name: phone
+          mapping: Phone
+          type: string
+          length: 20
+        - name: homePage
+          mapping: HomePage
+          type: string
+          length: 200
+        - name: address
+          mapping: Address
+          type: string
+        - name: city
+          mapping: City
+          type: string
+        - name: region
+          mapping: Region
+          type: string
+        - name: postalCode
+          mapping: PostalCode
+          type: string
+          length: 20
+        - name: country
+          mapping: Country
+          type: string
+      primaryKey:
+        - supplierId
+      uniqueKey:
+        - companyName

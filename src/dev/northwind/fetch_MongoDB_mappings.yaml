@@ -1,0 +1,349 @@
+- name: MongoDB
+  entities:
+    - name: Categories
+      mapping: Categories
+      properties:
+        - name: id
+          mapping: _id
+          type: integer
+          required: true
+          primaryKey: true
+        - name: categoryName
+          mapping: CategoryName
+          type: string
+          required: true
+          length: 32
+        - name: description
+          mapping: Description
+          type: string
+          required: true
+      primaryKey:
+        - id
+      uniqueKey:
+        - categoryName
+    - name: Suppliers
+      mapping: Suppliers
+      properties:
+        - name: id
+          mapping: _id
+          type: integer
+          required: true
+          primaryKey: true
+        - name: address
+          mapping: Address
+          type: string
+          required: true
+        - name: city
+          mapping: City
+          type: string
+          required: true
+          length: 32
+        - name: companyName
+          mapping: CompanyName
+          type: string
+          required: true
+          length: 50
+        - name: contactName
+          mapping: ContactName
+          type: string
+          required: true
+          length: 50
+        - name: country
+          mapping: Country
+          type: string
+          required: true
+          length: 16
+        - name: homePage
+          mapping: HomePage
+          type: string
+          length: 128
+        - name: phone
+          mapping: Phone
+          type: string
+          required: true
+          length: 32
+        - name: postalCode
+          mapping: PostalCode
+          type: string
+          required: true
+          length: 16
+        - name: region
+          mapping: Region
+          type: string
+          length: 16
+      primaryKey:
+        - id
+      uniqueKey:
+        - companyName
+    - name: Shippers
+      mapping: Shippers
+      properties:
+        - name: id
+          mapping: _id
+          type: integer
+          required: true
+          primaryKey: true
+        - name: companyName
+          mapping: CompanyName
+          type: string
+          required: true
+          length: 32
+        - name: phone
+          mapping: Phone
+          type: string
+          required: true
+          length: 32
+      primaryKey:
+        - id
+      uniqueKey:
+        - companyName
+    - name: Customers
+      mapping: Customers
+      properties:
+        - name: id
+          mapping: _id
+          type: string
+          required: true
+          length: 5
+          primaryKey: true
+        - name: address
+          mapping: Address
+          type: string
+        - name: city
+          mapping: City
+          type: string
+          length: 32
+        - name: companyName
+          mapping: CompanyName
+          type: string
+          required: true
+          length: 50
+        - name: contactName
+          mapping: ContactName
+          type: string
+          required: true
+          length: 32
+        - name: contactTitle
+          mapping: ContactTitle
+          type: string
+          required: true
+          length: 50
+        - name: country
+          mapping: Country
+          type: string
+          length: 16
+        - name: postalCode
+          mapping: PostalCode
+          type: string
+          length: 16
+        - name: region
+          mapping: Region
+          type: string
+          length: 32
+      primaryKey:
+        - id
+      indexes:
+        - name: customersName
+          fields:
+            - companyName
+    - name: Orders
+      mapping: Orders
+      properties:
+        - name: id
+          mapping: _id
+          type: integer
+          required: true
+          primaryKey: true
+        - name: customerId
+          mapping: CustomerID
+          type: string
+          required: true
+          length: 5
+        - name: employeeId
+          mapping: EmployeeID
+          type: integer
+          required: true
+        - name: orderDate
+          mapping: OrderDate
+          type: string
+          required: true
+          length: 50
+        - name: requiredDate
+          mapping: RequiredDate
+          type: string
+          required: true
+          length: 16
+        - name: shipAddress
+          mapping: ShipAddress
+          type: string
+          required: true
+        - name: shipCity
+          mapping: ShipCity
+          type: string
+          required: true
+          length: 32
+        - name: shipCountry
+          mapping: ShipCountry
+          type: string
+          required: true
+          length: 16
+        - name: shipName
+          mapping: ShipName
+          type: string
+          required: true
+          length: 50
+        - name: shippedDate
+          mapping: ShippedDate
+          type: string
+          length: 16
+        - name: shipPostalCode
+          mapping: ShipPostalCode
+          type: string
+          required: true
+          length: 7
+        - name: shipRegion
+          mapping: ShipRegion
+          type: string
+          length: 32
+        - name: shipVia
+          mapping: ShipVia
+          type: integer
+          required: true
+      primaryKey:
+        - id
+      indexes:
+        - name: ordersOrderDate
+          fields:
+            - orderDate
+        - name: ordersShippedDate
+          fields:
+            - shippedDate
+    - name: Products
+      mapping: Products
+      properties:
+        - name: id
+          mapping: _id
+          type: integer
+          required: true
+          primaryKey: true
+        - name: categoryId
+          mapping: CategoryID
+          type: integer
+          required: true
+        - name: discontinued
+          mapping: Discontinued
+          type: boolean
+          required: true
+        - name: productName
+          mapping: ProductName
+          type: string
+          required: true
+          length: 50
+        - name: quantityPerUnit
+          mapping: QuantityPerUnit
+          type: string
+          required: true
+          length: 32
+        - name: reorderLevel
+          mapping: ReorderLevel
+          type: integer
+          required: true
+        - name: supplierId
+          mapping: SupplierID
+          type: integer
+          required: true
+        - name: unitPrice
+          mapping: UnitPrice
+          type: decimal
+          required: true
+        - name: unitsInStock
+          mapping: UnitsInStock
+          type: integer
+          required: true
+        - name: unitsOnOrder
+          mapping: UnitsOnOrder
+          type: integer
+          required: true
+      primaryKey:
+        - id
+      uniqueKey:
+        - productName
+      indexes:
+        - name: productsUk
+          fields:
+            - supplierId
+    - name: Employees
+      mapping: Employees
+      properties:
+        - name: id
+          mapping: _id
+          type: integer
+          required: true
+          primaryKey: true
+        - name: address
+          mapping: Address
+          type: string
+          required: true
+          length: 50
+        - name: birthDate
+          mapping: BirthDate
+          type: string
+          required: true
+          length: 50
+        - name: city
+          mapping: City
+          type: string
+          required: true
+          length: 16
+        - name: country
+          mapping: Country
+          type: string
+          required: true
+          length: 4
+        - name: firstName
+          mapping: FirstName
+          type: string
+          required: true
+          length: 16
+        - name: hireDate
+          mapping: HireDate
+          type: string
+          required: true
+          length: 50
+        - name: homePhone
+          mapping: HomePhone
+          type: string
+          required: true
+          length: 32
+        - name: lastName
+          mapping: LastName
+          type: string
+          required: true
+          length: 16
+        - name: postalCode
+          mapping: PostalCode
+          type: string
+          required: true
+          length: 9
+        - name: region
+          mapping: Region
+          type: string
+          length: 2
+        - name: reportsTo
+          mapping: ReportsTo
+          type: integer
+        - name: title
+          mapping: Title
+          type: string
+          required: true
+          length: 32
+        - name: titleOfCourtesy
+          mapping: TitleOfCourtesy
+          type: string
+          required: true
+          length: 5
+      primaryKey:
+        - id
+      uniqueKey:
+        - firstName
+        - lastName

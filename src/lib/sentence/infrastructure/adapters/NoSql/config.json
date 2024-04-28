@@ -1,20 +1,46 @@
 {
   "NoSQL": {
-    "types": null,
+    "dbTypes": {
+      "boolean": "boolean",
+      "integer": "integer",
+      "decimal": "decimal",
+      "string": "string",
+      "dateTime": "dateTime",
+      "date": "date",
+      "time": "time"
+    },
+    "types": {
+      "boolean": "boolean",
+      "integer": "integer",
+      "decimal": "decimal",
+      "string": "string",
+      "dateTime": "dateTime",
+      "date": "date",
+      "time": "time"
+    },
     "format": {
       "dateTime": "ISO",
       "date": "yyyy-LL-dd",
       "time": "HH:mm:ss"
     },
     "support": {
-      "sequences": false,
+      "sequences": true,
       "tablespaces": false,
       "partitions": false,
       "pkTablespaces": false,
       "ukTablespaces": false,
       "composite": true
     },
-    "ddl": null,
+    "ddl": {
+      "objects": "show collections",
+      "tables": "[{names}]",
+      "views": "[{names}]",
+      "primaryKeys": "[{tableNames}]",
+      "uniqueKeys": "[{tableNames}]",
+      "foreignKeys": "[{tableNames}]",
+      "indexes": "[{tableNames}]",
+      "sequences": null
+    },
     "dml": {
       "rootMap": "{\"$project\":{\"_id\":0,{0}}} ",
       "map": "{0}",
@@ -35,6 +61,7 @@
     },
     "others": {
       "delimiter": "\"{name}\"",
+      "string": "\"{name}\"",
       "separatorSql": ";",
       "variable": "\"${name}$\"",
       "field": "\"{prefix}{name}\"",
@@ -175,18 +202,46 @@
   },
   "dialects": {
     "MongoDB": {
+      "dbTypes": {
+        "boolean": "boolean",
+        "integer": "integer",
+        "decimal": "decimal",
+        "string": "string",
+        "dateTime": "dateTime",
+        "date": "date",
+        "time": "time"
+      },
+      "types": {
+        "boolean": "boolean",
+        "integer": "integer",
+        "decimal": "decimal",
+        "string": "string",
+        "dateTime": "dateTime",
+        "date": "date",
+        "time": "time"
+      },
       "format": {
         "dateTime": "ISO",
         "date": "yyyy-LL-dd",
         "time": "HH:mm:ss"
       },
       "support": {
-        "sequences": false,
+        "sequences": true,
         "tablespaces": false,
         "partitions": false,
         "pkTablespaces": false,
         "ukTablespaces": false,
         "composite": true
+      },
+      "ddl": {
+        "objects": "show collections",
+        "tables": "[{names}]",
+        "views": "[{names}]",
+        "primaryKeys": "[{tableNames}]",
+        "uniqueKeys": "[{tableNames}]",
+        "foreignKeys": "[{tableNames}]",
+        "indexes": "[{tableNames}]",
+        "sequences": null
       },
       "dml": {
         "rootMap": "{\"$project\":{\"_id\":0,{0}}} ",
@@ -208,6 +263,7 @@
       },
       "others": {
         "delimiter": "\"{name}\"",
+        "string": "\"{name}\"",
         "separatorSql": ";",
         "variable": "\"${name}$\"",
         "field": "\"{prefix}{name}\"",
