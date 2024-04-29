@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/d9dd50600cc1cb524c4fb0ae404756c6e8eb3402/src/lib/sentence/application/facade.ts#L27)
+[src/lib/sentence/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/7e116b97708c36fe07c6c3e95513f0adb881478b/src/lib/sentence/application/facade.ts#L27)
 
 ## Methods
 
@@ -62,7 +62,7 @@
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/d9dd50600cc1cb524c4fb0ae404756c6e8eb3402/src/lib/sentence/application/facade.ts#L44)
+[src/lib/sentence/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/7e116b97708c36fe07c6c3e95513f0adb881478b/src/lib/sentence/application/facade.ts#L44)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/d9dd50600cc1cb524c4fb0ae404756c6e8eb3402/src/lib/sentence/application/facade.ts#L48)
+[src/lib/sentence/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/7e116b97708c36fe07c6c3e95513f0adb881478b/src/lib/sentence/application/facade.ts#L48)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:64](https://github.com/lambda-orm/lambdaorm/blob/d9dd50600cc1cb524c4fb0ae404756c6e8eb3402/src/lib/sentence/application/facade.ts#L64)
+[src/lib/sentence/application/facade.ts:64](https://github.com/lambda-orm/lambdaorm/blob/7e116b97708c36fe07c6c3e95513f0adb881478b/src/lib/sentence/application/facade.ts#L64)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/d9dd50600cc1cb524c4fb0ae404756c6e8eb3402/src/lib/sentence/application/facade.ts#L52)
+[src/lib/sentence/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/7e116b97708c36fe07c6c3e95513f0adb881478b/src/lib/sentence/application/facade.ts#L52)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:56](https://github.com/lambda-orm/lambdaorm/blob/d9dd50600cc1cb524c4fb0ae404756c6e8eb3402/src/lib/sentence/application/facade.ts#L56)
+[src/lib/sentence/application/facade.ts:56](https://github.com/lambda-orm/lambdaorm/blob/7e116b97708c36fe07c6c3e95513f0adb881478b/src/lib/sentence/application/facade.ts#L56)
 
 ___
 
@@ -163,4 +163,4 @@ ___
 
 #### Defined in
 
-[src/lib/sentence/application/facade.ts:60](https://github.com/lambda-orm/lambdaorm/blob/d9dd50600cc1cb524c4fb0ae404756c6e8eb3402/src/lib/sentence/application/facade.ts#L60)
+[src/lib/sentence/application/facade.ts:60](https://github.com/lambda-orm/lambdaorm/blob/7e116b97708c36fe07c6c3e95513f0adb881478b/src/lib/sentence/application/facade.ts#L60)
