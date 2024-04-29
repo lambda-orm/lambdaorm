@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/lib/language/domain/model.ts:3](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/language/domain/model.ts#L3)
+[src/lib/language/domain/model.ts:3](https://github.com/lambda-orm/lambdaorm/blob/41da0f89a1058111cefd572d5f6d903eabd70833/src/lib/language/domain/model.ts#L3)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/domain/model.ts:2](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/language/domain/model.ts#L2)
+[src/lib/language/domain/model.ts:2](https://github.com/lambda-orm/lambdaorm/blob/41da0f89a1058111cefd572d5f6d903eabd70833/src/lib/language/domain/model.ts#L2)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/domain/model.ts:4](https://github.com/lambda-orm/lambdaorm/blob/d1b498ee2dcb0adac2059644725f796da18ff3ea/src/lib/language/domain/model.ts#L4)
+[src/lib/language/domain/model.ts:4](https://github.com/lambda-orm/lambdaorm/blob/41da0f89a1058111cefd572d5f6d903eabd70833/src/lib/language/domain/model.ts#L4)

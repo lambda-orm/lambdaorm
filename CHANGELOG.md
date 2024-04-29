@@ -6,13 +6,11 @@ All notable changes to this project will be documented in this file.
 
 ## [1.11.0](https://github.com/lambda-orm/lambdaorm/compare/v1.10.7...v1.11.0) (2024-04-29)
 
-
-### Features
+**Features:**
 
 * add mongodb fetch ([67078a5](https://github.com/lambda-orm/lambdaorm/commit/67078a5e714f5a8c3d9963fa6101897a518eaa1a)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * bugfix fetch ([41da0f8](https://github.com/lambda-orm/lambdaorm/commit/41da0f89a1058111cefd572d5f6d903eabd70833)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 
