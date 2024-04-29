@@ -110,7 +110,8 @@
       "false": "FALSE",
       "true": "TRUE",
       "null": "NULL",
-      "sequenceNextVal": "{name}.nextval"
+      "sequenceNextVal": "{name}.nextval",
+      "sequenceName": "SQ_{name}"
     },
     "operators": {
       "unary": {
@@ -369,7 +370,8 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval"
+        "sequenceNextVal": "{name}.nextval",
+        "sequenceName": "SQ_{name}"
       },
       "functions": {
         "numeric": {
@@ -665,7 +667,8 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval"
+        "sequenceNextVal": "{name}.nextval",
+        "sequenceName": "SQ_{name}"
       },
       "functions": {
         "numeric": {
@@ -928,7 +931,8 @@
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval"
+        "sequenceNextVal": "{name}.nextval",
+        "sequenceName": "SQ_{name}"
       },
       "ddl": {
         "createEntity": "CREATE TABLE {name} ({define})",
@@ -1287,7 +1291,8 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval"
+        "sequenceNextVal": "{name}.nextval",
+        "sequenceName": "SQ_{name}"
       },
       "operators": {
         "binary": {
@@ -1550,7 +1555,8 @@
         "false": "FALSE",
         "true": "TRUE",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval"
+        "sequenceNextVal": "{name}.nextval",
+        "sequenceName": "SQ_{name}"
       },
       "functions": {
         "numeric": {
@@ -1884,7 +1890,8 @@
         "field": "{entityAlias}.{name}",
         "column": "{name}",
         "null": "NULL",
-        "sequenceNextVal": "{name}.nextval"
+        "sequenceNextVal": "{name}.nextval",
+        "sequenceName": "SQ_{name}"
       },
       "functions": {
         "numeric": {

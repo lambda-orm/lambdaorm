@@ -4,7 +4,7 @@ import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query, Include } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
-import { SchemaError, RelationType, EntityMapping, MethodNotImplemented, Data, MappingConfigService, CreateEntitiesService, Entity } from 'lambdaorm-base'
+import { SchemaError, RelationType, EntityMapping, MethodNotImplemented, Data, MappingConfigService, Entity, CreateEntitiesService } from 'lambdaorm-base'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { Connection } from '../../application'
@@ -458,12 +458,10 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 
 	public async objects (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		const result: any[] = []
-		const collections = await this.cnx.db.listCollections().toArray()
-		for (const collection of collections) {
-			if (collection.name === '__sequences') {
-				continue
-			}
-			result.push({ type: 'table', name: collection.name, tablespace: null })
+		const collectionNames = await this.collectionNames()
+		const entities = await this.getEntities(mapping, collectionNames)
+		for (const entity of entities) {
+			result.push({ type: 'table', name: entity.name, tablespace: null })
 		}
 		return result
 	}
@@ -512,19 +510,40 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 				increment: 1
 			})
 		}
+		return result
 	}
 
 	public async foreignKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
-		return []
+		const result: any[] = []
+		const entityNames = JSON.parse(query.sentence)
+		const entities = await this.getEntities(mapping, entityNames)
+		for (const entityName of entityNames) {
+			const entity = entities.find(e => this.helper.schema.equalName(e.name, entityName))
+			if (!entity || !entity.relations) continue
+			for (const relation of entity.relations) {
+				result.push({
+					tableName: entity.name,
+					columnName: relation.from,
+					constraintName: `${relation.entity}${relation.to.startsWith('_') ? relation.to : '_' + relation.to}`,
+					refTableName: relation.entity,
+					refColumnName: relation.to,
+					composite: relation.composite,
+					type: relation.type
+				})
+			}
+		}
+		return result
 	}
 
 	public async primaryKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		const result: any[] = []
-		const collectionNames = JSON.parse(query.sentence)
-		const entities = await this.getEntities(mapping, collectionNames)
-		for (const collectionName of collectionNames) {
-			const indexes = await this.cnx.db.collection(collectionName).listIndexes().toArray()
-			const entity = entities.find(e => e.name === collectionName)
+		const collectionsNames = await this.collectionNames()
+		const entityNames = JSON.parse(query.sentence)
+		const entities = await this.getEntities(mapping, entityNames)
+		for (const entityName of entityNames) {
+			if (!collectionsNames.includes(entityName)) continue
+			const indexes = await this.cnx.db.collection(entityName).listIndexes().toArray()
+			const entity = entities.find(e => this.helper.schema.equalName(e.name, entityName))
 			if (!entity || !entity.primaryKey) continue
 			for (const primaryKey of entity.primaryKey) {
 				if (indexes.some((p:any) => Object.keys(p.key).includes(primaryKey))) {
@@ -541,11 +560,13 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 
 	public async uniqueKeys (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		const result: any[] = []
-		const collectionNames = JSON.parse(query.sentence)
-		const entities = await this.getEntities(mapping, collectionNames)
-		for (const collectionName of collectionNames) {
-			const indexes = await this.cnx.db.collection(collectionName).listIndexes().toArray()
-			const entity = entities.find(e => e.name === collectionName)
+		const collectionsNames = await this.collectionNames()
+		const entityNames = JSON.parse(query.sentence)
+		const entities = await this.getEntities(mapping, entityNames)
+		for (const entityName of entityNames) {
+			if (!collectionsNames.includes(entityName)) continue
+			const indexes = await this.cnx.db.collection(entityName).listIndexes().toArray()
+			const entity = entities.find(e => this.helper.schema.equalName(e.name, entityName))
 			if (!entity || !entity.uniqueKey) continue
 			for (const uniqueProperty of entity.uniqueKey) {
 				if (indexes.some((p:any) => p.unique && Object.keys(p.key).includes(uniqueProperty))) {
@@ -562,17 +583,19 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 
 	public async indexes (mapping: MappingConfigService, dialect: DialectService, query: Query, data: Data): Promise<any> {
 		const result:any[] = []
-		const collectionNames = JSON.parse(query.sentence)
-		const entities = await this.getEntities(mapping, collectionNames)
-		for (const collectionName of collectionNames) {
-			const indexes = await this.cnx.db.collection(collectionName).listIndexes().toArray()
-			const entity = entities.find(e => e.name === collectionName)
+		const collectionsNames = await this.collectionNames()
+		const entityNames = JSON.parse(query.sentence)
+		const entities = await this.getEntities(mapping, entityNames)
+		for (const entityName of entityNames) {
+			if (!collectionsNames.includes(entityName)) continue
+			const indexes = await this.cnx.db.collection(entityName).listIndexes().toArray()
+			const entity = entities.find(e => this.helper.schema.equalName(e.name, entityName))
 			for (const index of indexes) {
 				const keys = Object.keys(index.key)
 				for (const key of keys) {
-					if (entity?.primaryKey?.includes(key) || entity?.uniqueKey?.includes(key)) continue
+					if (!entity || (entity.primaryKey?.includes(key) || entity.uniqueKey?.includes(key))) continue
 					result.push({
-						tableName: collectionName,
+						tableName: entity.name,
 						indexName: index.name,
 						columnName: key,
 						isUnique: (index.unique || index.name === '_id_'),
@@ -584,11 +607,17 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		return result
 	}
 
+	private async collectionNames (): Promise<string[]> {
+		const collections = await this.cnx.db.listCollections().toArray()
+		return collections.filter((p: any) => p.name !== '__sequences').map((p: any) => p.name)
+	}
+
 	private async getEntities (mapping: MappingConfigService, collectionNames:string[]): Promise<Entity[]> {
 		const createEntitiesService = new CreateEntitiesService(this.helper.schema)
 		const result:Entity[] = []
 		for (const collectionName of collectionNames) {
 			const collection = mapping.entityMapping(collectionName)
+			if (!collection) continue
 			const data = await this.cnx.db.collection(collection).find().toArray()
 			const type = Type.type(data, { info: true, describe: true })
 			const entities = createEntitiesService.getEntities(collectionName, type)

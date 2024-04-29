@@ -32,5 +32,5 @@ export interface DdlBuilder {
 	uniqueKeys (tableNames:string[]): Query
 	foreignKeys (tableNames:string[]): Query
 	indexes (tableNames:string[]): Query
-	sequences (sequenceNames:string[]): Query
+	sequences (): Query
 }

@@ -72,6 +72,7 @@
           entity: Employees
           to: employeeid
           type: oneToMany
+      sequence: SQ_EMPLOYEES
     - name: OrderDetails
       mapping: Order Details
       properties:
@@ -186,6 +187,7 @@
           entity: Employees
           to: employeeid
           type: oneToMany
+      sequence: SQ_ORDERS
     - name: Suppliers
       mapping: SUPPLIERS
       properties:
@@ -237,6 +239,7 @@
         - supplierid
       uniqueKey:
         - companyname
+      sequence: SQ_SUPPLIERS
     - name: Shippers
       mapping: SHIPPERS
       properties:
@@ -258,6 +261,7 @@
         - shipperid
       uniqueKey:
         - companyname
+      sequence: SQ_SHIPPERS
     - name: Products
       mapping: PRODUCTS
       properties:
@@ -319,6 +323,7 @@
           entity: Categories
           to: categoryid
           type: oneToMany
+      sequence: SQ_PRODUCTS
     - name: Customers
       mapping: CUSTOMERS
       properties:
@@ -384,3 +389,4 @@
         - categoryid
       uniqueKey:
         - categoryname
+      sequence: SQ_CATEGORIES

@@ -39,7 +39,7 @@
       "uniqueKeys": "[{tableNames}]",
       "foreignKeys": "[{tableNames}]",
       "indexes": "[{tableNames}]",
-      "sequences": null
+      "sequences": "[]"
     },
     "dml": {
       "rootMap": "{\"$project\":{\"_id\":0,{0}}} ",
@@ -69,7 +69,8 @@
       "projectJoinField": "{\"$arrayElemAt\":[\"{prefix}{entityAlias}.{name}\",0]}",
       "column": "\"{name}\":1",
       "false": "false",
-      "true": "true"
+      "true": "true",
+      "sequenceName": "SQ_{name}"
     },
     "operators": {
       "unary": {
@@ -241,7 +242,7 @@
         "uniqueKeys": "[{tableNames}]",
         "foreignKeys": "[{tableNames}]",
         "indexes": "[{tableNames}]",
-        "sequences": null
+        "sequences": "[]"
       },
       "dml": {
         "rootMap": "{\"$project\":{\"_id\":0,{0}}} ",
@@ -271,7 +272,8 @@
         "projectJoinField": "{\"$arrayElemAt\":[\"{prefix}{entityAlias}.{name}\",0]}",
         "column": "\"{name}\":1",
         "false": "false",
-        "true": "true"
+        "true": "true",
+        "sequenceName": "SQ_{name}"
       },
       "operators": {
         "unary": {

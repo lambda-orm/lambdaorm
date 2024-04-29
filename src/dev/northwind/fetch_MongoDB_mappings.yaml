@@ -21,6 +21,7 @@
         - id
       uniqueKey:
         - categoryName
+      sequence: SQ_CATEGORIES
     - name: Suppliers
       mapping: Suppliers
       properties:
@@ -75,6 +76,7 @@
         - id
       uniqueKey:
         - companyName
+      sequence: SQ_SUPPLIERS
     - name: Shippers
       mapping: Shippers
       properties:
@@ -97,6 +99,7 @@
         - id
       uniqueKey:
         - companyName
+      sequence: SQ_SHIPPERS
     - name: Customers
       mapping: Customers
       properties:
@@ -146,6 +149,27 @@
         - name: customersName
           fields:
             - companyName
+    - name: OrderDetails
+      mapping: OrderDetails
+      properties:
+        - name: orderId
+          mapping: OrderID
+          type: integer
+          required: true
+        - name: productId
+          mapping: ProductID
+          type: integer
+          required: true
+        - name: orderId
+          mapping: order_id
+          type: integer
+          required: true
+      relations:
+        - name: id
+          from: orderId
+          entity: Orders
+          to: id
+          type: oneToMany
     - name: Orders
       mapping: Orders
       properties:
@@ -218,6 +242,13 @@
         - name: ordersShippedDate
           fields:
             - shippedDate
+      relations:
+        - name: order
+          from: id
+          entity: OrderDetails
+          to: orderId
+          type: oneToMany
+      sequence: SQ_ORDERS
     - name: Products
       mapping: Products
       properties:
@@ -272,6 +303,7 @@
         - name: productsUk
           fields:
             - supplierId
+      sequence: SQ_PRODUCTS
     - name: Employees
       mapping: Employees
       properties:
@@ -347,3 +379,4 @@
       uniqueKey:
         - firstName
         - lastName
+      sequence: SQ_EMPLOYEES

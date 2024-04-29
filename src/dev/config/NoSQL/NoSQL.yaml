@@ -34,7 +34,7 @@ ddl:
   uniqueKeys: '[{tableNames}]'
   foreignKeys: '[{tableNames}]'
   indexes: '[{tableNames}]'
-  sequences: null
+  sequences: '[]'
 dml:
   rootMap: '{"$project":{"_id":0,{0}}} '
   map: "{0}"
@@ -57,7 +57,6 @@ dml:
   composite: '"{name}":{"$map":{"input":{input},"in":{{in}}}}'
   unwind: '{"$unwind":"{0}"}'
   replaceRoot: '{"$replaceRoot":{"newRoot":"{0}"}}'
-
 others:
   delimiter: '"{name}"'
   string: '"{name}"'
@@ -71,6 +70,7 @@ others:
   column: '"{name}":1'
   false: "false"
   true: "true"
+  sequenceName: 'SQ_{name}'
 operators:
   unary:
     "-": '{"$multiply":[{0},-1]}'

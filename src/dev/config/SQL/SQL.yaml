@@ -108,6 +108,7 @@ others:
   true: 'TRUE'
   null: 'NULL'
   sequenceNextVal : '{name}.nextval'
+  sequenceName: 'SQ_{name}'
 operators:
   unary:
     '-': '- {0}'

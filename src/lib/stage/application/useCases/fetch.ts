@@ -1,4 +1,4 @@
-import { DdlBuilder, LanguagesService } from '../../../language/application'
+import { DdlBuilder, DialectService, LanguagesService } from '../../../language/application'
 import { SchemaState, QueryOptions, Source, EntityMapping, Mapping, RelationType, SchemaHelper } from 'lambdaorm-base'
 import { Executor } from '../../../execution/domain'
 
@@ -47,6 +47,7 @@ export class StageFetch {
 	}
 
 	private async entities (source: Source, names:string[], entities:EntityMapping[]): Promise<void> {
+		const dialect = this.languages.getDialect(source.dialect)
 		const query = this.builder(source).tables(names)
 		const rows = await this.executor.execute(query, {}, this.options)
 		this.completeEntities(source, rows, entities)
@@ -55,10 +56,14 @@ export class StageFetch {
 			const index = entities.indexOf(entity)
 			entities.splice(index, 1)
 		}
+
 		await this.solvePrimaryKeys(source, names, entities)
 		await this.solveUniqueKeys(source, names, entities)
 		await this.solveIndexes(source, names, entities)
 		await this.solveRelations(source, names, entities)
+		if (dialect.support('sequences')) {
+			await this.solveSequences(dialect, source, entities)
+		}
 	}
 
 	private async views (source: Source, names:string[], entities:EntityMapping[]): Promise<void> {
@@ -155,6 +160,17 @@ export class StageFetch {
 						entity.indexes.push({ name: this.helper.indexName(row.indexName), fields: [this.helper.propertyName(row.columnName)] })
 					}
 				}
+			}
+		}
+	}
+
+	private async solveSequences (dialect: DialectService, source: Source, entities:EntityMapping[]): Promise<void> {
+		const query = this.builder(source).sequences()
+		const rows = await this.executor.execute(query, {}, this.options)
+		for (const row of rows) {
+			const entity = entities.find(e => e.mapping && this.helper.equalName(dialect.other('sequenceName')?.replace('{name}', e.mapping), row.sequenceName))
+			if (entity) {
+				entity.sequence = row.sequenceName
 			}
 		}
 	}
