@@ -12,6 +12,7 @@
 
 - [arrayToList](SqlHelper.md#arraytolist)
 - [bufferToString](SqlHelper.md#buffertostring)
+- [createInfo](SqlHelper.md#createinfo)
 - [dateFormat](SqlHelper.md#dateformat)
 - [dateToString](SqlHelper.md#datetostring)
 - [escape](SqlHelper.md#escape)
@@ -81,6 +82,29 @@ ___
 #### Defined in
 
 node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:20
+
+___
+
+### createInfo
+
+▸ **createInfo**(`entity`, `action`, `category`, `type`): [`SentenceInfo`](../interfaces/SentenceInfo.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `entity` | `string` |
+| `action` | [`SentenceAction`](../enums/SentenceAction.md) |
+| `category` | [`SentenceCategory`](../enums/SentenceCategory.md) |
+| `type` | [`SentenceType`](../enums/SentenceType.md) |
+
+#### Returns
+
+[`SentenceInfo`](../interfaces/SentenceInfo.md)
+
+#### Defined in
+
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:24
 
 ___
 

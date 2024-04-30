@@ -38,7 +38,7 @@
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:28
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:29
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:29
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:30
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:27
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:28
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:30
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:31
 
 ___
 
@@ -107,4 +107,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:26
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:27

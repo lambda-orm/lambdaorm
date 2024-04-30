@@ -361,7 +361,7 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:21](https://github.com/lambda-orm/lambdaorm/blob/7e116b97708c36fe07c6c3e95513f0adb881478b/src/lib/index.ts#L21)
+[src/lib/index.ts:21](https://github.com/lambda-orm/lambdaorm/blob/a0d8ab272b532eb88386058135e414ac521ad4dd/src/lib/index.ts#L21)
 
 ## Functions
 

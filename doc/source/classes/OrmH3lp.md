@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/7e116b97708c36fe07c6c3e95513f0adb881478b/src/lib/shared/infrastructure/helper.ts#L25)
+[src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/a0d8ab272b532eb88386058135e414ac521ad4dd/src/lib/shared/infrastructure/helper.ts#L25)
 
 ## Properties
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/7e116b97708c36fe07c6c3e95513f0adb881478b/src/lib/shared/infrastructure/helper.ts#L24)
+[src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/a0d8ab272b532eb88386058135e414ac521ad4dd/src/lib/shared/infrastructure/helper.ts#L24)
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:33
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:34
 
 ___
 
@@ -178,7 +178,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:34
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:35
 
 ___
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:36
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:37
 
 ___
 
@@ -248,7 +248,7 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:37
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:38
 
 ___
 
@@ -276,4 +276,4 @@ ___
 
 #### Defined in
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:35
+node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:36

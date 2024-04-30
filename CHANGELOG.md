@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [1.11.3](https://github.com/lambda-orm/lambdaorm/compare/v1.11.2...v1.11.3) (2024-04-30)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * bugfix initialize ([a0d8ab2](https://github.com/lambda-orm/lambdaorm/commit/a0d8ab272b532eb88386058135e414ac521ad4dd)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 
