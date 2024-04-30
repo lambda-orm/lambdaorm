@@ -496,7 +496,7 @@ export class DDLBuilderService {
 	}
 
 	private evalDataSource (sourceRule: SourceRule, entity: string): boolean {
-		return this.schemaState.evalSourceRule(sourceRule, { entity, action: SentenceAction.undefined, category: SentenceCategory.undefined, type: SentenceType.dml })
+		return this.schemaState.evalSourceRule(sourceRule, this.helper.sql.createInfo(entity, SentenceAction.undefined, SentenceCategory.undefined, SentenceType.dml))
 	}
 
 	private builder (source: Source): DdlBuilder {
