@@ -38,10 +38,9 @@ export class Orm implements IOrm {
 	private sentence: SentenceFacade
 	private expression: ExpressionFacade
 	private executor:ObservableExecutorDecorator
-	private _logger:Logger
 
-	constructor (private _workspace: string) {
-		this._logger = new LoggerBuilder().build()
+	constructor (private _workspace: string, private _logger?:Logger) {
+		this._logger = _logger || new LoggerBuilder().build()
 		this.helper = new OrmH3lp(h3lp, this._logger)
 		this.expressions = new OrmExpressionsBuilder(this.helper).build()
 		new OrmLibrary(this).load()
@@ -57,7 +56,7 @@ export class Orm implements IOrm {
 	}
 
 	public get logger ():Logger {
-		return this._logger
+		return this._logger as Logger
 	}
 
 	public set logger (value:Logger) {
@@ -259,3 +258,4 @@ export class Orm implements IOrm {
 		this.executor.unsubscribe(observer)
 	}
 }
+export const orm = new Orm(process.cwd())

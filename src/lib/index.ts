@@ -1,4 +1,3 @@
-import { Orm } from './orm/infrastructure'
 export * from './connection/domain'
 export * from './connection/application'
 export * from './execution/domain'
@@ -18,4 +17,3 @@ export * from './sentence/application'
 export * from './shared/infrastructure'
 export * from './stage/application'
 export * from 'lambdaorm-base'
-export const orm = new Orm(process.cwd())
