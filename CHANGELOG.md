@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## [1.12.0](https://github.com/lambda-orm/lambdaorm/compare/v1.11.3...v1.12.0) (2024-05-01)
+
+
+### Features
+
+* add dbTypes LONG and TEXT ([8022ee3](https://github.com/lambda-orm/lambdaorm/commit/8022ee3bce9daa6285e0a90cb60d21de8b6aa8b6)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+
 ### [1.11.3](https://github.com/lambda-orm/lambdaorm/compare/v1.11.2...v1.11.3) (2024-04-30)
 
 **Bug Fixes:**
