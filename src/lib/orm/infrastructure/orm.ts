@@ -38,10 +38,11 @@ export class Orm implements IOrm {
 	private sentence: SentenceFacade
 	private expression: ExpressionFacade
 	private executor:ObservableExecutorDecorator
+	private _logger:Logger
 
-	constructor (private _workspace: string = process.cwd(), logger?: Logger) {
-		const _logger = logger || new LoggerBuilder().build()
-		this.helper = new OrmH3lp(h3lp, _logger)
+	constructor (private _workspace: string) {
+		this._logger = new LoggerBuilder().build()
+		this.helper = new OrmH3lp(h3lp, this._logger)
 		this.expressions = new OrmExpressionsBuilder(this.helper).build()
 		new OrmLibrary(this).load()
 		this.language = new SentenceLanguageServiceBuilder(this.helper).build()
@@ -55,16 +56,12 @@ export class Orm implements IOrm {
 		this.stage = new StageFacadeBuilder(this.language, this.executor, this.helper).build(_workspace, this.state, this.expression)
 	}
 
-	// eslint-disable-next-line no-use-before-define
-	private static _instance: Orm
-	/**
-  * Singleton
-  */
-	public static get instance (): Orm {
-		if (!this._instance) {
-			this._instance = new Orm()
-		}
-		return this._instance
+	public get logger ():Logger {
+		return this._logger
+	}
+
+	public set logger (value:Logger) {
+		this._logger = value
 	}
 
 	public get defaultStage ():Stage {

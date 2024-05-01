@@ -18,4 +18,4 @@ export * from './sentence/application'
 export * from './shared/infrastructure'
 export * from './stage/application'
 export * from 'lambdaorm-base'
-export const orm = Orm.instance
+export const orm = new Orm(process.cwd())
