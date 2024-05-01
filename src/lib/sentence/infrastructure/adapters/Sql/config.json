@@ -8,7 +8,8 @@
       "dateTime": "DATETIME",
       "date": "DATE",
       "time": "TIME",
-      "text": "TEXT"
+      "text": "TEXT",
+      "buffer": "BLOB"
     },
     "types": {
       "tinyint": "integer",
@@ -27,12 +28,13 @@
       "char": "string",
       "varchar": "string",
       "uuid": "string",
-      "text": "string",
+      "text": "text",
       "timestamp": "dateTime",
       "datetime": "dateTime",
       "date": "date",
       "time": "time",
-      "boolean": "boolean"
+      "boolean": "boolean",
+      "blob": "buffer"
     },
     "format": {
       "dateTime": "yyyy-LL-dd HH:mm:ss",
@@ -282,14 +284,42 @@
   "dialects": {
     "MariaDB": {
       "dbTypes": {
-        "text": "LONGTEXT",
+        "buffer": "LONGBLOB",
         "boolean": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
         "dateTime": "DATETIME",
         "date": "DATE",
-        "time": "TIME"
+        "time": "TIME",
+        "text": "TEXT"
+      },
+      "types": {
+        "mediumtext": "text",
+        "longblob": "buffer",
+        "tinyint": "integer",
+        "int": "integer",
+        "integer": "integer",
+        "bigint": "integer",
+        "smallint": "integer",
+        "decimal": "decimal",
+        "numeric": "decimal",
+        "number": "decimal",
+        "real": "decimal",
+        "float": "decimal",
+        "double": "decimal",
+        "double precision": "decimal",
+        "character varying": "string",
+        "char": "string",
+        "varchar": "string",
+        "uuid": "string",
+        "text": "text",
+        "timestamp": "dateTime",
+        "datetime": "dateTime",
+        "date": "date",
+        "time": "time",
+        "boolean": "boolean",
+        "blob": "buffer"
       },
       "support": {
         "sequences": false,
@@ -304,10 +334,10 @@
         "objects": "SELECT CASE\n    WHEN t.table_type = 'BASE TABLE' THEN 'table'\n    WHEN t.table_type = 'VIEW' THEN 'view'\n    ELSE 'unknown'\n  END AS type,\n  t.table_name AS name,\n  null AS tablespace\nFROM information_schema.tables t\nWHERE t.table_schema = DATABASE()\n  AND t.table_type IN ('BASE TABLE', 'VIEW')\n",
         "tables": "SELECT\n  t.table_name AS tableName,\n  null AS tablespace,\n  c.column_name AS columnName,\n  c.data_type AS dbType,\n  c.is_nullable = 'NO' AS required,\n  c.extra = 'auto_increment' AS autoIncrement,\n  c.character_maximum_length AS length,\n  c.numeric_precision AS \"precision\",\n  c.numeric_scale AS scale,\n  c.datetime_precision AS time\nFROM information_schema.tables t\nJOIN information_schema.columns c ON t.table_name = c.table_name\nWHERE t.table_schema = DATABASE()\n  AND t.table_type = 'BASE TABLE'\n  AND t.table_name IN ({names})\n",
         "views": "SELECT\n  t.table_name AS tableName,\n  null AS tablespace,\n  c.column_name AS columnName,\n  c.data_type AS dbType,\n  c.is_nullable = 'NO' AS required,\n  c.extra = 'auto_increment' AS autoIncrement,\n  c.character_maximum_length AS length,\n  c.numeric_precision AS \"precision\",\n  c.numeric_scale AS scale,\n  c.datetime_precision AS time\nFROM information_schema.tables t\nJOIN information_schema.columns c ON t.table_name = c.table_name\nWHERE t.table_schema = DATABASE()\n  AND t.table_type = 'VIEW'\n  AND t.table_name IN ({names})\n",
-        "primaryKeys": "SELECT\n  tc.table_name AS tableName,\n  kcu.column_name AS columnName,\n  tc.constraint_name AS constraintName\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nWHERE tc.constraint_type = 'PRIMARY KEY'\n  AND tc.table_schema = DATABASE()\n  AND tc.table_name IN ({tableNames})\n",
-        "uniqueKeys": "SELECT\n  tc.table_name AS tableName,\n  kcu.column_name AS columnName,\n  tc.constraint_name AS constraintName\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nWHERE tc.constraint_type = 'UNIQUE'\n  AND tc.table_schema = DATABASE()\n  AND tc.table_name IN ({tableNames})\n",
-        "foreignKeys": "SELECT \n  TABLE_NAME AS tableName,\n  COLUMN_NAME AS columnName,\n  CONSTRAINT_NAME AS constraintName,\n  REFERENCED_TABLE_NAME AS refTableName,\n  REFERENCED_COLUMN_NAME AS refColumnName\nFROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE\nWHERE \n    CONSTRAINT_SCHEMA = DATABASE() \n    AND REFERENCED_TABLE_NAME IS NOT NULL\n    AND TABLE_NAME IN ({tableNames})\n",
-        "indexes": "SELECT\n  t.table_name AS tableName,\n  i.index_name AS indexName,\n  a.column_name AS columnName,\n  NOT i.non_unique AS isUnique,\n  CASE\n    WHEN i.index_name = 'PRIMARY' THEN TRUE\n    ELSE FALSE\n  END AS isPrimary\nFROM information_schema.tables t\nJOIN information_schema.statistics i ON t.table_schema = i.table_schema AND t.table_name = i.table_name\nJOIN information_schema.columns a ON t.table_schema = a.table_schema AND t.table_name = a.table_name\nWHERE t.table_type = 'BASE TABLE'\n  AND t.table_name IN ({tableNames})\n  AND FIND_IN_SET(a.ordinal_position, i.column_name) > 0\n  AND i.non_unique = 1\n  AND i.index_name != 'PRIMARY'\n",
+        "primaryKeys": "SELECT DISTINCT\n  tc.table_name AS tableName,\n  kcu.column_name AS columnName,\n  tc.constraint_name AS constraintName\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nWHERE tc.constraint_type = 'PRIMARY KEY'\n  AND tc.table_schema = DATABASE()\n  AND tc.table_name IN ({tableNames})\n",
+        "uniqueKeys": "SELECT DISTINCT\n  tc.table_name AS tableName,\n  kcu.column_name AS columnName,\n  tc.constraint_name AS constraintName\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nWHERE tc.constraint_type = 'UNIQUE'\n  AND tc.table_schema = DATABASE()\n  AND tc.table_name IN ({tableNames})\n",
+        "foreignKeys": "SELECT DISTINCT \n  TABLE_NAME AS tableName,\n  COLUMN_NAME AS columnName,\n  CONSTRAINT_NAME AS constraintName,\n  REFERENCED_TABLE_NAME AS refTableName,\n  REFERENCED_COLUMN_NAME AS refColumnName\nFROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE\nWHERE \n    CONSTRAINT_SCHEMA = DATABASE() \n    AND REFERENCED_TABLE_NAME IS NOT NULL\n    AND TABLE_NAME IN ({tableNames})\n",
+        "indexes": "SELECT DISTINCT\n  t.table_name AS tableName,\n  i.index_name AS indexName,\n  a.column_name AS columnName,\n  NOT i.non_unique AS isUnique,\n  CASE\n    WHEN i.index_name = 'PRIMARY' THEN TRUE\n    ELSE FALSE\n  END AS isPrimary\nFROM information_schema.tables t\nJOIN information_schema.statistics i ON t.table_schema = i.table_schema AND t.table_name = i.table_name\nJOIN information_schema.columns a ON t.table_schema = a.table_schema AND t.table_name = a.table_name\nWHERE t.table_type = 'BASE TABLE'\n  AND t.table_name IN ({tableNames})\n  AND FIND_IN_SET(a.ordinal_position, i.column_name) > 0\n  AND i.non_unique = 1\n  AND i.index_name != 'PRIMARY'\n",
         "sequences": null,
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createEntity": "CREATE TABLE {name} ({define})",
@@ -498,30 +528,6 @@
           "min": "MIN({0})",
           "sum": "SUM({0})"
         }
-      },
-      "types": {
-        "tinyint": "integer",
-        "int": "integer",
-        "integer": "integer",
-        "bigint": "integer",
-        "smallint": "integer",
-        "decimal": "decimal",
-        "numeric": "decimal",
-        "number": "decimal",
-        "real": "decimal",
-        "float": "decimal",
-        "double": "decimal",
-        "double precision": "decimal",
-        "character varying": "string",
-        "char": "string",
-        "varchar": "string",
-        "uuid": "string",
-        "text": "string",
-        "timestamp": "dateTime",
-        "datetime": "dateTime",
-        "date": "date",
-        "time": "time",
-        "boolean": "boolean"
       },
       "format": {
         "dateTime": "yyyy-LL-dd HH:mm:ss",
@@ -579,14 +585,42 @@
     },
     "MySQL": {
       "dbTypes": {
-        "text": "LONGTEXT",
+        "buffer": "LONGBLOB",
         "boolean": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
         "dateTime": "DATETIME",
         "date": "DATE",
-        "time": "TIME"
+        "time": "TIME",
+        "text": "TEXT"
+      },
+      "types": {
+        "mediumtext": "text",
+        "longblob": "buffer",
+        "tinyint": "integer",
+        "int": "integer",
+        "integer": "integer",
+        "bigint": "integer",
+        "smallint": "integer",
+        "decimal": "decimal",
+        "numeric": "decimal",
+        "number": "decimal",
+        "real": "decimal",
+        "float": "decimal",
+        "double": "decimal",
+        "double precision": "decimal",
+        "character varying": "string",
+        "char": "string",
+        "varchar": "string",
+        "uuid": "string",
+        "text": "text",
+        "timestamp": "dateTime",
+        "datetime": "dateTime",
+        "date": "date",
+        "time": "time",
+        "boolean": "boolean",
+        "blob": "buffer"
       },
       "support": {
         "sequences": false,
@@ -601,10 +635,10 @@
         "objects": "SELECT CASE\n    WHEN t.table_type = 'BASE TABLE' THEN 'table'\n    WHEN t.table_type = 'VIEW' THEN 'view'\n    ELSE 'unknown'\n  END AS type,\n  t.table_name AS name,\n  null AS tablespace\nFROM information_schema.tables t\nWHERE t.table_schema = DATABASE()\n  AND t.table_type IN ('BASE TABLE', 'VIEW')\n",
         "tables": "SELECT\n  t.table_name AS tableName,\n  null AS tablespace,\n  c.column_name AS columnName,\n  c.data_type AS dbType,\n  c.is_nullable = 'NO' AS required,\n  c.extra = 'auto_increment' AS autoIncrement,\n  c.character_maximum_length AS length,\n  c.numeric_precision AS \"precision\",\n  c.numeric_scale AS scale,\n  c.datetime_precision AS time\nFROM information_schema.tables t\nJOIN information_schema.columns c ON t.table_name = c.table_name\nWHERE t.table_schema = DATABASE()\n  AND t.table_type = 'BASE TABLE'\n  AND t.table_name IN ({names})\n",
         "views": "SELECT\n  t.table_name AS tableName,\n  null AS tablespace,\n  c.column_name AS columnName,\n  c.data_type AS dbType,\n  c.is_nullable = 'NO' AS required,\n  c.extra = 'auto_increment' AS autoIncrement,\n  c.character_maximum_length AS length,\n  c.numeric_precision AS \"precision\",\n  c.numeric_scale AS scale,\n  c.datetime_precision AS time\nFROM information_schema.tables t\nJOIN information_schema.columns c ON t.table_name = c.table_name\nWHERE t.table_schema = DATABASE()\n  AND t.table_type = 'VIEW'\n  AND t.table_name IN ({names})\n",
-        "primaryKeys": "SELECT\n  tc.table_name AS tableName,\n  kcu.column_name AS columnName,\n  tc.constraint_name AS constraintName\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nWHERE tc.constraint_type = 'PRIMARY KEY'\n  AND tc.table_schema = DATABASE()\n  AND tc.table_name IN ({tableNames})\n",
-        "uniqueKeys": "SELECT\n  tc.table_name AS tableName,\n  kcu.column_name AS columnName,\n  tc.constraint_name AS constraintName\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nWHERE tc.constraint_type = 'UNIQUE'\n  AND tc.table_schema = DATABASE()\n  AND tc.table_name IN ({tableNames})\n",
-        "foreignKeys": "SELECT \n  TABLE_NAME AS tableName,\n  COLUMN_NAME AS columnName,\n  CONSTRAINT_NAME AS constraintName,\n  REFERENCED_TABLE_NAME AS refTableName,\n  REFERENCED_COLUMN_NAME AS refColumnName\nFROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE\nWHERE \n    CONSTRAINT_SCHEMA = DATABASE() \n    AND REFERENCED_TABLE_NAME IS NOT NULL\n    AND TABLE_NAME IN ({tableNames})\n",
-        "indexes": "SELECT\n  t.table_name AS tableName,\n  i.index_name AS indexName,\n  a.column_name AS columnName,\n  NOT i.non_unique AS isUnique,\n  CASE\n    WHEN i.index_name = 'PRIMARY' THEN TRUE\n    ELSE FALSE\n  END AS isPrimary\nFROM information_schema.tables t\nJOIN information_schema.statistics i ON t.table_schema = i.table_schema AND t.table_name = i.table_name\nJOIN information_schema.columns a ON t.table_schema = a.table_schema AND t.table_name = a.table_name\nWHERE t.table_type = 'BASE TABLE'\n  AND t.table_name IN ({tableNames})\n  AND FIND_IN_SET(a.ordinal_position, i.column_name) > 0\n  AND i.non_unique = 1\n  AND i.index_name != 'PRIMARY'\n",
+        "primaryKeys": "SELECT DISTINCT\n  tc.table_name AS tableName,\n  kcu.column_name AS columnName,\n  tc.constraint_name AS constraintName\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nWHERE tc.constraint_type = 'PRIMARY KEY'\n  AND tc.table_schema = DATABASE()\n  AND tc.table_name IN ({tableNames})\n",
+        "uniqueKeys": "SELECT DISTINCT\n  tc.table_name AS tableName,\n  kcu.column_name AS columnName,\n  tc.constraint_name AS constraintName\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name\nWHERE tc.constraint_type = 'UNIQUE'\n  AND tc.table_schema = DATABASE()\n  AND tc.table_name IN ({tableNames})\n",
+        "foreignKeys": "SELECT DISTINCT \n  TABLE_NAME AS tableName,\n  COLUMN_NAME AS columnName,\n  CONSTRAINT_NAME AS constraintName,\n  REFERENCED_TABLE_NAME AS refTableName,\n  REFERENCED_COLUMN_NAME AS refColumnName\nFROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE\nWHERE \n    CONSTRAINT_SCHEMA = DATABASE() \n    AND REFERENCED_TABLE_NAME IS NOT NULL\n    AND TABLE_NAME IN ({tableNames})\n",
+        "indexes": "SELECT DISTINCT\n  t.table_name AS tableName,\n  i.index_name AS indexName,\n  a.column_name AS columnName,\n  NOT i.non_unique AS isUnique,\n  CASE\n    WHEN i.index_name = 'PRIMARY' THEN TRUE\n    ELSE FALSE\n  END AS isPrimary\nFROM information_schema.tables t\nJOIN information_schema.statistics i ON t.table_schema = i.table_schema AND t.table_name = i.table_name\nJOIN information_schema.columns a ON t.table_schema = a.table_schema AND t.table_name = a.table_name\nWHERE t.table_type = 'BASE TABLE'\n  AND t.table_name IN ({tableNames})\n  AND FIND_IN_SET(a.ordinal_position, i.column_name) > 0\n  AND i.non_unique = 1\n  AND i.index_name != 'PRIMARY'\n",
         "sequences": null,
         "createDatabase": "CREATE DATABASE IF NOT EXISTS {name}",
         "createEntity": "CREATE TABLE {name} ({define})",
@@ -795,30 +829,6 @@
           "min": "MIN({0})",
           "sum": "SUM({0})"
         }
-      },
-      "types": {
-        "tinyint": "integer",
-        "int": "integer",
-        "integer": "integer",
-        "bigint": "integer",
-        "smallint": "integer",
-        "decimal": "decimal",
-        "numeric": "decimal",
-        "number": "decimal",
-        "real": "decimal",
-        "float": "decimal",
-        "double": "decimal",
-        "double precision": "decimal",
-        "character varying": "string",
-        "char": "string",
-        "varchar": "string",
-        "uuid": "string",
-        "text": "string",
-        "timestamp": "dateTime",
-        "datetime": "dateTime",
-        "date": "date",
-        "time": "time",
-        "boolean": "boolean"
       },
       "format": {
         "dateTime": "yyyy-LL-dd HH:mm:ss",
@@ -883,7 +893,8 @@
         "dateTime": "DATE",
         "date": "DATE",
         "time": "DATE",
-        "text": "TEXT"
+        "text": "TEXT",
+        "buffer": "BLOB"
       },
       "types": {
         "varchar2": "string",
@@ -914,7 +925,7 @@
         "char": "string",
         "varchar": "string",
         "uuid": "string",
-        "text": "string",
+        "text": "text",
         "timestamp": "dateTime",
         "datetime": "dateTime",
         "time": "time",
@@ -1182,7 +1193,8 @@
         "string": "VARCHAR({0})",
         "date": "DATE",
         "time": "TIME",
-        "text": "TEXT"
+        "text": "TEXT",
+        "buffer": "BLOB"
       },
       "types": {
         "timestamp without time zone": "dateTime",
@@ -1206,11 +1218,12 @@
         "char": "string",
         "varchar": "string",
         "uuid": "string",
-        "text": "string",
+        "text": "text",
         "timestamp": "dateTime",
         "datetime": "dateTime",
         "date": "date",
-        "time": "time"
+        "time": "time",
+        "blob": "buffer"
       },
       "support": {
         "pkTablespaces": false,
@@ -1512,14 +1525,42 @@
         "truncateEntity": "TRUNCATE TABLE {name}"
       },
       "dbTypes": {
-        "text": "LONGTEXT",
+        "buffer": "LONGBLOB",
         "boolean": "BOOLEAN",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
         "dateTime": "DATETIME",
         "date": "DATE",
-        "time": "TIME"
+        "time": "TIME",
+        "text": "TEXT"
+      },
+      "types": {
+        "mediumtext": "text",
+        "longblob": "buffer",
+        "tinyint": "integer",
+        "int": "integer",
+        "integer": "integer",
+        "bigint": "integer",
+        "smallint": "integer",
+        "decimal": "decimal",
+        "numeric": "decimal",
+        "number": "decimal",
+        "real": "decimal",
+        "float": "decimal",
+        "double": "decimal",
+        "double precision": "decimal",
+        "character varying": "string",
+        "char": "string",
+        "varchar": "string",
+        "uuid": "string",
+        "text": "text",
+        "timestamp": "dateTime",
+        "datetime": "dateTime",
+        "date": "date",
+        "time": "time",
+        "boolean": "boolean",
+        "blob": "buffer"
       },
       "dml": {
         "delete": "DELETE {alias} FROM {name} AS {alias}",
@@ -1684,30 +1725,6 @@
           "sum": "SUM({0})"
         }
       },
-      "types": {
-        "tinyint": "integer",
-        "int": "integer",
-        "integer": "integer",
-        "bigint": "integer",
-        "smallint": "integer",
-        "decimal": "decimal",
-        "numeric": "decimal",
-        "number": "decimal",
-        "real": "decimal",
-        "float": "decimal",
-        "double": "decimal",
-        "double precision": "decimal",
-        "character varying": "string",
-        "char": "string",
-        "varchar": "string",
-        "uuid": "string",
-        "text": "string",
-        "timestamp": "dateTime",
-        "datetime": "dateTime",
-        "date": "date",
-        "time": "time",
-        "boolean": "boolean"
-      },
       "format": {
         "dateTime": "yyyy-LL-dd HH:mm:ss",
         "date": "yyyy-LL-dd",
@@ -1771,7 +1788,8 @@
         "dateTime": "DATETIME",
         "date": "DATE",
         "time": "TIME",
-        "text": "TEXT"
+        "text": "TEXT",
+        "buffer": "BLOB"
       },
       "types": {
         "int": "integer",
@@ -1804,12 +1822,13 @@
         "char": "string",
         "varchar": "string",
         "uuid": "string",
-        "text": "string",
+        "text": "text",
         "timestamp": "dateTime",
         "datetime": "dateTime",
         "date": "date",
         "time": "time",
-        "boolean": "boolean"
+        "boolean": "boolean",
+        "blob": "buffer"
       },
       "support": {
         "pkTablespaces": false,

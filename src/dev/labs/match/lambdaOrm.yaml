@@ -2,7 +2,7 @@ domain:
   entities: []
 infrastructure:
   sources:
-    - name: MySQL
+    - name: Source
       dialect: MySQL
-      connection: ${ORM_CNN_MYSQL}
+      connection: ${ORM_CNN_SOURCE}
 

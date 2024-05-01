@@ -1,10 +1,9 @@
 import { orm } from '../../lib'
-
 export async function lab (callback: any) {
 	try {
 		await orm.init('./config/northwind.yaml')
 		const workspace = __dirname.replace('/build/', '/src/')
-		for (const stage of ['MongoDB', 'MySQL', 'PostgreSQL', 'Oracle', 'SqlServer']) {
+		for (const stage of ['Source', 'MongoDB', 'MySQL', 'PostgreSQL', 'Oracle', 'SqlServer']) {
 			const mappings = await orm.stage.fetch({ stage })
 			await orm.helper.fs.write(`${workspace}/fetch_${stage}_mappings.yaml`, orm.helper.yaml.dump(mappings))
 		}

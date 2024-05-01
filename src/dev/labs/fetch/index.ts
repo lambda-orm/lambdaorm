@@ -1,14 +1,12 @@
-import { LoggerBuilder, Orm, OrmH3lp} from '../../../lib'
-import { h3lp } from 'h3lp'
+import { Orm} from '../../../lib'
 (async () => {
 	const workspace = __dirname.replace('/build/', '/src/')
 	const orm = new Orm(workspace)
-	const helper = new OrmH3lp(h3lp, new LoggerBuilder().build())	
 	try{		
-		const originalSchema = helper.yaml.load(await helper.fs.read(workspace + '/lambdaOrm.yaml'))
+		const originalSchema = orm.helper.yaml.load(await orm.helper.fs.read(workspace + '/lambdaOrm.yaml'))
 		await orm.init(originalSchema)	
 		const mappings = await orm.stage.fetch()
-		await helper.fs.write( workspace + '/mappings.yaml', helper.yaml.dump(mappings))
+		await orm.helper.fs.write( workspace + '/mappings.yaml', orm.helper.yaml.dump(mappings))
 	}catch(e){
 		console.log(e)
 	} finally {

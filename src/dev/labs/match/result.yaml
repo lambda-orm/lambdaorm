@@ -7,32 +7,96 @@ domain:
           required: true
           autoIncrement: true
         - name: categoryName
+          length: 15
           required: true
         - name: description
-          length: 1000
+          type: text
+          length: 16777215
+        - name: picture
+          type: buffer
+          length: 4294967295
       relations: []
       primaryKey:
         - categoryId
-      uniqueKey:
-        - categoryName
+    - name: CustomerCustomerDemos
+      properties:
+        - name: customerId
+          length: 5
+          required: true
+        - name: customerTypeId
+          length: 10
+          required: true
+      relations:
+        - name: customerCustomerDemo
+          type: oneToMany
+          from: customerTypeId
+          entity: CustomerDemographics
+          to: customerTypeId
+        - name: customerCustomerDemo
+          type: oneToMany
+          from: customerId
+          entity: Customers
+          to: customerId
+      primaryKey:
+        - customerId
+        - customerTypeId
+    - name: CustomerDemographics
+      properties:
+        - name: customerTypeId
+          length: 10
+          required: true
+        - name: customerDesc
+          type: text
+          length: 16777215
+      relations: []
+      primaryKey:
+        - customerTypeId
     - name: Customers
       properties:
         - name: customerId
           length: 5
           required: true
         - name: companyName
+          length: 40
           required: true
         - name: contactName
+          length: 30
         - name: contactTitle
+          length: 30
         - name: address
+          length: 60
         - name: city
+          length: 15
         - name: region
+          length: 15
         - name: postalCode
-          length: 20
+          length: 10
         - name: country
+          length: 15
+        - name: phone
+          length: 24
+        - name: fax
+          length: 24
       relations: []
       primaryKey:
         - customerId
+    - name: EmployeeTerritories
+      properties:
+        - name: employeeId
+          type: integer
+          required: true
+        - name: territoryId
+          length: 20
+          required: true
+      relations:
+        - name: employeeTerritories
+          type: oneToMany
+          from: employeeId
+          entity: Employees
+          to: employeeId
+      primaryKey:
+        - employeeId
+        - territoryId
     - name: Employees
       properties:
         - name: employeeId
@@ -40,35 +104,54 @@ domain:
           required: true
           autoIncrement: true
         - name: lastName
+          length: 20
           required: true
         - name: firstName
+          length: 10
           required: true
         - name: title
+          length: 30
         - name: titleOfCourtesy
+          length: 25
         - name: birthDate
           type: dateTime
         - name: hireDate
           type: dateTime
+        - name: address
+          length: 60
+        - name: city
+          length: 15
+        - name: region
+          length: 15
+        - name: postalCode
+          length: 10
+        - name: country
+          length: 15
         - name: homePhone
+          length: 24
+        - name: extension
+          length: 4
+        - name: photo
+          type: buffer
+          length: 4294967295
+        - name: notes
+          type: text
+          length: 16777215
+          required: true
         - name: reportsTo
           type: integer
-        - name: address
-        - name: city
-        - name: region
-        - name: postalCode
-          length: 20
-        - name: country
+        - name: photoPath
+          length: 255
+        - name: salary
+          type: decimal
       relations:
-        - name: reportsTo
+        - name: employees
           type: oneToMany
           from: reportsTo
           entity: Employees
           to: employeeId
       primaryKey:
         - employeeId
-      uniqueKey:
-        - lastName
-        - firstName
     - name: OrderDetails
       properties:
         - name: orderId
@@ -79,24 +162,25 @@ domain:
           required: true
         - name: unitPrice
           type: decimal
+          required: true
         - name: quantity
-          type: decimal
+          type: integer
+          required: true
         - name: discount
           type: decimal
+          required: true
       relations:
         - name: order
           type: oneToMany
           from: orderId
           entity: Orders
           to: orderId
-        - name: product
+        - name: order
           type: oneToMany
           from: productId
           entity: Products
           to: productId
       primaryKey:
-        - orderId
-        - productId
         - orderId
         - productId
     - name: Orders
@@ -107,42 +191,49 @@ domain:
           autoIncrement: true
         - name: customerId
           length: 5
-          required: true
         - name: employeeId
           type: integer
-          required: true
         - name: orderDate
           type: dateTime
         - name: requiredDate
-          type: date
+          type: dateTime
         - name: shippedDate
-          type: date
+          type: dateTime
         - name: shipVia
           type: integer
         - name: freight
           type: decimal
         - name: shipName
+          length: 40
         - name: shipAddress
+          length: 60
         - name: shipCity
+          length: 15
         - name: shipRegion
+          length: 15
         - name: shipPostalCode
-          length: 20
+          length: 10
         - name: shipCountry
+          length: 15
       relations:
-        - name: customer
+        - name: orders
           type: oneToMany
           from: customerId
           entity: Customers
           to: customerId
-        - name: employee
+        - name: orders
           type: oneToMany
           from: employeeId
           entity: Employees
           to: employeeId
+        - name: orders
+          type: oneToMany
+          from: shipVia
+          entity: Shippers
+          to: shipperId
       primaryKey:
         - customerId
         - employeeId
-        - orderId
         - orderId
     - name: Products
       properties:
@@ -151,30 +242,32 @@ domain:
           required: true
           autoIncrement: true
         - name: productName
+          length: 40
           required: true
         - name: supplierId
           type: integer
-          required: true
         - name: categoryId
           type: integer
         - name: quantityPerUnit
+          length: 20
         - name: unitPrice
           type: decimal
         - name: unitsInStock
-          type: decimal
+          type: integer
         - name: unitsOnOrder
-          type: decimal
+          type: integer
         - name: reorderLevel
-          type: decimal
+          type: integer
         - name: discontinued
           type: integer
+          required: true
       relations:
-        - name: category
+        - name: products
           type: oneToMany
           from: categoryId
           entity: Categories
           to: categoryId
-        - name: supplier
+        - name: products
           type: oneToMany
           from: supplierId
           entity: Suppliers
@@ -182,11 +275,18 @@ domain:
       primaryKey:
         - categoryId
         - productId
-        - productId
         - supplierId
-      uniqueKey:
-        - productName
-        - supplierId
+    - name: Regions
+      properties:
+        - name: regionId
+          type: integer
+          required: true
+        - name: regionDescription
+          length: 50
+          required: true
+      relations: []
+      primaryKey:
+        - regionId
     - name: Shippers
       properties:
         - name: shipperId
@@ -194,14 +294,13 @@ domain:
           required: true
           autoIncrement: true
         - name: companyName
+          length: 40
           required: true
         - name: phone
-          length: 20
+          length: 24
       relations: []
       primaryKey:
         - shipperId
-      uniqueKey:
-        - companyName
     - name: Suppliers
       properties:
         - name: supplierId
@@ -209,30 +308,59 @@ domain:
           required: true
           autoIncrement: true
         - name: companyName
+          length: 40
           required: true
         - name: contactName
-        - name: phone
-          length: 20
-        - name: homePage
-          length: 200
+          length: 30
+        - name: contactTitle
+          length: 30
         - name: address
+          length: 60
         - name: city
+          length: 15
         - name: region
+          length: 15
         - name: postalCode
-          length: 20
+          length: 10
         - name: country
+          length: 15
+        - name: phone
+          length: 24
+        - name: fax
+          length: 24
+        - name: homePage
+          type: text
+          length: 16777215
       relations: []
       primaryKey:
         - supplierId
-      uniqueKey:
-        - companyName
+    - name: Territories
+      properties:
+        - name: territoryId
+          length: 20
+          required: true
+        - name: territoryDescription
+          length: 50
+          required: true
+        - name: regionId
+          type: integer
+          required: true
+      relations:
+        - name: territories
+          type: oneToMany
+          from: regionId
+          entity: Regions
+          to: regionId
+      primaryKey:
+        - territoryId
+        - regionId
 infrastructure:
   sources:
-    - name: MySQL
+    - name: Source
       dialect: MySQL
-      connection: ${ORM_CNN_MYSQL}
+      connection: ${ORM_CNN_SOURCE}
   mappings:
-    - name: MySQL
+    - name: Source
       entities:
         - name: Categories
           mapping: Categories
@@ -243,6 +371,22 @@ infrastructure:
               mapping: CategoryName
             - name: description
               mapping: Description
+            - name: picture
+              mapping: Picture
+        - name: CustomerCustomerDemos
+          mapping: CustomerCustomerDemo
+          properties:
+            - name: customerId
+              mapping: CustomerID
+            - name: customerTypeId
+              mapping: CustomerTypeID
+        - name: CustomerDemographics
+          mapping: CustomerDemographics
+          properties:
+            - name: customerTypeId
+              mapping: CustomerTypeID
+            - name: customerDesc
+              mapping: CustomerDesc
         - name: Customers
           mapping: Customers
           properties:
@@ -264,6 +408,17 @@ infrastructure:
               mapping: PostalCode
             - name: country
               mapping: Country
+            - name: phone
+              mapping: Phone
+            - name: fax
+              mapping: Fax
+        - name: EmployeeTerritories
+          mapping: EmployeeTerritories
+          properties:
+            - name: employeeId
+              mapping: EmployeeID
+            - name: territoryId
+              mapping: TerritoryID
         - name: Employees
           mapping: Employees
           properties:
@@ -281,10 +436,6 @@ infrastructure:
               mapping: BirthDate
             - name: hireDate
               mapping: HireDate
-            - name: homePhone
-              mapping: HomePhone
-            - name: reportsTo
-              mapping: ReportsTo
             - name: address
               mapping: Address
             - name: city
@@ -295,6 +446,20 @@ infrastructure:
               mapping: PostalCode
             - name: country
               mapping: Country
+            - name: homePhone
+              mapping: HomePhone
+            - name: extension
+              mapping: Extension
+            - name: photo
+              mapping: Photo
+            - name: notes
+              mapping: Notes
+            - name: reportsTo
+              mapping: ReportsTo
+            - name: photoPath
+              mapping: PhotoPath
+            - name: salary
+              mapping: Salary
         - name: OrderDetails
           mapping: Order Details
           properties:
@@ -362,6 +527,13 @@ infrastructure:
               mapping: ReorderLevel
             - name: discontinued
               mapping: Discontinued
+        - name: Regions
+          mapping: Region
+          properties:
+            - name: regionId
+              mapping: RegionID
+            - name: regionDescription
+              mapping: RegionDescription
         - name: Shippers
           mapping: Shippers
           properties:
@@ -380,10 +552,8 @@ infrastructure:
               mapping: CompanyName
             - name: contactName
               mapping: ContactName
-            - name: phone
-              mapping: Phone
-            - name: homePage
-              mapping: HomePage
+            - name: contactTitle
+              mapping: ContactTitle
             - name: address
               mapping: Address
             - name: city
@@ -394,3 +564,18 @@ infrastructure:
               mapping: PostalCode
             - name: country
               mapping: Country
+            - name: phone
+              mapping: Phone
+            - name: fax
+              mapping: Fax
+            - name: homePage
+              mapping: HomePage
+        - name: Territories
+          mapping: Territories
+          properties:
+            - name: territoryId
+              mapping: TerritoryID
+            - name: territoryDescription
+              mapping: TerritoryDescription
+            - name: regionId
+              mapping: RegionID

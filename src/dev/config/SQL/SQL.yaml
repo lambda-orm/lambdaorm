@@ -8,6 +8,7 @@ dbTypes:
   date: DATE
   time: TIME
   text: TEXT
+  buffer: BLOB
 types:
   tinyint: integer
   int: integer
@@ -25,12 +26,13 @@ types:
   char: string
   varchar: string
   uuid: string
-  text: string
+  text: text
   timestamp: dateTime
   datetime: dateTime
   date: date
   time: time
   boolean: boolean
+  blob: buffer
 format:
   dateTime: 'yyyy-LL-dd HH:mm:ss'
   date: 'yyyy-LL-dd'

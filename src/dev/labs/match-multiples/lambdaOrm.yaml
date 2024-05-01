@@ -7,15 +7,21 @@ infrastructure:
     data: data
     model: model    
   mappings:
+    - name: Source
     - name: mySql
     - name: postgreSql
     - name: sqlServer
     - name: oracle
+    - name: MongoDB
   sources:
+    - name: Source
+      mapping: Source
+      dialect: MySQL
+      connection: ${ORM_CNN_SOURCE}
     - name: MySQL
       mapping: mySql
       dialect: MySQL
-      connection: ${ORM_CNN_MYSQL}
+      connection: ${ORM_CNN_MYSQL}      
     - name: PostgreSQL
       mapping: postgreSql
       dialect: PostgreSQL
@@ -28,7 +34,14 @@ infrastructure:
       mapping: oracle
       dialect: Oracle
       connection: ${ORM_CNN_ORACLE}
+    - name: MongoDB
+      mapping: MongoDB
+      dialect: MongoDB
+      connection: ${ORM_CNN_MONGODB}  
   stages:
+  - name: Source
+    sources:
+      - name: Source
   - name: MySQL
     sources:
       - name: MySQL
@@ -41,5 +54,8 @@ infrastructure:
   - name: Oracle
     sources:
       - name: Oracle
+  - name: MongoDB
+    sources:
+      - name: MongoDB    
   views:
     - name: default

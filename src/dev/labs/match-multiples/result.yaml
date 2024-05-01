@@ -2,275 +2,339 @@ domain:
   entities:
     - name: Categories
       properties:
-        - name: categoryId
-          type: decimal
-          required: true
         - name: categoryName
+          length: 32
           required: true
         - name: description
-          length: 1000
+          required: true
+        - name: id
+          type: integer
           required: true
       relations: []
       primaryKey:
         - categoryId
-      uniqueKey:
-        - categoryName
-    - name: Customers
+        - id
+    - name: CustomerCustomerDemos
       properties:
         - name: customerId
           length: 5
           required: true
-        - name: companyName
-          required: true
-        - name: contactName
-          required: true
-        - name: contactTitle
-          required: true
-        - name: address
-          required: true
-        - name: city
-          required: true
-        - name: region
-          required: true
-        - name: postalCode
-          length: 20
-          required: true
-        - name: country
-          required: true
-      relations: []
-      primaryKey:
-        - customerId
-      indexes: []
-    - name: Employees
-      properties:
-        - name: employeeId
-          type: decimal
-          required: true
-        - name: lastName
-          required: true
-        - name: firstName
-          required: true
-        - name: title
-          required: true
-        - name: titleOfCourtesy
-          required: true
-        - name: birthDate
-          type: dateTime
-          required: true
-        - name: hireDate
-          type: dateTime
-          required: true
-        - name: homePhone
-          required: true
-        - name: reportsTo
-          type: decimal
-          required: true
-        - name: address
-          required: true
-        - name: city
-          required: true
-        - name: region
-          required: true
-        - name: postalCode
-          length: 20
-          required: true
-        - name: country
+        - name: customerTypeId
+          length: 10
           required: true
       relations:
-        - name: reportsTo
+        - name: customerCustomerDemo
           type: oneToMany
-          from: reportsTo
-          entity: Employees
-          to: employeeid
-      primaryKey:
-        - employeeId
-      uniqueKey:
-        - lastName
-        - firstName
-    - name: OrderDetails
-      properties:
-        - name: orderId
-          type: decimal
-          required: true
-        - name: productId
-          type: decimal
-          required: true
-        - name: unitPrice
-          type: decimal
-          required: true
-        - name: quantity
-          type: decimal
-          required: true
-        - name: discount
-          type: decimal
-          required: true
-      relations:
-        - name: order
-          type: oneToMany
-          from: orderId
-          entity: Orders
-          to: orderId
-        - name: product
-          type: oneToMany
-          from: productId
-          entity: Products
-          to: productId
-      primaryKey:
-        - orderId
-        - productId
-        - orderId
-        - productId
-    - name: Orders
-      properties:
-        - name: orderId
-          type: decimal
-          required: true
-        - name: customerId
-          length: 5
-          required: true
-        - name: employeeId
-          type: decimal
-          required: true
-        - name: orderDate
-          type: dateTime
-          required: true
-        - name: requiredDate
-          type: dateTime
-          required: true
-        - name: shippedDate
-          type: dateTime
-          required: true
-        - name: shipVia
-          type: decimal
-          required: true
-        - name: freight
-          type: decimal
-          required: true
-        - name: shipName
-          required: true
-        - name: shipAddress
-          required: true
-        - name: shipCity
-          required: true
-        - name: shipRegion
-          required: true
-        - name: shipPostalCode
-          length: 20
-          required: true
-        - name: shipCountry
-          required: true
-      relations:
-        - name: customer
+          from: customerTypeId
+          entity: CustomerDemographics
+          to: customerTypeId
+        - name: customerCustomerDemo
           type: oneToMany
           from: customerId
           entity: Customers
           to: customerId
-        - name: employee
+      primaryKey:
+        - customerId
+        - customerTypeId
+    - name: CustomerDemographics
+      properties:
+        - name: customerTypeId
+          length: 10
+          required: true
+        - name: customerDesc
+          type: text
+          length: 16777215
+      relations: []
+      primaryKey:
+        - customerTypeId
+    - name: Customers
+      properties:
+        - name: companyName
+          length: 50
+          required: true
+        - name: contactName
+          length: 32
+          required: true
+        - name: contactTitle
+          length: 50
+          required: true
+        - name: address
+        - name: city
+          length: 32
+        - name: region
+          length: 32
+        - name: postalCode
+          length: 16
+        - name: country
+          length: 16
+        - name: id
+          length: 5
+          required: true
+      relations: []
+      primaryKey:
+        - customerId
+        - id
+      indexes:
+        - name: customersName
+          fields:
+            - companyName
+    - name: EmployeeTerritories
+      properties:
+        - name: employeeId
+          type: integer
+          required: true
+        - name: territoryId
+          length: 20
+          required: true
+      relations:
+        - name: employeeTerritories
           type: oneToMany
           from: employeeId
           entity: Employees
           to: employeeId
       primaryKey:
+        - employeeId
+        - territoryId
+    - name: Employees
+      properties:
+        - name: lastName
+          length: 16
+          required: true
+        - name: firstName
+          length: 16
+          required: true
+        - name: title
+          length: 32
+          required: true
+        - name: titleOfCourtesy
+          length: 5
+          required: true
+        - name: birthDate
+          length: 50
+          required: true
+        - name: hireDate
+          length: 50
+          required: true
+        - name: address
+          length: 50
+          required: true
+        - name: city
+          length: 16
+          required: true
+        - name: region
+          length: 2
+        - name: postalCode
+          length: 9
+          required: true
+        - name: country
+          length: 4
+          required: true
+        - name: homePhone
+          length: 32
+          required: true
+        - name: reportsTo
+          type: integer
+        - name: id
+          type: integer
+          required: true
+      relations: []
+      primaryKey:
+        - employeeId
+        - id
+    - name: OrderDetails
+      properties:
+        - name: orderId
+          type: integer
+          required: true
+        - name: productId
+          type: integer
+          required: true
+      relations:
+        - name: id
+          from: orderId
+          entity: Orders
+          to: id
+          type: oneToMany
+      primaryKey:
+        - orderId
+        - productId
+    - name: Orders
+      properties:
+        - name: customerId
+          length: 5
+          required: true
+        - name: employeeId
+          type: integer
+          required: true
+        - name: orderDate
+          length: 50
+          required: true
+        - name: requiredDate
+          length: 16
+          required: true
+        - name: shippedDate
+          length: 16
+        - name: shipVia
+          type: integer
+          required: true
+        - name: shipName
+          length: 50
+          required: true
+        - name: shipAddress
+          required: true
+        - name: shipCity
+          length: 32
+          required: true
+        - name: shipRegion
+          length: 32
+        - name: shipPostalCode
+          length: 7
+          required: true
+        - name: shipCountry
+          length: 16
+          required: true
+        - name: id
+          type: integer
+          required: true
+      relations:
+        - name: order
+          from: id
+          entity: OrderDetails
+          to: orderId
+          type: oneToMany
+      primaryKey:
         - customerId
         - employeeId
         - orderId
-        - orderId
-      indexes: []
+        - id
+      indexes:
+        - name: ordersOrderDate
+          fields:
+            - orderDate
+        - name: ordersShippedDate
+          fields:
+            - shippedDate
     - name: Products
       properties:
-        - name: productId
-          type: decimal
-          required: true
         - name: productName
+          length: 50
           required: true
         - name: supplierId
-          type: decimal
+          type: integer
           required: true
         - name: categoryId
-          type: decimal
+          type: integer
           required: true
         - name: quantityPerUnit
+          length: 32
           required: true
         - name: unitPrice
           type: decimal
           required: true
         - name: unitsInStock
-          type: decimal
+          type: integer
           required: true
         - name: unitsOnOrder
-          type: decimal
+          type: integer
           required: true
         - name: reorderLevel
-          type: decimal
+          type: integer
           required: true
         - name: discontinued
-          length: 1
+          type: boolean
           required: true
-      relations:
-        - name: category
-          type: oneToMany
-          from: categoryId
-          entity: Categories
-          to: categoryId
-        - name: supplier
-          type: oneToMany
-          from: supplierId
-          entity: Suppliers
-          to: supplierId
+        - name: id
+          type: integer
+          required: true
+      relations: []
       primaryKey:
         - categoryId
         - productId
-        - productId
         - supplierId
-      uniqueKey:
-        - productName
-        - supplierId
+        - id
+      indexes:
+        - name: productsUk
+          fields:
+            - supplierId
+    - name: Regions
+      properties:
+        - name: regionId
+          type: integer
+          required: true
+        - name: regionDescription
+          length: 50
+          required: true
+      relations: []
+      primaryKey:
+        - regionId
     - name: Shippers
       properties:
-        - name: shipperId
-          type: decimal
-          required: true
         - name: companyName
+          length: 32
           required: true
         - name: phone
-          length: 20
+          length: 32
+          required: true
+        - name: id
+          type: integer
           required: true
       relations: []
       primaryKey:
         - shipperId
-      uniqueKey:
-        - companyName
+        - id
     - name: Suppliers
       properties:
-        - name: supplierId
-          type: decimal
-          required: true
         - name: companyName
+          length: 50
           required: true
         - name: contactName
-          required: true
-        - name: phone
-          length: 20
-          required: true
-        - name: homePage
-          length: 200
+          length: 50
           required: true
         - name: address
           required: true
         - name: city
+          length: 32
           required: true
         - name: region
-          required: true
+          length: 16
         - name: postalCode
-          length: 20
+          length: 16
           required: true
         - name: country
+          length: 16
+          required: true
+        - name: phone
+          length: 32
+          required: true
+        - name: homePage
+          length: 128
+        - name: id
+          type: integer
           required: true
       relations: []
       primaryKey:
         - supplierId
-      uniqueKey:
-        - companyName
+        - id
+    - name: Territories
+      properties:
+        - name: territoryId
+          length: 20
+          required: true
+        - name: territoryDescription
+          length: 50
+          required: true
+        - name: regionId
+          type: integer
+          required: true
+      relations:
+        - name: territories
+          type: oneToMany
+          from: regionId
+          entity: Regions
+          to: regionId
+      primaryKey:
+        - territoryId
+        - regionId
 application: null
 infrastructure:
   paths:
@@ -278,6 +342,225 @@ infrastructure:
     data: data
     model: model
   mappings:
+    - name: Source
+      entities:
+        - name: Categories
+          mapping: Categories
+          properties:
+            - name: categoryId
+              mapping: CategoryID
+            - name: categoryName
+              mapping: CategoryName
+            - name: description
+              mapping: Description
+            - name: picture
+              mapping: Picture
+        - name: CustomerCustomerDemos
+          mapping: CustomerCustomerDemo
+          properties:
+            - name: customerId
+              mapping: CustomerID
+            - name: customerTypeId
+              mapping: CustomerTypeID
+        - name: CustomerDemographics
+          mapping: CustomerDemographics
+          properties:
+            - name: customerTypeId
+              mapping: CustomerTypeID
+            - name: customerDesc
+              mapping: CustomerDesc
+        - name: Customers
+          mapping: Customers
+          properties:
+            - name: customerId
+              mapping: CustomerID
+            - name: companyName
+              mapping: CompanyName
+            - name: contactName
+              mapping: ContactName
+            - name: contactTitle
+              mapping: ContactTitle
+            - name: address
+              mapping: Address
+            - name: city
+              mapping: City
+            - name: region
+              mapping: Region
+            - name: postalCode
+              mapping: PostalCode
+            - name: country
+              mapping: Country
+            - name: phone
+              mapping: Phone
+            - name: fax
+              mapping: Fax
+        - name: EmployeeTerritories
+          mapping: EmployeeTerritories
+          properties:
+            - name: employeeId
+              mapping: EmployeeID
+            - name: territoryId
+              mapping: TerritoryID
+        - name: Employees
+          mapping: Employees
+          properties:
+            - name: employeeId
+              mapping: EmployeeID
+            - name: lastName
+              mapping: LastName
+            - name: firstName
+              mapping: FirstName
+            - name: title
+              mapping: Title
+            - name: titleOfCourtesy
+              mapping: TitleOfCourtesy
+            - name: birthDate
+              mapping: BirthDate
+            - name: hireDate
+              mapping: HireDate
+            - name: address
+              mapping: Address
+            - name: city
+              mapping: City
+            - name: region
+              mapping: Region
+            - name: postalCode
+              mapping: PostalCode
+            - name: country
+              mapping: Country
+            - name: homePhone
+              mapping: HomePhone
+            - name: extension
+              mapping: Extension
+            - name: photo
+              mapping: Photo
+            - name: notes
+              mapping: Notes
+            - name: reportsTo
+              mapping: ReportsTo
+            - name: photoPath
+              mapping: PhotoPath
+            - name: salary
+              mapping: Salary
+        - name: OrderDetails
+          mapping: Order Details
+          properties:
+            - name: orderId
+              mapping: OrderID
+            - name: productId
+              mapping: ProductID
+            - name: unitPrice
+              mapping: UnitPrice
+            - name: quantity
+              mapping: Quantity
+            - name: discount
+              mapping: Discount
+        - name: Orders
+          mapping: Orders
+          properties:
+            - name: orderId
+              mapping: OrderID
+            - name: customerId
+              mapping: CustomerID
+            - name: employeeId
+              mapping: EmployeeID
+            - name: orderDate
+              mapping: OrderDate
+            - name: requiredDate
+              mapping: RequiredDate
+            - name: shippedDate
+              mapping: ShippedDate
+            - name: shipVia
+              mapping: ShipVia
+            - name: freight
+              mapping: Freight
+            - name: shipName
+              mapping: ShipName
+            - name: shipAddress
+              mapping: ShipAddress
+            - name: shipCity
+              mapping: ShipCity
+            - name: shipRegion
+              mapping: ShipRegion
+            - name: shipPostalCode
+              mapping: ShipPostalCode
+            - name: shipCountry
+              mapping: ShipCountry
+        - name: Products
+          mapping: Products
+          properties:
+            - name: productId
+              mapping: ProductID
+            - name: productName
+              mapping: ProductName
+            - name: supplierId
+              mapping: SupplierID
+            - name: categoryId
+              mapping: CategoryID
+            - name: quantityPerUnit
+              mapping: QuantityPerUnit
+            - name: unitPrice
+              mapping: UnitPrice
+            - name: unitsInStock
+              mapping: UnitsInStock
+            - name: unitsOnOrder
+              mapping: UnitsOnOrder
+            - name: reorderLevel
+              mapping: ReorderLevel
+            - name: discontinued
+              mapping: Discontinued
+        - name: Regions
+          mapping: Region
+          properties:
+            - name: regionId
+              mapping: RegionID
+            - name: regionDescription
+              mapping: RegionDescription
+        - name: Shippers
+          mapping: Shippers
+          properties:
+            - name: shipperId
+              mapping: ShipperID
+            - name: companyName
+              mapping: CompanyName
+            - name: phone
+              mapping: Phone
+        - name: Suppliers
+          mapping: Suppliers
+          properties:
+            - name: supplierId
+              mapping: SupplierID
+            - name: companyName
+              mapping: CompanyName
+            - name: contactName
+              mapping: ContactName
+            - name: contactTitle
+              mapping: ContactTitle
+            - name: address
+              mapping: Address
+            - name: city
+              mapping: City
+            - name: region
+              mapping: Region
+            - name: postalCode
+              mapping: PostalCode
+            - name: country
+              mapping: Country
+            - name: phone
+              mapping: Phone
+            - name: fax
+              mapping: Fax
+            - name: homePage
+              mapping: HomePage
+        - name: Territories
+          mapping: Territories
+          properties:
+            - name: territoryId
+              mapping: TerritoryID
+            - name: territoryDescription
+              mapping: TerritoryDescription
+            - name: regionId
+              mapping: RegionID
     - name: mySql
       entities:
         - name: Categories
@@ -442,6 +725,26 @@ infrastructure:
               mapping: Country
     - name: postgreSql
       entities:
+        - name: Shippers
+          mapping: shippers
+          properties:
+            - name: shipperId
+              mapping: shipperid
+            - name: companyName
+              mapping: companyname
+        - name: Suppliers
+          mapping: suppliers
+          properties:
+            - name: supplierId
+              mapping: supplierid
+            - name: companyName
+              mapping: companyname
+            - name: contactName
+              mapping: contactname
+            - name: homePage
+              mapping: homepage
+            - name: postalCode
+              mapping: postalcode
         - name: Categories
           mapping: categories
           properties:
@@ -460,19 +763,6 @@ infrastructure:
               mapping: contactname
             - name: contactTitle
               mapping: contacttitle
-            - name: postalCode
-              mapping: postalcode
-        - name: Suppliers
-          mapping: suppliers
-          properties:
-            - name: supplierId
-              mapping: supplierid
-            - name: companyName
-              mapping: companyname
-            - name: contactName
-              mapping: contactname
-            - name: homePage
-              mapping: homepage
             - name: postalCode
               mapping: postalcode
         - name: Employees
@@ -525,13 +815,6 @@ infrastructure:
               mapping: shippostalcode
             - name: shipCountry
               mapping: shipcountry
-        - name: Shippers
-          mapping: shippers
-          properties:
-            - name: shipperId
-              mapping: shipperid
-            - name: companyName
-              mapping: companyname
         - name: Products
           mapping: products
           properties:
@@ -625,6 +908,73 @@ infrastructure:
               mapping: PostalCode
             - name: country
               mapping: Country
+        - name: OrderDetails
+          mapping: Order Details
+          properties:
+            - name: orderId
+              mapping: OrderID
+            - name: productId
+              mapping: ProductID
+            - name: unitPrice
+              mapping: UnitPrice
+            - name: quantity
+              mapping: Quantity
+            - name: discount
+              mapping: Discount
+        - name: Orders
+          mapping: Orders
+          properties:
+            - name: orderId
+              mapping: OrderID
+            - name: customerId
+              mapping: CustomerID
+            - name: employeeId
+              mapping: EmployeeID
+            - name: orderDate
+              mapping: OrderDate
+            - name: requiredDate
+              mapping: RequiredDate
+            - name: shippedDate
+              mapping: ShippedDate
+            - name: shipVia
+              mapping: ShipVia
+            - name: freight
+              mapping: Freight
+            - name: shipName
+              mapping: ShipName
+            - name: shipAddress
+              mapping: ShipAddress
+            - name: shipCity
+              mapping: ShipCity
+            - name: shipRegion
+              mapping: ShipRegion
+            - name: shipPostalCode
+              mapping: ShipPostalCode
+            - name: shipCountry
+              mapping: ShipCountry
+        - name: Products
+          mapping: Products
+          properties:
+            - name: productId
+              mapping: ProductID
+            - name: productName
+              mapping: ProductName
+            - name: supplierId
+              mapping: SupplierID
+            - name: categoryId
+              mapping: CategoryID
+            - name: quantityPerUnit
+              mapping: QuantityPerUnit
+            - name: unitPrice
+              mapping: UnitPrice
+            - name: unitsInStock
+              mapping: UnitsInStock
+            - name: unitsOnOrder
+              mapping: UnitsOnOrder
+            - name: reorderLevel
+              mapping: ReorderLevel
+            - name: discontinued
+              mapping: Discontinued
         - name: Shippers
           mapping: Shippers
           properties:
@@ -657,77 +1007,11 @@ infrastructure:
               mapping: PostalCode
             - name: country
               mapping: Country
-        - name: Products
-          mapping: Products
-          properties:
-            - name: productId
-              mapping: ProductID
-            - name: productName
-              mapping: ProductName
-            - name: supplierId
-              mapping: SupplierID
-            - name: categoryId
-              mapping: CategoryID
-            - name: quantityPerUnit
-              mapping: QuantityPerUnit
-            - name: unitPrice
-              mapping: UnitPrice
-            - name: unitsInStock
-              mapping: UnitsInStock
-            - name: unitsOnOrder
-              mapping: UnitsOnOrder
-            - name: reorderLevel
-              mapping: ReorderLevel
-            - name: discontinued
-              mapping: Discontinued
-        - name: Orders
-          mapping: Orders
-          properties:
-            - name: orderId
-              mapping: OrderID
-            - name: customerId
-              mapping: CustomerID
-            - name: employeeId
-              mapping: EmployeeID
-            - name: orderDate
-              mapping: OrderDate
-            - name: requiredDate
-              mapping: RequiredDate
-            - name: shippedDate
-              mapping: ShippedDate
-            - name: shipVia
-              mapping: ShipVia
-            - name: freight
-              mapping: Freight
-            - name: shipName
-              mapping: ShipName
-            - name: shipAddress
-              mapping: ShipAddress
-            - name: shipCity
-              mapping: ShipCity
-            - name: shipRegion
-              mapping: ShipRegion
-            - name: shipPostalCode
-              mapping: ShipPostalCode
-            - name: shipCountry
-              mapping: ShipCountry
-        - name: OrderDetails
-          mapping: Order Details
-          properties:
-            - name: orderId
-              mapping: OrderID
-            - name: productId
-              mapping: ProductID
-            - name: unitPrice
-              mapping: UnitPrice
-            - name: quantity
-              mapping: Quantity
-            - name: discount
-              mapping: Discount
     - name: oracle
       entities:
         - name: Employees
           mapping: EMPLOYEES
+          sequence: SQ_EMPLOYEES
           properties:
             - name: employeeId
               mapping: EMPLOYEEID
@@ -757,93 +1041,22 @@ infrastructure:
               mapping: POSTALCODE
             - name: country
               mapping: COUNTRY
-        - name: Shippers
-          mapping: SHIPPERS
+        - name: OrderDetails
+          mapping: Order Details
           properties:
-            - name: shipperId
-              mapping: SHIPPERID
-            - name: companyName
-              mapping: COMPANYNAME
-            - name: phone
-              mapping: PHONE
-        - name: Suppliers
-          mapping: SUPPLIERS
-          properties:
-            - name: supplierId
-              mapping: SUPPLIERID
-            - name: companyName
-              mapping: COMPANYNAME
-            - name: contactName
-              mapping: CONTACTNAME
-            - name: phone
-              mapping: PHONE
-            - name: homePage
-              mapping: HOMEPAGE
-            - name: address
-              mapping: ADDRESS
-            - name: city
-              mapping: CITY
-            - name: region
-              mapping: REGION
-            - name: postalCode
-              mapping: POSTALCODE
-            - name: country
-              mapping: COUNTRY
-        - name: Categories
-          mapping: CATEGORIES
-          properties:
-            - name: categoryId
-              mapping: CATEGORYID
-            - name: categoryName
-              mapping: CATEGORYNAME
-            - name: description
-              mapping: DESCRIPTION
-        - name: Customers
-          mapping: CUSTOMERS
-          properties:
-            - name: country
-              mapping: COUNTRY
-            - name: customerId
-              mapping: CUSTOMERID
-            - name: companyName
-              mapping: COMPANYNAME
-            - name: contactName
-              mapping: CONTACTNAME
-            - name: contactTitle
-              mapping: CONTACTTITLE
-            - name: address
-              mapping: ADDRESS
-            - name: city
-              mapping: CITY
-            - name: region
-              mapping: REGION
-            - name: postalCode
-              mapping: POSTALCODE
-        - name: Products
-          mapping: PRODUCTS
-          properties:
+            - name: orderId
+              mapping: ORDERID
             - name: productId
               mapping: PRODUCTID
-            - name: productName
-              mapping: PRODUCTNAME
-            - name: supplierId
-              mapping: SUPPLIERID
-            - name: categoryId
-              mapping: CATEGORYID
-            - name: quantityPerUnit
-              mapping: QUANTITYPERUNIT
             - name: unitPrice
               mapping: UNITPRICE
-            - name: unitsInStock
-              mapping: UNITSINSTOCK
-            - name: unitsOnOrder
-              mapping: UNITSONORDER
-            - name: reorderLevel
-              mapping: REORDERLEVEL
-            - name: discontinued
-              mapping: DISCONTINUED
+            - name: quantity
+              mapping: QUANTITY
+            - name: discount
+              mapping: DISCOUNT
         - name: Orders
           mapping: ORDERS
+          sequence: SQ_ORDERS
           properties:
             - name: orderId
               mapping: ORDERID
@@ -873,20 +1086,262 @@ infrastructure:
               mapping: SHIPPOSTALCODE
             - name: shipCountry
               mapping: SHIPCOUNTRY
-        - name: OrderDetails
-          mapping: Order Details
+        - name: Suppliers
+          mapping: SUPPLIERS
+          sequence: SQ_SUPPLIERS
           properties:
-            - name: orderId
-              mapping: ORDERID
+            - name: supplierId
+              mapping: SUPPLIERID
+            - name: companyName
+              mapping: COMPANYNAME
+            - name: contactName
+              mapping: CONTACTNAME
+            - name: phone
+              mapping: PHONE
+            - name: homePage
+              mapping: HOMEPAGE
+            - name: address
+              mapping: ADDRESS
+            - name: city
+              mapping: CITY
+            - name: region
+              mapping: REGION
+            - name: postalCode
+              mapping: POSTALCODE
+            - name: country
+              mapping: COUNTRY
+        - name: Shippers
+          mapping: SHIPPERS
+          sequence: SQ_SHIPPERS
+          properties:
+            - name: shipperId
+              mapping: SHIPPERID
+            - name: companyName
+              mapping: COMPANYNAME
+            - name: phone
+              mapping: PHONE
+        - name: Products
+          mapping: PRODUCTS
+          sequence: SQ_PRODUCTS
+          properties:
             - name: productId
               mapping: PRODUCTID
+            - name: productName
+              mapping: PRODUCTNAME
+            - name: supplierId
+              mapping: SUPPLIERID
+            - name: categoryId
+              mapping: CATEGORYID
+            - name: quantityPerUnit
+              mapping: QUANTITYPERUNIT
             - name: unitPrice
               mapping: UNITPRICE
-            - name: quantity
-              mapping: QUANTITY
-            - name: discount
-              mapping: DISCOUNT
+            - name: unitsInStock
+              mapping: UNITSINSTOCK
+            - name: unitsOnOrder
+              mapping: UNITSONORDER
+            - name: reorderLevel
+              mapping: REORDERLEVEL
+            - name: discontinued
+              mapping: DISCONTINUED
+        - name: Customers
+          mapping: CUSTOMERS
+          properties:
+            - name: customerId
+              mapping: CUSTOMERID
+            - name: companyName
+              mapping: COMPANYNAME
+            - name: contactName
+              mapping: CONTACTNAME
+            - name: contactTitle
+              mapping: CONTACTTITLE
+            - name: address
+              mapping: ADDRESS
+            - name: city
+              mapping: CITY
+            - name: region
+              mapping: REGION
+            - name: postalCode
+              mapping: POSTALCODE
+            - name: country
+              mapping: COUNTRY
+        - name: Categories
+          mapping: CATEGORIES
+          sequence: SQ_CATEGORIES
+          properties:
+            - name: categoryId
+              mapping: CATEGORYID
+            - name: categoryName
+              mapping: CATEGORYNAME
+            - name: description
+              mapping: DESCRIPTION
+    - name: MongoDB
+      entities:
+        - name: Categories
+          mapping: Categories
+          sequence: SQ_CATEGORIES
+          properties:
+            - name: id
+              mapping: _id
+            - name: categoryName
+              mapping: CategoryName
+            - name: description
+              mapping: Description
+        - name: Suppliers
+          mapping: Suppliers
+          sequence: SQ_SUPPLIERS
+          properties:
+            - name: id
+              mapping: _id
+            - name: address
+              mapping: Address
+            - name: city
+              mapping: City
+            - name: companyName
+              mapping: CompanyName
+            - name: contactName
+              mapping: ContactName
+            - name: country
+              mapping: Country
+            - name: homePage
+              mapping: HomePage
+            - name: phone
+              mapping: Phone
+            - name: postalCode
+              mapping: PostalCode
+            - name: region
+              mapping: Region
+        - name: Shippers
+          mapping: Shippers
+          sequence: SQ_SHIPPERS
+          properties:
+            - name: id
+              mapping: _id
+            - name: companyName
+              mapping: CompanyName
+            - name: phone
+              mapping: Phone
+        - name: Customers
+          mapping: Customers
+          properties:
+            - name: id
+              mapping: _id
+            - name: address
+              mapping: Address
+            - name: city
+              mapping: City
+            - name: companyName
+              mapping: CompanyName
+            - name: contactName
+              mapping: ContactName
+            - name: contactTitle
+              mapping: ContactTitle
+            - name: country
+              mapping: Country
+            - name: postalCode
+              mapping: PostalCode
+            - name: region
+              mapping: Region
+        - name: OrderDetails
+          mapping: OrderDetails
+          properties:
+            - name: orderId
+              mapping: OrderID
+            - name: productId
+              mapping: ProductID
+            - name: orderId
+              mapping: order_id
+        - name: Orders
+          mapping: Orders
+          sequence: SQ_ORDERS
+          properties:
+            - name: id
+              mapping: _id
+            - name: customerId
+              mapping: CustomerID
+            - name: employeeId
+              mapping: EmployeeID
+            - name: orderDate
+              mapping: OrderDate
+            - name: requiredDate
+              mapping: RequiredDate
+            - name: shipAddress
+              mapping: ShipAddress
+            - name: shipCity
+              mapping: ShipCity
+            - name: shipCountry
+              mapping: ShipCountry
+            - name: shipName
+              mapping: ShipName
+            - name: shippedDate
+              mapping: ShippedDate
+            - name: shipPostalCode
+              mapping: ShipPostalCode
+            - name: shipRegion
+              mapping: ShipRegion
+            - name: shipVia
+              mapping: ShipVia
+        - name: Products
+          mapping: Products
+          sequence: SQ_PRODUCTS
+          properties:
+            - name: id
+              mapping: _id
+            - name: categoryId
+              mapping: CategoryID
+            - name: discontinued
+              mapping: Discontinued
+            - name: productName
+              mapping: ProductName
+            - name: quantityPerUnit
+              mapping: QuantityPerUnit
+            - name: reorderLevel
+              mapping: ReorderLevel
+            - name: supplierId
+              mapping: SupplierID
+            - name: unitPrice
+              mapping: UnitPrice
+            - name: unitsInStock
+              mapping: UnitsInStock
+            - name: unitsOnOrder
+              mapping: UnitsOnOrder
+        - name: Employees
+          mapping: Employees
+          sequence: SQ_EMPLOYEES
+          properties:
+            - name: id
+              mapping: _id
+            - name: address
+              mapping: Address
+            - name: birthDate
+              mapping: BirthDate
+            - name: city
+              mapping: City
+            - name: country
+              mapping: Country
+            - name: firstName
+              mapping: FirstName
+            - name: hireDate
+              mapping: HireDate
+            - name: homePhone
+              mapping: HomePhone
+            - name: lastName
+              mapping: LastName
+            - name: postalCode
+              mapping: PostalCode
+            - name: region
+              mapping: Region
+            - name: reportsTo
+              mapping: ReportsTo
+            - name: title
+              mapping: Title
+            - name: titleOfCourtesy
+              mapping: TitleOfCourtesy
   sources:
+    - name: Source
+      mapping: Source
+      dialect: MySQL
+      connection: ${ORM_CNN_SOURCE}
     - name: MySQL
       mapping: mySql
       dialect: MySQL
@@ -903,7 +1358,14 @@ infrastructure:
       mapping: oracle
       dialect: Oracle
       connection: ${ORM_CNN_ORACLE}
+    - name: MongoDB
+      mapping: MongoDB
+      dialect: MongoDB
+      connection: ${ORM_CNN_MONGODB}
   stages:
+    - name: Source
+      sources:
+        - name: Source
     - name: MySQL
       sources:
         - name: MySQL
@@ -916,5 +1378,8 @@ infrastructure:
     - name: Oracle
       sources:
         - name: Oracle
+    - name: MongoDB
+      sources:
+        - name: MongoDB
   views:
     - name: default

@@ -4,5 +4,5 @@ infrastructure:
   sources:
     - name: MySQL
       dialect: MySQL
-      connection: ${ORM_CNN_MYSQL}
+      connection: ${ORM_CNN_SOURCE}
 

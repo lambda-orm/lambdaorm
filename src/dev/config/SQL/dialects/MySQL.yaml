@@ -1,6 +1,9 @@
 _extends: [SQL]
 dbTypes:
-  text: LONGTEXT
+  buffer: LONGBLOB
+types:
+  mediumtext: text
+  longblob: buffer
 support:
   sequences: false
   tablespaces: false
@@ -55,7 +58,7 @@ ddl:
       AND t.table_type = 'VIEW'
       AND t.table_name IN ({names})
   primaryKeys: |
-    SELECT
+    SELECT DISTINCT
       tc.table_name AS tableName,
       kcu.column_name AS columnName,
       tc.constraint_name AS constraintName
@@ -65,7 +68,7 @@ ddl:
       AND tc.table_schema = DATABASE()
       AND tc.table_name IN ({tableNames})
   uniqueKeys: |
-    SELECT
+    SELECT DISTINCT
       tc.table_name AS tableName,
       kcu.column_name AS columnName,
       tc.constraint_name AS constraintName
@@ -75,7 +78,7 @@ ddl:
       AND tc.table_schema = DATABASE()
       AND tc.table_name IN ({tableNames})
   foreignKeys: |
-    SELECT 
+    SELECT DISTINCT 
       TABLE_NAME AS tableName,
       COLUMN_NAME AS columnName,
       CONSTRAINT_NAME AS constraintName,
@@ -87,7 +90,7 @@ ddl:
         AND REFERENCED_TABLE_NAME IS NOT NULL
         AND TABLE_NAME IN ({tableNames})
   indexes: |
-    SELECT
+    SELECT DISTINCT
       t.table_name AS tableName,
       i.index_name AS indexName,
       a.column_name AS columnName,
