@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/lambda-orm/lambdaorm/blob/8022ee3bce9daa6285e0a90cb60d21de8b6aa8b6/src/lib/expressions/application/useCases/transaction.ts#L9)
+[src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/expressions/application/useCases/transaction.ts#L9)
 
 ## Methods
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/lambda-orm/lambdaorm/blob/8022ee3bce9daa6285e0a90cb60d21de8b6aa8b6/src/lib/expressions/application/useCases/transaction.ts#L13)
+[src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/expressions/application/useCases/transaction.ts#L13)
 
 ▸ **execute**(`expression`, `data?`): `Promise`\<`any`\>
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/lambda-orm/lambdaorm/blob/8022ee3bce9daa6285e0a90cb60d21de8b6aa8b6/src/lib/expressions/application/useCases/transaction.ts#L14)
+[src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/expressions/application/useCases/transaction.ts#L14)
 
 ___
 
@@ -92,4 +92,4 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/lambda-orm/lambdaorm/blob/8022ee3bce9daa6285e0a90cb60d21de8b6aa8b6/src/lib/expressions/application/useCases/transaction.ts#L23)
+[src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/expressions/application/useCases/transaction.ts#L23)
