@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.12.1](https://github.com/lambda-orm/lambdaorm/compare/v1.12.0...v1.12.1) (2024-05-01)
+
+
+### Bug Fixes
+
+* modify orm constructor ([c8a0e53](https://github.com/lambda-orm/lambdaorm/commit/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+* modify ORM constructor ([06a11ea](https://github.com/lambda-orm/lambdaorm/commit/06a11ea492c5f77db7b0a99e394db73837656794)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
+
 ## [1.12.0](https://github.com/lambda-orm/lambdaorm/compare/v1.11.3...v1.12.0) (2024-05-01)
 
 **Features:**
