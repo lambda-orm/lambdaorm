@@ -128,6 +128,19 @@ export class StageFacade {
 	}
 
 	/**
+	 * Update and Sync Schema with data
+	 * @param data any|any[]
+	 * @param name string
+	 * @param options QueryOptions
+	 * @returns {Promise<SchemaData>}
+	 */
+	public async introspect (data: any|any[], name:string, options?:QueryOptions): Promise<SchemaData> {
+		const schemaData = await this.schemaState.introspect(data, name)
+		await this.sync(options).execute()
+		return schemaData
+	}
+
+	/**
 	 * Update and Sync Schema and import data
 	 * @param data any|any[]
 	 * @param name string
@@ -135,8 +148,7 @@ export class StageFacade {
 	 * @returns {Promise<SchemaData>}
 	 */
 	public async incorporate (data: any|any[], name:string, options?:QueryOptions): Promise<SchemaData> {
-		const schemaData = await this.schemaState.introspect(data, name)
-		await this.sync(options).execute()
+		const schemaData = await this.introspect(data, name, options)
 		await this.import(options).execute(schemaData)
 		return schemaData
 	}
