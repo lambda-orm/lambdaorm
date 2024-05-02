@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.13.0](https://github.com/lambda-orm/lambdaorm/compare/v1.12.2...v1.13.0) (2024-05-02)
 
-
-### Features
+**Features:**
 
 * add introspect in stage facade ([d7a65b1](https://github.com/lambda-orm/lambdaorm/commit/d7a65b14ba051bd82543c932810f2aec6bef3373)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 

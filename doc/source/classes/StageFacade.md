@@ -17,6 +17,7 @@
 - [fetch](StageFacade.md#fetch)
 - [import](StageFacade.md#import)
 - [incorporate](StageFacade.md#incorporate)
+- [introspect](StageFacade.md#introspect)
 - [match](StageFacade.md#match)
 - [sync](StageFacade.md#sync)
 - [truncate](StageFacade.md#truncate)
@@ -44,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:22](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L22)
+[src/lib/stage/application/facade.ts:22](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L22)
 
 ## Methods
 
@@ -66,7 +67,7 @@ Delete source entities related to the stage
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:81](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L81)
+[src/lib/stage/application/facade.ts:81](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L81)
 
 ___
 
@@ -88,7 +89,7 @@ Drop source entities related to the stage
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:59](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L59)
+[src/lib/stage/application/facade.ts:59](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L59)
 
 ___
 
@@ -110,7 +111,7 @@ Check if the stage exists
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:37](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L37)
+[src/lib/stage/application/facade.ts:37](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L37)
 
 ___
 
@@ -132,7 +133,7 @@ Export source entities related to the stage
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:92](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L92)
+[src/lib/stage/application/facade.ts:92](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L92)
 
 ___
 
@@ -154,7 +155,7 @@ Fetch all mappings from the stage
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:113](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L113)
+[src/lib/stage/application/facade.ts:113](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L113)
 
 ___
 
@@ -176,7 +177,7 @@ Import data into source entities related to the stage
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:103](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L103)
+[src/lib/stage/application/facade.ts:103](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L103)
 
 ___
 
@@ -200,7 +201,31 @@ Update and Sync Schema and import data
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:137](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L137)
+[src/lib/stage/application/facade.ts:150](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L150)
+
+___
+
+### introspect
+
+▸ **introspect**(`data`, `name`, `options?`): `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
+
+Update and Sync Schema with data
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `any` | any\|any[] |
+| `name` | `string` | string |
+| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
+
+#### Returns
+
+`Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
+
+#### Defined in
+
+[src/lib/stage/application/facade.ts:137](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L137)
 
 ___
 
@@ -222,7 +247,7 @@ Match the stage with the sources
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:123](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L123)
+[src/lib/stage/application/facade.ts:123](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L123)
 
 ___
 
@@ -244,7 +269,7 @@ Sync the stage with sources
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L48)
+[src/lib/stage/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L48)
 
 ___
 
@@ -266,4 +291,4 @@ Truncate source entities related to the stage
 
 #### Defined in
 
-[src/lib/stage/application/facade.ts:70](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/stage/application/facade.ts#L70)
+[src/lib/stage/application/facade.ts:70](https://github.com/lambda-orm/lambdaorm/blob/d7a65b14ba051bd82543c932810f2aec6bef3373/src/lib/stage/application/facade.ts#L70)
