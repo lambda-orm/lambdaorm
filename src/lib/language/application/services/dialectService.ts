@@ -11,6 +11,7 @@ export class DialectService {
 	private _ddl?: any = {}
 	private _dbTypes?: any = {}
 	private _types?: any = {}
+	private _reservedWords: string[] = []
 	constructor (name: string, data: any) {
 		this.name = name
 		this.format = data.format
@@ -43,6 +44,9 @@ export class DialectService {
 			const type = data.types[name]
 			this._types[name.toLowerCase()] = type
 		}
+		for (const reservedWord of data.reservedWords) {
+			this._reservedWords.push(reservedWord.toLowerCase())
+		}
 	}
 
 	private addOperators (dialect: any) {
@@ -72,6 +76,10 @@ export class DialectService {
 
 	public get solveComposite (): boolean {
 		return this._support.composite || false
+	}
+
+	public isReservedWord (name: string): boolean {
+		return this._reservedWords.includes(name.toLowerCase())
 	}
 
 	public operator (name: string, operands: number): string {
@@ -111,7 +119,11 @@ export class DialectService {
 	}
 
 	public delimiter (name: string, force = false, excludeUnderscore = false): string {
-		if ((!name.startsWith('_') || excludeUnderscore) && name.indexOf(' ') === -1 && name.indexOf('.') === -1 && !force) {
+		if (!force &&
+				(!name.startsWith('_') || excludeUnderscore) &&
+				name.indexOf(' ') === -1 &&
+				name.indexOf('.') === -1 &&
+				!this.isReservedWord(name)) {
 			return name
 		}
 		const template = this._others.delimiter

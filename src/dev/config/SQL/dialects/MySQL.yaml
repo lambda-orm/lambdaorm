@@ -1,6 +1,75 @@
 _extends: [SQL]
+reservedWords:
+  - long
+  - add
+  - all
+  - alter
+  - and
+  - as
+  - asc
+  - between
+  - by
+  - cascade
+  - case
+  - check
+  - collate
+  - column
+  - constraint
+  - create
+  - database
+  - default
+  - delete
+  - desc
+  - distinct
+  - drop
+  - else
+  - end
+  - escape
+  - exists
+  - 'false'
+  - for
+  - foreign
+  - from
+  - full
+  - grant
+  - group
+  - having
+  - inner
+  - index
+  - insert
+  - into
+  - is
+  - join
+  - key
+  - left
+  - like
+  - limit
+  - not
+  - 'null'
+  - 'on'
+  - or
+  - order
+  - outer
+  - references
+  - right
+  - select
+  - set
+  - some
+  - table
+  - then
+  - to
+  - 'true'
+  - union
+  - unique
+  - update
+  - using
+  - values
+  - when
+  - where
+  - with
 dbTypes:
   buffer: LONGBLOB
+  decimal: DECIMAL(10,4)
 types:
   mediumtext: text
   longblob: buffer
@@ -9,7 +78,8 @@ support:
   tablespaces: false
   partitions: false
   pkTablespaces: false
-  ukTablespaces: false   
+  ukTablespaces: false
+  composite: false    
 ddl:
   dropIndex: "DROP INDEX {name} ON {table}"
   objects: |

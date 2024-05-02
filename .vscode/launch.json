@@ -15,14 +15,24 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
-			"name": "incorporate",
+			"name": "incorporate postgres",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/incorporate/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/incorporate/countries.env"
+			"program": "${workspaceFolder}/src/dev/labs/incorporate-postgres/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/incorporate-postgres/.env"
+		},
+		{
+			"name": "incorporate mysql",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/incorporate-mysql/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/incorporate-mysql/.env"
 		},
 		{
 			"name": "fetch",

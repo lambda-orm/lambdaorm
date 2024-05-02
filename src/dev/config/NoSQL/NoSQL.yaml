@@ -1,4 +1,32 @@
 # https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions001.htm
+reservedWords:
+  - use
+  - show
+  - db
+  - collection
+  - find
+  - insert
+  - update
+  - delete
+  - match
+  - group
+  - project
+  - sort
+  - limit
+  - skip
+  - and
+  - or
+  - not
+  - nor
+  - in
+  - nin
+  - all
+  - elemMatch
+  - set
+  - unset
+  - inc
+  - push
+  - pull
 dbTypes:
   boolean: boolean
   integer: integer

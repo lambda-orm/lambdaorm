@@ -103,6 +103,8 @@ export class MySqlConnectionAdapter extends ConnectionAdapter {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public async bulkInsert (mapping: MappingConfigService, dialect: DialectService, query: Query, array: any[]): Promise<any[]> {
 		try {
+			const fieldIds = mapping.getFieldIds(query.entity)
+			const fieldId = fieldIds && fieldIds.length === 1 ? fieldIds[0] : null
 			if (!array || array.length === 0) {
 				return []
 			}
@@ -110,12 +112,22 @@ export class MySqlConnectionAdapter extends ConnectionAdapter {
 			const rows: any[] = this.arrayToRows(mapping, dialect, query, array)
 			const result = await this.cnx.query(query.sentence, [rows])
 
+			if (fieldId?.autoIncrement) {
 			// https://github.com/sidorares/node-mysql2/issues/435
-			const start = result[0].insertId
-			const end = result[0].insertId + (result[0].affectedRows - 1)
-			const lastInsertedIds: number[] = []
-			for (let i = start; i <= end; i++)lastInsertedIds.push(i)
-			return lastInsertedIds
+				const start = result[0].insertId
+				const end = result[0].insertId + (result[0].affectedRows - 1)
+				const lastInsertedIds: number[] = []
+				for (let i = start; i <= end; i++)lastInsertedIds.push(i)
+				return lastInsertedIds
+			} else {
+				const ids: any[] = []
+				if (fieldId) {
+					for (const item of array) {
+						ids.push(item[fieldId.name])
+					}
+				}
+				return ids
+			}
 		} catch (error: any) {
 			throw new Error(`sentence: ${query.sentence} error: ${error.message}`)
 		}

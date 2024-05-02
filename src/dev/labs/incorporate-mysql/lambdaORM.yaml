@@ -1,0 +1,17 @@
+version: 0.0.1
+domain:
+  version: 0.0.1
+  entities: []
+infrastructure:
+  sources:
+    - name: default
+      mapping: default
+      dialect: MySQL
+      connection: $CNX_MYSQL
+  mappings:
+    - name: default
+      entities: []
+  stages:
+    - name: default
+      sources:
+        - name: default

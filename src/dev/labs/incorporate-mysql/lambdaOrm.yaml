@@ -1,0 +1,139 @@
+version: 0.0.1
+domain:
+  version: 0.0.1
+  entities:
+    - name: CountriesLanguages
+      intermediate: true
+      primaryKey:
+        - id
+      properties:
+        - name: id
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: languageCode
+          length: 4
+          required: true
+        - name: countryName
+          length: 32
+          required: true
+      uniqueKey:
+        - countryName
+        - languageCode
+      relations:
+        - name: countries
+          type: oneToMany
+          from: countryName
+          entity: Countries
+          to: name
+          target: countriesLanguages
+        - name: languages
+          type: oneToMany
+          from: languageCode
+          entity: Languages
+          to: code
+          target: countriesLanguages
+    - name: Languages
+      primaryKey:
+        - code
+      properties:
+        - name: code
+          required: true
+          length: 4
+        - name: name
+          required: true
+          length: 16
+    - name: Regions
+      primaryKey:
+        - code
+      properties:
+        - name: code
+          required: true
+          length: 2
+        - name: name
+          required: true
+          length: 32
+    - name: Positions
+      primaryKey:
+        - lat
+      properties:
+        - name: lat
+          type: decimal
+          required: true
+        - name: long
+          type: decimal
+          required: true
+      uniqueKey:
+        - long
+    - name: Timezones
+      primaryKey:
+        - name
+      properties:
+        - name: GmtOffset
+          type: integer
+          required: false
+        - name: name
+          required: true
+          length: 32
+        - name: positionLat
+          type: decimal
+          required: true
+        - name: countryName
+          length: 32
+          required: true
+      relations:
+        - name: position
+          type: oneToMany
+          from: positionLat
+          entity: Positions
+          to: lat
+          composite: true
+        - name: countries
+          type: oneToMany
+          from: countryName
+          entity: Countries
+          to: name
+    - name: Countries
+      primaryKey:
+        - name
+      properties:
+        - name: name
+          required: true
+          length: 32
+        - name: phoneCode
+          type: integer
+          required: true
+        - name: priority
+          type: integer
+          required: true
+        - name: regionCode
+          required: true
+          length: 2
+      uniqueKey:
+        - phoneCode
+      relations:
+        - name: region
+          type: oneToMany
+          from: regionCode
+          entity: Regions
+          to: code
+        - name: timezones
+          type: manyToOne
+          from: name
+          entity: Timezones
+          to: countryName
+          composite: true
+infrastructure:
+  paths:
+    src: src
+    data: data
+    domain: domain
+  mappings:
+    - name: default
+      entities: []
+  sources:
+    - name: default
+      mapping: default
+      dialect: MySQL
+      connection: $CNX_MYSQL
+  stages: []

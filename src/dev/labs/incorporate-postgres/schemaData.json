@@ -1,0 +1,491 @@
+{
+  "entities": [
+    {
+      "entity": "Countries",
+      "rows": [
+        {
+          "name": "Spain",
+          "phoneCode": 34,
+          "priority": 1,
+          "regionCode": "EU",
+          "timezones": [
+            {
+              "GmtOffset": 1,
+              "name": "Madrid",
+              "position": {
+                "lat": 40.4165,
+                "long": -3.70256
+              },
+              "countryName": "Spain",
+              "positionLat": 40.4165
+            },
+            {
+              "name": "Ceuta",
+              "position": {
+                "lat": 35.8883,
+                "long": -5.3162
+              },
+              "countryName": "Spain",
+              "positionLat": 35.8883
+            },
+            {
+              "GmtOffset": 0,
+              "name": "Canary",
+              "position": {
+                "lat": 28.1248,
+                "long": -15.43
+              },
+              "countryName": "Spain",
+              "positionLat": 28.1248
+            }
+          ]
+        },
+        {
+          "name": "France",
+          "phoneCode": 33,
+          "priority": 1,
+          "regionCode": "EU",
+          "timezones": [
+            {
+              "GmtOffset": 1,
+              "name": "Paris",
+              "position": {
+                "lat": 48.8566,
+                "long": 2.3522
+              },
+              "countryName": "France",
+              "positionLat": 48.8566
+            },
+            {
+              "GmtOffset": 4,
+              "name": "Reunion",
+              "position": {
+                "lat": -20.8823,
+                "long": 55.4504
+              },
+              "countryName": "France",
+              "positionLat": -20.8823
+            },
+            {
+              "GmtOffset": -4,
+              "name": "Guadeloupe",
+              "position": {
+                "lat": 16.265,
+                "long": -61.551
+              },
+              "countryName": "France",
+              "positionLat": 16.265
+            }
+          ]
+        },
+        {
+          "name": "Germany",
+          "phoneCode": 49,
+          "priority": 1,
+          "regionCode": "EU",
+          "timezones": [
+            {
+              "GmtOffset": 1,
+              "name": "Berlin",
+              "position": {
+                "lat": 52.52,
+                "long": 13.405
+              },
+              "countryName": "Germany",
+              "positionLat": 52.52
+            },
+            {
+              "GmtOffset": 1,
+              "name": "Busingen",
+              "position": {
+                "lat": 47.6963,
+                "long": 8.6927
+              },
+              "countryName": "Germany",
+              "positionLat": 47.6963
+            }
+          ]
+        },
+        {
+          "name": "Portugal",
+          "phoneCode": 351,
+          "priority": 1,
+          "regionCode": "EU",
+          "timezones": [
+            {
+              "GmtOffset": 0,
+              "name": "Lisbon",
+              "position": {
+                "lat": 38.7223,
+                "long": -9.1393
+              },
+              "countryName": "Portugal",
+              "positionLat": 38.7223
+            },
+            {
+              "GmtOffset": 0,
+              "name": "Madeira",
+              "position": {
+                "lat": 32.7607,
+                "long": -16.9595
+              },
+              "countryName": "Portugal",
+              "positionLat": 32.7607
+            },
+            {
+              "GmtOffset": -1,
+              "name": "Azores",
+              "position": {
+                "lat": 37.7412,
+                "long": -25.6756
+              },
+              "countryName": "Portugal",
+              "positionLat": 37.7412
+            }
+          ]
+        },
+        {
+          "name": "United States",
+          "phoneCode": 1,
+          "priority": 1,
+          "regionCode": "NA",
+          "timezones": [
+            {
+              "GmtOffset": -5,
+              "name": "New York",
+              "position": {
+                "lat": 40.7128,
+                "long": -74.006
+              },
+              "countryName": "United States",
+              "positionLat": 40.7128
+            },
+            {
+              "GmtOffset": -8,
+              "name": "Los Angeles",
+              "position": {
+                "lat": 34.0522,
+                "long": -118.2437
+              },
+              "countryName": "United States",
+              "positionLat": 34.0522
+            },
+            {
+              "GmtOffset": -6,
+              "name": "Chicago",
+              "position": {
+                "lat": 41.8781,
+                "long": -87.6298
+              },
+              "countryName": "United States",
+              "positionLat": 41.8781
+            },
+            {
+              "GmtOffset": -7,
+              "name": "Denver",
+              "position": {
+                "lat": 39.7392,
+                "long": -104.9903
+              },
+              "countryName": "United States",
+              "positionLat": 39.7392
+            },
+            {
+              "GmtOffset": -9,
+              "name": "Anchorage",
+              "position": {
+                "lat": 61.2181,
+                "long": -149.9003
+              },
+              "countryName": "United States",
+              "positionLat": 61.2181
+            },
+            {
+              "GmtOffset": -10,
+              "name": "Honolulu",
+              "position": {
+                "lat": 21.3069,
+                "long": -157.8583
+              },
+              "countryName": "United States",
+              "positionLat": 21.3069
+            }
+          ]
+        },
+        {
+          "name": "Canada",
+          "phoneCode": 2,
+          "priority": 1,
+          "regionCode": "NA",
+          "timezones": [
+            {
+              "GmtOffset": -5,
+              "name": "Toronto",
+              "position": {
+                "lat": 43.6532,
+                "long": -79.3832
+              },
+              "countryName": "Canada",
+              "positionLat": 43.6532
+            },
+            {
+              "GmtOffset": -8,
+              "name": "Vancouver",
+              "position": {
+                "lat": 49.2827,
+                "long": -123.1207
+              },
+              "countryName": "Canada",
+              "positionLat": 49.2827
+            },
+            {
+              "GmtOffset": -7,
+              "name": "Edmonton",
+              "position": {
+                "lat": 53.5461,
+                "long": -113.4938
+              },
+              "countryName": "Canada",
+              "positionLat": 53.5461
+            },
+            {
+              "GmtOffset": -6,
+              "name": "Winnipeg",
+              "position": {
+                "lat": 49.8951,
+                "long": -97.1384
+              },
+              "countryName": "Canada",
+              "positionLat": 49.8951
+            },
+            {
+              "GmtOffset": -7,
+              "name": "Yellowknife",
+              "position": {
+                "lat": 62.454,
+                "long": -114.3718
+              },
+              "countryName": "Canada",
+              "positionLat": 62.454
+            },
+            {
+              "GmtOffset": -5,
+              "name": "Iqaluit",
+              "position": {
+                "lat": 63.7467,
+                "long": -68.517
+              },
+              "countryName": "Canada",
+              "positionLat": 63.7467
+            }
+          ]
+        },
+        {
+          "name": "Brasil",
+          "phoneCode": 55,
+          "priority": 1,
+          "regionCode": "SA",
+          "timezones": [
+            {
+              "GmtOffset": -3,
+              "name": "Sao Paulo",
+              "position": {
+                "lat": -23.5505,
+                "long": -46.6333
+              },
+              "countryName": "Brasil",
+              "positionLat": -23.5505
+            },
+            {
+              "GmtOffset": -3,
+              "name": "Rio de Janeiro",
+              "position": {
+                "lat": -22.9068,
+                "long": -43.1729
+              },
+              "countryName": "Brasil",
+              "positionLat": -22.9068
+            },
+            {
+              "GmtOffset": -4,
+              "name": "Manaus",
+              "position": {
+                "lat": -3.119,
+                "long": -60.0217
+              },
+              "countryName": "Brasil",
+              "positionLat": -3.119
+            },
+            {
+              "GmtOffset": -3,
+              "name": "Porto Alegre",
+              "position": {
+                "lat": -30.0346,
+                "long": -51.2177
+              },
+              "countryName": "Brasil",
+              "positionLat": -30.0346
+            },
+            {
+              "GmtOffset": -3,
+              "name": "Fortaleza",
+              "position": {
+                "lat": -3.7319,
+                "long": -38.5267
+              },
+              "countryName": "Brasil",
+              "positionLat": -3.7319
+            },
+            {
+              "GmtOffset": -3,
+              "name": "Belem",
+              "position": {
+                "lat": -1.4558,
+                "long": -48.4902
+              },
+              "countryName": "Brasil",
+              "positionLat": -1.4558
+            }
+          ]
+        },
+        {
+          "name": "Argentina",
+          "phoneCode": 54,
+          "priority": 1,
+          "regionCode": "SA",
+          "timezones": [
+            {
+              "GmtOffset": -3,
+              "name": "Buenos Aires",
+              "position": {
+                "lat": -34.6037,
+                "long": -58.3816
+              },
+              "countryName": "Argentina",
+              "positionLat": -34.6037
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "CountriesLanguages",
+      "rows": [
+        {
+          "languageCode": "SP",
+          "countryName": "Spain",
+          "id": 1
+        },
+        {
+          "languageCode": "CAT",
+          "countryName": "Spain",
+          "id": 2
+        },
+        {
+          "languageCode": "GAL",
+          "countryName": "Spain",
+          "id": 3
+        },
+        {
+          "languageCode": "BSQ",
+          "countryName": "Spain",
+          "id": 4
+        },
+        {
+          "languageCode": "FR",
+          "countryName": "France",
+          "id": 5
+        },
+        {
+          "languageCode": "GER",
+          "countryName": "Germany",
+          "id": 6
+        },
+        {
+          "languageCode": "PT",
+          "countryName": "Portugal",
+          "id": 7
+        },
+        {
+          "languageCode": "EN",
+          "countryName": "United States",
+          "id": 8
+        },
+        {
+          "languageCode": "EN",
+          "countryName": "Canada",
+          "id": 9
+        },
+        {
+          "languageCode": "FR",
+          "countryName": "Canada",
+          "id": 10
+        },
+        {
+          "languageCode": "PT",
+          "countryName": "Brasil",
+          "id": 11
+        },
+        {
+          "languageCode": "SP",
+          "countryName": "Argentina",
+          "id": 12
+        }
+      ]
+    },
+    {
+      "entity": "Languages",
+      "rows": [
+        {
+          "code": "SP",
+          "name": "Spanish"
+        },
+        {
+          "code": "CAT",
+          "name": "Catalan"
+        },
+        {
+          "code": "GAL",
+          "name": "Galician"
+        },
+        {
+          "code": "BSQ",
+          "name": "Basque"
+        },
+        {
+          "code": "FR",
+          "name": "French"
+        },
+        {
+          "code": "GER",
+          "name": "German"
+        },
+        {
+          "code": "PT",
+          "name": "Portuguese"
+        },
+        {
+          "code": "EN",
+          "name": "English"
+        }
+      ]
+    },
+    {
+      "entity": "Regions",
+      "rows": [
+        {
+          "code": "EU",
+          "name": "Europe"
+        },
+        {
+          "code": "NA",
+          "name": "North America"
+        },
+        {
+          "code": "SA",
+          "name": "South America"
+        }
+      ]
+    }
+  ]
+}
