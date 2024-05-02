@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/operand/application/facade.ts#L13)
+[src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/operand/application/facade.ts#L13)
 
 ## Methods
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/operand/application/facade.ts#L27)
+[src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/operand/application/facade.ts#L27)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/operand/application/facade.ts#L35)
+[src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/operand/application/facade.ts#L35)
 
 ___
 
@@ -97,4 +97,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/operand/application/facade.ts#L31)
+[src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/operand/application/facade.ts#L31)

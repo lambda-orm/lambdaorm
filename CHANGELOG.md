@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [1.12.2](https://github.com/lambda-orm/lambdaorm/compare/v1.12.1...v1.12.2) (2024-05-02)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * bugfix in bulkinsert mysql ([a325a8b](https://github.com/lambda-orm/lambdaorm/commit/a325a8bfd247476a2a5a3858f703e67cd5d370c3)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 

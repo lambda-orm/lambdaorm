@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/services/dialectPoolService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/connection/application/services/dialectPoolService.ts#L7)
+[src/lib/connection/application/services/dialectPoolService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/connection/application/services/dialectPoolService.ts#L7)
 
 ## Methods
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/lib/connection/application/services/dialectPoolService.ts:11](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/connection/application/services/dialectPoolService.ts#L11)
+[src/lib/connection/application/services/dialectPoolService.ts:11](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/connection/application/services/dialectPoolService.ts#L11)
 
 ___
 
@@ -72,4 +72,4 @@ ___
 
 #### Defined in
 
-[src/lib/connection/application/services/dialectPoolService.ts:15](https://github.com/lambda-orm/lambdaorm/blob/c8a0e534c9d6eda9a8e27bfb1f14f4ac43be5ecf/src/lib/connection/application/services/dialectPoolService.ts#L15)
+[src/lib/connection/application/services/dialectPoolService.ts:15](https://github.com/lambda-orm/lambdaorm/blob/a325a8bfd247476a2a5a3858f703e67cd5d370c3/src/lib/connection/application/services/dialectPoolService.ts#L15)
