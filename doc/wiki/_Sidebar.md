@@ -1,5 +1,7 @@
 * [[Home]]
+* [[Usage]]
 * [[Features]]
+* [Labs](https://github.com/lambda-orm/lambdaorm-labs)
 * Concepts
   * [[Expression]]
 * [[Schema]]
@@ -42,6 +44,5 @@
   * [Lambda ORM Service](https://github.com/lambda-orm/lambdaorm-svc)
   * [Client Node](https://www.npmjs.com/package/lambdaorm-client-node)
   * [Client Kotlin](https://github.com/lambda-orm/lambdaorm-client-kotlin)
-* [Labs](https://github.com/lambda-orm/lambdaorm-labs)
 * [Source Code Documentation](https://github.com/lambda-orm/lambdaorm/blob/main/doc/source/README.md)
 * [Change log](https://github.com/lambda-orm/lambdaorm/blob/main/CHANGELOG.md)
