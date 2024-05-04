@@ -10,7 +10,7 @@ async function execute () {
 		await orm.stage.drop({stage:stage, tryAllCan: true }).execute()
 		let clean = new Date().getTime()
 		console.log(`clean: ${clean - start}`)
-		await orm.stage.sync({stage:stage}).execute()
+		await orm.stage.push({stage:stage}).execute()
 		let sync = new Date().getTime()
 		console.log(`sync: ${sync - clean}`)
 		const content = await h3lp.fs.read(`${sourcePath}/shapes.json`) as string
@@ -32,7 +32,7 @@ async function execute () {
 		await orm.stage.drop({stage:stage, tryAllCan: true }).execute()
 		clean = new Date().getTime()
 		console.log(`clean: ${clean - _export}`)
-		await orm.stage.sync({stage:stage}).execute()
+		await orm.stage.push({stage:stage}).execute()
 		sync = new Date().getTime()
 		console.log(`sync: ${sync - clean}`)
 

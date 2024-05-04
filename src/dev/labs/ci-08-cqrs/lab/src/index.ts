@@ -9,8 +9,8 @@ import { h3lp } from 'h3lp'
 		const data = JSON.parse(content)
 		await orm.stage.drop( { stage:"default", tryAllCan:true }).execute()
 		await orm.stage.drop( { stage:"insights", tryAllCan:true }).execute()
-		await orm.stage.sync({ stage:"default"}).execute()
-		await orm.stage.sync({ stage:"insights"}).execute()
+		await orm.stage.push({ stage:"default"}).execute()
+		await orm.stage.push({ stage:"insights"}).execute()
 		await orm.stage.import({ stage:"default"}).execute(data)
 		
 		const query =  

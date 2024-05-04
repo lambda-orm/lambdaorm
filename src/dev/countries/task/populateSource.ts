@@ -7,7 +7,7 @@ export async function apply (callback: any) {
 		await orm.init('./config/countries.yaml')
 
 		await orm.stage.drop().execute()
-		await orm.stage.sync().execute()
+		await orm.stage.push().execute()
 		const content = await h3lp.fs.read('./src/dev/countries/db/data.json')
 		const data = JSON.parse(content as string)
 		await orm.execute('Countries.bulkInsert().include(p => p.states)', data)

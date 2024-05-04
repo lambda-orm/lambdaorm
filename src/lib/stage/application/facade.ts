@@ -9,7 +9,7 @@ import { StageDelete } from './useCases/delete'
 import { StageExport } from './useCases/export'
 import { StageImport } from './useCases/import'
 import { StageTruncate } from './useCases/truncate'
-import { StageSync } from './useCases/sync'
+import { StagePush } from './useCases/push'
 import { Executor } from '../../execution/domain'
 import { StageMatch } from './useCases/match'
 import { StageFetch } from './useCases/fetch'
@@ -40,14 +40,14 @@ export class StageFacade {
 	}
 
 	/**
-	 * Sync the stage with sources
+	 * Push the stage with sources
 	 * @param name string
 	 * @param options QueryOptions
 	 * @returns {StageActionDDL}
 	 */
-	public sync (options?:QueryOptions):StageActionDDL {
+	public push (options?:QueryOptions):StageActionDDL {
 		const _options = this.expression.solveQueryOptions(options)
-		return new StageSync(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper)
+		return new StagePush(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper)
 	}
 
 	/**
@@ -128,7 +128,7 @@ export class StageFacade {
 	}
 
 	/**
-	 * Update and Sync Schema with data
+	 * Update and Push Schema with data
 	 * @param data any|any[]
 	 * @param name string
 	 * @param options QueryOptions
@@ -136,12 +136,12 @@ export class StageFacade {
 	 */
 	public async introspect (data: any|any[], name:string, options?:QueryOptions): Promise<SchemaData> {
 		const schemaData = await this.schemaState.introspect(data, name)
-		await this.sync(options).execute()
+		await this.push(options).execute()
 		return schemaData
 	}
 
 	/**
-	 * Update and Sync Schema and import data
+	 * Update and Push Schema and import data
 	 * @param data any|any[]
 	 * @param name string
 	 * @param options QueryOptions

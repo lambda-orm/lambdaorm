@@ -994,11 +994,11 @@ export async function apply (stages: string[], callback: any) {
 	try {
 		require('dotenv').config({ path: './config/northwind.env' })
 		await orm.init('./config/northwind.yaml')
-		await orm.stage.sync({ stage: 'Source' }).execute()
+		await orm.stage.push({ stage: 'Source' }).execute()
 		await stageExport('Source')
 		for (const stage of stages) {
 			await orm.stage.drop({ stage, tryAllCan: true }).execute()
-			await orm.stage.sync({ stage }).execute()
+			await orm.stage.push({ stage }).execute()
 			await stageImport('Source', stage)
 			await stageExport(stage)
 		}
