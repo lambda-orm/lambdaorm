@@ -45,24 +45,24 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/fetch/.env"
 		},
 		{
-			"name": "match",
+			"name": "pull",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/match/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/match/.env"
+			"program": "${workspaceFolder}/src/dev/labs/pull/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/pull/.env"
 		},
 		{
-			"name": "match multiple",
+			"name": "pull multiple",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/labs/match-multiples/index.ts",
-			"envFile": "${workspaceFolder}/src/dev/labs/match-multiples/.env"
+			"program": "${workspaceFolder}/src/dev/labs/pull-multiples/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/pull-multiples/.env"
 		},
 		{
 			"name": "mongo lab",

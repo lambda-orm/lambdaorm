@@ -343,22 +343,22 @@ application:
       after: execute(expression,data,{stage:"insights"})    
 ```
 
-### Sync
+### Push
 
 ```sh
-lambdaorm sync -e .env -s default
-lambdaorm sync -e .env -s insights
+lambdaorm push -e .env -s default
+lambdaorm push -e .env -s insights
 ```
 
 It will generate:
 
 ```sh
 ├── data
-│   ├── default-ddl-20231130T230552235Z-sync-Catalog.sql
-│   ├── default-ddl-20231130T230552236Z-sync-Crm.sql
-│   ├── default-ddl-20231130T230552237Z-sync-Ordering.json
+│   ├── default-ddl-20231130T230552235Z-push-Catalog.sql
+│   ├── default-ddl-20231130T230552236Z-push-Crm.sql
+│   ├── default-ddl-20231130T230552237Z-push-Ordering.json
 │   ├── default-model.json
-│   ├── insights-ddl-20231130T230559815Z-sync-Insights.sql
+│   ├── insights-ddl-20231130T230559815Z-push-Insights.sql
 │   └── insights-model.json
 ```
 

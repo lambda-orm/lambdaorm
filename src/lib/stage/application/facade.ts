@@ -11,9 +11,9 @@ import { StageImport } from './useCases/import'
 import { StageTruncate } from './useCases/truncate'
 import { StagePush } from './useCases/push'
 import { Executor } from '../../execution/domain'
-import { StageMatch } from './useCases/match'
+import { StagePull } from './useCases/pull'
 import { StageFetch } from './useCases/fetch'
-import { StageMatchOptions } from '../domain'
+import { StagePullOptions } from '../domain'
 
 export class StageFacade {
 	private stageModelService: StageModelService
@@ -116,15 +116,15 @@ export class StageFacade {
 	}
 
 	/**
-	 * Match the stage with the sources
-	 * @param options StageMatchOptions
+	 * Pull the stage with the sources
+	 * @param options StagePullOptions
 	 * @returns {Promise<void>}
 	 */
-	public async match (options:StageMatchOptions = { removeEntities: true, removeProperties: true, removeRelations: true }): Promise<void> {
-		const _options = this.expression.solveQueryOptions(options) as StageMatchOptions
+	public async pull (options:StagePullOptions = { removeEntities: true, removeProperties: true, removeRelations: true }): Promise<void> {
+		const _options = this.expression.solveQueryOptions(options) as StagePullOptions
 		const mappings = await this.fetch(_options)
 		await this.schemaState.match(mappings, _options)
-		await new StageMatch(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper).execute()
+		await new StagePull(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper).execute()
 	}
 
 	/**
