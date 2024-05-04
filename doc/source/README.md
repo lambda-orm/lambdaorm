@@ -110,9 +110,9 @@ Lambda ORM
 - [StageFetch](classes/StageFetch.md)
 - [StageImport](classes/StageImport.md)
 - [StageMappingService](classes/StageMappingService.md)
-- [StageMatch](classes/StageMatch.md)
 - [StageModelService](classes/StageModelService.md)
-- [StageSync](classes/StageSync.md)
+- [StagePull](classes/StagePull.md)
+- [StagePush](classes/StagePush.md)
 - [StageTruncate](classes/StageTruncate.md)
 - [Transaction](classes/Transaction.md)
 - [UUIDWrapper](classes/UUIDWrapper.md)
@@ -361,7 +361,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:261](https://github.com/lambda-orm/lambdaorm/blob/3956b91541983598296aa2d7a3e70bfb62959dfc/src/lib/orm/infrastructure/orm.ts#L261)
+[src/lib/orm/infrastructure/orm.ts:261](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/orm/infrastructure/orm.ts#L261)
 
 ## Functions
 

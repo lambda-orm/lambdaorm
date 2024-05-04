@@ -1,30 +1,30 @@
-[Lambda ORM](../README.md) / StageSync
+[Lambda ORM](../README.md) / StagePull
 
-# Class: StageSync
+# Class: StagePull
 
 ## Hierarchy
 
 - [`StageActionDDL`](StageActionDDL.md)
 
-  ↳ **`StageSync`**
+  ↳ **`StagePull`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](StageSync.md#constructor)
+- [constructor](StagePull.md#constructor)
 
 ### Methods
 
-- [execute](StageSync.md#execute)
-- [queries](StageSync.md#queries)
-- [sentence](StageSync.md#sentence)
+- [execute](StagePull.md#execute)
+- [queries](StagePull.md#queries)
+- [sentence](StagePull.md#sentence)
 
 ## Constructors
 
 ### constructor
 
-• **new StageSync**(`executor`, `stageModelService`, `schemaState`, `languages`, `options`, `helper`): [`StageSync`](StageSync.md)
+• **new StagePull**(`executor`, `stageModelService`, `schemaState`, `languages`, `options`, `helper`): [`StagePull`](StagePull.md)
 
 #### Parameters
 
@@ -39,7 +39,7 @@
 
 #### Returns
 
-[`StageSync`](StageSync.md)
+[`StagePull`](StagePull.md)
 
 #### Inherited from
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/3956b91541983598296aa2d7a3e70bfb62959dfc/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 ## Methods
 
@@ -65,7 +65,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/sync.ts:11](https://github.com/lambda-orm/lambdaorm/blob/3956b91541983598296aa2d7a3e70bfb62959dfc/src/lib/stage/application/useCases/sync.ts#L11)
+[src/lib/stage/application/useCases/pull.ts:11](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/stage/application/useCases/pull.ts#L11)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/sync.ts:6](https://github.com/lambda-orm/lambdaorm/blob/3956b91541983598296aa2d7a3e70bfb62959dfc/src/lib/stage/application/useCases/sync.ts#L6)
+[src/lib/stage/application/useCases/pull.ts:6](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/stage/application/useCases/pull.ts#L6)
 
 ___
 
@@ -101,4 +101,4 @@ ___
 
 #### Defined in
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/3956b91541983598296aa2d7a3e70bfb62959dfc/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
