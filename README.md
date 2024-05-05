@@ -26,7 +26,9 @@ In addition to being used as a Node.js library, it can be consumed from a comman
 Example of a query where orders and their details associated with a customer are obtained:
 
 ```Typescript
-  const query = (customerId:string)=> Orders.filter(p =>p.customerId==customerId).include(p=>p.details).page(1,1)
+  const query = (customerId:string)=> Orders.filter(p =>p.customerId==customerId)
+                                            .include(p=>p.details)
+                                            .page(1,1)
   const result = await orm.execute(query, {customerId: 'CENTC' })
 ```
 
