@@ -17,7 +17,7 @@
 
 In λORM, queries are defined using lambda expressions based on a domain model which abstracts us from the infrastructure. For example, in a query you can obtain or modify records from different entities, where some persist in MySQL, others in Postgres, and others in Mongo.
 
-λORM allows you to define different scenarios for the same domain. For example, in one scenario, the infrastructure may consist of distributed instances across SQL Server, MongoDB, and Oracle, while in another scenario it may be a single Postgres instance. This allows the [CQRS](https://microservices.io/patterns/data/cqrs.html) pattern to be implemented through configuration, without needing to write a single line of code.
+λORM allows you to define different scenarios for the same domain. For example, in one scenario, the infrastructure may consist of distributed instances across SQL Server, MongoDB, and Oracle, while in another scenario it may be a single Postgres instance. This allows the [CQRS](https://microservices.io/patterns/data/cqrs.html) pattern to be implemented through configuration, without needing to write a single line of code. [view example](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-with-kafka)
 
 In addition to being used as a Node.js library, it can be consumed from a command line interface (CLI), a REST service, or a REST service client in other programming languages.
 
@@ -26,13 +26,14 @@ In addition to being used as a Node.js library, it can be consumed from a comman
 Example of a query where orders and their details associated with a customer are obtained:
 
 ```Typescript
-  const query = (customerId:string)=> Orders.filter(p =>p.customerId==customerId)
+  const query = (customerId:string)=> Orders.filter(p=>p.customerId==customerId)
                                             .include(p=>p.details)
                                             .page(1,1)
   const result = await orm.execute(query, {customerId: 'CENTC' })
 ```
 
 [usage](https://github.com/lambda-orm/lambdaorm/wiki/Usage)
+[more info](https://github.com/lambda-orm/lambdaorm/wiki/Query-Language)
 
 ## Schema Configuration
 
