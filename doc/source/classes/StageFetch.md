@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/fetch.ts:7](https://github.com/lambda-orm/lambdaorm/blob/1f2197e4e78422749120d13ade98f551a6eed2cc/src/lib/stage/application/useCases/fetch.ts#L7)
+[src/lib/stage/application/useCases/fetch.ts:7](https://github.com/lambda-orm/lambdaorm/blob/3c17256b9419faa917072d7fb3b43e0f2c37ecca/src/lib/stage/application/useCases/fetch.ts#L7)
 
 ## Methods
 
@@ -48,4 +48,4 @@
 
 #### Defined in
 
-[src/lib/stage/application/useCases/fetch.ts:15](https://github.com/lambda-orm/lambdaorm/blob/1f2197e4e78422749120d13ade98f551a6eed2cc/src/lib/stage/application/useCases/fetch.ts#L15)
+[src/lib/stage/application/useCases/fetch.ts:15](https://github.com/lambda-orm/lambdaorm/blob/3c17256b9419faa917072d7fb3b43e0f2c37ecca/src/lib/stage/application/useCases/fetch.ts#L15)
