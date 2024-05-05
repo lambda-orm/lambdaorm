@@ -32,8 +32,8 @@ Example of a query where orders and their details associated with a customer are
   const result = await orm.execute(query, {customerId: 'CENTC' })
 ```
 
-[usage](https://github.com/lambda-orm/lambdaorm/wiki/Usage)
-[more info](https://github.com/lambda-orm/lambdaorm/wiki/Query-Language)
+- [usage](https://github.com/lambda-orm/lambdaorm/wiki/Usage)
+- [more info](https://github.com/lambda-orm/lambdaorm/wiki/Query-Language)
 
 ## Schema Configuration
 
