@@ -54,7 +54,7 @@ export interface IOrm
 	/**
 	 *
 	 * @param expression
-	 * @param stage
+	 * @param options
 	 */
 	plan(expression: Function, options?: QueryOptions): QueryPlan
 	plan(expression: string, options?: QueryOptions): QueryPlan
@@ -62,16 +62,14 @@ export interface IOrm
 	/**
 		* Execute expression
 		* @param data Data with variables
-		* @param stage Stage name
-	  * @param view View name
+		* @param options query options
 		* @returns Result of execution
 		*/
 	execute(expression: Function, data?: any, options?: QueryOptions):Promise<any>
 	execute(expression: string, data?: any, options?: QueryOptions): Promise<any>
 	/**
 	 * transaction
-	 * @param stage
-	 * @param view
+	 * @param options query options
 	 * @param callback
 	 */
 	transaction(options: QueryOptions|undefined, callback:{(tr:ExpressionTransaction): Promise<void>}):Promise<void>

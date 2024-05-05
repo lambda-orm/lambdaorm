@@ -41,7 +41,6 @@ export class StageFacade {
 
 	/**
 	 * Push the stage with sources
-	 * @param name string
 	 * @param options QueryOptions
 	 * @returns {StageActionDDL}
 	 */
@@ -52,7 +51,6 @@ export class StageFacade {
 
 	/**
 	 * Drop source entities related to the stage
-	 * @param name string
 	 * @param options QueryOptions
 	 * @returns {StageActionDDL}
 	 */
@@ -63,7 +61,6 @@ export class StageFacade {
 
 	/**
 	 * Truncate source entities related to the stage
-	 * @param name string
 	 * @param options QueryOptions
 	 * @returns {StageActionDDL}
 	 */
@@ -74,7 +71,6 @@ export class StageFacade {
 
 	/**
 	 * Delete source entities related to the stage
-	 * @param name string
 	 * @param options QueryOptions
 	 * @returns {StageActionDDL}
 	 */
@@ -85,7 +81,6 @@ export class StageFacade {
 
 	/**
 	 * Export source entities related to the stage
-	 * @param name string
 	 * @param options QueryOptions
 	 * @returns {StageActionDDL}
 	 */
@@ -96,7 +91,6 @@ export class StageFacade {
 
 	/**
 	 * Import data into source entities related to the stage
-	 * @param name string
 	 * @param options QueryOptions
 	 * @returns {StageActionDDL}
 	 */

@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/lib/language/application/ports/language.ts:7](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/language.ts#L7)
+[src/lib/language/application/ports/language.ts:7](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/language.ts#L7)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/language.ts:8](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/language.ts#L8)
+[src/lib/language/application/ports/language.ts:8](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/language.ts#L8)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/language.ts:9](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/language.ts#L9)
+[src/lib/language/application/ports/language.ts:9](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/language.ts#L9)
 
 ## Methods
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/language.ts:11](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/language.ts#L11)
+[src/lib/language/application/ports/language.ts:11](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/language.ts#L11)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/language.ts:12](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/language.ts#L12)
+[src/lib/language/application/ports/language.ts:12](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/language.ts#L12)
 
 ___
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/language.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/language.ts#L10)
+[src/lib/language/application/ports/language.ts:10](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/language.ts#L10)

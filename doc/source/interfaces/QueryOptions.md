@@ -2,6 +2,12 @@
 
 # Interface: QueryOptions
 
+## Hierarchy
+
+- **`QueryOptions`**
+
+  ↳ [`StagePullOptions`](StagePullOptions.md)
+
 ## Table of contents
 
 ### Properties

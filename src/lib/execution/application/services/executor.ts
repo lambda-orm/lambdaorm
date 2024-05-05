@@ -81,7 +81,7 @@ export class ExecutorImpl implements Executor, ObservableExecutor {
 
 	/**
  * Create a transaction
- * @param source Database name
+ * @param options QueryOptions
  * @param callback Code to be executed in transaction
  */
 	public async transaction (options: QueryOptions, callback: { (tr: Transaction): Promise<void> }): Promise<void> {

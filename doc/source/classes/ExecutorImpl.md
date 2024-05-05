@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/execution/application/services/executor.ts#L12)
+[src/lib/execution/application/services/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/execution/application/services/executor.ts#L12)
 
 ## Methods
 
@@ -69,7 +69,7 @@
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/execution/application/services/executor.ts#L33)
+[src/lib/execution/application/services/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/execution/application/services/executor.ts#L33)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/execution/application/services/executor.ts#L56)
+[src/lib/execution/application/services/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/execution/application/services/executor.ts#L56)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:21](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/execution/application/services/executor.ts#L21)
+[src/lib/execution/application/services/executor.ts:21](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/execution/application/services/executor.ts#L21)
 
 ___
 
@@ -132,7 +132,7 @@ Create a transaction
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`QueryOptions`](../interfaces/QueryOptions.md) | - |
+| `options` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
 | `callback` | (`tr`: [`Transaction`](Transaction.md)) => `Promise`\<`void`\> | Code to be executed in transaction |
 
 #### Returns
@@ -145,7 +145,7 @@ Create a transaction
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:87](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/execution/application/services/executor.ts#L87)
+[src/lib/execution/application/services/executor.ts:87](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/execution/application/services/executor.ts#L87)
 
 ___
 
@@ -169,4 +169,4 @@ ___
 
 #### Defined in
 
-[src/lib/execution/application/services/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/execution/application/services/executor.ts#L25)
+[src/lib/execution/application/services/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/execution/application/services/executor.ts#L25)

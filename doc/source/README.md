@@ -27,6 +27,7 @@ Lambda ORM
 - [Constant](classes/Constant.md)
 - [CreateEntitiesService](classes/CreateEntitiesService.md)
 - [CreateSchema](classes/CreateSchema.md)
+- [CryptoHelper](classes/CryptoHelper.md)
 - [DDLBuilderService](classes/DDLBuilderService.md)
 - [Data](classes/Data.md)
 - [DataSourceConfigService](classes/DataSourceConfigService.md)
@@ -197,6 +198,7 @@ Lambda ORM
 - [Source](interfaces/Source.md)
 - [SourceRule](interfaces/SourceRule.md)
 - [Stage](interfaces/Stage.md)
+- [StagePullOptions](interfaces/StagePullOptions.md)
 - [TaskConfig](interfaces/TaskConfig.md)
 - [View](interfaces/View.md)
 
@@ -361,7 +363,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:261](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/orm/infrastructure/orm.ts#L261)
+[src/lib/orm/infrastructure/orm.ts:261](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/orm/infrastructure/orm.ts#L261)
 
 ## Functions
 

@@ -2,6 +2,12 @@
 
 # Interface: MatchOptions
 
+## Hierarchy
+
+- **`MatchOptions`**
+
+  ↳ [`StagePullOptions`](StagePullOptions.md)
+
 ## Table of contents
 
 ### Properties

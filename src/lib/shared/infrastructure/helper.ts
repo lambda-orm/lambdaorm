@@ -2,7 +2,7 @@ import { H3lp } from 'h3lp'
 import { Logger, OrmBaseH3lp } from 'lambdaorm-base'
 const CryptoJS = require('crypto-js')
 
-class CryptoHelper {
+export class CryptoHelper {
 	public encrypt (value: string, key: string): string {
 		return CryptoJS.AES.encrypt(value, key).toString()
 	}

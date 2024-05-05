@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:52](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/query/domain/query.ts#L52)
+[src/lib/query/domain/query.ts:52](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/query/domain/query.ts#L52)
 
 ## Properties
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:49](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/query/domain/query.ts#L49)
+[src/lib/query/domain/query.ts:49](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/query/domain/query.ts#L49)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:50](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/query/domain/query.ts#L50)
+[src/lib/query/domain/query.ts:50](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/query/domain/query.ts#L50)
 
 ___
 
@@ -64,4 +64,4 @@ ___
 
 #### Defined in
 
-[src/lib/query/domain/query.ts:51](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/query/domain/query.ts#L51)
+[src/lib/query/domain/query.ts:51](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/query/domain/query.ts#L51)

@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:24](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L24)
+[src/lib/language/application/ports/DdlBuilder.ts:24](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L24)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:22](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L22)
+[src/lib/language/application/ports/DdlBuilder.ts:22](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L22)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:14](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L14)
+[src/lib/language/application/ports/DdlBuilder.ts:14](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L14)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:23](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L23)
+[src/lib/language/application/ports/DdlBuilder.ts:23](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L23)
 
 ___
 
@@ -142,7 +142,7 @@ Use alterPropertyType or alterPropertyRequired
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:18](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L18)
+[src/lib/language/application/ports/DdlBuilder.ts:18](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L18)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:20](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L20)
+[src/lib/language/application/ports/DdlBuilder.ts:20](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L20)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:19](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L19)
+[src/lib/language/application/ports/DdlBuilder.ts:19](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L19)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:13](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L13)
+[src/lib/language/application/ports/DdlBuilder.ts:13](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L13)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:25](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L25)
+[src/lib/language/application/ports/DdlBuilder.ts:25](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L25)
 
 ___
 
@@ -246,7 +246,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:26](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L26)
+[src/lib/language/application/ports/DdlBuilder.ts:26](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L26)
 
 ___
 
@@ -266,7 +266,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:27](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L27)
+[src/lib/language/application/ports/DdlBuilder.ts:27](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L27)
 
 ___
 
@@ -286,7 +286,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L10)
+[src/lib/language/application/ports/DdlBuilder.ts:10](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L10)
 
 ___
 
@@ -307,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:7](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L7)
+[src/lib/language/application/ports/DdlBuilder.ts:7](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L7)
 
 ___
 
@@ -328,7 +328,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:8](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L8)
+[src/lib/language/application/ports/DdlBuilder.ts:8](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L8)
 
 ___
 
@@ -348,7 +348,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:11](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L11)
+[src/lib/language/application/ports/DdlBuilder.ts:11](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L11)
 
 ___
 
@@ -369,7 +369,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:21](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L21)
+[src/lib/language/application/ports/DdlBuilder.ts:21](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L21)
 
 ___
 
@@ -389,7 +389,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:9](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L9)
+[src/lib/language/application/ports/DdlBuilder.ts:9](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L9)
 
 ___
 
@@ -409,7 +409,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:12](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L12)
+[src/lib/language/application/ports/DdlBuilder.ts:12](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L12)
 
 ___
 
@@ -429,7 +429,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:33](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L33)
+[src/lib/language/application/ports/DdlBuilder.ts:33](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L33)
 
 ___
 
@@ -449,7 +449,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:34](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L34)
+[src/lib/language/application/ports/DdlBuilder.ts:34](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L34)
 
 ___
 
@@ -463,7 +463,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:28](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L28)
+[src/lib/language/application/ports/DdlBuilder.ts:28](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L28)
 
 ___
 
@@ -483,7 +483,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:31](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L31)
+[src/lib/language/application/ports/DdlBuilder.ts:31](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L31)
 
 ___
 
@@ -497,7 +497,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:35](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L35)
+[src/lib/language/application/ports/DdlBuilder.ts:35](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L35)
 
 ___
 
@@ -518,7 +518,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:6](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L6)
+[src/lib/language/application/ports/DdlBuilder.ts:6](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L6)
 
 ___
 
@@ -538,7 +538,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:29](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L29)
+[src/lib/language/application/ports/DdlBuilder.ts:29](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L29)
 
 ___
 
@@ -558,7 +558,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:5](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L5)
+[src/lib/language/application/ports/DdlBuilder.ts:5](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L5)
 
 ___
 
@@ -578,7 +578,7 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:32](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L32)
+[src/lib/language/application/ports/DdlBuilder.ts:32](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L32)
 
 ___
 
@@ -598,4 +598,4 @@ ___
 
 #### Defined in
 
-[src/lib/language/application/ports/DdlBuilder.ts:30](https://github.com/lambda-orm/lambdaorm/blob/ad1fa3d559707b5bcfa3c09434382228cb95f3a8/src/lib/language/application/ports/DdlBuilder.ts#L30)
+[src/lib/language/application/ports/DdlBuilder.ts:30](https://github.com/lambda-orm/lambdaorm/blob/61ef464db604bd933b79241155b2eeec50bb5452/src/lib/language/application/ports/DdlBuilder.ts#L30)
