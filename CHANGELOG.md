@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.13.6](https://github.com/lambda-orm/lambdaorm/compare/v1.13.5...v1.13.6) (2024-05-06)
+
 ### [1.13.5](https://github.com/lambda-orm/lambdaorm/compare/v1.13.4...v1.13.5) (2024-05-05)
 
 ### [1.13.4](https://github.com/lambda-orm/lambdaorm/compare/v1.13.3...v1.13.4) (2024-05-05)
