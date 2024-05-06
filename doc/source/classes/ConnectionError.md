@@ -48,7 +48,7 @@ Error.constructor
 
 #### Defined in
 
-[src/lib/connection/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/9233c1b8a2c6d1a027bb9db27c0cd787623cfea8/src/lib/connection/domain/errors.ts#L2)
+[src/lib/connection/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/038cc1a2543db5118b446ee9dde9bed060bf0e1f/src/lib/connection/domain/errors.ts#L2)
 
 ## Properties
 
