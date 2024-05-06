@@ -26,14 +26,38 @@ In addition to being used as a Node.js library, it can be consumed from a comman
 Example of a query where orders and their details associated with a customer are obtained:
 
 ```Typescript
-  const query = (customerId:string)=> Orders.filter(p=>p.customerId==customerId)
-                                            .include(p=>p.details)
-                                            .page(1,1)
-  const result = await orm.execute(query, {customerId: 'CENTC' })
+// Define a query that returns a list of product categories along with the maximum price of each category.
+const query = (country: string) => Products
+    // Filter products based on price and supplier's country or stock availability
+    .filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
+    // Group products by category and calculate the maximum price
+    .having(p => max(p.price) > 50)
+    // Map each product to an object with category name and maximum price
+    .map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
+    // Sort the products by largest price in descending order
+    .sort(p => desc(p.largestPrice));
+// Execute the query using the ORM with the specified country parameter
+const result = await orm.execute(query, { country: 'ARG' });
 ```
 
-- [usage](https://github.com/lambda-orm/lambdaorm/wiki/Usage)
-- [more info](https://github.com/lambda-orm/lambdaorm/wiki/Query-Language)
+[more info](https://github.com/lambda-orm/lambdaorm/wiki/Grouping)
+
+### Include
+
+The include clause is used, which allows us to bring records from different entities in the same execution:
+
+```Typescript
+// Filters orders based on the provided ID and includes details and customers
+Orders.filter(p => p.id == id).include(p => [p.details,p.customer])
+```
+
+[more info](https://github.com/lambda-orm/lambdaorm/wiki/Include)
+
+**view:** [queries](https://github.com/lambda-orm/lambdaorm/wiki/Query-Language)
+[repository](https://github.com/lambda-orm/lambdaorm/wiki/Repository)
+[metadata](https://github.com/lambda-orm/lambdaorm/wiki/Metadata)
+[usage](https://github.com/lambda-orm/lambdaorm/wiki/Usage)
+[metadata](https://github.com/lambda-orm/lambdaorm/wiki/Metadata)
 
 ## Schema Configuration
 
@@ -47,7 +71,7 @@ Through the schema, you can define entities, enumerations, indexes, unique keys,
 - [Query Language](https://github.com/lambda-orm/lambdaorm/wiki/Query-Language)
 	- Simple query language based on javascript lambda expressions.
 	- Can write the expression as javascript code or as a string
-	- Crud clauses
+	- DQL, DML and DDL clauses
 	- Implicit joins and group by
 	- [Eager loading using the Include() method.](https://github.com/lambda-orm/lambdaorm/wiki/Include)
 	- [Query expression metadata](https://github.com/lambda-orm/lambdaorm/wiki/Metadata)
@@ -79,7 +103,7 @@ Through the schema, you can define entities, enumerations, indexes, unique keys,
 
 ## Contributing
 
-¿Te gustaría contribuir? Lea [nuestras pautas de contribución](https://github.com/lambda-orm/lambdaorm/blob/main/CONTRIBUTING.md) para saber más. ¡Hay muchas maneras de ayudar!
+Would you like to contribute? Read [our contribution guidelines](https://github.com/lambda-orm/lambdaorm/blob/main/CONTRIBUTING.md) to learn more. There are many ways to help!
 
 ## Documentation
 

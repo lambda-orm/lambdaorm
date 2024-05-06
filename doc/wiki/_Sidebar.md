@@ -4,12 +4,16 @@
 * [Labs](https://github.com/lambda-orm/lambdaorm-labs)
 * [[Queries|Query-Language]]
   * [[Expression]]
-  * [[Select]]
-  * [[Include]]
-  * [[BulkInsert]]
-  * [[Insert]]
-  * [[Update]]
-  * [[Delete]]
+  * DQL
+    * [[Select]]
+    * [[Join]]
+    * [[Grouping]]
+    * [[Include]]
+  * DML
+    * [[Insert]]
+    * [[BulkInsert]]
+    * [[Update]]
+    * [[Delete]]
   * Operators & Functions
     * [[Bitwise]]
     * [[Comparison]]
@@ -19,7 +23,10 @@
     * [[Nullable]]
     * [[Numeric]]
     * [[Sort]]
-    * [[String]]  
+    * [[String]]
+  * [[Repository]]
+  * [[Transaction]]
+  * [[Metadata]]
 * [[Schema]]
   * [[Definition|SchemaDefinition]]
     * [[Expressions|SchemaDefinition-Expressions]]
@@ -38,10 +45,6 @@
     * [[Introspect|SchemaSynchronization-Introspect]]
     * [[Incorporate|SchemaSynchronization-Incorporate]]
   * [[Use|Schema-Use]]
-* Use
-  * [[Repository]]
-  * [[Transaction]]
-  * [[Metadata]]
 * Related Projects
   * [3xpr](https://www.npmjs.com/package/3xpr)
   * [Lambda ORM CLI](https://www.npmjs.com/package/lambdaorm-cli)

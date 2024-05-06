@@ -2,23 +2,33 @@
 
 The [lambda expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are written based on the programming language itself, referring to the business model, completely abstracting from the database language and its structure.
 
-Example:
+**Lambda:**
 
-```ts
-States.filter(p=> upper(substring(p.name,0,1))=="A")
-.map(p=> {country:p.country.name,state:p.name})
+```Typescript
+// Select states where the first character of the name is 'A'
+States.filter(p => upper(substring(p.name, 0, 1)) == "A")
+// Map each selected state to an object with country and state properties
+.map(p => { country: p.country.name, state: p.name })
+// Sort the results first by country in ascending order and then by state in descending order
 .sort(p => [p.country, desc(p.state)])
-.page(1,10)
+// Paginate the results to show the first page of 10 records
+.page(1, 10)
 ```
 
-To Oracle SQL:
+**SQL Result:**
 
 ``` sql
+-- Select the country name and state name
 SELECT c.NAME AS country, s.NAME AS "state" 
+-- From the states table with alias 's'
 FROM TBL_STATES s 
+-- Inner join with the countries table with alias 'c' on the country ID
 INNER JOIN TBL_COUNTRIES c ON c.ID = o.CountryID 
-WHERE UPPER(SUBSTR(s.NAME,0,1)) = 'A'  
+-- Filter states where the first character of the name is 'A'
+WHERE UPPER(SUBSTR(s.NAME, 0, 1)) = 'A'  
+-- Order the results first by country name in ascending order and then by state name in descending order
 ORDER BY country, "state" DESC
+-- Apply pagination to skip the first row and fetch the next 10 rows
 OFFSET 1 ROWS FETCH NEXT 10 ROWS ONLY
 ```
 
