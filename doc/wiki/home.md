@@ -27,14 +27,14 @@ Example of a query where orders and their details associated with a customer are
 
 ```Typescript
 // Define a query that returns a list of product categories along with the maximum price of each category.
-const query = (country: string) => Products
-    // Filter products based on price and supplier's country or stock availability
-    .filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))
-    // Group products by category and calculate the maximum price
-    .having(p => max(p.price) > 50)
-    // Map each product to an object with category name and maximum price
-    .map(p => ({ category: p.category.name, largestPrice: max(p.price) }))
-    // Sort the products by largest price in descending order
+// Filter products based on price and supplier's country or stock availability
+// Group products by category and calculate the maximum price
+ // Map each product to an object with category name and maximum price
+  // Sort the products by largest price in descending order
+const query = (country: string) => Products    
+    .filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))    
+    .having(p => max(p.price) > 50)   
+    .map(p => ({ category: p.category.name, largestPrice: max(p.price) }))   
     .sort(p => desc(p.largestPrice));
 // Execute the query using the ORM with the specified country parameter
 const result = await orm.execute(query, { country: 'ARG' });
@@ -64,6 +64,15 @@ Orders.filter(p => p.id == id).include(p => [p.details,p.customer])
 Through the schema, you can define entities, enumerations, indexes, unique keys, default values, constraints, mapping, sources, stages, listeners, etc. The schema can be defined in a JSON or YAML format. Conditions or actions are performed using the same [expression language](https://www.npmjs.com/package/3xpr) that is used to define queries.
 
 [more info](https://github.com/lambda-orm/lambdaorm/wiki/Schema)
+
+**view:** [Definition](https://github.com/lambda-orm/lambdaorm/wiki/SchemaDefinition)
+[Use](https://github.com/lambda-orm/lambdaorm/wiki/Schema-Use)
+[Environment Variables](https://github.com/lambda-orm/lambdaorm/wiki/SchemaDefinition-EnvironmentVariables)
+[Push](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Push)
+[Pull](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Pull)
+[Fetch](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Fetch)
+[Introspect](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Introspect)
+[Incorporate](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Incorporate)
 
 ## Contributing
 

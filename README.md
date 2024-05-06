@@ -65,6 +65,15 @@ Through the schema, you can define entities, enumerations, indexes, unique keys,
 
 [more info](https://github.com/lambda-orm/lambdaorm/wiki/Schema)
 
+**view:** [Definition](https://github.com/lambda-orm/lambdaorm/wiki/SchemaDefinition)
+[Use](https://github.com/lambda-orm/lambdaorm/wiki/Schema-Use)
+[Environment Variables](https://github.com/lambda-orm/lambdaorm/wiki/SchemaDefinition-EnvironmentVariables)
+[Push](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Push)
+[Pull](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Pull)
+[Fetch](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Fetch)
+[Introspect](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Introspect)
+[Incorporate](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Incorporate)
+
 ## Features
 
 - Supports MySQL, MariaDB, PostgresSQL, Oracle, SqlServer, SqlJs and MongoDB.
