@@ -15,12 +15,10 @@ Las consultas DQL (Data Query Language) son consultas utilizadas para recuperar 
 
 Las consultas DQL pueden ser bastante simples o pueden incluir cláusulas adicionales para filtrar, ordenar o agrupar datos, así como para realizar cálculos y operaciones en los datos recuperados. Esto permite a los desarrolladores obtener los datos exactos que necesitan de una base de datos según los requisitos de la aplicación.
 
-**View:**
-
-- [Select](https://github.com/lambda-orm/lambdaorm/wiki/Select)
-- [Join](https://github.com/lambda-orm/lambdaorm/wiki/Join)
-- [Grouping](https://github.com/lambda-orm/lambdaorm/wiki/Grouping)
-- [Include](https://github.com/lambda-orm/lambdaorm/wiki/Include)
+**View:** [Select](https://github.com/lambda-orm/lambdaorm/wiki/Select)
+[Join](https://github.com/lambda-orm/lambdaorm/wiki/Join)
+[Grouping](https://github.com/lambda-orm/lambdaorm/wiki/Grouping)
+[Include](https://github.com/lambda-orm/lambdaorm/wiki/Include)
 
 ### DML
 
@@ -30,12 +28,10 @@ DML (Data Manipulation Language) queries are used to manipulate data in a databa
 - UPDATE: Used to modify existing records in a table.
 - DELETE: Used to delete records from a table.
 
-**View:**
-
-- [Insert](https://github.com/lambda-orm/lambdaorm/wiki/Insert)
-- [BulkInsert](https://github.com/lambda-orm/lambdaorm/wiki/BulkInsert)
-- [Update](https://github.com/lambda-orm/lambdaorm/wiki/Update)
-- [Delete](https://github.com/lambda-orm/lambdaorm/wiki/Delete)
+**View:** [Insert](https://github.com/lambda-orm/lambdaorm/wiki/Insert)
+[BulkInsert](https://github.com/lambda-orm/lambdaorm/wiki/BulkInsert)
+[Update](https://github.com/lambda-orm/lambdaorm/wiki/Update)
+[Delete](https://github.com/lambda-orm/lambdaorm/wiki/Delete)
 
 ### DDL
 
@@ -47,13 +43,11 @@ DDL (Data Definition Language) are used to define, modify and delete database st
 
 These queries are created and executed when you use the schema synchronization commands.
 
-**View:**
-
-- [Push](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Push)
-- [Pull](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Pull)
-- [Fetch](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Fetch)
-- [Introspect](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Introspect)
-- [Incorporate](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Incorporate)
+**View:** [Push](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Push)
+[Pull](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Pull)
+[Fetch](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Fetch)
+[Introspect](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Introspect)
+[Incorporate](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Incorporate)
 
 ## Example:
 

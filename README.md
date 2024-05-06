@@ -29,8 +29,8 @@ Example of a query where orders and their details associated with a customer are
 // Define a query that returns a list of product categories along with the maximum price of each category.
 // Filter products based on price and supplier's country or stock availability
 // Group products by category and calculate the maximum price
- // Map each product to an object with category name and maximum price
-  // Sort the products by largest price in descending order
+// Map each product to an object with category name and maximum price
+// Sort the products by largest price in descending order
 const query = (country: string) => Products    
     .filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))    
     .having(p => max(p.price) > 50)   
@@ -54,6 +54,14 @@ Orders.filter(p => p.id == id).include(p => [p.details,p.customer])
 [more info](https://github.com/lambda-orm/lambdaorm/wiki/Include)
 
 **view:** [queries](https://github.com/lambda-orm/lambdaorm/wiki/Query-Language)
+[select](https://github.com/lambda-orm/lambdaorm/wiki/Select)
+[join](https://github.com/lambda-orm/lambdaorm/wiki/Join)
+[grouping](https://github.com/lambda-orm/lambdaorm/wiki/Grouping)
+[include](https://github.com/lambda-orm/lambdaorm/wiki/Include)
+[insert](https://github.com/lambda-orm/lambdaorm/wiki/Insert)s
+[bulkInsert](https://github.com/lambda-orm/lambdaorm/wiki/BulkInsert)
+[update](https://github.com/lambda-orm/lambdaorm/wiki/Update)
+[delete](https://github.com/lambda-orm/lambdaorm/wiki/Delete)
 [repository](https://github.com/lambda-orm/lambdaorm/wiki/Repository)
 [metadata](https://github.com/lambda-orm/lambdaorm/wiki/Metadata)
 [usage](https://github.com/lambda-orm/lambdaorm/wiki/Usage)
@@ -65,14 +73,19 @@ Through the schema, you can define entities, enumerations, indexes, unique keys,
 
 [more info](https://github.com/lambda-orm/lambdaorm/wiki/Schema)
 
-**view:** [Definition](https://github.com/lambda-orm/lambdaorm/wiki/SchemaDefinition)
-[Use](https://github.com/lambda-orm/lambdaorm/wiki/Schema-Use)
-[Environment Variables](https://github.com/lambda-orm/lambdaorm/wiki/SchemaDefinition-EnvironmentVariables)
-[Push](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Push)
-[Pull](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Pull)
-[Fetch](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Fetch)
-[Introspect](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Introspect)
-[Incorporate](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Incorporate)
+**view:** [definition](https://github.com/lambda-orm/lambdaorm/wiki/SchemaDefinition)
+[use](https://github.com/lambda-orm/lambdaorm/wiki/Schema-Use)
+[expressions](https://github.com/lambda-orm/lambdaorm/wiki/SchemaDefinition-Expressions)
+[environment Variables](https://github.com/lambda-orm/lambdaorm/wiki/SchemaDefinition-EnvironmentVariables)
+[composite](https://github.com/lambda-orm/lambdaorm/wiki/SchemaDefinition-Composite)
+[listener](https://github.com/lambda-orm/lambdaorm/wiki/SchemaExample-Listener)
+[multiple stages](https://github.com/lambda-orm/lambdaorm/wiki/SchemaExample-MultiplesStages)
+[multiple sources](https://github.com/lambda-orm/lambdaorm/wiki/SchemaExample-StageMultiplesSources)
+[push](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Push)
+[pull](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Pull)
+[fetch](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Fetch)
+[introspect](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Introspect)
+[incorporate](https://github.com/lambda-orm/lambdaorm/wiki/SchemaSynchronization-Incorporate)
 
 ## Features
 
