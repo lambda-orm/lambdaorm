@@ -261,7 +261,7 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 						const values: string[] = []
 						for (const item of value) {
 							let _item = item
-							_item = this.helper.sql.escape(_item)
+							_item = this.helper.query.escape(_item)
 							_item = this.helper.str.replace(_item, '\\\'', '\\\'\'')
 							values.push(_item)
 						}
@@ -335,13 +335,13 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 				// value = this.helper.str.replace(value, '\\\'', '\\\'\'')
 				break
 			case Primitive.dateTime:
-				value = this.helper.sql.escape(this.writeDateTime(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case Primitive.date:
-				value = this.helper.sql.escape(this.writeDate(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeDate(value, mapping, dialect))
 				break
 			case Primitive.time:
-				value = this.helper.sql.escape(this.writeTime(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}

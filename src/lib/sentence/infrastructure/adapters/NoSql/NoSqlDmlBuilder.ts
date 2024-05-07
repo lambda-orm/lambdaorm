@@ -1,7 +1,7 @@
 /* eslint-disable no-tabs */
 import { Operand, OperandType } from '3xpr'
 import {
-	SentenceAction, SchemaError, EntityMapping, RelationType, SintaxisError, SentenceType,
+	SchemaError, EntityMapping, RelationType, SintaxisError, SentenceType,
 	Field, Sentence, Join, Map, Filter, GroupBy, Having, Sort, Page, Insert, Update,
 	BulkInsert
 
@@ -11,7 +11,7 @@ import { DmlBuilderBase } from '../base/dmlBuilder'
 
 export class NoSqlDmlBuilder extends DmlBuilderBase {
 	public override build (sentence: Sentence): Query {
-		const info = this.helper.sql.getInfo(sentence.action, sentence.entity)
+		const info = this.helper.query.getInfo(sentence.action, sentence.entity)
 		const includes:Include[] = []
 		if (info.type !== SentenceType.dql) {
 			const sentenceIncludes = sentence.getCompositeIncludes()
@@ -24,7 +24,9 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 		}
 		const textSentence = this.buildSentence(sentence)
 		return new Query({
-			action: SentenceAction[sentence.name],
+			action: info.action,
+			type: info.type,
+			category: info.category,
 			dialect: this.source.dialect,
 			source: this.source.name,
 			sentence: textSentence,

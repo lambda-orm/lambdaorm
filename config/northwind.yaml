@@ -222,9 +222,9 @@ application:
       expression: console("App ended")          
   listeners:
     - name: tests
-      actions: [select]
+      on: [select]
       condition: 'options.stage === "MySQL" && query.entity=="Orders"'
-      before: console(args.expression)
+      before: console(args.query)
       after: console(stringify(args.result))
 infrastructure:
   paths:

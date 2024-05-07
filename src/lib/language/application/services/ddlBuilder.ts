@@ -1,9 +1,6 @@
 import {
-	Mapping, SourceRule, Index, Source, Relation,
-	EntityMapping, PropertyMapping, SchemaError, DomainConfigService, SchemaState,
-	SentenceAction,
-	SentenceCategory,
-	SentenceType
+	Mapping, SourceRule, Index, Source, Relation, EntityMapping, PropertyMapping,
+	SchemaError, DomainConfigService, SchemaState, SentenceAction, SentenceType
 } from 'lambdaorm-base'
 import { Query } from '../../../query/domain'
 import { Delta, ChangedValue } from 'h3lp'
@@ -496,7 +493,7 @@ export class DDLBuilderService {
 	}
 
 	private evalDataSource (sourceRule: SourceRule, entity: string): boolean {
-		return this.schemaState.evalSourceRule(sourceRule, this.helper.sql.createInfo(entity, SentenceAction.undefined, SentenceCategory.undefined, SentenceType.dml))
+		return this.schemaState.evalSourceRule(sourceRule, this.helper.query.getInfo(SentenceAction.undefined, entity, SentenceType.dml))
 	}
 
 	private builder (source: Source): DdlBuilder {

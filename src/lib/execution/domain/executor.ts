@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { SentenceAction, QueryOptions } from 'lambdaorm-base'
+import { SentenceAction, QueryOptions, SentenceCategory } from 'lambdaorm-base'
 import { ExecuteResult, Query } from '../../query/domain'
 import { Transaction } from '.'
 
 export interface ActionObserverArgs{
-	// expression:string
 	query: Query
 	data: any
 	options: QueryOptions
@@ -14,10 +13,10 @@ export interface ActionObserverArgs{
 }
 
 export abstract class ActionObserver {
-	public on:SentenceAction[]
+	public on:SentenceCategory[]
 	public condition?:string
 	public transactional?:boolean
-	constructor (on:SentenceAction[], condition?:string, transactional?:boolean) {
+	constructor (on:SentenceCategory[], condition?:string, transactional?:boolean) {
 		this.on = on
 		this.condition = condition
 		this.transactional = transactional

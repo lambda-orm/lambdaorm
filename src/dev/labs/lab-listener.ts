@@ -1,7 +1,7 @@
-import { orm ,ActionObserver ,ActionObserverArgs, SentenceAction } from '../../lib'
+import { orm ,ActionObserver ,ActionObserverArgs, SentenceCategory } from '../../lib'
 class EmployeeUpdateObserver extends ActionObserver {
 	constructor() {
-		super([SentenceAction.update],'query.entity=="Employees"',true)
+		super([SentenceCategory.update, SentenceCategory.upsert],'query.entity=="Employees"',true)
 	}
 
 	public async before(args:ActionObserverArgs): Promise<void> {

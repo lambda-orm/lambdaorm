@@ -30,7 +30,7 @@ export class SentenceTypeService extends TypeServiceImpl {
 	}
 
 	private solveSentence (sentence: Sentence): void {
-		const info = this.helper.sql.getInfo(sentence.action, sentence.entity)
+		const info = this.helper.query.getInfo(sentence.action, sentence.entity)
 		switch (info.type) {
 		case SentenceType.dql:
 			this.solveSelect(sentence)

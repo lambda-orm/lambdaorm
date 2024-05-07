@@ -146,13 +146,13 @@ export class PostgreSQLConnectionAdapter extends ConnectionAdapter {
 				}
 				break
 			case Primitive.dateTime:
-				value = this.helper.sql.escape(this.writeDateTime(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeDateTime(value, mapping, dialect))
 				break
 			case Primitive.date:
-				value = this.helper.sql.escape(this.writeDate(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeDate(value, mapping, dialect))
 				break
 			case Primitive.time:
-				value = this.helper.sql.escape(this.writeTime(value, mapping, dialect))
+				value = this.helper.query.escape(this.writeTime(value, mapping, dialect))
 				break
 			}
 		}

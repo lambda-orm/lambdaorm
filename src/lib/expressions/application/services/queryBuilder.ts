@@ -13,12 +13,12 @@ export class QueryBuilder implements IQueryBuilder {
 		private readonly schemaState: SchemaState,
 		private readonly languages: LanguagesService) {}
 
-	public build (expression: string, options: QueryOptions): Query {
+	public build (queryExpression: string, options: QueryOptions): Query {
 		const _view = this.schemaState.view.get(options.view)
 		const view = this.schemaState.view.getInstance(_view.name)
-		const sentence = this.sentenceFacade.build(expression, view, options.stage as string)
+		const sentence = this.sentenceFacade.build(queryExpression, view, options.stage as string)
 		const query = this.dmlBuild(sentence, view, options.stage as string)
-		query.expression = expression
+		query.query = queryExpression
 		return query
 	}
 

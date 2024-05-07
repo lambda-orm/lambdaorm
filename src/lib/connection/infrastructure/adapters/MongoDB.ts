@@ -283,7 +283,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 			let strObj: string | undefined
 			if (query.parameters && query.parameters.length > 0) {
 				for (const param of query.parameters) {
-					const paramName = this.helper.sql.transformParameter(param.name)
+					const paramName = this.helper.query.transformParameter(param.name)
 					const itemValue = this.helper.obj.getValue(item, param.name)
 					const value = this.getValue(mapping, dialect, itemValue, param.type ? param.type : Primitive.any)
 					strObj = this.helper.str.replace(strObj || template, `"$${paramName}$"`, value)
@@ -302,7 +302,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		const row: any = {}
 		if (params.length && params.length > 0) {
 			for (const param of params) {
-				const paramName = this.helper.sql.transformParameter(param.name)
+				const paramName = this.helper.query.transformParameter(param.name)
 				const value = this.getValue(mapping, dialect, param.value, param.type ? param.type : Primitive.any)
 				result = this.helper.str.replace(result || template, `"$${paramName}$"`, value)
 			}

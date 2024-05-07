@@ -1,8 +1,10 @@
-import { Property, Relation, Behavior, Constraint, SentenceAction } from 'lambdaorm-base'
+import { Property, Relation, Behavior, Constraint, SentenceAction, SentenceType, SentenceCategory } from 'lambdaorm-base'
 import { Parameter } from '3xpr'
 
 export interface QueryArgs{
 	action: SentenceAction,
+	type: SentenceType,
+	category: SentenceCategory
 	dialect: string,
 	source: string,
 	sentence: string,
@@ -14,10 +16,12 @@ export interface QueryArgs{
 	defaults?: Behavior[],
 	// eslint-disable-next-line no-use-before-define
 	includes?: Include[]
-	expression?: string,
+	query?: string,
 }
 export class Query {
 	public action: SentenceAction
+	public type: SentenceType
+	public category: SentenceCategory
 	// eslint-disable-next-line no-use-before-define
 	public includes: Include[]
 	public sentence: string
@@ -29,9 +33,11 @@ export class Query {
 	public constraints: Constraint[]
 	public values: Behavior[]
 	public defaults: Behavior[]
-	public expression: string
+	public query: string
 	constructor (args:QueryArgs) {
 		this.action = args.action
+		this.type = args.type
+		this.category = args.category
 		this.dialect = args.dialect
 		this.sentence = args.sentence
 		this.entity = args.entity
@@ -42,7 +48,7 @@ export class Query {
 		this.values = args.values || []
 		this.defaults = args.defaults || []
 		this.includes = args.includes || []
-		this.expression = args.expression || ''
+		this.query = args.query || ''
 	}
 }
 export class Include {

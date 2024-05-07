@@ -1,7 +1,7 @@
 import { Query } from '../../../../query/domain'
 import { Expressions } from '3xpr'
-import { ActionObserver, QueryExecutor } from '../../../domain'
-import { QueryOptions } from 'lambdaorm-base'
+import { ActionObserver, ActionObserverArgs, QueryExecutor } from '../../../domain'
+import { QueryOptions, SentenceType } from 'lambdaorm-base'
 
 export class QueryExecutorObservableDecorator implements QueryExecutor {
 	// eslint-disable-next-line no-useless-constructor
@@ -28,7 +28,7 @@ export class QueryExecutorObservableDecorator implements QueryExecutor {
 	}
 
 	public async execute (query: Query, data: any): Promise<any> {
-		if (['select', 'insert', 'bulkInsert', 'update', 'delete'].includes(query.action)) {
+		if ([SentenceType.dql, SentenceType.dml].includes(query.type)) {
 			try {
 				await this.beforeExecutionNotify(query, data, this.options)
 				const result = await this.queryExecutor.execute(query, data)
@@ -44,9 +44,9 @@ export class QueryExecutorObservableDecorator implements QueryExecutor {
 	}
 
 	private async beforeExecutionNotify (query: Query, data: any, options: QueryOptions):Promise<void> {
-		const args = { expression: query.expression, query, data, options }
+		const args:ActionObserverArgs = { query, data, options }
 		if (!this.observers) return
-		this.observers.filter(p => p.on && p.on.includes(query.action)).forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.on && p.on.includes(query.category)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.before(args)
 			} else {
@@ -59,9 +59,9 @@ export class QueryExecutorObservableDecorator implements QueryExecutor {
 	}
 
 	private async afterExecutionNotify (query: Query, data: any, options: QueryOptions, result:any):Promise<void> {
-		const args = { expression: query.expression, query, data, options, result }
+		const args:ActionObserverArgs = { query, data, options, result }
 		if (!this.observers) return
-		this.observers.filter(p => p.on && p.on.includes(query.action)).forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.on && p.on.includes(query.category)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.after(args)
 			} else {
@@ -74,9 +74,9 @@ export class QueryExecutorObservableDecorator implements QueryExecutor {
 	}
 
 	private async errorExecutionNotify (query: Query, data: any, options: QueryOptions, error:any):Promise<void> {
-		const args = { expression: query.expression, query, data, options, error }
+		const args:ActionObserverArgs = { query, data, options, error }
 		if (!this.observers) return
-		this.observers.filter(p => p.on && p.on.includes(query.action)).forEach(async (observer:ActionObserver) => {
+		this.observers.filter(p => p.on && p.on.includes(query.category)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.error(args)
 			} else {

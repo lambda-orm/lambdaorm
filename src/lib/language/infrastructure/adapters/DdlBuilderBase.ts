@@ -36,47 +36,59 @@ export abstract class DdlBuilderBase implements DdlBuilder {
 	abstract createSequence(entity: EntityMapping): Query | undefined
 	public objects (): Query {
 		const text = this.dialect.ddl(SentenceAction.objects)
-		return new Query({ action: SentenceAction.objects, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+		return this.createQuery(SentenceAction.objects, text)
 	}
 
 	public tables (names:string[]): Query {
 		let text = this.dialect.ddl(SentenceAction.tables)
 		text = text.replace('{names}', names.map(p => this.dialect.string(p)).join(','))
-		return new Query({ action: SentenceAction.tables, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+		return this.createQuery(SentenceAction.tables, text)
 	}
 
 	public views (names:string[]): Query {
 		let text = this.dialect.ddl(SentenceAction.views)
 		text = text.replace('{names}', names.map(p => this.dialect.string(p)).join(','))
-		return new Query({ action: SentenceAction.views, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+		return this.createQuery(SentenceAction.views, text)
 	}
 
 	public primaryKeys (tableNames:string[]): Query {
 		let text = this.dialect.ddl(SentenceAction.primaryKeys)
 		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.string(p)).join(','))
-		return new Query({ action: SentenceAction.primaryKeys, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+		return this.createQuery(SentenceAction.primaryKeys, text)
 	}
 
 	public uniqueKeys (tableNames:string[]): Query {
 		let text = this.dialect.ddl(SentenceAction.uniqueKeys)
 		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.string(p)).join(','))
-		return new Query({ action: SentenceAction.uniqueKeys, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+		return this.createQuery(SentenceAction.uniqueKeys, text)
 	}
 
 	public foreignKeys (tableNames:string[]): Query {
 		let text = this.dialect.ddl(SentenceAction.foreignKeys)
 		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.string(p)).join(','))
-		return new Query({ action: SentenceAction.foreignKeys, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+		return this.createQuery(SentenceAction.foreignKeys, text)
 	}
 
 	public indexes (tableNames:string[]): Query {
 		let text = this.dialect.ddl(SentenceAction.indexes)
 		text = text.replace('{tableNames}', tableNames.map(p => this.dialect.string(p)).join(','))
-		return new Query({ action: SentenceAction.indexes, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+		return this.createQuery(SentenceAction.indexes, text)
 	}
 
 	public sequences (): Query {
 		const text = this.dialect.ddl(SentenceAction.sequences)
-		return new Query({ action: SentenceAction.sequences, dialect: this.source.dialect, source: this.source.name, sentence: text, entity: '' })
+		return this.createQuery(SentenceAction.sequences, text)
+	}
+
+	private createQuery (action:SentenceAction, sentence: string): Query {
+		const category = this.helper.query.getSentenceCategory(action)
+		const type = this.helper.query.getSentenceType(action)
+		return new Query({ type, category, action, dialect: this.source.dialect, source: this.source.name, sentence, entity: '' })
+	}
+
+	protected _createQuery (action: SentenceAction, sentence: string, entity: string): Query {
+		const category = this.helper.query.getSentenceCategory(action)
+		const type = this.helper.query.getSentenceType(action)
+		return new Query({ action, category, type, dialect: this.source.dialect, source: this.source.name, sentence, entity })
 	}
 }

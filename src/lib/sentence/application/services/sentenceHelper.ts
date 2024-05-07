@@ -13,7 +13,7 @@ export class SentenceHelper {
 	constructor (private readonly schemaState: SchemaState, private readonly helper: OrmH3lp) {}
 
 	public getSource (sentence: Sentence, stage: string): Source {
-		const sentenceInfo = this.helper.sql.getInfo(sentence.action, sentence.entity)
+		const sentenceInfo = this.helper.query.getInfo(sentence.action, sentence.entity)
 		const sourceName = this.schemaState.getSource(sentenceInfo, stage)
 		return this.schemaState.source.get(sourceName)
 	}
@@ -97,7 +97,7 @@ export class SentenceHelper {
 	}
 
 	public getColumns (sentence: Sentence): Property[] {
-		const sentenceInfo = this.helper.sql.getInfo(sentence.action, sentence.entity)
+		const sentenceInfo = this.helper.query.getInfo(sentence.action, sentence.entity)
 		switch (sentenceInfo.category) {
 		case SentenceCategory.select:
 			// eslint-disable-next-line no-case-declarations

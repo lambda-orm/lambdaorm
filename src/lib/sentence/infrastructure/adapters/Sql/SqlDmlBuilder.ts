@@ -10,6 +10,8 @@ export class SqlDmlBuilder extends DmlBuilderBase {
 	public override build (sentence: Sentence): Query {
 		return new Query({
 			action: sentence.action,
+			category: this.helper.query.getSentenceCategory(sentence.action),
+			type: this.helper.query.getSentenceType(sentence.action),
 			dialect: this.source.dialect,
 			source: this.source.name,
 			sentence: this.buildSentence(sentence),

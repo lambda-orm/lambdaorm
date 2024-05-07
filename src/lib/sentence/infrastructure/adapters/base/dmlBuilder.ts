@@ -16,7 +16,7 @@ export abstract class DmlBuilderBase implements DmlBuilder {
 		public abstract build (sentence: Sentence): Query
 
 		protected buildSentence (sentence: Sentence): string {
-			const info = this.helper.sql.getInfo(sentence.action, sentence.entity)
+			const info = this.helper.query.getInfo(sentence.action, sentence.entity)
 			switch (info.category) {
 			case SentenceCategory.select:
 				return this.buildSelectSentence(sentence)
@@ -152,18 +152,18 @@ export abstract class DmlBuilderBase implements DmlBuilder {
 		protected buildVariable (operand: Operand): string {
 			const number = operand.number ? operand.number : 0
 			let text = this.dialect.other('variable')
-			text = this.helper.str.replace(text, '{name}', this.helper.sql.transformParameter(operand.name))
+			text = this.helper.str.replace(text, '{name}', this.helper.query.transformParameter(operand.name))
 			text = this.helper.str.replace(text, '{number}', number.toString())
 			return text
 		}
 
 		protected buildConstant (operand: Operand): string {
 			if (operand.returnType === undefined) {
-				return this.helper.sql.escape(operand.name)
+				return this.helper.query.escape(operand.name)
 			}
 			switch (operand.returnType.primitive) {
 			case Primitive.string:
-				return this.helper.sql.escape(operand.name)
+				return this.helper.query.escape(operand.name)
 			case Primitive.boolean:
 				return this.dialect.other(operand.name.toString())
 			case Primitive.integer:
@@ -172,7 +172,7 @@ export abstract class DmlBuilderBase implements DmlBuilder {
 			case Primitive.decimal:
 				return parseFloat(operand.name).toString()
 			default:
-				return this.helper.sql.escape(operand.name)
+				return this.helper.query.escape(operand.name)
 			}
 		}
 }
