@@ -18,7 +18,7 @@
 
 #### Source
 
-[src/lib/language/application/services/languagesService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/languagesService.ts#L9)
+[src/lib/language/application/services/languagesService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/language/application/services/languagesService.ts#L9)
 
 ## Properties
 
@@ -28,7 +28,7 @@
 
 #### Source
 
-[src/lib/language/application/services/languagesService.ts:6](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/languagesService.ts#L6)
+[src/lib/language/application/services/languagesService.ts:6](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/language/application/services/languagesService.ts#L6)
 
 ## Methods
 
@@ -46,7 +46,7 @@
 
 #### Source
 
-[src/lib/language/application/services/languagesService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/languagesService.ts#L14)
+[src/lib/language/application/services/languagesService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/language/application/services/languagesService.ts#L14)
 
 ***
 
@@ -64,7 +64,7 @@
 
 #### Source
 
-[src/lib/language/application/services/languagesService.ts:24](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/languagesService.ts#L24)
+[src/lib/language/application/services/languagesService.ts:24](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/language/application/services/languagesService.ts#L24)
 
 ***
 
@@ -82,7 +82,7 @@
 
 #### Source
 
-[src/lib/language/application/services/languagesService.ts:32](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/languagesService.ts#L32)
+[src/lib/language/application/services/languagesService.ts:32](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/language/application/services/languagesService.ts#L32)
 
 ***
 
@@ -100,4 +100,4 @@
 
 #### Source
 
-[src/lib/language/application/services/languagesService.ts:43](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/languagesService.ts#L43)
+[src/lib/language/application/services/languagesService.ts:43](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/language/application/services/languagesService.ts#L43)

@@ -18,13 +18,13 @@
 
 ### new ModificableClauses()
 
-> **new ModificableClauses**\<`T`\>(`actions`, `expression`): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
+> **new ModificableClauses**\<`T`\>(`actions`, `query`): [`ModificableClauses`](ModificableClauses.md)\<`T`\>
 
 #### Parameters
 
-• **actions**: [`ExpressionActions`](../interfaces/ExpressionActions.md)
+• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 

@@ -18,13 +18,13 @@
 
 ### new Map2Clauses()
 
-> **new Map2Clauses**\<`T`\>(`actions`, `expression`): [`Map2Clauses`](Map2Clauses.md)\<`T`\>
+> **new Map2Clauses**\<`T`\>(`actions`, `query`): [`Map2Clauses`](Map2Clauses.md)\<`T`\>
 
 #### Parameters
 
-• **actions**: [`ExpressionActions`](../interfaces/ExpressionActions.md)
+• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 

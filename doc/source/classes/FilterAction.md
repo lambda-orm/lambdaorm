@@ -18,13 +18,13 @@
 
 ### new FilterAction()
 
-> **new FilterAction**\<`T`\>(`actions`, `expression`): [`FilterAction`](FilterAction.md)\<`T`\>
+> **new FilterAction**\<`T`\>(`actions`, `query`): [`FilterAction`](FilterAction.md)\<`T`\>
 
 #### Parameters
 
-• **actions**: [`ExpressionActions`](../interfaces/ExpressionActions.md)
+• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 

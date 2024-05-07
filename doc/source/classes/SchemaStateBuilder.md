@@ -10,11 +10,11 @@
 
 ### new SchemaStateBuilder()
 
-> **new SchemaStateBuilder**(`expressions`, `facade`, `helper`): [`SchemaStateBuilder`](SchemaStateBuilder.md)
+> **new SchemaStateBuilder**(`exp`, `facade`, `helper`): [`SchemaStateBuilder`](SchemaStateBuilder.md)
 
 #### Parameters
 
-• **expressions**: `Expressions`
+• **exp**: `Expressions`
 
 • **facade**: [`SchemaFacade`](SchemaFacade.md)
 

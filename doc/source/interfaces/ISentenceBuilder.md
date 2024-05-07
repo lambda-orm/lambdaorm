@@ -10,11 +10,11 @@
 
 ### build()
 
-> **build**(`expression`): [`Sentence`](../classes/Sentence.md)
+> **build**(`query`): [`Sentence`](../classes/Sentence.md)
 
 #### Parameters
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 

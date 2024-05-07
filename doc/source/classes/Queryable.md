@@ -18,13 +18,13 @@
 
 ### new Queryable()
 
-> **new Queryable**\<`T`\>(`actions`, `expression`): [`Queryable`](Queryable.md)\<`T`\>
+> **new Queryable**\<`T`\>(`actions`, `query`): [`Queryable`](Queryable.md)\<`T`\>
 
 #### Parameters
 
-• **actions**: [`ExpressionActions`](../interfaces/ExpressionActions.md)
+• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 

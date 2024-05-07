@@ -18,13 +18,13 @@
 
 ### new QueryAction()
 
-> **new QueryAction**(`actions`, `expression`): [`QueryAction`](QueryAction.md)
+> **new QueryAction**(`actions`, `query`): [`QueryAction`](QueryAction.md)
 
 #### Parameters
 
-• **actions**: [`ExpressionActions`](../interfaces/ExpressionActions.md)
+• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 

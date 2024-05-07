@@ -14,13 +14,13 @@
 
 ### new PageClauses()
 
-> **new PageClauses**(`actions`, `expression`): [`PageClauses`](PageClauses.md)
+> **new PageClauses**(`actions`, `query`): [`PageClauses`](PageClauses.md)
 
 #### Parameters
 
-• **actions**: [`ExpressionActions`](../interfaces/ExpressionActions.md)
+• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 

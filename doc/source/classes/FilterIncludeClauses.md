@@ -18,13 +18,13 @@
 
 ### new FilterIncludeClauses()
 
-> **new FilterIncludeClauses**\<`T`\>(`actions`, `expression`): [`FilterIncludeClauses`](FilterIncludeClauses.md)\<`T`\>
+> **new FilterIncludeClauses**\<`T`\>(`actions`, `query`): [`FilterIncludeClauses`](FilterIncludeClauses.md)\<`T`\>
 
 #### Parameters
 
-• **actions**: [`ExpressionActions`](../interfaces/ExpressionActions.md)
+• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 

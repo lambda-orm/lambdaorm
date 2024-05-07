@@ -2,19 +2,19 @@
 
 ***
 
-[Lambda ORM](../README.md) / ExpressionActions
+[Lambda ORM](../README.md) / QueryActions
 
-# Interface: ExpressionActions
+# Interface: QueryActions
 
 ## Methods
 
 ### constraints()
 
-> **constraints**(`expression`): `Promise`\<[`MetadataConstraint`](MetadataConstraint.md)\>
+> **constraints**(`query`): `Promise`\<[`MetadataConstraint`](MetadataConstraint.md)\>
 
 #### Parameters
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 
@@ -28,11 +28,11 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:8
 
 ### execute()
 
-> **execute**(`expression`, `data`): `Promise`\<`any`\>
+> **execute**(`query`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
-• **expression**: `string`
+• **query**: `string`
 
 • **data**: `any`
 
@@ -48,11 +48,11 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:4
 
 ### metadata()
 
-> **metadata**(`expression`): `Promise`\<[`Metadata`](Metadata.md)\>
+> **metadata**(`query`): `Promise`\<[`Metadata`](Metadata.md)\>
 
 #### Parameters
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 
@@ -66,11 +66,11 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:9
 
 ### model()
 
-> **model**(`expression`): `Promise`\<[`MetadataModel`](MetadataModel.md)[]\>
+> **model**(`query`): `Promise`\<[`MetadataModel`](MetadataModel.md)[]\>
 
 #### Parameters
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 
@@ -84,11 +84,11 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:6
 
 ### normalize()
 
-> **normalize**(`expression`): `string`
+> **normalize**(`query`): `string`
 
 #### Parameters
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 
@@ -102,11 +102,11 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:5
 
 ### parameters()
 
-> **parameters**(`expression`): `Promise`\<[`MetadataParameter`](MetadataParameter.md)[]\>
+> **parameters**(`query`): `Promise`\<[`MetadataParameter`](MetadataParameter.md)[]\>
 
 #### Parameters
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 
@@ -120,11 +120,11 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:7
 
 ### plan()
 
-> **plan**(`expression`): `Promise`\<[`QueryPlan`](QueryPlan.md)\>
+> **plan**(`query`): `Promise`\<[`QueryPlan`](QueryPlan.md)\>
 
 #### Parameters
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 

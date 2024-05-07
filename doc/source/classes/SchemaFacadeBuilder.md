@@ -10,11 +10,11 @@
 
 ### new SchemaFacadeBuilder()
 
-> **new SchemaFacadeBuilder**(`expressions`, `helper`): [`SchemaFacadeBuilder`](SchemaFacadeBuilder.md)
+> **new SchemaFacadeBuilder**(`exp`, `helper`): [`SchemaFacadeBuilder`](SchemaFacadeBuilder.md)
 
 #### Parameters
 
-• **expressions**: `Expressions`
+• **exp**: `Expressions`
 
 • **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
 

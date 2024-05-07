@@ -18,13 +18,13 @@
 
 ### new HavingClauses()
 
-> **new HavingClauses**\<`T`\>(`actions`, `expression`): [`HavingClauses`](HavingClauses.md)\<`T`\>
+> **new HavingClauses**\<`T`\>(`actions`, `query`): [`HavingClauses`](HavingClauses.md)\<`T`\>
 
 #### Parameters
 
-• **actions**: [`ExpressionActions`](../interfaces/ExpressionActions.md)
+• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 

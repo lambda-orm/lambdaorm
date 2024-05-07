@@ -284,11 +284,11 @@ node\_modules/lambdaorm-base/repository/application/repository.d.ts:31
 
 ### execute()
 
-> **execute**(`expression`, `data`?): `Promise`\<`any`\>
+> **execute**(`query`, `data`?): `Promise`\<`any`\>
 
 #### Parameters
 
-• **expression**: `string`
+• **query**: `string`
 
 • **data?**: `any`
 

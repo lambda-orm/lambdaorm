@@ -18,13 +18,13 @@
 
 ### new IncludeAction()
 
-> **new IncludeAction**\<`T`\>(`actions`, `expression`): [`IncludeAction`](IncludeAction.md)\<`T`\>
+> **new IncludeAction**\<`T`\>(`actions`, `query`): [`IncludeAction`](IncludeAction.md)\<`T`\>
 
 #### Parameters
 
-• **actions**: [`ExpressionActions`](../interfaces/ExpressionActions.md)
+• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
 
-• **expression**: `string`
+• **query**: `string`
 
 #### Returns
 
