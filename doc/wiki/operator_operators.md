@@ -1,369 +1,369 @@
 |Operator    |Description                                   |
 |------------|----------------------------------------------|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
+|+|Addition|
+|-|Negation|
+|-|Subtraction|
+|*|Multiplication|
+|/|Division|
+|**|Exponentiation|
+|//|Root|
+|%|Modulus|
+|&|Bitwise AND|
+|||Bitwise OR|
+|^|Bitwise XOR|
+|~|Bitwise NOT|
+|<<|Bitwise Left Shift|
+|>>|Bitwise Right Shift|
+|==|Equality|
+|!=|Inequality|
+|>|Greater than|
+|<|Less than|
+|>=|Greater than or equal|
+|<=|Less than or equal|
+|&&|Logical AND|
+||||Logical OR|
+|!|Logical NOT|
+|[]|Index|
+|$|Environment Variable|
+|=|Assignment|
+|+=|Assignment Addition|
+|-=|Assignment Subtraction|
+|*=|Assignment Multiplication|
+|/=|Assignment Division|
+|**=|Assignment Exponentiation|
+|//=|Assignment Floor Division|
+|%=|Assignment Modulus|
+|&=|Assignment Bitwise AND|
+||=|Assignment Bitwise OR|
+|^=|Assignment Bitwise XOR|
+|<<=|Assignment Bitwise Left Shift|
+|>>=|Assignment Bitwise Right Shift|
+|===|Equality|
+|!==|Inequality|
+|<>|Inequality|
 
 ## Definition
 
-### Operator undefined
+### Operator +
 
-- description: undefined
-- return: undefined
+- description: Addition
+- return: T
 - params:
 	- a: T
 	- b: T
 
-### Operator undefined
+### Operator -
 
-- description: undefined
-- return: undefined
+- description: Negation
+- return: number
 - params:
 	- a: number
 
-### Operator undefined
+### Operator -
 
-- description: undefined
-- return: undefined
-- params:
-	- a: number
-	- b: number
-
-### Operator undefined
-
-- description: undefined
-- return: undefined
+- description: Subtraction
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator *
 
-- description: undefined
-- return: undefined
+- description: Multiplication
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator /
 
-- description: undefined
-- return: undefined
+- description: Division
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator **
 
-- description: undefined
-- return: undefined
+- description: Exponentiation
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator //
 
-- description: undefined
-- return: undefined
+- description: Root
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator %
 
-- description: undefined
-- return: undefined
+- description: Modulus
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator &
 
-- description: undefined
-- return: undefined
+- description: Bitwise AND
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator |
 
-- description: undefined
-- return: undefined
+- description: Bitwise OR
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator ^
 
-- description: undefined
-- return: undefined
-- params:
-	- a: number
-
-### Operator undefined
-
-- description: undefined
-- return: undefined
+- description: Bitwise XOR
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator ~
 
-- description: undefined
-- return: undefined
+- description: Bitwise NOT
+- return: number
+- params:
+	- a: number
+
+### Operator <<
+
+- description: Bitwise Left Shift
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator >>
 
-- description: undefined
-- return: undefined
+- description: Bitwise Right Shift
+- return: number
+- params:
+	- a: number
+	- b: number
+
+### Operator ==
+
+- description: Equality
+- return: boolean
 - params:
 	- a: T
 	- b: T
 
-### Operator undefined
+### Operator !=
 
-- description: undefined
-- return: undefined
+- description: Inequality
+- return: boolean
 - params:
 	- a: T
 	- b: T
 
-### Operator undefined
+### Operator >
 
-- description: undefined
-- return: undefined
+- description: Greater than
+- return: boolean
 - params:
 	- a: T
 	- b: T
 
-### Operator undefined
+### Operator <
 
-- description: undefined
-- return: undefined
+- description: Less than
+- return: boolean
 - params:
 	- a: T
 	- b: T
 
-### Operator undefined
+### Operator >=
 
-- description: undefined
-- return: undefined
+- description: Greater than or equal
+- return: boolean
 - params:
 	- a: T
 	- b: T
 
-### Operator undefined
+### Operator <=
 
-- description: undefined
-- return: undefined
+- description: Less than or equal
+- return: boolean
 - params:
 	- a: T
 	- b: T
 
-### Operator undefined
+### Operator &&
 
-- description: undefined
-- return: undefined
+- description: Logical AND
+- return: boolean
 - params:
 	- a: boolean
 	- b: boolean
 
-### Operator undefined
+### Operator ||
 
-- description: undefined
-- return: undefined
+- description: Logical OR
+- return: boolean
 - params:
 	- a: boolean
 	- b: boolean
 
-### Operator undefined
+### Operator !
 
-- description: undefined
-- return: undefined
+- description: Logical NOT
+- return: boolean
 - params:
 	- a: boolean
 
-### Operator undefined
+### Operator []
 
-- description: undefined
-- return: undefined
+- description: Index
+- return: T
 - params:
 	- list: T[]
 	- index: any
 
-### Operator undefined
+### Operator $
 
-- description: undefined
-- return: undefined
+- description: Environment Variable
+- return: string
 - params:
 	- name: string
 
-### Operator undefined
+### Operator =
 
-- description: undefined
-- return: undefined
+- description: Assignment
+- return: T
 - params:
 	- a: T
 	- b: T
 
-### Operator undefined
+### Operator +=
 
-- description: undefined
-- return: undefined
+- description: Assignment Addition
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator -=
 
-- description: undefined
-- return: undefined
+- description: Assignment Subtraction
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator *=
 
-- description: undefined
-- return: undefined
+- description: Assignment Multiplication
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator /=
 
-- description: undefined
-- return: undefined
+- description: Assignment Division
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator **=
 
-- description: undefined
-- return: undefined
+- description: Assignment Exponentiation
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator //=
 
-- description: undefined
-- return: undefined
+- description: Assignment Floor Division
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator %=
 
-- description: undefined
-- return: undefined
+- description: Assignment Modulus
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator &=
 
-- description: undefined
-- return: undefined
+- description: Assignment Bitwise AND
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator |=
 
-- description: undefined
-- return: undefined
+- description: Assignment Bitwise OR
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator ^=
 
-- description: undefined
-- return: undefined
+- description: Assignment Bitwise XOR
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator <<=
 
-- description: undefined
-- return: undefined
+- description: Assignment Bitwise Left Shift
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator >>=
 
-- description: undefined
-- return: undefined
+- description: Assignment Bitwise Right Shift
+- return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator undefined
+### Operator ===
 
-- description: undefined
-- return: undefined
+- description: Equality
+- return: boolean
 - params:
 	- a: T
 	- b: T
 
-### Operator undefined
+### Operator !==
 
-- description: undefined
-- return: undefined
+- description: Inequality
+- return: boolean
 - params:
 	- a: T
 	- b: T
 
-### Operator undefined
+### Operator <>
 
-- description: undefined
-- return: undefined
+- description: Inequality
+- return: boolean
 - params:
 	- a: T
 	- b: T

@@ -1,1597 +1,1597 @@
 |Function    |Description                                   |
 |------------|----------------------------------------------|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
-|undefined|undefined|
+|sleep|Sleeps for the specified number of milliseconds|
+|console|Prints to console|
+|between|Between|
+|includes|Includes|
+|in|In|
+|like|String contains pattern|
+|isNull|Check if value is null|
+|isNotNull|Check if value is not null|
+|isEmpty|Check if value is empty|
+|isNotEmpty|Check if value is not empty|
+|isBoolean|Check if value is boolean|
+|isNumber|Check if value is number|
+|isInteger|Check if value is integer|
+|isDecimal|Check if value is decimal|
+|isString|Check if value is string|
+|isDate|Check if value is date|
+|isDateTime|Check if value is date time|
+|isTime|Check if value is time|
+|isObject|Check if value is object|
+|isArray|Check if value is array|
+|isBooleanFormat|Check if value is boolean format|
+|isNumberFormat|Check if value is number format|
+|isIntegerFormat|Check if value is integer format|
+|isDecimalFormat|Check if value is decimal format|
+|isDateFormat|Check if value is date format|
+|isDateTimeFormat|Check if value is date time format|
+|isTimeFormat|Check if value is time format|
+|nvl|Null value|
+|nvl2|Null value|
+|abs|Absolute value|
+|acos|Arc cosine|
+|asin|Arc sine|
+|atan|Arc tangent|
+|atan2|Arc tangent of two variables|
+|ceil|Ceiling|
+|cos|Cosine|
+|cosh|Hyperbolic cosine|
+|exp|Exponential|
+|floor|Floor|
+|ln|Natural logarithm|
+|log10|Base 10 logarithm|
+|log|Natural logarithm|
+|remainder|Remainder|
+|round|Round|
+|sign|Sign|
+|sin|Sine|
+|sinh|Hyperbolic sine|
+|tan|Tangent|
+|tanh|Hyperbolic tangent|
+|trunc|Truncate|
+|chr|Character|
+|capitalize|Capitalize|
+|endsWith|Ends with|
+|strCount|Count|
+|lower|Lower case|
+|lpad|Left pad|
+|ltrim|Left trim|
+|indexOf|Index of|
+|join|Join|
+|replace|Replace|
+|rpad|Right pad|
+|rtrim|Right trim|
+|substring|Substring|
+|trim|Trim|
+|upper|Upper case|
+|concat|Concatenate|
+|test|Test|
+|title|Title case|
+|match|Match|
+|mask|Mask sensitive data|
+|split|Split string|
+|startWith|Starts with|
+|map|Map|
+|foreach|Foreach|
+|filter|Filter|
+|reverse|Reverse|
+|sort|Sort|
+|remove|Remove|
+|push|Push|
+|bulkInsert|Bulk Insert|
+|pop|Pop|
+|length|Length|
+|slice|Slice|
+|page|Paging|
+|distinct|Distinct|
+|first|First|
+|last|Last|
+|count|Count|
+|max|Max|
+|min|Min|
+|avg|Average|
+|sum|Sum|
+|curTime|Current time|
+|today|Current date|
+|now|Current date time|
+|time|Get time|
+|date|Get date|
+|dateTime|Get date time|
+|year|Get year|
+|month|Get month|
+|day|Get day|
+|weekday|Get day of week|
+|hour|Get hours|
+|minute|Get minutes|
+|second|Get seconds|
+|millisecond|Get milliseconds|
+|addYear|Add years|
+|addMonth|Add months|
+|addDay|Add days|
+|addHour|Add hours|
+|addMinute|Add minutes|
+|addSecond|Add seconds|
+|addMillisecond|Add milliseconds|
+|addTime|Add time|
+|subtractTime|Subtract time|
+|yearDiff|Year difference|
+|dayDiff|Day difference|
+|hourDiff|Hour difference|
+|secondDiff|Second difference|
+|millisecondDiff|Millisecond difference|
+|dayToDate|Convert days to date time|
+|hourToDate|Convert hours to date time|
+|secondToDate|Convert seconds to date time|
+|millisecondToDate|Convert milliseconds to date time|
+|toString|Convert to string|
+|toNumber|Convert to number|
+|dateToString|Convert date to string|
+|stringify|Convert to JSON string|
+|parse|Parse JSON string|
+|keys|Object keys|
+|values|Object values|
+|entries|Object entries|
+|fromEntries|Object from entries|
+|union|Union|
+|intersection|Intersection|
+|difference|Difference|
+|symmetricDifference|Symmetric Difference|
+|toBase64|Convert a string to base64|
+|getBase64|Get a string from base64|
+|encrypt|Encrypt a string|
+|decrypt|Decrypt a string|
+|update|Update a list|
+|updateAll|Update all items in a list|
+|deleteAll|Delete all items in a list|
+|merge|Merge a list|
+|bulkMerge|Bulk merge a list|
+|having|Having a list|
+|include|Include a list|
+|desc|Descending|
+|asc|Ascending|
+|orm.execute|Execute an ORM expression|
+|orm.plan|Plan an ORM expression|
+|orm.metadata|Get metadata from an ORM expression|
+|orm.model|Get model from an ORM expression|
+|orm.parameters|Get parameters from an ORM expression|
+|orm.constraints|Get constraints from an ORM expression|
+|contains|Includes|
+|substr|Substring|
+|concatenate|Concatenate|
+|startsWith|Starts with|
+|select|Map|
+|each|Foreach|
+|where|Filter|
+|order|Sort|
+|delete|Remove|
+|insert|Push|
+|len|Length|
 
 ## Definition
 
-### undefined
+### sleep
 
-- description: undefined
+- description: Sleeps for the specified number of milliseconds
 - deterministic: true
-- return: undefined
+- return: void
 - params:
 	- ms?: number
 
-### undefined
+### console
 
-- description: undefined
+- description: Prints to console
 - deterministic: true
-- return: undefined
+- return: void
 - params:
 	- value: any
 
-### undefined
+### between
 
-- description: undefined
+- description: Between
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: T
 	- from: T
 	- to: T
 
-### undefined
+### includes
 
-- description: undefined
+- description: Includes
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- source: string|T[]
 	- value: string|T
 
-### undefined
+### in
 
-- description: undefined
+- description: In
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- source: T
 	- values: T
 
-### undefined
+### like
 
-- description: undefined
+- description: String contains pattern
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 	- pattern: string
 
-### undefined
+### isNull
 
-- description: undefined
+- description: Check if value is null
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isNotNull
 
-- description: undefined
+- description: Check if value is not null
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isEmpty
 
-- description: undefined
+- description: Check if value is empty
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 
-### undefined
+### isNotEmpty
 
-- description: undefined
+- description: Check if value is not empty
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 
-### undefined
+### isBoolean
 
-- description: undefined
+- description: Check if value is boolean
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isNumber
 
-- description: undefined
+- description: Check if value is number
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isInteger
 
-- description: undefined
+- description: Check if value is integer
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isDecimal
 
-- description: undefined
+- description: Check if value is decimal
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isString
 
-- description: undefined
+- description: Check if value is string
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isDate
 
-- description: undefined
+- description: Check if value is date
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isDateTime
 
-- description: undefined
+- description: Check if value is date time
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isTime
 
-- description: undefined
+- description: Check if value is time
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isObject
 
-- description: undefined
+- description: Check if value is object
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isArray
 
-- description: undefined
+- description: Check if value is array
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: any
 
-### undefined
+### isBooleanFormat
 
-- description: undefined
+- description: Check if value is boolean format
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 
-### undefined
+### isNumberFormat
 
-- description: undefined
+- description: Check if value is number format
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 
-### undefined
+### isIntegerFormat
 
-- description: undefined
+- description: Check if value is integer format
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 
-### undefined
+### isDecimalFormat
 
-- description: undefined
+- description: Check if value is decimal format
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 
-### undefined
+### isDateFormat
 
-- description: undefined
+- description: Check if value is date format
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 
-### undefined
+### isDateTimeFormat
 
-- description: undefined
+- description: Check if value is date time format
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 
-### undefined
+### isTimeFormat
 
-- description: undefined
+- description: Check if value is time format
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 
-### undefined
+### nvl
 
-- description: undefined
+- description: Null value
 - deterministic: true
-- return: undefined
+- return: T
 - params:
 	- value: T
 	- default: T
 
-### undefined
+### nvl2
 
-- description: undefined
+- description: Null value
 - deterministic: true
-- return: undefined
+- return: T
 - params:
 	- value: any
 	- a: T
 	- b: T
 
-### undefined
+### abs
 
-- description: undefined
+- description: Absolute value
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### acos
 
-- description: undefined
+- description: Arc cosine
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### asin
 
-- description: undefined
+- description: Arc sine
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### atan
 
-- description: undefined
+- description: Arc tangent
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### atan2
 
-- description: undefined
+- description: Arc tangent of two variables
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### ceil
 
-- description: undefined
+- description: Ceiling
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### cos
 
-- description: undefined
+- description: Cosine
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### cosh
 
-- description: undefined
+- description: Hyperbolic cosine
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### exp
 
-- description: undefined
+- description: Exponential
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### floor
 
-- description: undefined
+- description: Floor
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### ln
 
-- description: undefined
+- description: Natural logarithm
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### log10
 
-- description: undefined
+- description: Base 10 logarithm
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### log
 
-- description: undefined
+- description: Natural logarithm
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### remainder
 
-- description: undefined
+- description: Remainder
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- n1: number
 	- n2: number
 
-### undefined
+### round
 
-- description: undefined
+- description: Round
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- num: number
 	- decimals: 0
 
-### undefined
+### sign
 
-- description: undefined
+- description: Sign
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### sin
 
-- description: undefined
+- description: Sine
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### sinh
 
-- description: undefined
+- description: Hyperbolic sine
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### tan
 
-- description: undefined
+- description: Tangent
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### tanh
 
-- description: undefined
+- description: Hyperbolic tangent
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### trunc
 
-- description: undefined
+- description: Truncate
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- x: number
 
-### undefined
+### chr
 
-- description: undefined
+- description: Character
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- ascii: number
 
-### undefined
+### capitalize
 
-- description: undefined
+- description: Capitalize
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### endsWith
 
-- description: undefined
+- description: Ends with
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 	- sub: string
 	- start: number
 
-### undefined
+### strCount
 
-- description: undefined
+- description: Count
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- source: string
 	- value: string
 
-### undefined
+### lower
 
-- description: undefined
+- description: Lower case
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### lpad
 
-- description: undefined
+- description: Left pad
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 	- len: number
 	- pad: string
 
-### undefined
+### ltrim
 
-- description: undefined
+- description: Left trim
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### indexOf
 
-- description: undefined
+- description: Index of
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- value: string
 	- sub: string
 	- start: number
 
-### undefined
+### join
 
-- description: undefined
+- description: Join
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- values: string[]
 	- separator: string
 	- : "
 
-### undefined
+### replace
 
-- description: undefined
+- description: Replace
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 	- source: string
 	- target: string
 
-### undefined
+### rpad
 
-- description: undefined
+- description: Right pad
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 	- len: number
 	- pad: string
 
-### undefined
+### rtrim
 
-- description: undefined
+- description: Right trim
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### substring
 
-- description: undefined
+- description: Substring
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 	- from: number
 	- count: number
 
-### undefined
+### trim
 
-- description: undefined
+- description: Trim
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### upper
 
-- description: undefined
+- description: Upper case
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### concat
 
-- description: undefined
+- description: Concatenate
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- values: any
 
-### undefined
+### test
 
-- description: undefined
+- description: Test
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 	- regexp: string
 
-### undefined
+### title
 
-- description: undefined
+- description: Title case
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### match
 
-- description: undefined
+- description: Match
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- value: string
 	- regexp: string
 
-### undefined
+### mask
 
-- description: undefined
+- description: Mask sensitive data
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### split
 
-- description: undefined
+- description: Split string
 - deterministic: true
-- return: undefined
+- return: string[]
 - params:
 	- value: string
 	- separator: string
 	- : "
 
-### undefined
+### startWith
 
-- description: undefined
+- description: Starts with
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 	- sub: string
 	- start: number
 
-### undefined
+### map
 
-- description: undefined
+- description: Map
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: any[]
 	- predicate: T
 
-### undefined
+### foreach
 
-- description: undefined
+- description: Foreach
 - deterministic: true
-- return: undefined
+- return: void
 - params:
 	- list: any[]
 	- predicate: any
 
-### undefined
+### filter
 
-- description: undefined
+- description: Filter
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- predicate: boolean
 
-### undefined
+### reverse
 
-- description: undefined
+- description: Reverse
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- predicate: any
 
-### undefined
+### sort
 
-- description: undefined
+- description: Sort
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- predicate: any
 
-### undefined
+### remove
 
-- description: undefined
+- description: Remove
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- predicate: boolean
 
-### undefined
+### push
 
-- description: undefined
+- description: Push
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- value: T
 
-### undefined
+### bulkInsert
 
-- description: undefined
+- description: Bulk Insert
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- value: T[]
 
-### undefined
+### pop
 
-- description: undefined
+- description: Pop
 - deterministic: true
-- return: undefined
+- return: T
 - params:
 	- list: T[]
 
-### undefined
+### length
 
-- description: undefined
+- description: Length
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- source: any[]|string
 
-### undefined
+### slice
 
-- description: undefined
+- description: Slice
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- from: integer
 	- to: integer
 
-### undefined
+### page
 
-- description: undefined
+- description: Paging
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- page: integer
 	- records: integer
 
-### undefined
+### distinct
 
-- description: undefined
+- description: Distinct
 - deterministic: true
-- return: undefined
+- return: any[]
 - params:
 	- list: any[]
 	- predicate: any
 
-### undefined
+### first
 
-- description: undefined
+- description: First
 - deterministic: true
-- return: undefined
+- return: T
 - params:
 	- list: T[]
 	- predicate: boolean
 
-### undefined
+### last
 
-- description: undefined
+- description: Last
 - deterministic: true
-- return: undefined
+- return: T
 - params:
 	- list: T[]
 	- predicate: boolean
 
-### undefined
+### count
 
-- description: undefined
+- description: Count
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- list: T[]
 	- predicate: boolean
 
-### undefined
+### max
 
-- description: undefined
+- description: Max
 - deterministic: true
-- return: undefined
+- return: T
 - params:
 	- list: T[]
 	- predicate: boolean
 
-### undefined
+### min
 
-- description: undefined
+- description: Min
 - deterministic: true
-- return: undefined
+- return: T
 - params:
 	- list: T[]
 	- predicate: boolean
 
-### undefined
+### avg
 
-- description: undefined
+- description: Average
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- list: T[]
 	- value: number
 
-### undefined
+### sum
 
-- description: undefined
+- description: Sum
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- list: T[]
 	- value: number
 
-### undefined
+### curTime
 
-- description: undefined
+- description: Current time
 - deterministic: true
-- return: undefined
+- return: time
 - params:
 	- : any
 
-### undefined
+### today
 
-- description: undefined
+- description: Current date
 - deterministic: true
-- return: undefined
+- return: date
 - params:
 	- : any
 
-### undefined
+### now
 
-- description: undefined
+- description: Current date time
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- : any
 
-### undefined
+### time
 
-- description: undefined
+- description: Get time
 - deterministic: true
-- return: undefined
+- return: time
 - params:
 	- value: string
 
-### undefined
+### date
 
-- description: undefined
+- description: Get date
 - deterministic: true
-- return: undefined
+- return: date
 - params:
 	- value: string
 
-### undefined
+### dateTime
 
-- description: undefined
+- description: Get date time
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- value: string
 
-### undefined
+### year
 
-- description: undefined
+- description: Get year
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- value: dateTime
 
-### undefined
+### month
 
-- description: undefined
+- description: Get month
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- value: dateTime
 
-### undefined
+### day
 
-- description: undefined
+- description: Get day
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- value: dateTime
 
-### undefined
+### weekday
 
-- description: undefined
+- description: Get day of week
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- value: dateTime
 
-### undefined
+### hour
 
-- description: undefined
+- description: Get hours
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- value: dateTime
 
-### undefined
+### minute
 
-- description: undefined
+- description: Get minutes
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- value: dateTime
 
-### undefined
+### second
 
-- description: undefined
+- description: Get seconds
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- value: dateTime
 
-### undefined
+### millisecond
 
-- description: undefined
+- description: Get milliseconds
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- value: dateTime
 
-### undefined
+### addYear
 
-- description: undefined
+- description: Add years
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- date: dateTime
 	- value: number
 
-### undefined
+### addMonth
 
-- description: undefined
+- description: Add months
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- date: dateTime
 	- value: number
 
-### undefined
+### addDay
 
-- description: undefined
+- description: Add days
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- date: dateTime
 	- value: number
 
-### undefined
+### addHour
 
-- description: undefined
+- description: Add hours
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- date: dateTime
 	- value: number
 
-### undefined
+### addMinute
 
-- description: undefined
+- description: Add minutes
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- date: dateTime
 	- value: number
 
-### undefined
+### addSecond
 
-- description: undefined
+- description: Add seconds
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- date: dateTime
 	- value: number
 
-### undefined
+### addMillisecond
 
-- description: undefined
+- description: Add milliseconds
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- date: dateTime
 	- value: number
 
-### undefined
+### addTime
 
-- description: undefined
+- description: Add time
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- date: dateTime
 	- time: time
 
-### undefined
+### subtractTime
 
-- description: undefined
+- description: Subtract time
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- date: dateTime
 	- time: time
 
-### undefined
+### yearDiff
 
-- description: undefined
+- description: Year difference
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- date1: dateTime
 	- date2: dateTime
 
-### undefined
+### dayDiff
 
-- description: undefined
+- description: Day difference
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- date1: dateTime
 	- date2: dateTime
 
-### undefined
+### hourDiff
 
-- description: undefined
+- description: Hour difference
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- date1: dateTime
 	- date2: dateTime
 
-### undefined
+### secondDiff
 
-- description: undefined
+- description: Second difference
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- date1: dateTime
 	- date2: dateTime
 
-### undefined
+### millisecondDiff
 
-- description: undefined
+- description: Millisecond difference
 - deterministic: true
-- return: undefined
+- return: integer
 - params:
 	- date1: dateTime
 	- date2: dateTime
 
-### undefined
+### dayToDate
 
-- description: undefined
+- description: Convert days to date time
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- value: number
 
-### undefined
+### hourToDate
 
-- description: undefined
+- description: Convert hours to date time
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- value: number
 
-### undefined
+### secondToDate
 
-- description: undefined
+- description: Convert seconds to date time
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- value: number
 
-### undefined
+### millisecondToDate
 
-- description: undefined
+- description: Convert milliseconds to date time
 - deterministic: true
-- return: undefined
+- return: dateTime
 - params:
 	- value: number
 
-### undefined
+### toString
 
-- description: undefined
+- description: Convert to string
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: any
 
-### undefined
+### toNumber
 
-- description: undefined
+- description: Convert to number
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- value: any
 
-### undefined
+### dateToString
 
-- description: undefined
+- description: Convert date to string
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- date: date
 
-### undefined
+### stringify
 
-- description: undefined
+- description: Convert to JSON string
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: any
 
-### undefined
+### parse
 
-- description: undefined
+- description: Parse JSON string
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- value: string
 
-### undefined
+### keys
 
-- description: undefined
+- description: Object keys
 - deterministic: true
-- return: undefined
+- return: string[]
 - params:
 	- obj: any
 
-### undefined
+### values
 
-- description: undefined
+- description: Object values
 - deterministic: true
-- return: undefined
+- return: any[]
 - params:
 	- obj: any
 
-### undefined
+### entries
 
-- description: undefined
+- description: Object entries
 - deterministic: true
-- return: undefined
+- return: [string,any][]
 - params:
 	- obj: any
 
-### undefined
+### fromEntries
 
-- description: undefined
+- description: Object from entries
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- entries: [string
 	- : any][]
 
-### undefined
+### union
 
-- description: undefined
+- description: Union
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- a: T[]
 	- b: T[]
 
-### undefined
+### intersection
 
-- description: undefined
+- description: Intersection
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- a: T[]
 	- b: T[]
 
-### undefined
+### difference
 
-- description: undefined
+- description: Difference
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- a: T[]
 	- b: T[]
 
-### undefined
+### symmetricDifference
 
-- description: undefined
+- description: Symmetric Difference
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- a: T[]
 	- b: T[]
 
-### undefined
+### toBase64
 
-- description: undefined
+- description: Convert a string to base64
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### getBase64
 
-- description: undefined
+- description: Get a string from base64
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### encrypt
 
-- description: undefined
+- description: Encrypt a string
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### decrypt
 
-- description: undefined
+- description: Decrypt a string
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 
-### undefined
+### update
 
-- description: undefined
+- description: Update a list
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- list: any[]
 	- predicate: any
 
-### undefined
+### updateAll
 
-- description: undefined
+- description: Update all items in a list
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- list: any[]
 	- predicate: any
 
-### undefined
+### deleteAll
 
-- description: undefined
+- description: Delete all items in a list
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- list: any[]
 
-### undefined
+### merge
 
-- description: undefined
+- description: Merge a list
 - deterministic: true
-- return: undefined
-- params:
-	- list: any[]
-	- predicate: any
-
-### undefined
-
-- description: undefined
-- deterministic: true
-- return: undefined
+- return: any
 - params:
 	- list: any[]
 	- predicate: any
 
-### undefined
+### bulkMerge
 
-- description: undefined
+- description: Bulk merge a list
 - deterministic: true
-- return: undefined
+- return: any
+- params:
+	- list: any[]
+	- predicate: any
+
+### having
+
+- description: Having a list
+- deterministic: true
+- return: T[]
 - params:
 	- list: T[]
 	- predicate: boolean
 
-### undefined
+### include
 
-- description: undefined
+- description: Include a list
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- list: any[]
 	- predicate: any
 
-### undefined
+### desc
 
-- description: undefined
+- description: Descending
 - deterministic: true
-- return: undefined
+- return: void
 - params:
 	- value: any
 
-### undefined
+### asc
 
-- description: undefined
+- description: Ascending
 - deterministic: true
-- return: undefined
+- return: void
 - params:
 	- value: any
 
-### undefined
+### orm.execute
 
-- description: undefined
+- description: Execute an ORM expression
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- expression: string
 	- data: any
 	- options: any
 
-### undefined
+### orm.plan
 
-- description: undefined
+- description: Plan an ORM expression
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- expression: string
 	- options: any
 
-### undefined
+### orm.metadata
 
-- description: undefined
+- description: Get metadata from an ORM expression
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- expression: string
 
-### undefined
+### orm.model
 
-- description: undefined
+- description: Get model from an ORM expression
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- expression: string
 
-### undefined
+### orm.parameters
 
-- description: undefined
+- description: Get parameters from an ORM expression
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- expression: string
 
-### undefined
+### orm.constraints
 
-- description: undefined
+- description: Get constraints from an ORM expression
 - deterministic: true
-- return: undefined
+- return: any
 - params:
 	- expression: string
 
-### undefined
+### contains
 
-- description: undefined
+- description: Includes
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- source: string|T[]
 	- value: string|T
 
-### undefined
+### substr
 
-- description: undefined
+- description: Substring
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- value: string
 	- from: number
 	- count: number
 
-### undefined
+### concatenate
 
-- description: undefined
+- description: Concatenate
 - deterministic: true
-- return: undefined
+- return: string
 - params:
 	- values: any
 
-### undefined
+### startsWith
 
-- description: undefined
+- description: Starts with
 - deterministic: true
-- return: undefined
+- return: boolean
 - params:
 	- value: string
 	- sub: string
 	- start: number
 
-### undefined
+### select
 
-- description: undefined
+- description: Map
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: any[]
 	- predicate: T
 
-### undefined
+### each
 
-- description: undefined
+- description: Foreach
 - deterministic: true
-- return: undefined
+- return: void
 - params:
 	- list: any[]
 	- predicate: any
 
-### undefined
+### where
 
-- description: undefined
+- description: Filter
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- predicate: boolean
 
-### undefined
+### order
 
-- description: undefined
+- description: Sort
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- predicate: any
 
-### undefined
+### delete
 
-- description: undefined
+- description: Remove
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- predicate: boolean
 
-### undefined
+### insert
 
-- description: undefined
+- description: Push
 - deterministic: true
-- return: undefined
+- return: T[]
 - params:
 	- list: T[]
 	- value: T
 
-### undefined
+### len
 
-- description: undefined
+- description: Length
 - deterministic: true
-- return: undefined
+- return: number
 - params:
 	- source: any[]|string
