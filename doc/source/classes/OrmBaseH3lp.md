@@ -32,7 +32,7 @@
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:39
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:40
 
 ## Properties
 
@@ -98,7 +98,7 @@ node\_modules/h3lp/application/h3lp.d.ts:6
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:34
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:35
 
 ***
 
@@ -130,23 +130,23 @@ node\_modules/3xpr/shared/infrastructure/helper.d.ts:6
 
 ***
 
+### query
+
+> **query**: [`QueryHelper`](QueryHelper.md)
+
+#### Source
+
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:38
+
+***
+
 ### schema
 
 > **schema**: [`SchemaHelper`](SchemaHelper.md)
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:35
-
-***
-
-### sql
-
-> **sql**: [`SqlHelper`](SqlHelper.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:37
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:36
 
 ***
 
@@ -198,7 +198,7 @@ node\_modules/h3lp/application/h3lp.d.ts:3
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:38
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:39
 
 ***
 
@@ -222,4 +222,4 @@ node\_modules/h3lp/application/h3lp.d.ts:4
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:36
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:37

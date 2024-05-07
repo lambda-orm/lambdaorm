@@ -18,7 +18,7 @@
 
 #### Parameters
 
-• **on**: [`SentenceAction`](../enumerations/SentenceAction.md)[]
+• **on**: [`SentenceCategory`](../enumerations/SentenceCategory.md)[]
 
 • **condition?**: `string`
 
@@ -30,7 +30,7 @@
 
 #### Source
 
-[src/lib/execution/domain/executor.ts:20](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/execution/domain/executor.ts#L20)
+[src/lib/execution/domain/executor.ts:19](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/execution/domain/executor.ts#L19)
 
 ## Properties
 
@@ -40,17 +40,17 @@
 
 #### Source
 
-[src/lib/execution/domain/executor.ts:18](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/execution/domain/executor.ts#L18)
+[src/lib/execution/domain/executor.ts:17](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/execution/domain/executor.ts#L17)
 
 ***
 
 ### on
 
-> **on**: [`SentenceAction`](../enumerations/SentenceAction.md)[]
+> **on**: [`SentenceCategory`](../enumerations/SentenceCategory.md)[]
 
 #### Source
 
-[src/lib/execution/domain/executor.ts:17](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/execution/domain/executor.ts#L17)
+[src/lib/execution/domain/executor.ts:16](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/execution/domain/executor.ts#L16)
 
 ***
 
@@ -60,7 +60,7 @@
 
 #### Source
 
-[src/lib/execution/domain/executor.ts:19](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/execution/domain/executor.ts#L19)
+[src/lib/execution/domain/executor.ts:18](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/execution/domain/executor.ts#L18)
 
 ## Methods
 
@@ -78,7 +78,7 @@
 
 #### Source
 
-[src/lib/execution/domain/executor.ts:27](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/execution/domain/executor.ts#L27)
+[src/lib/execution/domain/executor.ts:26](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/execution/domain/executor.ts#L26)
 
 ***
 
@@ -96,7 +96,7 @@
 
 #### Source
 
-[src/lib/execution/domain/executor.ts:26](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/execution/domain/executor.ts#L26)
+[src/lib/execution/domain/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/execution/domain/executor.ts#L25)
 
 ***
 
@@ -114,4 +114,4 @@
 
 #### Source
 
-[src/lib/execution/domain/executor.ts:28](https://github.com/lambda-orm/lambdaorm/blob/b5545097c371addc7799ba0f29b9e8204e97d347/src/lib/execution/domain/executor.ts#L28)
+[src/lib/execution/domain/executor.ts:27](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/execution/domain/executor.ts#L27)

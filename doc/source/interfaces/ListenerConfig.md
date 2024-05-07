@@ -60,7 +60,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:139
 
 ### on
 
-> **on**: [`SentenceAction`](../enumerations/SentenceAction.md)[]
+> **on**: [`SentenceCategory`](../enumerations/SentenceCategory.md)[]
 
 #### Source
 

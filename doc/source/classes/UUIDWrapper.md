@@ -28,7 +28,7 @@
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:29
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:30
 
 ***
 
@@ -48,7 +48,7 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:29
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:30
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:31
 
 ***
 
@@ -66,7 +66,7 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:30
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:28
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:29
 
 ***
 
@@ -80,7 +80,7 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:28
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:31
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:32
 
 ***
 
@@ -94,4 +94,4 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:31
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:27
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:28

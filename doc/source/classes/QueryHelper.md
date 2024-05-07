@@ -2,15 +2,15 @@
 
 ***
 
-[Lambda ORM](../README.md) / SqlHelper
+[Lambda ORM](../README.md) / QueryHelper
 
-# Class: SqlHelper
+# Class: QueryHelper
 
 ## Constructors
 
-### new SqlHelper()
+### new QueryHelper()
 
-> **new SqlHelper**(`str`): [`SqlHelper`](SqlHelper.md)
+> **new QueryHelper**(`str`): [`QueryHelper`](QueryHelper.md)
 
 #### Parameters
 
@@ -18,7 +18,7 @@
 
 #### Returns
 
-[`SqlHelper`](SqlHelper.md)
+[`QueryHelper`](QueryHelper.md)
 
 #### Source
 
@@ -61,30 +61,6 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:16
 #### Source
 
 node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:20
-
-***
-
-### createInfo()
-
-> **createInfo**(`entity`, `action`, `category`, `type`): [`SentenceInfo`](../interfaces/SentenceInfo.md)
-
-#### Parameters
-
-• **entity**: `string`
-
-• **action**: [`SentenceAction`](../enumerations/SentenceAction.md)
-
-• **category**: [`SentenceCategory`](../enumerations/SentenceCategory.md)
-
-• **type**: [`SentenceType`](../enumerations/SentenceType.md)
-
-#### Returns
-
-[`SentenceInfo`](../interfaces/SentenceInfo.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:24
 
 ***
 
@@ -190,7 +166,7 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:17
 
 ### getInfo()
 
-> **getInfo**(`action`, `entity`): [`SentenceInfo`](../interfaces/SentenceInfo.md)
+> **getInfo**(`action`, `entity`, `type`?): [`SentenceInfo`](../interfaces/SentenceInfo.md)
 
 #### Parameters
 
@@ -198,9 +174,47 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:17
 
 • **entity**: `string`
 
+• **type?**: [`SentenceType`](../enumerations/SentenceType.md)
+
 #### Returns
 
 [`SentenceInfo`](../interfaces/SentenceInfo.md)
+
+#### Source
+
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:25
+
+***
+
+### getSentenceCategory()
+
+> **getSentenceCategory**(`action`): [`SentenceCategory`](../enumerations/SentenceCategory.md)
+
+#### Parameters
+
+• **action**: [`SentenceAction`](../enumerations/SentenceAction.md)
+
+#### Returns
+
+[`SentenceCategory`](../enumerations/SentenceCategory.md)
+
+#### Source
+
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:24
+
+***
+
+### getSentenceType()
+
+> **getSentenceType**(`action`): [`SentenceType`](../enumerations/SentenceType.md)
+
+#### Parameters
+
+• **action**: [`SentenceAction`](../enumerations/SentenceAction.md)
+
+#### Returns
+
+[`SentenceType`](../enumerations/SentenceType.md)
 
 #### Source
 
