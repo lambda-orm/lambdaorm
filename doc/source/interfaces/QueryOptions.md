@@ -1,69 +1,61 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / QueryOptions
 
 # Interface: QueryOptions
 
-## Hierarchy
+## Extended by
 
-- **`QueryOptions`**
-
-  ↳ [`StagePullOptions`](StagePullOptions.md)
-
-## Table of contents
-
-### Properties
-
-- [chunkSize](QueryOptions.md#chunksize)
-- [headers](QueryOptions.md#headers)
-- [stage](QueryOptions.md#stage)
-- [tryAllCan](QueryOptions.md#tryallcan)
-- [view](QueryOptions.md#view)
+- [`StagePullOptions`](StagePullOptions.md)
 
 ## Properties
 
-### chunkSize
+### chunkSize?
 
-• `Optional` **chunkSize**: `number`
+> `optional` **chunkSize**: `number`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:11
+node\_modules/lambdaorm-base/query/domain/query.d.ts:11
 
-___
+***
 
-### headers
+### headers?
 
-• `Optional` **headers**: [`string`, `any`][]
+> `optional` **headers**: [`string`, `any`][]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:13
+node\_modules/lambdaorm-base/query/domain/query.d.ts:13
 
-___
+***
 
-### stage
+### stage?
 
-• `Optional` **stage**: `string`
+> `optional` **stage**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:9
+node\_modules/lambdaorm-base/query/domain/query.d.ts:9
 
-___
+***
 
-### tryAllCan
+### tryAllCan?
 
-• `Optional` **tryAllCan**: `boolean`
+> `optional` **tryAllCan**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:12
+node\_modules/lambdaorm-base/query/domain/query.d.ts:12
 
-___
+***
 
-### view
+### view?
 
-• `Optional` **view**: `string`
+> `optional` **view**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:10
+node\_modules/lambdaorm-base/query/domain/query.d.ts:10

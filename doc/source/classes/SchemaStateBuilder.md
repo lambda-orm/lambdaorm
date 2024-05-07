@@ -1,49 +1,43 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SchemaStateBuilder
 
 # Class: SchemaStateBuilder
 
-## Table of contents
-
-### Constructors
-
-- [constructor](SchemaStateBuilder.md#constructor)
-
-### Methods
-
-- [build](SchemaStateBuilder.md#build)
-
 ## Constructors
 
-### constructor
+### new SchemaStateBuilder()
 
-• **new SchemaStateBuilder**(`expressions`, `facade`, `helper`): [`SchemaStateBuilder`](SchemaStateBuilder.md)
+> **new SchemaStateBuilder**(`expressions`, `facade`, `helper`): [`SchemaStateBuilder`](SchemaStateBuilder.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expressions` | `Expressions` |
-| `facade` | [`SchemaFacade`](SchemaFacade.md) |
-| `helper` | [`OrmBaseH3lp`](OrmBaseH3lp.md) |
+• **expressions**: `Expressions`
+
+• **facade**: [`SchemaFacade`](SchemaFacade.md)
+
+• **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Returns
 
 [`SchemaStateBuilder`](SchemaStateBuilder.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/stateBuilder.d.ts:8
+node\_modules/lambdaorm-base/schema/infrastructure/stateBuilder.d.ts:8
 
 ## Methods
 
-### build
+### build()
 
-▸ **build**(): [`SchemaState`](SchemaState.md)
+> **build**(): [`SchemaState`](SchemaState.md)
 
 #### Returns
 
 [`SchemaState`](SchemaState.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/stateBuilder.d.ts:9
+node\_modules/lambdaorm-base/schema/infrastructure/stateBuilder.d.ts:9

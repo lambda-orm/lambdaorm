@@ -1,74 +1,67 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ListenerConfig
 
 # Interface: ListenerConfig
 
-## Table of contents
-
-### Properties
-
-- [after](ListenerConfig.md#after)
-- [before](ListenerConfig.md#before)
-- [condition](ListenerConfig.md#condition)
-- [error](ListenerConfig.md#error)
-- [name](ListenerConfig.md#name)
-- [on](ListenerConfig.md#on)
-
 ## Properties
 
-### after
+### after?
 
-• `Optional` **after**: `string`
+> `optional` **after**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:143
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:143
 
-___
+***
 
-### before
+### before?
 
-• `Optional` **before**: `string`
+> `optional` **before**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:142
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:142
 
-___
+***
 
-### condition
+### condition?
 
-• `Optional` **condition**: `string`
+> `optional` **condition**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:141
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:141
 
-___
+***
 
-### error
+### error?
 
-• `Optional` **error**: `string`
+> `optional` **error**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:144
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:144
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:139
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:139
 
-___
+***
 
 ### on
 
-• **on**: [`SentenceAction`](../enums/SentenceAction.md)[]
+> **on**: [`SentenceAction`](../enumerations/SentenceAction.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:140
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:140

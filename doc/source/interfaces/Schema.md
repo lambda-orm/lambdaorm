@@ -1,52 +1,47 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Schema
 
 # Interface: Schema
 
-## Table of contents
-
-### Properties
-
-- [application](Schema.md#application)
-- [domain](Schema.md#domain)
-- [infrastructure](Schema.md#infrastructure)
-- [version](Schema.md#version)
-
 ## Properties
 
-### application
+### application?
 
-• `Optional` **application**: [`ApplicationSchema`](ApplicationSchema.md)
+> `optional` **application**: [`ApplicationSchema`](ApplicationSchema.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:181
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:181
 
-___
+***
 
 ### domain
 
-• **domain**: [`DomainSchema`](DomainSchema.md)
+> **domain**: [`DomainSchema`](DomainSchema.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:179
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:179
 
-___
+***
 
-### infrastructure
+### infrastructure?
 
-• `Optional` **infrastructure**: [`InfrastructureSchema`](InfrastructureSchema.md)
+> `optional` **infrastructure**: [`InfrastructureSchema`](InfrastructureSchema.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:180
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:180
 
-___
+***
 
 ### version
 
-• **version**: `string`
+> **version**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:178
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:178

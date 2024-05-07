@@ -1,26 +1,16 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / UUIDWrapper
 
 # Class: UUIDWrapper
 
-## Table of contents
-
-### Constructors
-
-- [constructor](UUIDWrapper.md#constructor)
-
-### Methods
-
-- [empty](UUIDWrapper.md#empty)
-- [fromString](UUIDWrapper.md#fromstring)
-- [isUuid](UUIDWrapper.md#isuuid)
-- [jsonSchema](UUIDWrapper.md#jsonschema)
-- [v4](UUIDWrapper.md#v4)
-
 ## Constructors
 
-### constructor
+### new UUIDWrapper()
 
-• **new UUIDWrapper**(): [`UUIDWrapper`](UUIDWrapper.md)
+> **new UUIDWrapper**(): [`UUIDWrapper`](UUIDWrapper.md)
 
 #### Returns
 
@@ -28,83 +18,80 @@
 
 ## Methods
 
-### empty
+### empty()
 
-▸ **empty**(): `string`
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:29
-
-___
-
-### fromString
-
-▸ **fromString**(`text`, `namespace?`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `text` | `string` |
-| `namespace?` | `string` |
+> **empty**(): `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:30
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:29
 
-___
+***
 
-### isUuid
+### fromString()
 
-▸ **isUuid**(`id`): `boolean`
+> **fromString**(`text`, `namespace`?): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `id` | `string` |
+• **text**: `string`
+
+• **namespace?**: `string`
+
+#### Returns
+
+`string`
+
+#### Source
+
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:30
+
+***
+
+### isUuid()
+
+> **isUuid**(`id`): `boolean`
+
+#### Parameters
+
+• **id**: `string`
 
 #### Returns
 
 `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:28
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:28
 
-___
+***
 
-### jsonSchema
+### jsonSchema()
 
-▸ **jsonSchema**(): `any`
+> **jsonSchema**(): `any`
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:31
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:31
 
-___
+***
 
-### v4
+### v4()
 
-▸ **v4**(): `string`
+> **v4**(): `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:27
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:27

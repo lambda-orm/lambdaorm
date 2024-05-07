@@ -1,63 +1,57 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Mapping
 
 # Interface: Mapping
 
-## Table of contents
-
-### Properties
-
-- [entities](Mapping.md#entities)
-- [extends](Mapping.md#extends)
-- [format](Mapping.md#format)
-- [mapping](Mapping.md#mapping)
-- [name](Mapping.md#name)
-
 ## Properties
 
-### entities
+### entities?
 
-• `Optional` **entities**: [`EntityMapping`](EntityMapping.md)[]
+> `optional` **entities**: [`EntityMapping`](EntityMapping.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:107
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:107
 
-___
+***
 
-### extends
+### extends?
 
-• `Optional` **extends**: `string`
+> `optional` **extends**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:104
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:104
 
-___
+***
 
-### format
+### format?
 
-• `Optional` **format**: [`FormatMapping`](FormatMapping.md)
+> `optional` **format**: [`FormatMapping`](FormatMapping.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:108
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:108
 
-___
+***
 
-### mapping
+### mapping?
 
-• `Optional` **mapping**: `string`
+> `optional` **mapping**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:105
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:105
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:106
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:106

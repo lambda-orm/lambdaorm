@@ -1,42 +1,24 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SchemaError
 
 # Class: SchemaError
 
-## Hierarchy
+## Extends
 
 - `Error`
 
-  ↳ **`SchemaError`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](SchemaError.md#constructor)
-
-### Properties
-
-- [message](SchemaError.md#message)
-- [name](SchemaError.md#name)
-- [stack](SchemaError.md#stack)
-- [prepareStackTrace](SchemaError.md#preparestacktrace)
-- [stackTraceLimit](SchemaError.md#stacktracelimit)
-
-### Methods
-
-- [captureStackTrace](SchemaError.md#capturestacktrace)
-
 ## Constructors
 
-### constructor
+### new SchemaError()
 
-• **new SchemaError**(`message`): [`SchemaError`](SchemaError.md)
+> **new SchemaError**(`message`): [`SchemaError`](SchemaError.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `message` | `string` |
+• **message**: `string`
 
 #### Returns
 
@@ -44,117 +26,111 @@
 
 #### Overrides
 
-Error.constructor
+`Error.constructor`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/errors.d.ts:2
+node\_modules/lambdaorm-base/schema/domain/errors.d.ts:2
 
 ## Properties
 
 ### message
 
-• **message**: `string`
+> **message**: `string`
 
 #### Inherited from
 
-Error.message
+`Error.message`
 
-#### Defined in
+#### Source
 
-node_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/typescript/lib/lib.es5.d.ts:1077
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
 #### Inherited from
 
-Error.name
+`Error.name`
 
-#### Defined in
+#### Source
 
-node_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/typescript/lib/lib.es5.d.ts:1076
 
-___
+***
 
-### stack
+### stack?
 
-• `Optional` **stack**: `string`
+> `optional` **stack**: `string`
 
 #### Inherited from
 
-Error.stack
+`Error.stack`
 
-#### Defined in
+#### Source
 
-node_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/typescript/lib/lib.es5.d.ts:1078
 
-___
+***
 
-### prepareStackTrace
+### prepareStackTrace()?
 
-▪ `Static` `Optional` **prepareStackTrace**: (`err`: `Error`, `stackTraces`: `CallSite`[]) => `any`
+> `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
-**`See`**
+#### See
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
-#### Type declaration
+#### Parameters
 
-▸ (`err`, `stackTraces`): `any`
+• **err**: `Error`
 
-##### Parameters
+• **stackTraces**: `CallSite`[]
 
-| Name | Type |
-| :------ | :------ |
-| `err` | `Error` |
-| `stackTraces` | `CallSite`[] |
-
-##### Returns
+#### Returns
 
 `any`
 
 #### Inherited from
 
-Error.prepareStackTrace
+`Error.prepareStackTrace`
 
-#### Defined in
+#### Source
 
-node_modules/@types/node/globals.d.ts:28
+node\_modules/@types/node/globals.d.ts:28
 
-___
+***
 
 ### stackTraceLimit
 
-▪ `Static` **stackTraceLimit**: `number`
+> `static` **stackTraceLimit**: `number`
 
 #### Inherited from
 
-Error.stackTraceLimit
+`Error.stackTraceLimit`
 
-#### Defined in
+#### Source
 
-node_modules/@types/node/globals.d.ts:30
+node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
-### captureStackTrace
+### captureStackTrace()
 
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
 
 #### Returns
 
@@ -162,8 +138,8 @@ Create .stack property on a target object
 
 #### Inherited from
 
-Error.captureStackTrace
+`Error.captureStackTrace`
 
-#### Defined in
+#### Source
 
-node_modules/@types/node/globals.d.ts:21
+node\_modules/@types/node/globals.d.ts:21

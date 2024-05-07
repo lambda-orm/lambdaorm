@@ -1,74 +1,67 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / InitializeSchemaArgs
 
 # Interface: InitializeSchemaArgs
 
-## Table of contents
-
-### Properties
-
-- [connection](InitializeSchemaArgs.md#connection)
-- [dataPath](InitializeSchemaArgs.md#datapath)
-- [dialect](InitializeSchemaArgs.md#dialect)
-- [source](InitializeSchemaArgs.md#source)
-- [url](InitializeSchemaArgs.md#url)
-- [workspace](InitializeSchemaArgs.md#workspace)
-
 ## Properties
 
-### connection
+### connection?
 
-• `Optional` **connection**: `string`
+> `optional` **connection**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:18
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:18
 
-___
+***
 
-### dataPath
+### dataPath?
 
-• `Optional` **dataPath**: `string`
+> `optional` **dataPath**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:19
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:19
 
-___
+***
 
-### dialect
+### dialect?
 
-• `Optional` **dialect**: [`Dialect`](../enums/Dialect.md)
+> `optional` **dialect**: [`Dialect`](../enumerations/Dialect.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:17
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:17
 
-___
+***
 
-### source
+### source?
 
-• `Optional` **source**: `string`
+> `optional` **source**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:16
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:16
 
-___
+***
 
-### url
+### url?
 
-• `Optional` **url**: `string`
+> `optional` **url**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:15
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:15
 
-___
+***
 
 ### workspace
 
-• **workspace**: `string`
+> **workspace**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:14
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:14

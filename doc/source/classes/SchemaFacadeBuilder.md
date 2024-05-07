@@ -1,48 +1,41 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SchemaFacadeBuilder
 
 # Class: SchemaFacadeBuilder
 
-## Table of contents
-
-### Constructors
-
-- [constructor](SchemaFacadeBuilder.md#constructor)
-
-### Methods
-
-- [build](SchemaFacadeBuilder.md#build)
-
 ## Constructors
 
-### constructor
+### new SchemaFacadeBuilder()
 
-• **new SchemaFacadeBuilder**(`expressions`, `helper`): [`SchemaFacadeBuilder`](SchemaFacadeBuilder.md)
+> **new SchemaFacadeBuilder**(`expressions`, `helper`): [`SchemaFacadeBuilder`](SchemaFacadeBuilder.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expressions` | `Expressions` |
-| `helper` | [`OrmBaseH3lp`](OrmBaseH3lp.md) |
+• **expressions**: `Expressions`
+
+• **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Returns
 
 [`SchemaFacadeBuilder`](SchemaFacadeBuilder.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:7
+node\_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:7
 
 ## Methods
 
-### build
+### build()
 
-▸ **build**(): [`SchemaFacade`](SchemaFacade.md)
+> **build**(): [`SchemaFacade`](SchemaFacade.md)
 
 #### Returns
 
 [`SchemaFacade`](SchemaFacade.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:8
+node\_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:8

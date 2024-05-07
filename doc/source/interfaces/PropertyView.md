@@ -1,41 +1,37 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / PropertyView
 
 # Interface: PropertyView
 
-## Table of contents
-
-### Properties
-
-- [exclude](PropertyView.md#exclude)
-- [name](PropertyView.md#name)
-- [readExp](PropertyView.md#readexp)
-
 ## Properties
 
-### exclude
+### exclude?
 
-• `Optional` **exclude**: `boolean`
+> `optional` **exclude**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:113
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:113
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:111
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:111
 
-___
+***
 
-### readExp
+### readExp?
 
-• `Optional` **readExp**: `string`
+> `optional` **readExp**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:112
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:112

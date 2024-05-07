@@ -1,41 +1,37 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ApplicationSchema
 
 # Interface: ApplicationSchema
 
-## Table of contents
-
-### Properties
-
-- [end](ApplicationSchema.md#end)
-- [listeners](ApplicationSchema.md#listeners)
-- [start](ApplicationSchema.md#start)
-
 ## Properties
 
-### end
+### end?
 
-• `Optional` **end**: [`TaskConfig`](TaskConfig.md)[]
+> `optional` **end**: [`TaskConfig`](TaskConfig.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:175
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:175
 
-___
+***
 
-### listeners
+### listeners?
 
-• `Optional` **listeners**: [`ListenerConfig`](ListenerConfig.md)[]
+> `optional` **listeners**: [`ListenerConfig`](ListenerConfig.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:174
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:174
 
-___
+***
 
-### start
+### start?
 
-• `Optional` **start**: [`TaskConfig`](TaskConfig.md)[]
+> `optional` **start**: [`TaskConfig`](TaskConfig.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:173
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:173

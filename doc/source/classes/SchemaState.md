@@ -1,517 +1,471 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SchemaState
 
 # Class: SchemaState
 
-## Table of contents
-
-### Constructors
-
-- [constructor](SchemaState.md#constructor)
-
-### Properties
-
-- [domain](SchemaState.md#domain)
-- [mapping](SchemaState.md#mapping)
-- [originalSchema](SchemaState.md#originalschema)
-- [schema](SchemaState.md#schema)
-- [schemaPath](SchemaState.md#schemapath)
-- [source](SchemaState.md#source)
-- [stage](SchemaState.md#stage)
-- [view](SchemaState.md#view)
-
-### Methods
-
-- [evalSourceRule](SchemaState.md#evalsourcerule)
-- [getSchemaDomain](SchemaState.md#getschemadomain)
-- [getSchemaEntities](SchemaState.md#getschemaentities)
-- [getSchemaEntity](SchemaState.md#getschemaentity)
-- [getSchemaEntityMapping](SchemaState.md#getschemaentitymapping)
-- [getSchemaEnum](SchemaState.md#getschemaenum)
-- [getSchemaEnums](SchemaState.md#getschemaenums)
-- [getSchemaMapping](SchemaState.md#getschemamapping)
-- [getSchemaMappings](SchemaState.md#getschemamappings)
-- [getSchemaSource](SchemaState.md#getschemasource)
-- [getSchemaSources](SchemaState.md#getschemasources)
-- [getSchemaStage](SchemaState.md#getschemastage)
-- [getSchemaStages](SchemaState.md#getschemastages)
-- [getSchemaVersion](SchemaState.md#getschemaversion)
-- [getSchemaViews](SchemaState.md#getschemaviews)
-- [getSource](SchemaState.md#getsource)
-- [initialize](SchemaState.md#initialize)
-- [introspect](SchemaState.md#introspect)
-- [load](SchemaState.md#load)
-- [match](SchemaState.md#match)
-
 ## Constructors
 
-### constructor
+### new SchemaState()
 
-• **new SchemaState**(`source`, `domain`, `mapping`, `stage`, `view`, `routeService`, `facade`, `loadSchema`, `helper`): [`SchemaState`](SchemaState.md)
+> **new SchemaState**(`source`, `domain`, `mapping`, `stage`, `view`, `routeService`, `facade`, `loadSchema`, `helper`): [`SchemaState`](SchemaState.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | [`DataSourceConfigService`](DataSourceConfigService.md) |
-| `domain` | [`DomainConfigService`](DomainConfigService.md) |
-| `mapping` | [`MappingsConfigService`](MappingsConfigService.md) |
-| `stage` | [`StageConfigService`](StageConfigService.md) |
-| `view` | [`ViewsConfigService`](ViewsConfigService.md) |
-| `routeService` | [`RouteService`](RouteService.md) |
-| `facade` | [`SchemaFacade`](SchemaFacade.md) |
-| `loadSchema` | [`LoadSchema`](LoadSchema.md) |
-| `helper` | [`OrmBaseH3lp`](OrmBaseH3lp.md) |
+• **source**: [`DataSourceConfigService`](DataSourceConfigService.md)
+
+• **domain**: [`DomainConfigService`](DomainConfigService.md)
+
+• **mapping**: [`MappingsConfigService`](MappingsConfigService.md)
+
+• **stage**: [`StageConfigService`](StageConfigService.md)
+
+• **view**: [`ViewsConfigService`](ViewsConfigService.md)
+
+• **routeService**: [`RouteService`](RouteService.md)
+
+• **facade**: [`SchemaFacade`](SchemaFacade.md)
+
+• **loadSchema**: [`LoadSchema`](LoadSchema.md)
+
+• **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Returns
 
 [`SchemaState`](SchemaState.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:24
+node\_modules/lambdaorm-base/schema/application/state.d.ts:24
 
 ## Properties
 
 ### domain
 
-• `Readonly` **domain**: [`DomainConfigService`](DomainConfigService.md)
+> `readonly` **domain**: [`DomainConfigService`](DomainConfigService.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:13
+node\_modules/lambdaorm-base/schema/application/state.d.ts:13
 
-___
+***
 
 ### mapping
 
-• `Readonly` **mapping**: [`MappingsConfigService`](MappingsConfigService.md)
+> `readonly` **mapping**: [`MappingsConfigService`](MappingsConfigService.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:14
+node\_modules/lambdaorm-base/schema/application/state.d.ts:14
 
-___
+***
 
 ### originalSchema
 
-• **originalSchema**: [`Schema`](../interfaces/Schema.md)
+> **originalSchema**: [`Schema`](../interfaces/Schema.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:22
+node\_modules/lambdaorm-base/schema/application/state.d.ts:22
 
-___
+***
 
 ### schema
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+> **schema**: [`Schema`](../interfaces/Schema.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:21
+node\_modules/lambdaorm-base/schema/application/state.d.ts:21
 
-___
+***
 
-### schemaPath
+### schemaPath?
 
-• `Optional` **schemaPath**: `string`
+> `optional` **schemaPath**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:23
+node\_modules/lambdaorm-base/schema/application/state.d.ts:23
 
-___
+***
 
 ### source
 
-• `Readonly` **source**: [`DataSourceConfigService`](DataSourceConfigService.md)
+> `readonly` **source**: [`DataSourceConfigService`](DataSourceConfigService.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:12
+node\_modules/lambdaorm-base/schema/application/state.d.ts:12
 
-___
+***
 
 ### stage
 
-• `Readonly` **stage**: [`StageConfigService`](StageConfigService.md)
+> `readonly` **stage**: [`StageConfigService`](StageConfigService.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:15
+node\_modules/lambdaorm-base/schema/application/state.d.ts:15
 
-___
+***
 
 ### view
 
-• `Readonly` **view**: [`ViewsConfigService`](ViewsConfigService.md)
+> `readonly` **view**: [`ViewsConfigService`](ViewsConfigService.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:16
+node\_modules/lambdaorm-base/schema/application/state.d.ts:16
 
 ## Methods
 
-### evalSourceRule
+### evalSourceRule()
 
-▸ **evalSourceRule**(`rule`, `info`): `boolean`
+> **evalSourceRule**(`rule`, `info`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `rule` | [`SourceRule`](../interfaces/SourceRule.md) |
-| `info` | [`SentenceInfo`](../interfaces/SentenceInfo.md) |
+• **rule**: [`SourceRule`](../interfaces/SourceRule.md)
+
+• **info**: [`SentenceInfo`](../interfaces/SentenceInfo.md)
 
 #### Returns
 
 `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:29
+node\_modules/lambdaorm-base/schema/application/state.d.ts:29
 
-___
+***
 
-### getSchemaDomain
+### getSchemaDomain()
 
-▸ **getSchemaDomain**(): [`DomainSchema`](../interfaces/DomainSchema.md)
+> **getSchemaDomain**(): [`DomainSchema`](../interfaces/DomainSchema.md)
 
 #### Returns
 
 [`DomainSchema`](../interfaces/DomainSchema.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:42
+node\_modules/lambdaorm-base/schema/application/state.d.ts:42
 
-___
+***
 
-### getSchemaEntities
+### getSchemaEntities()
 
-▸ **getSchemaEntities**(): [`Entity`](../interfaces/Entity.md)[]
+> **getSchemaEntities**(): [`Entity`](../interfaces/Entity.md)[]
 
 #### Returns
 
 [`Entity`](../interfaces/Entity.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:43
+node\_modules/lambdaorm-base/schema/application/state.d.ts:43
 
-___
+***
 
-### getSchemaEntity
+### getSchemaEntity()
 
-▸ **getSchemaEntity**(`entity`): `undefined` \| [`Entity`](../interfaces/Entity.md)
+> **getSchemaEntity**(`entity`): `undefined` \| [`Entity`](../interfaces/Entity.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `string` |
+• **entity**: `string`
 
 #### Returns
 
 `undefined` \| [`Entity`](../interfaces/Entity.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:44
+node\_modules/lambdaorm-base/schema/application/state.d.ts:44
 
-___
+***
 
-### getSchemaEntityMapping
+### getSchemaEntityMapping()
 
-▸ **getSchemaEntityMapping**(`mapping`, `entity`): `undefined` \| [`EntityMapping`](../interfaces/EntityMapping.md)
+> **getSchemaEntityMapping**(`mapping`, `entity`): `undefined` \| [`EntityMapping`](../interfaces/EntityMapping.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `mapping` | `string` |
-| `entity` | `string` |
+• **mapping**: `string`
+
+• **entity**: `string`
 
 #### Returns
 
 `undefined` \| [`EntityMapping`](../interfaces/EntityMapping.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:49
+node\_modules/lambdaorm-base/schema/application/state.d.ts:49
 
-___
+***
 
-### getSchemaEnum
+### getSchemaEnum()
 
-▸ **getSchemaEnum**(`_enum`): `undefined` \| [`Enum`](../interfaces/Enum.md)
+> **getSchemaEnum**(`_enum`): `undefined` \| [`Enum`](../interfaces/Enum.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_enum` | `string` |
+• **\_enum**: `string`
 
 #### Returns
 
 `undefined` \| [`Enum`](../interfaces/Enum.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:46
+node\_modules/lambdaorm-base/schema/application/state.d.ts:46
 
-___
+***
 
-### getSchemaEnums
+### getSchemaEnums()
 
-▸ **getSchemaEnums**(): [`Enum`](../interfaces/Enum.md)[]
+> **getSchemaEnums**(): [`Enum`](../interfaces/Enum.md)[]
 
 #### Returns
 
 [`Enum`](../interfaces/Enum.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:45
+node\_modules/lambdaorm-base/schema/application/state.d.ts:45
 
-___
+***
 
-### getSchemaMapping
+### getSchemaMapping()
 
-▸ **getSchemaMapping**(`mapping`): `undefined` \| [`Mapping`](../interfaces/Mapping.md)
+> **getSchemaMapping**(`mapping`): `undefined` \| [`Mapping`](../interfaces/Mapping.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `mapping` | `string` |
+• **mapping**: `string`
 
 #### Returns
 
 `undefined` \| [`Mapping`](../interfaces/Mapping.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:48
+node\_modules/lambdaorm-base/schema/application/state.d.ts:48
 
-___
+***
 
-### getSchemaMappings
+### getSchemaMappings()
 
-▸ **getSchemaMappings**(): [`Mapping`](../interfaces/Mapping.md)[]
+> **getSchemaMappings**(): [`Mapping`](../interfaces/Mapping.md)[]
 
 #### Returns
 
 [`Mapping`](../interfaces/Mapping.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:47
+node\_modules/lambdaorm-base/schema/application/state.d.ts:47
 
-___
+***
 
-### getSchemaSource
+### getSchemaSource()
 
-▸ **getSchemaSource**(`source`): `Object`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `source` | `string` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `dialect` | `string` |
-| `name` | `string` |
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/state.d.ts:35
-
-___
-
-### getSchemaSources
-
-▸ **getSchemaSources**(): \{ `dialect`: `string` ; `name`: `string`  }[]
-
-#### Returns
-
-\{ `dialect`: `string` ; `name`: `string`  }[]
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/application/state.d.ts:31
-
-___
-
-### getSchemaStage
-
-▸ **getSchemaStage**(`stage`): `undefined` \| [`Stage`](../interfaces/Stage.md)
+> **getSchemaSource**(`source`): `object`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `stage` | `string` |
+• **source**: `string`
+
+#### Returns
+
+`object`
+
+##### dialect
+
+> **dialect**: `string`
+
+##### name
+
+> **name**: `string`
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/application/state.d.ts:35
+
+***
+
+### getSchemaSources()
+
+> **getSchemaSources**(): `object`[]
+
+#### Returns
+
+`object`[]
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/application/state.d.ts:31
+
+***
+
+### getSchemaStage()
+
+> **getSchemaStage**(`stage`): `undefined` \| [`Stage`](../interfaces/Stage.md)
+
+#### Parameters
+
+• **stage**: `string`
 
 #### Returns
 
 `undefined` \| [`Stage`](../interfaces/Stage.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:51
+node\_modules/lambdaorm-base/schema/application/state.d.ts:51
 
-___
+***
 
-### getSchemaStages
+### getSchemaStages()
 
-▸ **getSchemaStages**(): [`Stage`](../interfaces/Stage.md)[]
+> **getSchemaStages**(): [`Stage`](../interfaces/Stage.md)[]
 
 #### Returns
 
 [`Stage`](../interfaces/Stage.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:50
+node\_modules/lambdaorm-base/schema/application/state.d.ts:50
 
-___
+***
 
-### getSchemaVersion
+### getSchemaVersion()
 
-▸ **getSchemaVersion**(): `Object`
+> **getSchemaVersion**(): `object`
 
 #### Returns
 
-`Object`
+`object`
 
-| Name | Type |
-| :------ | :------ |
-| `version` | `string` |
+##### version
 
-#### Defined in
+> **version**: `string`
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:39
+#### Source
 
-___
+node\_modules/lambdaorm-base/schema/application/state.d.ts:39
 
-### getSchemaViews
+***
 
-▸ **getSchemaViews**(): `string`[]
+### getSchemaViews()
+
+> **getSchemaViews**(): `string`[]
 
 #### Returns
 
 `string`[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:52
+node\_modules/lambdaorm-base/schema/application/state.d.ts:52
 
-___
+***
 
-### getSource
+### getSource()
 
-▸ **getSource**(`info`, `stage?`): `string`
+> **getSource**(`info`, `stage`?): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `info` | [`SentenceInfo`](../interfaces/SentenceInfo.md) |
-| `stage?` | `string` |
+• **info**: [`SentenceInfo`](../interfaces/SentenceInfo.md)
+
+• **stage?**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:30
+node\_modules/lambdaorm-base/schema/application/state.d.ts:30
 
-___
+***
 
-### initialize
+### initialize()
 
-▸ **initialize**(`args`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
+> **initialize**(`args`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | [`InitializeSchemaArgs`](../interfaces/InitializeSchemaArgs.md) |
+• **args**: [`InitializeSchemaArgs`](../interfaces/InitializeSchemaArgs.md)
 
 #### Returns
 
 `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:25
+node\_modules/lambdaorm-base/schema/application/state.d.ts:25
 
-___
+***
 
-### introspect
+### introspect()
 
-▸ **introspect**(`data`, `name`): `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
+> **introspect**(`data`, `name`): `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `name` | `string` |
+• **data**: `any`
+
+• **name**: `string`
 
 #### Returns
 
 `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:27
+node\_modules/lambdaorm-base/schema/application/state.d.ts:27
 
-___
+***
 
-### load
+### load()
 
-▸ **load**(`source`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
+> **load**(`source`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | `string` \| [`Schema`](../interfaces/Schema.md) |
+• **source**: `string` \| [`Schema`](../interfaces/Schema.md)
 
 #### Returns
 
 `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:26
+node\_modules/lambdaorm-base/schema/application/state.d.ts:26
 
-___
+***
 
-### match
+### match()
 
-▸ **match**(`mappings`, `options?`): `Promise`\<`void`\>
+> **match**(`mappings`, `options`?): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `mappings` | [`Mapping`](../interfaces/Mapping.md)[] |
-| `options?` | [`MatchOptions`](../interfaces/MatchOptions.md) |
+• **mappings**: [`Mapping`](../interfaces/Mapping.md)[]
+
+• **options?**: [`MatchOptions`](../interfaces/MatchOptions.md)
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/state.d.ts:28
+node\_modules/lambdaorm-base/schema/application/state.d.ts:28

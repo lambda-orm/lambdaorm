@@ -1,3 +1,7 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SentenceSerializerImp
 
 # Class: SentenceSerializerImp
@@ -6,23 +10,11 @@
 
 - [`SentenceSerializer`](../interfaces/SentenceSerializer.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](SentenceSerializerImp.md#constructor)
-
-### Methods
-
-- [clone](SentenceSerializerImp.md#clone)
-- [deserialize](SentenceSerializerImp.md#deserialize)
-- [serialize](SentenceSerializerImp.md#serialize)
-
 ## Constructors
 
-### constructor
+### new SentenceSerializerImp()
 
-• **new SentenceSerializerImp**(): [`SentenceSerializerImp`](SentenceSerializerImp.md)
+> **new SentenceSerializerImp**(): [`SentenceSerializerImp`](SentenceSerializerImp.md)
 
 #### Returns
 
@@ -30,15 +22,13 @@
 
 ## Methods
 
-### clone
+### clone()
 
-▸ **clone**(`sentence`): [`Sentence`](Sentence.md)
+> **clone**(`sentence`): [`Sentence`](Sentence.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sentence` | [`Sentence`](Sentence.md) |
+• **sentence**: [`Sentence`](Sentence.md)
 
 #### Returns
 
@@ -46,23 +36,21 @@
 
 #### Implementation of
 
-[SentenceSerializer](../interfaces/SentenceSerializer.md).[clone](../interfaces/SentenceSerializer.md#clone)
+[`SentenceSerializer`](../interfaces/SentenceSerializer.md).[`clone`](../interfaces/SentenceSerializer.md#clone)
 
-#### Defined in
+#### Source
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:9](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/sentence/application/services/sentenceSerializer.ts#L9)
+[src/lib/sentence/application/services/sentenceSerializer.ts:9](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/sentence/application/services/sentenceSerializer.ts#L9)
 
-___
+***
 
-### deserialize
+### deserialize()
 
-▸ **deserialize**(`value`): [`Sentence`](Sentence.md)
+> **deserialize**(`value`): [`Sentence`](Sentence.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` |
+• **value**: `string`
 
 #### Returns
 
@@ -70,23 +58,21 @@ ___
 
 #### Implementation of
 
-[SentenceSerializer](../interfaces/SentenceSerializer.md).[deserialize](../interfaces/SentenceSerializer.md#deserialize)
+[`SentenceSerializer`](../interfaces/SentenceSerializer.md).[`deserialize`](../interfaces/SentenceSerializer.md#deserialize)
 
-#### Defined in
+#### Source
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:19](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/sentence/application/services/sentenceSerializer.ts#L19)
+[src/lib/sentence/application/services/sentenceSerializer.ts:19](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/sentence/application/services/sentenceSerializer.ts#L19)
 
-___
+***
 
-### serialize
+### serialize()
 
-▸ **serialize**(`sentence`): `string`
+> **serialize**(`sentence`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sentence` | [`Sentence`](Sentence.md) |
+• **sentence**: [`Sentence`](Sentence.md)
 
 #### Returns
 
@@ -94,8 +80,8 @@ ___
 
 #### Implementation of
 
-[SentenceSerializer](../interfaces/SentenceSerializer.md).[serialize](../interfaces/SentenceSerializer.md#serialize)
+[`SentenceSerializer`](../interfaces/SentenceSerializer.md).[`serialize`](../interfaces/SentenceSerializer.md#serialize)
 
-#### Defined in
+#### Source
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:15](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/sentence/application/services/sentenceSerializer.ts#L15)
+[src/lib/sentence/application/services/sentenceSerializer.ts:15](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/sentence/application/services/sentenceSerializer.ts#L15)

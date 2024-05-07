@@ -1,124 +1,103 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / MappingsConfigService
 
 # Class: MappingsConfigService
 
-## Table of contents
-
-### Constructors
-
-- [constructor](MappingsConfigService.md#constructor)
-
-### Properties
-
-- [mappings](MappingsConfigService.md#mappings)
-
-### Methods
-
-- [delete](MappingsConfigService.md#delete)
-- [get](MappingsConfigService.md#get)
-- [getInstance](MappingsConfigService.md#getinstance)
-- [load](MappingsConfigService.md#load)
-
 ## Constructors
 
-### constructor
+### new MappingsConfigService()
 
-• **new MappingsConfigService**(): [`MappingsConfigService`](MappingsConfigService.md)
+> **new MappingsConfigService**(): [`MappingsConfigService`](MappingsConfigService.md)
 
 #### Returns
 
 [`MappingsConfigService`](MappingsConfigService.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:5
+node\_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:5
 
 ## Properties
 
 ### mappings
 
-• **mappings**: [`Mapping`](../interfaces/Mapping.md)[]
+> **mappings**: [`Mapping`](../interfaces/Mapping.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:4
+node\_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:4
 
 ## Methods
 
-### delete
+### delete()
 
-▸ **delete**(`name`): `void`
+> **delete**(`name`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:7
+node\_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:7
 
-___
+***
 
-### get
+### get()
 
-▸ **get**(`name`): [`Mapping`](../interfaces/Mapping.md)
+> **get**(`name`): [`Mapping`](../interfaces/Mapping.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 [`Mapping`](../interfaces/Mapping.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:8
+node\_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:8
 
-___
+***
 
-### getInstance
+### getInstance()
 
-▸ **getInstance**(`name`): [`MappingConfigService`](MappingConfigService.md)
+> **getInstance**(`name`): [`MappingConfigService`](MappingConfigService.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 [`MappingConfigService`](MappingConfigService.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:9
+node\_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:9
 
-___
+***
 
-### load
+### load()
 
-▸ **load**(`value`): `void`
+> **load**(`value`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | [`Mapping`](../interfaces/Mapping.md) |
+• **value**: [`Mapping`](../interfaces/Mapping.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:6
+node\_modules/lambdaorm-base/schema/application/services/config/mappingsConfigService.d.ts:6

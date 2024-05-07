@@ -1,58 +1,53 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / LoadSchema
 
 # Class: LoadSchema
 
-## Table of contents
-
-### Constructors
-
-- [constructor](LoadSchema.md#constructor)
-
-### Methods
-
-- [load](LoadSchema.md#load)
-
 ## Constructors
 
-### constructor
+### new LoadSchema()
 
-• **new LoadSchema**(`source`, `domain`, `mapping`, `stage`, `view`, `helper`): [`LoadSchema`](LoadSchema.md)
+> **new LoadSchema**(`source`, `domain`, `mapping`, `stage`, `view`, `helper`): [`LoadSchema`](LoadSchema.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | [`DataSourceConfigService`](DataSourceConfigService.md) |
-| `domain` | [`DomainConfigService`](DomainConfigService.md) |
-| `mapping` | [`MappingsConfigService`](MappingsConfigService.md) |
-| `stage` | [`StageConfigService`](StageConfigService.md) |
-| `view` | [`ViewsConfigService`](ViewsConfigService.md) |
-| `helper` | [`OrmBaseH3lp`](OrmBaseH3lp.md) |
+• **source**: [`DataSourceConfigService`](DataSourceConfigService.md)
+
+• **domain**: [`DomainConfigService`](DomainConfigService.md)
+
+• **mapping**: [`MappingsConfigService`](MappingsConfigService.md)
+
+• **stage**: [`StageConfigService`](StageConfigService.md)
+
+• **view**: [`ViewsConfigService`](ViewsConfigService.md)
+
+• **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Returns
 
 [`LoadSchema`](LoadSchema.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/useCases/load.d.ts:15
+node\_modules/lambdaorm-base/schema/application/useCases/load.d.ts:15
 
 ## Methods
 
-### load
+### load()
 
-▸ **load**(`source`): [`Schema`](../interfaces/Schema.md)
+> **load**(`source`): [`Schema`](../interfaces/Schema.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | [`Schema`](../interfaces/Schema.md) |
+• **source**: [`Schema`](../interfaces/Schema.md)
 
 #### Returns
 
 [`Schema`](../interfaces/Schema.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/useCases/load.d.ts:16
+node\_modules/lambdaorm-base/schema/application/useCases/load.d.ts:16

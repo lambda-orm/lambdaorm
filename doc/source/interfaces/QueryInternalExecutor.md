@@ -1,34 +1,27 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / QueryInternalExecutor
 
 # Interface: QueryInternalExecutor
 
-## Implemented by
-
-- [`QueryExecutorImpl`](../classes/QueryExecutorImpl.md)
-
-## Table of contents
-
-### Methods
-
-- [\_execute](QueryInternalExecutor.md#_execute)
-
 ## Methods
 
-### \_execute
+### \_execute()
 
-▸ **_execute**(`query`, `data`): `Promise`\<`any`\>
+> **\_execute**(`query`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `query` | [`Query`](../classes/Query.md) |
-| `data` | [`Data`](../classes/Data.md) |
+• **query**: [`Query`](../classes/Query.md)
+
+• **data**: [`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts:5](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts#L5)
+[src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts:5](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts#L5)

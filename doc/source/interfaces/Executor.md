@@ -1,85 +1,73 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Executor
 
 # Interface: Executor
 
-## Hierarchy
+## Extended by
 
-- **`Executor`**
-
-  ↳ [`ObservableExecutorDecorator`](ObservableExecutorDecorator.md)
-
-## Implemented by
-
-- [`ExecutorImpl`](../classes/ExecutorImpl.md)
-
-## Table of contents
-
-### Methods
-
-- [execute](Executor.md#execute)
-- [executeList](Executor.md#executelist)
-- [transaction](Executor.md#transaction)
+- [`ObservableExecutorDecorator`](ObservableExecutorDecorator.md)
 
 ## Methods
 
-### execute
+### execute()
 
-▸ **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
+> **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `query` | [`Query`](../classes/Query.md) |
-| `data` | `any` |
-| `options` | [`QueryOptions`](QueryOptions.md) |
+• **query**: [`Query`](../classes/Query.md)
+
+• **data**: `any`
+
+• **options**: [`QueryOptions`](QueryOptions.md)
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:40](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L40)
+[src/lib/execution/domain/executor.ts:40](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L40)
 
-___
+***
 
-### executeList
+### executeList()
 
-▸ **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](ExecuteResult.md)[]\>
+> **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](ExecuteResult.md)[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `queries` | [`Query`](../classes/Query.md)[] |
-| `options` | [`QueryOptions`](QueryOptions.md) |
+• **queries**: [`Query`](../classes/Query.md)[]
+
+• **options**: [`QueryOptions`](QueryOptions.md)
 
 #### Returns
 
 `Promise`\<[`ExecuteResult`](ExecuteResult.md)[]\>
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:41](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L41)
+[src/lib/execution/domain/executor.ts:41](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L41)
 
-___
+***
 
-### transaction
+### transaction()
 
-▸ **transaction**(`options`, `callback`): `Promise`\<`void`\>
+> **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options` | [`QueryOptions`](QueryOptions.md) |
-| `callback` | (`tr`: [`Transaction`](../classes/Transaction.md)) => `Promise`\<`void`\> |
+• **options**: [`QueryOptions`](QueryOptions.md)
+
+• **callback**
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:42](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L42)
+[src/lib/execution/domain/executor.ts:42](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L42)

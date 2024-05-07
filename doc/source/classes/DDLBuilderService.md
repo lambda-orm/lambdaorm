@@ -1,112 +1,95 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / DDLBuilderService
 
 # Class: DDLBuilderService
 
-## Table of contents
-
-### Constructors
-
-- [constructor](DDLBuilderService.md#constructor)
-
-### Properties
-
-- [stage](DDLBuilderService.md#stage)
-
-### Methods
-
-- [drop](DDLBuilderService.md#drop)
-- [sync](DDLBuilderService.md#sync)
-- [truncate](DDLBuilderService.md#truncate)
-
 ## Constructors
 
-### constructor
+### new DDLBuilderService()
 
-• **new DDLBuilderService**(`schemaState`, `languages`, `stage`, `helper`): [`DDLBuilderService`](DDLBuilderService.md)
+> **new DDLBuilderService**(`schemaState`, `languages`, `stage`, `helper`): [`DDLBuilderService`](DDLBuilderService.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `schemaState` | [`SchemaState`](SchemaState.md) |
-| `languages` | [`LanguagesService`](LanguagesService.md) |
-| `stage` | `string` |
-| `helper` | [`OrmH3lp`](OrmH3lp.md) |
+• **schemaState**: [`SchemaState`](SchemaState.md)
+
+• **languages**: [`LanguagesService`](LanguagesService.md)
+
+• **stage**: `string`
+
+• **helper**: [`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
 [`DDLBuilderService`](DDLBuilderService.md)
 
-#### Defined in
+#### Source
 
-[src/lib/language/application/services/ddlBuilder.ts:17](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/language/application/services/ddlBuilder.ts#L17)
+[src/lib/language/application/services/ddlBuilder.ts:17](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/ddlBuilder.ts#L17)
 
 ## Properties
 
 ### stage
 
-• `Readonly` **stage**: `string`
+> `readonly` **stage**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/language/application/services/ddlBuilder.ts:19](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/language/application/services/ddlBuilder.ts#L19)
+[src/lib/language/application/services/ddlBuilder.ts:19](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/ddlBuilder.ts#L19)
 
 ## Methods
 
-### drop
+### drop()
 
-▸ **drop**(`mappings`): [`Query`](Query.md)[]
+> **drop**(`mappings`): [`Query`](Query.md)[]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `mappings` | [`Mapping`](../interfaces/Mapping.md)[] |
+• **mappings**: [`Mapping`](../interfaces/Mapping.md)[]
 
 #### Returns
 
 [`Query`](Query.md)[]
 
-#### Defined in
+#### Source
 
-[src/lib/language/application/services/ddlBuilder.ts:25](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/language/application/services/ddlBuilder.ts#L25)
+[src/lib/language/application/services/ddlBuilder.ts:25](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/ddlBuilder.ts#L25)
 
-___
+***
 
-### sync
+### sync()
 
-▸ **sync**(`mappings`): [`Query`](Query.md)[]
+> **sync**(`mappings`): [`Query`](Query.md)[]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `mappings` | [`Mapping`](../interfaces/Mapping.md)[] |
+• **mappings**: [`Mapping`](../interfaces/Mapping.md)[]
 
 #### Returns
 
 [`Query`](Query.md)[]
 
-#### Defined in
+#### Source
 
-[src/lib/language/application/services/ddlBuilder.ts:51](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/language/application/services/ddlBuilder.ts#L51)
+[src/lib/language/application/services/ddlBuilder.ts:51](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/ddlBuilder.ts#L51)
 
-___
+***
 
-### truncate
+### truncate()
 
-▸ **truncate**(`mappings`): [`Query`](Query.md)[]
+> **truncate**(`mappings`): [`Query`](Query.md)[]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `mappings` | [`Mapping`](../interfaces/Mapping.md)[] |
+• **mappings**: [`Mapping`](../interfaces/Mapping.md)[]
 
 #### Returns
 
 [`Query`](Query.md)[]
 
-#### Defined in
+#### Source
 
-[src/lib/language/application/services/ddlBuilder.ts:38](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/language/application/services/ddlBuilder.ts#L38)
+[src/lib/language/application/services/ddlBuilder.ts:38](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/application/services/ddlBuilder.ts#L38)

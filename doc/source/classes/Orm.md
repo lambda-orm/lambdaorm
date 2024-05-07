@@ -1,3 +1,7 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Orm
 
 # Class: Orm
@@ -8,200 +12,151 @@ Facade through which you can access all the functionalities of the library.
 
 - [`IOrm`](../interfaces/IOrm.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Orm.md#constructor)
-
-### Properties
-
-- [connection](Orm.md#connection)
-- [expressions](Orm.md#expressions)
-- [helper](Orm.md#helper)
-- [language](Orm.md#language)
-- [schema](Orm.md#schema)
-- [stage](Orm.md#stage)
-- [state](Orm.md#state)
-
-### Accessors
-
-- [defaultStage](Orm.md#defaultstage)
-- [logger](Orm.md#logger)
-- [workspace](Orm.md#workspace)
-
-### Methods
-
-- [constraints](Orm.md#constraints)
-- [dialect](Orm.md#dialect)
-- [end](Orm.md#end)
-- [execute](Orm.md#execute)
-- [init](Orm.md#init)
-- [metadata](Orm.md#metadata)
-- [model](Orm.md#model)
-- [normalize](Orm.md#normalize)
-- [parameters](Orm.md#parameters)
-- [plan](Orm.md#plan)
-- [subscribe](Orm.md#subscribe)
-- [transaction](Orm.md#transaction)
-- [unsubscribe](Orm.md#unsubscribe)
-
 ## Constructors
 
-### constructor
+### new Orm()
 
-• **new Orm**(`_workspace`, `_logger?`): [`Orm`](Orm.md)
+> **new Orm**(`_workspace`, `_logger`?): [`Orm`](Orm.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_workspace` | `string` |
-| `_logger?` | [`Logger`](Logger.md) |
+• **\_workspace**: `string`
+
+• **\_logger?**: [`Logger`](Logger.md)
 
 #### Returns
 
 [`Orm`](Orm.md)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:42](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L42)
+[src/lib/orm/infrastructure/orm.ts:42](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L42)
 
 ## Properties
 
 ### connection
 
-• **connection**: [`ConnectionFacade`](ConnectionFacade.md)
+> **connection**: [`ConnectionFacade`](ConnectionFacade.md)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L30)
+[src/lib/orm/infrastructure/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L30)
 
-___
+***
 
 ### expressions
 
-• **expressions**: `Expressions`
+> **expressions**: `Expressions`
 
 #### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[expressions](../interfaces/IOrm.md#expressions)
+[`IOrm`](../interfaces/IOrm.md).[`expressions`](../interfaces/IOrm.md#expressions)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:32](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L32)
+[src/lib/orm/infrastructure/orm.ts:32](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L32)
 
-___
+***
 
 ### helper
 
-• **helper**: [`OrmH3lp`](OrmH3lp.md)
+> **helper**: [`OrmH3lp`](OrmH3lp.md)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:36](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L36)
+[src/lib/orm/infrastructure/orm.ts:36](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L36)
 
-___
+***
 
 ### language
 
-• **language**: [`LanguagesService`](LanguagesService.md)
+> **language**: [`LanguagesService`](LanguagesService.md)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:31](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L31)
+[src/lib/orm/infrastructure/orm.ts:31](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L31)
 
-___
+***
 
 ### schema
 
-• **schema**: [`SchemaFacade`](SchemaFacade.md)
+> **schema**: [`SchemaFacade`](SchemaFacade.md)
 
 #### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[schema](../interfaces/IOrm.md#schema)
+[`IOrm`](../interfaces/IOrm.md).[`schema`](../interfaces/IOrm.md#schema)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:33](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L33)
+[src/lib/orm/infrastructure/orm.ts:33](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L33)
 
-___
+***
 
 ### stage
 
-• **stage**: [`StageFacade`](StageFacade.md)
+> **stage**: [`StageFacade`](StageFacade.md)
 
 #### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[stage](../interfaces/IOrm.md#stage)
+[`IOrm`](../interfaces/IOrm.md).[`stage`](../interfaces/IOrm.md#stage)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:35](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L35)
+[src/lib/orm/infrastructure/orm.ts:35](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L35)
 
-___
+***
 
 ### state
 
-• **state**: [`SchemaState`](SchemaState.md)
+> **state**: [`SchemaState`](SchemaState.md)
 
 #### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[state](../interfaces/IOrm.md#state)
+[`IOrm`](../interfaces/IOrm.md).[`state`](../interfaces/IOrm.md#state)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:34](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L34)
+[src/lib/orm/infrastructure/orm.ts:34](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L34)
 
 ## Accessors
 
 ### defaultStage
 
-• `get` **defaultStage**(): [`Stage`](../interfaces/Stage.md)
+> `get` **defaultStage**(): [`Stage`](../interfaces/Stage.md)
 
 #### Returns
 
 [`Stage`](../interfaces/Stage.md)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:66](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L66)
+[src/lib/orm/infrastructure/orm.ts:66](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L66)
 
-___
+***
 
 ### logger
 
-• `get` **logger**(): [`Logger`](Logger.md)
+> `get` **logger**(): [`Logger`](Logger.md)
+
+> `set` **logger**(`value`): `void`
+
+#### Parameters
+
+• **value**: [`Logger`](Logger.md)
 
 #### Returns
 
 [`Logger`](Logger.md)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:58](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L58)
+[src/lib/orm/infrastructure/orm.ts:58](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L58)
 
-• `set` **logger**(`value`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | [`Logger`](Logger.md) |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/lib/orm/infrastructure/orm.ts:62](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L62)
-
-___
+***
 
 ### workspace
 
-• `get` **workspace**(): `string`
+> `get` **workspace**(): `string`
 
 Get workspace path
 
@@ -209,93 +164,91 @@ Get workspace path
 
 `string`
 
-#### Implementation of
+#### Source
 
-IOrm.workspace
-
-#### Defined in
-
-[src/lib/orm/infrastructure/orm.ts:132](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L132)
+[src/lib/orm/infrastructure/orm.ts:132](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L132)
 
 ## Methods
 
-### constraints
+### constraints()
 
-▸ **constraints**(`query`): [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
+#### constraints(query)
+
+> **constraints**(`query`): [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
 
 Get constraints of query
 
-#### Parameters
+##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `query` | `Function` | query expression |
+• **query**: `Function`
 
-#### Returns
+query expression
+
+##### Returns
 
 [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
 
 Constraints of query
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[constraints](../interfaces/IOrm.md#constraints)
+[`IOrm`](../interfaces/IOrm.md).[`constraints`](../interfaces/IOrm.md#constraints)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:186](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L186)
+[src/lib/orm/infrastructure/orm.ts:186](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L186)
 
-▸ **constraints**(`query`): [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
+#### constraints(query)
 
-#### Parameters
+> **constraints**(`query`): [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
 
-| Name | Type |
-| :------ | :------ |
-| `query` | `string` |
+##### Parameters
 
-#### Returns
+• **query**: `string`
+
+##### Returns
 
 [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[constraints](../interfaces/IOrm.md#constraints)
+[`IOrm`](../interfaces/IOrm.md).[`constraints`](../interfaces/IOrm.md#constraints)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:187](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L187)
+[src/lib/orm/infrastructure/orm.ts:187](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L187)
 
-___
+***
 
-### dialect
+### dialect()
 
-▸ **dialect**(`source`): [`Dialect`](../enums/Dialect.md)
+> **dialect**(`source`): [`Dialect`](../enumerations/Dialect.md)
 
 Get dialect of source
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `source` | `string` | Name of source |
+• **source**: `string`
+
+Name of source
 
 #### Returns
 
-[`Dialect`](../enums/Dialect.md)
+[`Dialect`](../enumerations/Dialect.md)
 
 #### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[dialect](../interfaces/IOrm.md#dialect)
+[`IOrm`](../interfaces/IOrm.md).[`dialect`](../interfaces/IOrm.md#dialect)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:141](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L141)
+[src/lib/orm/infrastructure/orm.ts:141](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L141)
 
-___
+***
 
-### end
+### end()
 
-▸ **end**(): `Promise`\<`void`\>
+> **end**(): `Promise`\<`void`\>
 
 Frees the resources used, for example the connection pools
 
@@ -305,78 +258,89 @@ Frees the resources used, for example the connection pools
 
 #### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[end](../interfaces/IOrm.md#end)
+[`IOrm`](../interfaces/IOrm.md).[`end`](../interfaces/IOrm.md#end)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:116](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L116)
+[src/lib/orm/infrastructure/orm.ts:116](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L116)
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`query`, `data?`, `options?`): `Promise`\<`any`\>
+#### execute(query, data, options)
+
+> **execute**(`query`, `data`?, `options`?): `Promise`\<`any`\>
 
 Execute query
 
-#### Parameters
+##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `query` | `Function` | query expression |
-| `data?` | `any` | Data with variables |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | options of execution |
+• **query**: `Function`
 
-#### Returns
+query expression
+
+• **data?**: `any`
+
+Data with variables
+
+• **options?**: [`QueryOptions`](../interfaces/QueryOptions.md)
+
+options of execution
+
+##### Returns
 
 `Promise`\<`any`\>
 
 Result of execution
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[execute](../interfaces/IOrm.md#execute)
+[`IOrm`](../interfaces/IOrm.md).[`execute`](../interfaces/IOrm.md#execute)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:225](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L225)
+[src/lib/orm/infrastructure/orm.ts:225](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L225)
 
-▸ **execute**(`query`, `data?`, `options?`): `Promise`\<`any`\>
+#### execute(query, data, options)
 
-#### Parameters
+> **execute**(`query`, `data`?, `options`?): `Promise`\<`any`\>
 
-| Name | Type |
-| :------ | :------ |
-| `query` | `string` |
-| `data?` | `any` |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+##### Parameters
 
-#### Returns
+• **query**: `string`
+
+• **data?**: `any`
+
+• **options?**: [`QueryOptions`](../interfaces/QueryOptions.md)
+
+##### Returns
 
 `Promise`\<`any`\>
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[execute](../interfaces/IOrm.md#execute)
+[`IOrm`](../interfaces/IOrm.md).[`execute`](../interfaces/IOrm.md#execute)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:226](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L226)
+[src/lib/orm/infrastructure/orm.ts:226](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L226)
 
-___
+***
 
-### init
+### init()
 
-▸ **init**(`source?`, `connect?`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
+> **init**(`source`?, `connect`?): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
 initialize the orm library
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `source?` | `string` \| [`Schema`](../interfaces/Schema.md) | `undefined` | optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaORM.yaml" in the root of the project |
-| `connect` | `boolean` | `true` | - |
+• **source?**: `string` \| [`Schema`](../interfaces/Schema.md)
+
+optional parameter to specify the location of the configuration file. In the case that it is not passed, it is assumed that it is "lambdaORM.yaml" in the root of the project
+
+• **connect?**: `boolean`= `true`
 
 #### Returns
 
@@ -386,286 +350,301 @@ promise void
 
 #### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[init](../interfaces/IOrm.md#init)
+[`IOrm`](../interfaces/IOrm.md).[`init`](../interfaces/IOrm.md#init)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:75](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L75)
+[src/lib/orm/infrastructure/orm.ts:75](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L75)
 
-___
+***
 
-### metadata
+### metadata()
 
-▸ **metadata**(`query`): [`Metadata`](../interfaces/Metadata.md)
+#### metadata(query)
+
+> **metadata**(`query`): [`Metadata`](../interfaces/Metadata.md)
 
 Get metadata of query
 
-#### Parameters
+##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `query` | `Function` | query expression |
+• **query**: `Function`
 
-#### Returns
+query expression
+
+##### Returns
 
 [`Metadata`](../interfaces/Metadata.md)
 
 metadata of query
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[metadata](../interfaces/IOrm.md#metadata)
+[`IOrm`](../interfaces/IOrm.md).[`metadata`](../interfaces/IOrm.md#metadata)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:198](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L198)
+[src/lib/orm/infrastructure/orm.ts:198](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L198)
 
-▸ **metadata**(`query`): [`Metadata`](../interfaces/Metadata.md)
+#### metadata(query)
 
-#### Parameters
+> **metadata**(`query`): [`Metadata`](../interfaces/Metadata.md)
 
-| Name | Type |
-| :------ | :------ |
-| `query` | `string` |
+##### Parameters
 
-#### Returns
+• **query**: `string`
+
+##### Returns
 
 [`Metadata`](../interfaces/Metadata.md)
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[metadata](../interfaces/IOrm.md#metadata)
+[`IOrm`](../interfaces/IOrm.md).[`metadata`](../interfaces/IOrm.md#metadata)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:199](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L199)
+[src/lib/orm/infrastructure/orm.ts:199](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L199)
 
-___
+***
 
-### model
+### model()
 
-▸ **model**(`query`): [`MetadataModel`](../interfaces/MetadataModel.md)[]
+#### model(query)
+
+> **model**(`query`): [`MetadataModel`](../interfaces/MetadataModel.md)[]
 
 Get model of query
 
-#### Parameters
+##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `query` | `Function` | query expression |
+• **query**: `Function`
 
-#### Returns
+query expression
+
+##### Returns
 
 [`MetadataModel`](../interfaces/MetadataModel.md)[]
 
 Model of query
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[model](../interfaces/IOrm.md#model)
+[`IOrm`](../interfaces/IOrm.md).[`model`](../interfaces/IOrm.md#model)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:162](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L162)
+[src/lib/orm/infrastructure/orm.ts:162](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L162)
 
-▸ **model**(`query`): [`MetadataModel`](../interfaces/MetadataModel.md)[]
+#### model(query)
 
-#### Parameters
+> **model**(`query`): [`MetadataModel`](../interfaces/MetadataModel.md)[]
 
-| Name | Type |
-| :------ | :------ |
-| `query` | `string` |
+##### Parameters
 
-#### Returns
+• **query**: `string`
+
+##### Returns
 
 [`MetadataModel`](../interfaces/MetadataModel.md)[]
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[model](../interfaces/IOrm.md#model)
+[`IOrm`](../interfaces/IOrm.md).[`model`](../interfaces/IOrm.md#model)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:163](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L163)
+[src/lib/orm/infrastructure/orm.ts:163](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L163)
 
-___
+***
 
-### normalize
+### normalize()
 
-▸ **normalize**(`query`): `string`
+#### normalize(query)
+
+> **normalize**(`query`): `string`
 
 Normalize query
 
-#### Parameters
+##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `query` | `Function` | query expression |
+• **query**: `Function`
 
-#### Returns
+query expression
+
+##### Returns
 
 `string`
 
 Expression normalized
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[normalize](../interfaces/IOrm.md#normalize)
+[`IOrm`](../interfaces/IOrm.md).[`normalize`](../interfaces/IOrm.md#normalize)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:150](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L150)
+[src/lib/orm/infrastructure/orm.ts:150](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L150)
 
-▸ **normalize**(`query`): `string`
+#### normalize(query)
 
-#### Parameters
+> **normalize**(`query`): `string`
 
-| Name | Type |
-| :------ | :------ |
-| `query` | `string` |
+##### Parameters
 
-#### Returns
+• **query**: `string`
+
+##### Returns
 
 `string`
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[normalize](../interfaces/IOrm.md#normalize)
+[`IOrm`](../interfaces/IOrm.md).[`normalize`](../interfaces/IOrm.md#normalize)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:151](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L151)
+[src/lib/orm/infrastructure/orm.ts:151](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L151)
 
-___
+***
 
-### parameters
+### parameters()
 
-▸ **parameters**(`query`): [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
+#### parameters(query)
+
+> **parameters**(`query`): [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
 
 Get parameters of query
 
-#### Parameters
+##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `query` | `Function` | query expression |
+• **query**: `Function`
 
-#### Returns
+query expression
+
+##### Returns
 
 [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
 
 Parameters of query
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[parameters](../interfaces/IOrm.md#parameters)
+[`IOrm`](../interfaces/IOrm.md).[`parameters`](../interfaces/IOrm.md#parameters)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:174](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L174)
+[src/lib/orm/infrastructure/orm.ts:174](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L174)
 
-▸ **parameters**(`query`): [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
+#### parameters(query)
 
-#### Parameters
+> **parameters**(`query`): [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
 
-| Name | Type |
-| :------ | :------ |
-| `query` | `string` |
+##### Parameters
 
-#### Returns
+• **query**: `string`
+
+##### Returns
 
 [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[parameters](../interfaces/IOrm.md#parameters)
+[`IOrm`](../interfaces/IOrm.md).[`parameters`](../interfaces/IOrm.md#parameters)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:175](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L175)
+[src/lib/orm/infrastructure/orm.ts:175](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L175)
 
-___
+***
 
-### plan
+### plan()
 
-▸ **plan**(`query`, `options?`): [`QueryPlan`](../interfaces/QueryPlan.md)
+#### plan(query, options)
+
+> **plan**(`query`, `options`?): [`QueryPlan`](../interfaces/QueryPlan.md)
 
 Get getInfo of query
 
-#### Parameters
+##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `query` | `Function` | query expression |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) | options of execution |
+• **query**: `Function`
 
-#### Returns
+query expression
 
-[`QueryPlan`](../interfaces/QueryPlan.md)
+• **options?**: [`QueryOptions`](../interfaces/QueryOptions.md)
 
-#### Implementation of
+options of execution
 
-[IOrm](../interfaces/IOrm.md).[plan](../interfaces/IOrm.md#plan)
-
-#### Defined in
-
-[src/lib/orm/infrastructure/orm.ts:210](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L210)
-
-▸ **plan**(`query`, `options?`): [`QueryPlan`](../interfaces/QueryPlan.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `query` | `string` |
-| `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
-
-#### Returns
+##### Returns
 
 [`QueryPlan`](../interfaces/QueryPlan.md)
 
-#### Implementation of
+##### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[plan](../interfaces/IOrm.md#plan)
+[`IOrm`](../interfaces/IOrm.md).[`plan`](../interfaces/IOrm.md#plan)
 
-#### Defined in
+##### Source
 
-[src/lib/orm/infrastructure/orm.ts:211](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L211)
+[src/lib/orm/infrastructure/orm.ts:210](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L210)
 
-___
+#### plan(query, options)
 
-### subscribe
+> **plan**(`query`, `options`?): [`QueryPlan`](../interfaces/QueryPlan.md)
 
-▸ **subscribe**(`observer`): `void`
+##### Parameters
+
+• **query**: `string`
+
+• **options?**: [`QueryOptions`](../interfaces/QueryOptions.md)
+
+##### Returns
+
+[`QueryPlan`](../interfaces/QueryPlan.md)
+
+##### Implementation of
+
+[`IOrm`](../interfaces/IOrm.md).[`plan`](../interfaces/IOrm.md#plan)
+
+##### Source
+
+[src/lib/orm/infrastructure/orm.ts:211](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L211)
+
+***
+
+### subscribe()
+
+> **subscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](ActionObserver.md) |
+• **observer**: [`ActionObserver`](ActionObserver.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:253](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L253)
+[src/lib/orm/infrastructure/orm.ts:253](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L253)
 
-___
+***
 
-### transaction
+### transaction()
 
-▸ **transaction**(`options`, `callback`): `Promise`\<`void`\>
+> **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
 Create a transaction
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options` | `undefined` \| [`QueryOptions`](../interfaces/QueryOptions.md) | options of execution |
-| `callback` | (`tr`: [`QueryTransaction`](QueryTransaction.md)) => `Promise`\<`void`\> | Code to be executed in transaction |
+• **options**: `undefined` \| [`QueryOptions`](../interfaces/QueryOptions.md)
+
+options of execution
+
+• **callback**
+
+Code to be executed in transaction
 
 #### Returns
 
@@ -673,28 +652,26 @@ Create a transaction
 
 #### Implementation of
 
-[IOrm](../interfaces/IOrm.md).[transaction](../interfaces/IOrm.md#transaction)
+[`IOrm`](../interfaces/IOrm.md).[`transaction`](../interfaces/IOrm.md#transaction)
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:245](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L245)
+[src/lib/orm/infrastructure/orm.ts:245](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L245)
 
-___
+***
 
-### unsubscribe
+### unsubscribe()
 
-▸ **unsubscribe**(`observer`): `void`
+> **unsubscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](ActionObserver.md) |
+• **observer**: [`ActionObserver`](ActionObserver.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/orm/infrastructure/orm.ts:257](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L257)
+[src/lib/orm/infrastructure/orm.ts:257](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/orm/infrastructure/orm.ts#L257)

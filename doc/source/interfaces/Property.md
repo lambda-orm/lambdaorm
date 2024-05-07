@@ -1,168 +1,151 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Property
 
 # Interface: Property
 
-## Hierarchy
+## Extended by
 
-- **`Property`**
-
-  ↳ [`PropertyMapping`](PropertyMapping.md)
-
-## Table of contents
-
-### Properties
-
-- [autoIncrement](Property.md#autoincrement)
-- [default](Property.md#default)
-- [enum](Property.md#enum)
-- [key](Property.md#key)
-- [length](Property.md#length)
-- [name](Property.md#name)
-- [primaryKey](Property.md#primarykey)
-- [readExp](Property.md#readexp)
-- [readValue](Property.md#readvalue)
-- [required](Property.md#required)
-- [type](Property.md#type)
-- [view](Property.md#view)
-- [writeExp](Property.md#writeexp)
-- [writeValue](Property.md#writevalue)
+- [`PropertyMapping`](PropertyMapping.md)
 
 ## Properties
 
-### autoIncrement
+### autoIncrement?
 
-• `Optional` **autoIncrement**: `boolean`
+> `optional` **autoIncrement**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:29
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:29
 
-___
+***
 
-### default
+### default?
 
-• `Optional` **default**: `string`
+> `optional` **default**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:33
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:33
 
-___
+***
 
-### enum
+### enum?
 
-• `Optional` **enum**: `string`
+> `optional` **enum**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:36
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:36
 
-___
+***
 
-### key
+### key?
 
-• `Optional` **key**: `string`
+> `optional` **key**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:37
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:37
 
-___
+***
 
-### length
+### length?
 
-• `Optional` **length**: `number`
+> `optional` **length**: `number`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:26
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:26
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:24
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:24
 
-___
+***
 
-### primaryKey
+### primaryKey?
 
-• `Optional` **primaryKey**: `boolean`
+> `optional` **primaryKey**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:28
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:28
 
-___
+***
 
-### readExp
+### readExp?
 
-• `Optional` **readExp**: `string`
+> `optional` **readExp**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:31
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:31
 
-___
+***
 
-### readValue
+### readValue?
 
-• `Optional` **readValue**: `string`
+> `optional` **readValue**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:34
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:34
 
-___
+***
 
-### required
+### required?
 
-• `Optional` **required**: `boolean`
+> `optional` **required**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:27
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:27
 
-___
+***
 
-### type
+### type?
 
-• `Optional` **type**: `string`
+> `optional` **type**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:25
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:25
 
-___
+***
 
-### view
+### view?
 
-• `Optional` **view**: `boolean`
+> `optional` **view**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:30
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:30
 
-___
+***
 
-### writeExp
+### writeExp?
 
-• `Optional` **writeExp**: `string`
+> `optional` **writeExp**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:32
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:32
 
-___
+***
 
-### writeValue
+### writeValue?
 
-• `Optional` **writeValue**: `string`
+> `optional` **writeValue**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:35
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:35

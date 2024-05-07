@@ -1,36 +1,31 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ModifyAllClauses
 
 # Interface: ModifyAllClauses\<T\>
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `T` |
-
-## Table of contents
-
-### Methods
-
-- [include](ModifyAllClauses.md#include)
+• **T**
 
 ## Methods
 
-### include
+### include()
 
-▸ **include**(`predicate`, `thisArg?`): [`ModifyIncludeClauses`](ModifyIncludeClauses.md)\<`T`\>
+> **include**(`predicate`, `thisArg`?): [`ModifyIncludeClauses`](ModifyIncludeClauses.md)\<`T`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `predicate` | (`value`: `T`, `index`: `number`, `array`: `T`[]) => `unknown` |
-| `thisArg?` | `any` |
+• **predicate**
+
+• **thisArg?**: `any`
 
 #### Returns
 
 [`ModifyIncludeClauses`](ModifyIncludeClauses.md)\<`T`\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:110
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:110

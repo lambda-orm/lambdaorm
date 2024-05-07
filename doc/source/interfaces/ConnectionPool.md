@@ -1,88 +1,77 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ConnectionPool
 
 # Interface: ConnectionPool
-
-## Table of contents
-
-### Properties
-
-- [config](ConnectionPool.md#config)
-
-### Methods
-
-- [acquire](ConnectionPool.md#acquire)
-- [end](ConnectionPool.md#end)
-- [init](ConnectionPool.md#init)
-- [release](ConnectionPool.md#release)
 
 ## Properties
 
 ### config
 
-• **config**: [`ConnectionConfig`](ConnectionConfig.md)
+> **config**: [`ConnectionConfig`](ConnectionConfig.md)
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/ports/connectionPool.ts:5](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/ports/connectionPool.ts#L5)
+[src/lib/connection/application/ports/connectionPool.ts:5](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/ports/connectionPool.ts#L5)
 
 ## Methods
 
-### acquire
+### acquire()
 
-▸ **acquire**(): `Promise`\<[`Connection`](Connection.md)\>
+> **acquire**(): `Promise`\<[`Connection`](Connection.md)\>
 
 #### Returns
 
 `Promise`\<[`Connection`](Connection.md)\>
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/ports/connectionPool.ts:7](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/ports/connectionPool.ts#L7)
+[src/lib/connection/application/ports/connectionPool.ts:7](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/ports/connectionPool.ts#L7)
 
-___
+***
 
-### end
+### end()
 
-▸ **end**(): `Promise`\<`void`\>
-
-#### Returns
-
-`Promise`\<`void`\>
-
-#### Defined in
-
-[src/lib/connection/application/ports/connectionPool.ts:9](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/ports/connectionPool.ts#L9)
-
-___
-
-### init
-
-▸ **init**(): `Promise`\<`void`\>
+> **end**(): `Promise`\<`void`\>
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/ports/connectionPool.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/ports/connectionPool.ts#L6)
+[src/lib/connection/application/ports/connectionPool.ts:9](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/ports/connectionPool.ts#L9)
 
-___
+***
 
-### release
+### init()
 
-▸ **release**(`connection`): `Promise`\<`void`\>
+> **init**(): `Promise`\<`void`\>
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Source
+
+[src/lib/connection/application/ports/connectionPool.ts:6](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/ports/connectionPool.ts#L6)
+
+***
+
+### release()
+
+> **release**(`connection`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `connection` | [`Connection`](Connection.md) |
+• **connection**: [`Connection`](Connection.md)
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/ports/connectionPool.ts:8](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/ports/connectionPool.ts#L8)
+[src/lib/connection/application/ports/connectionPool.ts:8](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/ports/connectionPool.ts#L8)

@@ -1,3 +1,7 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ExecutorImpl
 
 # Class: ExecutorImpl
@@ -7,57 +11,45 @@
 - [`Executor`](../interfaces/Executor.md)
 - [`ObservableExecutor`](../interfaces/ObservableExecutor.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ExecutorImpl.md#constructor)
-
-### Methods
-
-- [execute](ExecutorImpl.md#execute)
-- [executeList](ExecutorImpl.md#executelist)
-- [subscribe](ExecutorImpl.md#subscribe)
-- [transaction](ExecutorImpl.md#transaction)
-- [unsubscribe](ExecutorImpl.md#unsubscribe)
-
 ## Constructors
 
-### constructor
+### new ExecutorImpl()
 
-• **new ExecutorImpl**(`connectionFacade`, `languages`, `schemaState`, `expressions`, `helper`): [`ExecutorImpl`](ExecutorImpl.md)
+> **new ExecutorImpl**(`connectionFacade`, `languages`, `schemaState`, `expressions`, `helper`): [`ExecutorImpl`](ExecutorImpl.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `connectionFacade` | [`ConnectionFacade`](ConnectionFacade.md) |
-| `languages` | [`LanguagesService`](LanguagesService.md) |
-| `schemaState` | [`SchemaState`](SchemaState.md) |
-| `expressions` | `Expressions` |
-| `helper` | [`OrmH3lp`](OrmH3lp.md) |
+• **connectionFacade**: [`ConnectionFacade`](ConnectionFacade.md)
+
+• **languages**: [`LanguagesService`](LanguagesService.md)
+
+• **schemaState**: [`SchemaState`](SchemaState.md)
+
+• **expressions**: `Expressions`
+
+• **helper**: [`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
 [`ExecutorImpl`](ExecutorImpl.md)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/executor.ts#L12)
+[src/lib/execution/application/services/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/executor.ts#L12)
 
 ## Methods
 
-### execute
+### execute()
 
-▸ **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
+> **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `query` | [`Query`](Query.md) |
-| `data` | `any` |
-| `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+• **query**: [`Query`](Query.md)
+
+• **data**: `any`
+
+• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
@@ -65,24 +57,23 @@
 
 #### Implementation of
 
-[Executor](../interfaces/Executor.md).[execute](../interfaces/Executor.md#execute)
+[`Executor`](../interfaces/Executor.md).[`execute`](../interfaces/Executor.md#execute)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/executor.ts#L33)
+[src/lib/execution/application/services/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/executor.ts#L33)
 
-___
+***
 
-### executeList
+### executeList()
 
-▸ **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+> **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `queries` | [`Query`](Query.md)[] |
-| `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+• **queries**: [`Query`](Query.md)[]
+
+• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
@@ -90,23 +81,21 @@ ___
 
 #### Implementation of
 
-[Executor](../interfaces/Executor.md).[executeList](../interfaces/Executor.md#executelist)
+[`Executor`](../interfaces/Executor.md).[`executeList`](../interfaces/Executor.md#executelist)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/executor.ts#L56)
+[src/lib/execution/application/services/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/executor.ts#L56)
 
-___
+***
 
-### subscribe
+### subscribe()
 
-▸ **subscribe**(`observer`): `void`
+> **subscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](ActionObserver.md) |
+• **observer**: [`ActionObserver`](ActionObserver.md)
 
 #### Returns
 
@@ -114,26 +103,29 @@ ___
 
 #### Implementation of
 
-[ObservableExecutor](../interfaces/ObservableExecutor.md).[subscribe](../interfaces/ObservableExecutor.md#subscribe)
+[`ObservableExecutor`](../interfaces/ObservableExecutor.md).[`subscribe`](../interfaces/ObservableExecutor.md#subscribe)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/executor.ts:21](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/executor.ts#L21)
+[src/lib/execution/application/services/executor.ts:21](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/executor.ts#L21)
 
-___
+***
 
-### transaction
+### transaction()
 
-▸ **transaction**(`options`, `callback`): `Promise`\<`void`\>
+> **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
 Create a transaction
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options` | [`QueryOptions`](../interfaces/QueryOptions.md) | QueryOptions |
-| `callback` | (`tr`: [`Transaction`](Transaction.md)) => `Promise`\<`void`\> | Code to be executed in transaction |
+• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
+
+QueryOptions
+
+• **callback**
+
+Code to be executed in transaction
 
 #### Returns
 
@@ -141,23 +133,21 @@ Create a transaction
 
 #### Implementation of
 
-[Executor](../interfaces/Executor.md).[transaction](../interfaces/Executor.md#transaction)
+[`Executor`](../interfaces/Executor.md).[`transaction`](../interfaces/Executor.md#transaction)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/executor.ts:87](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/executor.ts#L87)
+[src/lib/execution/application/services/executor.ts:87](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/executor.ts#L87)
 
-___
+***
 
-### unsubscribe
+### unsubscribe()
 
-▸ **unsubscribe**(`observer`): `void`
+> **unsubscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](ActionObserver.md) |
+• **observer**: [`ActionObserver`](ActionObserver.md)
 
 #### Returns
 
@@ -165,8 +155,8 @@ ___
 
 #### Implementation of
 
-[ObservableExecutor](../interfaces/ObservableExecutor.md).[unsubscribe](../interfaces/ObservableExecutor.md#unsubscribe)
+[`ObservableExecutor`](../interfaces/ObservableExecutor.md).[`unsubscribe`](../interfaces/ObservableExecutor.md#unsubscribe)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/executor.ts#L25)
+[src/lib/execution/application/services/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/executor.ts#L25)

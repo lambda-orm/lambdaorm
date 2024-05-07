@@ -1,60 +1,47 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ObservableExecutor
 
 # Interface: ObservableExecutor
 
-## Hierarchy
+## Extended by
 
-- **`ObservableExecutor`**
-
-  ↳ [`ObservableExecutorDecorator`](ObservableExecutorDecorator.md)
-
-## Implemented by
-
-- [`ExecutorImpl`](../classes/ExecutorImpl.md)
-
-## Table of contents
-
-### Methods
-
-- [subscribe](ObservableExecutor.md#subscribe)
-- [unsubscribe](ObservableExecutor.md#unsubscribe)
+- [`ObservableExecutorDecorator`](ObservableExecutorDecorator.md)
 
 ## Methods
 
-### subscribe
+### subscribe()
 
-▸ **subscribe**(`observer`): `void`
+> **subscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](../classes/ActionObserver.md) |
+• **observer**: [`ActionObserver`](../classes/ActionObserver.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:46](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L46)
+[src/lib/execution/domain/executor.ts:46](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L46)
 
-___
+***
 
-### unsubscribe
+### unsubscribe()
 
-▸ **unsubscribe**(`observer`): `void`
+> **unsubscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](../classes/ActionObserver.md) |
+• **observer**: [`ActionObserver`](../classes/ActionObserver.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:47](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L47)
+[src/lib/execution/domain/executor.ts:47](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L47)

@@ -1,156 +1,137 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ConnectionFacade
 
 # Class: ConnectionFacade
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ConnectionFacade.md#constructor)
-
-### Methods
-
-- [acquire](ConnectionFacade.md#acquire)
-- [addDialect](ConnectionFacade.md#adddialect)
-- [end](ConnectionFacade.md#end)
-- [getConfig](ConnectionFacade.md#getconfig)
-- [load](ConnectionFacade.md#load)
-- [release](ConnectionFacade.md#release)
-
 ## Constructors
 
-### constructor
+### new ConnectionFacade()
 
-• **new ConnectionFacade**(`dialectService`, `poolService`, `acquireConnection`, `releaseConnection`): [`ConnectionFacade`](ConnectionFacade.md)
+> **new ConnectionFacade**(`dialectService`, `poolService`, `acquireConnection`, `releaseConnection`): [`ConnectionFacade`](ConnectionFacade.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `dialectService` | [`DialectPoolService`](DialectPoolService.md) |
-| `poolService` | [`ConnectionPoolService`](ConnectionPoolService.md) |
-| `acquireConnection` | [`AcquireConnection`](AcquireConnection.md) |
-| `releaseConnection` | [`ReleaseConnection`](ReleaseConnection.md) |
+• **dialectService**: [`DialectPoolService`](DialectPoolService.md)
+
+• **poolService**: [`ConnectionPoolService`](ConnectionPoolService.md)
+
+• **acquireConnection**: [`AcquireConnection`](AcquireConnection.md)
+
+• **releaseConnection**: [`ReleaseConnection`](ReleaseConnection.md)
 
 #### Returns
 
 [`ConnectionFacade`](ConnectionFacade.md)
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/facade.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/facade.ts#L10)
+[src/lib/connection/application/facade.ts:10](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/facade.ts#L10)
 
 ## Methods
 
-### acquire
+### acquire()
 
-▸ **acquire**(`name`): `Promise`\<[`Connection`](../interfaces/Connection.md)\>
+> **acquire**(`name`): `Promise`\<[`Connection`](../interfaces/Connection.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `Promise`\<[`Connection`](../interfaces/Connection.md)\>
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/facade.ts:33](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/facade.ts#L33)
+[src/lib/connection/application/facade.ts:33](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/facade.ts#L33)
 
-___
+***
 
-### addDialect
+### addDialect()
 
-▸ **addDialect**(`dialect`, `classConnectionPool`): [`ConnectionFacade`](ConnectionFacade.md)
+> **addDialect**(`dialect`, `classConnectionPool`): [`ConnectionFacade`](ConnectionFacade.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `dialect` | `string` |
-| `classConnectionPool` | `any` |
+• **dialect**: `string`
+
+• **classConnectionPool**: `any`
 
 #### Returns
 
 [`ConnectionFacade`](ConnectionFacade.md)
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/facade.ts:16](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/facade.ts#L16)
+[src/lib/connection/application/facade.ts:16](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/facade.ts#L16)
 
-___
+***
 
-### end
+### end()
 
-▸ **end**(): `Promise`\<`void`\>
+> **end**(): `Promise`\<`void`\>
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/facade.ts:29](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/facade.ts#L29)
+[src/lib/connection/application/facade.ts:29](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/facade.ts#L29)
 
-___
+***
 
-### getConfig
+### getConfig()
 
-▸ **getConfig**(`name`): [`ConnectionConfig`](../interfaces/ConnectionConfig.md)
+> **getConfig**(`name`): [`ConnectionConfig`](../interfaces/ConnectionConfig.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 [`ConnectionConfig`](../interfaces/ConnectionConfig.md)
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/facade.ts:25](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/facade.ts#L25)
+[src/lib/connection/application/facade.ts:25](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/facade.ts#L25)
 
-___
+***
 
-### load
+### load()
 
-▸ **load**(`config`): `void`
+> **load**(`config`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `config` | [`ConnectionConfig`](../interfaces/ConnectionConfig.md) |
+• **config**: [`ConnectionConfig`](../interfaces/ConnectionConfig.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/facade.ts:21](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/facade.ts#L21)
+[src/lib/connection/application/facade.ts:21](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/facade.ts#L21)
 
-___
+***
 
-### release
+### release()
 
-▸ **release**(`connection`): `Promise`\<`void`\>
+> **release**(`connection`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `connection` | [`Connection`](../interfaces/Connection.md) |
+• **connection**: [`Connection`](../interfaces/Connection.md)
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/facade.ts:37](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/facade.ts#L37)
+[src/lib/connection/application/facade.ts:37](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/facade.ts#L37)

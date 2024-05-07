@@ -1,53 +1,43 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / AcquireConnection
 
 # Class: AcquireConnection
 
-## Table of contents
-
-### Constructors
-
-- [constructor](AcquireConnection.md#constructor)
-
-### Methods
-
-- [acquire](AcquireConnection.md#acquire)
-
 ## Constructors
 
-### constructor
+### new AcquireConnection()
 
-• **new AcquireConnection**(`poolService`): [`AcquireConnection`](AcquireConnection.md)
+> **new AcquireConnection**(`poolService`): [`AcquireConnection`](AcquireConnection.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `poolService` | [`ConnectionPoolService`](ConnectionPoolService.md) |
+• **poolService**: [`ConnectionPoolService`](ConnectionPoolService.md)
 
 #### Returns
 
 [`AcquireConnection`](AcquireConnection.md)
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/useCases/acquire.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/useCases/acquire.ts#L6)
+[src/lib/connection/application/useCases/acquire.ts:6](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/useCases/acquire.ts#L6)
 
 ## Methods
 
-### acquire
+### acquire()
 
-▸ **acquire**(`name`): `Promise`\<[`Connection`](../interfaces/Connection.md)\>
+> **acquire**(`name`): `Promise`\<[`Connection`](../interfaces/Connection.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `Promise`\<[`Connection`](../interfaces/Connection.md)\>
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/useCases/acquire.ts:8](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/useCases/acquire.ts#L8)
+[src/lib/connection/application/useCases/acquire.ts:8](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/useCases/acquire.ts#L8)

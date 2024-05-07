@@ -1,243 +1,260 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Repository
 
 # Class: Repository\<TEntity, TQuery\>
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `TEntity` |
-| `TQuery` |
+• **TEntity**
+
+• **TQuery**
 
 ## Implements
 
 - [`IRepository`](../interfaces/IRepository.md)\<`TEntity`, `TQuery`\>
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Repository.md#constructor)
-
-### Properties
-
-- [name](Repository.md#name)
-- [stage](Repository.md#stage)
-
-### Methods
-
-- [bulkDelete](Repository.md#bulkdelete)
-- [bulkInsert](Repository.md#bulkinsert)
-- [bulkMerge](Repository.md#bulkmerge)
-- [delete](Repository.md#delete)
-- [deleteAll](Repository.md#deleteall)
-- [distinct](Repository.md#distinct)
-- [execute](Repository.md#execute)
-- [first](Repository.md#first)
-- [insert](Repository.md#insert)
-- [last](Repository.md#last)
-- [list](Repository.md#list)
-- [merge](Repository.md#merge)
-- [query](Repository.md#query)
-- [update](Repository.md#update)
-- [updateAll](Repository.md#updateall)
-- [upsert](Repository.md#upsert)
-
 ## Constructors
 
-### constructor
+### new Repository()
 
-• **new Repository**\<`TEntity`, `TQuery`\>(`name`, `stage?`, `orm?`): [`Repository`](Repository.md)\<`TEntity`, `TQuery`\>
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `TEntity` |
-| `TQuery` |
+> **new Repository**\<`TEntity`, `TQuery`\>(`name`, `stage`?, `orm`?): [`Repository`](Repository.md)\<`TEntity`, `TQuery`\>
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `name` | `string` | `undefined` |
-| `stage?` | `string` | `undefined` |
-| `orm` | [`IOrm`](../interfaces/IOrm.md) | `_orm` |
+• **name**: `string`
+
+• **stage?**: `string`
+
+• **orm?**: [`IOrm`](../interfaces/IOrm.md)= `_orm`
 
 #### Returns
 
 [`Repository`](Repository.md)\<`TEntity`, `TQuery`\>
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L10)
+[src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L10)
 
 ## Properties
 
 ### name
 
-• `Readonly` **name**: `string`
+> `readonly` **name**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L10)
+[src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L10)
 
-___
+***
 
-### stage
+### stage?
 
-• `Optional` **stage**: `string`
+> `optional` **stage**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L10)
+[src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L10)
 
 ## Methods
 
-### bulkDelete
+### bulkDelete()
 
-▸ **bulkDelete**(`entities`): `Promise`\<`any`[]\>
+#### bulkDelete(entities)
 
-#### Parameters
+> **bulkDelete**(`entities`): `Promise`\<`any`[]\>
 
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
+##### Parameters
 
-#### Returns
+• **entities**: `TEntity`[]
 
-`Promise`\<`any`[]\>
-
-#### Implementation of
-
-[IRepository](../interfaces/IRepository.md).[bulkDelete](../interfaces/IRepository.md#bulkdelete)
-
-#### Defined in
-
-[src/lib/repository/infrastructure/repository.ts:17](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L17)
-
-▸ **bulkDelete**(`entities`, `include`): `Promise`\<`any`[]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
+##### Returns
 
 `Promise`\<`any`[]\>
 
-#### Implementation of
+##### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[bulkDelete](../interfaces/IRepository.md#bulkdelete)
+[`IRepository`](../interfaces/IRepository.md).[`bulkDelete`](../interfaces/IRepository.md#bulkdelete)
 
-#### Defined in
+##### Source
 
-[src/lib/repository/infrastructure/repository.ts:18](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L18)
+[src/lib/repository/infrastructure/repository.ts:17](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L17)
 
-___
+#### bulkDelete(entities, include)
 
-### bulkInsert
+> **bulkDelete**(`entities`, `include`): `Promise`\<`any`[]\>
 
-▸ **bulkInsert**(`entities`): `Promise`\<`any`[]\>
+##### Parameters
 
-#### Parameters
+• **entities**: `TEntity`[]
 
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
+• **include**
 
-#### Returns
+##### Returns
 
 `Promise`\<`any`[]\>
 
-#### Implementation of
+##### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[bulkInsert](../interfaces/IRepository.md#bulkinsert)
+[`IRepository`](../interfaces/IRepository.md).[`bulkDelete`](../interfaces/IRepository.md#bulkdelete)
 
-#### Defined in
+##### Source
 
-[src/lib/repository/infrastructure/repository.ts:58](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L58)
+[src/lib/repository/infrastructure/repository.ts:18](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L18)
 
-▸ **bulkInsert**(`entities`, `include`): `Promise`\<`any`[]\>
+***
 
-#### Parameters
+### bulkInsert()
 
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+#### bulkInsert(entities)
 
-#### Returns
+> **bulkInsert**(`entities`): `Promise`\<`any`[]\>
 
-`Promise`\<`any`[]\>
+##### Parameters
 
-#### Implementation of
+• **entities**: `TEntity`[]
 
-[IRepository](../interfaces/IRepository.md).[bulkInsert](../interfaces/IRepository.md#bulkinsert)
-
-#### Defined in
-
-[src/lib/repository/infrastructure/repository.ts:60](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L60)
-
-___
-
-### bulkMerge
-
-▸ **bulkMerge**(`entities`): `Promise`\<`any`[]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-
-#### Returns
+##### Returns
 
 `Promise`\<`any`[]\>
 
-#### Implementation of
+##### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[bulkMerge](../interfaces/IRepository.md#bulkmerge)
+[`IRepository`](../interfaces/IRepository.md).[`bulkInsert`](../interfaces/IRepository.md#bulkinsert)
 
-#### Defined in
+##### Source
 
-[src/lib/repository/infrastructure/repository.ts:23](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L23)
+[src/lib/repository/infrastructure/repository.ts:58](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L58)
 
-▸ **bulkMerge**(`entities`, `include`): `Promise`\<`any`[]\>
+#### bulkInsert(entities, include)
 
-#### Parameters
+> **bulkInsert**(`entities`, `include`): `Promise`\<`any`[]\>
 
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+##### Parameters
 
-#### Returns
+• **entities**: `TEntity`[]
+
+• **include**
+
+##### Returns
 
 `Promise`\<`any`[]\>
 
-#### Implementation of
+##### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[bulkMerge](../interfaces/IRepository.md#bulkmerge)
+[`IRepository`](../interfaces/IRepository.md).[`bulkInsert`](../interfaces/IRepository.md#bulkinsert)
 
-#### Defined in
+##### Source
 
-[src/lib/repository/infrastructure/repository.ts:24](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L24)
+[src/lib/repository/infrastructure/repository.ts:60](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L60)
 
-___
+***
 
-### delete
+### bulkMerge()
 
-▸ **delete**(`entity`): `Promise`\<`number`\>
+#### bulkMerge(entities)
+
+> **bulkMerge**(`entities`): `Promise`\<`any`[]\>
+
+##### Parameters
+
+• **entities**: `TEntity`[]
+
+##### Returns
+
+`Promise`\<`any`[]\>
+
+##### Implementation of
+
+[`IRepository`](../interfaces/IRepository.md).[`bulkMerge`](../interfaces/IRepository.md#bulkmerge)
+
+##### Source
+
+[src/lib/repository/infrastructure/repository.ts:23](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L23)
+
+#### bulkMerge(entities, include)
+
+> **bulkMerge**(`entities`, `include`): `Promise`\<`any`[]\>
+
+##### Parameters
+
+• **entities**: `TEntity`[]
+
+• **include**
+
+##### Returns
+
+`Promise`\<`any`[]\>
+
+##### Implementation of
+
+[`IRepository`](../interfaces/IRepository.md).[`bulkMerge`](../interfaces/IRepository.md#bulkmerge)
+
+##### Source
+
+[src/lib/repository/infrastructure/repository.ts:24](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L24)
+
+***
+
+### delete()
+
+#### delete(entity)
+
+> **delete**(`entity`): `Promise`\<`number`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Implementation of
+
+[`IRepository`](../interfaces/IRepository.md).[`delete`](../interfaces/IRepository.md#delete)
+
+##### Source
+
+[src/lib/repository/infrastructure/repository.ts:90](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L90)
+
+#### delete(entity, include)
+
+> **delete**(`entity`, `include`): `Promise`\<`number`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+• **include**
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Implementation of
+
+[`IRepository`](../interfaces/IRepository.md).[`delete`](../interfaces/IRepository.md#delete)
+
+##### Source
+
+[src/lib/repository/infrastructure/repository.ts:92](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L92)
+
+***
+
+### deleteAll()
+
+> **deleteAll**(`data`, `filter`?, `include`?): `Promise`\<`number`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
+• **data**: `any`
+
+• **filter?**
+
+• **include?**
 
 #### Returns
 
@@ -245,72 +262,25 @@ ___
 
 #### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[delete](../interfaces/IRepository.md#delete)
+[`IRepository`](../interfaces/IRepository.md).[`deleteAll`](../interfaces/IRepository.md#deleteall)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:90](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L90)
+[src/lib/repository/infrastructure/repository.ts:97](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L97)
 
-▸ **delete**(`entity`, `include`): `Promise`\<`number`\>
+***
 
-#### Parameters
+### distinct()
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
-
-`Promise`\<`number`\>
-
-#### Implementation of
-
-[IRepository](../interfaces/IRepository.md).[delete](../interfaces/IRepository.md#delete)
-
-#### Defined in
-
-[src/lib/repository/infrastructure/repository.ts:92](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L92)
-
-___
-
-### deleteAll
-
-▸ **deleteAll**(`data`, `filter?`, `include?`): `Promise`\<`number`\>
+> **distinct**(`data`, `filter`?, `include`?): `Promise`\<`any`[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+• **data**: `any`
 
-#### Returns
+• **filter?**
 
-`Promise`\<`number`\>
-
-#### Implementation of
-
-[IRepository](../interfaces/IRepository.md).[deleteAll](../interfaces/IRepository.md#deleteall)
-
-#### Defined in
-
-[src/lib/repository/infrastructure/repository.ts:97](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L97)
-
-___
-
-### distinct
-
-▸ **distinct**(`data`, `filter?`, `include?`): `Promise`\<`any`[]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+• **include?**
 
 #### Returns
 
@@ -318,24 +288,23 @@ ___
 
 #### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[distinct](../interfaces/IRepository.md#distinct)
+[`IRepository`](../interfaces/IRepository.md).[`distinct`](../interfaces/IRepository.md#distinct)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:111](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L111)
+[src/lib/repository/infrastructure/repository.ts:111](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L111)
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`expression`, `data?`): `Promise`\<`any`\>
+> **execute**(`expression`, `data`?): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `data?` | `any` |
+• **expression**: `string`
+
+• **data?**: `any`
 
 #### Returns
 
@@ -343,122 +312,123 @@ ___
 
 #### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[execute](../interfaces/IRepository.md#execute)
+[`IRepository`](../interfaces/IRepository.md).[`execute`](../interfaces/IRepository.md#execute)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:45](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L45)
+[src/lib/repository/infrastructure/repository.ts:45](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L45)
 
-___
+***
 
-### first
+### first()
 
-▸ **first**(`data`, `filter?`, `include?`): `Promise`\<``null`` \| `TEntity`\>
+> **first**(`data`, `filter`?, `include`?): `Promise`\<`null` \| `TEntity`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+• **data**: `any`
+
+• **filter?**
+
+• **include?**
 
 #### Returns
 
-`Promise`\<``null`` \| `TEntity`\>
+`Promise`\<`null` \| `TEntity`\>
 
 #### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[first](../interfaces/IRepository.md#first)
+[`IRepository`](../interfaces/IRepository.md).[`first`](../interfaces/IRepository.md#first)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:118](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L118)
+[src/lib/repository/infrastructure/repository.ts:118](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L118)
 
-___
+***
 
-### insert
+### insert()
 
-▸ **insert**(`entity`): `Promise`\<`any`\>
+#### insert(entity)
 
-#### Parameters
+> **insert**(`entity`): `Promise`\<`any`\>
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
+##### Parameters
 
-#### Returns
+• **entity**: `TEntity`
+
+##### Returns
 
 `Promise`\<`any`\>
 
-#### Implementation of
+##### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[insert](../interfaces/IRepository.md#insert)
+[`IRepository`](../interfaces/IRepository.md).[`insert`](../interfaces/IRepository.md#insert)
 
-#### Defined in
+##### Source
 
-[src/lib/repository/infrastructure/repository.ts:50](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L50)
+[src/lib/repository/infrastructure/repository.ts:50](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L50)
 
-▸ **insert**(`entity`, `include`): `Promise`\<`any`\>
+#### insert(entity, include)
 
-#### Parameters
+> **insert**(`entity`, `include`): `Promise`\<`any`\>
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+##### Parameters
 
-#### Returns
+• **entity**: `TEntity`
+
+• **include**
+
+##### Returns
 
 `Promise`\<`any`\>
 
-#### Implementation of
+##### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[insert](../interfaces/IRepository.md#insert)
+[`IRepository`](../interfaces/IRepository.md).[`insert`](../interfaces/IRepository.md#insert)
 
-#### Defined in
+##### Source
 
-[src/lib/repository/infrastructure/repository.ts:52](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L52)
+[src/lib/repository/infrastructure/repository.ts:52](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L52)
 
-___
+***
 
-### last
+### last()
 
-▸ **last**(`data`, `filter?`, `include?`): `Promise`\<``null`` \| `TEntity`\>
+> **last**(`data`, `filter`?, `include`?): `Promise`\<`null` \| `TEntity`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+• **data**: `any`
+
+• **filter?**
+
+• **include?**
 
 #### Returns
 
-`Promise`\<``null`` \| `TEntity`\>
+`Promise`\<`null` \| `TEntity`\>
 
 #### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[last](../interfaces/IRepository.md#last)
+[`IRepository`](../interfaces/IRepository.md).[`last`](../interfaces/IRepository.md#last)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:130](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L130)
+[src/lib/repository/infrastructure/repository.ts:130](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L130)
 
-___
+***
 
-### list
+### list()
 
-▸ **list**(`data`, `filter?`, `include?`): `Promise`\<`TEntity`[]\>
+> **list**(`data`, `filter`?, `include`?): `Promise`\<`TEntity`[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+• **data**: `any`
+
+• **filter?**
+
+• **include?**
 
 #### Returns
 
@@ -466,62 +436,63 @@ ___
 
 #### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[list](../interfaces/IRepository.md#list)
+[`IRepository`](../interfaces/IRepository.md).[`list`](../interfaces/IRepository.md#list)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:104](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L104)
+[src/lib/repository/infrastructure/repository.ts:104](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L104)
 
-___
+***
 
-### merge
+### merge()
 
-▸ **merge**(`entity`): `Promise`\<`number`\>
+#### merge(entity)
 
-#### Parameters
+> **merge**(`entity`): `Promise`\<`number`\>
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
+##### Parameters
 
-#### Returns
+• **entity**: `TEntity`
 
-`Promise`\<`number`\>
-
-#### Implementation of
-
-[IRepository](../interfaces/IRepository.md).[merge](../interfaces/IRepository.md#merge)
-
-#### Defined in
-
-[src/lib/repository/infrastructure/repository.ts:82](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L82)
-
-▸ **merge**(`entity`, `include`): `Promise`\<`number`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
+##### Returns
 
 `Promise`\<`number`\>
 
-#### Implementation of
+##### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[merge](../interfaces/IRepository.md#merge)
+[`IRepository`](../interfaces/IRepository.md).[`merge`](../interfaces/IRepository.md#merge)
 
-#### Defined in
+##### Source
 
-[src/lib/repository/infrastructure/repository.ts:84](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L84)
+[src/lib/repository/infrastructure/repository.ts:82](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L82)
 
-___
+#### merge(entity, include)
 
-### query
+> **merge**(`entity`, `include`): `Promise`\<`number`\>
 
-▸ **query**(): [`Queryable`](Queryable.md)\<`TQuery`\>
+##### Parameters
+
+• **entity**: `TEntity`
+
+• **include**
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Implementation of
+
+[`IRepository`](../interfaces/IRepository.md).[`merge`](../interfaces/IRepository.md#merge)
+
+##### Source
+
+[src/lib/repository/infrastructure/repository.ts:84](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L84)
+
+***
+
+### query()
+
+> **query**(): [`Queryable`](Queryable.md)\<`TQuery`\>
 
 #### Returns
 
@@ -529,23 +500,73 @@ ___
 
 #### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[query](../interfaces/IRepository.md#query)
+[`IRepository`](../interfaces/IRepository.md).[`query`](../interfaces/IRepository.md#query)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:142](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L142)
+[src/lib/repository/infrastructure/repository.ts:142](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L142)
 
-___
+***
 
-### update
+### update()
 
-▸ **update**(`entity`): `Promise`\<`number`\>
+#### update(entity)
+
+> **update**(`entity`): `Promise`\<`number`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Implementation of
+
+[`IRepository`](../interfaces/IRepository.md).[`update`](../interfaces/IRepository.md#update)
+
+##### Source
+
+[src/lib/repository/infrastructure/repository.ts:66](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L66)
+
+#### update(entity, include)
+
+> **update**(`entity`, `include`): `Promise`\<`number`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+• **include**
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Implementation of
+
+[`IRepository`](../interfaces/IRepository.md).[`update`](../interfaces/IRepository.md#update)
+
+##### Source
+
+[src/lib/repository/infrastructure/repository.ts:68](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L68)
+
+***
+
+### updateAll()
+
+> **updateAll**(`data`, `map`, `filter`?, `include`?): `Promise`\<`number`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
+• **data**: `any`
+
+• **map**
+
+• **filter?**
+
+• **include?**
 
 #### Returns
 
@@ -553,101 +574,54 @@ ___
 
 #### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[update](../interfaces/IRepository.md#update)
+[`IRepository`](../interfaces/IRepository.md).[`updateAll`](../interfaces/IRepository.md#updateall)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/infrastructure/repository.ts:66](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L66)
+[src/lib/repository/infrastructure/repository.ts:73](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L73)
 
-▸ **update**(`entity`, `include`): `Promise`\<`number`\>
+***
 
-#### Parameters
+### upsert()
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+#### upsert(entity)
 
-#### Returns
+> **upsert**(`entity`): `Promise`\<`number`\>
 
-`Promise`\<`number`\>
+##### Parameters
 
-#### Implementation of
+• **entity**: `TEntity`
 
-[IRepository](../interfaces/IRepository.md).[update](../interfaces/IRepository.md#update)
-
-#### Defined in
-
-[src/lib/repository/infrastructure/repository.ts:68](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L68)
-
-___
-
-### updateAll
-
-▸ **updateAll**(`data`, `map`, `filter?`, `include?`): `Promise`\<`number`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `map` | (`value`: `TEntity`) => `unknown` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
+##### Returns
 
 `Promise`\<`number`\>
 
-#### Implementation of
+##### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[updateAll](../interfaces/IRepository.md#updateall)
+[`IRepository`](../interfaces/IRepository.md).[`upsert`](../interfaces/IRepository.md#upsert)
 
-#### Defined in
+##### Source
 
-[src/lib/repository/infrastructure/repository.ts:73](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L73)
+[src/lib/repository/infrastructure/repository.ts:11](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L11)
 
-___
+#### upsert(entity, include)
 
-### upsert
+> **upsert**(`entity`, `include`): `Promise`\<`number`\>
 
-▸ **upsert**(`entity`): `Promise`\<`number`\>
+##### Parameters
 
-#### Parameters
+• **entity**: `TEntity`
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
+• **include**
 
-#### Returns
+##### Returns
 
 `Promise`\<`number`\>
 
-#### Implementation of
+##### Implementation of
 
-[IRepository](../interfaces/IRepository.md).[upsert](../interfaces/IRepository.md#upsert)
+[`IRepository`](../interfaces/IRepository.md).[`upsert`](../interfaces/IRepository.md#upsert)
 
-#### Defined in
+##### Source
 
-[src/lib/repository/infrastructure/repository.ts:11](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L11)
-
-▸ **upsert**(`entity`, `include`): `Promise`\<`number`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
-
-`Promise`\<`number`\>
-
-#### Implementation of
-
-[IRepository](../interfaces/IRepository.md).[upsert](../interfaces/IRepository.md#upsert)
-
-#### Defined in
-
-[src/lib/repository/infrastructure/repository.ts:12](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/infrastructure/repository.ts#L12)
+[src/lib/repository/infrastructure/repository.ts:12](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/infrastructure/repository.ts#L12)

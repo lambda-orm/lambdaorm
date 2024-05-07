@@ -1,97 +1,83 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / QueryExecutor
 
 # Interface: QueryExecutor
-
-## Implemented by
-
-- [`QueryExecutorImpl`](../classes/QueryExecutorImpl.md)
-
-## Table of contents
-
-### Accessors
-
-- [options](QueryExecutor.md#options)
-
-### Methods
-
-- [commit](QueryExecutor.md#commit)
-- [execute](QueryExecutor.md#execute)
-- [release](QueryExecutor.md#release)
-- [rollback](QueryExecutor.md#rollback)
 
 ## Accessors
 
 ### options
 
-• `get` **options**(): [`QueryOptions`](QueryOptions.md)
+> `get` **options**(): [`QueryOptions`](QueryOptions.md)
 
 #### Returns
 
 [`QueryOptions`](QueryOptions.md)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:32](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L32)
+[src/lib/execution/domain/executor.ts:32](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L32)
 
 ## Methods
 
-### commit
+### commit()
 
-▸ **commit**(): `Promise`\<`void`\>
+> **commit**(): `Promise`\<`void`\>
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L33)
+[src/lib/execution/domain/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L33)
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`query`, `data`): `Promise`\<`any`\>
+> **execute**(`query`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `query` | [`Query`](../classes/Query.md) |
-| `data` | `any` |
+• **query**: [`Query`](../classes/Query.md)
+
+• **data**: `any`
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:36](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L36)
+[src/lib/execution/domain/executor.ts:36](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L36)
 
-___
+***
 
-### release
+### release()
 
-▸ **release**(): `Promise`\<`void`\>
-
-#### Returns
-
-`Promise`\<`void`\>
-
-#### Defined in
-
-[src/lib/execution/domain/executor.ts:35](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L35)
-
-___
-
-### rollback
-
-▸ **rollback**(): `Promise`\<`void`\>
+> **release**(): `Promise`\<`void`\>
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:34](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L34)
+[src/lib/execution/domain/executor.ts:35](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L35)
+
+***
+
+### rollback()
+
+> **rollback**(): `Promise`\<`void`\>
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Source
+
+[src/lib/execution/domain/executor.ts:34](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L34)

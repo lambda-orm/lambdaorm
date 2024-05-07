@@ -1,52 +1,47 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Enum
 
 # Interface: Enum
 
-## Table of contents
-
-### Properties
-
-- [abstract](Enum.md#abstract)
-- [extends](Enum.md#extends)
-- [name](Enum.md#name)
-- [values](Enum.md#values)
-
 ## Properties
 
-### abstract
+### abstract?
 
-• `Optional` **abstract**: `boolean`
+> `optional` **abstract**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:16
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:16
 
-___
+***
 
-### extends
+### extends?
 
-• `Optional` **extends**: `string`
+> `optional` **extends**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:15
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:15
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:14
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:14
 
-___
+***
 
 ### values
 
-• **values**: [`EnumValue`](EnumValue.md)[]
+> **values**: [`EnumValue`](EnumValue.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:17
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:17

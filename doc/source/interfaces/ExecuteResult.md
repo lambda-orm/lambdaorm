@@ -1,30 +1,27 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ExecuteResult
 
 # Interface: ExecuteResult
 
-## Table of contents
-
-### Properties
-
-- [error](ExecuteResult.md#error)
-- [result](ExecuteResult.md#result)
-
 ## Properties
 
-### error
+### error?
 
-• `Optional` **error**: `Error`
+> `optional` **error**: `Error`
 
-#### Defined in
+#### Source
 
-[src/lib/query/domain/query.ts:60](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/query/domain/query.ts#L60)
+[src/lib/query/domain/query.ts:60](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/query/domain/query.ts#L60)
 
-___
+***
 
-### result
+### result?
 
-• `Optional` **result**: `any`
+> `optional` **result**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/query/domain/query.ts:59](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/query/domain/query.ts#L59)
+[src/lib/query/domain/query.ts:59](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/query/domain/query.ts#L59)

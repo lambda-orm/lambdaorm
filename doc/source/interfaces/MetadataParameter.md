@@ -1,41 +1,37 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / MetadataParameter
 
 # Interface: MetadataParameter
 
-## Table of contents
-
-### Properties
-
-- [children](MetadataParameter.md#children)
-- [name](MetadataParameter.md#name)
-- [type](MetadataParameter.md#type)
-
 ## Properties
 
-### children
+### children?
 
-• `Optional` **children**: [`MetadataParameter`](MetadataParameter.md)[]
+> `optional` **children**: [`MetadataParameter`](MetadataParameter.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:6
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:6
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:4
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:4
 
-___
+***
 
 ### type
 
-• **type**: `string`
+> **type**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:5
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:5

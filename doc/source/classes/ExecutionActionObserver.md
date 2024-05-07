@@ -1,43 +1,26 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ExecutionActionObserver
 
 # Class: ExecutionActionObserver
 
-## Hierarchy
+## Extends
 
 - [`ActionObserver`](ActionObserver.md)
 
-  ↳ **`ExecutionActionObserver`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](ExecutionActionObserver.md#constructor)
-
-### Properties
-
-- [condition](ExecutionActionObserver.md#condition)
-- [on](ExecutionActionObserver.md#on)
-- [transactional](ExecutionActionObserver.md#transactional)
-
-### Methods
-
-- [after](ExecutionActionObserver.md#after)
-- [before](ExecutionActionObserver.md#before)
-- [error](ExecutionActionObserver.md#error)
-
 ## Constructors
 
-### constructor
+### new ExecutionActionObserver()
 
-• **new ExecutionActionObserver**(`config`, `expressions`): [`ExecutionActionObserver`](ExecutionActionObserver.md)
+> **new ExecutionActionObserver**(`config`, `expressions`): [`ExecutionActionObserver`](ExecutionActionObserver.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `config` | [`ListenerConfig`](../interfaces/ListenerConfig.md) |
-| `expressions` | `Expressions` |
+• **config**: [`ListenerConfig`](../interfaces/ListenerConfig.md)
+
+• **expressions**: `Expressions`
 
 #### Returns
 
@@ -45,65 +28,63 @@
 
 #### Overrides
 
-[ActionObserver](ActionObserver.md).[constructor](ActionObserver.md#constructor)
+[`ActionObserver`](ActionObserver.md).[`constructor`](ActionObserver.md#constructors)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/observer.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/observer.ts#L6)
+[src/lib/execution/application/services/observer.ts:6](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/observer.ts#L6)
 
 ## Properties
 
-### condition
+### condition?
 
-• `Optional` **condition**: `string`
+> `optional` **condition**: `string`
 
 #### Inherited from
 
-[ActionObserver](ActionObserver.md).[condition](ActionObserver.md#condition)
+[`ActionObserver`](ActionObserver.md).[`condition`](ActionObserver.md#condition)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:18](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L18)
+[src/lib/execution/domain/executor.ts:18](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L18)
 
-___
+***
 
 ### on
 
-• **on**: [`SentenceAction`](../enums/SentenceAction.md)[]
+> **on**: [`SentenceAction`](../enumerations/SentenceAction.md)[]
 
 #### Inherited from
 
-[ActionObserver](ActionObserver.md).[on](ActionObserver.md#on)
+[`ActionObserver`](ActionObserver.md).[`on`](ActionObserver.md#on)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:17](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L17)
+[src/lib/execution/domain/executor.ts:17](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L17)
 
-___
+***
 
-### transactional
+### transactional?
 
-• `Optional` **transactional**: `boolean`
+> `optional` **transactional**: `boolean`
 
 #### Inherited from
 
-[ActionObserver](ActionObserver.md).[transactional](ActionObserver.md#transactional)
+[`ActionObserver`](ActionObserver.md).[`transactional`](ActionObserver.md#transactional)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:19](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L19)
+[src/lib/execution/domain/executor.ts:19](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L19)
 
 ## Methods
 
-### after
+### after()
 
-▸ **after**(`args`): `Promise`\<`void`\>
+> **after**(`args`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md) |
+• **args**: [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
 
 #### Returns
 
@@ -111,23 +92,21 @@ ___
 
 #### Overrides
 
-[ActionObserver](ActionObserver.md).[after](ActionObserver.md#after)
+[`ActionObserver`](ActionObserver.md).[`after`](ActionObserver.md#after)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/observer.ts:16](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/observer.ts#L16)
+[src/lib/execution/application/services/observer.ts:16](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/observer.ts#L16)
 
-___
+***
 
-### before
+### before()
 
-▸ **before**(`args`): `Promise`\<`void`\>
+> **before**(`args`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md) |
+• **args**: [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
 
 #### Returns
 
@@ -135,23 +114,21 @@ ___
 
 #### Overrides
 
-[ActionObserver](ActionObserver.md).[before](ActionObserver.md#before)
+[`ActionObserver`](ActionObserver.md).[`before`](ActionObserver.md#before)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/observer.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/observer.ts#L10)
+[src/lib/execution/application/services/observer.ts:10](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/observer.ts#L10)
 
-___
+***
 
-### error
+### error()
 
-▸ **error**(`args`): `Promise`\<`void`\>
+> **error**(`args`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md) |
+• **args**: [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
 
 #### Returns
 
@@ -159,8 +136,8 @@ ___
 
 #### Overrides
 
-[ActionObserver](ActionObserver.md).[error](ActionObserver.md#error)
+[`ActionObserver`](ActionObserver.md).[`error`](ActionObserver.md#error)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/application/services/observer.ts:22](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/application/services/observer.ts#L22)
+[src/lib/execution/application/services/observer.ts:22](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/application/services/observer.ts#L22)

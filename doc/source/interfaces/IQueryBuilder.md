@@ -1,30 +1,27 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / IQueryBuilder
 
 # Interface: IQueryBuilder
 
-## Table of contents
-
-### Methods
-
-- [build](IQueryBuilder.md#build)
-
 ## Methods
 
-### build
+### build()
 
-▸ **build**(`expression`, `options`): [`Query`](../classes/Query.md)
+> **build**(`expression`, `options`): [`Query`](../classes/Query.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `options` | [`QueryOptions`](QueryOptions.md) |
+• **expression**: `string`
+
+• **options**: [`QueryOptions`](QueryOptions.md)
 
 #### Returns
 
 [`Query`](../classes/Query.md)
 
-#### Defined in
+#### Source
 
-[src/lib/expressions/domain/services.ts:5](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/expressions/domain/services.ts#L5)
+[src/lib/expressions/domain/services.ts:5](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/expressions/domain/services.ts#L5)

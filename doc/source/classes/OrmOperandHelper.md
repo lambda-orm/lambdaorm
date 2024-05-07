@@ -1,74 +1,61 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / OrmOperandHelper
 
 # Class: OrmOperandHelper
 
-## Table of contents
-
-### Constructors
-
-- [constructor](OrmOperandHelper.md#constructor)
-
-### Methods
-
-- [getClauses](OrmOperandHelper.md#getclauses)
-- [toExpression](OrmOperandHelper.md#toexpression)
-
 ## Constructors
 
-### constructor
+### new OrmOperandHelper()
 
-• **new OrmOperandHelper**(`operandHelper`): [`OrmOperandHelper`](OrmOperandHelper.md)
+> **new OrmOperandHelper**(`operandHelper`): [`OrmOperandHelper`](OrmOperandHelper.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operandHelper` | `OperandHelper` |
+• **operandHelper**: `OperandHelper`
 
 #### Returns
 
 [`OrmOperandHelper`](OrmOperandHelper.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/operandHelper.ts:5](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/operand/application/services/operandHelper.ts#L5)
+[src/lib/operand/application/services/operandHelper.ts:5](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/operand/application/services/operandHelper.ts#L5)
 
 ## Methods
 
-### getClauses
+### getClauses()
 
-▸ **getClauses**(`operand`): `any`
+> **getClauses**(`operand`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | `Operand` |
+• **operand**: `Operand`
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/operandHelper.ts:65](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/operand/application/services/operandHelper.ts#L65)
+[src/lib/operand/application/services/operandHelper.ts:65](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/operand/application/services/operandHelper.ts#L65)
 
-___
+***
 
-### toExpression
+### toExpression()
 
-▸ **toExpression**(`operand`): `string`
+> **toExpression**(`operand`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | `Operand` |
+• **operand**: `Operand`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/operandHelper.ts:7](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/operand/application/services/operandHelper.ts#L7)
+[src/lib/operand/application/services/operandHelper.ts:7](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/operand/application/services/operandHelper.ts#L7)

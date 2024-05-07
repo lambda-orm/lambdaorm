@@ -1,63 +1,57 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / QueryPlan
 
 # Interface: QueryPlan
 
-## Table of contents
-
-### Properties
-
-- [children](QueryPlan.md#children)
-- [dialect](QueryPlan.md#dialect)
-- [entity](QueryPlan.md#entity)
-- [sentence](QueryPlan.md#sentence)
-- [source](QueryPlan.md#source)
-
 ## Properties
 
-### children
+### children?
 
-• `Optional` **children**: [`QueryPlan`](QueryPlan.md)[]
+> `optional` **children**: [`QueryPlan`](QueryPlan.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:6
+node\_modules/lambdaorm-base/query/domain/query.d.ts:6
 
-___
+***
 
 ### dialect
 
-• **dialect**: `string`
+> **dialect**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:3
+node\_modules/lambdaorm-base/query/domain/query.d.ts:3
 
-___
+***
 
 ### entity
 
-• **entity**: `string`
+> **entity**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:2
+node\_modules/lambdaorm-base/query/domain/query.d.ts:2
 
-___
+***
 
 ### sentence
 
-• **sentence**: `string`
+> **sentence**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:5
+node\_modules/lambdaorm-base/query/domain/query.d.ts:5
 
-___
+***
 
 ### source
 
-• **source**: `string`
+> **source**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:4
+node\_modules/lambdaorm-base/query/domain/query.d.ts:4

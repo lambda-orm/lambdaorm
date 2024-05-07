@@ -1,369 +1,317 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SchemaHelper
 
 # Class: SchemaHelper
 
-## Table of contents
-
-### Constructors
-
-- [constructor](SchemaHelper.md#constructor)
-
-### Properties
-
-- [DEFAULT\_LENGTH](SchemaHelper.md#default_length)
-- [DEFAULT\_TYPE](SchemaHelper.md#default_type)
-
-### Methods
-
-- [capitalize](SchemaHelper.md#capitalize)
-- [entityName](SchemaHelper.md#entityname)
-- [equalName](SchemaHelper.md#equalname)
-- [getFk](SchemaHelper.md#getfk)
-- [getKey](SchemaHelper.md#getkey)
-- [getPk](SchemaHelper.md#getpk)
-- [getPkName](SchemaHelper.md#getpkname)
-- [indexName](SchemaHelper.md#indexname)
-- [length](SchemaHelper.md#length)
-- [lengthFromType](SchemaHelper.md#lengthfromtype)
-- [newId](SchemaHelper.md#newid)
-- [propertyName](SchemaHelper.md#propertyname)
-- [refPropertyName](SchemaHelper.md#refpropertyname)
-- [relationName](SchemaHelper.md#relationname)
-- [type](SchemaHelper.md#type)
-
 ## Constructors
 
-### constructor
+### new SchemaHelper()
 
-• **new SchemaHelper**(`str`): [`SchemaHelper`](SchemaHelper.md)
+> **new SchemaHelper**(`str`): [`SchemaHelper`](SchemaHelper.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `str` | `IStringHelper` |
+• **str**: `IStringHelper`
 
 #### Returns
 
 [`SchemaHelper`](SchemaHelper.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:7
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:7
 
 ## Properties
 
 ### DEFAULT\_LENGTH
 
-• `Readonly` **DEFAULT\_LENGTH**: ``80``
+> `readonly` **DEFAULT\_LENGTH**: `80` = `80`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:6
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:6
 
-___
+***
 
 ### DEFAULT\_TYPE
 
-• `Readonly` **DEFAULT\_TYPE**: ``"string"``
+> `readonly` **DEFAULT\_TYPE**: `"string"` = `"string"`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:5
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:5
 
 ## Methods
 
-### capitalize
+### capitalize()
 
-▸ **capitalize**(`name`): `string`
+> **capitalize**(`name`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:13
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:13
 
-___
+***
 
-### entityName
+### entityName()
 
-▸ **entityName**(`name`): `string`
+> **entityName**(`name`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:10
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:10
 
-___
+***
 
-### equalName
+### equalName()
 
-▸ **equalName**(`name1?`, `name2?`): `boolean`
+> **equalName**(`name1`?, `name2`?): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name1?` | `string` |
-| `name2?` | `string` |
+• **name1?**: `string`
+
+• **name2?**: `string`
 
 #### Returns
 
 `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:9
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:9
 
-___
+***
 
-### getFk
+### getFk()
 
-▸ **getFk**(`objType`): `undefined` \| `PropertyType`
+> **getFk**(`objType`): `undefined` \| `PropertyType`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `objType` | `ObjType` |
+• **objType**: `ObjType`
 
 #### Returns
 
 `undefined` \| `PropertyType`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:18
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:18
 
-___
+***
 
-### getKey
+### getKey()
 
-▸ **getKey**(`uniques`): `undefined` \| `PropertyType`
+> **getKey**(`uniques`): `undefined` \| `PropertyType`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `uniques` | `PropertyType`[] |
+• **uniques**: `PropertyType`[]
 
 #### Returns
 
 `undefined` \| `PropertyType`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:19
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:19
 
-___
+***
 
-### getPk
+### getPk()
 
-▸ **getPk**(`objType`): `undefined` \| `PropertyType`
+> **getPk**(`objType`): `undefined` \| `PropertyType`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `objType` | `ObjType` |
+• **objType**: `ObjType`
 
 #### Returns
 
 `undefined` \| `PropertyType`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:16
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:16
 
-___
+***
 
-### getPkName
+### getPkName()
 
-▸ **getPkName**(`objType`): `string`
+> **getPkName**(`objType`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `objType` | `ObjType` |
+• **objType**: `ObjType`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:17
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:17
 
-___
+***
 
-### indexName
+### indexName()
 
-▸ **indexName**(`name`): `string`
+> **indexName**(`name`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:14
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:14
 
-___
+***
 
-### length
+### length()
 
-▸ **length**(`length?`): `undefined` \| `number`
+> **length**(`length`?): `undefined` \| `number`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `length?` | `number` |
+• **length?**: `number`
 
 #### Returns
 
 `undefined` \| `number`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:21
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:21
 
-___
+***
 
-### lengthFromType
+### lengthFromType()
 
-▸ **lengthFromType**(`type`): `undefined` \| `number`
+> **lengthFromType**(`type`): `undefined` \| `number`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `type` | `Type` |
+• **type**: `Type`
 
 #### Returns
 
 `undefined` \| `number`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:22
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:22
 
-___
+***
 
-### newId
+### newId()
 
-▸ **newId**(): `string`
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:8
-
-___
-
-### propertyName
-
-▸ **propertyName**(`name`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+> **newId**(): `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:11
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:8
 
-___
+***
 
-### refPropertyName
+### propertyName()
 
-▸ **refPropertyName**(`entityName`, `propertyName`): `string`
+> **propertyName**(`name`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entityName` | `string` |
-| `propertyName` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:12
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:11
 
-___
+***
 
-### relationName
+### refPropertyName()
 
-▸ **relationName**(`name`): `string`
+> **refPropertyName**(`entityName`, `propertyName`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **entityName**: `string`
+
+• **propertyName**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:15
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:12
 
-___
+***
 
-### type
+### relationName()
 
-▸ **type**(`type?`, `length?`): `undefined` \| `string`
+> **relationName**(`name`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `type?` | `string` |
-| `length?` | `number` |
+• **name**: `string`
+
+#### Returns
+
+`string`
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:15
+
+***
+
+### type()
+
+> **type**(`type`?, `length`?): `undefined` \| `string`
+
+#### Parameters
+
+• **type?**: `string`
+
+• **length?**: `number`
 
 #### Returns
 
 `undefined` \| `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:20
+node\_modules/lambdaorm-base/schema/infrastructure/schemaHelper.d.ts:20

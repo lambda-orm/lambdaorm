@@ -1,100 +1,89 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / OperandFacade
 
 # Class: OperandFacade
 
-## Table of contents
-
-### Constructors
-
-- [constructor](OperandFacade.md#constructor)
-
-### Methods
-
-- [build](OperandFacade.md#build)
-- [getClauses](OperandFacade.md#getclauses)
-- [normalize](OperandFacade.md#normalize)
-
 ## Constructors
 
-### constructor
+### new OperandFacade()
 
-• **new OperandFacade**(`expressions`, `schemaState`, `cache`, `operandSerializer`, `operandHelper`, `helper`): [`OperandFacade`](OperandFacade.md)
+> **new OperandFacade**(`expressions`, `schemaState`, `cache`, `operandSerializer`, `operandHelper`, `helper`): [`OperandFacade`](OperandFacade.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expressions` | `Expressions` |
-| `schemaState` | [`SchemaState`](SchemaState.md) |
-| `cache` | `ICache`\<`string`, `string`\> |
-| `operandSerializer` | `OperandSerializer` |
-| `operandHelper` | [`OrmOperandHelper`](OrmOperandHelper.md) |
-| `helper` | [`OrmH3lp`](OrmH3lp.md) |
+• **expressions**: `Expressions`
+
+• **schemaState**: [`SchemaState`](SchemaState.md)
+
+• **cache**: `ICache`\<`string`, `string`\>
+
+• **operandSerializer**: `OperandSerializer`
+
+• **operandHelper**: [`OrmOperandHelper`](OrmOperandHelper.md)
+
+• **helper**: [`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
 [`OperandFacade`](OperandFacade.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/operand/application/facade.ts#L13)
+[src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/operand/application/facade.ts#L13)
 
 ## Methods
 
-### build
+### build()
 
-▸ **build**(`expression`): `Operand`
+> **build**(`expression`): `Operand`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
 `Operand`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/operand/application/facade.ts#L27)
+[src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/operand/application/facade.ts#L27)
 
-___
+***
 
-### getClauses
+### getClauses()
 
-▸ **getClauses**(`operand`): `any`
+> **getClauses**(`operand`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | `Operand` |
+• **operand**: `Operand`
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/operand/application/facade.ts#L35)
+[src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/operand/application/facade.ts#L35)
 
-___
+***
 
-### normalize
+### normalize()
 
-▸ **normalize**(`expression`): `string`
+> **normalize**(`expression`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/operand/application/facade.ts#L31)
+[src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/operand/application/facade.ts#L31)

@@ -1,97 +1,83 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SchemaExtender
 
 # Class: SchemaExtender
 
-## Table of contents
-
-### Constructors
-
-- [constructor](SchemaExtender.md#constructor)
-
-### Methods
-
-- [complete](SchemaExtender.md#complete)
-- [extend](SchemaExtender.md#extend)
-- [isCompound](SchemaExtender.md#iscompound)
-
 ## Constructors
 
-### constructor
+### new SchemaExtender()
 
-• **new SchemaExtender**(`expressions`, `helper`): [`SchemaExtender`](SchemaExtender.md)
+> **new SchemaExtender**(`expressions`, `helper`): [`SchemaExtender`](SchemaExtender.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expressions` | `Expressions` |
-| `helper` | [`OrmBaseH3lp`](OrmBaseH3lp.md) |
+• **expressions**: `Expressions`
+
+• **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Returns
 
 [`SchemaExtender`](SchemaExtender.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:7
+node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:7
 
 ## Methods
 
-### complete
+### complete()
 
-▸ **complete**(`schema`): `void`
+> **complete**(`schema`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `schema` | [`Schema`](../interfaces/Schema.md) |
+• **schema**: [`Schema`](../interfaces/Schema.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:15
+node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:15
 
-___
+***
 
-### extend
+### extend()
 
-▸ **extend**(`schema`): `void`
+> **extend**(`schema`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `schema` | [`Schema`](../interfaces/Schema.md) |
+• **schema**: [`Schema`](../interfaces/Schema.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:8
+node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:8
 
-___
+***
 
-### isCompound
+### isCompound()
 
-▸ **isCompound**(`parent`, `child`): `boolean`
+> **isCompound**(`parent`, `child`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `parent` | `any` |
-| `child` | `any` |
+• **parent**: `any`
+
+• **child**: `any`
 
 #### Returns
 
 `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:16
+node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:16

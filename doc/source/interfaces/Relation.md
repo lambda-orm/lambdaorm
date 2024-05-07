@@ -1,96 +1,87 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Relation
 
 # Interface: Relation
 
-## Table of contents
-
-### Properties
-
-- [composite](Relation.md#composite)
-- [entity](Relation.md#entity)
-- [from](Relation.md#from)
-- [name](Relation.md#name)
-- [target](Relation.md#target)
-- [to](Relation.md#to)
-- [type](Relation.md#type)
-- [weak](Relation.md#weak)
-
 ## Properties
 
-### composite
+### composite?
 
-• `Optional` **composite**: `boolean`
+> `optional` **composite**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:42
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:42
 
-___
+***
 
 ### entity
 
-• **entity**: `string`
+> **entity**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:44
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:44
 
-___
+***
 
 ### from
 
-• **from**: `string`
+> **from**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:43
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:43
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:40
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:40
 
-___
+***
 
-### target
+### target?
 
-• `Optional` **target**: `string`
+> `optional` **target**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:47
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:47
 
-___
+***
 
 ### to
 
-• **to**: `string`
+> **to**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:45
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:45
 
-___
+***
 
 ### type
 
-• **type**: [`RelationType`](../enums/RelationType.md)
+> **type**: [`RelationType`](../enumerations/RelationType.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:41
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:41
 
-___
+***
 
-### weak
+### weak?
 
-• `Optional` **weak**: `boolean`
+> `optional` **weak**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:46
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:46

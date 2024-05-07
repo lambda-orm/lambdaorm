@@ -1,52 +1,30 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SentenceInclude
 
 # Class: SentenceInclude
 
-## Hierarchy
+## Extends
 
 - `Operand`
 
-  ↳ **`SentenceInclude`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](SentenceInclude.md#constructor)
-
-### Properties
-
-- [children](SentenceInclude.md#children)
-- [evaluator](SentenceInclude.md#evaluator)
-- [id](SentenceInclude.md#id)
-- [name](SentenceInclude.md#name)
-- [number](SentenceInclude.md#number)
-- [pos](SentenceInclude.md#pos)
-- [relation](SentenceInclude.md#relation)
-- [returnType](SentenceInclude.md#returntype)
-- [type](SentenceInclude.md#type)
-
-### Methods
-
-- [eval](SentenceInclude.md#eval)
-- [evalAsync](SentenceInclude.md#evalasync)
-- [isAsync](SentenceInclude.md#isasync)
-- [solve](SentenceInclude.md#solve)
-
 ## Constructors
 
-### constructor
+### new SentenceInclude()
 
-• **new SentenceInclude**(`pos`, `name`, `children`, `relation`): [`SentenceInclude`](SentenceInclude.md)
+> **new SentenceInclude**(`pos`, `name`, `children`, `relation`): [`SentenceInclude`](SentenceInclude.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `pos` | `Position` |
-| `name` | `string` |
-| `children` | `Operand`[] |
-| `relation` | [`Relation`](../interfaces/Relation.md) |
+• **pos**: `Position`
+
+• **name**: `string`
+
+• **children**: `Operand`[]
+
+• **relation**: [`Relation`](../interfaces/Relation.md)
 
 #### Returns
 
@@ -54,145 +32,143 @@
 
 #### Overrides
 
-Operand.constructor
+`Operand.constructor`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:67
+node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:67
 
 ## Properties
 
 ### children
 
-• **children**: `Operand`[]
+> **children**: `Operand`[]
 
 #### Inherited from
 
-Operand.children
+`Operand.children`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:44
+node\_modules/3xpr/shared/domain/operand.d.ts:44
 
-___
+***
 
-### evaluator
+### evaluator?
 
-• `Optional` **evaluator**: `IEvaluator`
-
-#### Inherited from
-
-Operand.evaluator
-
-#### Defined in
-
-node_modules/3xpr/shared/domain/operand.d.ts:46
-
-___
-
-### id
-
-• `Optional` **id**: `string`
+> `optional` **evaluator**: `IEvaluator`
 
 #### Inherited from
 
-Operand.id
+`Operand.evaluator`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:48
+node\_modules/3xpr/shared/domain/operand.d.ts:46
 
-___
+***
+
+### id?
+
+> `optional` **id**: `string`
+
+#### Inherited from
+
+`Operand.id`
+
+#### Source
+
+node\_modules/3xpr/shared/domain/operand.d.ts:48
+
+***
 
 ### name
 
-• **name**: `any`
+> **name**: `any`
 
 #### Inherited from
 
-Operand.name
+`Operand.name`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:42
+node\_modules/3xpr/shared/domain/operand.d.ts:42
 
-___
+***
 
-### number
+### number?
 
-• `Optional` **number**: `number`
+> `optional` **number**: `number`
 
 #### Inherited from
 
-Operand.number
+`Operand.number`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:47
+node\_modules/3xpr/shared/domain/operand.d.ts:47
 
-___
+***
 
 ### pos
 
-• `Readonly` **pos**: `Position`
+> `readonly` **pos**: `Position`
 
 #### Inherited from
 
-Operand.pos
+`Operand.pos`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:41
+node\_modules/3xpr/shared/domain/operand.d.ts:41
 
-___
+***
 
 ### relation
 
-• **relation**: [`Relation`](../interfaces/Relation.md)
+> **relation**: [`Relation`](../interfaces/Relation.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:66
+node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:66
 
-___
+***
 
-### returnType
+### returnType?
 
-• `Optional` **returnType**: `Type`
+> `optional` **returnType**: `Type`
 
 #### Inherited from
 
-Operand.returnType
+`Operand.returnType`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:45
+node\_modules/3xpr/shared/domain/operand.d.ts:45
 
-___
+***
 
 ### type
 
-• `Readonly` **type**: `OperandType`
+> `readonly` **type**: `OperandType`
 
 #### Inherited from
 
-Operand.type
+`Operand.type`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:43
+node\_modules/3xpr/shared/domain/operand.d.ts:43
 
 ## Methods
 
-### eval
+### eval()
 
-▸ **eval**(`context`): `any`
+> **eval**(`context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | `Context` |
+• **context**: `Context`
 
 #### Returns
 
@@ -200,23 +176,21 @@ node_modules/3xpr/shared/domain/operand.d.ts:43
 
 #### Inherited from
 
-Operand.eval
+`Operand.eval`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:50
+node\_modules/3xpr/shared/domain/operand.d.ts:50
 
-___
+***
 
-### evalAsync
+### evalAsync()
 
-▸ **evalAsync**(`context`): `Promise`\<`any`\>
+> **evalAsync**(`context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | `Context` |
+• **context**: `Context`
 
 #### Returns
 
@@ -224,17 +198,17 @@ ___
 
 #### Inherited from
 
-Operand.evalAsync
+`Operand.evalAsync`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:51
+node\_modules/3xpr/shared/domain/operand.d.ts:51
 
-___
+***
 
-### isAsync
+### isAsync()
 
-▸ **isAsync**(): `boolean`
+> **isAsync**(): `boolean`
 
 #### Returns
 
@@ -242,23 +216,21 @@ ___
 
 #### Inherited from
 
-Operand.isAsync
+`Operand.isAsync`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:52
+node\_modules/3xpr/shared/domain/operand.d.ts:52
 
-___
+***
 
-### solve
+### solve()
 
-▸ **solve**(`context`): `Promise`\<`any`\>
+> **solve**(`context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | `Context` |
+• **context**: `Context`
 
 #### Returns
 
@@ -266,8 +238,8 @@ ___
 
 #### Inherited from
 
-Operand.solve
+`Operand.solve`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:53
+node\_modules/3xpr/shared/domain/operand.d.ts:53

@@ -1,206 +1,187 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Metadata
 
 # Interface: Metadata
 
-## Table of contents
-
-### Properties
-
-- [alias](Metadata.md#alias)
-- [children](Metadata.md#children)
-- [classtype](Metadata.md#classtype)
-- [clause](Metadata.md#clause)
-- [columns](Metadata.md#columns)
-- [constraints](Metadata.md#constraints)
-- [defaults](Metadata.md#defaults)
-- [entity](Metadata.md#entity)
-- [isRoot](Metadata.md#isroot)
-- [name](Metadata.md#name)
-- [number](Metadata.md#number)
-- [parameters](Metadata.md#parameters)
-- [pos](Metadata.md#pos)
-- [property](Metadata.md#property)
-- [relation](Metadata.md#relation)
-- [returnType](Metadata.md#returntype)
-- [type](Metadata.md#type)
-- [values](Metadata.md#values)
-
 ## Properties
 
-### alias
+### alias?
 
-• `Optional` **alias**: `string`
+> `optional` **alias**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:34
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:34
 
-___
+***
 
-### children
+### children?
 
-• `Optional` **children**: [`Metadata`](Metadata.md)[]
+> `optional` **children**: [`Metadata`](Metadata.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:22
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:22
 
-___
+***
 
 ### classtype
 
-• **classtype**: `string`
+> **classtype**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:19
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:19
 
-___
+***
 
-### clause
+### clause?
 
-• `Optional` **clause**: `string`
+> `optional` **clause**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:33
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:33
 
-___
+***
 
-### columns
+### columns?
 
-• `Optional` **columns**: [`Property`](Property.md)[]
+> `optional` **columns**: [`Property`](Property.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:26
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:26
 
-___
+***
 
-### constraints
+### constraints?
 
-• `Optional` **constraints**: [`Constraint`](Constraint.md)[]
+> `optional` **constraints**: [`Constraint`](Constraint.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:29
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:29
 
-___
+***
 
-### defaults
+### defaults?
 
-• `Optional` **defaults**: [`Behavior`](Behavior.md)[]
+> `optional` **defaults**: [`Behavior`](Behavior.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:31
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:31
 
-___
+***
 
-### entity
+### entity?
 
-• `Optional` **entity**: `string`
+> `optional` **entity**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:25
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:25
 
-___
+***
 
-### isRoot
+### isRoot?
 
-• `Optional` **isRoot**: `boolean`
+> `optional` **isRoot**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:35
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:35
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:21
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:21
 
-___
+***
 
-### number
+### number?
 
-• `Optional` **number**: `number`
+> `optional` **number**: `number`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:36
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:36
 
-___
+***
 
-### parameters
+### parameters?
 
-• `Optional` **parameters**: `Parameter`[]
+> `optional` **parameters**: `Parameter`[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:28
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:28
 
-___
+***
 
 ### pos
 
-• **pos**: `Position`
+> **pos**: `Position`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:20
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:20
 
-___
+***
 
-### property
+### property?
 
-• `Optional` **property**: `string`
+> `optional` **property**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:27
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:27
 
-___
+***
 
-### relation
+### relation?
 
-• `Optional` **relation**: [`Relation`](Relation.md)
+> `optional` **relation**: [`Relation`](Relation.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:32
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:32
 
-___
+***
 
-### returnType
+### returnType?
 
-• `Optional` **returnType**: `string`
+> `optional` **returnType**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:24
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:24
 
-___
+***
 
 ### type
 
-• **type**: `string`
+> **type**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:23
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:23
 
-___
+***
 
-### values
+### values?
 
-• `Optional` **values**: [`Behavior`](Behavior.md)[]
+> `optional` **values**: [`Behavior`](Behavior.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:30
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:30

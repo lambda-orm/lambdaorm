@@ -1,41 +1,37 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / TaskConfig
 
 # Interface: TaskConfig
 
-## Table of contents
-
-### Properties
-
-- [condition](TaskConfig.md#condition)
-- [expression](TaskConfig.md#expression)
-- [name](TaskConfig.md#name)
-
 ## Properties
 
-### condition
+### condition?
 
-• `Optional` **condition**: `string`
+> `optional` **condition**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:148
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:148
 
-___
+***
 
 ### expression
 
-• **expression**: `string`
+> **expression**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:149
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:149
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:147
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:147

@@ -1,54 +1,45 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / CreateEntitiesService
 
 # Class: CreateEntitiesService
 
-## Table of contents
-
-### Constructors
-
-- [constructor](CreateEntitiesService.md#constructor)
-
-### Methods
-
-- [getEntities](CreateEntitiesService.md#getentities)
-
 ## Constructors
 
-### constructor
+### new CreateEntitiesService()
 
-• **new CreateEntitiesService**(`helper`): [`CreateEntitiesService`](CreateEntitiesService.md)
+> **new CreateEntitiesService**(`helper`): [`CreateEntitiesService`](CreateEntitiesService.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `helper` | [`SchemaHelper`](SchemaHelper.md) |
+• **helper**: [`SchemaHelper`](SchemaHelper.md)
 
 #### Returns
 
 [`CreateEntitiesService`](CreateEntitiesService.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/createEntitiesService.d.ts:6
+node\_modules/lambdaorm-base/schema/application/services/createEntitiesService.d.ts:6
 
 ## Methods
 
-### getEntities
+### getEntities()
 
-▸ **getEntities**(`name`, `type`): [`Entity`](../interfaces/Entity.md)[]
+> **getEntities**(`name`, `type`): [`Entity`](../interfaces/Entity.md)[]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `type` | `Type` |
+• **name**: `string`
+
+• **type**: `Type`
 
 #### Returns
 
 [`Entity`](../interfaces/Entity.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/createEntitiesService.d.ts:7
+node\_modules/lambdaorm-base/schema/application/services/createEntitiesService.d.ts:7

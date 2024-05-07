@@ -1,31 +1,29 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ISentenceCompleteBuilder
 
 # Interface: ISentenceCompleteBuilder
 
-## Table of contents
-
-### Methods
-
-- [build](ISentenceCompleteBuilder.md#build)
-
 ## Methods
 
-### build
+### build()
 
-▸ **build**(`expression`, `view`, `stage`): [`Sentence`](../classes/Sentence.md)
+> **build**(`expression`, `view`, `stage`): [`Sentence`](../classes/Sentence.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `view` | [`ViewConfigService`](../classes/ViewConfigService.md) |
-| `stage` | `string` |
+• **expression**: `string`
+
+• **view**: [`ViewConfigService`](../classes/ViewConfigService.md)
+
+• **stage**: `string`
 
 #### Returns
 
 [`Sentence`](../classes/Sentence.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/services.d.ts:7
+node\_modules/lambdaorm-base/sentence/domain/services.d.ts:7

@@ -1,384 +1,355 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / EntityMapping
 
 # Interface: EntityMapping
 
-## Hierarchy
+## Extends
 
 - [`Entity`](Entity.md)
 
-  ↳ **`EntityMapping`**
-
-## Table of contents
-
-### Properties
-
-- [abstract](EntityMapping.md#abstract)
-- [composite](EntityMapping.md#composite)
-- [constraints](EntityMapping.md#constraints)
-- [dependents](EntityMapping.md#dependents)
-- [extends](EntityMapping.md#extends)
-- [filter](EntityMapping.md#filter)
-- [hadDefaults](EntityMapping.md#haddefaults)
-- [hadKeys](EntityMapping.md#hadkeys)
-- [hadReadExps](EntityMapping.md#hadreadexps)
-- [hadReadMappingExp](EntityMapping.md#hadreadmappingexp)
-- [hadReadValues](EntityMapping.md#hadreadvalues)
-- [hadViewReadExp](EntityMapping.md#hadviewreadexp)
-- [hadWriteExps](EntityMapping.md#hadwriteexps)
-- [hadWriteValues](EntityMapping.md#hadwritevalues)
-- [indexes](EntityMapping.md#indexes)
-- [intermediate](EntityMapping.md#intermediate)
-- [mapping](EntityMapping.md#mapping)
-- [name](EntityMapping.md#name)
-- [primaryKey](EntityMapping.md#primarykey)
-- [properties](EntityMapping.md#properties)
-- [relations](EntityMapping.md#relations)
-- [required](EntityMapping.md#required)
-- [sequence](EntityMapping.md#sequence)
-- [singular](EntityMapping.md#singular)
-- [uniqueKey](EntityMapping.md#uniquekey)
-- [view](EntityMapping.md#view)
-
 ## Properties
 
-### abstract
+### abstract?
 
-• `Optional` **abstract**: `boolean`
-
-#### Inherited from
-
-[Entity](Entity.md).[abstract](Entity.md#abstract)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:61
-
-___
-
-### composite
-
-• `Optional` **composite**: `boolean`
+> `optional` **abstract**: `boolean`
 
 #### Inherited from
 
-[Entity](Entity.md).[composite](Entity.md#composite)
+[`Entity`](Entity.md).[`abstract`](Entity.md#abstract)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:77
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:61
 
-___
+***
 
-### constraints
+### composite?
 
-• `Optional` **constraints**: [`Constraint`](Constraint.md)[]
-
-#### Inherited from
-
-[Entity](Entity.md).[constraints](Entity.md#constraints)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:70
-
-___
-
-### dependents
-
-• `Optional` **dependents**: [`Dependent`](Dependent.md)[]
+> `optional` **composite**: `boolean`
 
 #### Inherited from
 
-[Entity](Entity.md).[dependents](Entity.md#dependents)
+[`Entity`](Entity.md).[`composite`](Entity.md#composite)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:69
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:77
 
-___
+***
 
-### extends
+### constraints?
 
-• `Optional` **extends**: `string`
-
-#### Inherited from
-
-[Entity](Entity.md).[extends](Entity.md#extends)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:60
-
-___
-
-### filter
-
-• `Optional` **filter**: `string`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:94
-
-___
-
-### hadDefaults
-
-• `Optional` **hadDefaults**: `boolean`
+> `optional` **constraints**: [`Constraint`](Constraint.md)[]
 
 #### Inherited from
 
-[Entity](Entity.md).[hadDefaults](Entity.md#haddefaults)
+[`Entity`](Entity.md).[`constraints`](Entity.md#constraints)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:75
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:70
 
-___
+***
 
-### hadKeys
+### dependents?
 
-• `Optional` **hadKeys**: `boolean`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:95
-
-___
-
-### hadReadExps
-
-• `Optional` **hadReadExps**: `boolean`
+> `optional` **dependents**: [`Dependent`](Dependent.md)[]
 
 #### Inherited from
 
-[Entity](Entity.md).[hadReadExps](Entity.md#hadreadexps)
+[`Entity`](Entity.md).[`dependents`](Entity.md#dependents)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:71
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:69
 
-___
+***
 
-### hadReadMappingExp
+### extends?
 
-• `Optional` **hadReadMappingExp**: `boolean`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:96
-
-___
-
-### hadReadValues
-
-• `Optional` **hadReadValues**: `boolean`
+> `optional` **extends**: `string`
 
 #### Inherited from
 
-[Entity](Entity.md).[hadReadValues](Entity.md#hadreadvalues)
+[`Entity`](Entity.md).[`extends`](Entity.md#extends)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:73
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:60
 
-___
+***
 
-### hadViewReadExp
+### filter?
 
-• `Optional` **hadViewReadExp**: `boolean`
+> `optional` **filter**: `string`
 
-#### Inherited from
+#### Source
 
-[Entity](Entity.md).[hadViewReadExp](Entity.md#hadviewreadexp)
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:94
 
-#### Defined in
+***
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:76
+### hadDefaults?
 
-___
-
-### hadWriteExps
-
-• `Optional` **hadWriteExps**: `boolean`
+> `optional` **hadDefaults**: `boolean`
 
 #### Inherited from
 
-[Entity](Entity.md).[hadWriteExps](Entity.md#hadwriteexps)
+[`Entity`](Entity.md).[`hadDefaults`](Entity.md#haddefaults)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:72
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:75
 
-___
+***
 
-### hadWriteValues
+### hadKeys?
 
-• `Optional` **hadWriteValues**: `boolean`
+> `optional` **hadKeys**: `boolean`
 
-#### Inherited from
+#### Source
 
-[Entity](Entity.md).[hadWriteValues](Entity.md#hadwritevalues)
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:95
 
-#### Defined in
+***
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:74
+### hadReadExps?
 
-___
-
-### indexes
-
-• `Optional` **indexes**: [`Index`](Index.md)[]
+> `optional` **hadReadExps**: `boolean`
 
 #### Inherited from
 
-[Entity](Entity.md).[indexes](Entity.md#indexes)
+[`Entity`](Entity.md).[`hadReadExps`](Entity.md#hadreadexps)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:68
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:71
 
-___
+***
 
-### intermediate
+### hadReadMappingExp?
 
-• `Optional` **intermediate**: `boolean`
+> `optional` **hadReadMappingExp**: `boolean`
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:96
+
+***
+
+### hadReadValues?
+
+> `optional` **hadReadValues**: `boolean`
 
 #### Inherited from
 
-[Entity](Entity.md).[intermediate](Entity.md#intermediate)
+[`Entity`](Entity.md).[`hadReadValues`](Entity.md#hadreadvalues)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:78
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:73
 
-___
+***
 
-### mapping
+### hadViewReadExp?
 
-• `Optional` **mapping**: `string`
+> `optional` **hadViewReadExp**: `boolean`
 
-#### Defined in
+#### Inherited from
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:91
+[`Entity`](Entity.md).[`hadViewReadExp`](Entity.md#hadviewreadexp)
 
-___
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:76
+
+***
+
+### hadWriteExps?
+
+> `optional` **hadWriteExps**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`hadWriteExps`](Entity.md#hadwriteexps)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:72
+
+***
+
+### hadWriteValues?
+
+> `optional` **hadWriteValues**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`hadWriteValues`](Entity.md#hadwritevalues)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:74
+
+***
+
+### indexes?
+
+> `optional` **indexes**: [`Index`](Index.md)[]
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`indexes`](Entity.md#indexes)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:68
+
+***
+
+### intermediate?
+
+> `optional` **intermediate**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`intermediate`](Entity.md#intermediate)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:78
+
+***
+
+### mapping?
+
+> `optional` **mapping**: `string`
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:91
+
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
 #### Inherited from
 
-[Entity](Entity.md).[name](Entity.md#name)
+[`Entity`](Entity.md).[`name`](Entity.md#name)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:58
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:58
 
-___
+***
 
-### primaryKey
+### primaryKey?
 
-• `Optional` **primaryKey**: `string`[]
+> `optional` **primaryKey**: `string`[]
 
 #### Inherited from
 
-[Entity](Entity.md).[primaryKey](Entity.md#primarykey)
+[`Entity`](Entity.md).[`primaryKey`](Entity.md#primarykey)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:64
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:64
 
-___
+***
 
-### properties
+### properties?
 
-• `Optional` **properties**: [`PropertyMapping`](PropertyMapping.md)[]
+> `optional` **properties**: [`PropertyMapping`](PropertyMapping.md)[]
 
 #### Overrides
 
-[Entity](Entity.md).[properties](Entity.md#properties)
+[`Entity`](Entity.md).[`properties`](Entity.md#properties)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:93
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:93
 
-___
+***
 
-### relations
+### relations?
 
-• `Optional` **relations**: [`Relation`](Relation.md)[]
-
-#### Inherited from
-
-[Entity](Entity.md).[relations](Entity.md#relations)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:66
-
-___
-
-### required
-
-• `Optional` **required**: `string`[]
+> `optional` **relations**: [`Relation`](Relation.md)[]
 
 #### Inherited from
 
-[Entity](Entity.md).[required](Entity.md#required)
+[`Entity`](Entity.md).[`relations`](Entity.md#relations)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:67
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:66
 
-___
+***
 
-### sequence
+### required?
 
-• `Optional` **sequence**: `string`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:92
-
-___
-
-### singular
-
-• `Optional` **singular**: `string`
+> `optional` **required**: `string`[]
 
 #### Inherited from
 
-[Entity](Entity.md).[singular](Entity.md#singular)
+[`Entity`](Entity.md).[`required`](Entity.md#required)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:62
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:67
 
-___
+***
 
-### uniqueKey
+### sequence?
 
-• `Optional` **uniqueKey**: `string`[]
+> `optional` **sequence**: `string`
 
-#### Inherited from
+#### Source
 
-[Entity](Entity.md).[uniqueKey](Entity.md#uniquekey)
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:92
 
-#### Defined in
+***
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:65
+### singular?
 
-___
-
-### view
-
-• `Optional` **view**: `boolean`
+> `optional` **singular**: `string`
 
 #### Inherited from
 
-[Entity](Entity.md).[view](Entity.md#view)
+[`Entity`](Entity.md).[`singular`](Entity.md#singular)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:63
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:62
+
+***
+
+### uniqueKey?
+
+> `optional` **uniqueKey**: `string`[]
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`uniqueKey`](Entity.md#uniquekey)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:65
+
+***
+
+### view?
+
+> `optional` **view**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`view`](Entity.md#view)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:63

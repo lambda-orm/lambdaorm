@@ -1,30 +1,27 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Index
 
 # Interface: Index
-
-## Table of contents
-
-### Properties
-
-- [fields](Index.md#fields)
-- [name](Index.md#name)
 
 ## Properties
 
 ### fields
 
-• **fields**: `string`[]
+> **fields**: `string`[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:55
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:55
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:54
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:54

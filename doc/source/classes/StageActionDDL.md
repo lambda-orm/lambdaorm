@@ -1,94 +1,84 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / StageActionDDL
 
-# Class: StageActionDDL
+# Class: `abstract` StageActionDDL
 
-## Hierarchy
+## Extended by
 
-- **`StageActionDDL`**
-
-  ↳ [`StageDrop`](StageDrop.md)
-
-  ↳ [`StagePush`](StagePush.md)
-
-  ↳ [`StageTruncate`](StageTruncate.md)
-
-  ↳ [`StagePull`](StagePull.md)
-
-## Table of contents
-
-### Constructors
-
-- [constructor](StageActionDDL.md#constructor)
-
-### Methods
-
-- [execute](StageActionDDL.md#execute)
-- [queries](StageActionDDL.md#queries)
-- [sentence](StageActionDDL.md#sentence)
+- [`StageDrop`](StageDrop.md)
+- [`StagePush`](StagePush.md)
+- [`StageTruncate`](StageTruncate.md)
+- [`StagePull`](StagePull.md)
 
 ## Constructors
 
-### constructor
+### new StageActionDDL()
 
-• **new StageActionDDL**(`executor`, `stageModelService`, `schemaState`, `languages`, `options`, `helper`): [`StageActionDDL`](StageActionDDL.md)
+> **new StageActionDDL**(`executor`, `stageModelService`, `schemaState`, `languages`, `options`, `helper`): [`StageActionDDL`](StageActionDDL.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `executor` | [`Executor`](../interfaces/Executor.md) |
-| `stageModelService` | [`StageModelService`](StageModelService.md) |
-| `schemaState` | [`SchemaState`](SchemaState.md) |
-| `languages` | [`LanguagesService`](LanguagesService.md) |
-| `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
-| `helper` | [`OrmH3lp`](OrmH3lp.md) |
+• **executor**: [`Executor`](../interfaces/Executor.md)
+
+• **stageModelService**: [`StageModelService`](StageModelService.md)
+
+• **schemaState**: [`SchemaState`](SchemaState.md)
+
+• **languages**: [`LanguagesService`](LanguagesService.md)
+
+• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
+
+• **helper**: [`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
 [`StageActionDDL`](StageActionDDL.md)
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 ## Methods
 
-### execute
+### execute()
 
-▸ **execute**(): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+> `abstract` **execute**(): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
 #### Returns
 
 `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
+[src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
 
-___
+***
 
-### queries
+### queries()
 
-▸ **queries**(): `Promise`\<[`Query`](Query.md)[]\>
+> `abstract` **queries**(): `Promise`\<[`Query`](Query.md)[]\>
 
 #### Returns
 
 `Promise`\<[`Query`](Query.md)[]\>
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
+[src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
 
-___
+***
 
-### sentence
+### sentence()
 
-▸ **sentence**(): `Promise`\<`any`[]\>
+> **sentence**(): `Promise`\<`any`[]\>
 
 #### Returns
 
 `Promise`\<`any`[]\>
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

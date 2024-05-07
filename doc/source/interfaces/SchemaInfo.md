@@ -1,30 +1,27 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SchemaInfo
 
 # Interface: SchemaInfo
 
-## Table of contents
-
-### Properties
-
-- [path](SchemaInfo.md#path)
-- [schema](SchemaInfo.md#schema)
-
 ## Properties
 
-### path
+### path?
 
-• `Optional` **path**: `string`
+> `optional` **path**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:185
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:185
 
-___
+***
 
 ### schema
 
-• **schema**: [`Schema`](Schema.md)
+> **schema**: [`Schema`](Schema.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:184
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:184

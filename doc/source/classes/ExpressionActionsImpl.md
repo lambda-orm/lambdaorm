@@ -1,3 +1,7 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ExpressionActionsImpl
 
 # Class: ExpressionActionsImpl
@@ -6,55 +10,37 @@
 
 - [`ExpressionActions`](../interfaces/ExpressionActions.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ExpressionActionsImpl.md#constructor)
-
-### Methods
-
-- [constraints](ExpressionActionsImpl.md#constraints)
-- [execute](ExpressionActionsImpl.md#execute)
-- [metadata](ExpressionActionsImpl.md#metadata)
-- [model](ExpressionActionsImpl.md#model)
-- [normalize](ExpressionActionsImpl.md#normalize)
-- [parameters](ExpressionActionsImpl.md#parameters)
-- [plan](ExpressionActionsImpl.md#plan)
-
 ## Constructors
 
-### constructor
+### new ExpressionActionsImpl()
 
-• **new ExpressionActionsImpl**(`name`, `orm`, `stage?`): [`ExpressionActionsImpl`](ExpressionActionsImpl.md)
+> **new ExpressionActionsImpl**(`name`, `orm`, `stage`?): [`ExpressionActionsImpl`](ExpressionActionsImpl.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `orm` | [`IOrm`](../interfaces/IOrm.md) |
-| `stage?` | `string` |
+• **name**: `string`
+
+• **orm**: [`IOrm`](../interfaces/IOrm.md)
+
+• **stage?**: `string`
 
 #### Returns
 
 [`ExpressionActionsImpl`](ExpressionActionsImpl.md)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/domain/actions.ts:7](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/domain/actions.ts#L7)
+[src/lib/repository/domain/actions.ts:7](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/domain/actions.ts#L7)
 
 ## Methods
 
-### constraints
+### constraints()
 
-▸ **constraints**(`expression`): `Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
+> **constraints**(`expression`): `Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
@@ -62,24 +48,23 @@
 
 #### Implementation of
 
-[ExpressionActions](../interfaces/ExpressionActions.md).[constraints](../interfaces/ExpressionActions.md#constraints)
+[`ExpressionActions`](../interfaces/ExpressionActions.md).[`constraints`](../interfaces/ExpressionActions.md#constraints)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/domain/actions.ts:29](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/domain/actions.ts#L29)
+[src/lib/repository/domain/actions.ts:29](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/domain/actions.ts#L29)
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`expression`, `data`): `Promise`\<`any`\>
+> **execute**(`expression`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `data` | `any` |
+• **expression**: `string`
+
+• **data**: `any`
 
 #### Returns
 
@@ -87,23 +72,21 @@ ___
 
 #### Implementation of
 
-[ExpressionActions](../interfaces/ExpressionActions.md).[execute](../interfaces/ExpressionActions.md#execute)
+[`ExpressionActions`](../interfaces/ExpressionActions.md).[`execute`](../interfaces/ExpressionActions.md#execute)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/domain/actions.ts:13](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/domain/actions.ts#L13)
+[src/lib/repository/domain/actions.ts:13](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/domain/actions.ts#L13)
 
-___
+***
 
-### metadata
+### metadata()
 
-▸ **metadata**(`expression`): `Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
+> **metadata**(`expression`): `Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
@@ -111,23 +94,21 @@ ___
 
 #### Implementation of
 
-[ExpressionActions](../interfaces/ExpressionActions.md).[metadata](../interfaces/ExpressionActions.md#metadata)
+[`ExpressionActions`](../interfaces/ExpressionActions.md).[`metadata`](../interfaces/ExpressionActions.md#metadata)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/domain/actions.ts:33](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/domain/actions.ts#L33)
+[src/lib/repository/domain/actions.ts:33](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/domain/actions.ts#L33)
 
-___
+***
 
-### model
+### model()
 
-▸ **model**(`expression`): `Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
+> **model**(`expression`): `Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
@@ -135,23 +116,21 @@ ___
 
 #### Implementation of
 
-[ExpressionActions](../interfaces/ExpressionActions.md).[model](../interfaces/ExpressionActions.md#model)
+[`ExpressionActions`](../interfaces/ExpressionActions.md).[`model`](../interfaces/ExpressionActions.md#model)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/domain/actions.ts:21](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/domain/actions.ts#L21)
+[src/lib/repository/domain/actions.ts:21](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/domain/actions.ts#L21)
 
-___
+***
 
-### normalize
+### normalize()
 
-▸ **normalize**(`expression`): `string`
+> **normalize**(`expression`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
@@ -159,23 +138,21 @@ ___
 
 #### Implementation of
 
-[ExpressionActions](../interfaces/ExpressionActions.md).[normalize](../interfaces/ExpressionActions.md#normalize)
+[`ExpressionActions`](../interfaces/ExpressionActions.md).[`normalize`](../interfaces/ExpressionActions.md#normalize)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/domain/actions.ts:17](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/domain/actions.ts#L17)
+[src/lib/repository/domain/actions.ts:17](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/domain/actions.ts#L17)
 
-___
+***
 
-### parameters
+### parameters()
 
-▸ **parameters**(`expression`): `Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
+> **parameters**(`expression`): `Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
@@ -183,23 +160,21 @@ ___
 
 #### Implementation of
 
-[ExpressionActions](../interfaces/ExpressionActions.md).[parameters](../interfaces/ExpressionActions.md#parameters)
+[`ExpressionActions`](../interfaces/ExpressionActions.md).[`parameters`](../interfaces/ExpressionActions.md#parameters)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/domain/actions.ts:25](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/domain/actions.ts#L25)
+[src/lib/repository/domain/actions.ts:25](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/domain/actions.ts#L25)
 
-___
+***
 
-### plan
+### plan()
 
-▸ **plan**(`expression`): `Promise`\<[`QueryPlan`](../interfaces/QueryPlan.md)\>
+> **plan**(`expression`): `Promise`\<[`QueryPlan`](../interfaces/QueryPlan.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
@@ -207,8 +182,8 @@ ___
 
 #### Implementation of
 
-[ExpressionActions](../interfaces/ExpressionActions.md).[plan](../interfaces/ExpressionActions.md#plan)
+[`ExpressionActions`](../interfaces/ExpressionActions.md).[`plan`](../interfaces/ExpressionActions.md#plan)
 
-#### Defined in
+#### Source
 
-[src/lib/repository/domain/actions.ts:37](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/repository/domain/actions.ts#L37)
+[src/lib/repository/domain/actions.ts:37](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/repository/domain/actions.ts#L37)

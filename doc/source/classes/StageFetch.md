@@ -1,51 +1,47 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / StageFetch
 
 # Class: StageFetch
 
-## Table of contents
-
-### Constructors
-
-- [constructor](StageFetch.md#constructor)
-
-### Methods
-
-- [execute](StageFetch.md#execute)
-
 ## Constructors
 
-### constructor
+### new StageFetch()
 
-• **new StageFetch**(`executor`, `schemaState`, `languages`, `helper`, `options`): [`StageFetch`](StageFetch.md)
+> **new StageFetch**(`executor`, `schemaState`, `languages`, `helper`, `options`): [`StageFetch`](StageFetch.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `executor` | [`Executor`](../interfaces/Executor.md) |
-| `schemaState` | [`SchemaState`](SchemaState.md) |
-| `languages` | [`LanguagesService`](LanguagesService.md) |
-| `helper` | [`SchemaHelper`](SchemaHelper.md) |
-| `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+• **executor**: [`Executor`](../interfaces/Executor.md)
+
+• **schemaState**: [`SchemaState`](SchemaState.md)
+
+• **languages**: [`LanguagesService`](LanguagesService.md)
+
+• **helper**: [`SchemaHelper`](SchemaHelper.md)
+
+• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
 [`StageFetch`](StageFetch.md)
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/useCases/fetch.ts:7](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/useCases/fetch.ts#L7)
+[src/lib/stage/application/useCases/fetch.ts:7](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/useCases/fetch.ts#L7)
 
 ## Methods
 
-### execute
+### execute()
 
-▸ **execute**(): `Promise`\<[`Mapping`](../interfaces/Mapping.md)[]\>
+> **execute**(): `Promise`\<[`Mapping`](../interfaces/Mapping.md)[]\>
 
 #### Returns
 
 `Promise`\<[`Mapping`](../interfaces/Mapping.md)[]\>
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/useCases/fetch.ts:15](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/useCases/fetch.ts#L15)
+[src/lib/stage/application/useCases/fetch.ts:15](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/useCases/fetch.ts#L15)

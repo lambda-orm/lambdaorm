@@ -1,41 +1,37 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / MetadataConstraint
 
 # Interface: MetadataConstraint
 
-## Table of contents
-
-### Properties
-
-- [children](MetadataConstraint.md#children)
-- [constraints](MetadataConstraint.md#constraints)
-- [entity](MetadataConstraint.md#entity)
-
 ## Properties
 
-### children
+### children?
 
-• `Optional` **children**: [`MetadataConstraint`](MetadataConstraint.md)[]
+> `optional` **children**: [`MetadataConstraint`](MetadataConstraint.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:16
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:16
 
-___
+***
 
 ### constraints
 
-• **constraints**: [`Constraint`](Constraint.md)[]
+> **constraints**: [`Constraint`](Constraint.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:15
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:15
 
-___
+***
 
 ### entity
 
-• **entity**: `string`
+> **entity**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:14
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:14

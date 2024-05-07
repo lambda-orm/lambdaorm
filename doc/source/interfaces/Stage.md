@@ -1,30 +1,27 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Stage
 
 # Interface: Stage
-
-## Table of contents
-
-### Properties
-
-- [name](Stage.md#name)
-- [sources](Stage.md#sources)
 
 ## Properties
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:135
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:135
 
-___
+***
 
 ### sources
 
-• **sources**: [`SourceRule`](SourceRule.md)[]
+> **sources**: [`SourceRule`](SourceRule.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:136
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:136

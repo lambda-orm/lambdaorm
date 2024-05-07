@@ -1,635 +1,629 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / IRepository
 
 # Interface: IRepository\<TEntity, TQuery\>
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `TEntity` |
-| `TQuery` |
+• **TEntity**
 
-## Implemented by
-
-- [`Repository`](../classes/Repository.md)
-
-## Table of contents
-
-### Methods
-
-- [bulkDelete](IRepository.md#bulkdelete)
-- [bulkInsert](IRepository.md#bulkinsert)
-- [bulkMerge](IRepository.md#bulkmerge)
-- [delete](IRepository.md#delete)
-- [deleteAll](IRepository.md#deleteall)
-- [distinct](IRepository.md#distinct)
-- [execute](IRepository.md#execute)
-- [first](IRepository.md#first)
-- [insert](IRepository.md#insert)
-- [last](IRepository.md#last)
-- [list](IRepository.md#list)
-- [merge](IRepository.md#merge)
-- [query](IRepository.md#query)
-- [update](IRepository.md#update)
-- [updateAll](IRepository.md#updateall)
-- [upsert](IRepository.md#upsert)
+• **TQuery**
 
 ## Methods
 
-### bulkDelete
+### bulkDelete()
 
-▸ **bulkDelete**(`entities`): `Promise`\<`any`[]\>
+#### bulkDelete(entities)
 
-#### Parameters
+> **bulkDelete**(`entities`): `Promise`\<`any`[]\>
 
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
+##### Parameters
 
-#### Returns
+• **entities**: `TEntity`[]
 
-`Promise`\<`any`[]\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:26
-
-▸ **bulkDelete**(`entities`, `include`): `Promise`\<`any`[]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
+##### Returns
 
 `Promise`\<`any`[]\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:27
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:26
 
-▸ **bulkDelete**(`entities`, `include?`): `Promise`\<`any`[]\>
+#### bulkDelete(entities, include)
 
-#### Parameters
+> **bulkDelete**(`entities`, `include`): `Promise`\<`any`[]\>
 
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+##### Parameters
 
-#### Returns
+• **entities**: `TEntity`[]
 
-`Promise`\<`any`[]\>
+• **include**
 
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:28
-
-___
-
-### bulkInsert
-
-▸ **bulkInsert**(`entities`): `Promise`\<`any`[]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-
-#### Returns
+##### Returns
 
 `Promise`\<`any`[]\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:7
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:27
 
-▸ **bulkInsert**(`entities`, `include`): `Promise`\<`any`[]\>
+#### bulkDelete(entities, include)
 
-#### Parameters
+> **bulkDelete**(`entities`, `include`?): `Promise`\<`any`[]\>
 
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+##### Parameters
 
-#### Returns
+• **entities**: `TEntity`[]
 
-`Promise`\<`any`[]\>
+• **include?**
 
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:8
-
-▸ **bulkInsert**(`entities`, `include?`): `Promise`\<`any`[]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
+##### Returns
 
 `Promise`\<`any`[]\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:9
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:28
 
-___
+***
 
-### bulkMerge
+### bulkInsert()
 
-▸ **bulkMerge**(`entities`): `Promise`\<`any`[]\>
+#### bulkInsert(entities)
 
-#### Parameters
+> **bulkInsert**(`entities`): `Promise`\<`any`[]\>
 
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
+##### Parameters
 
-#### Returns
+• **entities**: `TEntity`[]
 
-`Promise`\<`any`[]\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:20
-
-▸ **bulkMerge**(`entities`, `include`): `Promise`\<`any`[]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
+##### Returns
 
 `Promise`\<`any`[]\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:21
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:7
 
-▸ **bulkMerge**(`entities`, `include?`): `Promise`\<`any`[]\>
+#### bulkInsert(entities, include)
 
-#### Parameters
+> **bulkInsert**(`entities`, `include`): `Promise`\<`any`[]\>
 
-| Name | Type |
-| :------ | :------ |
-| `entities` | `TEntity`[] |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+##### Parameters
 
-#### Returns
+• **entities**: `TEntity`[]
+
+• **include**
+
+##### Returns
 
 `Promise`\<`any`[]\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:22
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:8
 
-___
+#### bulkInsert(entities, include)
 
-### delete
+> **bulkInsert**(`entities`, `include`?): `Promise`\<`any`[]\>
 
-▸ **delete**(`entity`): `Promise`\<`number`\>
+##### Parameters
+
+• **entities**: `TEntity`[]
+
+• **include?**
+
+##### Returns
+
+`Promise`\<`any`[]\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:9
+
+***
+
+### bulkMerge()
+
+#### bulkMerge(entities)
+
+> **bulkMerge**(`entities`): `Promise`\<`any`[]\>
+
+##### Parameters
+
+• **entities**: `TEntity`[]
+
+##### Returns
+
+`Promise`\<`any`[]\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:20
+
+#### bulkMerge(entities, include)
+
+> **bulkMerge**(`entities`, `include`): `Promise`\<`any`[]\>
+
+##### Parameters
+
+• **entities**: `TEntity`[]
+
+• **include**
+
+##### Returns
+
+`Promise`\<`any`[]\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:21
+
+#### bulkMerge(entities, include)
+
+> **bulkMerge**(`entities`, `include`?): `Promise`\<`any`[]\>
+
+##### Parameters
+
+• **entities**: `TEntity`[]
+
+• **include?**
+
+##### Returns
+
+`Promise`\<`any`[]\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:22
+
+***
+
+### delete()
+
+#### delete(entity)
+
+> **delete**(`entity`): `Promise`\<`number`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:23
+
+#### delete(entity, include)
+
+> **delete**(`entity`, `include`): `Promise`\<`number`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+• **include**
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:24
+
+#### delete(entity, include)
+
+> **delete**(`entity`, `include`?): `Promise`\<`number`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+• **include?**
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:25
+
+***
+
+### deleteAll()
+
+> **deleteAll**(`data`, `filter`?, `include`?): `Promise`\<`number`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
+• **data**: `any`
+
+• **filter?**
+
+• **include?**
 
 #### Returns
 
 `Promise`\<`number`\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:23
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:29
 
-▸ **delete**(`entity`, `include`): `Promise`\<`number`\>
+***
 
-#### Parameters
+### distinct()
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
-
-`Promise`\<`number`\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:24
-
-▸ **delete**(`entity`, `include?`): `Promise`\<`number`\>
+> **distinct**(`data`, `filter`?, `include`?): `Promise`\<`any`[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+• **data**: `any`
 
-#### Returns
+• **filter?**
 
-`Promise`\<`number`\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:25
-
-___
-
-### deleteAll
-
-▸ **deleteAll**(`data`, `filter?`, `include?`): `Promise`\<`number`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
-
-`Promise`\<`number`\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:29
-
-___
-
-### distinct
-
-▸ **distinct**(`data`, `filter?`, `include?`): `Promise`\<`any`[]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+• **include?**
 
 #### Returns
 
 `Promise`\<`any`[]\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:31
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:31
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`expression`, `data?`): `Promise`\<`any`\>
+> **execute**(`expression`, `data`?): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `data?` | `any` |
+• **expression**: `string`
+
+• **data?**: `any`
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:3
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:3
 
-___
+***
 
-### first
+### first()
 
-▸ **first**(`data`, `filter?`, `include?`): `Promise`\<``null`` \| `TEntity`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
-
-`Promise`\<``null`` \| `TEntity`\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:32
-
-___
-
-### insert
-
-▸ **insert**(`entity`): `Promise`\<`any`\>
+> **first**(`data`, `filter`?, `include`?): `Promise`\<`null` \| `TEntity`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
+• **data**: `any`
+
+• **filter?**
+
+• **include?**
 
 #### Returns
+
+`Promise`\<`null` \| `TEntity`\>
+
+#### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:32
+
+***
+
+### insert()
+
+#### insert(entity)
+
+> **insert**(`entity`): `Promise`\<`any`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+##### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:4
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:4
 
-▸ **insert**(`entity`, `include`): `Promise`\<`any`\>
+#### insert(entity, include)
 
-#### Parameters
+> **insert**(`entity`, `include`): `Promise`\<`any`\>
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+##### Parameters
 
-#### Returns
+• **entity**: `TEntity`
 
-`Promise`\<`any`\>
+• **include**
 
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:5
-
-▸ **insert**(`entity`, `include?`): `Promise`\<`any`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
+##### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:6
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:5
 
-___
+#### insert(entity, include)
 
-### last
+> **insert**(`entity`, `include`?): `Promise`\<`any`\>
 
-▸ **last**(`data`, `filter?`, `include?`): `Promise`\<``null`` \| `TEntity`\>
+##### Parameters
+
+• **entity**: `TEntity`
+
+• **include?**
+
+##### Returns
+
+`Promise`\<`any`\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:6
+
+***
+
+### last()
+
+> **last**(`data`, `filter`?, `include`?): `Promise`\<`null` \| `TEntity`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+• **data**: `any`
+
+• **filter?**
+
+• **include?**
 
 #### Returns
 
-`Promise`\<``null`` \| `TEntity`\>
+`Promise`\<`null` \| `TEntity`\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:33
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:33
 
-___
+***
 
-### list
+### list()
 
-▸ **list**(`data`, `filter?`, `include?`): `Promise`\<`TEntity`[]\>
+> **list**(`data`, `filter`?, `include`?): `Promise`\<`TEntity`[]\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+• **data**: `any`
+
+• **filter?**
+
+• **include?**
 
 #### Returns
 
 `Promise`\<`TEntity`[]\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:30
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:30
 
-___
+***
 
-### merge
+### merge()
 
-▸ **merge**(`entity`): `Promise`\<`number`\>
+#### merge(entity)
 
-#### Parameters
+> **merge**(`entity`): `Promise`\<`number`\>
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
+##### Parameters
 
-#### Returns
+• **entity**: `TEntity`
 
-`Promise`\<`number`\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:17
-
-▸ **merge**(`entity`, `include`): `Promise`\<`number`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
+##### Returns
 
 `Promise`\<`number`\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:18
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:17
 
-▸ **merge**(`entity`, `include?`): `Promise`\<`number`\>
+#### merge(entity, include)
 
-#### Parameters
+> **merge**(`entity`, `include`): `Promise`\<`number`\>
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+##### Parameters
 
-#### Returns
+• **entity**: `TEntity`
+
+• **include**
+
+##### Returns
 
 `Promise`\<`number`\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:19
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:18
 
-___
+#### merge(entity, include)
 
-### query
+> **merge**(`entity`, `include`?): `Promise`\<`number`\>
 
-▸ **query**(): [`Queryable`](../classes/Queryable.md)\<`TQuery`\>
+##### Parameters
+
+• **entity**: `TEntity`
+
+• **include?**
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:19
+
+***
+
+### query()
+
+> **query**(): [`Queryable`](../classes/Queryable.md)\<`TQuery`\>
 
 #### Returns
 
 [`Queryable`](../classes/Queryable.md)\<`TQuery`\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:34
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:34
 
-___
+***
 
-### update
+### update()
 
-▸ **update**(`entity`): `Promise`\<`number`\>
+#### update(entity)
+
+> **update**(`entity`): `Promise`\<`number`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:10
+
+#### update(entity, include)
+
+> **update**(`entity`, `include`): `Promise`\<`number`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+• **include**
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:11
+
+#### update(entity, include)
+
+> **update**(`entity`, `include`?): `Promise`\<`number`\>
+
+##### Parameters
+
+• **entity**: `TEntity`
+
+• **include?**
+
+##### Returns
+
+`Promise`\<`number`\>
+
+##### Source
+
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:12
+
+***
+
+### updateAll()
+
+> **updateAll**(`data`, `map`, `filter`?, `include`?): `Promise`\<`number`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
+• **data**: `any`
+
+• **map**
+
+• **filter?**
+
+• **include?**
 
 #### Returns
 
 `Promise`\<`number`\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:10
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:16
 
-▸ **update**(`entity`, `include`): `Promise`\<`number`\>
+***
 
-#### Parameters
+### upsert()
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+#### upsert(entity)
 
-#### Returns
+> **upsert**(`entity`): `Promise`\<`number`\>
 
-`Promise`\<`number`\>
+##### Parameters
 
-#### Defined in
+• **entity**: `TEntity`
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:11
-
-▸ **update**(`entity`, `include?`): `Promise`\<`number`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
+##### Returns
 
 `Promise`\<`number`\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:12
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:13
 
-___
+#### upsert(entity, include)
 
-### updateAll
+> **upsert**(`entity`, `include`): `Promise`\<`number`\>
 
-▸ **updateAll**(`data`, `map`, `filter?`, `include?`): `Promise`\<`number`\>
+##### Parameters
 
-#### Parameters
+• **entity**: `TEntity`
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `map` | (`value`: `TEntity`) => `unknown` |
-| `filter?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
+• **include**
 
-#### Returns
+##### Returns
 
 `Promise`\<`number`\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:16
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:14
 
-___
+#### upsert(entity, include)
 
-### upsert
+> **upsert**(`entity`, `include`?): `Promise`\<`number`\>
 
-▸ **upsert**(`entity`): `Promise`\<`number`\>
+##### Parameters
 
-#### Parameters
+• **entity**: `TEntity`
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
+• **include?**
 
-#### Returns
+##### Returns
 
 `Promise`\<`number`\>
 
-#### Defined in
+##### Source
 
-node_modules/lambdaorm-base/repository/application/repository.d.ts:13
-
-▸ **upsert**(`entity`, `include`): `Promise`\<`number`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
-
-`Promise`\<`number`\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:14
-
-▸ **upsert**(`entity`, `include?`): `Promise`\<`number`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `entity` | `TEntity` |
-| `include?` | (`value`: `TQuery`, `index`: `number`, `array`: `TQuery`[]) => `unknown` |
-
-#### Returns
-
-`Promise`\<`number`\>
-
-#### Defined in
-
-node_modules/lambdaorm-base/repository/application/repository.d.ts:15
+node\_modules/lambdaorm-base/repository/application/repository.d.ts:15

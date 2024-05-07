@@ -1,51 +1,45 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / IFileSchemaService
 
 # Interface: IFileSchemaService
 
-## Table of contents
-
-### Methods
-
-- [read](IFileSchemaService.md#read)
-- [write](IFileSchemaService.md#write)
-
 ## Methods
 
-### read
+### read()
 
-▸ **read**(`source`): `Promise`\<``null`` \| [`SchemaInfo`](SchemaInfo.md)\>
+> **read**(`source`): `Promise`\<`null` \| [`SchemaInfo`](SchemaInfo.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | `string` |
+• **source**: `string`
 
 #### Returns
 
-`Promise`\<``null`` \| [`SchemaInfo`](SchemaInfo.md)\>
+`Promise`\<`null` \| [`SchemaInfo`](SchemaInfo.md)\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/ports/fileSchemaService.d.ts:3
+node\_modules/lambdaorm-base/schema/application/ports/fileSchemaService.d.ts:3
 
-___
+***
 
-### write
+### write()
 
-▸ **write**(`schema`, `fullPath`): `Promise`\<`void`\>
+> **write**(`schema`, `fullPath`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `schema` | [`Schema`](Schema.md) |
-| `fullPath` | `string` |
+• **schema**: [`Schema`](Schema.md)
+
+• **fullPath**: `string`
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/ports/fileSchemaService.d.ts:4
+node\_modules/lambdaorm-base/schema/application/ports/fileSchemaService.d.ts:4

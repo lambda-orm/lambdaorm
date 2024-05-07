@@ -1,30 +1,27 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SchemaEntityData
 
 # Interface: SchemaEntityData
-
-## Table of contents
-
-### Properties
-
-- [entity](SchemaEntityData.md#entity)
-- [rows](SchemaEntityData.md#rows)
 
 ## Properties
 
 ### entity
 
-• **entity**: `string`
+> **entity**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:201
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:201
 
-___
+***
 
 ### rows
 
-• **rows**: `any`[]
+> **rows**: `any`[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:202
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:202

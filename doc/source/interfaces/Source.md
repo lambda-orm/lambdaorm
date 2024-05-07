@@ -1,52 +1,47 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Source
 
 # Interface: Source
-
-## Table of contents
-
-### Properties
-
-- [connection](Source.md#connection)
-- [dialect](Source.md#dialect)
-- [mapping](Source.md#mapping)
-- [name](Source.md#name)
 
 ## Properties
 
 ### connection
 
-• **connection**: `any`
+> **connection**: `any`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:128
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:128
 
-___
+***
 
 ### dialect
 
-• **dialect**: [`Dialect`](../enums/Dialect.md)
+> **dialect**: [`Dialect`](../enumerations/Dialect.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:126
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:126
 
-___
+***
 
 ### mapping
 
-• **mapping**: `string`
+> **mapping**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:127
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:127
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:125
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:125

@@ -1,72 +1,59 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Transaction
 
 # Class: Transaction
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Transaction.md#constructor)
-
-### Accessors
-
-- [options](Transaction.md#options)
-
-### Methods
-
-- [execute](Transaction.md#execute)
-
 ## Constructors
 
-### constructor
+### new Transaction()
 
-• **new Transaction**(`queryExecutor`): [`Transaction`](Transaction.md)
+> **new Transaction**(`queryExecutor`): [`Transaction`](Transaction.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `queryExecutor` | [`QueryExecutor`](../interfaces/QueryExecutor.md) |
+• **queryExecutor**: [`QueryExecutor`](../interfaces/QueryExecutor.md)
 
 #### Returns
 
 [`Transaction`](Transaction.md)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/transaction.ts#L7)
+[src/lib/execution/domain/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/transaction.ts#L7)
 
 ## Accessors
 
 ### options
 
-• `get` **options**(): [`QueryOptions`](../interfaces/QueryOptions.md)
+> `get` **options**(): [`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
 [`QueryOptions`](../interfaces/QueryOptions.md)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/transaction.ts:15](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/transaction.ts#L15)
+[src/lib/execution/domain/transaction.ts:15](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/transaction.ts#L15)
 
 ## Methods
 
-### execute
+### execute()
 
-▸ **execute**(`query`, `data?`): `Promise`\<`any`\>
+> **execute**(`query`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `query` | [`Query`](Query.md) |
-| `data` | `any` |
+• **query**: [`Query`](Query.md)
+
+• **data**: `any`= `{}`
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/transaction.ts:11](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/transaction.ts#L11)
+[src/lib/execution/domain/transaction.ts:11](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/transaction.ts#L11)

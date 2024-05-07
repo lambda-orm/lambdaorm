@@ -1,30 +1,27 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / View
 
 # Interface: View
-
-## Table of contents
-
-### Properties
-
-- [entities](View.md#entities)
-- [name](View.md#name)
 
 ## Properties
 
 ### entities
 
-• **entities**: [`EntityView`](EntityView.md)[]
+> **entities**: [`EntityView`](EntityView.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:122
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:122
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:121
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:121

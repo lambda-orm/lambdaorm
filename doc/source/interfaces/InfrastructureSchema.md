@@ -1,74 +1,67 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / InfrastructureSchema
 
 # Interface: InfrastructureSchema
 
-## Table of contents
-
-### Properties
-
-- [mappings](InfrastructureSchema.md#mappings)
-- [paths](InfrastructureSchema.md#paths)
-- [server](InfrastructureSchema.md#server)
-- [sources](InfrastructureSchema.md#sources)
-- [stages](InfrastructureSchema.md#stages)
-- [views](InfrastructureSchema.md#views)
-
 ## Properties
 
-### mappings
+### mappings?
 
-• `Optional` **mappings**: [`Mapping`](Mapping.md)[]
+> `optional` **mappings**: [`Mapping`](Mapping.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:166
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:166
 
-___
+***
 
-### paths
+### paths?
 
-• `Optional` **paths**: [`AppPathsConfig`](AppPathsConfig.md)
+> `optional` **paths**: [`AppPathsConfig`](AppPathsConfig.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:165
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:165
 
-___
+***
 
-### server
+### server?
 
-• `Optional` **server**: [`ServerConfig`](ServerConfig.md)
+> `optional` **server**: [`ServerConfig`](ServerConfig.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:170
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:170
 
-___
+***
 
-### sources
+### sources?
 
-• `Optional` **sources**: [`Source`](Source.md)[]
+> `optional` **sources**: [`Source`](Source.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:168
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:168
 
-___
+***
 
-### stages
+### stages?
 
-• `Optional` **stages**: [`Stage`](Stage.md)[]
+> `optional` **stages**: [`Stage`](Stage.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:169
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:169
 
-___
+***
 
-### views
+### views?
 
-• `Optional` **views**: [`View`](View.md)[]
+> `optional` **views**: [`View`](View.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:167
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:167

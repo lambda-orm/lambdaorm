@@ -1,30 +1,27 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Constraint
 
 # Interface: Constraint
-
-## Table of contents
-
-### Properties
-
-- [condition](Constraint.md#condition)
-- [message](Constraint.md#message)
 
 ## Properties
 
 ### condition
 
-• **condition**: `string`
+> **condition**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:21
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:21
 
-___
+***
 
 ### message
 
-• **message**: `string`
+> **message**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:20
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:20

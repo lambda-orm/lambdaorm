@@ -1,362 +1,335 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / FormatMapping
 
 # Interface: FormatMapping
 
-## Hierarchy
+## Extends
 
 - [`Entity`](Entity.md)
 
-  ↳ **`FormatMapping`**
-
-## Table of contents
-
-### Properties
-
-- [abstract](FormatMapping.md#abstract)
-- [composite](FormatMapping.md#composite)
-- [constraints](FormatMapping.md#constraints)
-- [date](FormatMapping.md#date)
-- [dateTime](FormatMapping.md#datetime)
-- [dependents](FormatMapping.md#dependents)
-- [extends](FormatMapping.md#extends)
-- [hadDefaults](FormatMapping.md#haddefaults)
-- [hadReadExps](FormatMapping.md#hadreadexps)
-- [hadReadValues](FormatMapping.md#hadreadvalues)
-- [hadViewReadExp](FormatMapping.md#hadviewreadexp)
-- [hadWriteExps](FormatMapping.md#hadwriteexps)
-- [hadWriteValues](FormatMapping.md#hadwritevalues)
-- [indexes](FormatMapping.md#indexes)
-- [intermediate](FormatMapping.md#intermediate)
-- [name](FormatMapping.md#name)
-- [primaryKey](FormatMapping.md#primarykey)
-- [properties](FormatMapping.md#properties)
-- [relations](FormatMapping.md#relations)
-- [required](FormatMapping.md#required)
-- [singular](FormatMapping.md#singular)
-- [time](FormatMapping.md#time)
-- [uniqueKey](FormatMapping.md#uniquekey)
-- [view](FormatMapping.md#view)
-
 ## Properties
 
-### abstract
+### abstract?
 
-• `Optional` **abstract**: `boolean`
-
-#### Inherited from
-
-[Entity](Entity.md).[abstract](Entity.md#abstract)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:61
-
-___
-
-### composite
-
-• `Optional` **composite**: `boolean`
+> `optional` **abstract**: `boolean`
 
 #### Inherited from
 
-[Entity](Entity.md).[composite](Entity.md#composite)
+[`Entity`](Entity.md).[`abstract`](Entity.md#abstract)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:77
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:61
 
-___
+***
 
-### constraints
+### composite?
 
-• `Optional` **constraints**: [`Constraint`](Constraint.md)[]
-
-#### Inherited from
-
-[Entity](Entity.md).[constraints](Entity.md#constraints)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:70
-
-___
-
-### date
-
-• `Optional` **date**: `string`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:100
-
-___
-
-### dateTime
-
-• `Optional` **dateTime**: `string`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:99
-
-___
-
-### dependents
-
-• `Optional` **dependents**: [`Dependent`](Dependent.md)[]
+> `optional` **composite**: `boolean`
 
 #### Inherited from
 
-[Entity](Entity.md).[dependents](Entity.md#dependents)
+[`Entity`](Entity.md).[`composite`](Entity.md#composite)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:69
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:77
 
-___
+***
 
-### extends
+### constraints?
 
-• `Optional` **extends**: `string`
-
-#### Inherited from
-
-[Entity](Entity.md).[extends](Entity.md#extends)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:60
-
-___
-
-### hadDefaults
-
-• `Optional` **hadDefaults**: `boolean`
+> `optional` **constraints**: [`Constraint`](Constraint.md)[]
 
 #### Inherited from
 
-[Entity](Entity.md).[hadDefaults](Entity.md#haddefaults)
+[`Entity`](Entity.md).[`constraints`](Entity.md#constraints)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:75
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:70
 
-___
+***
 
-### hadReadExps
+### date?
 
-• `Optional` **hadReadExps**: `boolean`
+> `optional` **date**: `string`
 
-#### Inherited from
+#### Source
 
-[Entity](Entity.md).[hadReadExps](Entity.md#hadreadexps)
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:100
 
-#### Defined in
+***
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:71
+### dateTime?
 
-___
+> `optional` **dateTime**: `string`
 
-### hadReadValues
+#### Source
 
-• `Optional` **hadReadValues**: `boolean`
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:99
 
-#### Inherited from
+***
 
-[Entity](Entity.md).[hadReadValues](Entity.md#hadreadvalues)
+### dependents?
 
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:73
-
-___
-
-### hadViewReadExp
-
-• `Optional` **hadViewReadExp**: `boolean`
+> `optional` **dependents**: [`Dependent`](Dependent.md)[]
 
 #### Inherited from
 
-[Entity](Entity.md).[hadViewReadExp](Entity.md#hadviewreadexp)
+[`Entity`](Entity.md).[`dependents`](Entity.md#dependents)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:76
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:69
 
-___
+***
 
-### hadWriteExps
+### extends?
 
-• `Optional` **hadWriteExps**: `boolean`
-
-#### Inherited from
-
-[Entity](Entity.md).[hadWriteExps](Entity.md#hadwriteexps)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:72
-
-___
-
-### hadWriteValues
-
-• `Optional` **hadWriteValues**: `boolean`
+> `optional` **extends**: `string`
 
 #### Inherited from
 
-[Entity](Entity.md).[hadWriteValues](Entity.md#hadwritevalues)
+[`Entity`](Entity.md).[`extends`](Entity.md#extends)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:74
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:60
 
-___
+***
 
-### indexes
+### hadDefaults?
 
-• `Optional` **indexes**: [`Index`](Index.md)[]
-
-#### Inherited from
-
-[Entity](Entity.md).[indexes](Entity.md#indexes)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:68
-
-___
-
-### intermediate
-
-• `Optional` **intermediate**: `boolean`
+> `optional` **hadDefaults**: `boolean`
 
 #### Inherited from
 
-[Entity](Entity.md).[intermediate](Entity.md#intermediate)
+[`Entity`](Entity.md).[`hadDefaults`](Entity.md#haddefaults)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:78
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:75
 
-___
+***
+
+### hadReadExps?
+
+> `optional` **hadReadExps**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`hadReadExps`](Entity.md#hadreadexps)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:71
+
+***
+
+### hadReadValues?
+
+> `optional` **hadReadValues**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`hadReadValues`](Entity.md#hadreadvalues)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:73
+
+***
+
+### hadViewReadExp?
+
+> `optional` **hadViewReadExp**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`hadViewReadExp`](Entity.md#hadviewreadexp)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:76
+
+***
+
+### hadWriteExps?
+
+> `optional` **hadWriteExps**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`hadWriteExps`](Entity.md#hadwriteexps)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:72
+
+***
+
+### hadWriteValues?
+
+> `optional` **hadWriteValues**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`hadWriteValues`](Entity.md#hadwritevalues)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:74
+
+***
+
+### indexes?
+
+> `optional` **indexes**: [`Index`](Index.md)[]
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`indexes`](Entity.md#indexes)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:68
+
+***
+
+### intermediate?
+
+> `optional` **intermediate**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`intermediate`](Entity.md#intermediate)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:78
+
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
 #### Inherited from
 
-[Entity](Entity.md).[name](Entity.md#name)
+[`Entity`](Entity.md).[`name`](Entity.md#name)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:58
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:58
 
-___
+***
 
-### primaryKey
+### primaryKey?
 
-• `Optional` **primaryKey**: `string`[]
-
-#### Inherited from
-
-[Entity](Entity.md).[primaryKey](Entity.md#primarykey)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:64
-
-___
-
-### properties
-
-• `Optional` **properties**: [`Property`](Property.md)[]
+> `optional` **primaryKey**: `string`[]
 
 #### Inherited from
 
-[Entity](Entity.md).[properties](Entity.md#properties)
+[`Entity`](Entity.md).[`primaryKey`](Entity.md#primarykey)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:59
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:64
 
-___
+***
 
-### relations
+### properties?
 
-• `Optional` **relations**: [`Relation`](Relation.md)[]
-
-#### Inherited from
-
-[Entity](Entity.md).[relations](Entity.md#relations)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:66
-
-___
-
-### required
-
-• `Optional` **required**: `string`[]
+> `optional` **properties**: [`Property`](Property.md)[]
 
 #### Inherited from
 
-[Entity](Entity.md).[required](Entity.md#required)
+[`Entity`](Entity.md).[`properties`](Entity.md#properties)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:67
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:59
 
-___
+***
 
-### singular
+### relations?
 
-• `Optional` **singular**: `string`
-
-#### Inherited from
-
-[Entity](Entity.md).[singular](Entity.md#singular)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:62
-
-___
-
-### time
-
-• `Optional` **time**: `string`
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:101
-
-___
-
-### uniqueKey
-
-• `Optional` **uniqueKey**: `string`[]
+> `optional` **relations**: [`Relation`](Relation.md)[]
 
 #### Inherited from
 
-[Entity](Entity.md).[uniqueKey](Entity.md#uniquekey)
+[`Entity`](Entity.md).[`relations`](Entity.md#relations)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:65
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:66
 
-___
+***
 
-### view
+### required?
 
-• `Optional` **view**: `boolean`
+> `optional` **required**: `string`[]
 
 #### Inherited from
 
-[Entity](Entity.md).[view](Entity.md#view)
+[`Entity`](Entity.md).[`required`](Entity.md#required)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:63
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:67
+
+***
+
+### singular?
+
+> `optional` **singular**: `string`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`singular`](Entity.md#singular)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:62
+
+***
+
+### time?
+
+> `optional` **time**: `string`
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:101
+
+***
+
+### uniqueKey?
+
+> `optional` **uniqueKey**: `string`[]
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`uniqueKey`](Entity.md#uniquekey)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:65
+
+***
+
+### view?
+
+> `optional` **view**: `boolean`
+
+#### Inherited from
+
+[`Entity`](Entity.md).[`view`](Entity.md#view)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:63

@@ -1,51 +1,26 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / DomainConfigService
 
 # Class: DomainConfigService
 
-## Hierarchy
+## Extends
 
 - `DomainConfigServiceBase`\<[`Entity`](../interfaces/Entity.md), [`Property`](../interfaces/Property.md)\>
 
-  ↳ **`DomainConfigService`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](DomainConfigService.md#constructor)
-
-### Properties
-
-- [entities](DomainConfigService.md#entities)
-- [enums](DomainConfigService.md#enums)
-
-### Methods
-
-- [existsProperty](DomainConfigService.md#existsproperty)
-- [getAutoIncrement](DomainConfigService.md#getautoincrement)
-- [getEntity](DomainConfigService.md#getentity)
-- [getEnum](DomainConfigService.md#getenum)
-- [getFieldIds](DomainConfigService.md#getfieldids)
-- [getForcedEntity](DomainConfigService.md#getforcedentity)
-- [getProperty](DomainConfigService.md#getproperty)
-- [getRelation](DomainConfigService.md#getrelation)
-- [isChild](DomainConfigService.md#ischild)
-- [listEntities](DomainConfigService.md#listentities)
-- [sortByDependencies](DomainConfigService.md#sortbydependencies)
-- [sortByRelations](DomainConfigService.md#sortbyrelations)
-
 ## Constructors
 
-### constructor
+### new DomainConfigService()
 
-• **new DomainConfigService**(`entities?`, `enums?`): [`DomainConfigService`](DomainConfigService.md)
+> **new DomainConfigService**(`entities`?, `enums`?): [`DomainConfigService`](DomainConfigService.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entities?` | [`Entity`](../interfaces/Entity.md)[] |
-| `enums?` | [`Enum`](../interfaces/Enum.md)[] |
+• **entities?**: [`Entity`](../interfaces/Entity.md)[]
+
+• **enums?**: [`Enum`](../interfaces/Enum.md)[]
 
 #### Returns
 
@@ -53,52 +28,51 @@
 
 #### Overrides
 
-DomainConfigServiceBase\&lt;Entity, Property\&gt;.constructor
+`DomainConfigServiceBase<Entity, Property>.constructor`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigService.d.ts:6
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigService.d.ts:6
 
 ## Properties
 
 ### entities
 
-• **entities**: [`Entity`](../interfaces/Entity.md)[]
+> **entities**: [`Entity`](../interfaces/Entity.md)[]
 
 #### Overrides
 
-DomainConfigServiceBase.entities
+`DomainConfigServiceBase.entities`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigService.d.ts:4
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigService.d.ts:4
 
-___
+***
 
 ### enums
 
-• **enums**: [`Enum`](../interfaces/Enum.md)[]
+> **enums**: [`Enum`](../interfaces/Enum.md)[]
 
 #### Overrides
 
-DomainConfigServiceBase.enums
+`DomainConfigServiceBase.enums`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigService.d.ts:5
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigService.d.ts:5
 
 ## Methods
 
-### existsProperty
+### existsProperty()
 
-▸ **existsProperty**(`entityName`, `name`): `boolean`
+> **existsProperty**(`entityName`, `name`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entityName` | `string` |
-| `name` | `string` |
+• **entityName**: `string`
+
+• **name**: `string`
 
 #### Returns
 
@@ -106,23 +80,21 @@ node_modules/lambdaorm-base/schema/application/services/config/domainConfigServi
 
 #### Inherited from
 
-DomainConfigServiceBase.existsProperty
+`DomainConfigServiceBase.existsProperty`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:9
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:9
 
-___
+***
 
-### getAutoIncrement
+### getAutoIncrement()
 
-▸ **getAutoIncrement**(`entityName`): `undefined` \| [`Property`](../interfaces/Property.md)
+> **getAutoIncrement**(`entityName`): `undefined` \| [`Property`](../interfaces/Property.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entityName` | `string` |
+• **entityName**: `string`
 
 #### Returns
 
@@ -130,23 +102,21 @@ ___
 
 #### Inherited from
 
-DomainConfigServiceBase.getAutoIncrement
+`DomainConfigServiceBase.getAutoIncrement`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:11
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:11
 
-___
+***
 
-### getEntity
+### getEntity()
 
-▸ **getEntity**(`name`): `undefined` \| [`Entity`](../interfaces/Entity.md)
+> **getEntity**(`name`): `undefined` \| [`Entity`](../interfaces/Entity.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -154,23 +124,21 @@ ___
 
 #### Inherited from
 
-DomainConfigServiceBase.getEntity
+`DomainConfigServiceBase.getEntity`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:5
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:5
 
-___
+***
 
-### getEnum
+### getEnum()
 
-▸ **getEnum**(`name`): `undefined` \| [`Enum`](../interfaces/Enum.md)
+> **getEnum**(`name`): `undefined` \| [`Enum`](../interfaces/Enum.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -178,23 +146,21 @@ ___
 
 #### Inherited from
 
-DomainConfigServiceBase.getEnum
+`DomainConfigServiceBase.getEnum`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:7
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:7
 
-___
+***
 
-### getFieldIds
+### getFieldIds()
 
-▸ **getFieldIds**(`entityName`): `undefined` \| [`Property`](../interfaces/Property.md)[]
+> **getFieldIds**(`entityName`): `undefined` \| [`Property`](../interfaces/Property.md)[]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entityName` | `string` |
+• **entityName**: `string`
 
 #### Returns
 
@@ -202,23 +168,21 @@ ___
 
 #### Inherited from
 
-DomainConfigServiceBase.getFieldIds
+`DomainConfigServiceBase.getFieldIds`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:12
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:12
 
-___
+***
 
-### getForcedEntity
+### getForcedEntity()
 
-▸ **getForcedEntity**(`name`): [`Entity`](../interfaces/Entity.md)
+> **getForcedEntity**(`name`): [`Entity`](../interfaces/Entity.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -226,24 +190,23 @@ ___
 
 #### Inherited from
 
-DomainConfigServiceBase.getForcedEntity
+`DomainConfigServiceBase.getForcedEntity`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:6
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:6
 
-___
+***
 
-### getProperty
+### getProperty()
 
-▸ **getProperty**(`entityName`, `name`): [`Property`](../interfaces/Property.md)
+> **getProperty**(`entityName`, `name`): [`Property`](../interfaces/Property.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entityName` | `string` |
-| `name` | `string` |
+• **entityName**: `string`
+
+• **name**: `string`
 
 #### Returns
 
@@ -251,24 +214,23 @@ ___
 
 #### Inherited from
 
-DomainConfigServiceBase.getProperty
+`DomainConfigServiceBase.getProperty`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:10
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:10
 
-___
+***
 
-### getRelation
+### getRelation()
 
-▸ **getRelation**(`entity`, `relation`): [`RelationInfo`](../interfaces/RelationInfo.md)
+> **getRelation**(`entity`, `relation`): [`RelationInfo`](../interfaces/RelationInfo.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `string` |
-| `relation` | `string` |
+• **entity**: `string`
+
+• **relation**: `string`
 
 #### Returns
 
@@ -276,23 +238,21 @@ ___
 
 #### Inherited from
 
-DomainConfigServiceBase.getRelation
+`DomainConfigServiceBase.getRelation`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:44
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:44
 
-___
+***
 
-### isChild
+### isChild()
 
-▸ **isChild**(`entityName`): `boolean`
+> **isChild**(`entityName`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entityName` | `string` |
+• **entityName**: `string`
 
 #### Returns
 
@@ -300,17 +260,17 @@ ___
 
 #### Inherited from
 
-DomainConfigServiceBase.isChild
+`DomainConfigServiceBase.isChild`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:8
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:8
 
-___
+***
 
-### listEntities
+### listEntities()
 
-▸ **listEntities**(): `string`[]
+> **listEntities**(): `string`[]
 
 #### Returns
 
@@ -318,25 +278,25 @@ ___
 
 #### Inherited from
 
-DomainConfigServiceBase.listEntities
+`DomainConfigServiceBase.listEntities`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:13
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:13
 
-___
+***
 
-### sortByDependencies
+### sortByDependencies()
 
-▸ **sortByDependencies**(`entities?`): `string`[]
+> **sortByDependencies**(`entities`?): `string`[]
 
 Sort a list of entities according to their dependencies
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `entities?` | `string`[] | entities to order |
+• **entities?**: `string`[]
+
+entities to order
 
 #### Returns
 
@@ -346,26 +306,27 @@ returns the sorted entities
 
 #### Inherited from
 
-DomainConfigServiceBase.sortByDependencies
+`DomainConfigServiceBase.sortByDependencies`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:25
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:25
 
-___
+***
 
-### sortByRelations
+### sortByRelations()
 
-▸ **sortByRelations**(`mainEntities`, `allEntities`): `string`[]
+> **sortByRelations**(`mainEntities`, `allEntities`): `string`[]
 
 Sort a list of entities according to their relationships
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `mainEntities` | `string`[] | - |
-| `allEntities` | `string`[] | entities to order |
+• **mainEntities**: `string`[]
+
+• **allEntities**: `string`[]
+
+entities to order
 
 #### Returns
 
@@ -375,8 +336,8 @@ returns the sorted entities
 
 #### Inherited from
 
-DomainConfigServiceBase.sortByRelations
+`DomainConfigServiceBase.sortByRelations`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:19
+node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:19

@@ -1,44 +1,26 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / PageClauses
 
 # Class: PageClauses
 
-## Hierarchy
+## Extends
 
 - [`QueryAction`](QueryAction.md)
 
-  ↳ **`PageClauses`**
-
-  ↳↳ [`MapClauses`](MapClauses.md)
-
-## Table of contents
-
-### Constructors
-
-- [constructor](PageClauses.md#constructor)
-
-### Methods
-
-- [constraints](PageClauses.md#constraints)
-- [execute](PageClauses.md#execute)
-- [metadata](PageClauses.md#metadata)
-- [model](PageClauses.md#model)
-- [normalize](PageClauses.md#normalize)
-- [page](PageClauses.md#page)
-- [parameters](PageClauses.md#parameters)
-- [sentence](PageClauses.md#sentence)
-
 ## Constructors
 
-### constructor
+### new PageClauses()
 
-• **new PageClauses**(`actions`, `expression`): [`PageClauses`](PageClauses.md)
+> **new PageClauses**(`actions`, `expression`): [`PageClauses`](PageClauses.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `actions` | [`ExpressionActions`](../interfaces/ExpressionActions.md) |
-| `expression` | `string` |
+• **actions**: [`ExpressionActions`](../interfaces/ExpressionActions.md)
+
+• **expression**: `string`
 
 #### Returns
 
@@ -46,17 +28,17 @@
 
 #### Inherited from
 
-[QueryAction](QueryAction.md).[constructor](QueryAction.md#constructor)
+[`QueryAction`](QueryAction.md).[`constructor`](QueryAction.md#constructors)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
 
 ## Methods
 
-### constraints
+### constraints()
 
-▸ **constraints**(): `Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
+> **constraints**(): `Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
 #### Returns
 
@@ -64,23 +46,21 @@ node_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
 
 #### Inherited from
 
-[QueryAction](QueryAction.md).[constraints](QueryAction.md#constraints)
+[`QueryAction`](QueryAction.md).[`constraints`](QueryAction.md#constraints)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:11
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:11
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`data`): `Promise`\<`any`\>
+> **execute**(`data`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
+• **data**: `any`
 
 #### Returns
 
@@ -88,17 +68,17 @@ ___
 
 #### Inherited from
 
-[QueryAction](QueryAction.md).[execute](QueryAction.md#execute)
+[`QueryAction`](QueryAction.md).[`execute`](QueryAction.md#execute)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:8
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:8
 
-___
+***
 
-### metadata
+### metadata()
 
-▸ **metadata**(): `Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
+> **metadata**(): `Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
 
 #### Returns
 
@@ -106,17 +86,17 @@ ___
 
 #### Inherited from
 
-[QueryAction](QueryAction.md).[metadata](QueryAction.md#metadata)
+[`QueryAction`](QueryAction.md).[`metadata`](QueryAction.md#metadata)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:14
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:14
 
-___
+***
 
-### model
+### model()
 
-▸ **model**(): `Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
+> **model**(): `Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
 #### Returns
 
@@ -124,17 +104,17 @@ ___
 
 #### Inherited from
 
-[QueryAction](QueryAction.md).[model](QueryAction.md#model)
+[`QueryAction`](QueryAction.md).[`model`](QueryAction.md#model)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:10
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:10
 
-___
+***
 
-### normalize
+### normalize()
 
-▸ **normalize**(): `string`
+> **normalize**(): `string`
 
 #### Returns
 
@@ -142,38 +122,37 @@ ___
 
 #### Inherited from
 
-[QueryAction](QueryAction.md).[normalize](QueryAction.md#normalize)
+[`QueryAction`](QueryAction.md).[`normalize`](QueryAction.md#normalize)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:9
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:9
 
-___
+***
 
-### page
+### page()
 
-▸ **page**(`page`, `records`): [`QueryAction`](QueryAction.md)
+> **page**(`page`, `records`): [`QueryAction`](QueryAction.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `page` | `number` |
-| `records` | `number` |
+• **page**: `number`
+
+• **records**: `number`
 
 #### Returns
 
 [`QueryAction`](QueryAction.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:18
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:18
 
-___
+***
 
-### parameters
+### parameters()
 
-▸ **parameters**(): `Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
+> **parameters**(): `Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
 #### Returns
 
@@ -181,17 +160,17 @@ ___
 
 #### Inherited from
 
-[QueryAction](QueryAction.md).[parameters](QueryAction.md#parameters)
+[`QueryAction`](QueryAction.md).[`parameters`](QueryAction.md#parameters)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:12
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:12
 
-___
+***
 
-### sentence
+### sentence()
 
-▸ **sentence**(): `Promise`\<[`QueryPlan`](../interfaces/QueryPlan.md)\>
+> **sentence**(): `Promise`\<[`QueryPlan`](../interfaces/QueryPlan.md)\>
 
 #### Returns
 
@@ -199,8 +178,8 @@ ___
 
 #### Inherited from
 
-[QueryAction](QueryAction.md).[sentence](QueryAction.md#sentence)
+[`QueryAction`](QueryAction.md).[`sentence`](QueryAction.md#sentence)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:13
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:13

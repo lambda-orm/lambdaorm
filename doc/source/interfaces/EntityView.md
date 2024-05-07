@@ -1,41 +1,37 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / EntityView
 
 # Interface: EntityView
 
-## Table of contents
-
-### Properties
-
-- [exclude](EntityView.md#exclude)
-- [name](EntityView.md#name)
-- [properties](EntityView.md#properties)
-
 ## Properties
 
-### exclude
+### exclude?
 
-• `Optional` **exclude**: `boolean`
+> `optional` **exclude**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:117
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:117
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:116
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:116
 
-___
+***
 
 ### properties
 
-• **properties**: [`PropertyView`](PropertyView.md)[]
+> **properties**: [`PropertyView`](PropertyView.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:118
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:118

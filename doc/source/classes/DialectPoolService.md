@@ -1,75 +1,63 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / DialectPoolService
 
 # Class: DialectPoolService
 
-## Table of contents
-
-### Constructors
-
-- [constructor](DialectPoolService.md#constructor)
-
-### Methods
-
-- [add](DialectPoolService.md#add)
-- [create](DialectPoolService.md#create)
-
 ## Constructors
 
-### constructor
+### new DialectPoolService()
 
-• **new DialectPoolService**(`helper`): [`DialectPoolService`](DialectPoolService.md)
+> **new DialectPoolService**(`helper`): [`DialectPoolService`](DialectPoolService.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `helper` | [`OrmH3lp`](OrmH3lp.md) |
+• **helper**: [`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
 [`DialectPoolService`](DialectPoolService.md)
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/services/dialectPoolService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/services/dialectPoolService.ts#L7)
+[src/lib/connection/application/services/dialectPoolService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/services/dialectPoolService.ts#L7)
 
 ## Methods
 
-### add
+### add()
 
-▸ **add**(`dialect`, `classConnectionPool`): `void`
+> **add**(`dialect`, `classConnectionPool`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `dialect` | `string` |
-| `classConnectionPool` | `any` |
+• **dialect**: `string`
+
+• **classConnectionPool**: `any`
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/services/dialectPoolService.ts:11](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/services/dialectPoolService.ts#L11)
+[src/lib/connection/application/services/dialectPoolService.ts:11](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/services/dialectPoolService.ts#L11)
 
-___
+***
 
-### create
+### create()
 
-▸ **create**(`config`): [`ConnectionPool`](../interfaces/ConnectionPool.md)
+> **create**(`config`): [`ConnectionPool`](../interfaces/ConnectionPool.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `config` | [`ConnectionConfig`](../interfaces/ConnectionConfig.md) |
+• **config**: [`ConnectionConfig`](../interfaces/ConnectionConfig.md)
 
 #### Returns
 
 [`ConnectionPool`](../interfaces/ConnectionPool.md)
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/services/dialectPoolService.ts:15](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/services/dialectPoolService.ts#L15)
+[src/lib/connection/application/services/dialectPoolService.ts:15](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/services/dialectPoolService.ts#L15)

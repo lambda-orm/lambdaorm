@@ -1,93 +1,77 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / DataSourceConfigService
 
 # Class: DataSourceConfigService
 
-## Table of contents
-
-### Constructors
-
-- [constructor](DataSourceConfigService.md#constructor)
-
-### Properties
-
-- [default](DataSourceConfigService.md#default)
-- [sources](DataSourceConfigService.md#sources)
-
-### Methods
-
-- [get](DataSourceConfigService.md#get)
-- [load](DataSourceConfigService.md#load)
-
 ## Constructors
 
-### constructor
+### new DataSourceConfigService()
 
-• **new DataSourceConfigService**(): [`DataSourceConfigService`](DataSourceConfigService.md)
+> **new DataSourceConfigService**(): [`DataSourceConfigService`](DataSourceConfigService.md)
 
 #### Returns
 
 [`DataSourceConfigService`](DataSourceConfigService.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/dataSourceConfigService.d.ts:5
+node\_modules/lambdaorm-base/schema/application/services/config/dataSourceConfigService.d.ts:5
 
 ## Properties
 
-### default
+### default?
 
-• `Optional` **default**: `string`
+> `optional` **default**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/dataSourceConfigService.d.ts:4
+node\_modules/lambdaorm-base/schema/application/services/config/dataSourceConfigService.d.ts:4
 
-___
+***
 
 ### sources
 
-• **sources**: [`Source`](../interfaces/Source.md)[]
+> **sources**: [`Source`](../interfaces/Source.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/dataSourceConfigService.d.ts:3
+node\_modules/lambdaorm-base/schema/application/services/config/dataSourceConfigService.d.ts:3
 
 ## Methods
 
-### get
+### get()
 
-▸ **get**(`name?`): [`Source`](../interfaces/Source.md)
+> **get**(`name`?): [`Source`](../interfaces/Source.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name?` | `string` |
+• **name?**: `string`
 
 #### Returns
 
 [`Source`](../interfaces/Source.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/dataSourceConfigService.d.ts:7
+node\_modules/lambdaorm-base/schema/application/services/config/dataSourceConfigService.d.ts:7
 
-___
+***
 
-### load
+### load()
 
-▸ **load**(`value`): `void`
+> **load**(`value`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | [`Source`](../interfaces/Source.md) |
+• **value**: [`Source`](../interfaces/Source.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/config/dataSourceConfigService.d.ts:6
+node\_modules/lambdaorm-base/schema/application/services/config/dataSourceConfigService.d.ts:6

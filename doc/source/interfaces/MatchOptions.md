@@ -1,47 +1,41 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / MatchOptions
 
 # Interface: MatchOptions
 
-## Hierarchy
+## Extended by
 
-- **`MatchOptions`**
-
-  ↳ [`StagePullOptions`](StagePullOptions.md)
-
-## Table of contents
-
-### Properties
-
-- [removeEntities](MatchOptions.md#removeentities)
-- [removeProperties](MatchOptions.md#removeproperties)
-- [removeRelations](MatchOptions.md#removerelations)
+- [`StagePullOptions`](StagePullOptions.md)
 
 ## Properties
 
-### removeEntities
+### removeEntities?
 
-• `Optional` **removeEntities**: `boolean`
+> `optional` **removeEntities**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:9
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:9
 
-___
+***
 
-### removeProperties
+### removeProperties?
 
-• `Optional` **removeProperties**: `boolean`
+> `optional` **removeProperties**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:10
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:10
 
-___
+***
 
-### removeRelations
+### removeRelations?
 
-• `Optional` **removeRelations**: `boolean`
+> `optional` **removeRelations**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:11
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:11

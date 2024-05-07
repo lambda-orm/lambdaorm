@@ -1,46 +1,32 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ExecutionError
 
 # Class: ExecutionError
 
-## Hierarchy
+## Extends
 
 - `Error`
 
-  ↳ **`ExecutionError`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](ExecutionError.md#constructor)
-
-### Properties
-
-- [message](ExecutionError.md#message)
-- [name](ExecutionError.md#name)
-- [stack](ExecutionError.md#stack)
-- [prepareStackTrace](ExecutionError.md#preparestacktrace)
-- [stackTraceLimit](ExecutionError.md#stacktracelimit)
-
-### Methods
-
-- [captureStackTrace](ExecutionError.md#capturestacktrace)
-
 ## Constructors
 
-### constructor
+### new ExecutionError()
 
-• **new ExecutionError**(`source`, `entity`, `sentence`, `message`, `data?`): [`ExecutionError`](ExecutionError.md)
+> **new ExecutionError**(`source`, `entity`, `sentence`, `message`, `data`): [`ExecutionError`](ExecutionError.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | `string` |
-| `entity` | `string` |
-| `sentence` | `string` |
-| `message` | `string` |
-| `data` | `any` |
+• **source**: `string`
+
+• **entity**: `string`
+
+• **sentence**: `string`
+
+• **message**: `string`
+
+• **data**: `any`= `{}`
 
 #### Returns
 
@@ -48,117 +34,111 @@
 
 #### Overrides
 
-Error.constructor
+`Error.constructor`
 
-#### Defined in
+#### Source
 
-[src/lib/connection/domain/errors.ts:9](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/domain/errors.ts#L9)
+[src/lib/connection/domain/errors.ts:9](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/domain/errors.ts#L9)
 
 ## Properties
 
 ### message
 
-• **message**: `string`
+> **message**: `string`
 
 #### Inherited from
 
-Error.message
+`Error.message`
 
-#### Defined in
+#### Source
 
-node_modules/typescript/lib/lib.es5.d.ts:1077
+node\_modules/typescript/lib/lib.es5.d.ts:1077
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
 #### Inherited from
 
-Error.name
+`Error.name`
 
-#### Defined in
+#### Source
 
-node_modules/typescript/lib/lib.es5.d.ts:1076
+node\_modules/typescript/lib/lib.es5.d.ts:1076
 
-___
+***
 
-### stack
+### stack?
 
-• `Optional` **stack**: `string`
+> `optional` **stack**: `string`
 
 #### Inherited from
 
-Error.stack
+`Error.stack`
 
-#### Defined in
+#### Source
 
-node_modules/typescript/lib/lib.es5.d.ts:1078
+node\_modules/typescript/lib/lib.es5.d.ts:1078
 
-___
+***
 
-### prepareStackTrace
+### prepareStackTrace()?
 
-▪ `Static` `Optional` **prepareStackTrace**: (`err`: `Error`, `stackTraces`: `CallSite`[]) => `any`
+> `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
 Optional override for formatting stack traces
 
-**`See`**
+#### See
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
-#### Type declaration
+#### Parameters
 
-▸ (`err`, `stackTraces`): `any`
+• **err**: `Error`
 
-##### Parameters
+• **stackTraces**: `CallSite`[]
 
-| Name | Type |
-| :------ | :------ |
-| `err` | `Error` |
-| `stackTraces` | `CallSite`[] |
-
-##### Returns
+#### Returns
 
 `any`
 
 #### Inherited from
 
-Error.prepareStackTrace
+`Error.prepareStackTrace`
 
-#### Defined in
+#### Source
 
-node_modules/@types/node/globals.d.ts:28
+node\_modules/@types/node/globals.d.ts:28
 
-___
+***
 
 ### stackTraceLimit
 
-▪ `Static` **stackTraceLimit**: `number`
+> `static` **stackTraceLimit**: `number`
 
 #### Inherited from
 
-Error.stackTraceLimit
+`Error.stackTraceLimit`
 
-#### Defined in
+#### Source
 
-node_modules/@types/node/globals.d.ts:30
+node\_modules/@types/node/globals.d.ts:30
 
 ## Methods
 
-### captureStackTrace
+### captureStackTrace()
 
-▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Create .stack property on a target object
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetObject` | `object` |
-| `constructorOpt?` | `Function` |
+• **targetObject**: `object`
+
+• **constructorOpt?**: `Function`
 
 #### Returns
 
@@ -166,8 +146,8 @@ Create .stack property on a target object
 
 #### Inherited from
 
-Error.captureStackTrace
+`Error.captureStackTrace`
 
-#### Defined in
+#### Source
 
-node_modules/@types/node/globals.d.ts:21
+node\_modules/@types/node/globals.d.ts:21

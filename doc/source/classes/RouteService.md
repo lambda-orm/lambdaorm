@@ -1,3 +1,7 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / RouteService
 
 # Class: RouteService
@@ -6,50 +10,37 @@
 
 - [`IRouteService`](../interfaces/IRouteService.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](RouteService.md#constructor)
-
-### Methods
-
-- [eval](RouteService.md#eval)
-- [getSource](RouteService.md#getsource)
-
 ## Constructors
 
-### constructor
+### new RouteService()
 
-• **new RouteService**(`stageConfigService`, `expressions`): [`RouteService`](RouteService.md)
+> **new RouteService**(`stageConfigService`, `expressions`): [`RouteService`](RouteService.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `stageConfigService` | [`StageConfigService`](StageConfigService.md) |
-| `expressions` | `Expressions` |
+• **stageConfigService**: [`StageConfigService`](StageConfigService.md)
+
+• **expressions**: `Expressions`
 
 #### Returns
 
 [`RouteService`](RouteService.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/routeService.d.ts:7
+node\_modules/lambdaorm-base/schema/application/services/routeService.d.ts:7
 
 ## Methods
 
-### eval
+### eval()
 
-▸ **eval**(`source`, `info`): `boolean`
+> **eval**(`source`, `info`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | [`SourceRule`](../interfaces/SourceRule.md) |
-| `info` | [`SentenceInfo`](../interfaces/SentenceInfo.md) |
+• **source**: [`SourceRule`](../interfaces/SourceRule.md)
+
+• **info**: [`SentenceInfo`](../interfaces/SentenceInfo.md)
 
 #### Returns
 
@@ -57,24 +48,23 @@ node_modules/lambdaorm-base/schema/application/services/routeService.d.ts:7
 
 #### Implementation of
 
-[IRouteService](../interfaces/IRouteService.md).[eval](../interfaces/IRouteService.md#eval)
+[`IRouteService`](../interfaces/IRouteService.md).[`eval`](../interfaces/IRouteService.md#eval)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/routeService.d.ts:8
+node\_modules/lambdaorm-base/schema/application/services/routeService.d.ts:8
 
-___
+***
 
-### getSource
+### getSource()
 
-▸ **getSource**(`info`, `stage?`): `string`
+> **getSource**(`info`, `stage`?): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `info` | [`SentenceInfo`](../interfaces/SentenceInfo.md) |
-| `stage?` | `string` |
+• **info**: [`SentenceInfo`](../interfaces/SentenceInfo.md)
+
+• **stage?**: `string`
 
 #### Returns
 
@@ -82,8 +72,8 @@ ___
 
 #### Implementation of
 
-[IRouteService](../interfaces/IRouteService.md).[getSource](../interfaces/IRouteService.md#getsource)
+[`IRouteService`](../interfaces/IRouteService.md).[`getSource`](../interfaces/IRouteService.md#getsource)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/application/services/routeService.d.ts:9
+node\_modules/lambdaorm-base/schema/application/services/routeService.d.ts:9

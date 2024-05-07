@@ -1,110 +1,93 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ConnectionPoolService
 
 # Class: ConnectionPoolService
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ConnectionPoolService.md#constructor)
-
-### Methods
-
-- [end](ConnectionPoolService.md#end)
-- [endAll](ConnectionPoolService.md#endall)
-- [get](ConnectionPoolService.md#get)
-- [load](ConnectionPoolService.md#load)
-
 ## Constructors
 
-### constructor
+### new ConnectionPoolService()
 
-• **new ConnectionPoolService**(`dialectPoolService`): [`ConnectionPoolService`](ConnectionPoolService.md)
+> **new ConnectionPoolService**(`dialectPoolService`): [`ConnectionPoolService`](ConnectionPoolService.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `dialectPoolService` | [`DialectPoolService`](DialectPoolService.md) |
+• **dialectPoolService**: [`DialectPoolService`](DialectPoolService.md)
 
 #### Returns
 
 [`ConnectionPoolService`](ConnectionPoolService.md)
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/services/connectionPoolService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/services/connectionPoolService.ts#L8)
+[src/lib/connection/application/services/connectionPoolService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/services/connectionPoolService.ts#L8)
 
 ## Methods
 
-### end
+### end()
 
-▸ **end**(`name`): `Promise`\<`void`\>
+> **end**(`name`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/services/connectionPoolService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/services/connectionPoolService.ts#L22)
+[src/lib/connection/application/services/connectionPoolService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/services/connectionPoolService.ts#L22)
 
-___
+***
 
-### endAll
+### endAll()
 
-▸ **endAll**(): `Promise`\<`void`\>
+> **endAll**(): `Promise`\<`void`\>
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/services/connectionPoolService.ts:29](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/services/connectionPoolService.ts#L29)
+[src/lib/connection/application/services/connectionPoolService.ts:29](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/services/connectionPoolService.ts#L29)
 
-___
+***
 
-### get
+### get()
 
-▸ **get**(`name`): [`ConnectionPool`](../interfaces/ConnectionPool.md)
+> **get**(`name`): [`ConnectionPool`](../interfaces/ConnectionPool.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 [`ConnectionPool`](../interfaces/ConnectionPool.md)
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/services/connectionPoolService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/services/connectionPoolService.ts#L14)
+[src/lib/connection/application/services/connectionPoolService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/services/connectionPoolService.ts#L14)
 
-___
+***
 
-### load
+### load()
 
-▸ **load**(`config`): `void`
+> **load**(`config`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `config` | [`ConnectionConfig`](../interfaces/ConnectionConfig.md) |
+• **config**: [`ConnectionConfig`](../interfaces/ConnectionConfig.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/services/connectionPoolService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/services/connectionPoolService.ts#L10)
+[src/lib/connection/application/services/connectionPoolService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/services/connectionPoolService.ts#L10)

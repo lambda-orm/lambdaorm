@@ -1,84 +1,32 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Clause
 
 # Class: Clause
 
-## Hierarchy
+## Extends
 
 - `Operand`
 
-  ↳ **`Clause`**
-
-  ↳↳ [`Map`](Map.md)
-
-  ↳↳ [`Filter`](Filter.md)
-
-  ↳↳ [`GroupBy`](GroupBy.md)
-
-  ↳↳ [`Having`](Having.md)
-
-  ↳↳ [`Sort`](Sort.md)
-
-  ↳↳ [`Page`](Page.md)
-
-  ↳↳ [`From`](From.md)
-
-  ↳↳ [`Join`](Join.md)
-
-  ↳↳ [`Insert`](Insert.md)
-
-  ↳↳ [`BulkInsert`](BulkInsert.md)
-
-  ↳↳ [`Update`](Update.md)
-
-  ↳↳ [`Upsert`](Upsert.md)
-
-  ↳↳ [`Delete`](Delete.md)
-
-  ↳↳ [`BulkDelete`](BulkDelete.md)
-
-  ↳↳ [`BulkMerge`](BulkMerge.md)
-
-## Table of contents
-
-### Constructors
-
-- [constructor](Clause.md#constructor)
-
-### Properties
-
-- [alias](Clause.md#alias)
-- [children](Clause.md#children)
-- [entity](Clause.md#entity)
-- [evaluator](Clause.md#evaluator)
-- [id](Clause.md#id)
-- [name](Clause.md#name)
-- [number](Clause.md#number)
-- [pos](Clause.md#pos)
-- [returnType](Clause.md#returntype)
-- [type](Clause.md#type)
-
-### Methods
-
-- [eval](Clause.md#eval)
-- [evalAsync](Clause.md#evalasync)
-- [isAsync](Clause.md#isasync)
-- [solve](Clause.md#solve)
-
 ## Constructors
 
-### constructor
+### new Clause()
 
-• **new Clause**(`pos`, `name`, `children`, `entity`, `alias`): [`Clause`](Clause.md)
+> **new Clause**(`pos`, `name`, `children`, `entity`, `alias`): [`Clause`](Clause.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `pos` | `Position` |
-| `name` | `string` |
-| `children` | `Operand`[] |
-| `entity` | `string` |
-| `alias` | `string` |
+• **pos**: `Position`
+
+• **name**: `string`
+
+• **children**: `Operand`[]
+
+• **entity**: `string`
+
+• **alias**: `string`
 
 #### Returns
 
@@ -86,155 +34,153 @@
 
 #### Overrides
 
-Operand.constructor
+`Operand.constructor`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:20
+node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:20
 
 ## Properties
 
 ### alias
 
-• **alias**: `string`
+> **alias**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:18
+node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:18
 
-___
+***
 
 ### children
 
-• **children**: `Operand`[]
+> **children**: `Operand`[]
 
 #### Inherited from
 
-Operand.children
+`Operand.children`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:44
+node\_modules/3xpr/shared/domain/operand.d.ts:44
 
-___
+***
 
 ### entity
 
-• **entity**: `string`
+> **entity**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/sentence.d.ts:19
+node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:19
 
-___
+***
 
-### evaluator
+### evaluator?
 
-• `Optional` **evaluator**: `IEvaluator`
-
-#### Inherited from
-
-Operand.evaluator
-
-#### Defined in
-
-node_modules/3xpr/shared/domain/operand.d.ts:46
-
-___
-
-### id
-
-• `Optional` **id**: `string`
+> `optional` **evaluator**: `IEvaluator`
 
 #### Inherited from
 
-Operand.id
+`Operand.evaluator`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:48
+node\_modules/3xpr/shared/domain/operand.d.ts:46
 
-___
+***
+
+### id?
+
+> `optional` **id**: `string`
+
+#### Inherited from
+
+`Operand.id`
+
+#### Source
+
+node\_modules/3xpr/shared/domain/operand.d.ts:48
+
+***
 
 ### name
 
-• **name**: `any`
+> **name**: `any`
 
 #### Inherited from
 
-Operand.name
+`Operand.name`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:42
+node\_modules/3xpr/shared/domain/operand.d.ts:42
 
-___
+***
 
-### number
+### number?
 
-• `Optional` **number**: `number`
+> `optional` **number**: `number`
 
 #### Inherited from
 
-Operand.number
+`Operand.number`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:47
+node\_modules/3xpr/shared/domain/operand.d.ts:47
 
-___
+***
 
 ### pos
 
-• `Readonly` **pos**: `Position`
+> `readonly` **pos**: `Position`
 
 #### Inherited from
 
-Operand.pos
+`Operand.pos`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:41
+node\_modules/3xpr/shared/domain/operand.d.ts:41
 
-___
+***
 
-### returnType
+### returnType?
 
-• `Optional` **returnType**: `Type`
+> `optional` **returnType**: `Type`
 
 #### Inherited from
 
-Operand.returnType
+`Operand.returnType`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:45
+node\_modules/3xpr/shared/domain/operand.d.ts:45
 
-___
+***
 
 ### type
 
-• `Readonly` **type**: `OperandType`
+> `readonly` **type**: `OperandType`
 
 #### Inherited from
 
-Operand.type
+`Operand.type`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:43
+node\_modules/3xpr/shared/domain/operand.d.ts:43
 
 ## Methods
 
-### eval
+### eval()
 
-▸ **eval**(`context`): `any`
+> **eval**(`context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | `Context` |
+• **context**: `Context`
 
 #### Returns
 
@@ -242,23 +188,21 @@ node_modules/3xpr/shared/domain/operand.d.ts:43
 
 #### Inherited from
 
-Operand.eval
+`Operand.eval`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:50
+node\_modules/3xpr/shared/domain/operand.d.ts:50
 
-___
+***
 
-### evalAsync
+### evalAsync()
 
-▸ **evalAsync**(`context`): `Promise`\<`any`\>
+> **evalAsync**(`context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | `Context` |
+• **context**: `Context`
 
 #### Returns
 
@@ -266,17 +210,17 @@ ___
 
 #### Inherited from
 
-Operand.evalAsync
+`Operand.evalAsync`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:51
+node\_modules/3xpr/shared/domain/operand.d.ts:51
 
-___
+***
 
-### isAsync
+### isAsync()
 
-▸ **isAsync**(): `boolean`
+> **isAsync**(): `boolean`
 
 #### Returns
 
@@ -284,23 +228,21 @@ ___
 
 #### Inherited from
 
-Operand.isAsync
+`Operand.isAsync`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:52
+node\_modules/3xpr/shared/domain/operand.d.ts:52
 
-___
+***
 
-### solve
+### solve()
 
-▸ **solve**(`context`): `Promise`\<`any`\>
+> **solve**(`context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | `Context` |
+• **context**: `Context`
 
 #### Returns
 
@@ -308,8 +250,8 @@ ___
 
 #### Inherited from
 
-Operand.solve
+`Operand.solve`
 
-#### Defined in
+#### Source
 
-node_modules/3xpr/shared/domain/operand.d.ts:53
+node\_modules/3xpr/shared/domain/operand.d.ts:53

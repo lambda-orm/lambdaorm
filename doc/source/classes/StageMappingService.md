@@ -1,39 +1,28 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / StageMappingService
 
 # Class: StageMappingService
 
-## Hierarchy
+## Extends
 
 - `StageStateService`\<[`MappingConfig`](../interfaces/MappingConfig.md)\>
 
-  ↳ **`StageMappingService`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](StageMappingService.md#constructor)
-
-### Methods
-
-- [get](StageMappingService.md#get)
-- [getFile](StageMappingService.md#getfile)
-- [remove](StageMappingService.md#remove)
-- [update](StageMappingService.md#update)
-
 ## Constructors
 
-### constructor
+### new StageMappingService()
 
-• **new StageMappingService**(`workspace`, `schemaState`, `helper`): [`StageMappingService`](StageMappingService.md)
+> **new StageMappingService**(`workspace`, `schemaState`, `helper`): [`StageMappingService`](StageMappingService.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `workspace` | `string` |
-| `schemaState` | [`SchemaState`](SchemaState.md) |
-| `helper` | [`OrmH3lp`](OrmH3lp.md) |
+• **workspace**: `string`
+
+• **schemaState**: [`SchemaState`](SchemaState.md)
+
+• **helper**: [`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
@@ -41,23 +30,21 @@
 
 #### Inherited from
 
-StageStateService\<MappingConfig\>.constructor
+`StageStateService<MappingConfig>.constructor`
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/services/stateService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/services/stateService.ts#L8)
+[src/lib/stage/application/services/stateService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/services/stateService.ts#L8)
 
 ## Methods
 
-### get
+### get()
 
-▸ **get**(`name`): `Promise`\<[`MappingConfig`](../interfaces/MappingConfig.md)\>
+> **get**(`name`): `Promise`\<[`MappingConfig`](../interfaces/MappingConfig.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -65,23 +52,21 @@ StageStateService\<MappingConfig\>.constructor
 
 #### Inherited from
 
-StageStateService.get
+`StageStateService.get`
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/services/stateService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/services/stateService.ts#L10)
+[src/lib/stage/application/services/stateService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/services/stateService.ts#L10)
 
-___
+***
 
-### getFile
+### getFile()
 
-▸ **getFile**(`name`): `any`
+> **getFile**(`name`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -89,23 +74,21 @@ ___
 
 #### Overrides
 
-StageStateService.getFile
+`StageStateService.getFile`
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/services/stateService.ts:42](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/services/stateService.ts#L42)
+[src/lib/stage/application/services/stateService.ts:42](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/services/stateService.ts#L42)
 
-___
+***
 
-### remove
+### remove()
 
-▸ **remove**(`name`): `Promise`\<`any`\>
+> **remove**(`name`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -113,24 +96,23 @@ ___
 
 #### Inherited from
 
-StageStateService.remove
+`StageStateService.remove`
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/services/stateService.ts:27](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/services/stateService.ts#L27)
+[src/lib/stage/application/services/stateService.ts:27](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/services/stateService.ts#L27)
 
-___
+***
 
-### update
+### update()
 
-▸ **update**(`name`, `data`): `Promise`\<`void`\>
+> **update**(`name`, `data`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `data` | [`MappingConfig`](../interfaces/MappingConfig.md) |
+• **name**: `string`
+
+• **data**: [`MappingConfig`](../interfaces/MappingConfig.md)
 
 #### Returns
 
@@ -138,8 +120,8 @@ ___
 
 #### Inherited from
 
-StageStateService.update
+`StageStateService.update`
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/services/stateService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/services/stateService.ts#L22)
+[src/lib/stage/application/services/stateService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/services/stateService.ts#L22)

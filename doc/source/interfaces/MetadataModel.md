@@ -1,41 +1,37 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / MetadataModel
 
 # Interface: MetadataModel
 
-## Table of contents
-
-### Properties
-
-- [children](MetadataModel.md#children)
-- [name](MetadataModel.md#name)
-- [type](MetadataModel.md#type)
-
 ## Properties
 
-### children
+### children?
 
-• `Optional` **children**: [`MetadataModel`](MetadataModel.md)[]
+> `optional` **children**: [`MetadataModel`](MetadataModel.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:11
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:11
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:9
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:9
 
-___
+***
 
 ### type
 
-• **type**: `string`
+> **type**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/metadata.d.ts:10
+node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:10

@@ -1,41 +1,37 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / AppPathsConfig
 
 # Interface: AppPathsConfig
 
-## Table of contents
-
-### Properties
-
-- [data](AppPathsConfig.md#data)
-- [domain](AppPathsConfig.md#domain)
-- [src](AppPathsConfig.md#src)
-
 ## Properties
 
-### data
+### data?
 
-• `Optional` **data**: `string`
+> `optional` **data**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:153
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:153
 
-___
+***
 
-### domain
+### domain?
 
-• `Optional` **domain**: `string`
+> `optional` **domain**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:154
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:154
 
-___
+***
 
-### src
+### src?
 
-• `Optional` **src**: `string`
+> `optional` **src**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:152
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:152

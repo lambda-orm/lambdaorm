@@ -1,41 +1,37 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / DialectFormat
 
 # Interface: DialectFormat
-
-## Table of contents
-
-### Properties
-
-- [date](DialectFormat.md#date)
-- [dateTime](DialectFormat.md#datetime)
-- [time](DialectFormat.md#time)
 
 ## Properties
 
 ### date
 
-• **date**: `string`
+> **date**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/language/domain/model.ts:3](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/language/domain/model.ts#L3)
+[src/lib/language/domain/model.ts:3](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/domain/model.ts#L3)
 
-___
+***
 
 ### dateTime
 
-• **dateTime**: `string`
+> **dateTime**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/language/domain/model.ts:2](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/language/domain/model.ts#L2)
+[src/lib/language/domain/model.ts:2](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/domain/model.ts#L2)
 
-___
+***
 
 ### time
 
-• **time**: `string`
+> **time**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/language/domain/model.ts:4](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/language/domain/model.ts#L4)
+[src/lib/language/domain/model.ts:4](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/language/domain/model.ts#L4)

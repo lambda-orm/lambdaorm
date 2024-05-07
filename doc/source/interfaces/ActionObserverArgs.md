@@ -1,63 +1,57 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ActionObserverArgs
 
 # Interface: ActionObserverArgs
-
-## Table of contents
-
-### Properties
-
-- [data](ActionObserverArgs.md#data)
-- [error](ActionObserverArgs.md#error)
-- [options](ActionObserverArgs.md#options)
-- [query](ActionObserverArgs.md#query)
-- [result](ActionObserverArgs.md#result)
 
 ## Properties
 
 ### data
 
-• **data**: `any`
+> **data**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L10)
+[src/lib/execution/domain/executor.ts:10](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L10)
 
-___
+***
 
-### error
+### error?
 
-• `Optional` **error**: `any`
+> `optional` **error**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:13](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L13)
+[src/lib/execution/domain/executor.ts:13](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L13)
 
-___
+***
 
 ### options
 
-• **options**: [`QueryOptions`](QueryOptions.md)
+> **options**: [`QueryOptions`](QueryOptions.md)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:11](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L11)
+[src/lib/execution/domain/executor.ts:11](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L11)
 
-___
+***
 
 ### query
 
-• **query**: [`Query`](../classes/Query.md)
+> **query**: [`Query`](../classes/Query.md)
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:9](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L9)
+[src/lib/execution/domain/executor.ts:9](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L9)
 
-___
+***
 
-### result
+### result?
 
-• `Optional` **result**: `any`
+> `optional` **result**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/execution/domain/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/execution/domain/executor.ts#L12)
+[src/lib/execution/domain/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/execution/domain/executor.ts#L12)

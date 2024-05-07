@@ -1,96 +1,87 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SentenceInfo
 
 # Interface: SentenceInfo
-
-## Table of contents
-
-### Properties
-
-- [action](SentenceInfo.md#action)
-- [category](SentenceInfo.md#category)
-- [ddl](SentenceInfo.md#ddl)
-- [dml](SentenceInfo.md#dml)
-- [entity](SentenceInfo.md#entity)
-- [read](SentenceInfo.md#read)
-- [type](SentenceInfo.md#type)
-- [write](SentenceInfo.md#write)
 
 ## Properties
 
 ### action
 
-• **action**: [`SentenceAction`](../enums/SentenceAction.md)
+> **action**: [`SentenceAction`](../enumerations/SentenceAction.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/sentence.d.ts:61
+node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:61
 
-___
+***
 
 ### category
 
-• **category**: [`SentenceCategory`](../enums/SentenceCategory.md)
+> **category**: [`SentenceCategory`](../enumerations/SentenceCategory.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/sentence.d.ts:62
+node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:62
 
-___
+***
 
 ### ddl
 
-• **ddl**: `boolean`
+> **ddl**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/sentence.d.ts:66
+node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:66
 
-___
+***
 
 ### dml
 
-• **dml**: `boolean`
+> **dml**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/sentence.d.ts:67
+node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:67
 
-___
+***
 
 ### entity
 
-• **entity**: `string`
+> **entity**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/sentence.d.ts:60
+node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:60
 
-___
+***
 
 ### read
 
-• **read**: `boolean`
+> **read**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/sentence.d.ts:64
+node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:64
 
-___
+***
 
 ### type
 
-• **type**: [`SentenceType`](../enums/SentenceType.md)
+> **type**: [`SentenceType`](../enumerations/SentenceType.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/sentence.d.ts:63
+node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:63
 
-___
+***
 
 ### write
 
-• **write**: `boolean`
+> **write**: `boolean`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/sentence.d.ts:65
+node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:65

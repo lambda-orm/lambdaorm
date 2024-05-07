@@ -1,80 +1,71 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / RelationMapClauses
 
 # Interface: RelationMapClauses\<T\>
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `T` |
-
-## Table of contents
-
-### Methods
-
-- [filter](RelationMapClauses.md#filter)
-- [include](RelationMapClauses.md#include)
-- [sort](RelationMapClauses.md#sort)
+• **T**
 
 ## Methods
 
-### filter
+### filter()
 
-▸ **filter**(`predicate`, `thisArg?`): [`FilterClauses`](../classes/FilterClauses.md)\<`T`\>
+> **filter**(`predicate`, `thisArg`?): [`FilterClauses`](../classes/FilterClauses.md)\<`T`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `predicate` | (`value`: `T`, `index`: `number`, `array`: `T`[]) => `unknown` |
-| `thisArg?` | `any` |
+• **predicate**
+
+• **thisArg?**: `any`
 
 #### Returns
 
 [`FilterClauses`](../classes/FilterClauses.md)\<`T`\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:116
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:116
 
-___
+***
 
-### include
+### include()
 
-▸ **include**(`predicate`, `thisArg?`): [`IncludeClauses`](../classes/IncludeClauses.md)\<`T`\>
+> **include**(`predicate`, `thisArg`?): [`IncludeClauses`](../classes/IncludeClauses.md)\<`T`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `predicate` | (`value`: `T`, `index`: `number`, `array`: `T`[]) => `unknown` |
-| `thisArg?` | `any` |
+• **predicate**
+
+• **thisArg?**: `any`
 
 #### Returns
 
 [`IncludeClauses`](../classes/IncludeClauses.md)\<`T`\>
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:118
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:118
 
-___
+***
 
-### sort
+### sort()
 
-▸ **sort**(`predicate`, `...args`): `void`
+> **sort**(`predicate`, ...`args`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `predicate` | (`value`: `T`, `index`: `number`, `array`: `T`[]) => `unknown` |
-| `...args` | `any` |
+• **predicate**
+
+• ...**args**: `any`
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/repository/domain/queryable.d.ts:114
+node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:114

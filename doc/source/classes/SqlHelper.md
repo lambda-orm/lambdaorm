@@ -1,273 +1,243 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SqlHelper
 
 # Class: SqlHelper
 
-## Table of contents
-
-### Constructors
-
-- [constructor](SqlHelper.md#constructor)
-
-### Methods
-
-- [arrayToList](SqlHelper.md#arraytolist)
-- [bufferToString](SqlHelper.md#buffertostring)
-- [createInfo](SqlHelper.md#createinfo)
-- [dateFormat](SqlHelper.md#dateformat)
-- [dateToString](SqlHelper.md#datetostring)
-- [escape](SqlHelper.md#escape)
-- [escapeId](SqlHelper.md#escapeid)
-- [format](SqlHelper.md#format)
-- [getInfo](SqlHelper.md#getinfo)
-- [raw](SqlHelper.md#raw)
-- [transformParameter](SqlHelper.md#transformparameter)
-
 ## Constructors
 
-### constructor
+### new SqlHelper()
 
-• **new SqlHelper**(`str`): [`SqlHelper`](SqlHelper.md)
+> **new SqlHelper**(`str`): [`SqlHelper`](SqlHelper.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `str` | `IStringHelper` |
+• **str**: `IStringHelper`
 
 #### Returns
 
 [`SqlHelper`](SqlHelper.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:13
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:13
 
 ## Methods
 
-### arrayToList
+### arrayToList()
 
-▸ **arrayToList**(`array`, `timeZone`): `string`
+> **arrayToList**(`array`, `timeZone`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `array` | `any`[] |
-| `timeZone` | `string` |
+• **array**: `any`[]
+
+• **timeZone**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:16
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:16
 
-___
+***
 
-### bufferToString
+### bufferToString()
 
-▸ **bufferToString**(`buffer`): `string`
+> **bufferToString**(`buffer`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `buffer` | `Buffer` |
+• **buffer**: `Buffer`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:20
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:20
 
-___
+***
 
-### createInfo
+### createInfo()
 
-▸ **createInfo**(`entity`, `action`, `category`, `type`): [`SentenceInfo`](../interfaces/SentenceInfo.md)
+> **createInfo**(`entity`, `action`, `category`, `type`): [`SentenceInfo`](../interfaces/SentenceInfo.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `entity` | `string` |
-| `action` | [`SentenceAction`](../enums/SentenceAction.md) |
-| `category` | [`SentenceCategory`](../enums/SentenceCategory.md) |
-| `type` | [`SentenceType`](../enums/SentenceType.md) |
+• **entity**: `string`
+
+• **action**: [`SentenceAction`](../enumerations/SentenceAction.md)
+
+• **category**: [`SentenceCategory`](../enumerations/SentenceCategory.md)
+
+• **type**: [`SentenceType`](../enumerations/SentenceType.md)
 
 #### Returns
 
 [`SentenceInfo`](../interfaces/SentenceInfo.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:24
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:24
 
-___
+***
 
-### dateFormat
+### dateFormat()
 
-▸ **dateFormat**(`value`, `format?`): `string`
+> **dateFormat**(`value`, `format`?): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `any` |
-| `format?` | `string` |
+• **value**: `any`
+
+• **format?**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:19
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:19
 
-___
+***
 
-### dateToString
+### dateToString()
 
-▸ **dateToString**(`date`, `timeZone?`): `string`
+> **dateToString**(`date`, `timeZone`?): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `date` | `Date` |
-| `timeZone?` | `string` |
+• **date**: `Date`
+
+• **timeZone?**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:18
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:18
 
-___
+***
 
-### escape
+### escape()
 
-▸ **escape**(`name`): `string`
+> **escape**(`name`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:15
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:15
 
-___
+***
 
-### escapeId
+### escapeId()
 
-▸ **escapeId**(`name`): `string`
+> **escapeId**(`name`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:14
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:14
 
-___
+***
 
-### format
+### format()
 
-▸ **format**(`sql`, `values`, `stringifyObjects`, `timeZone`): `string`
+> **format**(`sql`, `values`, `stringifyObjects`, `timeZone`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sql` | `string` |
-| `values` | `any`[] |
-| `stringifyObjects` | `string` |
-| `timeZone` | `string` |
+• **sql**: `string`
+
+• **values**: `any`[]
+
+• **stringifyObjects**: `string`
+
+• **timeZone**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:17
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:17
 
-___
+***
 
-### getInfo
+### getInfo()
 
-▸ **getInfo**(`action`, `entity`): [`SentenceInfo`](../interfaces/SentenceInfo.md)
+> **getInfo**(`action`, `entity`): [`SentenceInfo`](../interfaces/SentenceInfo.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `action` | [`SentenceAction`](../enums/SentenceAction.md) |
-| `entity` | `string` |
+• **action**: [`SentenceAction`](../enumerations/SentenceAction.md)
+
+• **entity**: `string`
 
 #### Returns
 
 [`SentenceInfo`](../interfaces/SentenceInfo.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:23
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:23
 
-___
+***
 
-### raw
+### raw()
 
-▸ **raw**(`sql`): `string`
+> **raw**(`sql`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sql` | `string` |
+• **sql**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:21
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:21
 
-___
+***
 
-### transformParameter
+### transformParameter()
 
-▸ **transformParameter**(`name`): `string`
+> **transformParameter**(`name`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:22
+node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:22

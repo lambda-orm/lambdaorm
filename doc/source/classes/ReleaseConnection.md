@@ -1,53 +1,43 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ReleaseConnection
 
 # Class: ReleaseConnection
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ReleaseConnection.md#constructor)
-
-### Methods
-
-- [release](ReleaseConnection.md#release)
-
 ## Constructors
 
-### constructor
+### new ReleaseConnection()
 
-• **new ReleaseConnection**(`poolService`): [`ReleaseConnection`](ReleaseConnection.md)
+> **new ReleaseConnection**(`poolService`): [`ReleaseConnection`](ReleaseConnection.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `poolService` | [`ConnectionPoolService`](ConnectionPoolService.md) |
+• **poolService**: [`ConnectionPoolService`](ConnectionPoolService.md)
 
 #### Returns
 
 [`ReleaseConnection`](ReleaseConnection.md)
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/useCases/release.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/useCases/release.ts#L6)
+[src/lib/connection/application/useCases/release.ts:6](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/useCases/release.ts#L6)
 
 ## Methods
 
-### release
+### release()
 
-▸ **release**(`connection`): `Promise`\<`void`\>
+> **release**(`connection`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `connection` | [`Connection`](../interfaces/Connection.md) |
+• **connection**: [`Connection`](../interfaces/Connection.md)
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/connection/application/useCases/release.ts:8](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/connection/application/useCases/release.ts#L8)
+[src/lib/connection/application/useCases/release.ts:8](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/connection/application/useCases/release.ts#L8)

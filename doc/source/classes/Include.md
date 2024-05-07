@@ -1,67 +1,59 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Include
 
 # Class: Include
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Include.md#constructor)
-
-### Properties
-
-- [name](Include.md#name)
-- [query](Include.md#query)
-- [relation](Include.md#relation)
-
 ## Constructors
 
-### constructor
+### new Include()
 
-• **new Include**(`name`, `query`, `relation`): [`Include`](Include.md)
+> **new Include**(`name`, `query`, `relation`): [`Include`](Include.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `query` | [`Query`](Query.md) |
-| `relation` | [`Relation`](../interfaces/Relation.md) |
+• **name**: `string`
+
+• **query**: [`Query`](Query.md)
+
+• **relation**: [`Relation`](../interfaces/Relation.md)
 
 #### Returns
 
 [`Include`](Include.md)
 
-#### Defined in
+#### Source
 
-[src/lib/query/domain/query.ts:52](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/query/domain/query.ts#L52)
+[src/lib/query/domain/query.ts:52](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/query/domain/query.ts#L52)
 
 ## Properties
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/query/domain/query.ts:49](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/query/domain/query.ts#L49)
+[src/lib/query/domain/query.ts:49](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/query/domain/query.ts#L49)
 
-___
+***
 
 ### query
 
-• **query**: [`Query`](Query.md)
+> **query**: [`Query`](Query.md)
 
-#### Defined in
+#### Source
 
-[src/lib/query/domain/query.ts:50](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/query/domain/query.ts#L50)
+[src/lib/query/domain/query.ts:50](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/query/domain/query.ts#L50)
 
-___
+***
 
 ### relation
 
-• **relation**: [`Relation`](../interfaces/Relation.md)
+> **relation**: [`Relation`](../interfaces/Relation.md)
 
-#### Defined in
+#### Source
 
-[src/lib/query/domain/query.ts:51](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/query/domain/query.ts#L51)
+[src/lib/query/domain/query.ts:51](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/query/domain/query.ts#L51)

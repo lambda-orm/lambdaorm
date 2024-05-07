@@ -1,40 +1,32 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / StageImport
 
 # Class: StageImport
 
-## Hierarchy
+## Extends
 
 - [`StageActionDML`](StageActionDML.md)
 
-  ↳ **`StageImport`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](StageImport.md#constructor)
-
-### Methods
-
-- [execute](StageImport.md#execute)
-- [queries](StageImport.md#queries)
-- [sentence](StageImport.md#sentence)
-
 ## Constructors
 
-### constructor
+### new StageImport()
 
-• **new StageImport**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`): [`StageImport`](StageImport.md)
+> **new StageImport**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`): [`StageImport`](StageImport.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `stageMappingService` | [`StageMappingService`](StageMappingService.md) |
-| `domain` | [`DomainConfigService`](DomainConfigService.md) |
-| `expressionFacade` | [`ExpressionFacade`](ExpressionFacade.md) |
-| `executor` | [`Executor`](../interfaces/Executor.md) |
-| `options` | [`QueryOptions`](../interfaces/QueryOptions.md) |
+• **stageMappingService**: [`StageMappingService`](StageMappingService.md)
+
+• **domain**: [`DomainConfigService`](DomainConfigService.md)
+
+• **expressionFacade**: [`ExpressionFacade`](ExpressionFacade.md)
+
+• **executor**: [`Executor`](../interfaces/Executor.md)
+
+• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
@@ -42,37 +34,35 @@
 
 #### Inherited from
 
-[StageActionDML](StageActionDML.md).[constructor](StageActionDML.md#constructor)
+[`StageActionDML`](StageActionDML.md).[`constructor`](StageActionDML.md#constructors)
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/useCases/base/actionDML.ts#L15)
+[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/useCases/base/actionDML.ts#L15)
 
 ## Methods
 
-### execute
+### execute()
 
-▸ **execute**(`data`): `Promise`\<`void`\>
+> **execute**(`data`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | [`SchemaData`](../interfaces/SchemaData.md) |
+• **data**: [`SchemaData`](../interfaces/SchemaData.md)
 
 #### Returns
 
 `Promise`\<`void`\>
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/useCases/import.ts:7](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/useCases/import.ts#L7)
+[src/lib/stage/application/useCases/import.ts:7](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/useCases/import.ts#L7)
 
-___
+***
 
-### queries
+### queries()
 
-▸ **queries**(): [`Query`](Query.md)[]
+> **queries**(): [`Query`](Query.md)[]
 
 #### Returns
 
@@ -80,17 +70,17 @@ ___
 
 #### Inherited from
 
-[StageActionDML](StageActionDML.md).[queries](StageActionDML.md#queries)
+[`StageActionDML`](StageActionDML.md).[`queries`](StageActionDML.md#queries)
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/useCases/base/actionDML.ts#L33)
+[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/useCases/base/actionDML.ts#L33)
 
-___
+***
 
-### sentence
+### sentence()
 
-▸ **sentence**(): `Promise`\<`any`\>
+> **sentence**(): `Promise`\<`any`\>
 
 #### Returns
 
@@ -98,8 +88,8 @@ ___
 
 #### Inherited from
 
-[StageActionDML](StageActionDML.md).[sentence](StageActionDML.md#sentence)
+[`StageActionDML`](StageActionDML.md).[`sentence`](StageActionDML.md#sentence)
 
-#### Defined in
+#### Source
 
-[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/stage/application/useCases/base/actionDML.ts#L24)
+[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/5e6305f9bd553e15fed66cee099164eb31ee9842/src/lib/stage/application/useCases/base/actionDML.ts#L24)

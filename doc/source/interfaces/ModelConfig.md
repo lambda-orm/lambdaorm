@@ -1,19 +1,17 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / ModelConfig
 
 # Interface: ModelConfig
-
-## Table of contents
-
-### Properties
-
-- [mappings](ModelConfig.md#mappings)
 
 ## Properties
 
 ### mappings
 
-• **mappings**: [`Mapping`](Mapping.md)[]
+> **mappings**: [`Mapping`](Mapping.md)[]
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:188
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:188

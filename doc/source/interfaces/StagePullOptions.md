@@ -1,136 +1,123 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / StagePullOptions
 
 # Interface: StagePullOptions
 
-## Hierarchy
+## Extends
 
-- [`QueryOptions`](QueryOptions.md)
-
-- [`MatchOptions`](MatchOptions.md)
-
-  ↳ **`StagePullOptions`**
-
-## Table of contents
-
-### Properties
-
-- [chunkSize](StagePullOptions.md#chunksize)
-- [headers](StagePullOptions.md#headers)
-- [removeEntities](StagePullOptions.md#removeentities)
-- [removeProperties](StagePullOptions.md#removeproperties)
-- [removeRelations](StagePullOptions.md#removerelations)
-- [stage](StagePullOptions.md#stage)
-- [tryAllCan](StagePullOptions.md#tryallcan)
-- [view](StagePullOptions.md#view)
+- [`QueryOptions`](QueryOptions.md).[`MatchOptions`](MatchOptions.md)
 
 ## Properties
 
-### chunkSize
+### chunkSize?
 
-• `Optional` **chunkSize**: `number`
-
-#### Inherited from
-
-[QueryOptions](QueryOptions.md).[chunkSize](QueryOptions.md#chunksize)
-
-#### Defined in
-
-node_modules/lambdaorm-base/query/domain/query.d.ts:11
-
-___
-
-### headers
-
-• `Optional` **headers**: [`string`, `any`][]
+> `optional` **chunkSize**: `number`
 
 #### Inherited from
 
-[QueryOptions](QueryOptions.md).[headers](QueryOptions.md#headers)
+[`QueryOptions`](QueryOptions.md).[`chunkSize`](QueryOptions.md#chunksize)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:13
+node\_modules/lambdaorm-base/query/domain/query.d.ts:11
 
-___
+***
 
-### removeEntities
+### headers?
 
-• `Optional` **removeEntities**: `boolean`
-
-#### Inherited from
-
-[MatchOptions](MatchOptions.md).[removeEntities](MatchOptions.md#removeentities)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/services.d.ts:9
-
-___
-
-### removeProperties
-
-• `Optional` **removeProperties**: `boolean`
+> `optional` **headers**: [`string`, `any`][]
 
 #### Inherited from
 
-[MatchOptions](MatchOptions.md).[removeProperties](MatchOptions.md#removeproperties)
+[`QueryOptions`](QueryOptions.md).[`headers`](QueryOptions.md#headers)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/services.d.ts:10
+node\_modules/lambdaorm-base/query/domain/query.d.ts:13
 
-___
+***
 
-### removeRelations
+### removeEntities?
 
-• `Optional` **removeRelations**: `boolean`
-
-#### Inherited from
-
-[MatchOptions](MatchOptions.md).[removeRelations](MatchOptions.md#removerelations)
-
-#### Defined in
-
-node_modules/lambdaorm-base/schema/domain/services.d.ts:11
-
-___
-
-### stage
-
-• `Optional` **stage**: `string`
+> `optional` **removeEntities**: `boolean`
 
 #### Inherited from
 
-[QueryOptions](QueryOptions.md).[stage](QueryOptions.md#stage)
+[`MatchOptions`](MatchOptions.md).[`removeEntities`](MatchOptions.md#removeentities)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:9
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:9
 
-___
+***
 
-### tryAllCan
+### removeProperties?
 
-• `Optional` **tryAllCan**: `boolean`
-
-#### Inherited from
-
-[QueryOptions](QueryOptions.md).[tryAllCan](QueryOptions.md#tryallcan)
-
-#### Defined in
-
-node_modules/lambdaorm-base/query/domain/query.d.ts:12
-
-___
-
-### view
-
-• `Optional` **view**: `string`
+> `optional` **removeProperties**: `boolean`
 
 #### Inherited from
 
-[QueryOptions](QueryOptions.md).[view](QueryOptions.md#view)
+[`MatchOptions`](MatchOptions.md).[`removeProperties`](MatchOptions.md#removeproperties)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/query/domain/query.d.ts:10
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:10
+
+***
+
+### removeRelations?
+
+> `optional` **removeRelations**: `boolean`
+
+#### Inherited from
+
+[`MatchOptions`](MatchOptions.md).[`removeRelations`](MatchOptions.md#removerelations)
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/services.d.ts:11
+
+***
+
+### stage?
+
+> `optional` **stage**: `string`
+
+#### Inherited from
+
+[`QueryOptions`](QueryOptions.md).[`stage`](QueryOptions.md#stage)
+
+#### Source
+
+node\_modules/lambdaorm-base/query/domain/query.d.ts:9
+
+***
+
+### tryAllCan?
+
+> `optional` **tryAllCan**: `boolean`
+
+#### Inherited from
+
+[`QueryOptions`](QueryOptions.md).[`tryAllCan`](QueryOptions.md#tryallcan)
+
+#### Source
+
+node\_modules/lambdaorm-base/query/domain/query.d.ts:12
+
+***
+
+### view?
+
+> `optional` **view**: `string`
+
+#### Inherited from
+
+[`QueryOptions`](QueryOptions.md).[`view`](QueryOptions.md#view)
+
+#### Source
+
+node\_modules/lambdaorm-base/query/domain/query.d.ts:10

@@ -1,41 +1,37 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / Behavior
 
 # Interface: Behavior
 
-## Table of contents
-
-### Properties
-
-- [alias](Behavior.md#alias)
-- [expression](Behavior.md#expression)
-- [property](Behavior.md#property)
-
 ## Properties
 
-### alias
+### alias?
 
-• `Optional` **alias**: `string`
+> `optional` **alias**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:196
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:196
 
-___
+***
 
 ### expression
 
-• **expression**: `string`
+> **expression**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:198
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:198
 
-___
+***
 
 ### property
 
-• **property**: `string`
+> **property**: `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/schema/domain/schema.d.ts:197
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:197

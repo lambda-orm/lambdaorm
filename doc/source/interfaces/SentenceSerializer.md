@@ -1,75 +1,61 @@
+[**Lambda ORM**](../README.md) • **Docs**
+
+***
+
 [Lambda ORM](../README.md) / SentenceSerializer
 
 # Interface: SentenceSerializer
 
-## Implemented by
-
-- [`SentenceSerializerImp`](../classes/SentenceSerializerImp.md)
-
-## Table of contents
-
-### Methods
-
-- [clone](SentenceSerializer.md#clone)
-- [deserialize](SentenceSerializer.md#deserialize)
-- [serialize](SentenceSerializer.md#serialize)
-
 ## Methods
 
-### clone
+### clone()
 
-▸ **clone**(`sentence`): [`Sentence`](../classes/Sentence.md)
+> **clone**(`sentence`): [`Sentence`](../classes/Sentence.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sentence` | [`Sentence`](../classes/Sentence.md) |
+• **sentence**: [`Sentence`](../classes/Sentence.md)
 
 #### Returns
 
 [`Sentence`](../classes/Sentence.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/services.d.ts:10
+node\_modules/lambdaorm-base/sentence/domain/services.d.ts:10
 
-___
+***
 
-### deserialize
+### deserialize()
 
-▸ **deserialize**(`value`): [`Sentence`](../classes/Sentence.md)
+> **deserialize**(`value`): [`Sentence`](../classes/Sentence.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` |
+• **value**: `string`
 
 #### Returns
 
 [`Sentence`](../classes/Sentence.md)
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/services.d.ts:12
+node\_modules/lambdaorm-base/sentence/domain/services.d.ts:12
 
-___
+***
 
-### serialize
+### serialize()
 
-▸ **serialize**(`sentence`): `string`
+> **serialize**(`sentence`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sentence` | [`Sentence`](../classes/Sentence.md) |
+• **sentence**: [`Sentence`](../classes/Sentence.md)
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-node_modules/lambdaorm-base/sentence/domain/services.d.ts:11
+node\_modules/lambdaorm-base/sentence/domain/services.d.ts:11
