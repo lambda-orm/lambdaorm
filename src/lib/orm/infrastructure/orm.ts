@@ -29,7 +29,7 @@ import { OrmLibrary } from './ormLibrary'
 export class Orm implements IOrm {
 	public connection: ConnectionFacade
 	public language: LanguagesService
-	public expressions:Expressions
+	public exp:Expressions
 	public schema: SchemaFacade
 	public state: SchemaState
 	public stage: StageFacade
@@ -42,16 +42,16 @@ export class Orm implements IOrm {
 	constructor (private _workspace: string, private _logger?:Logger) {
 		this._logger = _logger || new LoggerBuilder().build()
 		this.helper = new OrmH3lp(h3lp, this._logger)
-		this.expressions = new OrmExpressionsBuilder(this.helper).build()
+		this.exp = new OrmExpressionsBuilder(this.helper).build()
 		new OrmLibrary(this).load()
 		this.language = new SentenceLanguageServiceBuilder(this.helper).build()
 		this.connection = new ConnectionFacadeBuilder(this.helper).build()
-		this.schema = new SchemaFacadeBuilder(this.expressions, this.helper).build()
-		this.state = new SchemaStateBuilder(this.expressions, this.schema, this.helper).build()
-		this.executor = new ExecutorBuilder(this.connection, this.language, this.expressions, this.helper).build(this.state)
-		this.operand = new OperandFacadeBuilder(this.expressions, this.helper).build(this.state)
-		this.sentence = new SentenceFacadeBuilder(this.expressions, this.helper).build(this.state, this.operand)
-		this.expression = new ExpressionFacadeBuilder(this.language, this.executor, this.expressions, this.helper).build(this.sentence, this.state)
+		this.schema = new SchemaFacadeBuilder(this.exp, this.helper).build()
+		this.state = new SchemaStateBuilder(this.exp, this.schema, this.helper).build()
+		this.executor = new ExecutorBuilder(this.connection, this.language, this.exp, this.helper).build(this.state)
+		this.operand = new OperandFacadeBuilder(this.exp, this.helper).build(this.state)
+		this.sentence = new SentenceFacadeBuilder(this.exp, this.helper).build(this.state, this.operand)
+		this.expression = new ExpressionFacadeBuilder(this.language, this.executor, this.exp, this.helper).build(this.sentence, this.state)
 		this.stage = new StageFacadeBuilder(this.language, this.executor, this.helper).build(_workspace, this.state, this.expression)
 	}
 
@@ -89,21 +89,21 @@ export class Orm implements IOrm {
 						values.push([enumValue.name, enumValue.value])
 					}
 				}
-				this.expressions.addEnum(_enum.name, values)
+				this.exp.addEnum(_enum.name, values)
 			}
 		}
 		// start
 		if (schema.application?.start) {
 			for (const task of schema.application.start) {
-				if (task.condition === undefined || this.expressions.eval(task.condition)) {
-					await this.expressions.evalAsync(task.expression)
+				if (task.condition === undefined || this.exp.eval(task.condition)) {
+					await this.exp.evalAsync(task.expression)
 				}
 			}
 		}
 		// add listeners
 		if (schema.application?.listeners) {
 			for (const listener of schema.application.listeners) {
-				const observer = new ExecutionActionObserver(listener, this.expressions)
+				const observer = new ExecutionActionObserver(listener, this.exp)
 				this.subscribe(observer)
 			}
 		}
@@ -118,8 +118,8 @@ export class Orm implements IOrm {
 		const schema = this.state.schema
 		if (schema.application?.end) {
 			for (const task of schema.application.end) {
-				if (task.condition === undefined || this.expressions.eval(task.condition)) {
-					await this.expressions.evalAsync(task.expression)
+				if (task.condition === undefined || this.exp.eval(task.condition)) {
+					await this.exp.evalAsync(task.expression)
 				}
 			}
 		}
@@ -247,7 +247,7 @@ export class Orm implements IOrm {
 	}
 
 	private toExpression (query:string|Function):string {
-		return typeof query !== 'string' ? this.expressions.convert(query, 'function')[0] : query
+		return typeof query !== 'string' ? this.exp.convert(query, 'function')[0] : query
 	}
 
 	public subscribe (observer:ActionObserver):void {

@@ -9,7 +9,7 @@ export interface IOrm
 	stage: StageFacade
 	schema: SchemaFacade
 	state: SchemaState
-	expressions: Expressions
+	exp: Expressions
 
 	dialect (source:string): Dialect
 

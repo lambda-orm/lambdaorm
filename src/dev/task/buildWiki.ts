@@ -70,8 +70,8 @@ async function writeOperators (category:string, list: [string, OperatorMetadata]
 }
 
 export async function apply (callback: any) {
-	await writeFunctions('functions', orm.expressions.functions)
-	await writeOperators('operators', orm.expressions.operators)
+	await writeFunctions('functions', orm.exp.functions)
+	await writeOperators('operators', orm.exp.operators)
 	callback()
 }
 apply(function () { console.log('end') })

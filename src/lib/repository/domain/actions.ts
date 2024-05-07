@@ -1,6 +1,6 @@
-import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata, QueryPlan, ExpressionActions } from 'lambdaorm-base'
+import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata, QueryPlan, QueryActions } from 'lambdaorm-base'
 import { IOrm } from '../../orm/application'
-export class ExpressionActionsImpl implements ExpressionActions {
+export class QueryActionsImpl implements QueryActions {
 	private orm:IOrm
 	private name:string
 	private stage?:string
@@ -10,31 +10,31 @@ export class ExpressionActionsImpl implements ExpressionActions {
 		this.orm = orm
 	}
 
-	public async execute (expression: string, data:any): Promise<any> {
-		return this.orm.execute(`${this.name}${expression}`, data, { stage: this.stage })
+	public async execute (query: string, data:any): Promise<any> {
+		return this.orm.execute(`${this.name}${query}`, data, { stage: this.stage })
 	}
 
-	public normalize (expression: string): string {
-		return this.orm.normalize(`${this.name}${expression}`)
+	public normalize (query: string): string {
+		return this.orm.normalize(`${this.name}${query}`)
 	}
 
-	public async model (expression: string): Promise<MetadataModel[]> {
-		return this.orm.model(`${this.name}${expression}`)
+	public async model (query: string): Promise<MetadataModel[]> {
+		return this.orm.model(`${this.name}${query}`)
 	}
 
-	public async parameters (expression: string): Promise<MetadataParameter[]> {
-		return this.orm.parameters(`${this.name}${expression}`)
+	public async parameters (query: string): Promise<MetadataParameter[]> {
+		return this.orm.parameters(`${this.name}${query}`)
 	}
 
-	public async constraints (expression: string): Promise<MetadataConstraint> {
-		return this.orm.constraints(`${this.name}${expression}`)
+	public async constraints (query: string): Promise<MetadataConstraint> {
+		return this.orm.constraints(`${this.name}${query}`)
 	}
 
-	public async metadata (expression: string): Promise<Metadata> {
-		return this.orm.metadata(`${this.name}${expression}`)
+	public async metadata (query: string): Promise<Metadata> {
+		return this.orm.metadata(`${this.name}${query}`)
 	}
 
-	public async plan (expression: string): Promise<QueryPlan> {
-		return this.orm.plan(`${this.name}${expression}`, { stage: this.stage })
+	public async plan (query: string): Promise<QueryPlan> {
+		return this.orm.plan(`${this.name}${query}`, { stage: this.stage })
 	}
 }

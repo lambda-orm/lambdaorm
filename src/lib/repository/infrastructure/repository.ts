@@ -2,7 +2,7 @@
 // TODO: solve
 import { orm as _orm } from '../../'
 import { IOrm } from '../../orm/application'
-import { ExpressionActionsImpl } from '../domain'
+import { QueryActionsImpl } from '../domain'
 import { IRepository, Queryable } from 'lambdaorm-base'
 
 export class Repository<TEntity, TQuery> implements IRepository<TEntity, TQuery> {
@@ -32,18 +32,18 @@ export class Repository<TEntity, TQuery> implements IRepository<TEntity, TQuery>
 		include?: (value: TQuery, index: number, array: TQuery[]) => unknown,
 		data: any = {}
 	): Promise<any> {
-		let expression = `${head}`
+		let query = `${head}`
 		if (filter !== undefined) {
-			expression = `${expression}.filter(${filter.toString()})`
+			query = `${query}.filter(${filter.toString()})`
 		}
 		if (include !== undefined) {
-			expression = `${expression}.include(${include.toString()})`
+			query = `${query}.include(${include.toString()})`
 		}
-		return this.orm.execute(expression, data, { stage: this.stage })
+		return this.orm.execute(query, data, { stage: this.stage })
 	}
 
-	public async execute (expression: string, data?: any): Promise<any> {
-		return this.orm.execute(`${this.name}${expression}`, data, { stage: this.stage })
+	public async execute (query: string, data?: any): Promise<any> {
+		return this.orm.execute(`${this.name}${query}`, data, { stage: this.stage })
 	}
 
 	/**  */
@@ -140,6 +140,6 @@ export class Repository<TEntity, TQuery> implements IRepository<TEntity, TQuery>
 	}
 
 	public query (): Queryable<TQuery> {
-		return new Queryable<TQuery>(new ExpressionActionsImpl(this.name, this.orm, this.stage), '')
+		return new Queryable<TQuery>(new QueryActionsImpl(this.name, this.orm, this.stage), '')
 	}
 }
