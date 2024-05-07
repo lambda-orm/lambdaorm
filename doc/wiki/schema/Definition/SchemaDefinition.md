@@ -12,7 +12,7 @@ In the infrastructure, all the necessary configuration is defined to be able to 
 
 The schema configuration can be done in a yaml, json file or passed as a parameter when initializing the ORM.
 
-All the expressions that are used for the definition of conditions and for the execution of actions are based on the expression engine [3xpr](https://www.npmjs.com/package/3xpr)
+All the queries that are used for the definition of conditions and for the execution of actions are based on the expression engine [3xpr](https://www.npmjs.com/package/3xpr)
 
 ## Structure
 
@@ -303,7 +303,7 @@ But no modification will be applied at the time of writing.
 ##### Default value in Property
 
 When a record is inserted, the expression defined in **default** will be evaluated on the server. \
-This expression will be executed by the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
+This expression will be executed by the expression engine [3xpr](https://www.npmjs.com/package/3xpr)
 
 Example:
 
@@ -328,7 +328,7 @@ domain:
 
 Both **readValue** and **writeValue** are executed on the server.
 When reading, **readValue** will be applied and in the writing actions, **writeValue** will be executed.
-These expressions will be executed by the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
+These expressions will be executed by the expression engine [3xpr](https://www.npmjs.com/package/3xpr)
 
 Example:
 
@@ -486,7 +486,7 @@ domain:
 | condition 		 	| boolean expression to evaluate   					| yes				|
 
 Constraints are validated on the server using expressions.
-These expressions will be executed by the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions)
+These expressions will be executed by the expression engine [3xpr](https://www.npmjs.com/package/3xpr)
 
 All constraints are validated when inserting or updating a record. \
 The ORM will create various constraints based on other definitions, for example:
@@ -756,7 +756,7 @@ Las variables de contexto son las siguientes:
 | ddl   	| it is a ddl action		| boolean                                         |
 
 The **conditions** are validated on the server using expressions. \
-These expressions will be executed by the expression engine [js-expressions](https://www.npmjs.com/package/js-expressions) \
+These expressions will be executed by the expression engine [3xpr](https://www.npmjs.com/package/3xpr) \
 In the event that more than one condition is met, the source will be determined according to the order in which it was defined.
 
 In the following example, all entities except **Users** will use the source **main**. \

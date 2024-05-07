@@ -1,16 +1,16 @@
 # Metadata
 
-Lambda ORM has the following methods to extract metadata information from expressions.
+Lambda ORM has the following methods to extract metadata information from queries.
 
 To execute these methods it is not necessary to connect to the database.
 
-|method    		|Description          															|Path                     		|
-|:------------|:--------------------------------------------------|:----------------------------|
-|	parameters	| Get parameters in the expression									| orm.parameters(expression)	|
-|	model				| Get model of the result in an execution						| orm.model(expression)				|
-|	metadata		| Get metadata of the expression										| orm.metadata(expression)		|
-|	plan		    | Get plan in the dialect of the physical model	    | orm.plan(expression)		|
-|	constraints	| Get constraints of expression											| orm.constraints(expression)	|
+|method    		|Description          													| Path                     		|
+|:------------|:----------------------------------------------|:----------------------------|
+|	parameters	| Get parameters in the query									  | orm.parameters(query)	      |
+|	model				| Get model of the result in an execution			  | orm.model(query)				    |
+|	metadata		| Get metadata of the query										  | orm.metadata(query)		      |
+|	plan		    | Get plan in the dialect of the physical model	| orm.plan(query)		          |
+|	constraints	| Get constraints of query											| orm.constraints(query)	    |
 
 ## Example:
 

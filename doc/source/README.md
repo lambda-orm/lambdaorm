@@ -40,7 +40,6 @@ Lambda ORM
 - [ExecutorImpl](classes/ExecutorImpl.md)
 - [ExpressionActionsImpl](classes/ExpressionActionsImpl.md)
 - [ExpressionFacade](classes/ExpressionFacade.md)
-- [ExpressionTransaction](classes/ExpressionTransaction.md)
 - [Field](classes/Field.md)
 - [Filter](classes/Filter.md)
 - [FilterAction](classes/FilterAction.md)
@@ -82,6 +81,7 @@ Lambda ORM
 - [Query](classes/Query.md)
 - [QueryAction](classes/QueryAction.md)
 - [QueryExecutorImpl](classes/QueryExecutorImpl.md)
+- [QueryTransaction](classes/QueryTransaction.md)
 - [Queryable](classes/Queryable.md)
 - [ReleaseConnection](classes/ReleaseConnection.md)
 - [Repository](classes/Repository.md)
@@ -363,7 +363,7 @@ ___
 
 #### Defined in
 
-[src/lib/orm/infrastructure/orm.ts:261](https://github.com/lambda-orm/lambdaorm/blob/efd15f74cf775a1cca0ba4f4c4fabcb10e923ec0/src/lib/orm/infrastructure/orm.ts#L261)
+[src/lib/orm/infrastructure/orm.ts:261](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/orm/infrastructure/orm.ts#L261)
 
 ## Functions
 

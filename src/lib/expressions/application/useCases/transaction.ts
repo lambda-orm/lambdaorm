@@ -4,20 +4,20 @@ import { Transaction } from '../../../execution/domain'
 import { Query } from '../../../query/domain'
 import { IQueryBuilder } from '../../domain'
 
-export class ExpressionTransaction {
+export class QueryTransaction {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly transaction:Transaction,
 		private readonly builder:IQueryBuilder,
 		private readonly expressions: Expressions) {}
 
-	public async execute(expression: Function, data?: any):Promise<any>;
-	public async execute(expression: string, data?: any):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}): Promise<any> {
-		if (typeof expression !== 'string') {
-			expression = this.expressions.convert(expression, 'function')[0]
+	public async execute(query: Function, data?: any):Promise<any>;
+	public async execute(query: string, data?: any):Promise<any>;
+	public async execute (query: string|Function, data: any = {}): Promise<any> {
+		if (typeof query !== 'string') {
+			query = this.expressions.convert(query, 'function')[0]
 		}
-		const query = this.builder.build(expression, this.transaction.options)
-		return this.transaction.execute(query, data)
+		const _query = this.builder.build(query, this.transaction.options)
+		return this.transaction.execute(_query, data)
 	}
 
 	public async executeQuery (query: Query, data: any = {}): Promise<any> {

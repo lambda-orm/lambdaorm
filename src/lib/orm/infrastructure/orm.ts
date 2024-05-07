@@ -6,7 +6,7 @@ import { QueryOptions, MetadataParameter, MetadataConstraint, MetadataModel, Met
 import { ConnectionFacade } from '../../connection/application'
 import { LanguagesService } from '../../language/application'
 import { StageFacade } from '../../stage/application'
-import { ExpressionFacade, ExpressionTransaction } from '../../expressions/application'
+import { ExpressionFacade, QueryTransaction } from '../../expressions/application'
 import { SentenceFacade } from '../../sentence/application'
 import { IOrm } from '../application'
 import { ConnectionFacadeBuilder } from '../../connection/infrastructure'
@@ -143,98 +143,98 @@ export class Orm implements IOrm {
 	}
 
 	/**
-	 * Normalize expression
-	 * @param expression query expression
+	 * Normalize query
+	 * @param query query expression
 	 * @returns Expression normalized
 	 */
-	public normalize(expression:Function): string
-	public normalize(expression:string): string
-	public normalize (expression: string|Function): string {
-		const _expression = this.toExpression(expression)
-		return this.operand.normalize(_expression)
+	public normalize(query:Function): string
+	public normalize(query:string): string
+	public normalize (query: string|Function): string {
+		const expression = this.toExpression(query)
+		return this.operand.normalize(expression)
 	}
 
 	/**
-	 * Get model of expression
-	 * @param expression query expression
-	 * @returns Model of expression
+	 * Get model of query
+	 * @param query query expression
+	 * @returns Model of query
 	 */
-	public model(expression:Function): MetadataModel[]
-	public model(expression:string): MetadataModel[]
-	public model (expression: string|Function): MetadataModel[] {
-		const _expression = this.toExpression(expression)
-		return this.sentence.model(_expression)
+	public model(query:Function): MetadataModel[]
+	public model(query:string): MetadataModel[]
+	public model (query: string|Function): MetadataModel[] {
+		const expression = this.toExpression(query)
+		return this.sentence.model(expression)
 	}
 
 	/**
-	 * Get parameters of expression
-	 * @param expression query expression
-	 * @returns Parameters of expression
+	 * Get parameters of query
+	 * @param query query expression
+	 * @returns Parameters of query
 	 */
-	public parameters(expression:Function): MetadataParameter[];
-	public parameters(expression:string): MetadataParameter[];
-	public parameters (expression: string|Function): MetadataParameter[] {
-		const _expression = this.toExpression(expression)
-		return this.sentence.parameters(_expression)
+	public parameters(query:Function): MetadataParameter[];
+	public parameters(query:string): MetadataParameter[];
+	public parameters (query: string|Function): MetadataParameter[] {
+		const expression = this.toExpression(query)
+		return this.sentence.parameters(expression)
 	}
 
 	/**
-	 * Get constraints of expression
-	 * @param expression query expression
-	 * @returns Constraints of expression
+	 * Get constraints of query
+	 * @param query query expression
+	 * @returns Constraints of query
 	 */
-	public constraints(expression:Function): MetadataConstraint;
-	public constraints(expression:string): MetadataConstraint;
-	public constraints (expression: string|Function): MetadataConstraint {
-		const _expression = this.toExpression(expression)
-		return this.sentence.constraints(_expression)
+	public constraints(query:Function): MetadataConstraint;
+	public constraints(query:string): MetadataConstraint;
+	public constraints (query: string|Function): MetadataConstraint {
+		const expression = this.toExpression(query)
+		return this.sentence.constraints(expression)
 	}
 
 	/**
-	 * Get metadata of expression
-	 * @param expression query expression
-	 * @returns metadata of expression
+	 * Get metadata of query
+	 * @param query query expression
+	 * @returns metadata of query
 	 */
-	public metadata(expression: Function): Metadata
-	public metadata (expression:string):Metadata
-	public metadata (expression: string|Function): Metadata {
-		const _expression = this.toExpression(expression)
-		return this.sentence.metadata(_expression)
+	public metadata(query: Function): Metadata
+	public metadata (query:string):Metadata
+	public metadata (query: string|Function): Metadata {
+		const expression = this.toExpression(query)
+		return this.sentence.metadata(expression)
 	}
 
 	/**
-	 * Get getInfo of expression
-	 * @param expression query expression
+	 * Get getInfo of query
+	 * @param query query expression
 	 * @param options options of execution
 	 */
-	public plan(expression: Function, options?: QueryOptions): QueryPlan;
-	public plan(expression: string, options?: QueryOptions): QueryPlan;
-	public plan (expression: string|Function, options?: QueryOptions): QueryPlan {
-		const _expression = this.toExpression(expression)
+	public plan(query: Function, options?: QueryOptions): QueryPlan;
+	public plan(query: string, options?: QueryOptions): QueryPlan;
+	public plan (query: string|Function, options?: QueryOptions): QueryPlan {
+		const expression = this.toExpression(query)
 		const _options = options !== undefined && typeof options === 'string' ? JSON.parse(options) : options || {}
-		return this.expression.plan(_expression, _options)
+		return this.expression.plan(expression, _options)
 	}
 
 	/**
-	 * Execute expression
-	 * @param expression query expression
+	 * Execute query
+	 * @param query query expression
 	 * @param data Data with variables
 	 * @param options options of execution
 	 * @returns Result of execution
 	 */
-	public async execute(expression: Function, data?: any, options?: QueryOptions):Promise<any>;
-	public async execute(expression: string, data?: any, options?: QueryOptions):Promise<any>;
-	public async execute (expression: string|Function, data: any = {}, options?: QueryOptions): Promise<any> {
-		if (expression === undefined || expression === null) {
-			throw new Error('expression is empty')
+	public async execute(query: Function, data?: any, options?: QueryOptions):Promise<any>;
+	public async execute(query: string, data?: any, options?: QueryOptions):Promise<any>;
+	public async execute (query: string|Function, data: any = {}, options?: QueryOptions): Promise<any> {
+		if (query === undefined || query === null) {
+			throw new Error('query is empty')
 		}
-		const _expression = this.toExpression(expression)
-		if (_expression === '') {
-			throw new Error('expression is empty')
+		const expression = this.toExpression(query)
+		if (expression === '') {
+			throw new Error('query is empty')
 		}
 		const _data = data !== undefined && typeof data === 'string' ? JSON.parse(data) : data || {}
 		const _options = options !== undefined && typeof options === 'string' ? JSON.parse(options) : options || {}
-		return this.expression.execute(_expression, _data, _options)
+		return this.expression.execute(expression, _data, _options)
 	}
 
 	/**
@@ -242,12 +242,12 @@ export class Orm implements IOrm {
 	 * @param options options of execution
 	 * @param callback Code to be executed in transaction
 	 */
-	public async transaction (options: QueryOptions|undefined, callback: { (tr: ExpressionTransaction): Promise<void> }): Promise<void> {
+	public async transaction (options: QueryOptions|undefined, callback: { (tr: QueryTransaction): Promise<void> }): Promise<void> {
 		return this.expression.transaction(options, callback)
 	}
 
-	private toExpression (expression:string|Function):string {
-		return typeof expression !== 'string' ? this.expressions.convert(expression, 'function')[0] : expression
+	private toExpression (query:string|Function):string {
+		return typeof query !== 'string' ? this.expressions.convert(query, 'function')[0] : query
 	}
 
 	public subscribe (observer:ActionObserver):void {

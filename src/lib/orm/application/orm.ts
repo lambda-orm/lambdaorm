@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { MetadataParameter, MetadataModel, MetadataConstraint, Metadata, QueryPlan, Schema, Dialect, SchemaFacade, SchemaState, QueryOptions } from 'lambdaorm-base'
 import { StageFacade } from '../../stage/application'
-import { ExpressionTransaction } from '../../expressions/application'
+import { QueryTransaction } from '../../expressions/application'
 import { Expressions } from '3xpr'
 export interface IOrm
 {
@@ -17,60 +17,61 @@ export interface IOrm
 	init(configPath?: string, connect?: boolean): Promise<Schema>
 	end (): Promise<void>
 	/**
-	 * Normalize expression
+	 * Normalize query
 	 * @returns Expression normalized
 	*/
-	normalize(expression:Function): string
-	normalize(expression:string): string
+	normalize(query:Function): string
+	normalize(query:string): string
 
 	/**
-		* Get model of expression
-		* @returns Model of expression
+		* Get model of query
+		* @returns Model of query
 		*/
-	model(expression:Function): MetadataModel[]
-	model(expression:string): MetadataModel[]
+	model(query:Function): MetadataModel[]
+	model(query:string): MetadataModel[]
 
 	/**
-		* Get parameters of expression
-		* @returns Parameters of expression
+		* Get parameters of query
+		* @returns Parameters of query
 		*/
-	parameters(expression:Function): MetadataParameter[]
-	parameters(expression: string): MetadataParameter[]
+	parameters(query:Function): MetadataParameter[]
+	parameters(query: string): MetadataParameter[]
 
 	/**
-	 * Get constraints of expression
-	 * @returns Constraints of expression
+	 * Get constraints of query
+	 * @returns Constraints of query
 	 */
-	constraints(expression:Function): MetadataConstraint
-	constraints(expression:string): MetadataConstraint
+	constraints(query:Function): MetadataConstraint
+	constraints(query:string): MetadataConstraint
 
 	/**
-		* Get metadata of expression
-		* @returns metadata of expression
+		* Get metadata of query
+		* @returns metadata of query
 		*/
-	metadata(expression: Function): Metadata
-	metadata (expression:string):Metadata
+	metadata(query: Function): Metadata
+	metadata (query:string):Metadata
 
 	/**
 	 *
-	 * @param expression
+	 * @param query
 	 * @param options
 	 */
-	plan(expression: Function, options?: QueryOptions): QueryPlan
-	plan(expression: string, options?: QueryOptions): QueryPlan
+	plan(query: Function, options?: QueryOptions): QueryPlan
+	plan(query: string, options?: QueryOptions): QueryPlan
 
 	/**
-		* Execute expression
+		* Execute query
+		* @param query Query to execute
 		* @param data Data with variables
 		* @param options query options
 		* @returns Result of execution
 		*/
-	execute(expression: Function, data?: any, options?: QueryOptions):Promise<any>
-	execute(expression: string, data?: any, options?: QueryOptions): Promise<any>
+	execute(query: Function, data?: any, options?: QueryOptions):Promise<any>
+	execute(query: string, data?: any, options?: QueryOptions): Promise<any>
 	/**
 	 * transaction
 	 * @param options query options
 	 * @param callback
 	 */
-	transaction(options: QueryOptions|undefined, callback:{(tr:ExpressionTransaction): Promise<void>}):Promise<void>
+	transaction(options: QueryOptions|undefined, callback:{(tr:QueryTransaction): Promise<void>}):Promise<void>
 }

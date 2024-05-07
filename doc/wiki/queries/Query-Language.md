@@ -1,11 +1,11 @@
 # Query Language
 
 The query language is based on [javascript lambda expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
-These expressions can be written as javascript code by browsing the business model entities.
+These Queries can be written as javascript code by browsing the business model entities.
 
-Expressions can also be sent as a string
+Queries can also be sent as a string
 
-λOrm translates the expression into the language corresponding to each database engine.
+λOrm translates the query into the language corresponding to each database engine.
 
 ## Queries type
 
@@ -62,7 +62,7 @@ Countries
 	.page(1,3) // Pagination for countries, 3 records per page
 ```
 
-where the SQL equivalent of the expression is:
+where the SQL equivalent of the query is:
 
 ```sql
 -- Selecting countries based on region and limiting to 3 records
@@ -82,6 +82,6 @@ WHERE SUBSTR(s.NAME,1,1) = 'F'
 
 - Use of the same programming language.
 - No need to learn a new language.
-- Expressions easy to write and understand.
+- queries easy to write and understand.
 - Use of the intellisense offered by the IDE to write the expressions.
 - Avoid syntax errors.

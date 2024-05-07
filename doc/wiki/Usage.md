@@ -261,7 +261,7 @@ application:
     - name: syncInsights
       on: [insert, bulkInsert, update, delete ]
       condition: options.stage.in("default","cqrs")
-      after: orm.execute(expression,data,{stage:"insights"})        
+      after: orm.execute(query,data,{stage:"insights"})        
 ```
 
 **Query:**
@@ -269,7 +269,7 @@ application:
 In this case we will execute the query from the REST service.
 
 ```sh
-curl -X POST "http://localhost:9291/execute?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)","data":"{\"customerId\": \"CENTC\"}", "options":"{\"stage\": \"default\"}"}'
+curl -X POST "http://localhost:9291/execute?format=beautiful" -H "Content-Type: application/json" -d '{"query": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)","data":"{\"customerId\": \"CENTC\"}", "options":"{\"stage\": \"default\"}"}'
 ```
 
 **Result:**
@@ -306,7 +306,7 @@ curl -X POST "http://localhost:9291/execute?format=beautiful" -H "Content-Type: 
 When a query is executed in the default stage, data will be obtained from different data sources according to the stage configuration.
 
 ```sh
-curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)", "options":"{\"default\": \"cqrs\"}"}'
+curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: application/json" -d '{"query": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)", "options":"{\"default\": \"cqrs\"}"}'
 ```
 
 **Result:**
@@ -347,7 +347,7 @@ When you run a query on the cqrs stage, you will get data from a single data sou
 But if the query is for insert, update or delete, it will be executed in the corresponding data source.
 
 ```sh
-curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)", "options":"{\"stage\": \"cqrs\"}"}'
+curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: application/json" -d '{"query": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)", "options":"{\"stage\": \"cqrs\"}"}'
 ```
 
 **Result:**
@@ -404,13 +404,13 @@ infrastructure:
         subscribe:
           topic: insights-sync
           fromBeginning: true
-        execute: orm.execute(message.expression,message.data, {stage:"insights"})    
+        execute: orm.execute(message.query,message.data, {stage:"insights"})    
 application:
   listeners:
     - name: syncInsights
       on: [insert, bulkInsert, update, delete ]
       condition: options.stage.in("default","cqrs")
-      after: queue.send("insights-sync",[{expression:expression,data:data}]) 
+      after: queue.send("insights-sync",[{query:query,data:data}]) 
 ```
 
 [view complete laboratory](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)

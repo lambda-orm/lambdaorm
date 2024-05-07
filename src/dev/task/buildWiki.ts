@@ -4,28 +4,26 @@ import { orm } from '../../lib'
 import { h3lp } from 'h3lp'
 import { OperatorMetadata } from '3xpr'
 
-async function writeFunctions (category:string, list: any): Promise<void> {
+async function writeFunctions (category:string, list: [string, OperatorMetadata][]): Promise<void> {
 	const lines: string[] = []
 	// lines.push(`# ${category} functions\n`)
 
 	lines.push('|Function    |Description                                   |')
 	lines.push('|------------|----------------------------------------------|')
-	for (const p in list) {
-		const item = list[p]
-		lines.push(`|${item.name}|${item.description}|`)
+	for (const item of list) {
+		lines.push(`|${item[0]}|${item[1].doc?.description}|`)
 	}
 	lines.push('')
 
 	lines.push('## Definition\n')
-	for (const p in list) {
-		const item = list[p]
-		lines.push(`### ${item.name}\n`)
-		lines.push(`- description: ${item.description}`)
-		lines.push(`- deterministic: ${item.deterministic}`)
-		lines.push(`- return: ${item.return}`)
+	for (const item of list) {
+		const metadata = item[1]
+		lines.push(`### ${item[0]}\n`)
+		lines.push(`- description: ${metadata.doc?.description}`)
+		lines.push(`- deterministic: ${metadata.deterministic}`)
+		lines.push(`- return: ${metadata.returnType}`)
 		lines.push('- params:')
-		for (const q in item.params) {
-			const param = item.params[q]
+		for (const param of metadata.params) {
 			lines.push(`\t- ${param.name}: ${param.type}`)
 		}
 		lines.push('')
@@ -39,27 +37,25 @@ async function writeFunctions (category:string, list: any): Promise<void> {
 	fs.writeFileSync(path.join(targetFolder, 'function_' + category.replace(' ', '_') + '.md'), content)
 }
 
-async function writeOperators (category:string, list: any): Promise<void> {
+async function writeOperators (category:string, list: [string, OperatorMetadata][]): Promise<void> {
 	const lines: string[] = []
 	// lines.push(`# ${category} operators\n`)
 
 	lines.push('|Operator    |Description                                   |')
 	lines.push('|------------|----------------------------------------------|')
-	for (const p in list) {
-		const item = list[p]
-		lines.push(`|${item.operator}|${item.name}|`)
+	for (const item of list) {
+		lines.push(`|${item[0]}|${item[1].doc?.description}|`)
 	}
 	lines.push('')
 
 	lines.push('## Definition\n')
-	for (const p in list) {
-		const item = list[p]
-		lines.push(`### Operator ${item.operator}\n`)
-		lines.push(`- description: ${item.name}`)
-		lines.push(`- return: ${item.return}`)
+	for (const item of list) {
+		const metadata = item[1]
+		lines.push(`### Operator ${item[0]}\n`)
+		lines.push(`- description: ${metadata.doc?.description}`)
+		lines.push(`- return: ${metadata.returnType}`)
 		lines.push('- params:')
-		for (const q in item.params) {
-			const param = item.params[q]
+		for (const param of metadata.params) {
 			lines.push(`\t- ${param.name}: ${param.type}`)
 		}
 		lines.push('')
@@ -74,19 +70,8 @@ async function writeOperators (category:string, list: any): Promise<void> {
 }
 
 export async function apply (callback: any) {
-	const functions:OperatorMetadata[] = []
-	for (const duple of orm.expressions.functions) {
-		const metadata = duple[1]
-		functions.push(metadata)
-	}
-	await writeFunctions('functions', functions)
-
-	const operators:OperatorMetadata[] = []
-	for (const duple of orm.expressions.operators) {
-		const metadata = duple[1]
-		operators.push(metadata)
-	}
-	await writeOperators('operators', operators)
+	await writeFunctions('functions', orm.expressions.functions)
+	await writeOperators('operators', orm.expressions.operators)
 	callback()
 }
 apply(function () { console.log('end') })

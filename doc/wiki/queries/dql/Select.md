@@ -193,7 +193,9 @@ ORDER BY category asc
 LIMIT 0,10
 ```
 
-## Code example
+## Usage
+
+### Node
 
 ```Typescript
 import { orm } from '../../lib'
@@ -220,4 +222,16 @@ import { Products } from '../northwind/model/__model'
 		await orm.end()
 	}
 })()
+```
+
+### CLI
+
+```bash
+lambdaorm execute -q "Products.filter(p=>p.price>10).map(p=>({name:p.name,category:p.category.name})).sort(p=>p.category).page(1, 10)" -d "{\"maxPrice\":10}"
+```
+
+### Service
+
+```bash
+curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: application/json" -d '{"query": "Products.filter(p=>p.price>10).map(p=>({name:p.name,category:p.category.name})).sort(p=>p.category).page(1, 10)", "data": "{\"maxPrice\":10}" }'
 ```

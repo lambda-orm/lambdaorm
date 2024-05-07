@@ -41,19 +41,19 @@
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:24](https://github.com/lambda-orm/lambdaorm/blob/efd15f74cf775a1cca0ba4f4c4fabcb10e923ec0/src/lib/expressions/application/facade.ts#L24)
+[src/lib/expressions/application/facade.ts:24](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/expressions/application/facade.ts#L24)
 
 ## Methods
 
 ### build
 
-▸ **build**(`expression`, `options?`): [`Query`](Query.md)
+▸ **build**(`query`, `options?`): [`Query`](Query.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expression` | `string` |
+| `query` | `string` |
 | `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 
 #### Returns
@@ -62,19 +62,19 @@
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:38](https://github.com/lambda-orm/lambdaorm/blob/efd15f74cf775a1cca0ba4f4c4fabcb10e923ec0/src/lib/expressions/application/facade.ts#L38)
+[src/lib/expressions/application/facade.ts:38](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/expressions/application/facade.ts#L38)
 
 ___
 
 ### execute
 
-▸ **execute**(`expression`, `data?`, `options?`): `Promise`\<`any`\>
+▸ **execute**(`query`, `data?`, `options?`): `Promise`\<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expression` | `string` |
+| `query` | `string` |
 | `data` | `any` |
 | `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 
@@ -84,19 +84,19 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:50](https://github.com/lambda-orm/lambdaorm/blob/efd15f74cf775a1cca0ba4f4c4fabcb10e923ec0/src/lib/expressions/application/facade.ts#L50)
+[src/lib/expressions/application/facade.ts:50](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/expressions/application/facade.ts#L50)
 
 ___
 
 ### executeList
 
-▸ **executeList**(`expressions`, `options?`): `Promise`\<`any`\>
+▸ **executeList**(`queries`, `options?`): `Promise`\<`any`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expressions` | `string`[] |
+| `queries` | `string`[] |
 | `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 
 #### Returns
@@ -105,19 +105,19 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/efd15f74cf775a1cca0ba4f4c4fabcb10e923ec0/src/lib/expressions/application/facade.ts#L54)
+[src/lib/expressions/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/expressions/application/facade.ts#L54)
 
 ___
 
 ### plan
 
-▸ **plan**(`expression`, `options?`): [`QueryPlan`](../interfaces/QueryPlan.md)
+▸ **plan**(`query`, `options?`): [`QueryPlan`](../interfaces/QueryPlan.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expression` | `string` |
+| `query` | `string` |
 | `options?` | [`QueryOptions`](../interfaces/QueryOptions.md) |
 
 #### Returns
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:42](https://github.com/lambda-orm/lambdaorm/blob/efd15f74cf775a1cca0ba4f4c4fabcb10e923ec0/src/lib/expressions/application/facade.ts#L42)
+[src/lib/expressions/application/facade.ts:42](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/expressions/application/facade.ts#L42)
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:46](https://github.com/lambda-orm/lambdaorm/blob/efd15f74cf775a1cca0ba4f4c4fabcb10e923ec0/src/lib/expressions/application/facade.ts#L46)
+[src/lib/expressions/application/facade.ts:46](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/expressions/application/facade.ts#L46)
 
 ___
 
@@ -159,7 +159,7 @@ ___
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `options` | `undefined` \| [`QueryOptions`](../interfaces/QueryOptions.md) | `undefined` |
-| `callback` | (`tr`: [`ExpressionTransaction`](ExpressionTransaction.md)) => `Promise`\<`void`\> | `undefined` |
+| `callback` | (`tr`: [`QueryTransaction`](QueryTransaction.md)) => `Promise`\<`void`\> | `undefined` |
 
 #### Returns
 
@@ -167,4 +167,4 @@ ___
 
 #### Defined in
 
-[src/lib/expressions/application/facade.ts:58](https://github.com/lambda-orm/lambdaorm/blob/efd15f74cf775a1cca0ba4f4c4fabcb10e923ec0/src/lib/expressions/application/facade.ts#L58)
+[src/lib/expressions/application/facade.ts:58](https://github.com/lambda-orm/lambdaorm/blob/d48077afa1aac1ad6d8319e9805485821bafad27/src/lib/expressions/application/facade.ts#L58)

@@ -1,6 +1,6 @@
 # Expressions on Schema
 
-All the expressions that are used for the definition of conditions and for the execution of actions are based on the expression engine [3xpr](https://www.npmjs.com/package/3xpr)
+All the queries that are used for the definition of conditions and for the execution of actions are based on the expression engine [3xpr](https://www.npmjs.com/package/3xpr)
 
 In addition to the operations and functions defined in [3xpr](https://www.npmjs.com/package/3xpr) lambdaorm extends the expression model with the following functions.
 
@@ -47,19 +47,19 @@ domain:
 
 ## **Orm** class methods
 
-| Functions 																										| Description 																			|
-| --------------------------------------------------------- | ------------------------------------------------------|
-| orm.execute(expression:string,data:any,options:any):any 	| Execute an expression and return the result 					|
-| orm.plan(expression:string,options:any):any 							| Return the execution plan of the expression 					|
-| orm.metadata(expression:string):any 											| Return the metadata of the expression 								|
-| orm.model(expression:string):any 													| Return the model of the expression 										|
-| orm.parameters(expression:string):any 										| Return the parameters of the expression 							|
-| orm.constraints(expression:string):any 										| Return the constraints of the expression 							|
+| Functions 																					| Description 															|
+| ----------------------------------------------------| ------------------------------------------|
+| orm.execute(query:string,data:any,options:any):any 	| Execute an query and return the result 		|
+| orm.plan(query:string,options:any):any 							| Return the execution plan of the query 		|
+| orm.metadata(query:string):any 											| Return the metadata of the query 					|
+| orm.model(query:string):any 												| Return the model of the query 						|
+| orm.parameters(query:string):any 										| Return the parameters of the query 				|
+| orm.constraints(query:string):any 									| Return the constraints of the query 			|
 
 **Example of use:**
 
-En este ejemplo se utiliza **orm.execute** para ejecutar la misma expression que fue ejecutada en los stages default y cqrs pero en el stage insights.
-Esto lo utiliza para implementar el patron CQRS.
+In this example **orm.execute** is used to execute the same query that was executed in the default and cqrs stages but in the insights stage.
+This is used to implement the CQRS pattern.
 
 ```yaml
 ...
@@ -68,7 +68,7 @@ application:
   - name: syncInsights
     on: [insert, bulkInsert, update, delete]
     condition: options.stage.in("default","cqrs")
-    after: orm.execute(expression,data,{stage:"insights"}) 
+    after: orm.execute(query,data,{stage:"insights"}) 
 ```
 
 View in [CLI - northwind CQRS lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/08-northwind-cqrs)
