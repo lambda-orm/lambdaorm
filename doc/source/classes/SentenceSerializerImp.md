@@ -40,7 +40,7 @@
 
 #### Source
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:9](https://github.com/lambda-orm/lambdaorm/blob/8a01b53f47623b9bd9ec972811e7799ca3c023c6/src/lib/sentence/application/services/sentenceSerializer.ts#L9)
+[src/lib/sentence/application/services/sentenceSerializer.ts:9](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/sentence/application/services/sentenceSerializer.ts#L9)
 
 ***
 
@@ -62,7 +62,7 @@
 
 #### Source
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:19](https://github.com/lambda-orm/lambdaorm/blob/8a01b53f47623b9bd9ec972811e7799ca3c023c6/src/lib/sentence/application/services/sentenceSerializer.ts#L19)
+[src/lib/sentence/application/services/sentenceSerializer.ts:19](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/sentence/application/services/sentenceSerializer.ts#L19)
 
 ***
 
@@ -84,4 +84,4 @@
 
 #### Source
 
-[src/lib/sentence/application/services/sentenceSerializer.ts:15](https://github.com/lambda-orm/lambdaorm/blob/8a01b53f47623b9bd9ec972811e7799ca3c023c6/src/lib/sentence/application/services/sentenceSerializer.ts#L15)
+[src/lib/sentence/application/services/sentenceSerializer.ts:15](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/sentence/application/services/sentenceSerializer.ts#L15)

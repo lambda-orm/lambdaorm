@@ -150,12 +150,12 @@
 |include|Include a list|
 |desc|Descending|
 |asc|Ascending|
-|orm.execute|Execute an ORM expression|
-|orm.plan|Plan an ORM expression|
-|orm.metadata|Get metadata from an ORM expression|
-|orm.model|Get model from an ORM expression|
-|orm.parameters|Get parameters from an ORM expression|
-|orm.constraints|Get constraints from an ORM expression|
+|orm.execute|Execute query|
+|orm.plan|Plan of query|
+|orm.metadata|Get metadata from query|
+|orm.model|Get model from query|
+|orm.parameters|Get parameters from query|
+|orm.constraints|Get constraints from query|
 |contains|Includes|
 |substr|Substring|
 |concatenate|Concatenate|
@@ -1448,54 +1448,54 @@
 
 ### orm.execute
 
-- description: Execute an ORM expression
+- description: Execute query
 - deterministic: true
 - return: any
 - params:
-	- expression: string
+	- query: string
 	- data: any
 	- options: any
 
 ### orm.plan
 
-- description: Plan an ORM expression
+- description: Plan of query
 - deterministic: true
 - return: any
 - params:
-	- expression: string
+	- query: string
 	- options: any
 
 ### orm.metadata
 
-- description: Get metadata from an ORM expression
+- description: Get metadata from query
 - deterministic: true
 - return: any
 - params:
-	- expression: string
+	- query: string
 
 ### orm.model
 
-- description: Get model from an ORM expression
+- description: Get model from query
 - deterministic: true
 - return: any
 - params:
-	- expression: string
+	- query: string
 
 ### orm.parameters
 
-- description: Get parameters from an ORM expression
+- description: Get parameters from query
 - deterministic: true
 - return: any
 - params:
-	- expression: string
+	- query: string
 
 ### orm.constraints
 
-- description: Get constraints from an ORM expression
+- description: Get constraints from query
 - deterministic: true
 - return: any
 - params:
-	- expression: string
+	- query: string
 
 ### contains
 
