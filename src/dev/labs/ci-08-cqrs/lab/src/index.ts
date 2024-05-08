@@ -4,8 +4,9 @@ import { h3lp } from 'h3lp'
 
 (async () => {
 	try {
-		await orm.init('./src/dev/labs/ci-08-cqrs/lab/lambdaORM.yaml')
-		const content = await h3lp.fs.read('./src/dev/labs/ci-08-cqrs/lab/data.json') || ''
+		const workspace = __dirname.replace('/build/','/src/')
+		await orm.init(workspace + '/../lambdaORM.yaml')
+		const content = await h3lp.fs.read(workspace + '/../data.json') || ''
 		const data = JSON.parse(content)
 		await orm.stage.drop( { stage:"default", tryAllCan:true }).execute()
 		await orm.stage.drop( { stage:"insights", tryAllCan:true }).execute()

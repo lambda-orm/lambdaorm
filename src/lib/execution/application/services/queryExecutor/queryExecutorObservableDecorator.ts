@@ -44,14 +44,13 @@ export class QueryExecutorObservableDecorator implements QueryExecutor {
 	}
 
 	private async beforeExecutionNotify (query: Query, data: any, options: QueryOptions):Promise<void> {
-		const args:ActionObserverArgs = { query, data, options }
+		const args = this.createActionObserverArgs(query, data, options)
 		if (!this.observers) return
 		this.observers.filter(p => p.on && p.on.includes(query.category)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.before(args)
 			} else {
-				const context = { query, options }
-				if (this.expressions.eval(observer.condition, context)) {
+				if (this.expressions.eval(observer.condition, args)) {
 					await observer.before(args)
 				}
 			}
@@ -59,14 +58,13 @@ export class QueryExecutorObservableDecorator implements QueryExecutor {
 	}
 
 	private async afterExecutionNotify (query: Query, data: any, options: QueryOptions, result:any):Promise<void> {
-		const args:ActionObserverArgs = { query, data, options, result }
+		const args = this.createActionObserverArgs(query, data, options, result)
 		if (!this.observers) return
 		this.observers.filter(p => p.on && p.on.includes(query.category)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.after(args)
 			} else {
-				const context = { query, options }
-				if (this.expressions.eval(observer.condition, context)) {
+				if (this.expressions.eval(observer.condition, args)) {
 					await observer.after(args)
 				}
 			}
@@ -74,17 +72,33 @@ export class QueryExecutorObservableDecorator implements QueryExecutor {
 	}
 
 	private async errorExecutionNotify (query: Query, data: any, options: QueryOptions, error:any):Promise<void> {
-		const args:ActionObserverArgs = { query, data, options, error }
+		const args = this.createActionObserverArgs(query, data, options, null, error)
 		if (!this.observers) return
 		this.observers.filter(p => p.on && p.on.includes(query.category)).forEach(async (observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.error(args)
 			} else {
-				const context = { query, options }
-				if (this.expressions.eval(observer.condition, context)) {
+				if (this.expressions.eval(observer.condition, args)) {
 					await observer.error(args)
 				}
 			}
 		})
+	}
+
+	private createActionObserverArgs (query: Query, data: any, options: QueryOptions, result?:any, error?:any):ActionObserverArgs {
+		return {
+			data,
+			options,
+			error,
+			result,
+			action: query.action,
+			type: query.type,
+			category: query.category,
+			dialect: query.dialect,
+			entity: query.entity,
+			query: query.query,
+			source: query.source,
+			sentence: query.sentence
+		}
 	}
 }

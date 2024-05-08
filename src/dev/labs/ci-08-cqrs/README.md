@@ -81,7 +81,7 @@ services:
 Create MySql database for test:
 
 ```sh
-docker-compose -p lambdaorm-lab up -d
+docker-compose -p lambdaorm-cqrs up -d
 ```
 
 Initialize databases:
@@ -336,11 +336,11 @@ application:
     - name: syncInsights
       on:
         - insert
-        - bulkInsert
+        - upsert
         - update
         - delete
       condition: options.stage.in("default","cqrs")
-      after: execute(expression,data,{stage:"insights"})    
+      after: execute(query,data,{stage:"insights"})    
 ```
 
 ### Push
@@ -622,7 +622,7 @@ Result:
 ```sh
 lambdaorm drop -e .env -s default
 lambdaorm drop -e .env -s insights
-docker-compose -p lambdaorm-lab down
+docker-compose -p lambdaorm-cqrs down
 ```
 
 The data folder should remain like this:
@@ -637,4 +637,10 @@ The data folder should remain like this:
 │   ├── default-ddl-20231129T111730594Z-clean-Ordering.json
 │   ├── insights-ddl-20231129T110303423Z-sync-Insights.sql
 │   └── insights-ddl-20231129T111738316Z-clean-Insights.sql
+```
+
+Remove Data
+
+```sh
+rm -rf data
 ```

@@ -1,11 +1,18 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { SentenceAction, QueryOptions, SentenceCategory } from 'lambdaorm-base'
+import { SentenceAction, QueryOptions, SentenceCategory, SentenceType } from 'lambdaorm-base'
 import { ExecuteResult, Query } from '../../query/domain'
 import { Transaction } from '.'
 
 export interface ActionObserverArgs{
-	query: Query
+	action: SentenceAction
+	type: SentenceType
+	category: SentenceCategory
+	sentence: string
+	dialect: string
+	source: string
+	entity: string
+	query: string
 	data: any
 	options: QueryOptions
 	result?:any

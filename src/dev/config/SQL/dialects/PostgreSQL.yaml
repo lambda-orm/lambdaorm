@@ -11,6 +11,12 @@ support:
   pkTablespaces: false
   ukTablespaces: false   
 ddl:
+  createDatabase: CREATE DATABASE IF NOT EXISTS {name}
+  createEntity: CREATE TABLE IF NOT EXISTS {name} ({define})
+  createIndex: CREATE INDEX IF NOT EXISTS {name} ON {table} ({columns})
+  dropDatabase: DROP DATABASE IF EXISTS {name}
+  dropEntity: DROP TABLE IF EXISTS {name}
+  dropSequence: DROP SEQUENCE IF EXISTS {name}
   incrementalColumDefine: "{name} serial"
   dropPk: "DROP CONSTRAINT IF EXISTS {name}"
   dropUk: "DROP CONSTRAINT IF EXISTS {name}"

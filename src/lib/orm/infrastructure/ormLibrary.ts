@@ -4,41 +4,41 @@ export class OrmLibrary {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly orm:IOrm) {}
 	load () {
-		this.orm.exp.addFunction('orm.execute(expression:string,data:any,options:any):any', async (expression:string, data:any, options:any) => {
-			if (expression !== undefined && expression !== null && expression.trim() !== '') {
-				return await this.orm.execute(expression, data, options)
+		this.orm.exp.addFunction('orm.execute(query:string,data:any,options:any):any', async (query:string, data:any, options:any) => {
+			if (query !== undefined && query !== null && query.trim() !== '') {
+				return await this.orm.execute(query, data, options)
 			}
 			return null
-		}, { async: true, description: 'Execute an ORM expression' })
-		this.orm.exp.addFunction('orm.plan(expression:string,options:any):any', (expression:string, options:any) => {
-			if (expression !== undefined && expression !== null && expression.trim() !== '') {
-				return this.orm.plan(expression, options)
+		}, { async: true, description: 'Execute query' })
+		this.orm.exp.addFunction('orm.plan(query:string,options:any):any', (query:string, options:any) => {
+			if (query !== undefined && query !== null && query.trim() !== '') {
+				return this.orm.plan(query, options)
 			}
 			return null
-		}, { description: 'Plan an ORM expression' })
-		this.orm.exp.addFunction('orm.metadata(expression:string):any', (expression:string) => {
-			if (expression !== undefined && expression !== null && expression.trim() !== '') {
-				return this.orm.metadata(expression)
+		}, { description: 'Plan of query' })
+		this.orm.exp.addFunction('orm.metadata(query:string):any', (query:string) => {
+			if (query !== undefined && query !== null && query.trim() !== '') {
+				return this.orm.metadata(query)
 			}
 			return null
-		}, { description: 'Get metadata from an ORM expression' })
-		this.orm.exp.addFunction('orm.model(expression:string):any', (expression:string) => {
-			if (expression !== undefined && expression !== null && expression.trim() !== '') {
-				return this.orm.model(expression)
+		}, { description: 'Get metadata from query' })
+		this.orm.exp.addFunction('orm.model(query:string):any', (query:string) => {
+			if (query !== undefined && query !== null && query.trim() !== '') {
+				return this.orm.model(query)
 			}
 			return null
-		}, { description: 'Get model from an ORM expression' })
-		this.orm.exp.addFunction('orm.parameters(expression:string):any', (expression:string) => {
-			if (expression !== undefined && expression !== null && expression.trim() !== '') {
-				return this.orm.parameters(expression)
+		}, { description: 'Get model from query' })
+		this.orm.exp.addFunction('orm.parameters(query:string):any', (query:string) => {
+			if (query !== undefined && query !== null && query.trim() !== '') {
+				return this.orm.parameters(query)
 			}
 			return null
-		}, { description: 'Get parameters from an ORM expression' })
-		this.orm.exp.addFunction('orm.constraints(expression:string):any', (expression:string) => {
-			if (expression !== undefined && expression !== null && expression.trim() !== '') {
-				return this.orm.constraints(expression)
+		}, { description: 'Get parameters from query' })
+		this.orm.exp.addFunction('orm.constraints(query:string):any', (query:string) => {
+			if (query !== undefined && query !== null && query.trim() !== '') {
+				return this.orm.constraints(query)
 			}
 			return null
-		}, { description: 'Get constraints from an ORM expression' })
+		}, { description: 'Get constraints from query' })
 	}
 }
