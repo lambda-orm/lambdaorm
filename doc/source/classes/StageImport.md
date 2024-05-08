@@ -38,7 +38,7 @@
 
 #### Source
 
-[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/stage/application/useCases/base/actionDML.ts#L15)
+[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/15952b17a2af20fc678f913dd5cbf226a467196b/src/lib/stage/application/useCases/base/actionDML.ts#L15)
 
 ## Methods
 
@@ -56,7 +56,7 @@
 
 #### Source
 
-[src/lib/stage/application/useCases/import.ts:7](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/stage/application/useCases/import.ts#L7)
+[src/lib/stage/application/useCases/import.ts:7](https://github.com/lambda-orm/lambdaorm/blob/15952b17a2af20fc678f913dd5cbf226a467196b/src/lib/stage/application/useCases/import.ts#L7)
 
 ***
 
@@ -74,7 +74,7 @@
 
 #### Source
 
-[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/stage/application/useCases/base/actionDML.ts#L33)
+[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/15952b17a2af20fc678f913dd5cbf226a467196b/src/lib/stage/application/useCases/base/actionDML.ts#L33)
 
 ***
 
@@ -92,4 +92,4 @@
 
 #### Source
 
-[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/stage/application/useCases/base/actionDML.ts#L24)
+[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/15952b17a2af20fc678f913dd5cbf226a467196b/src/lib/stage/application/useCases/base/actionDML.ts#L24)

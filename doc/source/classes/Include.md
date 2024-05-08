@@ -26,7 +26,7 @@
 
 #### Source
 
-[src/lib/query/domain/query.ts:58](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/query/domain/query.ts#L58)
+[src/lib/query/domain/query.ts:58](https://github.com/lambda-orm/lambdaorm/blob/15952b17a2af20fc678f913dd5cbf226a467196b/src/lib/query/domain/query.ts#L58)
 
 ## Properties
 
@@ -36,7 +36,7 @@
 
 #### Source
 
-[src/lib/query/domain/query.ts:55](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/query/domain/query.ts#L55)
+[src/lib/query/domain/query.ts:55](https://github.com/lambda-orm/lambdaorm/blob/15952b17a2af20fc678f913dd5cbf226a467196b/src/lib/query/domain/query.ts#L55)
 
 ***
 
@@ -46,7 +46,7 @@
 
 #### Source
 
-[src/lib/query/domain/query.ts:56](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/query/domain/query.ts#L56)
+[src/lib/query/domain/query.ts:56](https://github.com/lambda-orm/lambdaorm/blob/15952b17a2af20fc678f913dd5cbf226a467196b/src/lib/query/domain/query.ts#L56)
 
 ***
 
@@ -56,4 +56,4 @@
 
 #### Source
 
-[src/lib/query/domain/query.ts:57](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/query/domain/query.ts#L57)
+[src/lib/query/domain/query.ts:57](https://github.com/lambda-orm/lambdaorm/blob/15952b17a2af20fc678f913dd5cbf226a467196b/src/lib/query/domain/query.ts#L57)

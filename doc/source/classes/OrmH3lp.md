@@ -32,7 +32,7 @@
 
 #### Source
 
-[src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/shared/infrastructure/helper.ts#L25)
+[src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/15952b17a2af20fc678f913dd5cbf226a467196b/src/lib/shared/infrastructure/helper.ts#L25)
 
 ## Properties
 
@@ -56,7 +56,7 @@ node\_modules/h3lp/application/h3lp.d.ts:10
 
 #### Source
 
-[src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/9190d4bf39aa6350f15661f3c45a32f5840bc656/src/lib/shared/infrastructure/helper.ts#L24)
+[src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/15952b17a2af20fc678f913dd5cbf226a467196b/src/lib/shared/infrastructure/helper.ts#L24)
 
 ***
 
