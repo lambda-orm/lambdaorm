@@ -1,10 +1,9 @@
 import { Orm} from '../../../lib'
 (async () => {
 	const workspace = __dirname.replace('/build/', '/src/')
-	const orm = new Orm(workspace)
+	const orm = new Orm()
 	try{		
-		const originalSchema = orm.helper.yaml.load(await orm.helper.fs.read(workspace + '/lambdaOrm.yaml'))
-		await orm.init(originalSchema)	
+		await orm.init(workspace + '/lambdaOrm.yaml')	
 		const mappings = await orm.stage.fetch()
 		await orm.helper.fs.write( workspace + '/mappings.yaml', orm.helper.yaml.dump(mappings))
 	}catch(e){

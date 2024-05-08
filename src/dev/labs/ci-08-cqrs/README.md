@@ -629,14 +629,14 @@ The data folder should remain like this:
 
 ```sh
 ├── data
-│   ├── default-ddl-20231129T110712162Z-sync-Catalog.sql
-│   ├── default-ddl-20231129T110712163Z-sync-Crm.sql
-│   ├── default-ddl-20231129T110712163Z-sync-Ordering.json
-│   ├── default-ddl-20231129T111730593Z-clean-Catalog.sql
-│   ├── default-ddl-20231129T111730594Z-clean-Crm.sql
-│   ├── default-ddl-20231129T111730594Z-clean-Ordering.json
-│   ├── insights-ddl-20231129T110303423Z-sync-Insights.sql
-│   └── insights-ddl-20231129T111738316Z-clean-Insights.sql
+│   ├── default-ddl-20231129T110712162Z-push-Catalog.sql
+│   ├── default-ddl-20231129T110712163Z-push-Crm.sql
+│   ├── default-ddl-20231129T110712163Z-push-Ordering.json
+│   ├── default-ddl-20231129T111730593Z-drop-Catalog.sql
+│   ├── default-ddl-20231129T111730594Z-drop-Crm.sql
+│   ├── default-ddl-20231129T111730594Z-drop-Ordering.json
+│   ├── insights-ddl-20231129T110303423Z-push-Insights.sql
+│   └── insights-ddl-20231129T111738316Z-drop-Insights.sql
 ```
 
 Remove Data

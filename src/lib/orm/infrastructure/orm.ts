@@ -39,7 +39,7 @@ export class Orm implements IOrm {
 	private expression: ExpressionFacade
 	private executor:ObservableExecutorDecorator
 
-	constructor (private _workspace: string, private _logger?:Logger) {
+	constructor (private _logger?:Logger) {
 		this._logger = _logger || new LoggerBuilder().build()
 		this.helper = new OrmH3lp(h3lp, this._logger)
 		this.exp = new OrmExpressionsBuilder(this.helper).build()
@@ -52,7 +52,7 @@ export class Orm implements IOrm {
 		this.operand = new OperandFacadeBuilder(this.exp, this.helper).build(this.state)
 		this.sentence = new SentenceFacadeBuilder(this.exp, this.helper).build(this.state, this.operand)
 		this.expression = new ExpressionFacadeBuilder(this.language, this.executor, this.exp, this.helper).build(this.sentence, this.state)
-		this.stage = new StageFacadeBuilder(this.language, this.executor, this.helper).build(_workspace, this.state, this.expression)
+		this.stage = new StageFacadeBuilder(this.language, this.executor, this.helper).build(this.state, this.expression)
 	}
 
 	public get logger ():Logger {
@@ -73,7 +73,7 @@ export class Orm implements IOrm {
  * @returns promise void
  */
 	public async init (source?: string | Schema, connect = true): Promise<Schema> {
-		const schema = await this.state.load(source || this._workspace)
+		const schema = await this.state.load(source || process.cwd())
 		// set connections
 		if (connect && schema.infrastructure?.sources) {
 			for (const source of schema.infrastructure.sources.filter(p => this.helper.val.isNotEmpty(p.connection))) {
@@ -124,13 +124,6 @@ export class Orm implements IOrm {
 			}
 		}
 		await this.connection.end()
-	}
-
-	/**
-	 * Get workspace path
-	 */
-	public get workspace (): string {
-		return this._workspace
 	}
 
 	/**
@@ -258,4 +251,4 @@ export class Orm implements IOrm {
 		this.executor.unsubscribe(observer)
 	}
 }
-export const orm = new Orm(process.cwd())
+export const orm = new Orm()

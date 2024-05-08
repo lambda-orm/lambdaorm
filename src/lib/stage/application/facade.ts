@@ -19,14 +19,14 @@ export class StageFacade {
 	private stageModelService: StageModelService
 	private stageMappingService: StageMappingService
 
-	constructor (workspace: string,
+	constructor (
 		private readonly schemaState: SchemaState,
 		private readonly expression: ExpressionFacade,
 		private readonly executor: Executor,
 		private readonly languages: LanguagesService,
 		private readonly helper:OrmH3lp) {
-		this.stageMappingService = new StageMappingService(workspace, schemaState, this.helper)
-		this.stageModelService = new StageModelService(workspace, schemaState, this.helper)
+		this.stageMappingService = new StageMappingService(schemaState, this.helper)
+		this.stageModelService = new StageModelService(schemaState, this.helper)
 	}
 
 	/**

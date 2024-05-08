@@ -13,7 +13,7 @@ export class StageFacadeBuilder {
 		private readonly helper:OrmH3lp
 	) {}
 
-	public build (workspace:string, schemaState: SchemaState, expressionFacade: ExpressionFacade):StageFacade {
-		return new StageFacade(workspace, schemaState, expressionFacade, this.executor, this.languages, this.helper)
+	public build (schemaState: SchemaState, expressionFacade: ExpressionFacade):StageFacade {
+		return new StageFacade(schemaState, expressionFacade, this.executor, this.languages, this.helper)
 	}
 }

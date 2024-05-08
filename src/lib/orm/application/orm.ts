@@ -5,7 +5,6 @@ import { QueryTransaction } from '../../expressions/application'
 import { Expressions } from '3xpr'
 export interface IOrm
 {
-	get workspace(): string
 	stage: StageFacade
 	schema: SchemaFacade
 	state: SchemaState

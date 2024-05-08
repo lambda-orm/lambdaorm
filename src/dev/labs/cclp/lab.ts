@@ -3,9 +3,9 @@ import { h3lp } from 'h3lp'
 import path  from 'path'
 import { DbDebtors } from './beesion/src/model'
 const lab = async () => {
-	const orm = new Orm('./config/cclp.yaml')
+	const orm = new Orm()
 	try {
-		await orm.init()
+		await orm.init('./config/cclp.yaml')
 		const options = { stage: 'cclp' }
 		const query = () => DbDebtors
 			.include(p => [p.partyRoleRef

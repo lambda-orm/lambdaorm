@@ -10,7 +10,7 @@ async function apply () {
 		const importQueries  = orm.stage.import({stage:stage}).queries()
 		const exportQueries  = orm.stage.export({stage:stage}).queries()
 
-		await h3lp.fs.write(`src/dev/labs/mongo/${stage}-clean-queries.json`, JSON.stringify(cleanQueries,null,2))
+		await h3lp.fs.write(`src/dev/labs/mongo/${stage}-drop-queries.json`, JSON.stringify(cleanQueries,null,2))
 		await h3lp.fs.write(`src/dev/labs/mongo/${stage}-push-queries.json`, JSON.stringify(pushQueries,null,2))
 		await h3lp.fs.write(`src/dev/labs/mongo/${stage}-import-queries.json`, JSON.stringify(importQueries,null,2))
 		await h3lp.fs.write(`src/dev/labs/mongo/${stage}-export-queries.json`, JSON.stringify(exportQueries,null,2))		

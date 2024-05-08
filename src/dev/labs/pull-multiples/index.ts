@@ -1,11 +1,10 @@
 import { Orm } from '../../../lib'
 (async () => {
 	const workspace = __dirname.replace('/build/', '/src/')	
-	const orm = new Orm(workspace)
+	const orm = new Orm()
 	try{			
 		await orm.helper.fs.removeDir(workspace + '/data')
-		const originalSchema = orm.helper.yaml.load(await orm.helper.fs.read(workspace + '/lambdaOrm.yaml'))
-		await orm.init(originalSchema)
+		await orm.init(workspace + '/lambdaOrm.yaml')
 		for(const stage of ['Source','MySQL','SqlServer','PostgreSQL','Oracle','MongoDB']){
 			await orm.stage.pull({stage, removeEntities: true, removeProperties: true, removeRelations: true })
 		}

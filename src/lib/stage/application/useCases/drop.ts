@@ -26,7 +26,7 @@ export class StageDrop extends StageActionDDL {
 		const result = await this.executor.executeList(queries, this.options)
 		await this.stageModelService.remove(this.options.stage as string)
 		await this.mappingService.remove(this.options.stage as string)
-		await this.stageModelService.ddl(this.options.stage as string, 'clean', queries)
+		await this.stageModelService.ddl(this.options.stage as string, 'drop', queries)
 		return result
 	}
 }

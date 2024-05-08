@@ -1,10 +1,9 @@
 import { Orm } from '../../lib'
 
 (async () => {
-	const workspace = './dev/labs'
-	const orm = new Orm(workspace)
+	const orm = new Orm()
 	try {
-		const schema = await orm.init(workspace)
+		const schema = await orm.init('./dev/labs')
 		console.log(JSON.stringify(schema))
 	} catch (error:any) {
 		console.error(`error: ${error}`)

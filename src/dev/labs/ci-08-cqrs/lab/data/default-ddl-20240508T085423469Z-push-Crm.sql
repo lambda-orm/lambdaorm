@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS Customers (CustomerID VARCHAR(5) NOT NULL ,CompanyName VARCHAR(80) NOT NULL ,Address VARCHAR(80)  ,City VARCHAR(80)  ,Region VARCHAR(80)  ,PostalCode VARCHAR(20)  ,Country VARCHAR(80)  ,CONSTRAINT Customers_PK PRIMARY KEY (CustomerID));
+CREATE INDEX IF NOT EXISTS Customers_name ON Customers (CompanyName);

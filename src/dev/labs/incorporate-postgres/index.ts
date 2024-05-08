@@ -13,7 +13,7 @@ const createSchemaIfNotExists = async(schemaPath:string): Promise<void> => {
 (async () => {
 	const workspace = __dirname.replace('/build/', '/src/')
 	const schemaPath = workspace + '/lambdaOrm.yaml'		
-	const orm = new Orm(workspace)
+	const orm = new Orm()
 	try{
 		await createSchemaIfNotExists(schemaPath)
 		const data = JSON.parse( await helper.fs.read(workspace + '/countries.json') || '{}')

@@ -66,7 +66,7 @@ function getDevices () {
 
 (async () => {
 	const workspace = path.join(process.cwd(), '/src/dev/labs/devicenet-sync')
-	const orm = new Orm(workspace)
+	const orm = new Orm()
 	try {
 		await orm.init(workspace)
 		// await orm.stage.clean(orm.defaultStage.name).execute(true)

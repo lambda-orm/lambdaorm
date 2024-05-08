@@ -3,9 +3,9 @@ import { h3lp } from 'h3lp'
 import { DbDebtors } from './src/model'
 const lab = async () => {
 	require('dotenv').config({ path: './src/dev/labs/collections/.env' })
-	const orm = new Orm('./src/dev/labs/collections/')
+	const orm = new Orm()
 	try {
-		await orm.init()
+		await orm.init('./src/dev/labs/collections/')
 		const options = { stage: 'cclp' }
 		// const data = { id: 1311 }
 		const query = (id:number) => DbDebtors

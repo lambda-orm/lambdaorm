@@ -12,7 +12,7 @@ export class StagePush extends StageActionDDL {
 		const queries = await this.queries()
 		const result = await this.executor.executeList(queries, this.options)
 		await this.stageModelService.update(this.options.stage as string, { mappings: this.schemaState.mapping.mappings })
-		await this.stageModelService.ddl(this.options.stage as string, 'sync', queries)
+		await this.stageModelService.ddl(this.options.stage as string, 'push', queries)
 		return result
 	}
 }
