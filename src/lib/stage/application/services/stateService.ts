@@ -1,14 +1,13 @@
 import { Query } from '../../../query/domain'
 import { OrmH3lp } from '../../../shared/infrastructure'
 import { ModelConfig, MappingConfig, Dialect, SchemaState } from 'lambdaorm-base'
-const path = require('path')
 
 abstract class StageStateService<T> {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (protected readonly schemaState:SchemaState, protected readonly helper:OrmH3lp) {}
 
 	public get schemaDirPath () {
-		return this.schemaState.schemaPath ? path.dirname(this.schemaState.schemaPath) : process.cwd()
+		return this.schemaState.schemaPath ? this.helper.fs.dirname(this.schemaState.schemaPath) : process.cwd()
 	}
 
 	public async get (name:string):Promise<T> {
@@ -44,7 +43,7 @@ export class StageMappingService extends StageStateService<MappingConfig> {
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.data || 'data', `${name}-data.json`)
+		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.data || 'data', `${name}-data.json`)
 	}
 }
 
@@ -54,7 +53,7 @@ export class StageModelService extends StageStateService<ModelConfig> {
 	}
 
 	public override getFile (name: string) {
-		return path.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.data || 'data', `${name}-model.json`)
+		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.data || 'data', `${name}-model.json`)
 	}
 
 	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
@@ -82,6 +81,6 @@ export class StageModelService extends StageStateService<ModelConfig> {
 		date = this.helper.str.replace(date, ':', '')
 		date = this.helper.str.replace(date, '.', '')
 		date = this.helper.str.replace(date, '-', '')
-		return path.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.data, `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
+		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.data || 'data', `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
 	}
 }
