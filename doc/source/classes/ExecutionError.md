@@ -38,7 +38,7 @@
 
 #### Source
 
-[src/lib/connection/domain/errors.ts:9](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/connection/domain/errors.ts#L9)
+[src/lib/connection/domain/errors.ts:9](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/connection/domain/errors.ts#L9)
 
 ## Properties
 

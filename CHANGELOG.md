@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [2.0.7](https://github.com/lambda-orm/lambdaorm/compare/v2.0.6...v2.0.7) (2024-05-08)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * bugfix with drop entity in mongo and refactorize workspace ([e670f29](https://github.com/lambda-orm/lambdaorm/commit/e670f29deee53901d3cd9b9d9a3c1955d023eb4b)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 

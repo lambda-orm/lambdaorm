@@ -14,7 +14,7 @@
 
 #### Source
 
-[src/lib/orm/application/orm.ts:12](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L12)
+[src/lib/orm/application/orm.ts:11](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L11)
 
 ***
 
@@ -24,7 +24,7 @@
 
 #### Source
 
-[src/lib/orm/application/orm.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L10)
+[src/lib/orm/application/orm.ts:9](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L9)
 
 ***
 
@@ -34,7 +34,7 @@
 
 #### Source
 
-[src/lib/orm/application/orm.ts:9](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L9)
+[src/lib/orm/application/orm.ts:8](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L8)
 
 ***
 
@@ -44,21 +44,7 @@
 
 #### Source
 
-[src/lib/orm/application/orm.ts:11](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L11)
-
-## Accessors
-
-### workspace
-
-> `get` **workspace**(): `string`
-
-#### Returns
-
-`string`
-
-#### Source
-
-[src/lib/orm/application/orm.ts:8](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L8)
+[src/lib/orm/application/orm.ts:10](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L10)
 
 ## Methods
 
@@ -82,7 +68,7 @@ Constraints of query
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:44](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L44)
+[src/lib/orm/application/orm.ts:43](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L43)
 
 #### constraints(query)
 
@@ -98,7 +84,7 @@ Constraints of query
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:45](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L45)
+[src/lib/orm/application/orm.ts:44](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L44)
 
 ***
 
@@ -116,7 +102,7 @@ Constraints of query
 
 #### Source
 
-[src/lib/orm/application/orm.ts:14](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L14)
+[src/lib/orm/application/orm.ts:13](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L13)
 
 ***
 
@@ -130,7 +116,7 @@ Constraints of query
 
 #### Source
 
-[src/lib/orm/application/orm.ts:18](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L18)
+[src/lib/orm/application/orm.ts:17](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L17)
 
 ***
 
@@ -164,7 +150,7 @@ Result of execution
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:69](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L69)
+[src/lib/orm/application/orm.ts:68](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L68)
 
 #### execute(query, data, options)
 
@@ -184,7 +170,7 @@ Result of execution
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:70](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L70)
+[src/lib/orm/application/orm.ts:69](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L69)
 
 ***
 
@@ -204,7 +190,7 @@ Result of execution
 
 #### Source
 
-[src/lib/orm/application/orm.ts:17](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L17)
+[src/lib/orm/application/orm.ts:16](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L16)
 
 ***
 
@@ -228,7 +214,7 @@ metadata of query
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:51](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L51)
+[src/lib/orm/application/orm.ts:50](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L50)
 
 #### metadata(query)
 
@@ -244,7 +230,7 @@ metadata of query
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:52](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L52)
+[src/lib/orm/application/orm.ts:51](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L51)
 
 ***
 
@@ -268,7 +254,7 @@ Model of query
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L30)
+[src/lib/orm/application/orm.ts:29](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L29)
 
 #### model(query)
 
@@ -284,7 +270,7 @@ Model of query
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:31](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L31)
+[src/lib/orm/application/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L30)
 
 ***
 
@@ -308,7 +294,7 @@ Expression normalized
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:23](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L23)
+[src/lib/orm/application/orm.ts:22](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L22)
 
 #### normalize(query)
 
@@ -324,7 +310,7 @@ Expression normalized
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:24](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L24)
+[src/lib/orm/application/orm.ts:23](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L23)
 
 ***
 
@@ -348,7 +334,7 @@ Parameters of query
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:37](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L37)
+[src/lib/orm/application/orm.ts:36](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L36)
 
 #### parameters(query)
 
@@ -364,7 +350,7 @@ Parameters of query
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:38](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L38)
+[src/lib/orm/application/orm.ts:37](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L37)
 
 ***
 
@@ -386,7 +372,7 @@ Parameters of query
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:59](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L59)
+[src/lib/orm/application/orm.ts:58](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L58)
 
 #### plan(query, options)
 
@@ -404,7 +390,7 @@ Parameters of query
 
 ##### Source
 
-[src/lib/orm/application/orm.ts:60](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L60)
+[src/lib/orm/application/orm.ts:59](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L59)
 
 ***
 
@@ -428,4 +414,4 @@ query options
 
 #### Source
 
-[src/lib/orm/application/orm.ts:76](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/orm/application/orm.ts#L76)
+[src/lib/orm/application/orm.ts:75](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/orm/application/orm.ts#L75)

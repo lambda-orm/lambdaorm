@@ -14,11 +14,9 @@
 
 ### new StageMappingService()
 
-> **new StageMappingService**(`workspace`, `schemaState`, `helper`): [`StageMappingService`](StageMappingService.md)
+> **new StageMappingService**(`schemaState`, `helper`): [`StageMappingService`](StageMappingService.md)
 
 #### Parameters
-
-• **workspace**: `string`
 
 • **schemaState**: [`SchemaState`](SchemaState.md)
 
@@ -34,7 +32,21 @@
 
 #### Source
 
-[src/lib/stage/application/services/stateService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/stage/application/services/stateService.ts#L8)
+[src/lib/stage/application/services/stateService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/stage/application/services/stateService.ts#L7)
+
+## Accessors
+
+### schemaDirPath
+
+> `get` **schemaDirPath**(): `string`
+
+#### Returns
+
+`string`
+
+#### Source
+
+[src/lib/stage/application/services/stateService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/stage/application/services/stateService.ts#L9)
 
 ## Methods
 
@@ -56,13 +68,13 @@
 
 #### Source
 
-[src/lib/stage/application/services/stateService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/stage/application/services/stateService.ts#L10)
+[src/lib/stage/application/services/stateService.ts:13](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/stage/application/services/stateService.ts#L13)
 
 ***
 
 ### getFile()
 
-> **getFile**(`name`): `any`
+> **getFile**(`name`): `string`
 
 #### Parameters
 
@@ -70,7 +82,7 @@
 
 #### Returns
 
-`any`
+`string`
 
 #### Overrides
 
@@ -78,7 +90,7 @@
 
 #### Source
 
-[src/lib/stage/application/services/stateService.ts:42](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/stage/application/services/stateService.ts#L42)
+[src/lib/stage/application/services/stateService.ts:45](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/stage/application/services/stateService.ts#L45)
 
 ***
 
@@ -100,7 +112,7 @@
 
 #### Source
 
-[src/lib/stage/application/services/stateService.ts:27](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/stage/application/services/stateService.ts#L27)
+[src/lib/stage/application/services/stateService.ts:30](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/stage/application/services/stateService.ts#L30)
 
 ***
 
@@ -124,4 +136,4 @@
 
 #### Source
 
-[src/lib/stage/application/services/stateService.ts:22](https://github.com/lambda-orm/lambdaorm/blob/ae41e9f29a20e534dbb23bd57233d0aca1040204/src/lib/stage/application/services/stateService.ts#L22)
+[src/lib/stage/application/services/stateService.ts:25](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/stage/application/services/stateService.ts#L25)
