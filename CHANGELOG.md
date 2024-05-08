@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [2.0.5](https://github.com/lambda-orm/lambdaorm/compare/v2.0.4...v2.0.5) (2024-05-08)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * bugfix on build ddl, omited alter table ([8a01b53](https://github.com/lambda-orm/lambdaorm/commit/8a01b53f47623b9bd9ec972811e7799ca3c023c6)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 
