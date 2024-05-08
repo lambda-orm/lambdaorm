@@ -72,6 +72,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		text = text.replace('{column}', this.dialect.delimiter(column.mapping))
 		text = text.replace('{fTable}', this.dialect.delimiter(fEntity.mapping || fEntity.name))
 		text = text.replace('{fColumn}', this.dialect.delimiter(fColumn.mapping))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(SentenceAction.addFk, text, entity.name)
 	}
 
@@ -107,6 +108,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		let text = this.property(entity, property)
 		text = this.dialect.ddl('alterProperty').replace('{columnDefine}', text)
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(SentenceAction.alterProperty, text, entity.name)
 	}
 
@@ -122,6 +124,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		text = text.replace('{type}', type)
 		text = this.dialect.ddl('alterProperty').replace('{columnDefine}', text)
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(SentenceAction.alterProperty, text, entity.name)
 	}
 
@@ -131,6 +134,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		text = text.replace('{name}', this.dialect.delimiter(propertyMapping.mapping))
 		text = this.dialect.ddl('alterProperty').replace('{columnDefine}', text)
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(SentenceAction.alterProperty, text, entity.name)
 	}
 
@@ -138,6 +142,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		let text = this.property(entity, property)
 		text = this.dialect.ddl('addProperty').replace('{columnDefine}', text)
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(SentenceAction.addProperty, text, entity.name)
 	}
 
@@ -177,6 +182,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		let text = this.dialect.ddl(ddl)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + suffix))
 		text = text.replace('{columns}', columns.join(','))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(ddl, text, entity.name)
 	}
 
@@ -199,6 +205,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		text = text.replace('{column}', this.dialect.delimiter(column.mapping))
 		text = text.replace('{fTable}', this.dialect.delimiter(fEntity.mapping || fEntity.name))
 		text = text.replace('{fColumn}', this.dialect.delimiter(fColumn.mapping))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(SentenceAction.addFk, text, entity.name)
 	}
 
@@ -213,6 +220,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
 		let text = this.dialect.ddl('dropProperty')
 		text = text.replace('{name}', this.dialect.delimiter(propertyMapping.mapping))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(SentenceAction.dropProperty, text, entity.name)
 	}
 
@@ -220,6 +228,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
 		let text = this.dialect.ddl(SentenceAction.dropPk)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_PK'))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(SentenceAction.dropPk, text, entity.name)
 	}
 
@@ -227,6 +236,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
 		let text = this.dialect.ddl(SentenceAction.dropUk)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_UK'))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(SentenceAction.dropUk, text, entity.name)
 	}
 
@@ -253,6 +263,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
 		let text = this.dialect.ddl(SentenceAction.dropFk)
 		text = text.replace('{name}', this.dialect.delimiter(entity.mapping + '_' + relation.name + '_FK'))
+		text = `${alterEntity} ${text}`
 		return this._createQuery(SentenceAction.dropFk, text, entity.name)
 	}
 

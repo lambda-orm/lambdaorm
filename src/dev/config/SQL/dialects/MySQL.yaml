@@ -81,7 +81,13 @@ support:
   ukTablespaces: false
   composite: false    
 ddl:
-  dropIndex: "DROP INDEX {name} ON {table}"
+  createDatabase: CREATE DATABASE IF NOT EXISTS {name}
+  createEntity: CREATE TABLE IF NOT EXISTS {name} ({define})
+  createIndex: CREATE INDEX IF NOT EXISTS {name} ON {table} ({columns})
+  dropDatabase: DROP DATABASE IF EXISTS {name}
+  dropEntity: DROP TABLE IF EXISTS {name}
+  dropSequence: DROP SEQUENCE IF EXISTS {name}
+  dropIndex: DROP INDEX IF EXISTS {name} ON {table}
   objects: |
     SELECT CASE
         WHEN t.table_type = 'BASE TABLE' THEN 'table'
