@@ -40,7 +40,7 @@
 
 #### Source
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/2cf61312276d569f6a73ea73b37f46a3cafdcc80/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+[src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/e088a13668d4c76ed97a2e183e8be7b4067f2f34/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 ## Methods
 
@@ -58,7 +58,7 @@
 
 #### Source
 
-[src/lib/stage/application/useCases/truncate.ts:13](https://github.com/lambda-orm/lambdaorm/blob/2cf61312276d569f6a73ea73b37f46a3cafdcc80/src/lib/stage/application/useCases/truncate.ts#L13)
+[src/lib/stage/application/useCases/truncate.ts:13](https://github.com/lambda-orm/lambdaorm/blob/e088a13668d4c76ed97a2e183e8be7b4067f2f34/src/lib/stage/application/useCases/truncate.ts#L13)
 
 ***
 
@@ -76,7 +76,7 @@
 
 #### Source
 
-[src/lib/stage/application/useCases/truncate.ts:5](https://github.com/lambda-orm/lambdaorm/blob/2cf61312276d569f6a73ea73b37f46a3cafdcc80/src/lib/stage/application/useCases/truncate.ts#L5)
+[src/lib/stage/application/useCases/truncate.ts:5](https://github.com/lambda-orm/lambdaorm/blob/e088a13668d4c76ed97a2e183e8be7b4067f2f34/src/lib/stage/application/useCases/truncate.ts#L5)
 
 ***
 
@@ -94,4 +94,4 @@
 
 #### Source
 
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/2cf61312276d569f6a73ea73b37f46a3cafdcc80/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/e088a13668d4c76ed97a2e183e8be7b4067f2f34/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

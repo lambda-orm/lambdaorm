@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## [2.2.0](https://github.com/lambda-orm/lambdaorm/compare/v2.1.0...v2.2.0) (2024-05-09)
 
-
-### Features
+**Features:**
 
 * stage actions return ExecuteResult[] ([e088a13](https://github.com/lambda-orm/lambdaorm/commit/e088a13668d4c76ed97a2e183e8be7b4067f2f34)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 
