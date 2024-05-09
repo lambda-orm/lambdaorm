@@ -1,4 +1,4 @@
-import { Mapping, QueryOptions, SchemaData, SchemaState } from 'lambdaorm-base'
+import { Mapping, QueryOptions, SchemaState } from 'lambdaorm-base'
 import { ExpressionFacade } from '../../expressions/application'
 import { LanguagesService } from '../../language/application'
 import { StageMappingService, StageModelService } from './services/stateService'
@@ -14,6 +14,7 @@ import { Executor } from '../../execution/domain'
 import { StagePull } from './useCases/pull'
 import { StageFetch } from './useCases/fetch'
 import { StagePullOptions } from '../domain'
+import { ExecuteResult } from '../../query/domain'
 
 export class StageFacade {
 	private stageModelService: StageModelService
@@ -114,11 +115,11 @@ export class StageFacade {
 	 * @param options StagePullOptions
 	 * @returns {Promise<void>}
 	 */
-	public async pull (options:StagePullOptions = { removeEntities: true, removeProperties: true, removeRelations: true }): Promise<void> {
+	public async pull (options:StagePullOptions = { removeEntities: true, removeProperties: true, removeRelations: true }): Promise<ExecuteResult[]> {
 		const _options = this.expression.solveQueryOptions(options) as StagePullOptions
 		const mappings = await this.fetch(_options)
 		await this.schemaState.match(mappings, _options)
-		await new StagePull(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper).execute()
+		return await new StagePull(this.executor, this.stageModelService, this.schemaState, this.languages, _options, this.helper).execute()
 	}
 
 	/**
@@ -128,10 +129,9 @@ export class StageFacade {
 	 * @param options QueryOptions
 	 * @returns {Promise<SchemaData>}
 	 */
-	public async introspect (data: any|any[], name:string, options?:QueryOptions): Promise<SchemaData> {
-		const schemaData = await this.schemaState.introspect(data, name)
-		await this.push(options).execute()
-		return schemaData
+	public async introspect (data: any|any[], name:string, options?:QueryOptions): Promise<ExecuteResult[]> {
+		await this.schemaState.introspect(data, name)
+		return await this.push(options).execute()
 	}
 
 	/**
@@ -141,9 +141,10 @@ export class StageFacade {
 	 * @param options QueryOptions
 	 * @returns {Promise<SchemaData>}
 	 */
-	public async incorporate (data: any|any[], name:string, options?:QueryOptions): Promise<SchemaData> {
-		const schemaData = await this.introspect(data, name, options)
+	public async incorporate (data: any|any[], name:string, options?:QueryOptions): Promise<ExecuteResult[]> {
+		const schemaData = await this.schemaState.introspect(data, name)
+		const result = await this.push(options).execute()
 		await this.import(options).execute(schemaData)
-		return schemaData
+		return result
 	}
 }
