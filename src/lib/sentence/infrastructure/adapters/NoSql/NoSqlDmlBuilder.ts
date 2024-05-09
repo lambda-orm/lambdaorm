@@ -27,6 +27,7 @@ export class NoSqlDmlBuilder extends DmlBuilderBase {
 			action: info.action,
 			type: info.type,
 			category: info.category,
+			description: `${info.action} ${sentence.entity}`,
 			dialect: this.source.dialect,
 			source: this.source.name,
 			sentence: textSentence,

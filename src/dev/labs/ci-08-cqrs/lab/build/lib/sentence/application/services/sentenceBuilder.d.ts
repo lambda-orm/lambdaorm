@@ -1,0 +1,35 @@
+import { Sentence, SchemaState, ISentenceBuilder, Property } from 'lambdaorm-base';
+import { Parameter, Expressions } from '3xpr';
+import { OperandFacade } from '../../../operand/application';
+import { OrmH3lp } from '../../../shared/infrastructure';
+export declare class SentenceBuilder implements ISentenceBuilder {
+    private readonly schemaState;
+    private readonly operandFacade;
+    private readonly expressions;
+    private typeService;
+    private helper;
+    private solveBehaviors;
+    private solveConstraints;
+    private domainConfigService;
+    constructor(schemaState: SchemaState, operandFacade: OperandFacade, expressions: Expressions, ormHelper: OrmH3lp);
+    build(expression: string): Sentence;
+    private createSentence;
+    private createSentenceSelect;
+    private createSentenceModify;
+    private createSentenceDelete;
+    private createSentenceAddIncludes;
+    private createSentenceAddJoins;
+    private createClause;
+    private createMapClause;
+    private createInsertClause;
+    private createUpdateClause;
+    private createSelectInclude;
+    private createInclude;
+    private solveFields;
+    private createSimpleField;
+    private createRelationField;
+    private solveAsteriskFields;
+    private addJoins;
+    private createAlias;
+    getPropertiesFromParameters(entityName: string, parameters: Parameter[]): Property[];
+}

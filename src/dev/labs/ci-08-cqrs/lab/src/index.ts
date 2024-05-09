@@ -1,6 +1,17 @@
-import { orm } from '../../../../../lib'
+import { ExecuteResult, LogLevel, orm } from '../../../../../lib'
 import { h3lp } from 'h3lp'
 
+
+const showResults = async (results: ExecuteResult[]) => {
+	for(const result of results){
+		if(result.error){
+			await orm.logger.log(`${result.description} ${result.error}`, LogLevel.ERROR)
+		} else {
+			await orm.logger.log(result.description, LogLevel.INFO)
+		}
+		
+	}
+}
 
 (async () => {
 	try {
@@ -8,10 +19,10 @@ import { h3lp } from 'h3lp'
 		await orm.init(workspace + '/../lambdaORM.yaml')
 		const content = await h3lp.fs.read(workspace + '/../data.json') || ''
 		const data = JSON.parse(content)
-		await orm.stage.drop( { stage:"default", tryAllCan:true }).execute()
-		await orm.stage.drop( { stage:"insights", tryAllCan:true }).execute()
-		await orm.stage.push({ stage:"default"}).execute()
-		await orm.stage.push({ stage:"insights"}).execute()
+		await showResults(await orm.stage.drop( { stage:"default", tryAllCan:true }).execute())
+		await showResults(await orm.stage.drop( { stage:"insights", tryAllCan:true }).execute())
+		await showResults(await orm.stage.push({ stage:"default"}).execute())
+		await showResults(await orm.stage.push({ stage:"insights"}).execute())
 		await orm.stage.import({ stage:"default"}).execute(data)
 		
 		const query =  

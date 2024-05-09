@@ -55,15 +55,14 @@ export class ExecutorImpl implements Executor, ObservableExecutor {
 
 	public async executeList (queries: Query[], options: QueryOptions): Promise<ExecuteResult[]> {
 		const results: ExecuteResult[] = []
-
 		if (options.tryAllCan) {
 			for (const query of queries) {
 				const queryExecutor = this.createQueryExecutor(options, false)
 				try {
 					const result = await queryExecutor.execute(query, {})
-					results.push(result)
+					results.push({ result, description: query.description })
 				} catch (error: any) {
-					results.push({ error })
+					results.push({ error, description: query.description })
 				} finally {
 					await queryExecutor.release()
 				}
@@ -72,7 +71,7 @@ export class ExecutorImpl implements Executor, ObservableExecutor {
 			await this.transaction(options, async function (tr: Transaction) {
 				for (const query of queries) {
 					const result = await tr.execute(query)
-					results.push({ result })
+					results.push({ result, description: query.description })
 				}
 			})
 		}

@@ -1,0 +1,36 @@
+import { QueryOptions, SchemaState, Data } from 'lambdaorm-base';
+import { Query } from '../../../../query/domain';
+import { OrmH3lp } from '../../../../shared/infrastructure';
+import { ConnectionFacade } from '../../../../connection/application';
+import { LanguagesService } from '../../../../language/application';
+import { Expressions } from '3xpr';
+import { QueryInternalExecutor } from './queryInternalExecutor';
+import { QueryExecutor } from '../../../domain';
+export declare class QueryExecutorImpl implements QueryExecutor, QueryInternalExecutor {
+    private readonly connectionFacade;
+    private readonly languages;
+    private readonly schemaState;
+    private readonly expressions;
+    private readonly _options;
+    private readonly helper;
+    private transactional;
+    private connections;
+    private selectExecutor;
+    private insertExecutor;
+    private insertConditionalExecutor;
+    private bulkInsertExecutor;
+    private bulkMergeExecutor;
+    private bulkDeleteExecutor;
+    private updateExecutor;
+    private upsertExecutor;
+    private deleteExecutor;
+    constructor(connectionFacade: ConnectionFacade, languages: LanguagesService, schemaState: SchemaState, expressions: Expressions, _options: QueryOptions, helper: OrmH3lp, transactional?: boolean);
+    get options(): QueryOptions;
+    private getConnection;
+    commit(): Promise<void>;
+    rollback(): Promise<void>;
+    release(): Promise<void>;
+    execute(query: Query, data: any): Promise<any>;
+    private clearTemporalFields;
+    _execute(query: Query, data: Data): Promise<any>;
+}

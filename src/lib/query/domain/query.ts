@@ -17,6 +17,7 @@ export interface QueryArgs{
 	// eslint-disable-next-line no-use-before-define
 	includes?: Include[]
 	query?: string,
+	description: string
 }
 export class Query {
 	public action: SentenceAction
@@ -34,6 +35,7 @@ export class Query {
 	public values: Behavior[]
 	public defaults: Behavior[]
 	public query: string
+	public description: string
 	constructor (args:QueryArgs) {
 		this.action = args.action
 		this.type = args.type
@@ -49,6 +51,7 @@ export class Query {
 		this.defaults = args.defaults || []
 		this.includes = args.includes || []
 		this.query = args.query || ''
+		this.description = args.description
 	}
 }
 export class Include {
@@ -63,5 +66,6 @@ export class Include {
 }
 export interface ExecuteResult {
 	result?: any
+	description: string
 	error?: Error
 }

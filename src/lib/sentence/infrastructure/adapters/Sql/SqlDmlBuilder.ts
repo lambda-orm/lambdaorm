@@ -12,6 +12,7 @@ export class SqlDmlBuilder extends DmlBuilderBase {
 			action: sentence.action,
 			category: this.helper.query.getSentenceCategory(sentence.action),
 			type: this.helper.query.getSentenceType(sentence.action),
+			description: `${sentence.action} ${sentence.entity}`,
 			dialect: this.source.dialect,
 			source: this.source.name,
 			sentence: this.buildSentence(sentence),

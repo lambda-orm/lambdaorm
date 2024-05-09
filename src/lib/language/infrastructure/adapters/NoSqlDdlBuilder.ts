@@ -6,11 +6,11 @@ import { DdlBuilderBase } from './DdlBuilderBase'
 export class NoSqlDDLBuilder extends DdlBuilderBase {
 	public truncateEntity (entity: EntityMapping): Query | undefined {
 		// https://www.codegrepper.com/code-examples/c/truncate+collection+MongoDB
-		return this.createQuery(SentenceAction.truncateEntity, '', entity.name)
+		return this.createQuery(SentenceAction.truncateEntity, '', entity.name, `truncate collection ${entity.name}`)
 	}
 
 	public createEntity (entity: EntityMapping): Query | undefined {
-		return this.createQuery(SentenceAction.createEntity, '', entity.name)
+		return this.createQuery(SentenceAction.createEntity, '', entity.name, `create collection ${entity.name}`)
 	}
 
 	public createFk (_entity: EntityMapping, _relation: Relation): Query | undefined {
@@ -23,7 +23,7 @@ export class NoSqlDDLBuilder extends DdlBuilderBase {
 			return undefined
 		}
 		const sentence = `{ "_id" : "${this.dialect.delimiter(entity.sequence)}", "sequence_value": 1 }`
-		return this.createQuery(SentenceAction.createSequence, sentence, entity.name)
+		return this.createQuery(SentenceAction.createSequence, sentence, entity.name, `create sequence ${entity.sequence}`)
 	}
 
 	public createIndex (entity: EntityMapping, index: Index): Query | undefined {
@@ -40,7 +40,7 @@ export class NoSqlDDLBuilder extends DdlBuilderBase {
 			properties,
 			options: { name: this.dialect.delimiter(entity.mapping + '_' + index.name) }
 		})
-		return this.createQuery(SentenceAction.createIndex, sentence, entity.name)
+		return this.createQuery(SentenceAction.createIndex, sentence, entity.name, `create index ${entity.mapping + '_' + index.name}`)
 	}
 
 	public alterProperty (_entity: EntityMapping, _property: Property): Query | undefined {
@@ -75,7 +75,7 @@ export class NoSqlDDLBuilder extends DdlBuilderBase {
 			properties,
 			options: { name: this.dialect.delimiter(entity.mapping + '_PK'), unique: true }
 		})
-		return this.createQuery(SentenceAction.addPk, sentence, entity.name)
+		return this.createQuery(SentenceAction.addPk, sentence, entity.name, 'add primary key')
 	}
 
 	public addUk (entity: EntityMapping, uniqueKey: string[]): Query | undefined {
@@ -93,7 +93,7 @@ export class NoSqlDDLBuilder extends DdlBuilderBase {
 			properties,
 			options: { name: this.dialect.delimiter(entity.mapping + '_UK'), unique: true }
 		})
-		return this.createQuery(SentenceAction.addUk, sentence, entity.name)
+		return this.createQuery(SentenceAction.addUk, sentence, entity.name, `add unique key ${entity.mapping + '_UK'}`)
 	}
 
 	public addFk (_entity: EntityMapping, _relation: Relation): Query | undefined {
@@ -101,7 +101,7 @@ export class NoSqlDDLBuilder extends DdlBuilderBase {
 	}
 
 	public dropEntity (entity: EntityMapping): Query | undefined {
-		return this.createQuery(SentenceAction.dropEntity, '', entity.name)
+		return this.createQuery(SentenceAction.dropEntity, '', entity.name, `drop collection ${entity.name}`)
 	}
 
 	public dropProperty (_entity: EntityMapping, _property: Property): Query | undefined {
@@ -111,13 +111,13 @@ export class NoSqlDDLBuilder extends DdlBuilderBase {
 	public dropPk (entity: EntityMapping): Query | undefined {
 		// https://www.MongoDB.com/docs/manual/reference/method/db.collection.dropIndex/
 		const sentence = this.dialect.delimiter(entity.mapping + '_PK')
-		return this.createQuery(SentenceAction.dropPk, sentence, entity.name)
+		return this.createQuery(SentenceAction.dropPk, sentence, entity.name, `drop primary key ${entity.mapping + '_PK'}`)
 	}
 
 	public dropUk (entity: EntityMapping): Query | undefined {
 		// https://www.MongoDB.com/docs/manual/reference/method/db.collection.dropIndex/
 		const sentence = this.dialect.delimiter(entity.mapping + '_UK')
-		return this.createQuery(SentenceAction.dropUk, sentence, entity.name)
+		return this.createQuery(SentenceAction.dropUk, sentence, entity.name, `drop unique key ${entity.mapping + '_UK'}`)
 	}
 
 	public setNull (_entity: EntityMapping, _relation: Relation): Query | undefined {
@@ -131,7 +131,7 @@ export class NoSqlDDLBuilder extends DdlBuilderBase {
 	public dropIndex (entity: EntityMapping, index: Index): Query | undefined {
 		// https://www.MongoDB.com/docs/manual/reference/method/db.collection.dropIndex/
 		const sentence = this.dialect.delimiter(entity.mapping + '_' + index.name)
-		return this.createQuery(SentenceAction.dropIndex, sentence, entity.name)
+		return this.createQuery(SentenceAction.dropIndex, sentence, entity.name, `drop index ${entity.mapping + '_' + index.name}`)
 	}
 
 	public dropSequence (entity: EntityMapping): Query | undefined {
@@ -141,6 +141,6 @@ export class NoSqlDDLBuilder extends DdlBuilderBase {
 		const sentence = JSON.stringify({
 			_id: this.dialect.delimiter(entity.sequence)
 		})
-		return this.createQuery(SentenceAction.dropSequence, sentence, entity.name)
+		return this.createQuery(SentenceAction.dropSequence, sentence, entity.name, `drop sequence ${entity.sequence}`)
 	}
 }
