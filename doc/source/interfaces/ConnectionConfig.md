@@ -14,7 +14,7 @@
 
 #### Source
 
-[src/lib/connection/domain/connection.ts:4](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/connection/domain/connection.ts#L4)
+[src/lib/connection/domain/connection.ts:4](https://github.com/lambda-orm/lambdaorm/blob/2cf61312276d569f6a73ea73b37f46a3cafdcc80/src/lib/connection/domain/connection.ts#L4)
 
 ***
 
@@ -24,7 +24,7 @@
 
 #### Source
 
-[src/lib/connection/domain/connection.ts:3](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/connection/domain/connection.ts#L3)
+[src/lib/connection/domain/connection.ts:3](https://github.com/lambda-orm/lambdaorm/blob/2cf61312276d569f6a73ea73b37f46a3cafdcc80/src/lib/connection/domain/connection.ts#L3)
 
 ***
 
@@ -34,4 +34,4 @@
 
 #### Source
 
-[src/lib/connection/domain/connection.ts:2](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/connection/domain/connection.ts#L2)
+[src/lib/connection/domain/connection.ts:2](https://github.com/lambda-orm/lambdaorm/blob/2cf61312276d569f6a73ea73b37f46a3cafdcc80/src/lib/connection/domain/connection.ts#L2)

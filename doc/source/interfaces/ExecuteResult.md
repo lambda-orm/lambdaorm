@@ -8,13 +8,23 @@
 
 ## Properties
 
+### description
+
+> **description**: `string`
+
+#### Source
+
+[src/lib/query/domain/query.ts:69](https://github.com/lambda-orm/lambdaorm/blob/2cf61312276d569f6a73ea73b37f46a3cafdcc80/src/lib/query/domain/query.ts#L69)
+
+***
+
 ### error?
 
 > `optional` **error**: `Error`
 
 #### Source
 
-[src/lib/query/domain/query.ts:66](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/query/domain/query.ts#L66)
+[src/lib/query/domain/query.ts:70](https://github.com/lambda-orm/lambdaorm/blob/2cf61312276d569f6a73ea73b37f46a3cafdcc80/src/lib/query/domain/query.ts#L70)
 
 ***
 
@@ -24,4 +34,4 @@
 
 #### Source
 
-[src/lib/query/domain/query.ts:65](https://github.com/lambda-orm/lambdaorm/blob/5ec43dcfdfda08254bf7f6af2d1f42240f4abbbd/src/lib/query/domain/query.ts#L65)
+[src/lib/query/domain/query.ts:68](https://github.com/lambda-orm/lambdaorm/blob/2cf61312276d569f6a73ea73b37f46a3cafdcc80/src/lib/query/domain/query.ts#L68)

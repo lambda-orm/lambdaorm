@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## [2.1.0](https://github.com/lambda-orm/lambdaorm/compare/v2.0.7...v2.1.0) (2024-05-09)
 
-
-### Features
+**Features:**
 
 * add descripion in ExecuteResult ([2cf6131](https://github.com/lambda-orm/lambdaorm/commit/2cf61312276d569f6a73ea73b37f46a3cafdcc80)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 
