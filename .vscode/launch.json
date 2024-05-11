@@ -85,6 +85,16 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/ci-08-cqrs/lab/.env"
 		},
 		{
+			"name": "dates",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/labs/dates/src/index.ts",
+			"envFile": "${workspaceFolder}/src/dev/labs/dates/.env"
+		},
+		{
 			"name": "lib cclp lab",
 			"type": "node",
 			"request": "launch",

@@ -26,19 +26,22 @@ In addition to being used as a Node.js library, it can be consumed from a comman
 Example of a query where orders and their details associated with a customer are obtained:
 
 ```Typescript
-// Define a query that returns a list of product categories along with the maximum price of each category.
-// Filter products based on price and supplier's country or stock availability
-// Group products by category and calculate the maximum price
-// Map each product to an object with category name and maximum price
-// Sort the products by largest price in descending order
-const query = (country: string) => Products    
+const query = (country: string) => Products
+    .map(p => ({ category: p.category.name, largestPrice: max(p.price) }))     
     .filter(p => (p.price > 5 && p.supplier.country == country) || (p.inStock < 3))    
-    .having(p => max(p.price) > 50)   
-    .map(p => ({ category: p.category.name, largestPrice: max(p.price) }))   
+    .having(p => max(p.price) > 50)      
     .sort(p => desc(p.largestPrice));
 // Execute the query using the ORM with the specified country parameter
 const result = await orm.execute(query, { country: 'ARG' });
 ```
+
+In this example:
+
+- Define a query that returns a list of product categories along with the maximum price of each category.
+- Filter products based on price and supplier's country or stock availability
+- Group products by category and calculate the maximum price
+- Map each product to an object with category name and maximum price
+- Sort the products by largest price in descending order
 
 [more info](https://github.com/lambda-orm/lambdaorm/wiki/Grouping)
 

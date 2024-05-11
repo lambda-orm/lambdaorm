@@ -126,7 +126,7 @@ domain:
 infrastructure:
   paths:
     src: src
-    data: data
+    state: orm_state
     domain: domain
   mappings:
     - name: default

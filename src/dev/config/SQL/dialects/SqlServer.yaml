@@ -143,7 +143,6 @@ dml:
     WHEN NOT MATCHED THEN
         INSERT ({fields}) VALUES ({values})
         OUTPUT INSERTED.{autoIncrementField}
-  delete: DELETE FROM {name} {alias}
   bulkInsert: INSERT INTO {name}({fields})
   page: "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY"
   callStoredProcedure: EXEC {name} {parameters};  

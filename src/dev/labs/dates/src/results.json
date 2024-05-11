@@ -1,0 +1,47 @@
+[
+  [
+    {
+      "id": 12,
+      "description": "from new Date()",
+      "testDate": "2024-05-09T22:00:00.000Z",
+      "testDateTime": "2024-05-09T23:56:17.000Z",
+      "testString": "2024-05-09T23:56:17.218Z"
+    }
+  ],
+  [
+    {
+      "id": 12,
+      "description": "from new Date()",
+      "testDate": "2024-05-09T22:00:00.000Z",
+      "testDateTime": "2024-05-09T23:56:17.000Z",
+      "testString": "2024-05-09T23:56:17.218Z"
+    }
+  ],
+  [
+    {
+      "id": 12,
+      "description": "from new Date()",
+      "testDate": "2024-05-10T00:00:00.000Z",
+      "testDateTime": "2024-05-09T23:56:17.000Z",
+      "testString": "2024-05-09T23:56:17.218Z"
+    }
+  ],
+  [
+    {
+      "id": 24,
+      "description": "from new Date()",
+      "testDate": "2024-05-10",
+      "testDateTime": "2024-05-10T01:56:17.218+02:00",
+      "testString": "2024-05-09T23:56:17.218Z"
+    }
+  ],
+  [
+    {
+      "id": 21,
+      "description": "from new Date()",
+      "testDate": "2024-05-10T00:00:00.000Z",
+      "testDateTime": "2024-05-09T23:56:17.000Z",
+      "testString": "2024-05-09T23:56:17.218Z"
+    }
+  ]
+]

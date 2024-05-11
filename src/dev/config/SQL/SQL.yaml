@@ -100,7 +100,7 @@ types:
   time: time
   boolean: boolean
   blob: buffer
-format:
+format:  
   dateTime: 'yyyy-LL-dd HH:mm:ss'
   date: 'yyyy-LL-dd'
   time: 'HH:mm:ss'
@@ -156,6 +156,8 @@ dml:
   upsert: INSERT INTO {name}({fields}) VALUES({values}) ON DUPLICATE KEY UPDATE {assigns} 
   remove: DELETE FROM {name} {alias} 
   delete: DELETE FROM {name} {alias} 
+  removeAll: DELETE FROM {name} 
+  deleteAll: DELETE FROM {name}
   bulkInsert: INSERT INTO {name}({fields}) VALUES {values}  
   from: FROM {name} {alias}
   join: INNER JOIN {name} {alias} ON {relation}

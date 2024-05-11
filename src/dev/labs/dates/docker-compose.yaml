@@ -1,0 +1,67 @@
+version: '3'
+networks:
+  dates:
+    driver: bridge
+services:
+  MySql:
+    container_name: dates-mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
+  Postgres:
+    container_name: dates-postgres  
+    image: postgres:10
+    restart: always
+    environment:
+      - POSTGRES_DB=test
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+    ports:
+      - 5433:5432
+  MongoDb:    
+    container_name: dates-mongo
+    image: mongo:5.0
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=test
+    ports:
+      - 27017:27017
+  SqlServer:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    container_name: dates-sqlserver
+    environment:
+      SA_PASSWORD: "Lambda1234!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - dates
+    # volumes:
+    #   - ./sqlserver:/var/opt/mssql      
+  Oracle:
+    container_name: dates-oracle
+    image: akaronte/oracle:19.3.0.0
+    environment:
+      SVC_HOST: db19c-oracle-db
+      SVC_PORT: '1521'
+      ORACLE_SID: ORCLCDB
+      ORACLE_PDB: ORCLPDB1
+      ORACLE_PWD: ORACLE123
+      ORACLE_CHARACTERSET: AL32UTF8
+      ENABLE_ARCHIVELOG: 'false'
+    volumes: 
+      - ./oracle:/home/oracle/setup/custom_scripts
+    ports:
+      - 1521:1521
+      - 5500:5500
+    networks:
+      - dates 
+

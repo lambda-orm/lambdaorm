@@ -1,0 +1,111 @@
+domain:
+  enums:
+  entities:
+    - name: Tests
+      primaryKey: ["id"]
+      properties:
+        - name: id
+          type: integer
+          required: true
+          autoIncrement: true
+        - name: description  
+        - name: testDate
+          type: date
+        - name: testDateTime
+          type: dateTime
+        - name: testDateTime2
+          type: dateTime
+        - name: testDateTimeOffset
+          type: dateTime    
+        - name: testString
+          length: 30    
+infrastructure:
+  mappings:
+    - name: default
+    - name: MySQL
+      extends: default
+      entities:
+        - name: Tests
+          properties:
+            - name: testDateTime2
+              dbType: DATETIME2
+            - name: testDateTimeOffset
+              dbType: TIMESTAMP 
+    - name: PostgreSQL
+      extends: default
+      entities:
+        - name: Tests
+          properties:
+            - name: testDateTime2
+              dbType: TIMESTAMP
+            - name: testDateTimeOffset
+              dbType: TIMESTAMP WITH TIME ZONE
+    - name: SqlServer
+      extends: default
+      entities:
+        - name: Tests
+          properties:
+            - name: testDateTime2
+              dbType: DATETIME2
+            - name: testDateTimeOffset
+              dbType: DATETIMEOFFSET            
+    - name: Oracle
+      extends: default
+      entities:
+        - name: Tests
+          sequence: SQ_TEST
+          properties:
+            - name: testDateTime2
+              dbType: TIMESTAMP
+            - name: testDateTimeOffset
+              dbType: TIMESTAMP WITH TIME ZONE           
+    - name: MongoDB
+      extends: default
+      entities:
+        - name: Tests
+          sequence: SQ_TEST
+          properties:
+            - name: id
+              mapping: _id
+  sources:
+    - name: MySQL
+      mapping: default
+      dialect: MySQL
+      connection: ${ORM_CNN_MYSQL}
+    - name: PostgreSQL
+      mapping: default
+      dialect: PostgreSQL
+      connection: ${ORM_CNN_POSTGRES}
+    - name: SqlServer
+      mapping: default
+      dialect: SqlServer
+      connection: ${ORM_CNN_MSSQL}
+    - name: Oracle
+      mapping: Oracle
+      dialect: Oracle
+      connection: ${ORM_CNN_ORACLE}
+    - name: MongoDB
+      mapping: MongoDB
+      dialect: MongoDB
+      connection: ${ORM_CNN_MONGODB}
+  stages:
+  - name: MySQL
+    sources:
+      - name: MySQL
+  - name: MariaDB
+    sources:
+      - name: MariaDB
+  - name: PostgreSQL
+    sources:
+      - name: PostgreSQL
+  - name: SqlServer
+    sources:
+      - name: SqlServer
+  - name: Oracle
+    sources:
+      - name: Oracle
+  - name: MongoDB
+    sources:
+      - name: MongoDB    
+  views:
+    - name: default

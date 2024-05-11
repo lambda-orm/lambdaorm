@@ -163,6 +163,8 @@
       "upsert": "INSERT INTO {name}({fields}) VALUES({values}) ON DUPLICATE KEY UPDATE {assigns}",
       "remove": "DELETE FROM {name} {alias}",
       "delete": "DELETE FROM {name} {alias}",
+      "removeAll": "DELETE FROM {name}",
+      "deleteAll": "DELETE FROM {name}",
       "bulkInsert": "INSERT INTO {name}({fields}) VALUES {values}",
       "from": "FROM {name} {alias}",
       "join": "INNER JOIN {name} {alias} ON {relation}",
@@ -521,6 +523,8 @@
         "update": "UPDATE {name} {alias} SET {assigns}",
         "upsert": "INSERT INTO {name}({fields}) VALUES({values}) ON DUPLICATE KEY UPDATE {assigns}",
         "remove": "DELETE FROM {name} {alias}",
+        "removeAll": "DELETE FROM {name}",
+        "deleteAll": "DELETE FROM {name}",
         "from": "FROM {name} {alias}",
         "join": "INNER JOIN {name} {alias} ON {relation}",
         "bulkMerge": "INSERT INTO {name} ({fields})\nVALUES {values}\nON DUPLICATE KEY UPDATE {assigns}\n",
@@ -891,6 +895,8 @@
         "update": "UPDATE {name} {alias} SET {assigns}",
         "upsert": "INSERT INTO {name}({fields}) VALUES({values}) ON DUPLICATE KEY UPDATE {assigns}",
         "remove": "DELETE FROM {name} {alias}",
+        "removeAll": "DELETE FROM {name}",
+        "deleteAll": "DELETE FROM {name}",
         "from": "FROM {name} {alias}",
         "join": "INNER JOIN {name} {alias} ON {relation}",
         "bulkMerge": "INSERT INTO {name} ({fields})\nVALUES {values}\nON DUPLICATE KEY UPDATE {assigns}\n",
@@ -1151,6 +1157,11 @@
         "sequenceNextVal": "{name}.nextval",
         "sequenceName": "SQ_{name}"
       },
+      "format": {
+        "dateTime": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+        "date": "yyyy-LL-dd",
+        "time": "HH:mm:ss"
+      },
       "ddl": {
         "createEntity": "CREATE TABLE {name} ({define})",
         "incrementalColumDefine": "{name} {type} {required}",
@@ -1208,6 +1219,8 @@
         "update": "UPDATE {name} {alias} SET {assigns}",
         "remove": "DELETE FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
+        "removeAll": "DELETE FROM {name}",
+        "deleteAll": "DELETE FROM {name}",
         "from": "FROM {name} {alias}",
         "join": "INNER JOIN {name} {alias} ON {relation}"
       },
@@ -1444,11 +1457,6 @@
         "where",
         "with"
       ],
-      "format": {
-        "dateTime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "support": {
         "sequences": true,
         "tablespaces": true,
@@ -1563,6 +1571,8 @@
         "update": "UPDATE {name} {alias} SET {assigns}",
         "remove": "DELETE FROM {name} {alias}",
         "delete": "DELETE FROM {name} {alias}",
+        "removeAll": "DELETE FROM {name}",
+        "deleteAll": "DELETE FROM {name}",
         "from": "FROM {name} {alias}",
         "join": "INNER JOIN {name} {alias} ON {relation}",
         "callStoredProcedure": "call {name}({parameters})"
@@ -1991,6 +2001,8 @@
         "update": "UPDATE {name} {alias} SET {assigns}",
         "upsert": "INSERT INTO {name}({fields}) VALUES({values}) ON DUPLICATE KEY UPDATE {assigns}",
         "remove": "DELETE FROM {name} {alias}",
+        "removeAll": "DELETE FROM {name}",
+        "deleteAll": "DELETE FROM {name}",
         "from": "FROM {name} {alias}",
         "join": "INNER JOIN {name} {alias} ON {relation}",
         "bulkMerge": "INSERT INTO {name} ({fields})\nVALUES {values}\nON DUPLICATE KEY UPDATE {assigns}\n",
@@ -2291,7 +2303,6 @@
         "insertConditional": "INSERT INTO {name} ({fields}) OUTPUT INSERTED.{autoIncrementField}\nSELECT {values}\nWHERE NOT EXISTS (SELECT 1 FROM {name} WHERE {condition})\n",
         "update": "UPDATE {alias} SET {assigns} FROM {name} {alias}",
         "upsert": "MERGE INTO {name} AS target\nUSING (VALUES {values}) AS source ({fields})\nON {condition}\nWHEN MATCHED THEN\n    UPDATE SET {assigns}\nWHEN NOT MATCHED THEN\n    INSERT ({fields}) VALUES ({values})\n    OUTPUT INSERTED.{autoIncrementField}\n",
-        "delete": "DELETE FROM {name} {alias}",
         "bulkInsert": "INSERT INTO {name}({fields})",
         "page": "{sentence} OFFSET {offset} ROWS FETCH NEXT {records} ROWS ONLY",
         "callStoredProcedure": "EXEC {name} {parameters};",
@@ -2305,6 +2316,9 @@
         "sort": "ORDER BY {0}",
         "order": "ORDER BY {0}",
         "remove": "DELETE FROM {name} {alias}",
+        "delete": "DELETE FROM {name} {alias}",
+        "removeAll": "DELETE FROM {name}",
+        "deleteAll": "DELETE FROM {name}",
         "from": "FROM {name} {alias}",
         "join": "INNER JOIN {name} {alias} ON {relation}",
         "bulkMerge": "INSERT INTO {name} ({fields})\nVALUES {values}\nON DUPLICATE KEY UPDATE {assigns}\n"

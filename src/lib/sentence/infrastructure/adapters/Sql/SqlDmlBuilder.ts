@@ -157,7 +157,8 @@ export class SqlDmlBuilder extends DmlBuilderBase {
 		if (_delete === undefined) {
 			throw new SchemaError('delete operand not found')
 		}
-		let template = this.dialect.dml('delete')
+		const templateName = filter ? 'delete' : 'deleteAll'
+		let template = this.dialect.dml(templateName)
 		template = this.helper.str.replace(template, '{name}', this.dialect.delimiter(entity.mapping || entity.name))
 		template = this.helper.str.replace(template, '{alias}', _delete.alias)
 		let text = template.trim() + ' '

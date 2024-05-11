@@ -24,6 +24,8 @@ others:
   false: "'N'"
   true: "'Y'"
   variable: ":{name}"
+format:
+  dateTime: 'yyyy-MM-dd''T''HH:mm:ss.SSS''Z'''
 ddl:
   createEntity: "CREATE TABLE {name} ({define})"
   incrementalColumDefine: "{name} {type} {required}"

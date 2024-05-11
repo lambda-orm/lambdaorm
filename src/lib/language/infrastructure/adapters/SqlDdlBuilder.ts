@@ -104,7 +104,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 	/**
 	 * @deprecated This method is obsolete, since to alter a property you must call alterPropertyType or alterPropertyNullable
 	 */
-	public alterProperty (entity: EntityMapping, property: Property): Query | undefined {
+	public alterProperty (entity: EntityMapping, property: PropertyMapping): Query | undefined {
 		let text = this.property(entity, property)
 		text = this.dialect.ddl('alterProperty').replace('{columnDefine}', text)
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
@@ -112,7 +112,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		return this.createQuery(SentenceAction.alterProperty, text, entity.name, `alter property ${entity.name}.${property.name}`)
 	}
 
-	public alterPropertyType (entity: EntityMapping, property: Property): Query | undefined {
+	public alterPropertyType (entity: EntityMapping, property: PropertyMapping): Query | undefined {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name)
 		let type = this.dialect.dbType(property.type || 'string')
 		if (type === undefined) {
@@ -138,7 +138,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		return this.createQuery(SentenceAction.alterProperty, text, entity.name, `alter property ${entity.name}.${property.name}`)
 	}
 
-	public addProperty (entity: EntityMapping, property: Property): Query | undefined {
+	public addProperty (entity: EntityMapping, property: PropertyMapping): Query | undefined {
 		let text = this.property(entity, property)
 		text = this.dialect.ddl('addProperty').replace('{columnDefine}', text)
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
@@ -146,9 +146,9 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		return this.createQuery(SentenceAction.addProperty, text, entity.name, `add property ${entity.name}.${property.name}`)
 	}
 
-	private property (entity: EntityMapping, property: Property):string {
+	private property (entity: EntityMapping, property: PropertyMapping):string {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name)
-		let type = this.dialect.dbType(property.type || 'string')
+		let type = property.dbType || this.dialect.dbType(property.type || 'string')
 		if (type === undefined) {
 			throw new SchemaError(`Undefined type for ${entity.name}.${property.name}`)
 		}
@@ -215,7 +215,7 @@ export class SqlDdlBuilder extends DdlBuilderBase {
 		return this.createQuery(SentenceAction.dropEntity, text, entity.name, `drop table ${entity.mapping}`)
 	}
 
-	public dropProperty (entity: EntityMapping, property: Property): Query | undefined {
+	public dropProperty (entity: EntityMapping, property: PropertyMapping): Query | undefined {
 		const propertyMapping = this.mapping.getProperty(entity.name, property.name)
 		const alterEntity = this.dialect.ddl('alterTable').replace('{name}', this.dialect.delimiter(entity.mapping || entity.name))
 		let text = this.dialect.ddl('dropProperty')

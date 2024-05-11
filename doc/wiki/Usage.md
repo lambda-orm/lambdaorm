@@ -410,7 +410,7 @@ application:
     - name: syncInsights
       on: [insert, bulkInsert, update, delete ]
       condition: options.stage.in("default","cqrs")
-      after: queue.send("insights-sync",[{query:query,data:data}]) 
+      after: queue.send("insights-sync",[{query,data}]) 
 ```
 
 [view complete laboratory](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)

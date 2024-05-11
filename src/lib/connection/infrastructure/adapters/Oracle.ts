@@ -225,7 +225,9 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		const params = this.dataToParameters(mapping, dialect, query, data)
 		for (const param of params) {
 			if (!Type.isList(param.type as string) && !(param.type === Primitive.any && Array.isArray(param.value))) {
-				if (param.type === Primitive.dateTime || param.type === Primitive.date || param.type === Primitive.time) {
+				if (param.type === Primitive.dateTime) {
+					values[param.name] = new Date(param.value)
+				} else if (param.type === Primitive.date || param.type === Primitive.time) {
 					values[param.name] = new Date(param.value)
 				} else {
 					values[param.name] = param.value
@@ -285,6 +287,7 @@ export class OracleConnectionAdapter extends ConnectionAdapter {
 		case Primitive.decimal:
 			return this.lib.NUMBER
 		case Primitive.dateTime:
+			return this.lib.DB_TYPE_TIMESTAMP_TZ
 		case Primitive.date:
 		case Primitive.time:
 			return this.lib.DATE

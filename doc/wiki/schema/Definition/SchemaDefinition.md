@@ -110,7 +110,7 @@ infrastructure:
               readExp: expression        
   paths:
     src: string
-    data: string
+    state: string
     domain: string              								  		 
 ```
 
@@ -900,7 +900,7 @@ In this app section, the configuration of the routes where the configuration fil
 | Property 				|      Description					 								|	required	|	default		|
 |-----------------|-------------------------------------------|:---------:|:---------:|
 | src 		 				|  set path of source code									|   				|		src			|
-| data 		 				|  define path of data											|   				|		data		|
+| state		 				|  define path of orm state 								|   				| orm_state	|
 | model 		 			|  define path of	model to generate					|   				|		model		|
 
 Example:
@@ -908,6 +908,6 @@ Example:
 ```yaml
 app:
   src: src
-  data: data
+  state: orm_state
   domain: domain
 ```

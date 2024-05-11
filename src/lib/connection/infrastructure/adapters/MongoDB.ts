@@ -309,7 +309,7 @@ export class MongodbConnectionAdapter extends ConnectionAdapter {
 		} else {
 			result = template
 		}
-		return result ? JSON.parse(result) : undefined
+		return result && typeof result === 'string' ? JSON.parse(result) : undefined
 	}
 
 	private getValue (mapping: MappingConfigService, dialect: DialectService, source: any, type: string) {

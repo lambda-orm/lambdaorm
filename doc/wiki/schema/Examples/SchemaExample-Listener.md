@@ -8,11 +8,20 @@ The expressions to be executed can be defined in the "before", "after" and "erro
 
 The parameters that we have to use in the expressions are:
 
-- query: Query entity that contains the query information \
-- expression: The expression that was executed
-- options: The options that were sent when the expression was executed
-- data: The data that was sent when the expression was executed
-- result: It is only available in the after event and contains the result of the expression execution
+| Parameter   | Description                                                                                                     |
+| ----------- | --------------------------------------------------------------------------------------------------------------- |
+| query       | The query expression that was executed                                                                          |
+| data        | The data that was sent when the expression was executed                                                         |
+| options     | The options that were sent when the expression was executed                                                     |
+| result      | It is only available in the after event and contains the result of the expression execution                     |
+| action      | The action that was executed (select, insert, update, delete, upsert, merge, bulkInsert, bulkUpdate, bulkMerge) |
+| type        | The type of sentence that was executed (dql, ddl, dml)                                                          |
+| category    | The category of the sentence that was executed (select, insert, update, delete, upsert)                         |
+| sentence    | The sentence that was executed                                                                                  |
+| dialect     | The dialect of the source where the sentence was executed                                                       |
+| source      | The source where the sentence was executed                                                                      |
+| entity      | The entity that was affected by the sentence                                                                    |
+| error       | It is only available in the error event and contains the error that occurred                                    |
 
 ## Listener Example
 
@@ -29,7 +38,7 @@ application:
     - name: syncInsights
       on: [insert, bulkInsert, update, delete]
       condition: options.stage.in("default","cqrs")
-      after: orm.execute(expression,data,{stage:"insights"}) 
+      after: orm.execute(query,data,{stage:"insights"}) 
 ```
 
 **Schema Complete:**
@@ -262,7 +271,7 @@ application:
     - name: syncInsights
       on: [insert, bulkInsert, update, delete ]
       condition: options.stage.in("default","cqrs")
-      after: orm.execute(expression,data,{stage:"insights"}) 
+      after: orm.execute(query,data,{stage:"insights"}) 
 ```
 
 ## Laboratories

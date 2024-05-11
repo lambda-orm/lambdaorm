@@ -43,7 +43,7 @@ export class StageMappingService extends StageStateService<MappingConfig> {
 	}
 
 	public override getFile (name: string) {
-		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.data || 'data', `${name}-data.json`)
+		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.state || 'orm_state', `${name}-data.json`)
 	}
 }
 
@@ -53,7 +53,7 @@ export class StageModelService extends StageStateService<ModelConfig> {
 	}
 
 	public override getFile (name: string) {
-		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.data || 'data', `${name}-model.json`)
+		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.state || 'orm_state', `${name}-model.json`)
 	}
 
 	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
@@ -81,6 +81,6 @@ export class StageModelService extends StageStateService<ModelConfig> {
 		date = this.helper.str.replace(date, ':', '')
 		date = this.helper.str.replace(date, '.', '')
 		date = this.helper.str.replace(date, '-', '')
-		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.data || 'data', `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
+		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.state || 'orm_state', `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
 	}
 }
