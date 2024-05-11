@@ -14,7 +14,7 @@
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:193
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:194
 
 ***
 
@@ -24,7 +24,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:193
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:191
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:192
 
 ***
 
@@ -34,4 +34,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:191
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:192
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:193

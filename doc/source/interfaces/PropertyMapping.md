@@ -26,6 +26,16 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:29
 
 ***
 
+### dbType?
+
+> `optional` **dbType**: `string`
+
+#### Source
+
+node\_modules/lambdaorm-base/schema/domain/schema.d.ts:89
+
+***
+
 ### default?
 
 > `optional` **default**: `string`
