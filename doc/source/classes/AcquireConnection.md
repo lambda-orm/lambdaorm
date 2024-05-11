@@ -22,7 +22,7 @@
 
 #### Source
 
-[src/lib/connection/application/useCases/acquire.ts:6](https://github.com/lambda-orm/lambdaorm/blob/b641a316566df55ad8177b62e40fe267b1442b03/src/lib/connection/application/useCases/acquire.ts#L6)
+[src/lib/connection/application/useCases/acquire.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d3091fcee159ea28f1f31cae156d6b1e1cec840e/src/lib/connection/application/useCases/acquire.ts#L6)
 
 ## Methods
 
@@ -40,4 +40,4 @@
 
 #### Source
 
-[src/lib/connection/application/useCases/acquire.ts:8](https://github.com/lambda-orm/lambdaorm/blob/b641a316566df55ad8177b62e40fe267b1442b03/src/lib/connection/application/useCases/acquire.ts#L8)
+[src/lib/connection/application/useCases/acquire.ts:8](https://github.com/lambda-orm/lambdaorm/blob/d3091fcee159ea28f1f31cae156d6b1e1cec840e/src/lib/connection/application/useCases/acquire.ts#L8)

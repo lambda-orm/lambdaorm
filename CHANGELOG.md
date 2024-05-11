@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [2.2.2](https://github.com/lambda-orm/lambdaorm/compare/v2.2.1...v2.2.2) (2024-05-11)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * comment dates lab ([d3091fc](https://github.com/lambda-orm/lambdaorm/commit/d3091fcee159ea28f1f31cae156d6b1e1cec840e)), closes [#0](https://github.com/lambda-orm/lambdaorm/issues/0)
 

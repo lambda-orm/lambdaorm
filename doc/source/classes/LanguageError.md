@@ -30,7 +30,7 @@
 
 #### Source
 
-[src/lib/language/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/b641a316566df55ad8177b62e40fe267b1442b03/src/lib/language/domain/errors.ts#L2)
+[src/lib/language/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/d3091fcee159ea28f1f31cae156d6b1e1cec840e/src/lib/language/domain/errors.ts#L2)
 
 ## Properties
 
