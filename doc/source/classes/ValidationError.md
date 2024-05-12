@@ -40,7 +40,7 @@
 
 #### Source
 
-[src/lib/execution/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/execution/domain/errors.ts#L2)
+[src/lib/execution/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/execution/domain/errors.ts#L2)
 
 ## Properties
 

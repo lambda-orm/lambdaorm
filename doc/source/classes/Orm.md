@@ -28,7 +28,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:42](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L42)
+[src/lib/orm/infrastructure/orm.ts:42](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L42)
 
 ## Properties
 
@@ -38,7 +38,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L30)
+[src/lib/orm/infrastructure/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L30)
 
 ***
 
@@ -52,7 +52,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:32](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L32)
+[src/lib/orm/infrastructure/orm.ts:32](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L32)
 
 ***
 
@@ -62,7 +62,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:36](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L36)
+[src/lib/orm/infrastructure/orm.ts:36](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L36)
 
 ***
 
@@ -72,7 +72,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:31](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L31)
+[src/lib/orm/infrastructure/orm.ts:31](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L31)
 
 ***
 
@@ -86,7 +86,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:33](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L33)
+[src/lib/orm/infrastructure/orm.ts:33](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L33)
 
 ***
 
@@ -100,7 +100,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:35](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L35)
+[src/lib/orm/infrastructure/orm.ts:35](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L35)
 
 ***
 
@@ -114,7 +114,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:34](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L34)
+[src/lib/orm/infrastructure/orm.ts:34](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L34)
 
 ## Accessors
 
@@ -128,7 +128,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:66](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L66)
+[src/lib/orm/infrastructure/orm.ts:66](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L66)
 
 ***
 
@@ -148,7 +148,7 @@ Facade through which you can access all the functionalities of the library.
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:58](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L58)
+[src/lib/orm/infrastructure/orm.ts:58](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L58)
 
 ## Methods
 
@@ -178,7 +178,7 @@ Constraints of query
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:179](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L179)
+[src/lib/orm/infrastructure/orm.ts:179](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L179)
 
 #### constraints(query)
 
@@ -198,7 +198,7 @@ Constraints of query
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:180](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L180)
+[src/lib/orm/infrastructure/orm.ts:180](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L180)
 
 ***
 
@@ -224,7 +224,7 @@ Name of source
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:134](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L134)
+[src/lib/orm/infrastructure/orm.ts:134](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L134)
 
 ***
 
@@ -244,7 +244,7 @@ Frees the resources used, for example the connection pools
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:116](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L116)
+[src/lib/orm/infrastructure/orm.ts:116](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L116)
 
 ***
 
@@ -282,7 +282,7 @@ Result of execution
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:218](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L218)
+[src/lib/orm/infrastructure/orm.ts:218](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L218)
 
 #### execute(query, data, options)
 
@@ -306,7 +306,7 @@ Result of execution
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:219](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L219)
+[src/lib/orm/infrastructure/orm.ts:219](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L219)
 
 ***
 
@@ -336,7 +336,7 @@ promise void
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:75](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L75)
+[src/lib/orm/infrastructure/orm.ts:75](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L75)
 
 ***
 
@@ -366,7 +366,7 @@ metadata of query
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:191](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L191)
+[src/lib/orm/infrastructure/orm.ts:191](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L191)
 
 #### metadata(query)
 
@@ -386,7 +386,7 @@ metadata of query
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:192](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L192)
+[src/lib/orm/infrastructure/orm.ts:192](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L192)
 
 ***
 
@@ -416,7 +416,7 @@ Model of query
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:155](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L155)
+[src/lib/orm/infrastructure/orm.ts:155](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L155)
 
 #### model(query)
 
@@ -436,7 +436,7 @@ Model of query
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:156](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L156)
+[src/lib/orm/infrastructure/orm.ts:156](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L156)
 
 ***
 
@@ -466,7 +466,7 @@ Expression normalized
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:143](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L143)
+[src/lib/orm/infrastructure/orm.ts:143](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L143)
 
 #### normalize(query)
 
@@ -486,7 +486,7 @@ Expression normalized
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:144](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L144)
+[src/lib/orm/infrastructure/orm.ts:144](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L144)
 
 ***
 
@@ -516,7 +516,7 @@ Parameters of query
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:167](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L167)
+[src/lib/orm/infrastructure/orm.ts:167](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L167)
 
 #### parameters(query)
 
@@ -536,7 +536,7 @@ Parameters of query
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:168](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L168)
+[src/lib/orm/infrastructure/orm.ts:168](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L168)
 
 ***
 
@@ -568,7 +568,7 @@ options of execution
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:203](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L203)
+[src/lib/orm/infrastructure/orm.ts:203](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L203)
 
 #### plan(query, options)
 
@@ -590,7 +590,7 @@ options of execution
 
 ##### Source
 
-[src/lib/orm/infrastructure/orm.ts:204](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L204)
+[src/lib/orm/infrastructure/orm.ts:204](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L204)
 
 ***
 
@@ -608,7 +608,7 @@ options of execution
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:246](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L246)
+[src/lib/orm/infrastructure/orm.ts:246](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L246)
 
 ***
 
@@ -638,7 +638,7 @@ Code to be executed in transaction
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:238](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L238)
+[src/lib/orm/infrastructure/orm.ts:238](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L238)
 
 ***
 
@@ -656,4 +656,4 @@ Code to be executed in transaction
 
 #### Source
 
-[src/lib/orm/infrastructure/orm.ts:250](https://github.com/lambda-orm/lambdaorm/blob/d1e7e058f2cd0335e56c0044cc0cb5e2e2d5878e/src/lib/orm/infrastructure/orm.ts#L250)
+[src/lib/orm/infrastructure/orm.ts:250](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/orm/infrastructure/orm.ts#L250)
