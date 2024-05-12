@@ -1,47 +1,57 @@
 [
   [
     {
-      "id": 12,
-      "description": "from new Date()",
-      "testDate": "2024-05-09T22:00:00.000Z",
-      "testDateTime": "2024-05-09T23:56:17.000Z",
-      "testString": "2024-05-09T23:56:17.218Z"
+      "id": 65,
+      "description": "MySQL: new Date()",
+      "testDate": "2024-05-11T22:00:00.000Z",
+      "testDateTime": "2024-05-12T03:19:03.000Z",
+      "testDateTime2": "2024-05-12T03:19:03.000Z",
+      "testDateTimeOffset": "2024-05-12T03:19:03.000Z",
+      "testString": "2024-05-12T03:19:03.500Z"
     }
   ],
   [
     {
-      "id": 12,
-      "description": "from new Date()",
-      "testDate": "2024-05-09T22:00:00.000Z",
-      "testDateTime": "2024-05-09T23:56:17.000Z",
-      "testString": "2024-05-09T23:56:17.218Z"
+      "id": 62,
+      "description": "PostgreSQL: new Date()",
+      "testDate": "2024-05-11T22:00:00.000Z",
+      "testDateTime": "2024-05-12T03:19:03.000Z",
+      "testDateTime2": "2024-05-12T03:19:03.000Z",
+      "testDateTimeOffset": "2024-05-12T03:19:03.000Z",
+      "testString": "2024-05-12T03:19:03.500Z"
     }
   ],
   [
     {
-      "id": 12,
-      "description": "from new Date()",
-      "testDate": "2024-05-10T00:00:00.000Z",
-      "testDateTime": "2024-05-09T23:56:17.000Z",
-      "testString": "2024-05-09T23:56:17.218Z"
+      "id": 59,
+      "description": "SqlServer: new Date()",
+      "testDate": "2024-05-11T22:00:00.000Z",
+      "testDateTime": "2024-05-12T03:19:03.000Z",
+      "testDateTime2": "2024-05-12T03:19:03.000Z",
+      "testDateTimeOffset": "2024-05-12T03:19:03.000Z",
+      "testString": "2024-05-12T03:19:03.500Z"
     }
   ],
   [
     {
-      "id": 24,
-      "description": "from new Date()",
-      "testDate": "2024-05-10",
-      "testDateTime": "2024-05-10T01:56:17.218+02:00",
-      "testString": "2024-05-09T23:56:17.218Z"
+      "id": 106,
+      "description": "MongoDB: new Date()",
+      "testDate": "2024-05-11T22:00:00.000Z",
+      "testDateTime": "2024-05-12T03:19:03.000Z",
+      "testDateTime2": "2024-05-12T03:19:03.000Z",
+      "testDateTimeOffset": "2024-05-12T03:19:03.000Z",
+      "testString": "2024-05-12T03:19:03.500Z"
     }
   ],
   [
     {
-      "id": 21,
-      "description": "from new Date()",
-      "testDate": "2024-05-10T00:00:00.000Z",
-      "testDateTime": "2024-05-09T23:56:17.000Z",
-      "testString": "2024-05-09T23:56:17.218Z"
+      "id": 51,
+      "description": "Oracle: new Date()",
+      "testDate": "2024-05-11T22:00:00.000Z",
+      "testDateTime": "2024-05-12T03:19:03.000Z",
+      "testDateTime2": "2024-05-12T03:19:03.000Z",
+      "testDateTimeOffset": "2024-05-12T03:19:03.000Z",
+      "testString": "2024-05-12T03:19:03.500Z"
     }
   ]
 ]

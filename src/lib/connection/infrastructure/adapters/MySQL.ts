@@ -225,9 +225,9 @@ export class MySqlConnectionAdapter extends ConnectionAdapter {
 					case TIME:
 						row[col.name] = value
 						break
-					case DATETIME:
 					case DATE:
 					case NEWDATE:
+					case DATETIME:
 					case TIMESTAMP:
 						row[col.name] = new Date(value)
 						break

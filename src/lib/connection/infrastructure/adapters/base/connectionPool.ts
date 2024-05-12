@@ -25,7 +25,7 @@ export abstract class ConnectionPoolAdapter implements ConnectionPool {
 
 	public async end (): Promise<void> {
 		for (const connection of this.connections) {
-			await this.release(connection)
+			await connection.end()
 		}
 	}
 

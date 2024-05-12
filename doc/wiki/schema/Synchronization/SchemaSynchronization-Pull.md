@@ -19,7 +19,7 @@ Once the command is executed, the schema file (lambdaORM.yaml in this case) will
 Files created:
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-ddl-20240501T212640369Z-pull-default.sql
 │   └── default-model.json
 ```

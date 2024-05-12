@@ -290,7 +290,7 @@ export class SqlServerConnectionAdapter extends ConnectionAdapter {
 			case Primitive.decimal: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Decimal, param.value); break
 			case Primitive.boolean: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Bit, param.value); break
 			case Primitive.dateTime: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.DateTime, param.value); break
-			case Primitive.date: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Date, param.value); break
+			case Primitive.date: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.SmallDateTime, param.value); break
 			case Primitive.time: request.addParameter(param.name, SqlServerConnectionPoolAdapter.lib.TYPES.Time, param.value); break
 			case Primitive.any:
 				if (Type.isList(param.type) || (param.type === Primitive.any)) {

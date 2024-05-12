@@ -72,6 +72,7 @@ dbTypes:
   decimal: DECIMAL(10,4)
   string: VARCHAR({0})
   dateTime: DATETIME
+  timestamp: TIMESTAMP
   date: DATE
   time: TIME
   text: TEXT
@@ -94,16 +95,17 @@ types:
   varchar: string
   uuid: string
   text: text
-  timestamp: dateTime
+  timestamp: timestamp
   datetime: dateTime
   date: date
   time: time
   boolean: boolean
   blob: buffer
-format:  
-  dateTime: 'yyyy-LL-dd HH:mm:ss'
-  date: 'yyyy-LL-dd'
-  time: 'HH:mm:ss'
+format:
+  timestamp: yyyy-MM-dd HH:mm:ss.SSS
+  dateTime: yyyy-MM-dd HH:mm:ss
+  date: yyyy-MM-dd
+  time: HH:mm:ss
 support:
   sequences: true
   tablespaces: true

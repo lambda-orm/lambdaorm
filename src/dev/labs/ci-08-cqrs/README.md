@@ -353,7 +353,7 @@ lambdaorm push -e .env -s insights
 It will generate:
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-ddl-20231130T230552235Z-push-Catalog.sql
 │   ├── default-ddl-20231130T230552236Z-push-Crm.sql
 │   ├── default-ddl-20231130T230552237Z-push-Ordering.json
@@ -628,7 +628,7 @@ docker-compose -p lambdaorm-cqrs down
 The data folder should remain like this:
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-ddl-20231129T110712162Z-push-Catalog.sql
 │   ├── default-ddl-20231129T110712163Z-push-Crm.sql
 │   ├── default-ddl-20231129T110712163Z-push-Ordering.json

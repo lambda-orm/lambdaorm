@@ -48,6 +48,8 @@ lambdaorm push -e .env -s Oracle
 lambdaorm build -l node
 ```
 
+## Queries
+
 ## Stop
 
 ```sh
@@ -58,5 +60,3 @@ lambdaorm drop -e .env -s MongoDB
 lambdaorm drop -e .env -s Oracle
 docker-compose -p dates down
 ```
-
-## Queries

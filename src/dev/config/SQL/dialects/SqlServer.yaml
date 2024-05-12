@@ -20,7 +20,9 @@ types:
   table: any
 support:
   pkTablespaces: false
-  ukTablespaces: false     
+  ukTablespaces: false
+format:
+  date: 'yyyy-MM-dd 00:00:00'       
 ddl:
   createPk: "PRIMARY KEY ({columns})"
   incrementalColumDefine: "{name} {type} {required} IDENTITY (1, 1)"

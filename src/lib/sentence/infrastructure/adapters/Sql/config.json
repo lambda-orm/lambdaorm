@@ -74,6 +74,7 @@
       "decimal": "DECIMAL(10,4)",
       "string": "VARCHAR({0})",
       "dateTime": "DATETIME",
+      "timestamp": "TIMESTAMP",
       "date": "DATE",
       "time": "TIME",
       "text": "TEXT",
@@ -97,7 +98,7 @@
       "varchar": "string",
       "uuid": "string",
       "text": "text",
-      "timestamp": "dateTime",
+      "timestamp": "timestamp",
       "datetime": "dateTime",
       "date": "date",
       "time": "time",
@@ -105,8 +106,9 @@
       "blob": "buffer"
     },
     "format": {
-      "dateTime": "yyyy-LL-dd HH:mm:ss",
-      "date": "yyyy-LL-dd",
+      "timestamp": "yyyy-MM-dd HH:mm:ss.SSS",
+      "dateTime": "yyyy-MM-dd HH:mm:ss",
+      "date": "yyyy-MM-dd",
       "time": "HH:mm:ss"
     },
     "support": {
@@ -429,6 +431,7 @@
         "integer": "INTEGER",
         "string": "VARCHAR({0})",
         "dateTime": "DATETIME",
+        "timestamp": "TIMESTAMP",
         "date": "DATE",
         "time": "TIME",
         "text": "TEXT"
@@ -453,7 +456,7 @@
         "varchar": "string",
         "uuid": "string",
         "text": "text",
-        "timestamp": "dateTime",
+        "timestamp": "timestamp",
         "datetime": "dateTime",
         "date": "date",
         "time": "time",
@@ -671,8 +674,9 @@
         }
       },
       "format": {
-        "dateTime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
+        "timestamp": "yyyy-MM-dd HH:mm:ss.SSS",
+        "dateTime": "yyyy-MM-dd HH:mm:ss",
+        "date": "yyyy-MM-dd",
         "time": "HH:mm:ss"
       },
       "operators": {
@@ -801,6 +805,7 @@
         "integer": "INTEGER",
         "string": "VARCHAR({0})",
         "dateTime": "DATETIME",
+        "timestamp": "TIMESTAMP",
         "date": "DATE",
         "time": "TIME",
         "text": "TEXT"
@@ -825,7 +830,7 @@
         "varchar": "string",
         "uuid": "string",
         "text": "text",
-        "timestamp": "dateTime",
+        "timestamp": "timestamp",
         "datetime": "dateTime",
         "date": "date",
         "time": "time",
@@ -1043,8 +1048,9 @@
         }
       },
       "format": {
-        "dateTime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
+        "timestamp": "yyyy-MM-dd HH:mm:ss.SSS",
+        "dateTime": "yyyy-MM-dd HH:mm:ss",
+        "date": "yyyy-MM-dd",
         "time": "HH:mm:ss"
       },
       "operators": {
@@ -1102,6 +1108,7 @@
         "integer": "NUMBER(10)",
         "decimal": "NUMBER(19,4)",
         "string": "VARCHAR2({0})",
+        "timestamp": "TIMESTAMP",
         "dateTime": "DATE",
         "date": "DATE",
         "time": "DATE",
@@ -1114,7 +1121,7 @@
         "clob": "string",
         "nclob": "string",
         "date": "dateTime",
-        "timestamp_with_time_zone": "dateTime",
+        "timestamp_with_time_zone": "timestamp",
         "interval_year_to_month": "string",
         "interval_day_to_second": "string",
         "binary_float": "decimal",
@@ -1138,7 +1145,7 @@
         "varchar": "string",
         "uuid": "string",
         "text": "text",
-        "timestamp": "dateTime",
+        "timestamp": "timestamp",
         "datetime": "dateTime",
         "time": "time",
         "boolean": "boolean"
@@ -1158,8 +1165,9 @@
         "sequenceName": "SQ_{name}"
       },
       "format": {
-        "dateTime": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-        "date": "yyyy-LL-dd",
+        "timestamp": "yyyy-MM-dd'T'HH:mm:ss.SSS",
+        "date": "yyyy-MM-dd 00:00:00",
+        "dateTime": "yyyy-MM-dd HH:mm:ss",
         "time": "HH:mm:ss"
       },
       "ddl": {
@@ -1473,6 +1481,7 @@
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
+        "timestamp": "TIMESTAMP",
         "date": "DATE",
         "time": "TIME",
         "text": "TEXT",
@@ -1501,7 +1510,7 @@
         "varchar": "string",
         "uuid": "string",
         "text": "text",
-        "timestamp": "dateTime",
+        "timestamp": "timestamp",
         "datetime": "dateTime",
         "date": "date",
         "time": "time",
@@ -1825,8 +1834,9 @@
         "with"
       ],
       "format": {
-        "dateTime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
+        "timestamp": "yyyy-MM-dd HH:mm:ss.SSS",
+        "dateTime": "yyyy-MM-dd HH:mm:ss",
+        "date": "yyyy-MM-dd",
         "time": "HH:mm:ss"
       }
     },
@@ -1952,6 +1962,7 @@
         "integer": "INTEGER",
         "string": "VARCHAR({0})",
         "dateTime": "DATETIME",
+        "timestamp": "TIMESTAMP",
         "date": "DATE",
         "time": "TIME",
         "text": "TEXT"
@@ -1976,7 +1987,7 @@
         "varchar": "string",
         "uuid": "string",
         "text": "text",
-        "timestamp": "dateTime",
+        "timestamp": "timestamp",
         "datetime": "dateTime",
         "date": "date",
         "time": "time",
@@ -2149,8 +2160,9 @@
         }
       },
       "format": {
-        "dateTime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
+        "timestamp": "yyyy-MM-dd HH:mm:ss.SSS",
+        "dateTime": "yyyy-MM-dd HH:mm:ss",
+        "date": "yyyy-MM-dd",
         "time": "HH:mm:ss"
       },
       "operators": {
@@ -2209,6 +2221,7 @@
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
         "dateTime": "DATETIME",
+        "timestamp": "TIMESTAMP",
         "date": "DATE",
         "time": "TIME",
         "text": "TEXT",
@@ -2246,7 +2259,7 @@
         "varchar": "string",
         "uuid": "string",
         "text": "text",
-        "timestamp": "dateTime",
+        "timestamp": "timestamp",
         "datetime": "dateTime",
         "date": "date",
         "time": "time",
@@ -2260,6 +2273,12 @@
         "tablespaces": true,
         "partitions": true,
         "composite": false
+      },
+      "format": {
+        "date": "yyyy-MM-dd 00:00:00",
+        "timestamp": "yyyy-MM-dd HH:mm:ss.SSS",
+        "dateTime": "yyyy-MM-dd HH:mm:ss",
+        "time": "HH:mm:ss"
       },
       "ddl": {
         "createPk": "PRIMARY KEY ({columns})",
@@ -2522,11 +2541,6 @@
         "where",
         "with"
       ],
-      "format": {
-        "dateTime": "yyyy-LL-dd HH:mm:ss",
-        "date": "yyyy-LL-dd",
-        "time": "HH:mm:ss"
-      },
       "operators": {
         "unary": {
           "-": "- {0}",

@@ -19,7 +19,7 @@ lambdaorm incorporate -d countries.json -n countries
 Files generated:
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-data.json
 │   ├── default-ddl-20240502T113912983Z-push-default.sql
 │   └── default-model.json

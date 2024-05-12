@@ -48,8 +48,9 @@
       "time": "time"
     },
     "format": {
-      "dateTime": "ISO",
-      "date": "yyyy-LL-dd",
+      "timestamp": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+      "dateTime": "utc-without-ms",
+      "date": "utc-date",
       "time": "HH:mm:ss"
     },
     "support": {
@@ -280,8 +281,9 @@
         "time": "time"
       },
       "format": {
-        "dateTime": "ISO",
-        "date": "yyyy-LL-dd",
+        "timestamp": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+        "dateTime": "utc-without-ms",
+        "date": "utc-date",
         "time": "HH:mm:ss"
       },
       "support": {
