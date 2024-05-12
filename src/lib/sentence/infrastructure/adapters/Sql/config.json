@@ -2217,12 +2217,12 @@
     "SqlServer": {
       "dbTypes": {
         "boolean": "BIT",
+        "date": "SMALLDATETIME",
         "integer": "INTEGER",
         "decimal": "DECIMAL(10,4)",
         "string": "VARCHAR({0})",
         "dateTime": "DATETIME",
         "timestamp": "TIMESTAMP",
-        "date": "DATE",
         "time": "TIME",
         "text": "TEXT",
         "buffer": "BLOB"
@@ -2237,7 +2237,7 @@
         "image": "buffer",
         "datetime2": "dateTime",
         "datetimeoffset": "dateTime",
-        "smalldatetime": "dateTime",
+        "smalldatetime": "date",
         "bit": "boolean",
         "uniqueidentifier": "string",
         "sql_variant": "any",

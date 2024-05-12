@@ -117,14 +117,10 @@ Through the schema, you can define entities, enumerations, indexes, unique keys,
   - Connection pooling
 - [Listeners and subscribers](https://github.com/lambda-orm/lambdaorm/wiki/SchemaExample-Listener)
 - TypeScript and JavaScript support
-- [CLI Support](https://github.com/lambda-orm/lambdaorm-cli) support
+- [CLI Support](https://www.npmjs.com/package/lambdaorm-cli)
 - [REST API Support](https://github.com/lambda-orm/lambdaorm-svc)
-- HTTP Client Support
-  - [Node Client](https://www.npmjs.com/package/lambdaorm-client-node)
-  - [Kotlin Client](https://github.com/lambda-orm/lambdaorm-client-kotlin) (In Progress)
-  - Java Client (Coming Soon)
-  - C# Client (Coming Soon)
-  - Python Client (Coming Soon)
+- HTTP Client Support:  [Node Client](https://www.npmjs.com/package/lambdaorm-client-node)
+  [Kotlin Client](https://github.com/lambda-orm/lambdaorm-client-kotlin) (In Progress)
 
 ## Contributing
 

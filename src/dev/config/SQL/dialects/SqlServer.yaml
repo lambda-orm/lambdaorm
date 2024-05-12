@@ -1,6 +1,7 @@
 _extends: [SQL]
 dbTypes:
   boolean: BIT
+  date: SMALLDATETIME
 types:
   int: integer 
   tinyint: integer
@@ -11,7 +12,7 @@ types:
   image:  buffer
   datetime2: dateTime
   datetimeoffset: dateTime
-  smalldatetime: dateTime
+  smalldatetime: date
   bit: boolean
   uniqueidentifier: string
   sql_variant: any
