@@ -1,12 +1,10 @@
 import { orm } from '../../../../lib'
-import { Test } from './domain/model'
-
 (async () => {
 	try {
 		const workspace = __dirname.replace('/build/', '/src/')
 		await orm.init(workspace + '/../lambdaORM.yaml')
 		const date = new Date()
-		const test: Test = { id: 1, 
+		const test = { id: 1, 
 			description: 'from new Date()', 
 			testDate: date, 
 			testDateTime: date, 
