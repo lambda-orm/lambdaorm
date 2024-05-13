@@ -14,7 +14,7 @@
 
 #### Source
 
-[src/lib/language/application/ports/language.ts:7](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/language/application/ports/language.ts#L7)
+[src/lib/language/application/ports/language.ts:7](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/language/application/ports/language.ts#L7)
 
 ***
 
@@ -24,7 +24,7 @@
 
 #### Source
 
-[src/lib/language/application/ports/language.ts:8](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/language/application/ports/language.ts#L8)
+[src/lib/language/application/ports/language.ts:8](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/language/application/ports/language.ts#L8)
 
 ***
 
@@ -34,7 +34,7 @@
 
 #### Source
 
-[src/lib/language/application/ports/language.ts:9](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/language/application/ports/language.ts#L9)
+[src/lib/language/application/ports/language.ts:9](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/language/application/ports/language.ts#L9)
 
 ## Methods
 
@@ -54,7 +54,7 @@
 
 #### Source
 
-[src/lib/language/application/ports/language.ts:11](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/language/application/ports/language.ts#L11)
+[src/lib/language/application/ports/language.ts:11](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/language/application/ports/language.ts#L11)
 
 ***
 
@@ -74,7 +74,7 @@
 
 #### Source
 
-[src/lib/language/application/ports/language.ts:12](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/language/application/ports/language.ts#L12)
+[src/lib/language/application/ports/language.ts:12](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/language/application/ports/language.ts#L12)
 
 ***
 
@@ -92,4 +92,4 @@
 
 #### Source
 
-[src/lib/language/application/ports/language.ts:10](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/language/application/ports/language.ts#L10)
+[src/lib/language/application/ports/language.ts:10](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/language/application/ports/language.ts#L10)

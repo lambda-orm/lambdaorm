@@ -14,7 +14,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L7)
+[src/lib/connection/application/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L7)
 
 ***
 
@@ -24,7 +24,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L6)
+[src/lib/connection/application/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L6)
 
 ***
 
@@ -34,7 +34,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L9)
+[src/lib/connection/application/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L9)
 
 ***
 
@@ -44,7 +44,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L11)
+[src/lib/connection/application/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L11)
 
 ***
 
@@ -54,7 +54,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L12)
+[src/lib/connection/application/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L12)
 
 ***
 
@@ -64,7 +64,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L10)
+[src/lib/connection/application/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L10)
 
 ***
 
@@ -74,7 +74,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L8)
+[src/lib/connection/application/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L8)
 
 ## Accessors
 
@@ -88,7 +88,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L13)
+[src/lib/connection/application/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L13)
 
 ## Methods
 
@@ -108,7 +108,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L45)
+[src/lib/connection/application/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L45)
 
 ***
 
@@ -128,7 +128,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L43)
+[src/lib/connection/application/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L43)
 
 ***
 
@@ -148,7 +148,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L42)
+[src/lib/connection/application/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L42)
 
 ***
 
@@ -168,7 +168,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L44)
+[src/lib/connection/application/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L44)
 
 ***
 
@@ -188,7 +188,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L41)
+[src/lib/connection/application/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L41)
 
 ***
 
@@ -202,7 +202,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L32)
+[src/lib/connection/application/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L32)
 
 ***
 
@@ -226,7 +226,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L26)
+[src/lib/connection/application/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L26)
 
 ***
 
@@ -250,7 +250,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L21)
+[src/lib/connection/application/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L21)
 
 ***
 
@@ -274,7 +274,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L28)
+[src/lib/connection/application/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L28)
 
 ***
 
@@ -298,7 +298,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L24)
+[src/lib/connection/application/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L24)
 
 ***
 
@@ -312,7 +312,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:33](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L33)
+[src/lib/connection/application/ports/connection.ts:33](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L33)
 
 ***
 
@@ -332,7 +332,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L37)
+[src/lib/connection/application/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L37)
 
 ***
 
@@ -352,7 +352,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L39)
+[src/lib/connection/application/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L39)
 
 ***
 
@@ -372,7 +372,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L40)
+[src/lib/connection/application/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L40)
 
 ***
 
@@ -392,7 +392,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L38)
+[src/lib/connection/application/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L38)
 
 ***
 
@@ -416,7 +416,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L25)
+[src/lib/connection/application/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L25)
 
 ***
 
@@ -436,7 +436,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:47](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L47)
+[src/lib/connection/application/ports/connection.ts:47](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L47)
 
 ***
 
@@ -456,7 +456,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:51](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L51)
+[src/lib/connection/application/ports/connection.ts:51](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L51)
 
 ***
 
@@ -476,7 +476,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:52](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L52)
+[src/lib/connection/application/ports/connection.ts:52](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L52)
 
 ***
 
@@ -496,7 +496,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:49](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L49)
+[src/lib/connection/application/ports/connection.ts:49](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L49)
 
 ***
 
@@ -516,7 +516,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:48](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L48)
+[src/lib/connection/application/ports/connection.ts:48](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L48)
 
 ***
 
@@ -536,7 +536,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L46)
+[src/lib/connection/application/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L46)
 
 ***
 
@@ -556,7 +556,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:50](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L50)
+[src/lib/connection/application/ports/connection.ts:50](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L50)
 
 ***
 
@@ -570,7 +570,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L14)
+[src/lib/connection/application/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L14)
 
 ***
 
@@ -588,7 +588,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:29](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L29)
+[src/lib/connection/application/ports/connection.ts:29](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L29)
 
 ***
 
@@ -606,7 +606,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L30)
+[src/lib/connection/application/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L30)
 
 ***
 
@@ -624,7 +624,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L31)
+[src/lib/connection/application/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L31)
 
 ***
 
@@ -648,7 +648,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:58](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L58)
+[src/lib/connection/application/ports/connection.ts:58](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L58)
 
 ***
 
@@ -672,7 +672,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:61](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L61)
+[src/lib/connection/application/ports/connection.ts:61](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L61)
 
 ***
 
@@ -696,7 +696,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L19)
+[src/lib/connection/application/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L19)
 
 ***
 
@@ -720,7 +720,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L20)
+[src/lib/connection/application/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L20)
 
 ***
 
@@ -744,7 +744,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:27](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L27)
+[src/lib/connection/application/ports/connection.ts:27](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L27)
 
 ***
 
@@ -768,7 +768,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:53](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L53)
+[src/lib/connection/application/ports/connection.ts:53](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L53)
 
 ***
 
@@ -792,7 +792,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:56](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L56)
+[src/lib/connection/application/ports/connection.ts:56](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L56)
 
 ***
 
@@ -816,7 +816,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:59](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L59)
+[src/lib/connection/application/ports/connection.ts:59](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L59)
 
 ***
 
@@ -830,7 +830,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L34)
+[src/lib/connection/application/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L34)
 
 ***
 
@@ -854,7 +854,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L18)
+[src/lib/connection/application/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L18)
 
 ***
 
@@ -878,7 +878,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:57](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L57)
+[src/lib/connection/application/ports/connection.ts:57](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L57)
 
 ***
 
@@ -902,7 +902,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:54](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L54)
+[src/lib/connection/application/ports/connection.ts:54](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L54)
 
 ***
 
@@ -922,7 +922,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L36)
+[src/lib/connection/application/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L36)
 
 ***
 
@@ -946,7 +946,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:60](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L60)
+[src/lib/connection/application/ports/connection.ts:60](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L60)
 
 ***
 
@@ -970,7 +970,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L22)
+[src/lib/connection/application/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L22)
 
 ***
 
@@ -994,7 +994,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L23)
+[src/lib/connection/application/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L23)
 
 ***
 
@@ -1018,7 +1018,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:55](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L55)
+[src/lib/connection/application/ports/connection.ts:55](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L55)
 
 ***
 
@@ -1040,7 +1040,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:15](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L15)
+[src/lib/connection/application/ports/connection.ts:15](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L15)
 
 ***
 
@@ -1062,4 +1062,4 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/676d93b41dadb176245f63ed44eae267d94fa74f/src/lib/connection/application/ports/connection.ts#L16)
+[src/lib/connection/application/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/46e86d864b5f4223fb0b1052cc3ab701d4af5a21/src/lib/connection/application/ports/connection.ts#L16)
