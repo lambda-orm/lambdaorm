@@ -32,7 +32,7 @@
 
 #### Source
 
-[src/lib/sentence/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/sentence/application/facade.ts#L27)
+[src/lib/sentence/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/sentence/application/facade.ts#L27)
 
 ## Methods
 
@@ -54,7 +54,7 @@
 
 #### Source
 
-[src/lib/sentence/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/sentence/application/facade.ts#L44)
+[src/lib/sentence/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/sentence/application/facade.ts#L44)
 
 ***
 
@@ -72,7 +72,7 @@
 
 #### Source
 
-[src/lib/sentence/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/sentence/application/facade.ts#L48)
+[src/lib/sentence/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/sentence/application/facade.ts#L48)
 
 ***
 
@@ -92,7 +92,7 @@
 
 #### Source
 
-[src/lib/sentence/application/facade.ts:64](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/sentence/application/facade.ts#L64)
+[src/lib/sentence/application/facade.ts:64](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/sentence/application/facade.ts#L64)
 
 ***
 
@@ -110,7 +110,7 @@
 
 #### Source
 
-[src/lib/sentence/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/sentence/application/facade.ts#L52)
+[src/lib/sentence/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/sentence/application/facade.ts#L52)
 
 ***
 
@@ -128,7 +128,7 @@
 
 #### Source
 
-[src/lib/sentence/application/facade.ts:56](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/sentence/application/facade.ts#L56)
+[src/lib/sentence/application/facade.ts:56](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/sentence/application/facade.ts#L56)
 
 ***
 
@@ -146,4 +146,4 @@
 
 #### Source
 
-[src/lib/sentence/application/facade.ts:60](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/sentence/application/facade.ts#L60)
+[src/lib/sentence/application/facade.ts:60](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/sentence/application/facade.ts#L60)

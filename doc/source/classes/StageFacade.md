@@ -30,7 +30,7 @@
 
 #### Source
 
-[src/lib/stage/application/facade.ts:23](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L23)
+[src/lib/stage/application/facade.ts:23](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L23)
 
 ## Methods
 
@@ -52,7 +52,7 @@ QueryOptions
 
 #### Source
 
-[src/lib/stage/application/facade.ts:78](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L78)
+[src/lib/stage/application/facade.ts:78](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L78)
 
 ***
 
@@ -74,7 +74,7 @@ QueryOptions
 
 #### Source
 
-[src/lib/stage/application/facade.ts:58](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L58)
+[src/lib/stage/application/facade.ts:58](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L58)
 
 ***
 
@@ -96,7 +96,7 @@ string
 
 #### Source
 
-[src/lib/stage/application/facade.ts:38](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L38)
+[src/lib/stage/application/facade.ts:38](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L38)
 
 ***
 
@@ -118,7 +118,7 @@ QueryOptions
 
 #### Source
 
-[src/lib/stage/application/facade.ts:88](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L88)
+[src/lib/stage/application/facade.ts:88](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L88)
 
 ***
 
@@ -140,7 +140,7 @@ QueryOptions
 
 #### Source
 
-[src/lib/stage/application/facade.ts:108](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L108)
+[src/lib/stage/application/facade.ts:108](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L108)
 
 ***
 
@@ -162,7 +162,7 @@ QueryOptions
 
 #### Source
 
-[src/lib/stage/application/facade.ts:98](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L98)
+[src/lib/stage/application/facade.ts:98](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L98)
 
 ***
 
@@ -192,7 +192,7 @@ QueryOptions
 
 #### Source
 
-[src/lib/stage/application/facade.ts:144](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L144)
+[src/lib/stage/application/facade.ts:144](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L144)
 
 ***
 
@@ -222,7 +222,7 @@ QueryOptions
 
 #### Source
 
-[src/lib/stage/application/facade.ts:132](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L132)
+[src/lib/stage/application/facade.ts:132](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L132)
 
 ***
 
@@ -244,7 +244,7 @@ StagePullOptions
 
 #### Source
 
-[src/lib/stage/application/facade.ts:118](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L118)
+[src/lib/stage/application/facade.ts:118](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L118)
 
 ***
 
@@ -266,7 +266,7 @@ QueryOptions
 
 #### Source
 
-[src/lib/stage/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L48)
+[src/lib/stage/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L48)
 
 ***
 
@@ -288,4 +288,4 @@ QueryOptions
 
 #### Source
 
-[src/lib/stage/application/facade.ts:68](https://github.com/lambda-orm/lambdaorm/blob/f8c82a2cc7a2807ec58a8f880e271d3fde41079e/src/lib/stage/application/facade.ts#L68)
+[src/lib/stage/application/facade.ts:68](https://github.com/lambda-orm/lambdaorm/blob/500b65f534ab1bcb8cf5af2781a7f18794a4944e/src/lib/stage/application/facade.ts#L68)
