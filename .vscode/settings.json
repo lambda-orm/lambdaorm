@@ -79,6 +79,7 @@
 		"keycloak",
 		"kong",
 		"ksqldb",
+		"ktrom",
 		"lambdaorm",
 		"lastname",
 		"longblob",
