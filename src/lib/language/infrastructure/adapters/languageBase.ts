@@ -1,6 +1,6 @@
 import { NotImplemented, Source, MappingConfigService } from 'lambdaorm-base'
 import { Language, DdlBuilder, DmlBuilder, DialectService } from '../../domain'
-import { DialectServiceImpl } from 'lib/language/application'
+import { DialectServiceImpl } from '../../../language/application'
 
 export abstract class LanguageBase implements Language {
 	public dialects: DialectService[]
