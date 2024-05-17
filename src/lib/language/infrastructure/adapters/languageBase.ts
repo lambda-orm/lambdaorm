@@ -1,5 +1,6 @@
 import { NotImplemented, Source, MappingConfigService } from 'lambdaorm-base'
-import { DialectService, Language, DdlBuilder, DmlBuilder } from '../../application'
+import { Language, DdlBuilder, DmlBuilder, DialectService } from '../../domain'
+import { DialectServiceImpl } from 'lib/language/application'
 
 export abstract class LanguageBase implements Language {
 	public dialects: DialectService[]
@@ -12,7 +13,7 @@ export abstract class LanguageBase implements Language {
 		this.dialects = []
 		for (const p in dialects) {
 			const data = dialects[p]
-			const dialect = new DialectService(p, data)
+			const dialect = new DialectServiceImpl(p, data)
 			this.dialects.push(dialect)
 		}
 	}

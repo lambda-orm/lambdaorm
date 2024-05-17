@@ -6,7 +6,7 @@ import { ConnectionAdapter } from './base/connection'
 import { ConnectionConfig, Connection } from '../../domain'
 import { OrmH3lp } from '../../../shared/infrastructure'
 import { MappingConfigService, Data, EntityMapping } from 'lambdaorm-base'
-import { DialectService } from '../../../language/application'
+import { DialectService } from '../../../language/domain'
 import { Query } from '../../../query/domain'
 
 export class SQLjsConnectionPoolAdapter extends ConnectionPoolAdapter {

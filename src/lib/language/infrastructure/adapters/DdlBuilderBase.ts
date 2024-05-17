@@ -1,6 +1,6 @@
 import { Query } from '../../../query/domain'
 import { Index, Source, Relation, EntityMapping, PropertyMapping, MappingConfigService, SentenceAction, SentenceType } from 'lambdaorm-base'
-import { DialectService, DdlBuilder } from '../../application'
+import { DdlBuilder, DialectService } from '../../domain'
 import { OrmH3lp } from '../../../shared/infrastructure'
 
 export abstract class DdlBuilderBase implements DdlBuilder {

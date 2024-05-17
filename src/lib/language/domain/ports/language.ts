@@ -1,4 +1,4 @@
-import { DialectService } from '../services/dialectService'
+import { DialectService } from '../'
 import { MappingConfigService, Source } from 'lambdaorm-base'
 import { DdlBuilder } from './DdlBuilder'
 import { DmlBuilder } from './DmlBuilder'

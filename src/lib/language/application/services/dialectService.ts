@@ -1,6 +1,6 @@
-import { DialectFormat, LanguageError } from '../../domain'
+import { DialectFormat, LanguageError, DialectService } from '../../domain'
 
-export class DialectService {
+export class DialectServiceImpl implements DialectService {
 	public name: string
 	public format: DialectFormat
 	private _operators?: any = {}

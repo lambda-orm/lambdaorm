@@ -1,5 +1,5 @@
 import { LanguageBase } from '../../../../language/infrastructure/adapters/languageBase'
-import { DdlBuilder, DmlBuilder } from '../../../../language/application'
+import { DdlBuilder, DmlBuilder } from '../../../../language/domain'
 import { MappingConfigService, Source } from 'lambdaorm-base'
 import { SqlDmlBuilder } from './SqlDmlBuilder'
 import config from './config.json'

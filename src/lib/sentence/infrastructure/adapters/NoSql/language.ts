@@ -1,4 +1,4 @@
-import { DdlBuilder, DmlBuilder } from '../../../../language/application'
+import { DdlBuilder, DmlBuilder } from '../../../../language/domain'
 import { MappingConfigService, Source } from 'lambdaorm-base'
 import { LanguageBase, NoSqlDDLBuilder } from '../../../../language/infrastructure'
 import config from './config.json'

@@ -1,6 +1,6 @@
 import { Include, Query } from '../../../../query/domain'
 import { Connection } from '../../../../connection/domain'
-import { DialectService } from '../../../../language/application'
+import { DialectService } from '../../../../language/domain'
 import { MappingConfigService, QueryOptions, EntityMapping, Data, RelationType } from 'lambdaorm-base'
 import { QueryInternalExecutor } from './queryInternalExecutor'
 

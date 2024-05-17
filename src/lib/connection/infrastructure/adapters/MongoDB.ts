@@ -7,7 +7,7 @@ import { ConnectionConfig, Connection } from '../../domain'
 import { SchemaError, RelationType, EntityMapping, MethodNotImplemented, Data, MappingConfigService, Entity, CreateEntitiesService } from 'lambdaorm-base'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
-import { DialectService } from '../../../language/application'
+import { DialectService } from '../../../language/domain'
 import { OrmH3lp } from '../../../shared/infrastructure'
 
 export class MongoDBConnectionPoolAdapter extends ConnectionPoolAdapter {

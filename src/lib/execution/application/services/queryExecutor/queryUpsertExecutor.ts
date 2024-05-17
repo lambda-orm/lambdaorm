@@ -1,6 +1,6 @@
 import { Query } from '../../../../query/domain'
 import { Connection } from '../../../../connection/domain'
-import { DialectService } from '../../../../language/application'
+import { DialectService } from '../../../../language/domain'
 import { MappingConfigService, Data, EntityMapping } from 'lambdaorm-base'
 import { QueryInsertExecutor } from './queryInsertExecutor'
 export class QueryUpsertExecutor extends QueryInsertExecutor {

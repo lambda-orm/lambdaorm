@@ -6,7 +6,7 @@ import { ConnectionAdapter } from './base/connection'
 import { Query } from '../../../query/domain'
 import { ConnectionConfig, Connection } from '../../domain'
 import { MappingConfigService, Data, EntityMapping } from 'lambdaorm-base'
-import { DialectService } from '../../../language/application'
+import { DialectService } from '../../../language/domain'
 import { OrmH3lp } from '../../../shared/infrastructure'
 
 const DECIMAL = 0

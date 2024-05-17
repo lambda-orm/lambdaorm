@@ -1,4 +1,5 @@
-import { DdlBuilder, DialectService, LanguagesService } from '../../../language/application'
+import { LanguagesService } from '../../../language/application'
+import { DdlBuilder, DialectService } from '../../../language/domain'
 import { SchemaState, QueryOptions, Source, EntityMapping, Mapping, RelationType, SchemaHelper } from 'lambdaorm-base'
 import { Executor } from '../../../execution/domain'
 

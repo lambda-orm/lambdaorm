@@ -3,7 +3,7 @@ import { Primitive } from 'typ3s'
 import { SentenceCategory, Source, SintaxisError, Field, Sentence, Page, MappingConfigService } from 'lambdaorm-base'
 import { Query } from '../../../../query/domain'
 import { OrmH3lp } from '../../../../shared/infrastructure'
-import { DialectService, DmlBuilder } from '../../../../language/application'
+import { DmlBuilder, DialectService } from '../../../../language/domain'
 
 export abstract class DmlBuilderBase implements DmlBuilder {
 	// eslint-disable-next-line no-useless-constructor

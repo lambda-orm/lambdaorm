@@ -1,7 +1,7 @@
 import { Query } from '../../../query/domain'
 import { ConnectionConfig } from '../../domain'
 import { MappingConfigService, Data } from 'lambdaorm-base'
-import { DialectService } from '../../../language/application'
+import { DialectService } from '../../../language/domain'
 export interface Connection {
 	id: string
 	cnx: any

@@ -5,7 +5,7 @@ import { OrmH3lp } from '../../../../shared/infrastructure'
 import { Parameter } from '3xpr'
 import { Primitive } from 'typ3s'
 import { MappingConfigService, MethodNotImplemented, Data, EntityMapping } from 'lambdaorm-base'
-import { DialectService } from '../../../../language/application'
+import { DialectService } from '../../../../language/domain'
 
 export abstract class ConnectionAdapter implements Connection {
 	public inTransaction: boolean

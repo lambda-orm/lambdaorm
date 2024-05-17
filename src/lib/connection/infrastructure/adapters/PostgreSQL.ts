@@ -5,7 +5,7 @@ import { OrmH3lp } from '../../../shared/infrastructure'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
 import { MappingConfigService, Data, LogLevel } from 'lambdaorm-base'
-import { DialectService } from '../../../language/application'
+import { DialectService } from '../../../language/domain'
 import { Query } from '../../../query/domain'
 
 // https://node-postgres.com/features/connecting

@@ -1,6 +1,5 @@
 import { NotImplemented } from 'lambdaorm-base'
-import { Language } from '../ports/language'
-import { DialectService } from './dialectService'
+import { Language, DialectService } from '../../domain'
 
 export class LanguagesService {
 	public dialects: any

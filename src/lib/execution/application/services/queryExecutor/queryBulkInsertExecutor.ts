@@ -1,6 +1,6 @@
 import { Query, Include } from '../../../../query/domain'
 import { ExecutionError, Connection } from '../../../../connection/domain'
-import { DialectService } from '../../../../language/application'
+import { DialectService } from '../../../../language/domain'
 import { QueryOptions, MappingConfigService, RelationType, EntityMapping, Data } from 'lambdaorm-base'
 import { Expressions } from '3xpr'
 import { QueryInternalExecutor } from './queryInternalExecutor'

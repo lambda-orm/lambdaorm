@@ -4,10 +4,9 @@ import {
 } from 'lambdaorm-base'
 import { Query } from '../../../query/domain'
 import { Delta, ChangedValue } from 'h3lp'
-import { DdlBuilder } from '../ports/DdlBuilder'
+import { DdlBuilder, DialectService } from '../../domain'
 import { OrmH3lp } from '../../../shared/infrastructure'
 import { LanguagesService } from './languagesService'
-import { DialectService } from './dialectService'
 
 export class DDLBuilderService {
 	private domain: DomainConfigService

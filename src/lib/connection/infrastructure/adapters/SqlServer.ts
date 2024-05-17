@@ -7,8 +7,8 @@ import { ConnectionConfig, Connection } from '../../domain'
 import { OrmH3lp } from '../../../shared/infrastructure'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
-import { MappingConfigService, Data, EntityMapping, LogLevel } from 'lambdaorm-base'
-import { DialectService } from '../../../language/application'
+import { MappingConfigService, Data, LogLevel } from 'lambdaorm-base'
+import { DialectService } from '../../../language/domain'
 
 export class SqlServerConnectionPoolAdapter extends ConnectionPoolAdapter {
 	public static lib: any
