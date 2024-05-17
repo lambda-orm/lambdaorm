@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Query } from '../../../../query/domain'
-import { ConnectionConfig } from '../../../domain'
+import { ConnectionConfig, Connection } from '../../../domain'
 import { OrmH3lp } from '../../../../shared/infrastructure'
 import { Parameter } from '3xpr'
 import { Primitive } from 'typ3s'
-import { Connection } from '../../../application'
 import { MappingConfigService, MethodNotImplemented, Data, EntityMapping } from 'lambdaorm-base'
 import { DialectService } from '../../../../language/application'
 

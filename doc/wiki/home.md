@@ -62,8 +62,19 @@ The include allows us to obtain the entity data and its relationships in the sam
 In this example the query is expressed as a text string. (Which is another alternative to the lambda expression)
 
 ```Typescript
-const params = { id: 102 };
-const result = await orm.execute('Orders.filter(p=>p.id==id).include(p=>[p.details,p.customer])', params );
+const query = 
+`Orders.filter(p => p.id === id)
+       .include(p => 
+          [ p.customer.map(p => p.name), 
+            p.details.include(p => 
+                        p.product.include(p => p.category.map(p => p.name))
+                                 .map(p => p.name))
+                      .map(p => [p.quantity, p.unitPrice])
+    ]
+  )
+`
+const params = { id: 102 }
+const result = await orm.execute(query, params )
 ```
 
 **more info:** [include](https://github.com/lambda-orm/lambdaorm/wiki/Include)

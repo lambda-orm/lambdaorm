@@ -1,6 +1,5 @@
 import { OrmH3lp } from '../../../shared/infrastructure'
-import { ConnectionConfig, ConnectionError } from '../../domain'
-import { ConnectionPool } from '../ports/connectionPool'
+import { ConnectionConfig, ConnectionError, ConnectionPool } from '../../domain'
 
 export class DialectPoolService {
 	private dialectsPool:any

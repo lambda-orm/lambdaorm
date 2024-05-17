@@ -1,5 +1,5 @@
 import { Query } from '../../../../query/domain'
-import { Connection } from '../../../../connection/application'
+import { Connection } from '../../../../connection/domain'
 import { DialectService } from '../../../../language/application'
 import { MappingConfigService, EntityMapping, Data } from 'lambdaorm-base'
 import { QueryBulkInsertExecutor } from './queryBulkInsertExecutor'

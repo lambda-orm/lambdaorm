@@ -1,5 +1,4 @@
-import { ConnectionConfig, ConnectionError } from '../../domain'
-import { ConnectionPool } from '../ports/connectionPool'
+import { ConnectionConfig, ConnectionError, ConnectionPool } from '../../domain'
 import { DialectPoolService } from './dialectPoolService'
 
 export class ConnectionPoolService {

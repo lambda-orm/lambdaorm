@@ -1,5 +1,5 @@
 import { Query, Include } from '../../../../query/domain'
-import { Connection } from '../../../../connection/application'
+import { Connection } from '../../../../connection/domain'
 import { DialectService } from '../../../../language/application'
 import { QueryOptions, MappingConfigService, Data, RelationType } from 'lambdaorm-base'
 import { Expressions } from '3xpr'

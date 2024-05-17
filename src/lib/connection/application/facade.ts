@@ -1,5 +1,4 @@
-import { ConnectionConfig } from '../domain'
-import { Connection } from './ports/connection'
+import { ConnectionConfig, Connection } from '../domain'
 import { ConnectionPoolService } from './services/connectionPoolService'
 import { DialectPoolService } from './services/dialectPoolService'
 import { AcquireConnection } from './useCases/acquire'

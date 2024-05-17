@@ -1,4 +1,4 @@
-import { Connection } from '../ports/connection'
+import { Connection } from '../../domain'
 import { ConnectionPoolService } from '../services/connectionPoolService'
 
 export class ReleaseConnection {

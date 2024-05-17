@@ -3,11 +3,10 @@
 import { ConnectionPoolAdapter } from './base/connectionPool'
 import { ConnectionAdapter } from './base/connection'
 import { Query, Include } from '../../../query/domain'
-import { ConnectionConfig } from '../../domain'
+import { ConnectionConfig, Connection } from '../../domain'
 import { SchemaError, RelationType, EntityMapping, MethodNotImplemented, Data, MappingConfigService, Entity, CreateEntitiesService } from 'lambdaorm-base'
 import { Parameter } from '3xpr'
 import { Type, Primitive } from 'typ3s'
-import { Connection } from '../../application'
 import { DialectService } from '../../../language/application'
 import { OrmH3lp } from '../../../shared/infrastructure'
 

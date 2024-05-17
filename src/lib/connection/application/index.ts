@@ -1,5 +1,3 @@
-export * from './ports/connectionPool'
-export * from './ports/connection'
 export * from './services/connectionPoolService'
 export * from './services/dialectPoolService'
 export * from './useCases/acquire'

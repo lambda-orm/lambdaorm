@@ -1,5 +1,4 @@
-import { ConnectionConfig } from '../../../domain'
-import { Connection, ConnectionPool } from '../../../application'
+import { ConnectionConfig, Connection, ConnectionPool } from '../../../domain'
 import { OrmH3lp } from '../../../../shared/infrastructure'
 export abstract class ConnectionPoolAdapter implements ConnectionPool {
 	public config:ConnectionConfig

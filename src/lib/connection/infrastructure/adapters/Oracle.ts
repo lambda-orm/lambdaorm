@@ -5,9 +5,8 @@ import { Query } from '../../../query/domain'
 import { OrmH3lp } from '../../../shared/infrastructure'
 import { SchemaError, PropertyMapping, Data, MappingConfigService, EntityMapping } from 'lambdaorm-base'
 import { Type, Primitive } from 'typ3s'
-import { Connection } from '../../application'
 import { DialectService } from '../../../language/application'
-import { ExecutionError } from '../../domain'
+import { ExecutionError, Connection } from '../../domain'
 
 // https://oracle.github.io/node-oracledb/doc/api.html#getstarted
 // https://github.com/oracle/node-oracledb/tree/main/examples
