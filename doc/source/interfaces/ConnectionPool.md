@@ -14,7 +14,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connectionPool.ts:5](https://github.com/lambda-orm/lambdaorm/blob/1ee61a49337aee336b72a3ede70316cdada260eb/src/lib/connection/application/ports/connectionPool.ts#L5)
+[src/lib/connection/domain/ports/connectionPool.ts:5](https://github.com/lambda-orm/lambdaorm/blob/a18b8b74c6a37e9bf429123d2232fbfd3236757c/src/lib/connection/domain/ports/connectionPool.ts#L5)
 
 ## Methods
 
@@ -28,7 +28,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connectionPool.ts:7](https://github.com/lambda-orm/lambdaorm/blob/1ee61a49337aee336b72a3ede70316cdada260eb/src/lib/connection/application/ports/connectionPool.ts#L7)
+[src/lib/connection/domain/ports/connectionPool.ts:7](https://github.com/lambda-orm/lambdaorm/blob/a18b8b74c6a37e9bf429123d2232fbfd3236757c/src/lib/connection/domain/ports/connectionPool.ts#L7)
 
 ***
 
@@ -42,7 +42,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connectionPool.ts:9](https://github.com/lambda-orm/lambdaorm/blob/1ee61a49337aee336b72a3ede70316cdada260eb/src/lib/connection/application/ports/connectionPool.ts#L9)
+[src/lib/connection/domain/ports/connectionPool.ts:9](https://github.com/lambda-orm/lambdaorm/blob/a18b8b74c6a37e9bf429123d2232fbfd3236757c/src/lib/connection/domain/ports/connectionPool.ts#L9)
 
 ***
 
@@ -56,7 +56,7 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connectionPool.ts:6](https://github.com/lambda-orm/lambdaorm/blob/1ee61a49337aee336b72a3ede70316cdada260eb/src/lib/connection/application/ports/connectionPool.ts#L6)
+[src/lib/connection/domain/ports/connectionPool.ts:6](https://github.com/lambda-orm/lambdaorm/blob/a18b8b74c6a37e9bf429123d2232fbfd3236757c/src/lib/connection/domain/ports/connectionPool.ts#L6)
 
 ***
 
@@ -74,4 +74,4 @@
 
 #### Source
 
-[src/lib/connection/application/ports/connectionPool.ts:8](https://github.com/lambda-orm/lambdaorm/blob/1ee61a49337aee336b72a3ede70316cdada260eb/src/lib/connection/application/ports/connectionPool.ts#L8)
+[src/lib/connection/domain/ports/connectionPool.ts:8](https://github.com/lambda-orm/lambdaorm/blob/a18b8b74c6a37e9bf429123d2232fbfd3236757c/src/lib/connection/domain/ports/connectionPool.ts#L8)

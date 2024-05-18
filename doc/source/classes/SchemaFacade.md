@@ -36,7 +36,7 @@
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:20
+node\_modules/lambdaorm-base/schema/application/facade.d.ts:19
 
 ## Properties
 
@@ -46,7 +46,7 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:20
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:12
+node\_modules/lambdaorm-base/schema/application/facade.d.ts:11
 
 ## Methods
 
@@ -64,7 +64,7 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:12
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:26
+node\_modules/lambdaorm-base/schema/application/facade.d.ts:25
 
 ***
 
@@ -84,7 +84,7 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:26
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:21
+node\_modules/lambdaorm-base/schema/application/facade.d.ts:20
 
 ***
 
@@ -104,7 +104,7 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:21
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:22
+node\_modules/lambdaorm-base/schema/application/facade.d.ts:21
 
 ***
 
@@ -126,7 +126,7 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:22
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:23
+node\_modules/lambdaorm-base/schema/application/facade.d.ts:22
 
 ***
 
@@ -148,7 +148,7 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:23
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:24
+node\_modules/lambdaorm-base/schema/application/facade.d.ts:23
 
 ***
 
@@ -166,7 +166,7 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:24
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:27
+node\_modules/lambdaorm-base/schema/application/facade.d.ts:26
 
 ***
 
@@ -188,7 +188,7 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:27
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:25
+node\_modules/lambdaorm-base/schema/application/facade.d.ts:24
 
 ***
 
@@ -208,4 +208,4 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:25
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:28
+node\_modules/lambdaorm-base/schema/application/facade.d.ts:27

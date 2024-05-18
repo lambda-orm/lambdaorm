@@ -22,7 +22,7 @@
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/ports/fileSchemaService.d.ts:3
+node\_modules/lambdaorm-base/schema/domain/ports/fileSchemaService.d.ts:3
 
 ***
 
@@ -42,4 +42,4 @@ node\_modules/lambdaorm-base/schema/application/ports/fileSchemaService.d.ts:3
 
 #### Source
 
-node\_modules/lambdaorm-base/schema/application/ports/fileSchemaService.d.ts:4
+node\_modules/lambdaorm-base/schema/domain/ports/fileSchemaService.d.ts:4

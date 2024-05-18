@@ -34,4 +34,4 @@
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/application/ports/logger.d.ts:6
+node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:6

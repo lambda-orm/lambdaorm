@@ -22,7 +22,7 @@
 
 #### Source
 
-[src/lib/connection/application/services/dialectPoolService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/1ee61a49337aee336b72a3ede70316cdada260eb/src/lib/connection/application/services/dialectPoolService.ts#L7)
+[src/lib/connection/application/services/dialectPoolService.ts:6](https://github.com/lambda-orm/lambdaorm/blob/a18b8b74c6a37e9bf429123d2232fbfd3236757c/src/lib/connection/application/services/dialectPoolService.ts#L6)
 
 ## Methods
 
@@ -42,7 +42,7 @@
 
 #### Source
 
-[src/lib/connection/application/services/dialectPoolService.ts:11](https://github.com/lambda-orm/lambdaorm/blob/1ee61a49337aee336b72a3ede70316cdada260eb/src/lib/connection/application/services/dialectPoolService.ts#L11)
+[src/lib/connection/application/services/dialectPoolService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/a18b8b74c6a37e9bf429123d2232fbfd3236757c/src/lib/connection/application/services/dialectPoolService.ts#L10)
 
 ***
 
@@ -60,4 +60,4 @@
 
 #### Source
 
-[src/lib/connection/application/services/dialectPoolService.ts:15](https://github.com/lambda-orm/lambdaorm/blob/1ee61a49337aee336b72a3ede70316cdada260eb/src/lib/connection/application/services/dialectPoolService.ts#L15)
+[src/lib/connection/application/services/dialectPoolService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/a18b8b74c6a37e9bf429123d2232fbfd3236757c/src/lib/connection/application/services/dialectPoolService.ts#L14)

@@ -14,7 +14,7 @@
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/application/ports/logger.d.ts:3
+node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:3
 
 ***
 
@@ -24,4 +24,4 @@ node\_modules/lambdaorm-base/shared/application/ports/logger.d.ts:3
 
 #### Source
 
-node\_modules/lambdaorm-base/shared/application/ports/logger.d.ts:2
+node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:2
