@@ -81,44 +81,84 @@ Countries.map(p=> {region:p.region,avg:avg(p.latitude)})
 
 ## Sentences
 
+**Lambda:**
+
+Query to get the count of countries in the Americas region
+
 ```js
 Countries.filter(p=> p.region == "Americas").map(p=> {result:count(1)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT COUNT(1) AS result FROM Countries c  WHERE c.region = 'Americas' 
+SELECT COUNT(1) AS result 
+FROM Countries c  
+WHERE c.region = 'Americas' 
 ```
+
+**Lambda:**
+
+Query to get the count of countries in each region
 
 ```js
 Countries.map(p=> {region:p.region,countries:count(1)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT c.region AS region, COUNT(1) AS countries FROM Countries c  GROUP BY c.region 
+SELECT c.region AS region, COUNT(1) AS countries 
+FROM Countries c  
+GROUP BY c.region 
 ```
+
+**Lambda:**
+
+Query to get the maximum latitude of countries in each region
 
 ```js
 Countries.map(p=> {region:p.region,max:max(p.latitude)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT c.region AS region, MAX(c.latitude) AS max FROM Countries c  GROUP BY c.region 
+SELECT c.region AS region, MAX(c.latitude) AS max 
+FROM Countries c  
+GROUP BY c.region 
 ```
+
+**Lambda:**
+
+Query to get the minimum latitude of countries in each region
 
 ```js
 Countries.map(p=> {region:p.region,min:min(p.latitude)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT c.region AS region, MIN(c.latitude) AS min FROM Countries c  GROUP BY c.region 
+SELECT c.region AS region, MIN(c.latitude) AS min 
+FROM Countries c  
+GROUP BY c.region 
 ```
+
+**Lambda:**
+
+Query to get the average latitude of countries in each region
 
 ```js
 Countries.map(p=> {region:p.region,avg:avg(p.latitude)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT c.region AS region, AVG(c.latitude) AS avg FROM Countries c  GROUP BY c.region 
+SELECT c.region AS region, AVG(c.latitude) AS avg 
+FROM Countries c  
+GROUP BY c.region 
 ```
 
 ## Definition

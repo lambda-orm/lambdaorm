@@ -17,44 +17,84 @@
 
 ## Sentences
 
+**Lambda:**
+
+Query to get the count of countries in the Americas region where the latitude is null
+
 ```js
 States.filter(p=> isNull(p.latitude)).map(p=> count(1))
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT COUNT(1) FROM TBL_STATES s  WHERE (s.LATITUDE IS NULL) 
+SELECT COUNT(1) 
+FROM TBL_STATES s  
+WHERE (s.LATITUDE IS NULL) 
 ```
+
+**Lambda:**
+
+Query to get the count of countries in the Americas region where the latitude is not null
 
 ```js
 States.filter(p=> isNotNull(p.latitude)).map(p=> count(1))
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT COUNT(1) FROM TBL_STATES s  WHERE (s.LATITUDE IS NOT NULL) 
+SELECT COUNT(1) 
+FROM TBL_STATES s  
+WHERE (s.LATITUDE IS NOT NULL) 
 ```
+
+**Lambda:**
+
+Query to get the count of countries in the Americas region where the latitude is null or -100
 
 ```js
 States.filter(p=> nvl(p.latitude,-100)== -100).map(p=> count(1))
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT COUNT(1) FROM TBL_STATES s  WHERE (CASE WHEN s.LATITUDE IS NOT NULL THEN s.LATITUDE ELSE -100 END) = -100 
+SELECT COUNT(1) 
+FROM TBL_STATES s  
+WHERE (CASE WHEN s.LATITUDE IS NOT NULL THEN s.LATITUDE ELSE -100 END) = -100 
 ```
+
+**Lambda:**
+
+Query to get the native name or "???" if it is null the country with iso3 code "CIV"
 
 ```js
 Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl(p.native,"???")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT IFNULL(c.native,'???') AS native FROM Countries c  WHERE c.iso3 = 'CIV' 
+SELECT IFNULL(c.native,'???') AS native 
+FROM Countries c  
+WHERE c.iso3 = 'CIV' 
 ```
+
+**Lambda:**
+
+Query to get the native name or "is null" if it is null the country with iso3 code "CIV"
 
 ```js
 Countries.filter(p=> p.iso3 == "CIV" ).map(p=> {native: nvl2(p.native,"is not null","is null")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT (CASE WHEN c.native IS NOT NULL THEN 'is not null' ELSE 'is null' END) AS native FROM Countries c  WHERE c.iso3 = 'CIV' 
+SELECT (CASE WHEN c.native IS NOT NULL THEN 'is not null' ELSE 'is null' END) AS native 
+FROM Countries c  
+WHERE c.iso3 = 'CIV' 
 ```
 
 ## Definition

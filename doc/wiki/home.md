@@ -62,19 +62,69 @@ The include allows us to obtain the entity data and its relationships in the sam
 In this example the query is expressed as a text string. (Which is another alternative to the lambda expression)
 
 ```Typescript
-const query = 
-`Orders.filter(p => p.id === id)
-       .include(p => 
-          [ p.customer.map(p => p.name), 
-            p.details.include(p => 
-                        p.product.include(p => p.category.map(p => p.name))
-                                 .map(p => p.name))
-                      .map(p => [p.quantity, p.unitPrice])
+import { orm } from '../../lib'
+(async () => {
+  try {
+    await orm.init('./config/northwind.yaml')
+    const query = `Orders
+	.filter(p => p.id === id)
+	.include(p => 
+	  [ p.customer.map(p => p.name), 
+	    p.details
+             .include(p => 
+                 p.product
+  	          .include(p => p.category.map(p => p.name))
+		  .map(p => p.name))
+	     .map(p => [p.quantity, p.unitPrice])
+	   ]
+         )`
+	const params = { id: 102 }
+	const result = await orm.execute(query, params, { stage: 'PostgreSQL' })
+	console.log(JSON.stringify(result, null, 2))
+   } catch (error:any) {
+	console.error(error.message)
+   } finally {
+       await orm.end()
+   }
+})()
+```
+
+**Result:**
+
+```json
+[
+  {
+    "id": 102,
+    "customerId": "SPLIR",
+    "employeeId": 7,
+    "orderDate": "1996-11-07T23:00:00.000Z",
+    "requiredDate": "1996-12-05T23:00:00.000Z",
+    "shippedDate": "1996-11-14T23:00:00.000Z",
+    "shipViaId": 1,
+    "freight": 8.63,
+    "name": "Split Rail Beer & Ale",
+    "address": "P.O. Box 555",
+    "city": "Lander",
+    "region": "WY",
+    "postalCode": "82520",
+    "country": "USA",
+    "customer": {
+      "name": "Split Rail Beer & Ale"
+    },
+    "details": [
+      {
+        "quantity": 24,
+        "unitPrice": 5.9,
+        "product": {
+          "name": "Tourtire",
+          "category": {
+            "name": "Meat/Poultry"
+          }
+        }
+      }
     ]
-  )
-`
-const params = { id: 102 }
-const result = await orm.execute(query, params )
+  }
+]
 ```
 
 **more info:** [include](https://github.com/lambda-orm/lambdaorm/wiki/Include)

@@ -70,244 +70,484 @@
 
 ## Sentences
 
+**Lambda:**
+
+Query to get the result of 3+2-1
+
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 3+2-1 })
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ((3 + 2) - 1) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ((3 + 2) - 1) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the result of 3*4-1
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 3*4-1})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ((3 * 4) - 1) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ((3 * 4) - 1) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the result of 1-2-5
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 1-2-5})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ((1 - 2) - 5) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ((1 - 2) - 5) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the result of (2+3)*2
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: (2+3)*2})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ((2 + 3) * 2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ((2 + 3) * 2) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the result of 2*(3+2)
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 2*(3+2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT (2 * (3 + 2)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT (2 * (3 + 2)) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the result of 1+2*3*4
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 1+2*3*4})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT (1 + ((2 * 3) * 4)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT (1 + ((2 * 3) * 4)) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the result of (1+(2**3)*4)
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: (1+(2**3)*4)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT (1 + (POWER(2,3) * 4)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT (1 + (POWER(2,3) * 4)) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the result of 1+2**(3*4)
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: 1+2**(3*4)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT (1 + POWER(2,(3 * 4))) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT (1 + POWER(2,(3 * 4))) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the absolute value of -9
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: abs(-9)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ABS(-9) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ABS(-9) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the arc cosine of 0.434
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: acos(0.434)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ACOS(0.434) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ACOS(0.434) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the arc sine of 0.434
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: asin(0.434)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ASIN(0.434) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ASIN(0.434) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the arc tangent of 2
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: atan(2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ATAN(2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ATAN(2) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the arc tangent of 90 and 15
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: atan2(90, 15)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ATAN(90,15) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ATAN(90,15) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the smallest following integer of 2
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: ceil(2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT CEIL(2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT CEIL(2) AS result
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the cosine of 2
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: cos(2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT COS(2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT COS(2) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the hyperbolic cosine of 2
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: cosh(2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ((EXP(2) + EXP(-2)) / 2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ((EXP(2) + EXP(-2)) / 2) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get e to the nth power of 7
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: exp(7)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT EXP(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT EXP(7) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the largest preceding integer of 7
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: floor(7)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT FLOOR(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT FLOOR(7) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the natural logarithm of 7
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: ln(7)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT LN(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT LN(7) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the logarithm, base 7, of 10
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: log(7,10)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT LOG(7,10) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT LOG(7,10) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the base 10 logarithm of 7
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: log10(7)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT LOG10(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT LOG10(7) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the remainder of 7 and 2
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: remainder(7,2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT (7 - 2*ROUND(7/2)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT (7 - 2*ROUND(7/2)) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the rounded value of 7.984938 with 2 decimals
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: round(7.984938,2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ROUND(7.984938,2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ROUND(7.984938,2) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the sign of -7
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: sign(-7)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT SIGN(-7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT SIGN(-7) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the sine of 7
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: sin(7)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT SIN(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT SIN(7) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the hyperbolic sine of 7
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: sinh(7)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ((EXP(7) - EXP(-7)) / 2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ((EXP(7) - EXP(-7)) / 2) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the tangent of 7
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: tan(7)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT TAN(7) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT TAN(7) AS result 
+FROM Countries c 
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the hyperbolic tangent of 7
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: tanh(7)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT (EXP(2*7) - 1)/(EXP(2*7) + 1) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT (EXP(2*7) - 1)/(EXP(2*7) + 1) AS result 
+FROM Countries c 
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the truncated value of 7.984938
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: trunc(7.984938,2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT TRUNCATE(7.984938,2) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT TRUNCATE(7.984938,2) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to convert the string "3.141516" to number
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: toNumber("3.141516")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT CONVERT('3.141516', DECIMAL) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT CONVERT('3.141516', DECIMAL) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
 
 ## Definition

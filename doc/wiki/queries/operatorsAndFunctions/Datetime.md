@@ -72,260 +72,515 @@
 
 ## Sentences
 
+**Lambda:**
+
+Query to select the current date from the Countries entity where the iso3 is equal to "BRA".
+
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:today()})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT CURDATE() AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT CURDATE() AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the current dateTime from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:now()})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT NOW() AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT NOW() AS result 
+FROM Countries c 
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the current time from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:curTime()})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT CURTIME() AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT CURTIME() AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the time from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:time("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT CONVERT('2021-09-06T14:39:11.444Z', TIME) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT CONVERT('2021-09-06T14:39:11.444Z', TIME) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the date from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:date("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT CONVERT('2021-09-06T14:39:11.444Z', DATE) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT CONVERT('2021-09-06T14:39:11.444Z', DATE) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the dateTime from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dateTime("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT CONVERT('2021-09-06T14:39:11.444Z', DATETIME) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT CONVERT('2021-09-06T14:39:11.444Z', DATETIME) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the date as string from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dateToString(dateTime("2021-09-06T14:39:11.444Z"))})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DATE_FORMAT(CONVERT('2021-09-06T14:39:11.444Z', DATETIME), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DATE_FORMAT(CONVERT('2021-09-06T14:39:11.444Z', DATETIME), '%Y-%m-%dT%TZ') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the year from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:year("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT EXTRACT(YEAR FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT EXTRACT(YEAR 
+FROM '2021-09-06T14:39:11.444Z') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the month from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:month("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT EXTRACT(MONTH FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT EXTRACT(MONTH FROM '2021-09-06T14:39:11.444Z') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the day from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:day("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DAYOFMONTH('2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DAYOFMONTH('2021-09-06T14:39:11.444Z') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the date of week from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:weekday("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DAYOFWEEK('2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DAYOFWEEK('2021-09-06T14:39:11.444Z') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the hour from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:hour("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT EXTRACT(HOUR FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT EXTRACT(HOUR FROM '2021-09-06T14:39:11.444Z') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the minute from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:minute("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT EXTRACT(MINUTE FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT EXTRACT(MINUTE FROM '2021-09-06T14:39:11.444Z') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the second from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:second("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT EXTRACT(SECOND FROM '2021-09-06T14:39:11.444Z') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT EXTRACT(SECOND FROM '2021-09-06T14:39:11.444Z') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to select the millisecond from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:millisecond("2021-09-06T14:39:11.444Z")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ROUND(EXTRACT(MICROSECOND FROM '2021-09-06T14:39:11.444Z')/1000,0) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ROUND(EXTRACT(MICROSECOND FROM '2021-09-06T14:39:11.444Z')/1000,0) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to add years to a date from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addYear("2021-09-06T14:39:11.444Z",2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 YEAR) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 YEAR) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to add months to a date from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addMonth("2021-09-06T14:39:11.444Z",2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 MONTH) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 MONTH) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to add days to a date from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addDay("2021-09-06T14:39:11.444Z",2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 DAY) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL 2 DAY) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to add hours to a date from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addHour("2021-09-06T14:39:11.444Z",2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT '2021-09-06T14:39:11.444Z' + interval '2' HOUR AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT '2021-09-06T14:39:11.444Z' + interval '2' HOUR AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to add minutes to a date from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addMinute("2021-09-06T14:39:11.444Z",2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT '2021-09-06T14:39:11.444Z' + interval '2' MINUTE AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT '2021-09-06T14:39:11.444Z' + interval '2' MINUTE AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to add seconds to a date from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addSecond("2021-09-06T14:39:11.444Z",2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT '2021-09-06T14:39:11.444Z' + interval '2' SECOND AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT '2021-09-06T14:39:11.444Z' + interval '2' SECOND AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to add milliseconds to a date from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addMillisecond("2021-09-06T14:39:11.444Z",2)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL (2 * 1000) MICROSECOND) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DATE_ADD('2021-09-06T14:39:11.444Z', INTERVAL (2 * 1000) MICROSECOND) AS result 
+FROM Countries c 
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to add time to a date from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:addTime("2021-09-06T14:39:11.444Z","08:22:12")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ADDTIME('2021-09-06T14:39:11.444Z','08:22:12') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ADDTIME('2021-09-06T14:39:11.444Z','08:22:12') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to subtract time to a date from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:subtractTime("2021-09-06T14:39:11.444Z","08:22:12")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT SUBTIME('2021-09-06T14:39:11.444Z','08:22:12') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT SUBTIME('2021-09-06T14:39:11.444Z','08:22:12') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the difference between two dates in days from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dayDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DATEDIFF('2021-09-06T14:39:11','2021-09-02T12:30:10') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DATEDIFF('2021-09-06T14:39:11','2021-09-02T12:30:10') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the difference between two dates in hours from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:hourDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT TIMESTAMPDIFF(HOUR, '2021-09-02T12:30:10','2021-09-06T14:39:11') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT TIMESTAMPDIFF(HOUR, '2021-09-02T12:30:10','2021-09-06T14:39:11') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the difference between two dates in seconds from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:secondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT TIMESTAMPDIFF(SECOND, '2021-09-02T12:30:10','2021-09-06T14:39:11') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT TIMESTAMPDIFF(SECOND, '2021-09-02T12:30:10','2021-09-06T14:39:11') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:millisecondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT ROUND(TIMESTAMPDIFF(MICROSECOND, '2021-09-02T12:30:10','2021-09-06T14:39:11')/1000,0) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT ROUND(TIMESTAMPDIFF(MICROSECOND, '2021-09-02T12:30:10','2021-09-06T14:39:11')/1000,0) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the date from days from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:dayToDate(2000)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DATE_FORMAT(FROM_UNIXTIME(2000*24*3600), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DATE_FORMAT(FROM_UNIXTIME(2000*24*3600), '%Y-%m-%dT%TZ') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the date from hours from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:hourToDate(2000)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DATE_FORMAT(FROM_UNIXTIME(2000*3600), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DATE_FORMAT(FROM_UNIXTIME(2000*3600), '%Y-%m-%dT%TZ') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the date from seconds from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:secondToDate(2000)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DATE_FORMAT(FROM_UNIXTIME(2000), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DATE_FORMAT(FROM_UNIXTIME(2000), '%Y-%m-%dT%TZ') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the date from milliseconds from the Countries entity where the iso3 is equal to "BRA".
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result:millisecondToDate(2000)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT DATE_FORMAT(FROM_UNIXTIME(2000/1000), '%Y-%m-%dT%TZ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT DATE_FORMAT(FROM_UNIXTIME(2000/1000), '%Y-%m-%dT%TZ') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
 
 ## Definition

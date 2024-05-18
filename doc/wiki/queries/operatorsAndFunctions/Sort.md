@@ -60,28 +60,55 @@ Countries.map(p=> {region:p.region,max:max(p.latitude)}).sort(p=> asc(p.max))
 
 ## Sentences
 
+**Lambda:**
+
+Query to get the count of countries in each region
+
 ```js
 Countries.map(p=> {region:p.region,countries:count(1)}).sort(p=> p.countries)
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT c.region AS region, COUNT(1) AS countries FROM Countries c  GROUP BY c.region ORDER BY countries asc 
+SELECT c.region AS region, COUNT(1) AS countries 
+FROM Countries c  
+GROUP BY c.region 
+ORDER BY countries asc 
 ```
+
+**Lambda:**
+
+Query to get the iso3 codes of countries in the South America subregion in descending order
 
 ```js
 Countries.filter(p=> p.subregion == "South America").map(p=> p.iso3).sort(p=> desc(iso3))
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT c.iso3 AS iso3 FROM Countries c  WHERE c.subregion = 'South America' ORDER BY ? desc 
+SELECT c.iso3 AS iso3 
+FROM Countries c  
+WHERE c.subregion = 'South America' 
+ORDER BY ? desc 
 ```
+
+**Lambda:**
+
+Query to get the maximum latitude of countries in each region
 
 ```js
 Countries.map(p=> {region:p.region,max:max(p.latitude)}).sort(p=> asc(p.max))
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT c.region AS region, MAX(c.latitude) AS max FROM Countries c  GROUP BY c.region ORDER BY max asc 
+SELECT c.region AS region, MAX(c.latitude) AS max 
+FROM Countries c  
+GROUP BY c.region 
+ORDER BY max asc 
 ```
 
 ## Definition

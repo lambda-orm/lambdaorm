@@ -14,28 +14,52 @@
 
 ## Sentences
 
+**Lambda:**
+
+Query to get the count of countries in the Americas region
+
 ```js
 Countries.filter(p=> p.subregion == "South America" &&  p.longitude < -30 ).map(p=> {result:count(1)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT COUNT(1) AS result FROM Countries c  WHERE (c.subregion = 'South America' AND c.longitude < -30) 
+SELECT COUNT(1) AS result 
+FROM Countries c  
+WHERE (c.subregion = 'South America' AND c.longitude < -30) 
 ```
+
+**Lambda:**
+
+Query to get the count of countries in each region
 
 ```js
 Countries.filter(p=> p.subregion == "South America" || p.subregion == "Central America" ).map(p=> {result:count(1)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT COUNT(1) AS result FROM Countries c  WHERE (c.subregion = 'South America' OR c.subregion = 'Central America') 
+SELECT COUNT(1) AS result 
+FROM Countries c  
+WHERE (c.subregion = 'South America' OR c.subregion = 'Central America') 
 ```
+
+**Lambda:**
+
+Query to get the maximum latitude of countries in each region
 
 ```js
 Countries.filter(p=> p.region == "Americas" &&  p.subregion != "Northern America" ).map(p=> {result:count(1)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT COUNT(1) AS result FROM Countries c  WHERE (c.region = 'Americas' AND c.subregion <> 'Northern America') 
+SELECT COUNT(1) AS result 
+FROM Countries c  
+WHERE (c.region = 'Americas' AND c.subregion <> 'Northern America') 
 ```
 
 ## Definition

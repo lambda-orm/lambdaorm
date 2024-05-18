@@ -22,17 +22,17 @@ export async function apply (stages: string[], callback: any) {
 		for (const p in stages) {
 			const stage = stages[p]
 			await orm.stage.drop({ stage, tryAllCan: true }).execute()
-			await orm.stage.push({ stage }).execute()
+			await orm.stage.push({ stage, tryAllCan: true }).execute()
 			await stageImport('Source', stage)
 			await stageExport(stage)
 		}
-		await orm.end()
 	} catch (error) {
 		console.error(error)
 	} finally {
+		await orm.end()
 		callback()
 	}
 }
-// apply(['MySQL'], function () { console.log('end') })
+apply(['PostgreSQL'], function () { console.log('end') })
 // apply(['MySQL', 'MariaDB', 'PostgreSQL', 'SqlServer', 'Oracle', 'MongoDB'], function () { console.log('end') })
 // apply(['MySQL'], function () { console.log('end') })

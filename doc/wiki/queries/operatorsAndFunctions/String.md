@@ -38,116 +38,228 @@
 
 ## Sentences
 
+**Lambda:**
+
+Query to get the subregion in lowercase for the country with the iso3 code "BRA"
+
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: lower(p.subregion) })
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT LOWER(c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT LOWER(c.subregion) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the subregion in uppercase for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: upper(p.subregion) })
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT UPPER(c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT UPPER(c.subregion) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the region and subregion concatenated for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: concat(p.region," ",p.subregion) })
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT CONCAT(CONCAT(c.region,' '),c.subregion) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT CONCAT(CONCAT(c.region,' '),c.subregion) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the region left-padded with "_" for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: lpad(p.region,12,"_") })
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT LPAD(c.region,12,'_') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT LPAD(c.region,12,'_') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the region right-padded with "_" for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: rpad(p.region,12,"_") })
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT RPAD(c.region,12,'_') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT RPAD(c.region,12,'_') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the character "D" from ASCII code 68 for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: chr(68)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT CHAR(68 USING ASCII) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT CHAR(68 USING ASCII) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the subregion with leading spaces removed for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: ltrim("  a  ")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT LTRIM('  a  ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT LTRIM('  a  ') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the subregion with trailing spaces removed for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: rtrim("  a  ")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT RTRIM('  a  ') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT RTRIM('  a  ') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the region with "a" replaced by "*" for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: replace(p.region,"a","*")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT REPLACE(c.region,'a','*') AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT REPLACE(c.region,'a','*') AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the subregion masked for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: mask(p.subregion)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT Concat(LEFT(c.subregion,3),'***',RIGHT(c.subregion,3)) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT Concat(LEFT(c.subregion,3),'***',RIGHT(c.subregion,3)) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the first 3 characters of the subregion for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: substr(p.subregion,1,3)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT SUBSTR(c.subregion,1,3) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT SUBSTR(c.subregion,1,3) AS result
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the first 3 characters of the subregion for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: substring(p.subregion,1,3)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT SUBSTR(c.subregion,1,3) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT SUBSTR(c.subregion,1,3) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the count of "a" in the subregion for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: strCount(p.subregion,"a")})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT (LENGTH(c.subregion)-LENGTH(REPLACE(c.subregion,'a',''))) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT (LENGTH(c.subregion)-LENGTH(REPLACE(c.subregion,'a',''))) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
+
+**Lambda:**
+
+Query to get the latitude as string for the country with the iso3 code "BRA"
 
 ```js
 Countries.filter(p=> p.iso3 == "BRA").map(p=> {result: toString(p.latitude)})
 ```
 
+**SQL Result:**
+
 ```sql
-SELECT CONVERT(c.latitude, CHAR) AS result FROM Countries c  WHERE c.iso3 = 'BRA' 
+SELECT CONVERT(c.latitude, CHAR) AS result 
+FROM Countries c  
+WHERE c.iso3 = 'BRA' 
 ```
 
 ## Definition
