@@ -11,7 +11,7 @@ export class StagePull extends StageActionDDL {
 	public async execute (): Promise<ExecuteResult[]> {
 		const queries = await this.queries()
 		await this.stageModelService.update(this.options.stage as string, { mappings: this.schemaState.mapping.mappings })
-		await this.stageModelService.ddl(this.options.stage as string, 'pull', queries)
+		await this.stageModelService.ddl('pull', queries)
 		return []
 	}
 }

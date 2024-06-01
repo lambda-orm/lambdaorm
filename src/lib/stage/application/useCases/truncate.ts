@@ -13,7 +13,7 @@ export class StageTruncate extends StageActionDDL {
 	public override async execute (): Promise<ExecuteResult[]> {
 		const queries = await this.queries()
 		const result = await this.executor.executeList(queries, this.options)
-		await this.stageModelService.ddl(this.options.stage as string, 'trunc', queries)
+		await this.stageModelService.ddl('trunc', queries)
 		return result
 	}
 }

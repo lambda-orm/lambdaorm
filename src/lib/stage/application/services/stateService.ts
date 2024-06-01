@@ -56,7 +56,7 @@ export class StageModelService extends StageStateService<ModelConfig> {
 		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.state || 'orm_state', `${name}-model.json`)
 	}
 
-	public async ddl (stage: string, action: string, queries: Query[]): Promise<void> {
+	public async ddl (action: string, queries: Query[]): Promise<void> {
 		const sources: any[] = []
 		for (const i in queries) {
 			const query = queries[i]
@@ -69,18 +69,27 @@ export class StageModelService extends StageStateService<ModelConfig> {
 		}
 		for (const i in sources) {
 			const source = sources[i]
-			const logFile = this.ddlFile(stage, action, source)
+			const ddlFile = this.ddlFile(action, source)
 			const data = source.queries.map((p: Query) => p.sentence).join(';\n') + ';'
-			await this.helper.fs.write(logFile, data)
+			await this.helper.fs.write(ddlFile, data)
 		}
 	}
 
-	private ddlFile (stage: string, action:string, source:any) {
-		let date = new Date().toISOString()
+	private ddlFile (action:string, source:any) {
 		const extension = [Dialect.MongoDB].includes(source.dialect) ? 'json' : 'sql'
-		date = this.helper.str.replace(date, ':', '')
-		date = this.helper.str.replace(date, '.', '')
-		date = this.helper.str.replace(date, '-', '')
-		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.state || 'orm_state', `${stage}-ddl-${date}-${action}-${source.name}.${extension}`)
+		const sequential = this.getSequential()
+		return this.helper.fs.join(this.schemaDirPath, this.schemaState.schema.infrastructure?.paths?.state || 'orm_state', source.name, `V${sequential}__${action}.${extension}`)
+	}
+
+	private getSequential () {
+		const date = new Date()
+		const pad = (number:number) => String(number).padStart(2, '0')
+		const year = String(date.getFullYear()).slice(-2)
+		const month = pad(date.getMonth() + 1)
+		const day = pad(date.getDate())
+		const hours = pad(date.getHours())
+		const minutes = pad(date.getMinutes())
+		const seconds = pad(date.getSeconds())
+		return `${year}${month}${day}${hours}${minutes}${seconds}`
 	}
 }
