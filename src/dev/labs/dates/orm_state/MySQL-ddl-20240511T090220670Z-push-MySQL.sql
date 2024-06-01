@@ -1,1 +1,0 @@
-CREATE TABLE IF NOT EXISTS Tests (id INTEGER  AUTO_INCREMENT,description VARCHAR(80)  ,testDate DATE  ,testDateTime DATETIME  ,testDateTime2 DATETIME  ,testDateTime3 DATETIME  ,testString VARCHAR(30)  ,CONSTRAINT Tests_PK PRIMARY KEY (id));

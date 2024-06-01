@@ -2,13 +2,11 @@
 
 **Message:**
 
-Hello, good morning.
-My name is Flavio and I am developing [λORM](https://www.npmjs.com/package/lambdaorm) for NodeJs in TypeScript.
-It would be of great help to me if you could give me your opinion on the project. And you could also exchange ideas about ORM.
+Hi.
+I am developing [λORM](https://www.npmjs.com/package/lambdaorm) in TypeScript.
+I would like to exchange ideas and experiences about ORMs
 
-One of the notable features is the [Include](https://github.com/lambda-orm/lambdaorm/wiki/Include) allows obtaining data on the relationships of an entity in a single query. These data may be in different databases.
-
-From already thank you very much
+Thanks.
 
 **Message to offer me to work in an ORM:**
 
@@ -19,92 +17,6 @@ I have been developing an ORM called [λORM](https://www.npmjs.com/package/lambd
 I hope it meets your expectations and can work for you.
 
 From already thank you very much.
-
-## KTROM - Kotlin ORM
-
- -[ktrom](https://github.com/kotlin-orm/ktorm)
-
-Contacts:
-
-- Vincent Lau
-	- [me@liuwj.me]
-	- [github](https://github.com/vincentlauvlwj)
-	- Email sended 2024-05-13
-
-## TypeORM
-
-- Dmitry Zotov
-	- [dmzt08@gmail.com]
-	- [github](https://github.com/AlexMesser)
-	- Email sended 2024-05-13
-
-- Umed Khudoiberdiev
-	- [pleerock.me@gmail.com]
-	- [github](https://github.com/pleerock)
-	- Email sended 2024-05-13
-
-## knex.js
-
-- [npmjs](https://www.npmjs.com/package/knex)
-- [github](https://github.com/knex/knex)
-
-- Tim Griesser
-	- [tgriesser@gmail.com]
-	- [github](https://github.com/tgriesser)
-	- Email sended 2024-05-13
-
-- Igor Savin
-	- [iselwin@gmail.com]
-	- [GitHub](https://github.com/kibertoad)
-	- Email sended 2024-05-13
-
-- Ezequiel Tojo
-  - [contacto@tojoshan.com.ar]
-	- [github](https://github.com/ezetojo)
-	- Email sended 2024-05-13
-
-## Prisma ORM
-
-- Nilufar Bava
-	- [nilubava@gmail.com]
-	- [GitHub](https://github.com/nilubava)
-	- Email sended 2024-05-24
-
-- Nikolas
-  - [nikolas.burk@gmail.com]
-	- [github](https://github.com/nikolasburk)
-	- Email sended 2024-05-24
-
-- Matej Hrescak
-  - [matej@hrescak.com]
-  - [github](https://github.com/hrescak)
-	- Email sended 2024-05-24
-
-## Objection.js
-
-- Sami Koskimäki
-  - [koskomi@gmail.com]
-	- [github](https://github.com/koskimas)
-
-- Jürg Lehni
-  - [juerg@scratchdisk.com]
-	- [github](https://github.com/lehni)
-
-- Mikael Lepistö
-  - [elhigu@gmail.com]
-	- [github](https://github.com/elhigu)
-
-- Joe Lapp
-  - [arachnojoe@gmail.com]
-	- [github](https://github.com/jtlapp)
-
-- Igor Savin
-  - [iselwin@gmail.com]
-	- [github](https://github.com/kibertoad)
-
-- Patrick Vatterott
-  - [patrick@vitally.io]
-	- [github](https://github.com/pvatterott)
 
 ## LinkedIn
 

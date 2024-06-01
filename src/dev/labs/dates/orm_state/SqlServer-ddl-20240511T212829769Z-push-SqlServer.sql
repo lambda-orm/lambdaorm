@@ -1,1 +1,0 @@
-CREATE TABLE Tests (id INTEGER  IDENTITY (1, 1),description VARCHAR(80)  ,testDate DATE  ,testDateTime DATETIME  ,testDateTime2 DATETIME  ,testDateTimeOffset DATETIME  ,testString VARCHAR(30)  ,PRIMARY KEY (id));
