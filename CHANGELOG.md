@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## [2.3.0](https://github.com/lambda-orm/lambdaorm/compare/v2.2.9...v2.3.0) (2024-06-01)
 
-
-### Features
+**Features:**
 
 * change format state file as flyway ([ab10fb3](https://github.com/lambda-orm/lambdaorm/commit/ab10fb384c2d6085dd4fd7c03b28ba24f70cde83)), closes [#2](https://github.com/lambda-orm/lambdaorm/issues/2)
 
