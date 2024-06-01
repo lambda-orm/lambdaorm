@@ -5,7 +5,7 @@
   "dependencies": {
     "lambdaorm": "^2.2.2",
     "mongodb": "^6.6.1",
-    "mysql2": "^3.9.7",
+    "mysql2": "^3.9.8",
     "oracledb": "^6.5.0",
     "pg": "^8.11.5",
     "tedious": "^18.2.0"
