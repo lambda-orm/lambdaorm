@@ -10,6 +10,24 @@
 
 - `Operand`
 
+## Extended by
+
+- [`Map`](Map.md)
+- [`Filter`](Filter.md)
+- [`GroupBy`](GroupBy.md)
+- [`Having`](Having.md)
+- [`Sort`](Sort.md)
+- [`Page`](Page.md)
+- [`From`](From.md)
+- [`Join`](Join.md)
+- [`Insert`](Insert.md)
+- [`BulkInsert`](BulkInsert.md)
+- [`Update`](Update.md)
+- [`Upsert`](Upsert.md)
+- [`Delete`](Delete.md)
+- [`BulkDelete`](BulkDelete.md)
+- [`BulkMerge`](BulkMerge.md)
+
 ## Constructors
 
 ### new Clause()

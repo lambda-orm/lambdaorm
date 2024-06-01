@@ -10,6 +10,10 @@
 
 - [`QueryAction`](QueryAction.md)
 
+## Extended by
+
+- [`MapClauses`](MapClauses.md)
+
 ## Constructors
 
 ### new PageClauses()

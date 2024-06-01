@@ -10,6 +10,13 @@
 
 - [`MapClauses`](MapClauses.md)\<`T`\>
 
+## Extended by
+
+- [`FilterIncludeClauses`](FilterIncludeClauses.md)
+- [`IncludeClauses`](IncludeClauses.md)
+- [`FilterClauses`](FilterClauses.md)
+- [`Queryable`](Queryable.md)
+
 ## Type parameters
 
 • **T**

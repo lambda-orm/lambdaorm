@@ -10,6 +10,10 @@
 
 - `ExprH3lp`
 
+## Extended by
+
+- [`OrmH3lp`](OrmH3lp.md)
+
 ## Constructors
 
 ### new OrmBaseH3lp()

@@ -10,6 +10,10 @@
 
 - [`PageClauses`](PageClauses.md)
 
+## Extended by
+
+- [`HavingClauses`](HavingClauses.md)
+
 ## Type parameters
 
 • **T**
