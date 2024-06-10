@@ -10,4 +10,4 @@
 
 ## Source
 
-[src/lib/orm/infrastructure/orm.ts:254](https://github.com/lambda-orm/lambdaorm/blob/2cf2f2464c4fe66901565772c5ae4881d9c605d1/src/lib/orm/infrastructure/orm.ts#L254)
+[src/lib/orm/infrastructure/orm.ts:254](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/orm/infrastructure/orm.ts#L254)
