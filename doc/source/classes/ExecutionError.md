@@ -6,7 +6,7 @@
 
 # Class: ExecutionError
 
-Defined in: [src/lib/connection/domain/errors.ts:8](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/connection/domain/errors.ts#L8)
+Defined in: [src/lib/connection/domain/errors.ts:8](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/connection/domain/errors.ts#L8)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/connection/domain/errors.ts:8](https://github.com/lambda-or
 
 > **new ExecutionError**(`source`, `entity`, `sentence`, `message`, `data`): `ExecutionError`
 
-Defined in: [src/lib/connection/domain/errors.ts:9](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/connection/domain/errors.ts#L9)
+Defined in: [src/lib/connection/domain/errors.ts:9](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/connection/domain/errors.ts#L9)
 
 #### Parameters
 

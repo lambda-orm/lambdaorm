@@ -6,7 +6,7 @@
 
 # Class: StageFetch
 
-Defined in: [src/lib/stage/application/useCases/fetch.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/useCases/fetch.ts#L6)
+Defined in: [src/lib/stage/application/useCases/fetch.ts:6](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/stage/application/useCases/fetch.ts#L6)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/stage/application/useCases/fetch.ts:6](https://github.com/l
 
 > **new StageFetch**(`executor`, `schemaState`, `languages`, `helper`, `options`): `StageFetch`
 
-Defined in: [src/lib/stage/application/useCases/fetch.ts:8](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/useCases/fetch.ts#L8)
+Defined in: [src/lib/stage/application/useCases/fetch.ts:8](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/stage/application/useCases/fetch.ts#L8)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [src/lib/stage/application/useCases/fetch.ts:8](https://github.com/l
 
 > **execute**(): `Promise`\<[`Mapping`](../interfaces/Mapping.md)[]\>
 
-Defined in: [src/lib/stage/application/useCases/fetch.ts:16](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/useCases/fetch.ts#L16)
+Defined in: [src/lib/stage/application/useCases/fetch.ts:16](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/stage/application/useCases/fetch.ts#L16)
 
 #### Returns
 
