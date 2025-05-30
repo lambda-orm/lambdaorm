@@ -6,7 +6,7 @@
 
 # Interface: QueryExecutor
 
-Defined in: [src/lib/execution/domain/executor.ts:37](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L37)
+Defined in: [src/lib/execution/domain/executor.ts:37](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/execution/domain/executor.ts#L37)
 
 ## Accessors
 
@@ -16,7 +16,7 @@ Defined in: [src/lib/execution/domain/executor.ts:37](https://github.com/lambda-
 
 > **get** **options**(): [`QueryOptions`](QueryOptions.md)
 
-Defined in: [src/lib/execution/domain/executor.ts:38](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L38)
+Defined in: [src/lib/execution/domain/executor.ts:38](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/execution/domain/executor.ts#L38)
 
 ##### Returns
 
@@ -28,7 +28,7 @@ Defined in: [src/lib/execution/domain/executor.ts:38](https://github.com/lambda-
 
 > **commit**(): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:39](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L39)
+Defined in: [src/lib/execution/domain/executor.ts:39](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/execution/domain/executor.ts#L39)
 
 #### Returns
 
@@ -40,7 +40,7 @@ Defined in: [src/lib/execution/domain/executor.ts:39](https://github.com/lambda-
 
 > **execute**(`query`, `data`): `Promise`\<`any`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:42](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L42)
+Defined in: [src/lib/execution/domain/executor.ts:42](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/execution/domain/executor.ts#L42)
 
 #### Parameters
 
@@ -62,7 +62,7 @@ Defined in: [src/lib/execution/domain/executor.ts:42](https://github.com/lambda-
 
 > **release**(): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:41](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L41)
+Defined in: [src/lib/execution/domain/executor.ts:41](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/execution/domain/executor.ts#L41)
 
 #### Returns
 
@@ -74,7 +74,7 @@ Defined in: [src/lib/execution/domain/executor.ts:41](https://github.com/lambda-
 
 > **rollback**(): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:40](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L40)
+Defined in: [src/lib/execution/domain/executor.ts:40](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/execution/domain/executor.ts#L40)
 
 #### Returns
 

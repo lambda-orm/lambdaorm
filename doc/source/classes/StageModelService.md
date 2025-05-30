@@ -6,7 +6,7 @@
 
 # Class: StageModelService
 
-Defined in: [src/lib/stage/application/services/stateService.ts:50](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L50)
+Defined in: [src/lib/stage/application/services/stateService.ts:50](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/services/stateService.ts#L50)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/stage/application/services/stateService.ts:50](https://gith
 
 > **new StageModelService**(`schemaState`, `helper`): `StageModelService`
 
-Defined in: [src/lib/stage/application/services/stateService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L7)
+Defined in: [src/lib/stage/application/services/stateService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/services/stateService.ts#L7)
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Defined in: [src/lib/stage/application/services/stateService.ts:7](https://githu
 
 > **get** **schemaDirPath**(): `string`
 
-Defined in: [src/lib/stage/application/services/stateService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L9)
+Defined in: [src/lib/stage/application/services/stateService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/services/stateService.ts#L9)
 
 ##### Returns
 
@@ -62,7 +62,7 @@ Defined in: [src/lib/stage/application/services/stateService.ts:9](https://githu
 
 > **ddl**(`action`, `queries`): `Promise`\<`void`\>
 
-Defined in: [src/lib/stage/application/services/stateService.ts:59](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L59)
+Defined in: [src/lib/stage/application/services/stateService.ts:59](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/services/stateService.ts#L59)
 
 #### Parameters
 
@@ -84,7 +84,7 @@ Defined in: [src/lib/stage/application/services/stateService.ts:59](https://gith
 
 > **get**(`name`): `Promise`\<[`ModelConfig`](../interfaces/ModelConfig.md)\>
 
-Defined in: [src/lib/stage/application/services/stateService.ts:13](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L13)
+Defined in: [src/lib/stage/application/services/stateService.ts:13](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/services/stateService.ts#L13)
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: [src/lib/stage/application/services/stateService.ts:13](https://gith
 
 > **getFile**(`name`): `string`
 
-Defined in: [src/lib/stage/application/services/stateService.ts:55](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L55)
+Defined in: [src/lib/stage/application/services/stateService.ts:55](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/services/stateService.ts#L55)
 
 #### Parameters
 
@@ -128,7 +128,7 @@ Defined in: [src/lib/stage/application/services/stateService.ts:55](https://gith
 
 > **remove**(`name`): `Promise`\<`any`\>
 
-Defined in: [src/lib/stage/application/services/stateService.ts:30](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L30)
+Defined in: [src/lib/stage/application/services/stateService.ts:30](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/services/stateService.ts#L30)
 
 #### Parameters
 
@@ -150,7 +150,7 @@ Defined in: [src/lib/stage/application/services/stateService.ts:30](https://gith
 
 > **update**(`name`, `data`): `Promise`\<`void`\>
 
-Defined in: [src/lib/stage/application/services/stateService.ts:25](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L25)
+Defined in: [src/lib/stage/application/services/stateService.ts:25](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/stage/application/services/stateService.ts#L25)
 
 #### Parameters
 

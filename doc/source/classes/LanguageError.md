@@ -6,7 +6,7 @@
 
 # Class: LanguageError
 
-Defined in: [src/lib/language/domain/errors.ts:1](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/errors.ts#L1)
+Defined in: [src/lib/language/domain/errors.ts:1](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/language/domain/errors.ts#L1)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/language/domain/errors.ts:1](https://github.com/lambda-orm/
 
 > **new LanguageError**(`message`): `LanguageError`
 
-Defined in: [src/lib/language/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/errors.ts#L2)
+Defined in: [src/lib/language/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/language/domain/errors.ts#L2)
 
 #### Parameters
 

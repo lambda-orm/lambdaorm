@@ -6,7 +6,7 @@
 
 # Class: Include
 
-Defined in: [src/lib/query/domain/query.ts:57](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L57)
+Defined in: [src/lib/query/domain/query.ts:57](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/query/domain/query.ts#L57)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/query/domain/query.ts:57](https://github.com/lambda-orm/lam
 
 > **new Include**(`name`, `query`, `relation`): `Include`
 
-Defined in: [src/lib/query/domain/query.ts:61](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L61)
+Defined in: [src/lib/query/domain/query.ts:61](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/query/domain/query.ts#L61)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/lib/query/domain/query.ts:61](https://github.com/lambda-orm/lam
 
 > **name**: `string`
 
-Defined in: [src/lib/query/domain/query.ts:58](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L58)
+Defined in: [src/lib/query/domain/query.ts:58](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/query/domain/query.ts#L58)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/lib/query/domain/query.ts:58](https://github.com/lambda-orm/lam
 
 > **query**: [`Query`](Query.md)
 
-Defined in: [src/lib/query/domain/query.ts:59](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L59)
+Defined in: [src/lib/query/domain/query.ts:59](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/query/domain/query.ts#L59)
 
 ***
 
@@ -56,4 +56,4 @@ Defined in: [src/lib/query/domain/query.ts:59](https://github.com/lambda-orm/lam
 
 > **relation**: [`Relation`](../interfaces/Relation.md)
 
-Defined in: [src/lib/query/domain/query.ts:60](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L60)
+Defined in: [src/lib/query/domain/query.ts:60](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/query/domain/query.ts#L60)

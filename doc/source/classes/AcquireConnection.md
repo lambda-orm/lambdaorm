@@ -6,7 +6,7 @@
 
 # Class: AcquireConnection
 
-Defined in: [src/lib/connection/application/useCases/acquire.ts:4](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/application/useCases/acquire.ts#L4)
+Defined in: [src/lib/connection/application/useCases/acquire.ts:4](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/connection/application/useCases/acquire.ts#L4)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/connection/application/useCases/acquire.ts:4](https://githu
 
 > **new AcquireConnection**(`poolService`): `AcquireConnection`
 
-Defined in: [src/lib/connection/application/useCases/acquire.ts:6](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/application/useCases/acquire.ts#L6)
+Defined in: [src/lib/connection/application/useCases/acquire.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/connection/application/useCases/acquire.ts#L6)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/lib/connection/application/useCases/acquire.ts:6](https://githu
 
 > **acquire**(`name`): `Promise`\<[`Connection`](../interfaces/Connection.md)\>
 
-Defined in: [src/lib/connection/application/useCases/acquire.ts:8](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/application/useCases/acquire.ts#L8)
+Defined in: [src/lib/connection/application/useCases/acquire.ts:8](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/connection/application/useCases/acquire.ts#L8)
 
 #### Parameters
 

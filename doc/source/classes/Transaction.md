@@ -6,7 +6,7 @@
 
 # Class: Transaction
 
-Defined in: [src/lib/execution/domain/transaction.ts:6](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/transaction.ts#L6)
+Defined in: [src/lib/execution/domain/transaction.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/execution/domain/transaction.ts#L6)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/execution/domain/transaction.ts:6](https://github.com/lambd
 
 > **new Transaction**(`queryExecutor`): `Transaction`
 
-Defined in: [src/lib/execution/domain/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/transaction.ts#L7)
+Defined in: [src/lib/execution/domain/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/execution/domain/transaction.ts#L7)
 
 #### Parameters
 
@@ -34,7 +34,7 @@ Defined in: [src/lib/execution/domain/transaction.ts:7](https://github.com/lambd
 
 > **get** **options**(): [`QueryOptions`](../interfaces/QueryOptions.md)
 
-Defined in: [src/lib/execution/domain/transaction.ts:15](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/transaction.ts#L15)
+Defined in: [src/lib/execution/domain/transaction.ts:15](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/execution/domain/transaction.ts#L15)
 
 ##### Returns
 
@@ -46,7 +46,7 @@ Defined in: [src/lib/execution/domain/transaction.ts:15](https://github.com/lamb
 
 > **execute**(`query`, `data`): `Promise`\<`any`\>
 
-Defined in: [src/lib/execution/domain/transaction.ts:11](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/transaction.ts#L11)
+Defined in: [src/lib/execution/domain/transaction.ts:11](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/execution/domain/transaction.ts#L11)
 
 #### Parameters
 

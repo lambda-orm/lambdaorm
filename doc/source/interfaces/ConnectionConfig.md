@@ -6,7 +6,7 @@
 
 # Interface: ConnectionConfig
 
-Defined in: [src/lib/connection/domain/connection.ts:1](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/connection.ts#L1)
+Defined in: [src/lib/connection/domain/connection.ts:1](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/connection/domain/connection.ts#L1)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/connection/domain/connection.ts:1](https://github.com/lambd
 
 > **connection**: `any`
 
-Defined in: [src/lib/connection/domain/connection.ts:4](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/connection.ts#L4)
+Defined in: [src/lib/connection/domain/connection.ts:4](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/connection/domain/connection.ts#L4)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/lib/connection/domain/connection.ts:4](https://github.com/lambd
 
 > **dialect**: `string`
 
-Defined in: [src/lib/connection/domain/connection.ts:3](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/connection.ts#L3)
+Defined in: [src/lib/connection/domain/connection.ts:3](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/connection/domain/connection.ts#L3)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [src/lib/connection/domain/connection.ts:3](https://github.com/lambd
 
 > **name**: `string`
 
-Defined in: [src/lib/connection/domain/connection.ts:2](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/connection.ts#L2)
+Defined in: [src/lib/connection/domain/connection.ts:2](https://github.com/lambda-orm/lambdaorm/blob/d458bba636206871821586fca1a7822cc50e2446/src/lib/connection/domain/connection.ts#L2)
