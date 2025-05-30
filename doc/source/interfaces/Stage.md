@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: Stage
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:135
+
 ## Properties
 
 ### name
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:136
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:136
 
 ***
 
@@ -22,6 +22,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:136
 
 > **sources**: [`SourceRule`](SourceRule.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:137
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:137

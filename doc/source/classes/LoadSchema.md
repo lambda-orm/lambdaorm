@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,33 +6,45 @@
 
 # Class: LoadSchema
 
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/load.d.ts:8
+
 ## Constructors
 
-### new LoadSchema()
+### Constructor
 
-> **new LoadSchema**(`source`, `domain`, `mapping`, `stage`, `view`, `helper`): [`LoadSchema`](LoadSchema.md)
+> **new LoadSchema**(`source`, `domain`, `mapping`, `stage`, `view`, `helper`): `LoadSchema`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/load.d.ts:15
 
 #### Parameters
 
-• **source**: [`DataSourceConfigService`](DataSourceConfigService.md)
+##### source
 
-• **domain**: [`DomainConfigService`](DomainConfigService.md)
+[`DataSourceConfigService`](DataSourceConfigService.md)
 
-• **mapping**: [`MappingsConfigService`](MappingsConfigService.md)
+##### domain
 
-• **stage**: [`StageConfigService`](StageConfigService.md)
+[`DomainConfigService`](DomainConfigService.md)
 
-• **view**: [`ViewsConfigService`](ViewsConfigService.md)
+##### mapping
 
-• **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
+[`MappingsConfigService`](MappingsConfigService.md)
+
+##### stage
+
+[`StageConfigService`](StageConfigService.md)
+
+##### view
+
+[`ViewsConfigService`](ViewsConfigService.md)
+
+##### helper
+
+[`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Returns
 
-[`LoadSchema`](LoadSchema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/useCases/load.d.ts:15
+`LoadSchema`
 
 ## Methods
 
@@ -40,14 +52,14 @@ node\_modules/lambdaorm-base/schema/application/useCases/load.d.ts:15
 
 > **load**(`source`): [`Schema`](../interfaces/Schema.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/load.d.ts:16
+
 #### Parameters
 
-• **source**: [`Schema`](../interfaces/Schema.md)
+##### source
+
+[`Schema`](../interfaces/Schema.md)
 
 #### Returns
 
 [`Schema`](../interfaces/Schema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/useCases/load.d.ts:16

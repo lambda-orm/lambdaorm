@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,135 +6,159 @@
 
 # Class: ExpressionFacade
 
+Defined in: [src/lib/expressions/application/facade.ts:19](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/facade.ts#L19)
+
 ## Constructors
 
-### new ExpressionFacade()
+### Constructor
 
-> **new ExpressionFacade**(`sentenceFacade`, `schemaState`, `languages`, `executor`, `expressions`, `cache`, `helper`): [`ExpressionFacade`](ExpressionFacade.md)
+> **new ExpressionFacade**(`sentenceFacade`, `schemaState`, `languages`, `executor`, `expressions`, `cache`, `helper`): `ExpressionFacade`
+
+Defined in: [src/lib/expressions/application/facade.ts:24](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/facade.ts#L24)
 
 #### Parameters
 
-• **sentenceFacade**: [`SentenceFacade`](SentenceFacade.md)
+##### sentenceFacade
 
-• **schemaState**: [`SchemaState`](SchemaState.md)
+[`SentenceFacade`](SentenceFacade.md)
 
-• **languages**: [`LanguagesService`](LanguagesService.md)
+##### schemaState
 
-• **executor**: [`Executor`](../interfaces/Executor.md)
+[`SchemaState`](SchemaState.md)
 
-• **expressions**: `Expressions`
+##### languages
 
-• **cache**: `ICache`\<`string`, `string`\>
+[`LanguagesService`](LanguagesService.md)
 
-• **helper**: [`OrmH3lp`](OrmH3lp.md)
+##### executor
+
+[`Executor`](../interfaces/Executor.md)
+
+##### expressions
+
+`Expressions`
+
+##### cache
+
+`ICache`\<`string`, `string`\>
+
+##### helper
+
+[`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
-[`ExpressionFacade`](ExpressionFacade.md)
-
-#### Source
-
-[src/lib/expressions/application/facade.ts:24](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/facade.ts#L24)
+`ExpressionFacade`
 
 ## Methods
 
 ### build()
 
-> **build**(`query`, `options`?): [`Query`](Query.md)
+> **build**(`query`, `options?`): [`Query`](Query.md)
+
+Defined in: [src/lib/expressions/application/facade.ts:38](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/facade.ts#L38)
 
 #### Parameters
 
-• **query**: `string`
+##### query
 
-• **options?**: [`QueryOptions`](../interfaces/QueryOptions.md)
+`string`
+
+##### options?
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
 [`Query`](Query.md)
 
-#### Source
-
-[src/lib/expressions/application/facade.ts:38](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/facade.ts#L38)
-
 ***
 
 ### execute()
 
-> **execute**(`query`, `data`, `options`?): `Promise`\<`any`\>
+> **execute**(`query`, `data`, `options?`): `Promise`\<`any`\>
+
+Defined in: [src/lib/expressions/application/facade.ts:50](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/facade.ts#L50)
 
 #### Parameters
 
-• **query**: `string`
+##### query
 
-• **data**: `any`= `{}`
+`string`
 
-• **options?**: [`QueryOptions`](../interfaces/QueryOptions.md)
+##### data
+
+`any` = `{}`
+
+##### options?
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/expressions/application/facade.ts:50](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/facade.ts#L50)
 
 ***
 
 ### executeList()
 
-> **executeList**(`queries`, `options`?): `Promise`\<`any`\>
+> **executeList**(`queries`, `options?`): `Promise`\<`any`\>
+
+Defined in: [src/lib/expressions/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/facade.ts#L54)
 
 #### Parameters
 
-• **queries**: `string`[]
+##### queries
 
-• **options?**: [`QueryOptions`](../interfaces/QueryOptions.md)
+`string`[]
+
+##### options?
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Source
-
-[src/lib/expressions/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/facade.ts#L54)
-
 ***
 
 ### plan()
 
-> **plan**(`query`, `options`?): [`QueryPlan`](../interfaces/QueryPlan.md)
+> **plan**(`query`, `options?`): [`QueryPlan`](../interfaces/QueryPlan.md)
+
+Defined in: [src/lib/expressions/application/facade.ts:42](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/facade.ts#L42)
 
 #### Parameters
 
-• **query**: `string`
+##### query
 
-• **options?**: [`QueryOptions`](../interfaces/QueryOptions.md)
+`string`
+
+##### options?
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
 [`QueryPlan`](../interfaces/QueryPlan.md)
 
-#### Source
-
-[src/lib/expressions/application/facade.ts:42](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/facade.ts#L42)
-
 ***
 
 ### solveQueryOptions()
 
-> **solveQueryOptions**(`options`?): [`QueryOptions`](../interfaces/QueryOptions.md)
+> **solveQueryOptions**(`options?`): [`QueryOptions`](../interfaces/QueryOptions.md)
+
+Defined in: [src/lib/expressions/application/facade.ts:46](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/facade.ts#L46)
 
 #### Parameters
 
-• **options?**: [`QueryOptions`](../interfaces/QueryOptions.md)
+##### options?
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
 [`QueryOptions`](../interfaces/QueryOptions.md)
-
-#### Source
-
-[src/lib/expressions/application/facade.ts:46](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/facade.ts#L46)
 
 ***
 
@@ -142,16 +166,18 @@
 
 > **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
+Defined in: [src/lib/expressions/application/facade.ts:58](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/facade.ts#L58)
+
 #### Parameters
 
-• **options**: `undefined` \| [`QueryOptions`](../interfaces/QueryOptions.md)= `undefined`
+##### options
 
-• **callback**
+`undefined` | [`QueryOptions`](../interfaces/QueryOptions.md)
+
+##### callback
+
+(`tr`) => `Promise`\<`void`\>
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/expressions/application/facade.ts:58](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/facade.ts#L58)

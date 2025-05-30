@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **tan**(`value`): `number`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:199
+
 Get tangent
 
 ## Parameters
 
-• **value**: `number`
+### value
+
+`number`
 
 ## Returns
 
 `number`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:199

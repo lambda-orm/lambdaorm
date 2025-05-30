@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: Mapping
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:104
+
 ## Properties
 
 ### entities?
 
 > `optional` **entities**: [`EntityMapping`](EntityMapping.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:108
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:108
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:108
 
 > `optional` **extends**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:105
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:105
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:105
 
 > `optional` **format**: [`FormatMapping`](FormatMapping.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:109
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:109
 
 ***
 
@@ -42,9 +38,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:109
 
 > `optional` **mapping**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:106
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:106
 
 ***
 
@@ -52,6 +46,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:106
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:107
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:107

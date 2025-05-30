@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,49 +6,57 @@
 
 # Interface: RelationMapClauses\<T\>
 
-## Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:112
 
-• **T**
+## Type Parameters
+
+### T
+
+`T`
 
 ## Methods
 
 ### filter()
 
-> **filter**(`predicate`, `thisArg`?): [`FilterClauses`](../classes/FilterClauses.md)\<`T`\>
+> **filter**(`predicate`, `thisArg?`): [`FilterClauses`](../classes/FilterClauses.md)\<`T`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:116
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `unknown`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 [`FilterClauses`](../classes/FilterClauses.md)\<`T`\>
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:116
-
 ***
 
 ### include()
 
-> **include**(`predicate`, `thisArg`?): [`IncludeClauses`](../classes/IncludeClauses.md)\<`T`\>
+> **include**(`predicate`, `thisArg?`): [`IncludeClauses`](../classes/IncludeClauses.md)\<`T`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:118
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `unknown`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 [`IncludeClauses`](../classes/IncludeClauses.md)\<`T`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:118
 
 ***
 
@@ -56,16 +64,18 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:118
 
 > **sort**(`predicate`, ...`args`): `void`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:114
+
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• ...**args**: `any`
+(`value`, `index`, `array`) => `unknown`
+
+##### args
+
+...`any`
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:114

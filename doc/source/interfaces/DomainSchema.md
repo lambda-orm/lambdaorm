@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: DomainSchema
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:157
+
 ## Properties
 
 ### entities
 
 > **entities**: [`Entity`](Entity.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:159
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:159
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:159
 
 > `optional` **enums**: [`Enum`](Enum.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:160
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:160
 
 ***
 
@@ -32,6 +30,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:160
 
 > **version**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:158
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:158

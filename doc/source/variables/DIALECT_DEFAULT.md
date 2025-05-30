@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > `const` **DIALECT\_DEFAULT**: [`MySQL`](../enumerations/Dialect.md#mysql) = `Dialect.MySQL`
 
-## Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:3
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:3

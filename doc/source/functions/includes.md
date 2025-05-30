@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,40 +6,44 @@
 
 # Function: includes()
 
-## includes(value, list)
+## Call Signature
 
 > **includes**(`value`, `list`): `boolean`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:161
+
 ### Parameters
 
-• **value**: `any`
+#### value
 
-• **list**: `any`[]
+`any`
+
+#### list
+
+`any`[]
 
 ### Returns
 
 `boolean`
 
-### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:161
-
-## includes(field, searchString)
+## Call Signature
 
 > **includes**(`field`, `searchString`): `string`
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:238
 
 Returns true if searchString appears as a substring of the result of converting this
 
 ### Parameters
 
-• **field**: `string`
+#### field
 
-• **searchString**: `string`
+`string`
+
+#### searchString
+
+`string`
 
 ### Returns
 
 `string`
-
-### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:238

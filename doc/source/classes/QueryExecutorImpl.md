@@ -1,10 +1,12 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
 [Lambda ORM](../README.md) / QueryExecutorImpl
 
 # Class: QueryExecutorImpl
+
+Defined in: [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:20](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L20)
 
 ## Implements
 
@@ -13,47 +15,63 @@
 
 ## Constructors
 
-### new QueryExecutorImpl()
+### Constructor
 
-> **new QueryExecutorImpl**(`connectionFacade`, `languages`, `schemaState`, `expressions`, `_options`, `helper`, `transactional`): [`QueryExecutorImpl`](QueryExecutorImpl.md)
+> **new QueryExecutorImpl**(`connectionFacade`, `languages`, `schemaState`, `expressions`, `_options`, `helper`, `transactional`): `QueryExecutorImpl`
+
+Defined in: [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:32](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L32)
 
 #### Parameters
 
-• **connectionFacade**: [`ConnectionFacade`](ConnectionFacade.md)
+##### connectionFacade
 
-• **languages**: [`LanguagesService`](LanguagesService.md)
+[`ConnectionFacade`](ConnectionFacade.md)
 
-• **schemaState**: [`SchemaState`](SchemaState.md)
+##### languages
 
-• **expressions**: `Expressions`
+[`LanguagesService`](LanguagesService.md)
 
-• **\_options**: [`QueryOptions`](../interfaces/QueryOptions.md)
+##### schemaState
 
-• **helper**: [`OrmH3lp`](OrmH3lp.md)
+[`SchemaState`](SchemaState.md)
 
-• **transactional**: `boolean`= `false`
+##### expressions
+
+`Expressions`
+
+##### \_options
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
+
+##### helper
+
+[`OrmH3lp`](OrmH3lp.md)
+
+##### transactional
+
+`boolean` = `false`
 
 #### Returns
 
-[`QueryExecutorImpl`](QueryExecutorImpl.md)
-
-#### Source
-
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:32](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L32)
+`QueryExecutorImpl`
 
 ## Accessors
 
 ### options
 
-> `get` **options**(): [`QueryOptions`](../interfaces/QueryOptions.md)
+#### Get Signature
 
-#### Returns
+> **get** **options**(): [`QueryOptions`](../interfaces/QueryOptions.md)
+
+Defined in: [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:53](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L53)
+
+##### Returns
 
 [`QueryOptions`](../interfaces/QueryOptions.md)
 
-#### Source
+#### Implementation of
 
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:53](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L53)
+[`QueryExecutor`](../interfaces/QueryExecutor.md).[`options`](../interfaces/QueryExecutor.md#options)
 
 ## Methods
 
@@ -61,11 +79,17 @@
 
 > **\_execute**(`query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:122](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L122)
+
 #### Parameters
 
-• **query**: [`Query`](Query.md)
+##### query
 
-• **data**: [`Data`](Data.md)
+[`Query`](Query.md)
+
+##### data
+
+[`Data`](Data.md)
 
 #### Returns
 
@@ -75,15 +99,13 @@
 
 [`QueryInternalExecutor`](../interfaces/QueryInternalExecutor.md).[`_execute`](../interfaces/QueryInternalExecutor.md#_execute)
 
-#### Source
-
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:122](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L122)
-
 ***
 
 ### commit()
 
 > **commit**(): `Promise`\<`void`\>
+
+Defined in: [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:69](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L69)
 
 #### Returns
 
@@ -93,21 +115,23 @@
 
 [`QueryExecutor`](../interfaces/QueryExecutor.md).[`commit`](../interfaces/QueryExecutor.md#commit)
 
-#### Source
-
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:69](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L69)
-
 ***
 
 ### execute()
 
 > **execute**(`query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:91](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L91)
+
 #### Parameters
 
-• **query**: [`Query`](Query.md)
+##### query
 
-• **data**: `any`
+[`Query`](Query.md)
+
+##### data
+
+`any`
 
 #### Returns
 
@@ -117,15 +141,13 @@
 
 [`QueryExecutor`](../interfaces/QueryExecutor.md).[`execute`](../interfaces/QueryExecutor.md#execute)
 
-#### Source
-
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:91](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L91)
-
 ***
 
 ### release()
 
 > **release**(): `Promise`\<`void`\>
+
+Defined in: [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:83](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L83)
 
 #### Returns
 
@@ -135,15 +157,13 @@
 
 [`QueryExecutor`](../interfaces/QueryExecutor.md).[`release`](../interfaces/QueryExecutor.md#release)
 
-#### Source
-
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:83](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L83)
-
 ***
 
 ### rollback()
 
 > **rollback**(): `Promise`\<`void`\>
+
+Defined in: [src/lib/execution/application/services/queryExecutor/queryExecutor.ts:76](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L76)
 
 #### Returns
 
@@ -152,7 +172,3 @@
 #### Implementation of
 
 [`QueryExecutor`](../interfaces/QueryExecutor.md).[`rollback`](../interfaces/QueryExecutor.md#rollback)
-
-#### Source
-
-[src/lib/execution/application/services/queryExecutor/queryExecutor.ts:76](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/queryExecutor/queryExecutor.ts#L76)

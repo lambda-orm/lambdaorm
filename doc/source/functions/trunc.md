@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,18 +8,20 @@
 
 > **trunc**(`value`, `decimals`): `number`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:203
+
 Truncate num
 
 ## Parameters
 
-• **value**: `number`
+### value
 
-• **decimals**: `number`
+`number`
+
+### decimals
+
+`number`
 
 ## Returns
 
 `number`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:203

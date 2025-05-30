@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,20 +8,24 @@
 
 > **replace**(`value`, `source`, `target`): `string`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:214
+
 The replace() method searches a string for a specified value and returns a new string where the specified values are replaced.
 
 ## Parameters
 
-• **value**: `string`
+### value
 
-• **source**: `string`
+`string`
 
-• **target**: `string`
+### source
+
+`string`
+
+### target
+
+`string`
 
 ## Returns
 
 `string`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:214

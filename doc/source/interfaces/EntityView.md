@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: EntityView
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:116
+
 ## Properties
 
 ### exclude?
 
 > `optional` **exclude**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:118
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:118
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:118
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:117
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:117
 
 ***
 
@@ -32,6 +30,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:117
 
 > **properties**: [`PropertyView`](PropertyView.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:119
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:119

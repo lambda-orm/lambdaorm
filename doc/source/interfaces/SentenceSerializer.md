@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Interface: SentenceSerializer
 
+Defined in: node\_modules/lambdaorm-base/sentence/domain/services.d.ts:9
+
 ## Methods
 
 ### clone()
 
 > **clone**(`sentence`): [`Sentence`](../classes/Sentence.md)
 
+Defined in: node\_modules/lambdaorm-base/sentence/domain/services.d.ts:10
+
 #### Parameters
 
-• **sentence**: [`Sentence`](../classes/Sentence.md)
+##### sentence
+
+[`Sentence`](../classes/Sentence.md)
 
 #### Returns
 
 [`Sentence`](../classes/Sentence.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/services.d.ts:10
 
 ***
 
@@ -30,17 +32,17 @@ node\_modules/lambdaorm-base/sentence/domain/services.d.ts:10
 
 > **deserialize**(`value`): [`Sentence`](../classes/Sentence.md)
 
+Defined in: node\_modules/lambdaorm-base/sentence/domain/services.d.ts:12
+
 #### Parameters
 
-• **value**: `string`
+##### value
+
+`string`
 
 #### Returns
 
 [`Sentence`](../classes/Sentence.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/services.d.ts:12
 
 ***
 
@@ -48,14 +50,14 @@ node\_modules/lambdaorm-base/sentence/domain/services.d.ts:12
 
 > **serialize**(`sentence`): `string`
 
+Defined in: node\_modules/lambdaorm-base/sentence/domain/services.d.ts:11
+
 #### Parameters
 
-• **sentence**: [`Sentence`](../classes/Sentence.md)
+##### sentence
+
+[`Sentence`](../classes/Sentence.md)
 
 #### Returns
 
 `string`
-
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/services.d.ts:11

@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,19 +6,21 @@
 
 # Interface: QueryExecutor
 
+Defined in: [src/lib/execution/domain/executor.ts:37](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L37)
+
 ## Accessors
 
 ### options
 
-> `get` **options**(): [`QueryOptions`](QueryOptions.md)
+#### Get Signature
 
-#### Returns
+> **get** **options**(): [`QueryOptions`](QueryOptions.md)
+
+Defined in: [src/lib/execution/domain/executor.ts:38](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L38)
+
+##### Returns
 
 [`QueryOptions`](QueryOptions.md)
-
-#### Source
-
-[src/lib/execution/domain/executor.ts:38](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L38)
 
 ## Methods
 
@@ -26,13 +28,11 @@
 
 > **commit**(): `Promise`\<`void`\>
 
+Defined in: [src/lib/execution/domain/executor.ts:39](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L39)
+
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/execution/domain/executor.ts:39](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L39)
 
 ***
 
@@ -40,19 +40,21 @@
 
 > **execute**(`query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/execution/domain/executor.ts:42](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L42)
+
 #### Parameters
 
-• **query**: [`Query`](../classes/Query.md)
+##### query
 
-• **data**: `any`
+[`Query`](../classes/Query.md)
+
+##### data
+
+`any`
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/execution/domain/executor.ts:42](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L42)
 
 ***
 
@@ -60,13 +62,11 @@
 
 > **release**(): `Promise`\<`void`\>
 
+Defined in: [src/lib/execution/domain/executor.ts:41](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L41)
+
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/execution/domain/executor.ts:41](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L41)
 
 ***
 
@@ -74,10 +74,8 @@
 
 > **rollback**(): `Promise`\<`void`\>
 
+Defined in: [src/lib/execution/domain/executor.ts:40](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L40)
+
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/execution/domain/executor.ts:40](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L40)

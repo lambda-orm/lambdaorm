@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,39 +6,49 @@
 
 # Class: Sentence
 
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:52
+
 ## Extends
 
 - `Operand`
 
 ## Constructors
 
-### new Sentence()
+### Constructor
 
-> **new Sentence**(`pos`, `name`, `children`, `entity`, `alias`): [`Sentence`](Sentence.md)
+> **new Sentence**(`pos`, `name`, `children`, `entity`, `alias`): `Sentence`
+
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:61
 
 #### Parameters
 
-• **pos**: `Position`
+##### pos
 
-• **name**: `string`
+`Position`
 
-• **children**: `Operand`[]
+##### name
 
-• **entity**: `string`
+`string`
 
-• **alias**: `string`
+##### children
+
+`Operand`[]
+
+##### entity
+
+`string`
+
+##### alias
+
+`string`
 
 #### Returns
 
-[`Sentence`](Sentence.md)
+`Sentence`
 
 #### Overrides
 
 `Operand.constructor`
-
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:61
 
 ## Properties
 
@@ -46,9 +56,7 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:61
 
 > **action**: [`SentenceAction`](../enumerations/SentenceAction.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:57
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:57
 
 ***
 
@@ -56,9 +64,7 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:57
 
 > **alias**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:56
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:56
 
 ***
 
@@ -66,13 +72,11 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:56
 
 > **children**: `Operand`[]
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:44
+
 #### Inherited from
 
 `Operand.children`
-
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:44
 
 ***
 
@@ -80,9 +84,7 @@ node\_modules/3xpr/shared/domain/operand.d.ts:44
 
 > **columns**: [`Property`](../interfaces/Property.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:53
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:53
 
 ***
 
@@ -90,9 +92,7 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:53
 
 > **constraints**: [`Constraint`](../interfaces/Constraint.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:58
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:58
 
 ***
 
@@ -100,9 +100,7 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:58
 
 > **defaults**: [`Behavior`](../interfaces/Behavior.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:60
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:60
 
 ***
 
@@ -110,9 +108,7 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:60
 
 > **entity**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:55
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:55
 
 ***
 
@@ -120,13 +116,11 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:55
 
 > `optional` **evaluator**: `IEvaluator`
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:46
+
 #### Inherited from
 
 `Operand.evaluator`
-
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:46
 
 ***
 
@@ -134,13 +128,11 @@ node\_modules/3xpr/shared/domain/operand.d.ts:46
 
 > `optional` **id**: `string`
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:48
+
 #### Inherited from
 
 `Operand.id`
-
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:48
 
 ***
 
@@ -148,13 +140,11 @@ node\_modules/3xpr/shared/domain/operand.d.ts:48
 
 > **name**: `any`
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:42
+
 #### Inherited from
 
 `Operand.name`
-
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:42
 
 ***
 
@@ -162,13 +152,11 @@ node\_modules/3xpr/shared/domain/operand.d.ts:42
 
 > `optional` **number**: `number`
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:47
+
 #### Inherited from
 
 `Operand.number`
-
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:47
 
 ***
 
@@ -176,9 +164,7 @@ node\_modules/3xpr/shared/domain/operand.d.ts:47
 
 > **parameters**: `Parameter`[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:54
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:54
 
 ***
 
@@ -186,13 +172,11 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:54
 
 > `readonly` **pos**: `Position`
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:41
+
 #### Inherited from
 
 `Operand.pos`
-
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:41
 
 ***
 
@@ -200,13 +184,11 @@ node\_modules/3xpr/shared/domain/operand.d.ts:41
 
 > `optional` **returnType**: `Type`
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:45
+
 #### Inherited from
 
 `Operand.returnType`
-
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:45
 
 ***
 
@@ -214,13 +196,11 @@ node\_modules/3xpr/shared/domain/operand.d.ts:45
 
 > `readonly` **type**: `OperandType`
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:43
+
 #### Inherited from
 
 `Operand.type`
-
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:43
 
 ***
 
@@ -228,9 +208,7 @@ node\_modules/3xpr/shared/domain/operand.d.ts:43
 
 > **values**: [`Behavior`](../interfaces/Behavior.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:59
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:59
 
 ## Methods
 
@@ -238,9 +216,13 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:59
 
 > **eval**(`context`): `any`
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:50
+
 #### Parameters
 
-• **context**: `Context`
+##### context
+
+`Context`
 
 #### Returns
 
@@ -250,19 +232,19 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:59
 
 `Operand.eval`
 
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:50
-
 ***
 
 ### evalAsync()
 
 > **evalAsync**(`context`): `Promise`\<`any`\>
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:51
+
 #### Parameters
 
-• **context**: `Context`
+##### context
+
+`Context`
 
 #### Returns
 
@@ -272,23 +254,17 @@ node\_modules/3xpr/shared/domain/operand.d.ts:50
 
 `Operand.evalAsync`
 
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:51
-
 ***
 
 ### getCompositeIncludes()
 
 > **getCompositeIncludes**(): [`SentenceInclude`](SentenceInclude.md)[]
 
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:63
+
 #### Returns
 
 [`SentenceInclude`](SentenceInclude.md)[]
-
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:63
 
 ***
 
@@ -296,19 +272,19 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:63
 
 > **getIncludes**(): [`SentenceInclude`](SentenceInclude.md)[]
 
+Defined in: node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:62
+
 #### Returns
 
 [`SentenceInclude`](SentenceInclude.md)[]
-
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:62
 
 ***
 
 ### isAsync()
 
 > **isAsync**(): `boolean`
+
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:52
 
 #### Returns
 
@@ -318,19 +294,19 @@ node\_modules/lambdaorm-base/sentence/domain/sentence.d.ts:62
 
 `Operand.isAsync`
 
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:52
-
 ***
 
 ### solve()
 
 > **solve**(`context`): `Promise`\<`any`\>
 
+Defined in: node\_modules/3xpr/shared/domain/operand.d.ts:53
+
 #### Parameters
 
-• **context**: `Context`
+##### context
+
+`Context`
 
 #### Returns
 
@@ -339,7 +315,3 @@ node\_modules/3xpr/shared/domain/operand.d.ts:52
 #### Inherited from
 
 `Operand.solve`
-
-#### Source
-
-node\_modules/3xpr/shared/domain/operand.d.ts:53

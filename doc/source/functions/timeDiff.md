@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,16 +8,18 @@
 
 > **timeDiff**(`time`, `time2`): `Date`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:282
+
 ## Parameters
 
-• **time**: `Date`
+### time
 
-• **time2**: `Date`
+`Date`
+
+### time2
+
+`Date`
 
 ## Returns
 
 `Date`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:282

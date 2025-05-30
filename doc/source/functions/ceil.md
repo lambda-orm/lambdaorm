@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **ceil**(`value`): `number`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:175
+
 Get the smallest following integer
 
 ## Parameters
 
-• **value**: `number`
+### value
+
+`number`
 
 ## Returns
 
 `number`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:175

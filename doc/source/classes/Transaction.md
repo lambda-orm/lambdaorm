@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,37 +6,39 @@
 
 # Class: Transaction
 
+Defined in: [src/lib/execution/domain/transaction.ts:6](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/transaction.ts#L6)
+
 ## Constructors
 
-### new Transaction()
+### Constructor
 
-> **new Transaction**(`queryExecutor`): [`Transaction`](Transaction.md)
+> **new Transaction**(`queryExecutor`): `Transaction`
+
+Defined in: [src/lib/execution/domain/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/transaction.ts#L7)
 
 #### Parameters
 
-• **queryExecutor**: [`QueryExecutor`](../interfaces/QueryExecutor.md)
+##### queryExecutor
+
+[`QueryExecutor`](../interfaces/QueryExecutor.md)
 
 #### Returns
 
-[`Transaction`](Transaction.md)
-
-#### Source
-
-[src/lib/execution/domain/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/transaction.ts#L7)
+`Transaction`
 
 ## Accessors
 
 ### options
 
-> `get` **options**(): [`QueryOptions`](../interfaces/QueryOptions.md)
+#### Get Signature
 
-#### Returns
+> **get** **options**(): [`QueryOptions`](../interfaces/QueryOptions.md)
+
+Defined in: [src/lib/execution/domain/transaction.ts:15](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/transaction.ts#L15)
+
+##### Returns
 
 [`QueryOptions`](../interfaces/QueryOptions.md)
-
-#### Source
-
-[src/lib/execution/domain/transaction.ts:15](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/transaction.ts#L15)
 
 ## Methods
 
@@ -44,16 +46,18 @@
 
 > **execute**(`query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/execution/domain/transaction.ts:11](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/transaction.ts#L11)
+
 #### Parameters
 
-• **query**: [`Query`](Query.md)
+##### query
 
-• **data**: `any`= `{}`
+[`Query`](Query.md)
+
+##### data
+
+`any` = `{}`
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/execution/domain/transaction.ts:11](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/transaction.ts#L11)

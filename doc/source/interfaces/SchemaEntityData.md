@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: SchemaEntityData
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:201
+
 ## Properties
 
 ### entity
 
 > **entity**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:202
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:202
 
 ***
 
@@ -22,6 +22,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:202
 
 > **rows**: `any`[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:203
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:203

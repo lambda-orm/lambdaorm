@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,19 +6,19 @@
 
 # Class: ViewsConfigService
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:3
+
 ## Constructors
 
-### new ViewsConfigService()
+### Constructor
 
-> **new ViewsConfigService**(): [`ViewsConfigService`](ViewsConfigService.md)
+> **new ViewsConfigService**(): `ViewsConfigService`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:5
 
 #### Returns
 
-[`ViewsConfigService`](ViewsConfigService.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:5
+`ViewsConfigService`
 
 ## Properties
 
@@ -26,45 +26,43 @@ node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigServi
 
 > **views**: [`View`](../interfaces/View.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:4
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:4
 
 ## Methods
 
 ### get()
 
-> **get**(`name`?): [`View`](../interfaces/View.md)
+> **get**(`name?`): [`View`](../interfaces/View.md)
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:7
 
 #### Parameters
 
-• **name?**: `string`
+##### name?
+
+`string`
 
 #### Returns
 
 [`View`](../interfaces/View.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:7
-
 ***
 
 ### getInstance()
 
-> **getInstance**(`name`?): [`ViewConfigService`](ViewConfigService.md)
+> **getInstance**(`name?`): [`ViewConfigService`](ViewConfigService.md)
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:8
 
 #### Parameters
 
-• **name?**: `string`
+##### name?
+
+`string`
 
 #### Returns
 
 [`ViewConfigService`](ViewConfigService.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:8
 
 ***
 
@@ -72,14 +70,14 @@ node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigServi
 
 > **load**(`value`): `void`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:6
+
 #### Parameters
 
-• **value**: [`View`](../interfaces/View.md)
+##### value
+
+[`View`](../interfaces/View.md)
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewsConfigService.d.ts:6

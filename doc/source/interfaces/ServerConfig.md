@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,12 +6,12 @@
 
 # Interface: ServerConfig
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:162
+
 ## Properties
 
 ### url
 
 > **url**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:163
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:163

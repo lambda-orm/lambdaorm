@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Interface: QueryActions
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/actions.d.ts:3
+
 ## Methods
 
 ### constraints()
 
 > **constraints**(`query`): `Promise`\<[`MetadataConstraint`](MetadataConstraint.md)\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/actions.d.ts:8
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
 `Promise`\<[`MetadataConstraint`](MetadataConstraint.md)\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/actions.d.ts:8
 
 ***
 
@@ -30,19 +32,21 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:8
 
 > **execute**(`query`, `data`): `Promise`\<`any`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/actions.d.ts:4
+
 #### Parameters
 
-• **query**: `string`
+##### query
 
-• **data**: `any`
+`string`
+
+##### data
+
+`any`
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/actions.d.ts:4
 
 ***
 
@@ -50,17 +54,17 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:4
 
 > **metadata**(`query`): `Promise`\<[`Metadata`](Metadata.md)\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/actions.d.ts:9
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
 `Promise`\<[`Metadata`](Metadata.md)\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/actions.d.ts:9
 
 ***
 
@@ -68,17 +72,17 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:9
 
 > **model**(`query`): `Promise`\<[`MetadataModel`](MetadataModel.md)[]\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/actions.d.ts:6
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
 `Promise`\<[`MetadataModel`](MetadataModel.md)[]\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/actions.d.ts:6
 
 ***
 
@@ -86,17 +90,17 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:6
 
 > **normalize**(`query`): `string`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/actions.d.ts:5
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
 `string`
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/actions.d.ts:5
 
 ***
 
@@ -104,17 +108,17 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:5
 
 > **parameters**(`query`): `Promise`\<[`MetadataParameter`](MetadataParameter.md)[]\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/actions.d.ts:7
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
 `Promise`\<[`MetadataParameter`](MetadataParameter.md)[]\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/actions.d.ts:7
 
 ***
 
@@ -122,14 +126,14 @@ node\_modules/lambdaorm-base/repository/domain/actions.d.ts:7
 
 > **plan**(`query`): `Promise`\<[`QueryPlan`](QueryPlan.md)\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/actions.d.ts:10
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
 `Promise`\<[`QueryPlan`](QueryPlan.md)\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/actions.d.ts:10

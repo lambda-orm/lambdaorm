@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: TaskConfig
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:147
+
 ## Properties
 
 ### condition?
 
 > `optional` **condition**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:149
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:149
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:149
 
 > **expression**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:150
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:150
 
 ***
 
@@ -32,6 +30,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:150
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:148
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:148

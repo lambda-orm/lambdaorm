@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,25 +6,29 @@
 
 # Class: SchemaExtender
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:4
+
 ## Constructors
 
-### new SchemaExtender()
+### Constructor
 
-> **new SchemaExtender**(`exp`, `helper`): [`SchemaExtender`](SchemaExtender.md)
+> **new SchemaExtender**(`exp`, `helper`): `SchemaExtender`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:7
 
 #### Parameters
 
-• **exp**: `Expressions`
+##### exp
 
-• **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
+`Expressions`
+
+##### helper
+
+[`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Returns
 
-[`SchemaExtender`](SchemaExtender.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:7
+`SchemaExtender`
 
 ## Methods
 
@@ -32,17 +36,17 @@ node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:7
 
 > **complete**(`schema`): `void`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:15
+
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
+
+[`Schema`](../interfaces/Schema.md)
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:15
 
 ***
 
@@ -50,17 +54,17 @@ node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:15
 
 > **extend**(`schema`): `void`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:8
+
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
+
+[`Schema`](../interfaces/Schema.md)
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:8
 
 ***
 
@@ -68,16 +72,18 @@ node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:8
 
 > **isCompound**(`parent`, `child`): `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:16
+
 #### Parameters
 
-• **parent**: `any`
+##### parent
 
-• **child**: `any`
+`any`
+
+##### child
+
+`any`
 
 #### Returns
 
 `boolean`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/schemaExtender.d.ts:16

@@ -1,10 +1,12 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
 [Lambda ORM](../README.md) / QueryOptions
 
 # Interface: QueryOptions
+
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:8
 
 ## Extended by
 
@@ -16,19 +18,15 @@
 
 > `optional` **chunkSize**: `number`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:11
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:11
 
 ***
 
 ### headers?
 
-> `optional` **headers**: [`string`, `any`][]
+> `optional` **headers**: \[`string`, `any`\][]
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:13
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:13
 
 ***
 
@@ -36,9 +34,7 @@ node\_modules/lambdaorm-base/query/domain/query.d.ts:13
 
 > `optional` **stage**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:9
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:9
 
 ***
 
@@ -46,9 +42,7 @@ node\_modules/lambdaorm-base/query/domain/query.d.ts:9
 
 > `optional` **tryAllCan**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:12
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:12
 
 ***
 
@@ -56,6 +50,4 @@ node\_modules/lambdaorm-base/query/domain/query.d.ts:12
 
 > `optional` **view**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:10
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:10

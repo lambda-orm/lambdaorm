@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: Relation
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:39
+
 ## Properties
 
 ### composite?
 
 > `optional` **composite**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:42
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:42
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:42
 
 > **entity**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:44
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:44
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:44
 
 > **from**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:43
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:43
 
 ***
 
@@ -42,9 +38,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:43
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:40
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:40
 
 ***
 
@@ -52,9 +46,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:40
 
 > `optional` **target**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:47
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:47
 
 ***
 
@@ -62,9 +54,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:47
 
 > **to**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:45
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:45
 
 ***
 
@@ -72,9 +62,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:45
 
 > **type**: [`RelationType`](../enumerations/RelationType.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:41
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:41
 
 ***
 
@@ -82,6 +70,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:41
 
 > `optional` **weak**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:46
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:46

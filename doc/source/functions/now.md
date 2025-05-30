@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,12 +8,10 @@
 
 > **now**(): `Date`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:244
+
 Get the current dateTime
 
 ## Returns
 
 `Date`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:244

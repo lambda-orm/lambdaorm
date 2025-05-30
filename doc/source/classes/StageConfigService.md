@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,19 +6,19 @@
 
 # Class: StageConfigService
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/stageConfigService.d.ts:2
+
 ## Constructors
 
-### new StageConfigService()
+### Constructor
 
-> **new StageConfigService**(): [`StageConfigService`](StageConfigService.md)
+> **new StageConfigService**(): `StageConfigService`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/stageConfigService.d.ts:4
 
 #### Returns
 
-[`StageConfigService`](StageConfigService.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/stageConfigService.d.ts:4
+`StageConfigService`
 
 ## Properties
 
@@ -26,27 +26,25 @@ node\_modules/lambdaorm-base/schema/application/services/config/stageConfigServi
 
 > **stages**: [`Stage`](../interfaces/Stage.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/stageConfigService.d.ts:3
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/stageConfigService.d.ts:3
 
 ## Methods
 
 ### get()
 
-> **get**(`name`?): [`Stage`](../interfaces/Stage.md)
+> **get**(`name?`): [`Stage`](../interfaces/Stage.md)
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/stageConfigService.d.ts:6
 
 #### Parameters
 
-• **name?**: `string`
+##### name?
+
+`string`
 
 #### Returns
 
 [`Stage`](../interfaces/Stage.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/stageConfigService.d.ts:6
 
 ***
 
@@ -54,14 +52,14 @@ node\_modules/lambdaorm-base/schema/application/services/config/stageConfigServi
 
 > **load**(`value`): `void`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/stageConfigService.d.ts:5
+
 #### Parameters
 
-• **value**: [`Stage`](../interfaces/Stage.md)
+##### value
+
+[`Stage`](../interfaces/Stage.md)
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/stageConfigService.d.ts:5

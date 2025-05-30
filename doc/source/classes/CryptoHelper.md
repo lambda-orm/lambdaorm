@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,17 @@
 
 # Class: CryptoHelper
 
+Defined in: [src/lib/shared/infrastructure/helper.ts:5](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/shared/infrastructure/helper.ts#L5)
+
 ## Constructors
 
-### new CryptoHelper()
+### Constructor
 
-> **new CryptoHelper**(): [`CryptoHelper`](CryptoHelper.md)
+> **new CryptoHelper**(): `CryptoHelper`
 
 #### Returns
 
-[`CryptoHelper`](CryptoHelper.md)
+`CryptoHelper`
 
 ## Methods
 
@@ -22,19 +24,21 @@
 
 > **decrypt**(`value`, `key`): `string`
 
+Defined in: [src/lib/shared/infrastructure/helper.ts:10](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/shared/infrastructure/helper.ts#L10)
+
 #### Parameters
 
-• **value**: `string`
+##### value
 
-• **key**: `string`
+`string`
+
+##### key
+
+`string`
 
 #### Returns
 
 `string`
-
-#### Source
-
-[src/lib/shared/infrastructure/helper.ts:10](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/shared/infrastructure/helper.ts#L10)
 
 ***
 
@@ -42,19 +46,21 @@
 
 > **encrypt**(`value`, `key`): `string`
 
+Defined in: [src/lib/shared/infrastructure/helper.ts:6](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/shared/infrastructure/helper.ts#L6)
+
 #### Parameters
 
-• **value**: `string`
+##### value
 
-• **key**: `string`
+`string`
+
+##### key
+
+`string`
 
 #### Returns
 
 `string`
-
-#### Source
-
-[src/lib/shared/infrastructure/helper.ts:6](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/shared/infrastructure/helper.ts#L6)
 
 ***
 
@@ -62,17 +68,17 @@
 
 > **getBase64**(`value`): `string`
 
+Defined in: [src/lib/shared/infrastructure/helper.ts:18](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/shared/infrastructure/helper.ts#L18)
+
 #### Parameters
 
-• **value**: `string`
+##### value
+
+`string`
 
 #### Returns
 
 `string`
-
-#### Source
-
-[src/lib/shared/infrastructure/helper.ts:18](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/shared/infrastructure/helper.ts#L18)
 
 ***
 
@@ -80,14 +86,14 @@
 
 > **toBase64**(`value`): `string`
 
+Defined in: [src/lib/shared/infrastructure/helper.ts:14](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/shared/infrastructure/helper.ts#L14)
+
 #### Parameters
 
-• **value**: `string`
+##### value
+
+`string`
 
 #### Returns
 
 `string`
-
-#### Source
-
-[src/lib/shared/infrastructure/helper.ts:14](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/shared/infrastructure/helper.ts#L14)

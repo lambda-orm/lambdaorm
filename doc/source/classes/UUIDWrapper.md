@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,17 @@
 
 # Class: UUIDWrapper
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:26
+
 ## Constructors
 
-### new UUIDWrapper()
+### Constructor
 
-> **new UUIDWrapper**(): [`UUIDWrapper`](UUIDWrapper.md)
+> **new UUIDWrapper**(): `UUIDWrapper`
 
 #### Returns
 
-[`UUIDWrapper`](UUIDWrapper.md)
+`UUIDWrapper`
 
 ## Methods
 
@@ -22,33 +24,33 @@
 
 > **empty**(): `string`
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:29
+
 #### Returns
 
 `string`
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:30
 
 ***
 
 ### fromString()
 
-> **fromString**(`text`, `namespace`?): `string`
+> **fromString**(`text`, `namespace?`): `string`
+
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:30
 
 #### Parameters
 
-• **text**: `string`
+##### text
 
-• **namespace?**: `string`
+`string`
+
+##### namespace?
+
+`string`
 
 #### Returns
 
 `string`
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:31
 
 ***
 
@@ -56,17 +58,17 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:31
 
 > **isUuid**(`id`): `boolean`
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:28
+
 #### Parameters
 
-• **id**: `string`
+##### id
+
+`string`
 
 #### Returns
 
 `boolean`
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:29
 
 ***
 
@@ -74,13 +76,11 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:29
 
 > **jsonSchema**(): `any`
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:31
+
 #### Returns
 
 `any`
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:32
 
 ***
 
@@ -88,10 +88,8 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:32
 
 > **v4**(): `string`
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:27
+
 #### Returns
 
 `string`
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:28

@@ -1,10 +1,12 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
 [Lambda ORM](../README.md) / StagePullOptions
 
 # Interface: StagePullOptions
+
+Defined in: [src/lib/stage/domain/index.ts:3](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/domain/index.ts#L3)
 
 ## Extends
 
@@ -16,27 +18,23 @@
 
 > `optional` **chunkSize**: `number`
 
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:11
+
 #### Inherited from
 
 [`QueryOptions`](QueryOptions.md).[`chunkSize`](QueryOptions.md#chunksize)
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:11
 
 ***
 
 ### headers?
 
-> `optional` **headers**: [`string`, `any`][]
+> `optional` **headers**: \[`string`, `any`\][]
+
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:13
 
 #### Inherited from
 
 [`QueryOptions`](QueryOptions.md).[`headers`](QueryOptions.md#headers)
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:13
 
 ***
 
@@ -44,13 +42,11 @@ node\_modules/lambdaorm-base/query/domain/query.d.ts:13
 
 > `optional` **removeEntities**: `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:9
+
 #### Inherited from
 
 [`MatchOptions`](MatchOptions.md).[`removeEntities`](MatchOptions.md#removeentities)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:9
 
 ***
 
@@ -58,13 +54,11 @@ node\_modules/lambdaorm-base/schema/domain/services.d.ts:9
 
 > `optional` **removeProperties**: `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:10
+
 #### Inherited from
 
 [`MatchOptions`](MatchOptions.md).[`removeProperties`](MatchOptions.md#removeproperties)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:10
 
 ***
 
@@ -72,13 +66,11 @@ node\_modules/lambdaorm-base/schema/domain/services.d.ts:10
 
 > `optional` **removeRelations**: `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:11
+
 #### Inherited from
 
 [`MatchOptions`](MatchOptions.md).[`removeRelations`](MatchOptions.md#removerelations)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:11
 
 ***
 
@@ -86,13 +78,11 @@ node\_modules/lambdaorm-base/schema/domain/services.d.ts:11
 
 > `optional` **stage**: `string`
 
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:9
+
 #### Inherited from
 
 [`QueryOptions`](QueryOptions.md).[`stage`](QueryOptions.md#stage)
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:9
 
 ***
 
@@ -100,13 +90,11 @@ node\_modules/lambdaorm-base/query/domain/query.d.ts:9
 
 > `optional` **tryAllCan**: `boolean`
 
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:12
+
 #### Inherited from
 
 [`QueryOptions`](QueryOptions.md).[`tryAllCan`](QueryOptions.md#tryallcan)
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:12
 
 ***
 
@@ -114,10 +102,8 @@ node\_modules/lambdaorm-base/query/domain/query.d.ts:12
 
 > `optional` **view**: `string`
 
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:10
+
 #### Inherited from
 
 [`QueryOptions`](QueryOptions.md).[`view`](QueryOptions.md#view)
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:10

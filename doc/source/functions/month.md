@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **month**(`value`): `number`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:254
+
 ## Parameters
 
-• **value**: `Date`
+### value
+
+`Date`
 
 ## Returns
 
 `number`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:254

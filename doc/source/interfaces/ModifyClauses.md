@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,46 +6,54 @@
 
 # Interface: ModifyClauses\<T\>
 
-## Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:102
 
-• **T**
+## Type Parameters
+
+### T
+
+`T`
 
 ## Methods
 
 ### filter()
 
-> **filter**(`predicate`, `thisArg`?): [`ModifyFilterClauses`](ModifyFilterClauses.md)\<`T`\>
+> **filter**(`predicate`, `thisArg?`): [`ModifyFilterClauses`](ModifyFilterClauses.md)\<`T`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:104
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `unknown`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 [`ModifyFilterClauses`](ModifyFilterClauses.md)\<`T`\>
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:104
-
 ***
 
 ### include()
 
-> **include**(`predicate`, `thisArg`?): [`ModifyIncludeClauses`](ModifyIncludeClauses.md)\<`T`\>
+> **include**(`predicate`, `thisArg?`): [`ModifyIncludeClauses`](ModifyIncludeClauses.md)\<`T`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:106
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `unknown`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 [`ModifyIncludeClauses`](ModifyIncludeClauses.md)\<`T`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:106

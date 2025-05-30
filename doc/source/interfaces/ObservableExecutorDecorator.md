@@ -1,10 +1,12 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
 [Lambda ORM](../README.md) / ObservableExecutorDecorator
 
 # Interface: ObservableExecutorDecorator
+
+Defined in: [src/lib/execution/domain/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L56)
 
 ## Extends
 
@@ -16,13 +18,21 @@
 
 > **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
 
+Defined in: [src/lib/execution/domain/executor.ts:46](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L46)
+
 #### Parameters
 
-• **query**: [`Query`](../classes/Query.md)
+##### query
 
-• **data**: `any`
+[`Query`](../classes/Query.md)
 
-• **options**: [`QueryOptions`](QueryOptions.md)
+##### data
+
+`any`
+
+##### options
+
+[`QueryOptions`](QueryOptions.md)
 
 #### Returns
 
@@ -32,21 +42,23 @@
 
 [`Executor`](Executor.md).[`execute`](Executor.md#execute)
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:46](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L46)
-
 ***
 
 ### executeList()
 
 > **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](ExecuteResult.md)[]\>
 
+Defined in: [src/lib/execution/domain/executor.ts:47](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L47)
+
 #### Parameters
 
-• **queries**: [`Query`](../classes/Query.md)[]
+##### queries
 
-• **options**: [`QueryOptions`](QueryOptions.md)
+[`Query`](../classes/Query.md)[]
+
+##### options
+
+[`QueryOptions`](QueryOptions.md)
 
 #### Returns
 
@@ -56,19 +68,19 @@
 
 [`Executor`](Executor.md).[`executeList`](Executor.md#executelist)
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:47](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L47)
-
 ***
 
 ### subscribe()
 
 > **subscribe**(`observer`): `void`
 
+Defined in: [src/lib/execution/domain/executor.ts:52](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L52)
+
 #### Parameters
 
-• **observer**: [`ActionObserver`](../classes/ActionObserver.md)
+##### observer
+
+[`ActionObserver`](../classes/ActionObserver.md)
 
 #### Returns
 
@@ -78,21 +90,23 @@
 
 [`ObservableExecutor`](ObservableExecutor.md).[`subscribe`](ObservableExecutor.md#subscribe)
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:52](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L52)
-
 ***
 
 ### transaction()
 
 > **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
+Defined in: [src/lib/execution/domain/executor.ts:48](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L48)
+
 #### Parameters
 
-• **options**: [`QueryOptions`](QueryOptions.md)
+##### options
 
-• **callback**
+[`QueryOptions`](QueryOptions.md)
+
+##### callback
+
+(`tr`) => `Promise`\<`void`\>
 
 #### Returns
 
@@ -102,19 +116,19 @@
 
 [`Executor`](Executor.md).[`transaction`](Executor.md#transaction)
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:48](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L48)
-
 ***
 
 ### unsubscribe()
 
 > **unsubscribe**(`observer`): `void`
 
+Defined in: [src/lib/execution/domain/executor.ts:53](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L53)
+
 #### Parameters
 
-• **observer**: [`ActionObserver`](../classes/ActionObserver.md)
+##### observer
+
+[`ActionObserver`](../classes/ActionObserver.md)
 
 #### Returns
 
@@ -123,7 +137,3 @@
 #### Inherited from
 
 [`ObservableExecutor`](ObservableExecutor.md).[`unsubscribe`](ObservableExecutor.md#unsubscribe)
-
-#### Source
-
-[src/lib/execution/domain/executor.ts:53](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L53)

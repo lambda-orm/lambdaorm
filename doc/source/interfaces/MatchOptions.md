@@ -1,10 +1,12 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
 [Lambda ORM](../README.md) / MatchOptions
 
 # Interface: MatchOptions
+
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:8
 
 ## Extended by
 
@@ -16,9 +18,7 @@
 
 > `optional` **removeEntities**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:9
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:9
 
 ***
 
@@ -26,9 +26,7 @@ node\_modules/lambdaorm-base/schema/domain/services.d.ts:9
 
 > `optional` **removeProperties**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:10
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:10
 
 ***
 
@@ -36,6 +34,4 @@ node\_modules/lambdaorm-base/schema/domain/services.d.ts:10
 
 > `optional` **removeRelations**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:11
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:11

@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: QueryArgs
 
+Defined in: [src/lib/query/domain/query.ts:4](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L4)
+
 ## Properties
 
 ### action
 
 > **action**: [`SentenceAction`](../enumerations/SentenceAction.md)
 
-#### Source
-
-[src/lib/query/domain/query.ts:5](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L5)
+Defined in: [src/lib/query/domain/query.ts:5](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L5)
 
 ***
 
@@ -22,9 +22,7 @@
 
 > **category**: [`SentenceCategory`](../enumerations/SentenceCategory.md)
 
-#### Source
-
-[src/lib/query/domain/query.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L7)
+Defined in: [src/lib/query/domain/query.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L7)
 
 ***
 
@@ -32,9 +30,7 @@
 
 > `optional` **columns**: [`Property`](Property.md)[]
 
-#### Source
-
-[src/lib/query/domain/query.ts:12](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L12)
+Defined in: [src/lib/query/domain/query.ts:12](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L12)
 
 ***
 
@@ -42,9 +38,7 @@
 
 > `optional` **constraints**: [`Constraint`](Constraint.md)[]
 
-#### Source
-
-[src/lib/query/domain/query.ts:14](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L14)
+Defined in: [src/lib/query/domain/query.ts:14](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L14)
 
 ***
 
@@ -52,9 +46,7 @@
 
 > `optional` **defaults**: [`Behavior`](Behavior.md)[]
 
-#### Source
-
-[src/lib/query/domain/query.ts:16](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L16)
+Defined in: [src/lib/query/domain/query.ts:16](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L16)
 
 ***
 
@@ -62,9 +54,7 @@
 
 > **description**: `string`
 
-#### Source
-
-[src/lib/query/domain/query.ts:20](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L20)
+Defined in: [src/lib/query/domain/query.ts:20](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L20)
 
 ***
 
@@ -72,9 +62,7 @@
 
 > **dialect**: `string`
 
-#### Source
-
-[src/lib/query/domain/query.ts:8](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L8)
+Defined in: [src/lib/query/domain/query.ts:8](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L8)
 
 ***
 
@@ -82,9 +70,7 @@
 
 > **entity**: `string`
 
-#### Source
-
-[src/lib/query/domain/query.ts:11](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L11)
+Defined in: [src/lib/query/domain/query.ts:11](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L11)
 
 ***
 
@@ -92,9 +78,7 @@
 
 > `optional` **includes**: [`Include`](../classes/Include.md)[]
 
-#### Source
-
-[src/lib/query/domain/query.ts:18](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L18)
+Defined in: [src/lib/query/domain/query.ts:18](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L18)
 
 ***
 
@@ -102,9 +86,7 @@
 
 > `optional` **parameters**: `Parameter`[]
 
-#### Source
-
-[src/lib/query/domain/query.ts:13](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L13)
+Defined in: [src/lib/query/domain/query.ts:13](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L13)
 
 ***
 
@@ -112,9 +94,7 @@
 
 > `optional` **query**: `string`
 
-#### Source
-
-[src/lib/query/domain/query.ts:19](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L19)
+Defined in: [src/lib/query/domain/query.ts:19](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L19)
 
 ***
 
@@ -122,9 +102,7 @@
 
 > **sentence**: `string`
 
-#### Source
-
-[src/lib/query/domain/query.ts:10](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L10)
+Defined in: [src/lib/query/domain/query.ts:10](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L10)
 
 ***
 
@@ -132,9 +110,7 @@
 
 > **source**: `string`
 
-#### Source
-
-[src/lib/query/domain/query.ts:9](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L9)
+Defined in: [src/lib/query/domain/query.ts:9](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L9)
 
 ***
 
@@ -142,9 +118,7 @@
 
 > **type**: [`SentenceType`](../enumerations/SentenceType.md)
 
-#### Source
-
-[src/lib/query/domain/query.ts:6](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L6)
+Defined in: [src/lib/query/domain/query.ts:6](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L6)
 
 ***
 
@@ -152,6 +126,4 @@
 
 > `optional` **values**: [`Behavior`](Behavior.md)[]
 
-#### Source
-
-[src/lib/query/domain/query.ts:15](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L15)
+Defined in: [src/lib/query/domain/query.ts:15](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L15)

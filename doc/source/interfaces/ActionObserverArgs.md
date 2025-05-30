@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: ActionObserverArgs
 
+Defined in: [src/lib/execution/domain/executor.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L7)
+
 ## Properties
 
 ### action
 
 > **action**: [`SentenceAction`](../enumerations/SentenceAction.md)
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:8](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L8)
+Defined in: [src/lib/execution/domain/executor.ts:8](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L8)
 
 ***
 
@@ -22,9 +22,7 @@
 
 > **category**: [`SentenceCategory`](../enumerations/SentenceCategory.md)
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:10](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L10)
+Defined in: [src/lib/execution/domain/executor.ts:10](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L10)
 
 ***
 
@@ -32,9 +30,7 @@
 
 > **data**: `any`
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:16](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L16)
+Defined in: [src/lib/execution/domain/executor.ts:16](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L16)
 
 ***
 
@@ -42,9 +38,7 @@
 
 > **dialect**: `string`
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L12)
+Defined in: [src/lib/execution/domain/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L12)
 
 ***
 
@@ -52,9 +46,7 @@
 
 > **entity**: `string`
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:14](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L14)
+Defined in: [src/lib/execution/domain/executor.ts:14](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L14)
 
 ***
 
@@ -62,9 +54,7 @@
 
 > `optional` **error**: `any`
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:19](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L19)
+Defined in: [src/lib/execution/domain/executor.ts:19](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L19)
 
 ***
 
@@ -72,9 +62,7 @@
 
 > **options**: [`QueryOptions`](QueryOptions.md)
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:17](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L17)
+Defined in: [src/lib/execution/domain/executor.ts:17](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L17)
 
 ***
 
@@ -82,9 +70,7 @@
 
 > **query**: `string`
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:15](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L15)
+Defined in: [src/lib/execution/domain/executor.ts:15](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L15)
 
 ***
 
@@ -92,9 +78,7 @@
 
 > `optional` **result**: `any`
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:18](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L18)
+Defined in: [src/lib/execution/domain/executor.ts:18](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L18)
 
 ***
 
@@ -102,9 +86,7 @@
 
 > **sentence**: `string`
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:11](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L11)
+Defined in: [src/lib/execution/domain/executor.ts:11](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L11)
 
 ***
 
@@ -112,9 +94,7 @@
 
 > **source**: `string`
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:13](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L13)
+Defined in: [src/lib/execution/domain/executor.ts:13](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L13)
 
 ***
 
@@ -122,6 +102,4 @@
 
 > **type**: [`SentenceType`](../enumerations/SentenceType.md)
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:9](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L9)
+Defined in: [src/lib/execution/domain/executor.ts:9](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L9)

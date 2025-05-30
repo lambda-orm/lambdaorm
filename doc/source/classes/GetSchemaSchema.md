@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Class: GetSchemaSchema
 
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/getSchemaData.d.ts:4
+
 ## Constructors
 
-### new GetSchemaSchema()
+### Constructor
 
-> **new GetSchemaSchema**(`interpretSchemaDataService`): [`GetSchemaSchema`](GetSchemaSchema.md)
+> **new GetSchemaSchema**(`interpretSchemaDataService`): `GetSchemaSchema`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/getSchemaData.d.ts:6
 
 #### Parameters
 
-• **interpretSchemaDataService**: [`InterpretSchemaDataService`](InterpretSchemaDataService.md)
+##### interpretSchemaDataService
+
+[`InterpretSchemaDataService`](InterpretSchemaDataService.md)
 
 #### Returns
 
-[`GetSchemaSchema`](GetSchemaSchema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/useCases/getSchemaData.d.ts:6
+`GetSchemaSchema`
 
 ## Methods
 
@@ -30,18 +32,22 @@ node\_modules/lambdaorm-base/schema/application/useCases/getSchemaData.d.ts:6
 
 > **getData**(`data`, `name`, `type`): [`SchemaData`](../interfaces/SchemaData.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/getSchemaData.d.ts:7
+
 #### Parameters
 
-• **data**: `any`
+##### data
 
-• **name**: `string`
+`any`
 
-• **type**: `Type`
+##### name
+
+`string`
+
+##### type
+
+`Type`
 
 #### Returns
 
 [`SchemaData`](../interfaces/SchemaData.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/useCases/getSchemaData.d.ts:7

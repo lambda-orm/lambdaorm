@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,18 +8,22 @@
 
 > **nvl2**(`value`, `a`, `b`): `any`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:302
+
 ## Parameters
 
-• **value**: `any`
+### value
 
-• **a**: `any`
+`any`
 
-• **b**: `any`
+### a
+
+`any`
+
+### b
+
+`any`
 
 ## Returns
 
 `any`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:302

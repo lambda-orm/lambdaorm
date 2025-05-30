@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: ConnectionConfig
 
+Defined in: [src/lib/connection/domain/connection.ts:1](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/connection.ts#L1)
+
 ## Properties
 
 ### connection
 
 > **connection**: `any`
 
-#### Source
-
-[src/lib/connection/domain/connection.ts:4](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/connection.ts#L4)
+Defined in: [src/lib/connection/domain/connection.ts:4](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/connection.ts#L4)
 
 ***
 
@@ -22,9 +22,7 @@
 
 > **dialect**: `string`
 
-#### Source
-
-[src/lib/connection/domain/connection.ts:3](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/connection.ts#L3)
+Defined in: [src/lib/connection/domain/connection.ts:3](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/connection.ts#L3)
 
 ***
 
@@ -32,6 +30,4 @@
 
 > **name**: `string`
 
-#### Source
-
-[src/lib/connection/domain/connection.ts:2](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/connection.ts#L2)
+Defined in: [src/lib/connection/domain/connection.ts:2](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/connection.ts#L2)

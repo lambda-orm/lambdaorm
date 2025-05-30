@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,18 +8,22 @@
 
 > **between**(`value`, `from`, `to`): `boolean`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:159
+
 ## Parameters
 
-• **value**: `any`
+### value
 
-• **from**: `any`
+`any`
 
-• **to**: `any`
+### from
+
+`any`
+
+### to
+
+`any`
 
 ## Returns
 
 `boolean`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:159

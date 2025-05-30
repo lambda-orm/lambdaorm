@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: QueryPlan
 
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:1
+
 ## Properties
 
 ### children?
 
-> `optional` **children**: [`QueryPlan`](QueryPlan.md)[]
+> `optional` **children**: `QueryPlan`[]
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:6
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:6
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/query/domain/query.d.ts:6
 
 > **dialect**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:3
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:3
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/query/domain/query.d.ts:3
 
 > **entity**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:2
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:2
 
 ***
 
@@ -42,9 +38,7 @@ node\_modules/lambdaorm-base/query/domain/query.d.ts:2
 
 > **sentence**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:5
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:5
 
 ***
 
@@ -52,6 +46,4 @@ node\_modules/lambdaorm-base/query/domain/query.d.ts:5
 
 > **source**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/query.d.ts:4
+Defined in: node\_modules/lambdaorm-base/query/domain/query.d.ts:4

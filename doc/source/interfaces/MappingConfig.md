@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: MappingConfig
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:191
+
 ## Properties
 
 ### inconsistency
 
 > **inconsistency**: `any`[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:194
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:194
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:194
 
 > **mapping**: `any`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:192
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:192
 
 ***
 
@@ -32,6 +30,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:192
 
 > **pending**: `any`[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:193
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:193

@@ -1,17 +1,17 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
 [Lambda ORM](../README.md) / OneToOne
 
-# Type alias: OneToOne\<T\>
+# Type Alias: OneToOne\<T\>
 
-> **OneToOne**\<`T`\>: [`IRelation`](../interfaces/IRelation.md)\<`T`\>
+> **OneToOne**\<`T`\> = [`IRelation`](../interfaces/IRelation.md)\<`T`\>
 
-## Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:150
 
-• **T**
+## Type Parameters
 
-## Source
+### T
 
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:150
+`T`

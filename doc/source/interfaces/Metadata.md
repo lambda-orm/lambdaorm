@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,25 +6,23 @@
 
 # Interface: Metadata
 
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:18
+
 ## Properties
 
 ### alias?
 
 > `optional` **alias**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:34
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:34
 
 ***
 
 ### children?
 
-> `optional` **children**: [`Metadata`](Metadata.md)[]
+> `optional` **children**: `Metadata`[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:22
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:22
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:22
 
 > **classtype**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:19
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:19
 
 ***
 
@@ -42,9 +38,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:19
 
 > `optional` **clause**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:33
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:33
 
 ***
 
@@ -52,9 +46,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:33
 
 > `optional` **columns**: [`Property`](Property.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:26
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:26
 
 ***
 
@@ -62,9 +54,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:26
 
 > `optional` **constraints**: [`Constraint`](Constraint.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:29
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:29
 
 ***
 
@@ -72,9 +62,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:29
 
 > `optional` **defaults**: [`Behavior`](Behavior.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:31
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:31
 
 ***
 
@@ -82,9 +70,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:31
 
 > `optional` **entity**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:25
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:25
 
 ***
 
@@ -92,9 +78,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:25
 
 > `optional` **isRoot**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:35
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:35
 
 ***
 
@@ -102,9 +86,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:35
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:21
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:21
 
 ***
 
@@ -112,9 +94,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:21
 
 > `optional` **number**: `number`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:36
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:36
 
 ***
 
@@ -122,9 +102,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:36
 
 > `optional` **parameters**: `Parameter`[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:28
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:28
 
 ***
 
@@ -132,9 +110,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:28
 
 > **pos**: `Position`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:20
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:20
 
 ***
 
@@ -142,9 +118,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:20
 
 > `optional` **property**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:27
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:27
 
 ***
 
@@ -152,9 +126,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:27
 
 > `optional` **relation**: [`Relation`](Relation.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:32
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:32
 
 ***
 
@@ -162,9 +134,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:32
 
 > `optional` **returnType**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:24
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:24
 
 ***
 
@@ -172,9 +142,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:24
 
 > **type**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:23
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:23
 
 ***
 
@@ -182,6 +150,4 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:23
 
 > `optional` **values**: [`Behavior`](Behavior.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:30
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:30

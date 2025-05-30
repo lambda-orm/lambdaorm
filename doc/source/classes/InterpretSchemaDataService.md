@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Class: InterpretSchemaDataService
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/interpretSchemaDataService.d.ts:4
+
 ## Constructors
 
-### new InterpretSchemaDataService()
+### Constructor
 
-> **new InterpretSchemaDataService**(`helper`): [`InterpretSchemaDataService`](InterpretSchemaDataService.md)
+> **new InterpretSchemaDataService**(`helper`): `InterpretSchemaDataService`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/interpretSchemaDataService.d.ts:6
 
 #### Parameters
 
-• **helper**: [`SchemaHelper`](SchemaHelper.md)
+##### helper
+
+[`SchemaHelper`](SchemaHelper.md)
 
 #### Returns
 
-[`InterpretSchemaDataService`](InterpretSchemaDataService.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/interpretSchemaDataService.d.ts:6
+`InterpretSchemaDataService`
 
 ## Methods
 
@@ -30,20 +32,26 @@ node\_modules/lambdaorm-base/schema/application/services/interpretSchemaDataServ
 
 > **completeSchemaData**(`source`, `name`, `type`, `schemaData`): `void`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/interpretSchemaDataService.d.ts:7
+
 #### Parameters
 
-• **source**: `any`
+##### source
 
-• **name**: `string`
+`any`
 
-• **type**: `Type`
+##### name
 
-• **schemaData**: [`SchemaData`](../interfaces/SchemaData.md)
+`string`
+
+##### type
+
+`Type`
+
+##### schemaData
+
+[`SchemaData`](../interfaces/SchemaData.md)
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/interpretSchemaDataService.d.ts:7

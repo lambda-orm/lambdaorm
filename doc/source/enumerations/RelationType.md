@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Enumeration: RelationType
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:4
+
 ## Enumeration Members
 
 ### manyToOne
 
 > **manyToOne**: `"manyToOne"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:6
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:6
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:6
 
 > **oneToMany**: `"oneToMany"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:5
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:5
 
 ***
 
@@ -32,6 +30,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:5
 
 > **oneToOne**: `"oneToOne"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:7
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:7

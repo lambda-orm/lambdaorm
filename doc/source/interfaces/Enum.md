@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: Enum
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:13
+
 ## Properties
 
 ### abstract?
 
 > `optional` **abstract**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:16
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:16
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:16
 
 > `optional` **extends**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:15
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:15
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:15
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:14
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:14
 
 ***
 
@@ -42,6 +38,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:14
 
 > **values**: [`EnumValue`](EnumValue.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:17
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:17

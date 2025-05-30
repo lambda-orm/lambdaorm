@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: SchemaInfo
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:184
+
 ## Properties
 
 ### path?
 
 > `optional` **path**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:186
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:186
 
 ***
 
@@ -22,6 +22,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:186
 
 > **schema**: [`Schema`](Schema.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:185
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:185

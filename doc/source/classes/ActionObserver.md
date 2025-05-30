@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,31 +6,37 @@
 
 # Class: `abstract` ActionObserver
 
+Defined in: [src/lib/execution/domain/executor.ts:22](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L22)
+
 ## Extended by
 
 - [`ExecutionActionObserver`](ExecutionActionObserver.md)
 
 ## Constructors
 
-### new ActionObserver()
+### Constructor
 
-> **new ActionObserver**(`on`, `condition`?, `transactional`?): [`ActionObserver`](ActionObserver.md)
+> **new ActionObserver**(`on`, `condition?`, `transactional?`): `ActionObserver`
+
+Defined in: [src/lib/execution/domain/executor.ts:26](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L26)
 
 #### Parameters
 
-• **on**: [`SentenceCategory`](../enumerations/SentenceCategory.md)[]
+##### on
 
-• **condition?**: `string`
+[`SentenceCategory`](../enumerations/SentenceCategory.md)[]
 
-• **transactional?**: `boolean`
+##### condition?
+
+`string`
+
+##### transactional?
+
+`boolean`
 
 #### Returns
 
-[`ActionObserver`](ActionObserver.md)
-
-#### Source
-
-[src/lib/execution/domain/executor.ts:26](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L26)
+`ActionObserver`
 
 ## Properties
 
@@ -38,9 +44,7 @@
 
 > `optional` **condition**: `string`
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:24](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L24)
+Defined in: [src/lib/execution/domain/executor.ts:24](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L24)
 
 ***
 
@@ -48,9 +52,7 @@
 
 > **on**: [`SentenceCategory`](../enumerations/SentenceCategory.md)[]
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:23](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L23)
+Defined in: [src/lib/execution/domain/executor.ts:23](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L23)
 
 ***
 
@@ -58,9 +60,7 @@
 
 > `optional` **transactional**: `boolean`
 
-#### Source
-
-[src/lib/execution/domain/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L25)
+Defined in: [src/lib/execution/domain/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L25)
 
 ## Methods
 
@@ -68,17 +68,17 @@
 
 > **after**(`args`): `Promise`\<`void`\>
 
+Defined in: [src/lib/execution/domain/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L33)
+
 #### Parameters
 
-• **args**: [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
+##### args
+
+[`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/execution/domain/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L33)
 
 ***
 
@@ -86,17 +86,17 @@
 
 > **before**(`args`): `Promise`\<`void`\>
 
+Defined in: [src/lib/execution/domain/executor.ts:32](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L32)
+
 #### Parameters
 
-• **args**: [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
+##### args
+
+[`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/execution/domain/executor.ts:32](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L32)
 
 ***
 
@@ -104,14 +104,14 @@
 
 > **error**(`args`): `Promise`\<`void`\>
 
+Defined in: [src/lib/execution/domain/executor.ts:34](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/domain/executor.ts#L34)
+
 #### Parameters
 
-• **args**: [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
+##### args
+
+[`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/execution/domain/executor.ts:34](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/domain/executor.ts#L34)

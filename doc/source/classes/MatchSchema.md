@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,25 +6,29 @@
 
 # Class: MatchSchema
 
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/match.d.ts:4
+
 ## Constructors
 
-### new MatchSchema()
+### Constructor
 
-> **new MatchSchema**(`schemaService`, `helper`): [`MatchSchema`](MatchSchema.md)
+> **new MatchSchema**(`schemaService`, `helper`): `MatchSchema`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/match.d.ts:7
 
 #### Parameters
 
-• **schemaService**: [`SchemaService`](SchemaService.md)
+##### schemaService
 
-• **helper**: [`SchemaHelper`](SchemaHelper.md)
+[`SchemaService`](SchemaService.md)
+
+##### helper
+
+[`SchemaHelper`](SchemaHelper.md)
 
 #### Returns
 
-[`MatchSchema`](MatchSchema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/useCases/match.d.ts:7
+`MatchSchema`
 
 ## Methods
 
@@ -32,18 +36,22 @@ node\_modules/lambdaorm-base/schema/application/useCases/match.d.ts:7
 
 > **match**(`schema`, `mappings`, `options`): `void`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/match.d.ts:8
+
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
 
-• **mappings**: [`Mapping`](../interfaces/Mapping.md)[]
+[`Schema`](../interfaces/Schema.md)
 
-• **options**: [`MatchOptions`](../interfaces/MatchOptions.md)
+##### mappings
+
+[`Mapping`](../interfaces/Mapping.md)[]
+
+##### options
+
+[`MatchOptions`](../interfaces/MatchOptions.md)
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/useCases/match.d.ts:8

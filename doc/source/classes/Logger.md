@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,32 +6,36 @@
 
 # Class: `abstract` Logger
 
+Defined in: node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:5
+
 ## Constructors
 
-### new Logger()
+### Constructor
 
-> **new Logger**(): [`Logger`](Logger.md)
+> **new Logger**(): `Logger`
 
 #### Returns
 
-[`Logger`](Logger.md)
+`Logger`
 
 ## Methods
 
 ### log()
 
-> **log**(`message`, `level`?): `Promise`\<`void`\>
+> **log**(`message`, `level?`): `Promise`\<`void`\>
+
+Defined in: node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:6
 
 #### Parameters
 
-• **message**: `any`
+##### message
 
-• **level?**: [`LogLevel`](../enumerations/LogLevel.md)
+`any`
+
+##### level?
+
+[`LogLevel`](../enumerations/LogLevel.md)
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:6

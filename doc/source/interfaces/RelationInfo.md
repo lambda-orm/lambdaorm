@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: RelationInfo
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:80
+
 ## Properties
 
 ### entity
 
 > **entity**: [`Entity`](Entity.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:83
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:83
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:83
 
 > **previousEntity**: [`Entity`](Entity.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:82
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:82
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:82
 
 > **previousRelation**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:81
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:81
 
 ***
 
@@ -42,6 +38,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:81
 
 > **relation**: [`Relation`](Relation.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:84
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:84

@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Enumeration: Dialect
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:1
+
 ## Enumeration Members
 
 ### MariaDB
 
 > **MariaDB**: `"MariaDB"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:3
+Defined in: node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:3
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:3
 
 > **MongoDB**: `"MongoDB"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:8
+Defined in: node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:8
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:8
 
 > **MySQL**: `"MySQL"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:2
+Defined in: node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:2
 
 ***
 
@@ -42,9 +38,7 @@ node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:2
 
 > **Oracle**: `"Oracle"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:7
+Defined in: node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:7
 
 ***
 
@@ -52,9 +46,7 @@ node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:7
 
 > **PostgreSQL**: `"PostgreSQL"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:4
+Defined in: node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:4
 
 ***
 
@@ -62,9 +54,7 @@ node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:4
 
 > **SQLjs**: `"SQLjs"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:6
+Defined in: node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:6
 
 ***
 
@@ -72,9 +62,7 @@ node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:6
 
 > **SqlLite**: `"SqlLite"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:9
+Defined in: node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:9
 
 ***
 
@@ -82,6 +70,4 @@ node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:9
 
 > **SqlServer**: `"SqlServer"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:5
+Defined in: node\_modules/lambdaorm-base/schema/domain/dialect.d.ts:5

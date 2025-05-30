@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Class: OrmOperandHelper
 
+Defined in: [src/lib/operand/application/services/operandHelper.ts:3](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/operand/application/services/operandHelper.ts#L3)
+
 ## Constructors
 
-### new OrmOperandHelper()
+### Constructor
 
-> **new OrmOperandHelper**(`operandHelper`): [`OrmOperandHelper`](OrmOperandHelper.md)
+> **new OrmOperandHelper**(`operandHelper`): `OrmOperandHelper`
+
+Defined in: [src/lib/operand/application/services/operandHelper.ts:5](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/operand/application/services/operandHelper.ts#L5)
 
 #### Parameters
 
-• **operandHelper**: `OperandHelper`
+##### operandHelper
+
+`OperandHelper`
 
 #### Returns
 
-[`OrmOperandHelper`](OrmOperandHelper.md)
-
-#### Source
-
-[src/lib/operand/application/services/operandHelper.ts:5](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/operand/application/services/operandHelper.ts#L5)
+`OrmOperandHelper`
 
 ## Methods
 
@@ -30,17 +32,17 @@
 
 > **getClauses**(`operand`): `any`
 
+Defined in: [src/lib/operand/application/services/operandHelper.ts:65](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/operand/application/services/operandHelper.ts#L65)
+
 #### Parameters
 
-• **operand**: `Operand`
+##### operand
+
+`Operand`
 
 #### Returns
 
 `any`
-
-#### Source
-
-[src/lib/operand/application/services/operandHelper.ts:65](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/operand/application/services/operandHelper.ts#L65)
 
 ***
 
@@ -48,14 +50,14 @@
 
 > **toExpression**(`operand`): `string`
 
+Defined in: [src/lib/operand/application/services/operandHelper.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/operand/application/services/operandHelper.ts#L7)
+
 #### Parameters
 
-• **operand**: `Operand`
+##### operand
+
+`Operand`
 
 #### Returns
 
 `string`
-
-#### Source
-
-[src/lib/operand/application/services/operandHelper.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/operand/application/services/operandHelper.ts#L7)

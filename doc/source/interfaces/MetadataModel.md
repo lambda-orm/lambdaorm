@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: MetadataModel
 
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:8
+
 ## Properties
 
 ### children?
 
-> `optional` **children**: [`MetadataModel`](MetadataModel.md)[]
+> `optional` **children**: `MetadataModel`[]
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:11
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:11
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:11
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:9
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:9
 
 ***
 
@@ -32,6 +30,4 @@ node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:9
 
 > **type**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:10
+Defined in: node\_modules/lambdaorm-base/sentence/domain/metadata.d.ts:10

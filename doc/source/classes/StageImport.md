@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,39 +6,49 @@
 
 # Class: StageImport
 
+Defined in: [src/lib/stage/application/useCases/import.ts:6](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/useCases/import.ts#L6)
+
 ## Extends
 
 - [`StageActionDML`](StageActionDML.md)
 
 ## Constructors
 
-### new StageImport()
+### Constructor
 
-> **new StageImport**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`): [`StageImport`](StageImport.md)
+> **new StageImport**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`): `StageImport`
+
+Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/useCases/base/actionDML.ts#L15)
 
 #### Parameters
 
-• **stageMappingService**: [`StageMappingService`](StageMappingService.md)
+##### stageMappingService
 
-• **domain**: [`DomainConfigService`](DomainConfigService.md)
+[`StageMappingService`](StageMappingService.md)
 
-• **expressionFacade**: [`ExpressionFacade`](ExpressionFacade.md)
+##### domain
 
-• **executor**: [`Executor`](../interfaces/Executor.md)
+[`DomainConfigService`](DomainConfigService.md)
 
-• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
+##### expressionFacade
+
+[`ExpressionFacade`](ExpressionFacade.md)
+
+##### executor
+
+[`Executor`](../interfaces/Executor.md)
+
+##### options
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
-[`StageImport`](StageImport.md)
+`StageImport`
 
 #### Inherited from
 
-[`StageActionDML`](StageActionDML.md).[`constructor`](StageActionDML.md#constructors)
-
-#### Source
-
-[src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/useCases/base/actionDML.ts#L15)
+[`StageActionDML`](StageActionDML.md).[`constructor`](StageActionDML.md#constructor)
 
 ## Methods
 
@@ -46,23 +56,25 @@
 
 > **execute**(`data`): `Promise`\<`void`\>
 
+Defined in: [src/lib/stage/application/useCases/import.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/useCases/import.ts#L7)
+
 #### Parameters
 
-• **data**: [`SchemaData`](../interfaces/SchemaData.md)
+##### data
+
+[`SchemaData`](../interfaces/SchemaData.md)
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/stage/application/useCases/import.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/useCases/import.ts#L7)
 
 ***
 
 ### queries()
 
 > **queries**(): [`Query`](Query.md)[]
+
+Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/useCases/base/actionDML.ts#L33)
 
 #### Returns
 
@@ -72,15 +84,13 @@
 
 [`StageActionDML`](StageActionDML.md).[`queries`](StageActionDML.md#queries)
 
-#### Source
-
-[src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/useCases/base/actionDML.ts#L33)
-
 ***
 
 ### sentence()
 
 > **sentence**(): `Promise`\<`any`\>
+
+Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/useCases/base/actionDML.ts#L24)
 
 #### Returns
 
@@ -89,7 +99,3 @@
 #### Inherited from
 
 [`StageActionDML`](StageActionDML.md).[`sentence`](StageActionDML.md#sentence)
-
-#### Source
-
-[src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/useCases/base/actionDML.ts#L24)

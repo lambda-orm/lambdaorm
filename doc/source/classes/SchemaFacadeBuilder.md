@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,25 +6,29 @@
 
 # Class: SchemaFacadeBuilder
 
+Defined in: node\_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:4
+
 ## Constructors
 
-### new SchemaFacadeBuilder()
+### Constructor
 
-> **new SchemaFacadeBuilder**(`exp`, `helper`): [`SchemaFacadeBuilder`](SchemaFacadeBuilder.md)
+> **new SchemaFacadeBuilder**(`exp`, `helper`): `SchemaFacadeBuilder`
+
+Defined in: node\_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:7
 
 #### Parameters
 
-• **exp**: `Expressions`
+##### exp
 
-• **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
+`Expressions`
+
+##### helper
+
+[`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Returns
 
-[`SchemaFacadeBuilder`](SchemaFacadeBuilder.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:7
+`SchemaFacadeBuilder`
 
 ## Methods
 
@@ -32,10 +36,8 @@ node\_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:7
 
 > **build**(): [`SchemaFacade`](SchemaFacade.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:8
+
 #### Returns
 
 [`SchemaFacade`](SchemaFacade.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/infrastructure/facadeBuilder.d.ts:8

@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,20 +8,24 @@
 
 > **rpad**(`value`, `len`, `pad`): `string`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:216
+
 Pad the right-side of string
 
 ## Parameters
 
-• **value**: `string`
+### value
 
-• **len**: `number`
+`string`
 
-• **pad**: `string`
+### len
+
+`number`
+
+### pad
+
+`string`
 
 ## Returns
 
 `string`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:216

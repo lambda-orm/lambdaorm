@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,31 +6,37 @@
 
 # Class: QueryActionsImpl
 
+Defined in: [src/lib/repository/domain/actions.ts:3](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/repository/domain/actions.ts#L3)
+
 ## Implements
 
 - [`QueryActions`](../interfaces/QueryActions.md)
 
 ## Constructors
 
-### new QueryActionsImpl()
+### Constructor
 
-> **new QueryActionsImpl**(`name`, `orm`, `stage`?): [`QueryActionsImpl`](QueryActionsImpl.md)
+> **new QueryActionsImpl**(`name`, `orm`, `stage?`): `QueryActionsImpl`
+
+Defined in: [src/lib/repository/domain/actions.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/repository/domain/actions.ts#L7)
 
 #### Parameters
 
-• **name**: `string`
+##### name
 
-• **orm**: [`IOrm`](../interfaces/IOrm.md)
+`string`
 
-• **stage?**: `string`
+##### orm
+
+[`IOrm`](../interfaces/IOrm.md)
+
+##### stage?
+
+`string`
 
 #### Returns
 
-[`QueryActionsImpl`](QueryActionsImpl.md)
-
-#### Source
-
-[src/lib/repository/domain/actions.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/repository/domain/actions.ts#L7)
+`QueryActionsImpl`
 
 ## Methods
 
@@ -38,9 +44,13 @@
 
 > **constraints**(`query`): `Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
 
+Defined in: [src/lib/repository/domain/actions.ts:29](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/repository/domain/actions.ts#L29)
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
@@ -50,21 +60,23 @@
 
 [`QueryActions`](../interfaces/QueryActions.md).[`constraints`](../interfaces/QueryActions.md#constraints)
 
-#### Source
-
-[src/lib/repository/domain/actions.ts:29](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/repository/domain/actions.ts#L29)
-
 ***
 
 ### execute()
 
 > **execute**(`query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/repository/domain/actions.ts:13](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/repository/domain/actions.ts#L13)
+
 #### Parameters
 
-• **query**: `string`
+##### query
 
-• **data**: `any`
+`string`
+
+##### data
+
+`any`
 
 #### Returns
 
@@ -74,19 +86,19 @@
 
 [`QueryActions`](../interfaces/QueryActions.md).[`execute`](../interfaces/QueryActions.md#execute)
 
-#### Source
-
-[src/lib/repository/domain/actions.ts:13](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/repository/domain/actions.ts#L13)
-
 ***
 
 ### metadata()
 
 > **metadata**(`query`): `Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
 
+Defined in: [src/lib/repository/domain/actions.ts:33](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/repository/domain/actions.ts#L33)
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
@@ -96,19 +108,19 @@
 
 [`QueryActions`](../interfaces/QueryActions.md).[`metadata`](../interfaces/QueryActions.md#metadata)
 
-#### Source
-
-[src/lib/repository/domain/actions.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/repository/domain/actions.ts#L33)
-
 ***
 
 ### model()
 
 > **model**(`query`): `Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
 
+Defined in: [src/lib/repository/domain/actions.ts:21](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/repository/domain/actions.ts#L21)
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
@@ -118,19 +130,19 @@
 
 [`QueryActions`](../interfaces/QueryActions.md).[`model`](../interfaces/QueryActions.md#model)
 
-#### Source
-
-[src/lib/repository/domain/actions.ts:21](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/repository/domain/actions.ts#L21)
-
 ***
 
 ### normalize()
 
 > **normalize**(`query`): `string`
 
+Defined in: [src/lib/repository/domain/actions.ts:17](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/repository/domain/actions.ts#L17)
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
@@ -140,19 +152,19 @@
 
 [`QueryActions`](../interfaces/QueryActions.md).[`normalize`](../interfaces/QueryActions.md#normalize)
 
-#### Source
-
-[src/lib/repository/domain/actions.ts:17](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/repository/domain/actions.ts#L17)
-
 ***
 
 ### parameters()
 
 > **parameters**(`query`): `Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
 
+Defined in: [src/lib/repository/domain/actions.ts:25](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/repository/domain/actions.ts#L25)
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
@@ -162,19 +174,19 @@
 
 [`QueryActions`](../interfaces/QueryActions.md).[`parameters`](../interfaces/QueryActions.md#parameters)
 
-#### Source
-
-[src/lib/repository/domain/actions.ts:25](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/repository/domain/actions.ts#L25)
-
 ***
 
 ### plan()
 
 > **plan**(`query`): `Promise`\<[`QueryPlan`](../interfaces/QueryPlan.md)\>
 
+Defined in: [src/lib/repository/domain/actions.ts:37](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/repository/domain/actions.ts#L37)
+
 #### Parameters
 
-• **query**: `string`
+##### query
+
+`string`
 
 #### Returns
 
@@ -183,7 +195,3 @@
 #### Implementation of
 
 [`QueryActions`](../interfaces/QueryActions.md).[`plan`](../interfaces/QueryActions.md#plan)
-
-#### Source
-
-[src/lib/repository/domain/actions.ts:37](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/repository/domain/actions.ts#L37)

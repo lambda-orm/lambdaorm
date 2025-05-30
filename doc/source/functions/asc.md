@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **asc**(`value`): `void`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:157
+
 ## Parameters
 
-• **value**: `any`
+### value
+
+`any`
 
 ## Returns
 
 `void`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:157

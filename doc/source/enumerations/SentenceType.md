@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Enumeration: SentenceType
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:14
+
 ## Enumeration Members
 
 ### ddl
 
 > **ddl**: `"ddl"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:17
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:17
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:17
 
 > **dml**: `"dml"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:16
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:16
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:16
 
 > **dql**: `"dql"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:15
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:15
 
 ***
 
@@ -42,6 +38,4 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:15
 
 > **metadata**: `"metadata"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:18
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:18

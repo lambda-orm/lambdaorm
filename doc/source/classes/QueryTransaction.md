@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,67 +6,77 @@
 
 # Class: QueryTransaction
 
+Defined in: [src/lib/expressions/application/useCases/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/useCases/transaction.ts#L7)
+
 ## Constructors
 
-### new QueryTransaction()
+### Constructor
 
-> **new QueryTransaction**(`transaction`, `builder`, `expressions`): [`QueryTransaction`](QueryTransaction.md)
+> **new QueryTransaction**(`transaction`, `builder`, `expressions`): `QueryTransaction`
+
+Defined in: [src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/useCases/transaction.ts#L9)
 
 #### Parameters
 
-• **transaction**: [`Transaction`](Transaction.md)
+##### transaction
 
-• **builder**: [`IQueryBuilder`](../interfaces/IQueryBuilder.md)
+[`Transaction`](Transaction.md)
 
-• **expressions**: `Expressions`
+##### builder
+
+[`IQueryBuilder`](../interfaces/IQueryBuilder.md)
+
+##### expressions
+
+`Expressions`
 
 #### Returns
 
-[`QueryTransaction`](QueryTransaction.md)
-
-#### Source
-
-[src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/useCases/transaction.ts#L9)
+`QueryTransaction`
 
 ## Methods
 
 ### execute()
 
-#### execute(query, data)
+#### Call Signature
 
-> **execute**(`query`, `data`?): `Promise`\<`any`\>
+> **execute**(`query`, `data?`): `Promise`\<`any`\>
+
+Defined in: [src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/useCases/transaction.ts#L13)
 
 ##### Parameters
 
-• **query**: `Function`
+###### query
 
-• **data?**: `any`
+`Function`
+
+###### data?
+
+`any`
 
 ##### Returns
 
 `Promise`\<`any`\>
 
-##### Source
+#### Call Signature
 
-[src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/useCases/transaction.ts#L13)
+> **execute**(`query`, `data?`): `Promise`\<`any`\>
 
-#### execute(query, data)
-
-> **execute**(`query`, `data`?): `Promise`\<`any`\>
+Defined in: [src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/useCases/transaction.ts#L14)
 
 ##### Parameters
 
-• **query**: `string`
+###### query
 
-• **data?**: `any`
+`string`
+
+###### data?
+
+`any`
 
 ##### Returns
 
 `Promise`\<`any`\>
-
-##### Source
-
-[src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/useCases/transaction.ts#L14)
 
 ***
 
@@ -74,16 +84,18 @@
 
 > **executeQuery**(`query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/application/useCases/transaction.ts#L23)
+
 #### Parameters
 
-• **query**: [`Query`](Query.md)
+##### query
 
-• **data**: `any`= `{}`
+[`Query`](Query.md)
+
+##### data
+
+`any` = `{}`
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/application/useCases/transaction.ts#L23)

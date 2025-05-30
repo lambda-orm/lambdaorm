@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,30 +6,32 @@
 
 # Class: LoggerBuilder
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/loggerBuilder.d.ts:2
+
 ## Constructors
 
-### new LoggerBuilder()
+### Constructor
 
-> **new LoggerBuilder**(): [`LoggerBuilder`](LoggerBuilder.md)
+> **new LoggerBuilder**(): `LoggerBuilder`
 
 #### Returns
 
-[`LoggerBuilder`](LoggerBuilder.md)
+`LoggerBuilder`
 
 ## Methods
 
 ### build()
 
-> **build**(`name`?): [`Logger`](Logger.md)
+> **build**(`name?`): [`Logger`](Logger.md)
+
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/loggerBuilder.d.ts:3
 
 #### Parameters
 
-• **name?**: `string`
+##### name?
+
+`string`
 
 #### Returns
 
 [`Logger`](Logger.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/loggerBuilder.d.ts:3

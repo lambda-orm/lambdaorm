@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: Source
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:125
+
 ## Properties
 
 ### connection
 
 > **connection**: `any`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:129
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:129
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:129
 
 > **dialect**: [`Dialect`](../enumerations/Dialect.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:127
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:127
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:127
 
 > **mapping**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:128
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:128
 
 ***
 
@@ -42,6 +38,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:128
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:126
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:126

@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,33 +6,37 @@
 
 # Class: OrmH3lp
 
+Defined in: [src/lib/shared/infrastructure/helper.ts:23](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/shared/infrastructure/helper.ts#L23)
+
 ## Extends
 
 - [`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 ## Constructors
 
-### new OrmH3lp()
+### Constructor
 
-> **new OrmH3lp**(`h3lp`, `logger`): [`OrmH3lp`](OrmH3lp.md)
+> **new OrmH3lp**(`h3lp`, `logger`): `OrmH3lp`
+
+Defined in: [src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/shared/infrastructure/helper.ts#L25)
 
 #### Parameters
 
-• **h3lp**: `H3lp`
+##### h3lp
 
-• **logger**: [`Logger`](Logger.md)
+`H3lp`
+
+##### logger
+
+[`Logger`](Logger.md)
 
 #### Returns
 
-[`OrmH3lp`](OrmH3lp.md)
+`OrmH3lp`
 
 #### Overrides
 
-[`OrmBaseH3lp`](OrmBaseH3lp.md).[`constructor`](OrmBaseH3lp.md#constructors)
-
-#### Source
-
-[src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/shared/infrastructure/helper.ts#L25)
+[`OrmBaseH3lp`](OrmBaseH3lp.md).[`constructor`](OrmBaseH3lp.md#constructor)
 
 ## Properties
 
@@ -40,13 +44,11 @@
 
 > `readonly` **array**: `IArrayHelper`
 
+Defined in: node\_modules/h3lp/application/h3lp.d.ts:10
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`array`](OrmBaseH3lp.md#array)
-
-#### Source
-
-node\_modules/h3lp/application/h3lp.d.ts:10
 
 ***
 
@@ -54,9 +56,7 @@ node\_modules/h3lp/application/h3lp.d.ts:10
 
 > **crypto**: [`CryptoHelper`](CryptoHelper.md)
 
-#### Source
-
-[src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/shared/infrastructure/helper.ts#L24)
+Defined in: [src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/shared/infrastructure/helper.ts#L24)
 
 ***
 
@@ -64,13 +64,11 @@ node\_modules/h3lp/application/h3lp.d.ts:10
 
 > **expression**: `ExpressionHelper`
 
+Defined in: node\_modules/3xpr/shared/infrastructure/helper.d.ts:5
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`expression`](OrmBaseH3lp.md#expression)
-
-#### Source
-
-node\_modules/3xpr/shared/infrastructure/helper.d.ts:5
 
 ***
 
@@ -78,13 +76,11 @@ node\_modules/3xpr/shared/infrastructure/helper.d.ts:5
 
 > `readonly` **fs**: `IFsHelper`
 
+Defined in: node\_modules/h3lp/application/h3lp.d.ts:5
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`fs`](OrmBaseH3lp.md#fs)
-
-#### Source
-
-node\_modules/h3lp/application/h3lp.d.ts:5
 
 ***
 
@@ -92,13 +88,11 @@ node\_modules/h3lp/application/h3lp.d.ts:5
 
 > `readonly` **http**: `IHttpHelper`
 
+Defined in: node\_modules/h3lp/application/h3lp.d.ts:6
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`http`](OrmBaseH3lp.md#http)
-
-#### Source
-
-node\_modules/h3lp/application/h3lp.d.ts:6
 
 ***
 
@@ -106,13 +100,11 @@ node\_modules/h3lp/application/h3lp.d.ts:6
 
 > `readonly` **logger**: [`Logger`](Logger.md)
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:34
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`logger`](OrmBaseH3lp.md#logger)
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:35
 
 ***
 
@@ -120,13 +112,11 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:35
 
 > `readonly` **obj**: `IObjectHelper`
 
+Defined in: node\_modules/h3lp/application/h3lp.d.ts:7
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`obj`](OrmBaseH3lp.md#obj)
-
-#### Source
-
-node\_modules/h3lp/application/h3lp.d.ts:7
 
 ***
 
@@ -134,13 +124,11 @@ node\_modules/h3lp/application/h3lp.d.ts:7
 
 > **operand**: `OperandHelper`
 
+Defined in: node\_modules/3xpr/shared/infrastructure/helper.d.ts:6
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`operand`](OrmBaseH3lp.md#operand)
-
-#### Source
-
-node\_modules/3xpr/shared/infrastructure/helper.d.ts:6
 
 ***
 
@@ -148,13 +136,11 @@ node\_modules/3xpr/shared/infrastructure/helper.d.ts:6
 
 > **query**: [`QueryHelper`](QueryHelper.md)
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:37
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`query`](OrmBaseH3lp.md#query)
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:38
 
 ***
 
@@ -162,13 +148,11 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:38
 
 > **schema**: [`SchemaHelper`](SchemaHelper.md)
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:35
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`schema`](OrmBaseH3lp.md#schema)
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:36
 
 ***
 
@@ -176,13 +160,11 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:36
 
 > `readonly` **str**: `IStringHelper`
 
+Defined in: node\_modules/h3lp/application/h3lp.d.ts:8
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`str`](OrmBaseH3lp.md#str)
-
-#### Source
-
-node\_modules/h3lp/application/h3lp.d.ts:8
 
 ***
 
@@ -190,13 +172,11 @@ node\_modules/h3lp/application/h3lp.d.ts:8
 
 > `readonly` **test**: `ITestHelper`
 
+Defined in: node\_modules/h3lp/application/h3lp.d.ts:9
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`test`](OrmBaseH3lp.md#test)
-
-#### Source
-
-node\_modules/h3lp/application/h3lp.d.ts:9
 
 ***
 
@@ -204,13 +184,11 @@ node\_modules/h3lp/application/h3lp.d.ts:9
 
 > `readonly` **utils**: `IUtils`
 
+Defined in: node\_modules/h3lp/application/h3lp.d.ts:3
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`utils`](OrmBaseH3lp.md#utils)
-
-#### Source
-
-node\_modules/h3lp/application/h3lp.d.ts:3
 
 ***
 
@@ -218,13 +196,11 @@ node\_modules/h3lp/application/h3lp.d.ts:3
 
 > **uuid**: [`UUIDWrapper`](UUIDWrapper.md)
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:38
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`uuid`](OrmBaseH3lp.md#uuid)
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:39
 
 ***
 
@@ -232,13 +208,11 @@ node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:39
 
 > `readonly` **val**: `IValidator`
 
+Defined in: node\_modules/h3lp/application/h3lp.d.ts:4
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`val`](OrmBaseH3lp.md#val)
-
-#### Source
-
-node\_modules/h3lp/application/h3lp.d.ts:4
 
 ***
 
@@ -246,10 +220,8 @@ node\_modules/h3lp/application/h3lp.d.ts:4
 
 > **yaml**: [`YamlWrapper`](YamlWrapper.md)
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:36
+
 #### Inherited from
 
 [`OrmBaseH3lp`](OrmBaseH3lp.md).[`yaml`](OrmBaseH3lp.md#yaml)
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:37

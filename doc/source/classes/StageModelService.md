@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,47 +6,55 @@
 
 # Class: StageModelService
 
+Defined in: [src/lib/stage/application/services/stateService.ts:50](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L50)
+
 ## Extends
 
 - `StageStateService`\<[`ModelConfig`](../interfaces/ModelConfig.md)\>
 
 ## Constructors
 
-### new StageModelService()
+### Constructor
 
-> **new StageModelService**(`schemaState`, `helper`): [`StageModelService`](StageModelService.md)
+> **new StageModelService**(`schemaState`, `helper`): `StageModelService`
+
+Defined in: [src/lib/stage/application/services/stateService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L7)
 
 #### Parameters
 
-• **schemaState**: [`SchemaState`](SchemaState.md)
+##### schemaState
 
-• **helper**: [`OrmH3lp`](OrmH3lp.md)
+[`SchemaState`](SchemaState.md)
+
+##### helper
+
+[`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
-[`StageModelService`](StageModelService.md)
+`StageModelService`
 
 #### Inherited from
 
 `StageStateService<ModelConfig>.constructor`
 
-#### Source
-
-[src/lib/stage/application/services/stateService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/services/stateService.ts#L7)
-
 ## Accessors
 
 ### schemaDirPath
 
-> `get` **schemaDirPath**(): `string`
+#### Get Signature
 
-#### Returns
+> **get** **schemaDirPath**(): `string`
+
+Defined in: [src/lib/stage/application/services/stateService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L9)
+
+##### Returns
 
 `string`
 
-#### Source
+#### Inherited from
 
-[src/lib/stage/application/services/stateService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/services/stateService.ts#L9)
+`StageStateService.schemaDirPath`
 
 ## Methods
 
@@ -54,19 +62,21 @@
 
 > **ddl**(`action`, `queries`): `Promise`\<`void`\>
 
+Defined in: [src/lib/stage/application/services/stateService.ts:59](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L59)
+
 #### Parameters
 
-• **action**: `string`
+##### action
 
-• **queries**: [`Query`](Query.md)[]
+`string`
+
+##### queries
+
+[`Query`](Query.md)[]
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/stage/application/services/stateService.ts:59](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/services/stateService.ts#L59)
 
 ***
 
@@ -74,9 +84,13 @@
 
 > **get**(`name`): `Promise`\<[`ModelConfig`](../interfaces/ModelConfig.md)\>
 
+Defined in: [src/lib/stage/application/services/stateService.ts:13](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L13)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -86,19 +100,19 @@
 
 `StageStateService.get`
 
-#### Source
-
-[src/lib/stage/application/services/stateService.ts:13](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/services/stateService.ts#L13)
-
 ***
 
 ### getFile()
 
 > **getFile**(`name`): `string`
 
+Defined in: [src/lib/stage/application/services/stateService.ts:55](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L55)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -108,19 +122,19 @@
 
 `StageStateService.getFile`
 
-#### Source
-
-[src/lib/stage/application/services/stateService.ts:55](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/services/stateService.ts#L55)
-
 ***
 
 ### remove()
 
 > **remove**(`name`): `Promise`\<`any`\>
 
+Defined in: [src/lib/stage/application/services/stateService.ts:30](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L30)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -130,21 +144,23 @@
 
 `StageStateService.remove`
 
-#### Source
-
-[src/lib/stage/application/services/stateService.ts:30](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/services/stateService.ts#L30)
-
 ***
 
 ### update()
 
 > **update**(`name`, `data`): `Promise`\<`void`\>
 
+Defined in: [src/lib/stage/application/services/stateService.ts:25](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/services/stateService.ts#L25)
+
 #### Parameters
 
-• **name**: `string`
+##### name
 
-• **data**: [`ModelConfig`](../interfaces/ModelConfig.md)
+`string`
+
+##### data
+
+[`ModelConfig`](../interfaces/ModelConfig.md)
 
 #### Returns
 
@@ -153,7 +169,3 @@
 #### Inherited from
 
 `StageStateService.update`
-
-#### Source
-
-[src/lib/stage/application/services/stateService.ts:25](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/services/stateService.ts#L25)

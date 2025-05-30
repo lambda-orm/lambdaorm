@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,39 +6,57 @@
 
 # Class: SchemaState
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:11
+
 ## Constructors
 
-### new SchemaState()
+### Constructor
 
-> **new SchemaState**(`source`, `domain`, `mapping`, `stage`, `view`, `routeService`, `facade`, `loadSchema`, `helper`): [`SchemaState`](SchemaState.md)
+> **new SchemaState**(`source`, `domain`, `mapping`, `stage`, `view`, `routeService`, `facade`, `loadSchema`, `helper`): `SchemaState`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:24
 
 #### Parameters
 
-• **source**: [`DataSourceConfigService`](DataSourceConfigService.md)
+##### source
 
-• **domain**: [`DomainConfigService`](DomainConfigService.md)
+[`DataSourceConfigService`](DataSourceConfigService.md)
 
-• **mapping**: [`MappingsConfigService`](MappingsConfigService.md)
+##### domain
 
-• **stage**: [`StageConfigService`](StageConfigService.md)
+[`DomainConfigService`](DomainConfigService.md)
 
-• **view**: [`ViewsConfigService`](ViewsConfigService.md)
+##### mapping
 
-• **routeService**: [`RouteService`](RouteService.md)
+[`MappingsConfigService`](MappingsConfigService.md)
 
-• **facade**: [`SchemaFacade`](SchemaFacade.md)
+##### stage
 
-• **loadSchema**: [`LoadSchema`](LoadSchema.md)
+[`StageConfigService`](StageConfigService.md)
 
-• **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
+##### view
+
+[`ViewsConfigService`](ViewsConfigService.md)
+
+##### routeService
+
+[`RouteService`](RouteService.md)
+
+##### facade
+
+[`SchemaFacade`](SchemaFacade.md)
+
+##### loadSchema
+
+[`LoadSchema`](LoadSchema.md)
+
+##### helper
+
+[`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Returns
 
-[`SchemaState`](SchemaState.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:24
+`SchemaState`
 
 ## Properties
 
@@ -46,9 +64,7 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:24
 
 > `readonly` **domain**: [`DomainConfigService`](DomainConfigService.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:13
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:13
 
 ***
 
@@ -56,9 +72,7 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:13
 
 > `readonly` **mapping**: [`MappingsConfigService`](MappingsConfigService.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:14
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:14
 
 ***
 
@@ -66,9 +80,7 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:14
 
 > **originalSchema**: [`Schema`](../interfaces/Schema.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:22
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:22
 
 ***
 
@@ -76,9 +88,7 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:22
 
 > **schema**: [`Schema`](../interfaces/Schema.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:21
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:21
 
 ***
 
@@ -86,9 +96,7 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:21
 
 > `optional` **schemaPath**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:23
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:23
 
 ***
 
@@ -96,9 +104,7 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:23
 
 > `readonly` **source**: [`DataSourceConfigService`](DataSourceConfigService.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:12
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:12
 
 ***
 
@@ -106,9 +112,7 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:12
 
 > `readonly` **stage**: [`StageConfigService`](StageConfigService.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:15
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:15
 
 ***
 
@@ -116,9 +120,7 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:15
 
 > `readonly` **view**: [`ViewsConfigService`](ViewsConfigService.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:16
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:16
 
 ## Methods
 
@@ -126,19 +128,21 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:16
 
 > **evalSourceRule**(`rule`, `info`): `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:29
+
 #### Parameters
 
-• **rule**: [`SourceRule`](../interfaces/SourceRule.md)
+##### rule
 
-• **info**: [`SentenceInfo`](../interfaces/SentenceInfo.md)
+[`SourceRule`](../interfaces/SourceRule.md)
+
+##### info
+
+[`SentenceInfo`](../interfaces/SentenceInfo.md)
 
 #### Returns
 
 `boolean`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:29
 
 ***
 
@@ -146,13 +150,11 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:29
 
 > **getSchemaDomain**(): [`DomainSchema`](../interfaces/DomainSchema.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:42
+
 #### Returns
 
 [`DomainSchema`](../interfaces/DomainSchema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:42
 
 ***
 
@@ -160,13 +162,11 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:42
 
 > **getSchemaEntities**(): [`Entity`](../interfaces/Entity.md)[]
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:43
+
 #### Returns
 
 [`Entity`](../interfaces/Entity.md)[]
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:43
 
 ***
 
@@ -174,17 +174,17 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:43
 
 > **getSchemaEntity**(`entity`): `undefined` \| [`Entity`](../interfaces/Entity.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:44
+
 #### Parameters
 
-• **entity**: `string`
+##### entity
+
+`string`
 
 #### Returns
 
 `undefined` \| [`Entity`](../interfaces/Entity.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:44
 
 ***
 
@@ -192,19 +192,21 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:44
 
 > **getSchemaEntityMapping**(`mapping`, `entity`): `undefined` \| [`EntityMapping`](../interfaces/EntityMapping.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:49
+
 #### Parameters
 
-• **mapping**: `string`
+##### mapping
 
-• **entity**: `string`
+`string`
+
+##### entity
+
+`string`
 
 #### Returns
 
 `undefined` \| [`EntityMapping`](../interfaces/EntityMapping.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:49
 
 ***
 
@@ -212,17 +214,17 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:49
 
 > **getSchemaEnum**(`_enum`): `undefined` \| [`Enum`](../interfaces/Enum.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:46
+
 #### Parameters
 
-• **\_enum**: `string`
+##### \_enum
+
+`string`
 
 #### Returns
 
 `undefined` \| [`Enum`](../interfaces/Enum.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:46
 
 ***
 
@@ -230,13 +232,11 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:46
 
 > **getSchemaEnums**(): [`Enum`](../interfaces/Enum.md)[]
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:45
+
 #### Returns
 
 [`Enum`](../interfaces/Enum.md)[]
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:45
 
 ***
 
@@ -244,17 +244,17 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:45
 
 > **getSchemaMapping**(`mapping`): `undefined` \| [`Mapping`](../interfaces/Mapping.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:48
+
 #### Parameters
 
-• **mapping**: `string`
+##### mapping
+
+`string`
 
 #### Returns
 
 `undefined` \| [`Mapping`](../interfaces/Mapping.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:48
 
 ***
 
@@ -262,13 +262,11 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:48
 
 > **getSchemaMappings**(): [`Mapping`](../interfaces/Mapping.md)[]
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:47
+
 #### Returns
 
 [`Mapping`](../interfaces/Mapping.md)[]
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:47
 
 ***
 
@@ -276,9 +274,13 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:47
 
 > **getSchemaSource**(`source`): `object`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:35
+
 #### Parameters
 
-• **source**: `string`
+##### source
+
+`string`
 
 #### Returns
 
@@ -292,23 +294,17 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:47
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:35
-
 ***
 
 ### getSchemaSources()
 
 > **getSchemaSources**(): `object`[]
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:31
+
 #### Returns
 
 `object`[]
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:31
 
 ***
 
@@ -316,17 +312,17 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:31
 
 > **getSchemaStage**(`stage`): `undefined` \| [`Stage`](../interfaces/Stage.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:51
+
 #### Parameters
 
-• **stage**: `string`
+##### stage
+
+`string`
 
 #### Returns
 
 `undefined` \| [`Stage`](../interfaces/Stage.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:51
 
 ***
 
@@ -334,19 +330,19 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:51
 
 > **getSchemaStages**(): [`Stage`](../interfaces/Stage.md)[]
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:50
+
 #### Returns
 
 [`Stage`](../interfaces/Stage.md)[]
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:50
 
 ***
 
 ### getSchemaVersion()
 
 > **getSchemaVersion**(): `object`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:39
 
 #### Returns
 
@@ -356,43 +352,39 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:50
 
 > **version**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:39
-
 ***
 
 ### getSchemaViews()
 
 > **getSchemaViews**(): `string`[]
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:52
+
 #### Returns
 
 `string`[]
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:52
 
 ***
 
 ### getSource()
 
-> **getSource**(`info`, `stage`?): `string`
+> **getSource**(`info`, `stage?`): `string`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:30
 
 #### Parameters
 
-• **info**: [`SentenceInfo`](../interfaces/SentenceInfo.md)
+##### info
 
-• **stage?**: `string`
+[`SentenceInfo`](../interfaces/SentenceInfo.md)
+
+##### stage?
+
+`string`
 
 #### Returns
 
 `string`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:30
 
 ***
 
@@ -400,17 +392,17 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:30
 
 > **initialize**(`args`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:25
+
 #### Parameters
 
-• **args**: [`InitializeSchemaArgs`](../interfaces/InitializeSchemaArgs.md)
+##### args
+
+[`InitializeSchemaArgs`](../interfaces/InitializeSchemaArgs.md)
 
 #### Returns
 
 `Promise`\<[`Schema`](../interfaces/Schema.md)\>
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:25
 
 ***
 
@@ -418,19 +410,21 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:25
 
 > **introspect**(`data`, `name`): `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:27
+
 #### Parameters
 
-• **data**: `any`
+##### data
 
-• **name**: `string`
+`any`
+
+##### name
+
+`string`
 
 #### Returns
 
 `Promise`\<[`SchemaData`](../interfaces/SchemaData.md)\>
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:27
 
 ***
 
@@ -438,34 +432,36 @@ node\_modules/lambdaorm-base/schema/application/state.d.ts:27
 
 > **load**(`source`): `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:26
+
 #### Parameters
 
-• **source**: `string` \| [`Schema`](../interfaces/Schema.md)
+##### source
+
+`string` | [`Schema`](../interfaces/Schema.md)
 
 #### Returns
 
 `Promise`\<[`Schema`](../interfaces/Schema.md)\>
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:26
-
 ***
 
 ### match()
 
-> **match**(`mappings`, `options`?): `Promise`\<`void`\>
+> **match**(`mappings`, `options?`): `Promise`\<`void`\>
+
+Defined in: node\_modules/lambdaorm-base/schema/application/state.d.ts:28
 
 #### Parameters
 
-• **mappings**: [`Mapping`](../interfaces/Mapping.md)[]
+##### mappings
 
-• **options?**: [`MatchOptions`](../interfaces/MatchOptions.md)
+[`Mapping`](../interfaces/Mapping.md)[]
+
+##### options?
+
+[`MatchOptions`](../interfaces/MatchOptions.md)
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/state.d.ts:28

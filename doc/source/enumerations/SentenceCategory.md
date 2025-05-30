@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Enumeration: SentenceCategory
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:1
+
 ## Enumeration Members
 
 ### add
 
 > **add**: `"add"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:10
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:10
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:10
 
 > **alter**: `"alter"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:11
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:11
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:11
 
 > **create**: `"create"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:9
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:9
 
 ***
 
@@ -42,9 +38,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:9
 
 > **delete**: `"delete"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:7
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:7
 
 ***
 
@@ -52,9 +46,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:7
 
 > **drop**: `"drop"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:12
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:12
 
 ***
 
@@ -62,9 +54,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:12
 
 > **insert**: `"insert"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:4
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:4
 
 ***
 
@@ -72,9 +62,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:4
 
 > **select**: `"select"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:3
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:3
 
 ***
 
@@ -82,9 +70,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:3
 
 > **truncate**: `"truncate"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:8
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:8
 
 ***
 
@@ -92,9 +78,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:8
 
 > **undefined**: `"undefined"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:2
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:2
 
 ***
 
@@ -102,9 +86,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:2
 
 > **update**: `"update"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:6
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:6
 
 ***
 
@@ -112,6 +94,4 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:6
 
 > **upsert**: `"upsert"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:5
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:5

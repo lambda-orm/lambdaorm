@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: InitializeSchemaArgs
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:13
+
 ## Properties
 
 ### connection?
 
 > `optional` **connection**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:18
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:18
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/services.d.ts:18
 
 > `optional` **dataPath**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:19
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:19
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/services.d.ts:19
 
 > `optional` **dialect**: [`Dialect`](../enumerations/Dialect.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:17
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:17
 
 ***
 
@@ -42,9 +38,7 @@ node\_modules/lambdaorm-base/schema/domain/services.d.ts:17
 
 > `optional` **source**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:16
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:16
 
 ***
 
@@ -52,9 +46,7 @@ node\_modules/lambdaorm-base/schema/domain/services.d.ts:16
 
 > `optional` **url**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:15
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:15
 
 ***
 
@@ -62,6 +54,4 @@ node\_modules/lambdaorm-base/schema/domain/services.d.ts:15
 
 > **workspace**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:14
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:14

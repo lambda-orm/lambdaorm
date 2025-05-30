@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,22 +6,26 @@
 
 # Interface: IQueryBuilder
 
+Defined in: [src/lib/expressions/domain/services.ts:4](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/domain/services.ts#L4)
+
 ## Methods
 
 ### build()
 
 > **build**(`expression`, `options`): [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/expressions/domain/services.ts:5](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/expressions/domain/services.ts#L5)
+
 #### Parameters
 
-• **expression**: `string`
+##### expression
 
-• **options**: [`QueryOptions`](QueryOptions.md)
+`string`
+
+##### options
+
+[`QueryOptions`](QueryOptions.md)
 
 #### Returns
 
 [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/expressions/domain/services.ts:5](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/expressions/domain/services.ts#L5)

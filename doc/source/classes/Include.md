@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,27 +6,33 @@
 
 # Class: Include
 
+Defined in: [src/lib/query/domain/query.ts:57](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L57)
+
 ## Constructors
 
-### new Include()
+### Constructor
 
-> **new Include**(`name`, `query`, `relation`): [`Include`](Include.md)
+> **new Include**(`name`, `query`, `relation`): `Include`
+
+Defined in: [src/lib/query/domain/query.ts:61](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L61)
 
 #### Parameters
 
-• **name**: `string`
+##### name
 
-• **query**: [`Query`](Query.md)
+`string`
 
-• **relation**: [`Relation`](../interfaces/Relation.md)
+##### query
+
+[`Query`](Query.md)
+
+##### relation
+
+[`Relation`](../interfaces/Relation.md)
 
 #### Returns
 
-[`Include`](Include.md)
-
-#### Source
-
-[src/lib/query/domain/query.ts:61](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L61)
+`Include`
 
 ## Properties
 
@@ -34,9 +40,7 @@
 
 > **name**: `string`
 
-#### Source
-
-[src/lib/query/domain/query.ts:58](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L58)
+Defined in: [src/lib/query/domain/query.ts:58](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L58)
 
 ***
 
@@ -44,9 +48,7 @@
 
 > **query**: [`Query`](Query.md)
 
-#### Source
-
-[src/lib/query/domain/query.ts:59](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L59)
+Defined in: [src/lib/query/domain/query.ts:59](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L59)
 
 ***
 
@@ -54,6 +56,4 @@
 
 > **relation**: [`Relation`](../interfaces/Relation.md)
 
-#### Source
-
-[src/lib/query/domain/query.ts:60](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/query/domain/query.ts#L60)
+Defined in: [src/lib/query/domain/query.ts:60](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/query/domain/query.ts#L60)

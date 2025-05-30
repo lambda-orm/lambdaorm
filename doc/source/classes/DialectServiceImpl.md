@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,29 +6,33 @@
 
 # Class: DialectServiceImpl
 
+Defined in: [src/lib/language/application/services/dialectService.ts:3](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L3)
+
 ## Implements
 
 - [`DialectService`](../interfaces/DialectService.md)
 
 ## Constructors
 
-### new DialectServiceImpl()
+### Constructor
 
-> **new DialectServiceImpl**(`name`, `data`): [`DialectServiceImpl`](DialectServiceImpl.md)
+> **new DialectServiceImpl**(`name`, `data`): `DialectServiceImpl`
+
+Defined in: [src/lib/language/application/services/dialectService.ts:15](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L15)
 
 #### Parameters
 
-• **name**: `string`
+##### name
 
-• **data**: `any`
+`string`
+
+##### data
+
+`any`
 
 #### Returns
 
-[`DialectServiceImpl`](DialectServiceImpl.md)
-
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:15](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L15)
+`DialectServiceImpl`
 
 ## Properties
 
@@ -36,13 +40,11 @@
 
 > **format**: [`DialectFormat`](../interfaces/DialectFormat.md)
 
+Defined in: [src/lib/language/application/services/dialectService.ts:5](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L5)
+
 #### Implementation of
 
 [`DialectService`](../interfaces/DialectService.md).[`format`](../interfaces/DialectService.md#format)
-
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:5](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L5)
 
 ***
 
@@ -50,27 +52,29 @@
 
 > **name**: `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:4](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L4)
+
 #### Implementation of
 
 [`DialectService`](../interfaces/DialectService.md).[`name`](../interfaces/DialectService.md#name)
-
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:4](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L4)
 
 ## Accessors
 
 ### solveComposite
 
-> `get` **solveComposite**(): `boolean`
+#### Get Signature
 
-#### Returns
+> **get** **solveComposite**(): `boolean`
+
+Defined in: [src/lib/language/application/services/dialectService.ts:77](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L77)
+
+##### Returns
 
 `boolean`
 
-#### Source
+#### Implementation of
 
-[src/lib/language/application/services/dialectService.ts:77](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L77)
+[`DialectService`](../interfaces/DialectService.md).[`solveComposite`](../interfaces/DialectService.md#solvecomposite)
 
 ## Methods
 
@@ -78,9 +82,13 @@
 
 > **dbType**(`name`): `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:109](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L109)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -90,19 +98,19 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`dbType`](../interfaces/DialectService.md#dbtype)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:109](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L109)
-
 ***
 
 ### ddl()
 
 > **ddl**(`name`): `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:105](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L105)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -112,23 +120,27 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`ddl`](../interfaces/DialectService.md#ddl)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:105](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L105)
-
 ***
 
 ### delimiter()
 
 > **delimiter**(`name`, `force`, `excludeUnderscore`): `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:121](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L121)
+
 #### Parameters
 
-• **name**: `string`
+##### name
 
-• **force**: `boolean`= `false`
+`string`
 
-• **excludeUnderscore**: `boolean`= `false`
+##### force
+
+`boolean` = `false`
+
+##### excludeUnderscore
+
+`boolean` = `false`
 
 #### Returns
 
@@ -138,19 +150,19 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`delimiter`](../interfaces/DialectService.md#delimiter)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:121](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L121)
-
 ***
 
 ### dml()
 
 > **dml**(`name`): `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:97](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L97)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -160,19 +172,19 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`dml`](../interfaces/DialectService.md#dml)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:97](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L97)
-
 ***
 
 ### function()
 
 > **function**(`name`): `any`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:89](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L89)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -182,19 +194,19 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`function`](../interfaces/DialectService.md#function)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:89](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L89)
-
 ***
 
 ### getFunctionMetadata()
 
 > **getFunctionMetadata**(`name`): `null` \| `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:150](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L150)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -204,21 +216,23 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`getFunctionMetadata`](../interfaces/DialectService.md#getfunctionmetadata)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:150](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L150)
-
 ***
 
 ### getOperatorMetadata()
 
 > **getOperatorMetadata**(`name`, `operands`): `null` \| `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:138](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L138)
+
 #### Parameters
 
-• **name**: `string`
+##### name
 
-• **operands**: `number`
+`string`
+
+##### operands
+
+`number`
 
 #### Returns
 
@@ -228,19 +242,19 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`getOperatorMetadata`](../interfaces/DialectService.md#getoperatormetadata)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:138](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L138)
-
 ***
 
 ### isReservedWord()
 
 > **isReservedWord**(`name`): `boolean`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:81](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L81)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -250,21 +264,23 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`isReservedWord`](../interfaces/DialectService.md#isreservedword)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:81](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L81)
-
 ***
 
 ### operator()
 
 > **operator**(`name`, `operands`): `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:85](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L85)
+
 #### Parameters
 
-• **name**: `string`
+##### name
 
-• **operands**: `number`
+`string`
+
+##### operands
+
+`number`
 
 #### Returns
 
@@ -274,19 +290,19 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`operator`](../interfaces/DialectService.md#operator)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:85](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L85)
-
 ***
 
 ### other()
 
 > **other**(`name`): `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:101](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L101)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -296,19 +312,19 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`other`](../interfaces/DialectService.md#other)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:101](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L101)
-
 ***
 
 ### string()
 
 > **string**(`name`): `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:133](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L133)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -318,19 +334,19 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`string`](../interfaces/DialectService.md#string)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:133](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L133)
-
 ***
 
 ### support()
 
 > **support**(`name`): `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:93](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L93)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -340,19 +356,19 @@
 
 [`DialectService`](../interfaces/DialectService.md).[`support`](../interfaces/DialectService.md#support)
 
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:93](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L93)
-
 ***
 
 ### type()
 
 > **type**(`name`): `string`
 
+Defined in: [src/lib/language/application/services/dialectService.ts:113](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/dialectService.ts#L113)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -361,7 +377,3 @@
 #### Implementation of
 
 [`DialectService`](../interfaces/DialectService.md).[`type`](../interfaces/DialectService.md#type)
-
-#### Source
-
-[src/lib/language/application/services/dialectService.ts:113](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/dialectService.ts#L113)

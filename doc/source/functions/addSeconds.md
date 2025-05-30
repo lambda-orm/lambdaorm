@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,16 +8,18 @@
 
 > **addSeconds**(`date`, `value`): `Date`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:276
+
 ## Parameters
 
-• **date**: `Date`
+### date
 
-• **value**: `number`
+`Date`
+
+### value
+
+`number`
 
 ## Returns
 
 `Date`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:276

@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,12 +6,12 @@
 
 # Interface: ModelConfig
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:188
+
 ## Properties
 
 ### mappings
 
 > **mappings**: [`Mapping`](Mapping.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:189
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:189

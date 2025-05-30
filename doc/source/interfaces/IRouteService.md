@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,42 +6,48 @@
 
 # Interface: IRouteService
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:4
+
 ## Methods
 
 ### eval()
 
 > **eval**(`source`, `info`): `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:5
+
 #### Parameters
 
-• **source**: [`SourceRule`](SourceRule.md)
+##### source
 
-• **info**: [`SentenceInfo`](SentenceInfo.md)
+[`SourceRule`](SourceRule.md)
+
+##### info
+
+[`SentenceInfo`](SentenceInfo.md)
 
 #### Returns
 
 `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:5
-
 ***
 
 ### getSource()
 
-> **getSource**(`info`, `stage`?): `string`
+> **getSource**(`info`, `stage?`): `string`
+
+Defined in: node\_modules/lambdaorm-base/schema/domain/services.d.ts:6
 
 #### Parameters
 
-• **info**: [`SentenceInfo`](SentenceInfo.md)
+##### info
 
-• **stage?**: `string`
+[`SentenceInfo`](SentenceInfo.md)
+
+##### stage?
+
+`string`
 
 #### Returns
 
 `string`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/services.d.ts:6

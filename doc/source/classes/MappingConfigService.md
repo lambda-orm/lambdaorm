@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,33 +6,37 @@
 
 # Class: MappingConfigService
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:3
+
 ## Extends
 
 - `DomainConfigServiceBase`\<[`EntityMapping`](../interfaces/EntityMapping.md), [`PropertyMapping`](../interfaces/PropertyMapping.md)\>
 
 ## Constructors
 
-### new MappingConfigService()
+### Constructor
 
-> **new MappingConfigService**(`mapping`, `enums`?): [`MappingConfigService`](MappingConfigService.md)
+> **new MappingConfigService**(`mapping`, `enums?`): `MappingConfigService`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:6
 
 #### Parameters
 
-• **mapping**: [`Mapping`](../interfaces/Mapping.md)
+##### mapping
 
-• **enums?**: [`Enum`](../interfaces/Enum.md)[]
+[`Mapping`](../interfaces/Mapping.md)
+
+##### enums?
+
+[`Enum`](../interfaces/Enum.md)[]
 
 #### Returns
 
-[`MappingConfigService`](MappingConfigService.md)
+`MappingConfigService`
 
 #### Overrides
 
 `DomainConfigServiceBase<EntityMapping, PropertyMapping>.constructor`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:6
 
 ## Properties
 
@@ -40,55 +44,57 @@ node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigSer
 
 > **enums**: [`Enum`](../interfaces/Enum.md)[]
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:5
+
 #### Overrides
 
 `DomainConfigServiceBase.enums`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:5
 
 ## Accessors
 
 ### entities
 
-> `get` **entities**(): [`EntityMapping`](../interfaces/EntityMapping.md)[]
+#### Get Signature
 
-#### Returns
+> **get** **entities**(): [`EntityMapping`](../interfaces/EntityMapping.md)[]
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:11
+
+##### Returns
 
 [`EntityMapping`](../interfaces/EntityMapping.md)[]
 
-#### Source
+#### Overrides
 
-node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:11
+`DomainConfigServiceBase.entities`
 
 ***
 
 ### format
 
-> `get` **format**(): `undefined` \| [`FormatMapping`](../interfaces/FormatMapping.md)
+#### Get Signature
 
-#### Returns
+> **get** **format**(): `undefined` \| [`FormatMapping`](../interfaces/FormatMapping.md)
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:8
+
+##### Returns
 
 `undefined` \| [`FormatMapping`](../interfaces/FormatMapping.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:8
 
 ***
 
 ### name
 
-> `get` **name**(): `string`
+#### Get Signature
 
-#### Returns
+> **get** **name**(): `string`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:7
+
+##### Returns
 
 `string`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:7
 
 ## Methods
 
@@ -96,17 +102,17 @@ node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigSer
 
 > **entityMapping**(`entityName`): `undefined` \| `string`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:12
+
 #### Parameters
 
-• **entityName**: `string`
+##### entityName
+
+`string`
 
 #### Returns
 
 `undefined` \| `string`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:12
 
 ***
 
@@ -114,11 +120,17 @@ node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigSer
 
 > **existsProperty**(`entityName`, `name`): `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:9
+
 #### Parameters
 
-• **entityName**: `string`
+##### entityName
 
-• **name**: `string`
+`string`
+
+##### name
+
+`string`
 
 #### Returns
 
@@ -128,23 +140,17 @@ node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigSer
 
 `DomainConfigServiceBase.existsProperty`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:9
-
 ***
 
 ### get()
 
 > **get**(): [`Mapping`](../interfaces/Mapping.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:9
+
 #### Returns
 
 [`Mapping`](../interfaces/Mapping.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:9
 
 ***
 
@@ -152,9 +158,13 @@ node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigSer
 
 > **getAutoIncrement**(`entityName`): `undefined` \| [`PropertyMapping`](../interfaces/PropertyMapping.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:11
+
 #### Parameters
 
-• **entityName**: `string`
+##### entityName
+
+`string`
 
 #### Returns
 
@@ -164,19 +174,19 @@ node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigSer
 
 `DomainConfigServiceBase.getAutoIncrement`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:11
-
 ***
 
 ### getEntity()
 
 > **getEntity**(`name`): `undefined` \| [`EntityMapping`](../interfaces/EntityMapping.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:5
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -186,19 +196,19 @@ node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServ
 
 `DomainConfigServiceBase.getEntity`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:5
-
 ***
 
 ### getEnum()
 
 > **getEnum**(`name`): `undefined` \| [`Enum`](../interfaces/Enum.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:7
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -208,19 +218,19 @@ node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServ
 
 `DomainConfigServiceBase.getEnum`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:7
-
 ***
 
 ### getFieldIds()
 
 > **getFieldIds**(`entityName`): `undefined` \| [`PropertyMapping`](../interfaces/PropertyMapping.md)[]
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:12
+
 #### Parameters
 
-• **entityName**: `string`
+##### entityName
+
+`string`
 
 #### Returns
 
@@ -230,19 +240,19 @@ node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServ
 
 `DomainConfigServiceBase.getFieldIds`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:12
-
 ***
 
 ### getForcedEntity()
 
 > **getForcedEntity**(`name`): [`EntityMapping`](../interfaces/EntityMapping.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:6
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
@@ -252,21 +262,23 @@ node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServ
 
 `DomainConfigServiceBase.getForcedEntity`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:6
-
 ***
 
 ### getProperty()
 
 > **getProperty**(`entityName`, `name`): [`PropertyMapping`](../interfaces/PropertyMapping.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:10
+
 #### Parameters
 
-• **entityName**: `string`
+##### entityName
 
-• **name**: `string`
+`string`
+
+##### name
+
+`string`
 
 #### Returns
 
@@ -276,21 +288,23 @@ node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServ
 
 `DomainConfigServiceBase.getProperty`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:10
-
 ***
 
 ### getRelation()
 
 > **getRelation**(`entity`, `relation`): [`RelationInfo`](../interfaces/RelationInfo.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:44
+
 #### Parameters
 
-• **entity**: `string`
+##### entity
 
-• **relation**: `string`
+`string`
+
+##### relation
+
+`string`
 
 #### Returns
 
@@ -300,19 +314,19 @@ node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServ
 
 `DomainConfigServiceBase.getRelation`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:44
-
 ***
 
 ### isChild()
 
 > **isChild**(`entityName`): `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:8
+
 #### Parameters
 
-• **entityName**: `string`
+##### entityName
+
+`string`
 
 #### Returns
 
@@ -322,15 +336,13 @@ node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServ
 
 `DomainConfigServiceBase.isChild`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:8
-
 ***
 
 ### listEntities()
 
 > **listEntities**(): `string`[]
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:13
 
 #### Returns
 
@@ -340,39 +352,39 @@ node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServ
 
 `DomainConfigServiceBase.listEntities`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:13
-
 ***
 
 ### set()
 
 > **set**(`value`): `void`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:10
+
 #### Parameters
 
-• **value**: [`Mapping`](../interfaces/Mapping.md)
+##### value
+
+[`Mapping`](../interfaces/Mapping.md)
 
 #### Returns
 
 `void`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/mappingConfigService.d.ts:10
-
 ***
 
 ### sortByDependencies()
 
-> **sortByDependencies**(`entities`?): `string`[]
+> **sortByDependencies**(`entities?`): `string`[]
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:25
 
 Sort a list of entities according to their dependencies
 
 #### Parameters
 
-• **entities?**: `string`[]
+##### entities?
+
+`string`[]
 
 entities to order
 
@@ -386,23 +398,25 @@ returns the sorted entities
 
 `DomainConfigServiceBase.sortByDependencies`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:25
-
 ***
 
 ### sortByRelations()
 
 > **sortByRelations**(`mainEntities`, `allEntities`): `string`[]
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:19
+
 Sort a list of entities according to their relationships
 
 #### Parameters
 
-• **mainEntities**: `string`[]
+##### mainEntities
 
-• **allEntities**: `string`[]
+`string`[]
+
+##### allEntities
+
+`string`[]
 
 entities to order
 
@@ -415,7 +429,3 @@ returns the sorted entities
 #### Inherited from
 
 `DomainConfigServiceBase.sortByRelations`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/domainConfigServiceBase.d.ts:19

@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,43 +6,51 @@
 
 # Class: FilterIncludeClauses\<T\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:38
+
 ## Extends
 
 - [`HavingClauses`](HavingClauses.md)\<`T`\>
 
-## Type parameters
+## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Constructors
 
-### new FilterIncludeClauses()
+### Constructor
 
-> **new FilterIncludeClauses**\<`T`\>(`actions`, `query`): [`FilterIncludeClauses`](FilterIncludeClauses.md)\<`T`\>
+> **new FilterIncludeClauses**\<`T`\>(`actions`, `query`): `FilterIncludeClauses`\<`T`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
 
 #### Parameters
 
-• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
+##### actions
 
-• **query**: `string`
+[`QueryActions`](../interfaces/QueryActions.md)
+
+##### query
+
+`string`
 
 #### Returns
 
-[`FilterIncludeClauses`](FilterIncludeClauses.md)\<`T`\>
+`FilterIncludeClauses`\<`T`\>
 
 #### Inherited from
 
-[`HavingClauses`](HavingClauses.md).[`constructor`](HavingClauses.md#constructors)
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
+[`HavingClauses`](HavingClauses.md).[`constructor`](HavingClauses.md#constructor)
 
 ## Methods
 
 ### constraints()
 
 > **constraints**(): `Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:11
 
 #### Returns
 
@@ -52,23 +60,25 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
 
 [`HavingClauses`](HavingClauses.md).[`constraints`](HavingClauses.md#constraints)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:11
-
 ***
 
 ### distinct()
 
 > **distinct**\<`U`\>(`predicate`): [`MapClauses`](MapClauses.md)\<`U`\>
 
-#### Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:36
 
-• **U**
+#### Type Parameters
+
+##### U
+
+`U`
 
 #### Parameters
 
-• **predicate**
+##### predicate
+
+(`value`, `index`, `array`) => `U`
 
 #### Returns
 
@@ -78,19 +88,19 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:11
 
 [`HavingClauses`](HavingClauses.md).[`distinct`](HavingClauses.md#distinct)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:36
-
 ***
 
 ### execute()
 
 > **execute**(`data`): `Promise`\<`any`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:8
+
 #### Parameters
 
-• **data**: `any`
+##### data
+
+`any`
 
 #### Returns
 
@@ -100,23 +110,25 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:36
 
 [`HavingClauses`](HavingClauses.md).[`execute`](HavingClauses.md#execute)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:8
-
 ***
 
 ### first()
 
 > **first**\<`U`\>(`predicate`): [`Map2Clauses`](Map2Clauses.md)\<`U`\>
 
-#### Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:32
 
-• **U**
+#### Type Parameters
+
+##### U
+
+`U`
 
 #### Parameters
 
-• **predicate**
+##### predicate
+
+(`value`, `index`, `array`) => `U`
 
 #### Returns
 
@@ -126,27 +138,23 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:8
 
 [`HavingClauses`](HavingClauses.md).[`first`](HavingClauses.md#first)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:32
-
 ***
 
 ### having()
 
 > **having**(`predicate`): [`HavingClauses`](HavingClauses.md)\<`T`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:40
+
 #### Parameters
 
-• **predicate**
+##### predicate
+
+(`value`, `index`, `array`) => `unknown`
 
 #### Returns
 
 [`HavingClauses`](HavingClauses.md)\<`T`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:40
 
 ***
 
@@ -154,13 +162,19 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:40
 
 > **last**\<`U`\>(`predicate`): [`Map2Clauses`](Map2Clauses.md)\<`U`\>
 
-#### Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:34
 
-• **U**
+#### Type Parameters
+
+##### U
+
+`U`
 
 #### Parameters
 
-• **predicate**
+##### predicate
+
+(`value`, `index`, `array`) => `U`
 
 #### Returns
 
@@ -170,23 +184,25 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:40
 
 [`HavingClauses`](HavingClauses.md).[`last`](HavingClauses.md#last)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:34
-
 ***
 
 ### map()
 
 > **map**\<`U`\>(`predicate`): [`MapClauses`](MapClauses.md)\<`U`\>
 
-#### Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:30
 
-• **U**
+#### Type Parameters
+
+##### U
+
+`U`
 
 #### Parameters
 
-• **predicate**
+##### predicate
+
+(`value`, `index`, `array`) => `U`
 
 #### Returns
 
@@ -196,15 +212,13 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:34
 
 [`HavingClauses`](HavingClauses.md).[`map`](HavingClauses.md#map)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:30
-
 ***
 
 ### metadata()
 
 > **metadata**(): `Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:14
 
 #### Returns
 
@@ -214,15 +228,13 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:30
 
 [`HavingClauses`](HavingClauses.md).[`metadata`](HavingClauses.md#metadata)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:14
-
 ***
 
 ### model()
 
 > **model**(): `Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:10
 
 #### Returns
 
@@ -232,15 +244,13 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:14
 
 [`HavingClauses`](HavingClauses.md).[`model`](HavingClauses.md#model)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:10
-
 ***
 
 ### normalize()
 
 > **normalize**(): `string`
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:9
 
 #### Returns
 
@@ -250,21 +260,23 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:10
 
 [`HavingClauses`](HavingClauses.md).[`normalize`](HavingClauses.md#normalize)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:9
-
 ***
 
 ### page()
 
 > **page**(`page`, `records`): [`QueryAction`](QueryAction.md)
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:18
+
 #### Parameters
 
-• **page**: `number`
+##### page
 
-• **records**: `number`
+`number`
+
+##### records
+
+`number`
 
 #### Returns
 
@@ -274,15 +286,13 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:9
 
 [`HavingClauses`](HavingClauses.md).[`page`](HavingClauses.md#page)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:18
-
 ***
 
 ### parameters()
 
 > **parameters**(): `Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:12
 
 #### Returns
 
@@ -292,15 +302,13 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:18
 
 [`HavingClauses`](HavingClauses.md).[`parameters`](HavingClauses.md#parameters)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:12
-
 ***
 
 ### sentence()
 
 > **sentence**(): `Promise`\<[`QueryPlan`](../interfaces/QueryPlan.md)\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:13
 
 #### Returns
 
@@ -310,19 +318,19 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:12
 
 [`HavingClauses`](HavingClauses.md).[`sentence`](HavingClauses.md#sentence)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:13
-
 ***
 
 ### sort()
 
 > **sort**(`predicate`): [`PageClauses`](PageClauses.md)
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:22
+
 #### Parameters
 
-• **predicate**
+##### predicate
+
+(`value`, `index`, `array`) => `unknown`
 
 #### Returns
 
@@ -331,7 +339,3 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:13
 #### Inherited from
 
 [`HavingClauses`](HavingClauses.md).[`sort`](HavingClauses.md#sort)
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:22

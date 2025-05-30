@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **user**(): `string`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:296
+
 ## Returns
 
 `string`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:296

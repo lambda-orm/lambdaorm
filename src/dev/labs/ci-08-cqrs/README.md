@@ -81,7 +81,7 @@ services:
 Create MySql database for test:
 
 ```sh
-docker-compose -p lambdaorm-cqrs up -d
+docker compose -p lambdaorm-cqrs up -d
 ```
 
 Initialize databases:

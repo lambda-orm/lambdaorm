@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: Connection
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:5](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L5)
+
 ## Properties
 
 ### cnx
 
 > **cnx**: `any`
 
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L7)
+Defined in: [src/lib/connection/domain/ports/connection.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L7)
 
 ***
 
@@ -22,9 +22,7 @@
 
 > **id**: `string`
 
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L6)
+Defined in: [src/lib/connection/domain/ports/connection.ts:6](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L6)
 
 ***
 
@@ -32,9 +30,7 @@
 
 > **inTransaction**: `boolean`
 
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L9)
+Defined in: [src/lib/connection/domain/ports/connection.ts:9](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L9)
 
 ***
 
@@ -42,9 +38,7 @@
 
 > **maxChunkSizeIdsOnSelect**: `number`
 
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L11)
+Defined in: [src/lib/connection/domain/ports/connection.ts:11](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L11)
 
 ***
 
@@ -52,9 +46,7 @@
 
 > **maxChunkSizeOnBulkInsert**: `number`
 
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L12)
+Defined in: [src/lib/connection/domain/ports/connection.ts:12](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L12)
 
 ***
 
@@ -62,9 +54,7 @@
 
 > **maxChunkSizeOnSelect**: `number`
 
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L10)
+Defined in: [src/lib/connection/domain/ports/connection.ts:10](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L10)
 
 ***
 
@@ -72,23 +62,21 @@
 
 > **pool**: `any`
 
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L8)
+Defined in: [src/lib/connection/domain/ports/connection.ts:8](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L8)
 
 ## Accessors
 
 ### config
 
-> `get` **config**(): [`ConnectionConfig`](ConnectionConfig.md)
+#### Get Signature
 
-#### Returns
+> **get** **config**(): [`ConnectionConfig`](ConnectionConfig.md)
+
+Defined in: [src/lib/connection/domain/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L13)
+
+##### Returns
 
 [`ConnectionConfig`](ConnectionConfig.md)
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:13](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L13)
 
 ## Methods
 
@@ -96,19 +84,21 @@
 
 > **addFk**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L45)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:45](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L45)
 
 ***
 
@@ -116,19 +106,21 @@
 
 > **addPk**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L43)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:43](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L43)
 
 ***
 
@@ -136,19 +128,21 @@
 
 > **addProperty**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L42)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:42](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L42)
 
 ***
 
@@ -156,19 +150,21 @@
 
 > **addUk**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L44)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:44](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L44)
 
 ***
 
@@ -176,19 +172,21 @@
 
 > **alterProperty**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L41)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:41](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L41)
 
 ***
 
@@ -196,13 +194,11 @@
 
 > **beginTransaction**(): `Promise`\<`void`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L32)
+
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:32](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L32)
 
 ***
 
@@ -210,23 +206,29 @@
 
 > **bulkDelete**(`_mapping`, `_dialect`, `_query`, `_array`): `Promise`\<`number`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L26)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **\_dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **\_query**: [`Query`](../classes/Query.md)
+##### \_dialect
 
-• **\_array**: `any`[]
+[`DialectService`](DialectService.md)
+
+##### \_query
+
+[`Query`](../classes/Query.md)
+
+##### \_array
+
+`any`[]
 
 #### Returns
 
 `Promise`\<`number`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:26](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L26)
 
 ***
 
@@ -234,23 +236,29 @@
 
 > **bulkInsert**(`mapping`, `dialect`, `query`, `array`): `Promise`\<`any`[]\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L21)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **array**: `any`[]
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### array
+
+`any`[]
 
 #### Returns
 
 `Promise`\<`any`[]\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:21](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L21)
 
 ***
 
@@ -258,23 +266,29 @@
 
 > **bulkMerge**(`mapping`, `dialect`, `query`, `array`): `Promise`\<`any`[]\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L28)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **array**: `any`[]
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### array
+
+`any`[]
 
 #### Returns
 
 `Promise`\<`any`[]\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:28](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L28)
 
 ***
 
@@ -282,23 +296,29 @@
 
 > **bulkUpdate**(`_mapping`, `_dialect`, `_query`, `_array`): `Promise`\<`number`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L24)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **\_dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **\_query**: [`Query`](../classes/Query.md)
+##### \_dialect
 
-• **\_array**: `any`[]
+[`DialectService`](DialectService.md)
+
+##### \_query
+
+[`Query`](../classes/Query.md)
+
+##### \_array
+
+`any`[]
 
 #### Returns
 
 `Promise`\<`number`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:24](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L24)
 
 ***
 
@@ -306,13 +326,11 @@
 
 > **commit**(): `Promise`\<`void`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:33](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L33)
+
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L33)
 
 ***
 
@@ -320,19 +338,21 @@
 
 > **createEntity**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L37)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:37](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L37)
 
 ***
 
@@ -340,19 +360,21 @@
 
 > **createFk**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L39)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:39](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L39)
 
 ***
 
@@ -360,19 +382,21 @@
 
 > **createIndex**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L40)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:40](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L40)
 
 ***
 
@@ -380,19 +404,21 @@
 
 > **createSequence**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L38)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:38](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L38)
 
 ***
 
@@ -400,23 +426,29 @@
 
 > **delete**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`number`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L25)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`number`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:25](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L25)
 
 ***
 
@@ -424,19 +456,21 @@
 
 > **dropEntity**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:47](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L47)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:47](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L47)
 
 ***
 
@@ -444,19 +478,21 @@
 
 > **dropFk**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:51](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L51)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:51](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L51)
 
 ***
 
@@ -464,19 +500,21 @@
 
 > **dropIndex**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:52](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L52)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:52](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L52)
 
 ***
 
@@ -484,19 +522,21 @@
 
 > **dropPk**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:49](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L49)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:49](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L49)
 
 ***
 
@@ -504,19 +544,21 @@
 
 > **dropProperty**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:48](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L48)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:48](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L48)
 
 ***
 
@@ -524,19 +566,21 @@
 
 > **dropSequence**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L46)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:46](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L46)
 
 ***
 
@@ -544,19 +588,21 @@
 
 > **dropUk**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:50](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L50)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:50](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L50)
 
 ***
 
@@ -564,13 +610,11 @@
 
 > **end**(): `Promise`\<`void`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L14)
+
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:14](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L14)
 
 ***
 
@@ -578,17 +622,17 @@
 
 > **execute**(`query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:29](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L29)
+
 #### Parameters
 
-• **query**: [`Query`](../classes/Query.md)
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:29](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L29)
 
 ***
 
@@ -596,17 +640,17 @@
 
 > **executeDDL**(`query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L30)
+
 #### Parameters
 
-• **query**: [`Query`](../classes/Query.md)
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:30](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L30)
 
 ***
 
@@ -614,17 +658,17 @@
 
 > **executeSentence**(`sentence`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L31)
+
 #### Parameters
 
-• **sentence**: `any`
+##### sentence
+
+`any`
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:31](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L31)
 
 ***
 
@@ -632,23 +676,29 @@
 
 > **foreignKeys**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:58](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L58)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:58](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L58)
 
 ***
 
@@ -656,23 +706,29 @@
 
 > **indexes**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:61](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L61)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:61](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L61)
 
 ***
 
@@ -680,23 +736,29 @@
 
 > **insert**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L19)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:19](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L19)
 
 ***
 
@@ -704,23 +766,29 @@
 
 > **insertConditional**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L20)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:20](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L20)
 
 ***
 
@@ -728,23 +796,29 @@
 
 > **merge**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:27](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L27)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:27](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L27)
 
 ***
 
@@ -752,23 +826,29 @@
 
 > **objects**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:53](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L53)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:53](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L53)
 
 ***
 
@@ -776,23 +856,29 @@
 
 > **partitions**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:56](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L56)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:56](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L56)
 
 ***
 
@@ -800,23 +886,29 @@
 
 > **primaryKeys**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:59](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L59)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:59](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L59)
 
 ***
 
@@ -824,13 +916,11 @@
 
 > **rollback**(): `Promise`\<`void`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L34)
+
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:34](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L34)
 
 ***
 
@@ -838,23 +928,29 @@
 
 > **select**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L18)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:18](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L18)
 
 ***
 
@@ -862,23 +958,29 @@
 
 > **sequences**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:57](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L57)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:57](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L57)
 
 ***
 
@@ -886,23 +988,29 @@
 
 > **tables**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:54](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L54)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:54](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L54)
 
 ***
 
@@ -910,19 +1018,21 @@
 
 > **truncateEntity**(`_mapping`, `query`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L36)
+
 #### Parameters
 
-• **\_mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### \_mapping
 
-• **query**: [`Query`](../classes/Query.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:36](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L36)
 
 ***
 
@@ -930,23 +1040,29 @@
 
 > **uniqueKeys**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:60](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L60)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:60](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L60)
 
 ***
 
@@ -954,23 +1070,29 @@
 
 > **update**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`number`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L22)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`number`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:22](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L22)
 
 ***
 
@@ -978,23 +1100,29 @@
 
 > **upsert**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L23)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:23](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L23)
 
 ***
 
@@ -1002,23 +1130,29 @@
 
 > **views**(`mapping`, `dialect`, `query`, `data`): `Promise`\<`any`\>
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:55](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L55)
+
 #### Parameters
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+##### mapping
 
-• **dialect**: [`DialectService`](DialectService.md)
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
-• **query**: [`Query`](../classes/Query.md)
+##### dialect
 
-• **data**: [`Data`](../classes/Data.md)
+[`DialectService`](DialectService.md)
+
+##### query
+
+[`Query`](../classes/Query.md)
+
+##### data
+
+[`Data`](../classes/Data.md)
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:55](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L55)
 
 ***
 
@@ -1026,21 +1160,25 @@
 
 > **writeDate**(`value`, `mapping`, `dialect`): `any`
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:15](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L15)
+
 #### Parameters
 
-• **value**: `any`
+##### value
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+`any`
 
-• **dialect**: [`DialectService`](DialectService.md)
+##### mapping
+
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### dialect
+
+[`DialectService`](DialectService.md)
 
 #### Returns
 
 `any`
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:15](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L15)
 
 ***
 
@@ -1048,18 +1186,22 @@
 
 > **writeTime**(`value`, `mapping`, `dialect`): `any`
 
+Defined in: [src/lib/connection/domain/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/connection/domain/ports/connection.ts#L16)
+
 #### Parameters
 
-• **value**: `any`
+##### value
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+`any`
 
-• **dialect**: [`DialectService`](DialectService.md)
+##### mapping
+
+[`MappingConfigService`](../classes/MappingConfigService.md)
+
+##### dialect
+
+[`DialectService`](DialectService.md)
 
 #### Returns
 
 `any`
-
-#### Source
-
-[src/lib/connection/domain/ports/connection.ts:16](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/connection/domain/ports/connection.ts#L16)

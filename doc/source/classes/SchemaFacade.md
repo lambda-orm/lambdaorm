@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,37 +6,53 @@
 
 # Class: SchemaFacade
 
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:10
+
 ## Constructors
 
-### new SchemaFacade()
+### Constructor
 
-> **new SchemaFacade**(`schemaService`, `getSchemaData`, `extender`, `createSchema`, `initializeSchema`, `updateSchema`, `matchSchema`, `fileService`): [`SchemaFacade`](SchemaFacade.md)
+> **new SchemaFacade**(`schemaService`, `getSchemaData`, `extender`, `createSchema`, `initializeSchema`, `updateSchema`, `matchSchema`, `fileService`): `SchemaFacade`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:19
 
 #### Parameters
 
-• **schemaService**: [`SchemaService`](SchemaService.md)
+##### schemaService
 
-• **getSchemaData**: [`GetSchemaSchema`](GetSchemaSchema.md)
+[`SchemaService`](SchemaService.md)
 
-• **extender**: [`SchemaExtender`](SchemaExtender.md)
+##### getSchemaData
 
-• **createSchema**: [`CreateSchema`](CreateSchema.md)
+[`GetSchemaSchema`](GetSchemaSchema.md)
 
-• **initializeSchema**: [`InitializeSchema`](InitializeSchema.md)
+##### extender
 
-• **updateSchema**: [`UpdateSchema`](UpdateSchema.md)
+[`SchemaExtender`](SchemaExtender.md)
 
-• **matchSchema**: [`MatchSchema`](MatchSchema.md)
+##### createSchema
 
-• **fileService**: [`IFileSchemaService`](../interfaces/IFileSchemaService.md)
+[`CreateSchema`](CreateSchema.md)
+
+##### initializeSchema
+
+[`InitializeSchema`](InitializeSchema.md)
+
+##### updateSchema
+
+[`UpdateSchema`](UpdateSchema.md)
+
+##### matchSchema
+
+[`MatchSchema`](MatchSchema.md)
+
+##### fileService
+
+[`IFileSchemaService`](../interfaces/IFileSchemaService.md)
 
 #### Returns
 
-[`SchemaFacade`](SchemaFacade.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:19
+`SchemaFacade`
 
 ## Properties
 
@@ -44,9 +60,7 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:19
 
 > `readonly` **schemaService**: [`SchemaService`](SchemaService.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:11
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:11
 
 ## Methods
 
@@ -54,37 +68,39 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:11
 
 > **complete**(`schema`): `void`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:25
+
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
+
+[`Schema`](../interfaces/Schema.md)
 
 #### Returns
 
 `void`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:25
-
 ***
 
 ### create()
 
-> **create**(`dialect`?, `connection`?): [`Schema`](../interfaces/Schema.md)
+> **create**(`dialect?`, `connection?`): [`Schema`](../interfaces/Schema.md)
+
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:20
 
 #### Parameters
 
-• **dialect?**: [`Dialect`](../enumerations/Dialect.md)
+##### dialect?
 
-• **connection?**: `any`
+[`Dialect`](../enumerations/Dialect.md)
+
+##### connection?
+
+`any`
 
 #### Returns
 
 [`Schema`](../interfaces/Schema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:20
 
 ***
 
@@ -92,19 +108,21 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:20
 
 > **initialize**(`schema`, `args`): [`Schema`](../interfaces/Schema.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:21
+
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
 
-• **args**: [`InitializeSchemaArgs`](../interfaces/InitializeSchemaArgs.md)
+[`Schema`](../interfaces/Schema.md)
+
+##### args
+
+[`InitializeSchemaArgs`](../interfaces/InitializeSchemaArgs.md)
 
 #### Returns
 
 [`Schema`](../interfaces/Schema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:21
 
 ***
 
@@ -112,43 +130,51 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:21
 
 > **introspect**(`schema`, `data`, `name`): [`SchemaData`](../interfaces/SchemaData.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:22
+
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
 
-• **data**: `any`
+[`Schema`](../interfaces/Schema.md)
 
-• **name**: `string`
+##### data
+
+`any`
+
+##### name
+
+`string`
 
 #### Returns
 
 [`SchemaData`](../interfaces/SchemaData.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:22
-
 ***
 
 ### match()
 
-> **match**(`schema`, `mappings`, `options`?): `void`
+> **match**(`schema`, `mappings`, `options?`): `void`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:23
 
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
 
-• **mappings**: [`Mapping`](../interfaces/Mapping.md)[]
+[`Schema`](../interfaces/Schema.md)
 
-• **options?**: [`MatchOptions`](../interfaces/MatchOptions.md)
+##### mappings
+
+[`Mapping`](../interfaces/Mapping.md)[]
+
+##### options?
+
+[`MatchOptions`](../interfaces/MatchOptions.md)
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:23
 
 ***
 
@@ -156,17 +182,17 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:23
 
 > **read**(`workspace`): `Promise`\<`null` \| [`SchemaInfo`](../interfaces/SchemaInfo.md)\>
 
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:26
+
 #### Parameters
 
-• **workspace**: `string`
+##### workspace
+
+`string`
 
 #### Returns
 
 `Promise`\<`null` \| [`SchemaInfo`](../interfaces/SchemaInfo.md)\>
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:26
 
 ***
 
@@ -174,21 +200,25 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:26
 
 > **schemaData**(`source`, `name`, `type`): [`SchemaData`](../interfaces/SchemaData.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:24
+
 #### Parameters
 
-• **source**: `any`
+##### source
 
-• **name**: `string`
+`any`
 
-• **type**: `Type`
+##### name
+
+`string`
+
+##### type
+
+`Type`
 
 #### Returns
 
 [`SchemaData`](../interfaces/SchemaData.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:24
 
 ***
 
@@ -196,16 +226,18 @@ node\_modules/lambdaorm-base/schema/application/facade.d.ts:24
 
 > **write**(`schema`, `path`): `Promise`\<`void`\>
 
+Defined in: node\_modules/lambdaorm-base/schema/application/facade.d.ts:27
+
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
 
-• **path**: `string`
+[`Schema`](../interfaces/Schema.md)
+
+##### path
+
+`string`
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/facade.d.ts:27

@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,26 +6,32 @@
 
 # Interface: ModifyFilterClauses\<T\>
 
-## Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:94
 
-• **T**
+## Type Parameters
+
+### T
+
+`T`
 
 ## Methods
 
 ### include()
 
-> **include**(`predicate`, `thisArg`?): `void`
+> **include**(`predicate`, `thisArg?`): `void`
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:96
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `unknown`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:96

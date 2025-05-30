@@ -1,10 +1,12 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
 [Lambda ORM](../README.md) / Property
 
 # Interface: Property
+
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:23
 
 ## Extended by
 
@@ -16,9 +18,7 @@
 
 > `optional` **autoIncrement**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:29
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:29
 
 ***
 
@@ -26,9 +26,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:29
 
 > `optional` **default**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:33
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:33
 
 ***
 
@@ -36,9 +34,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:33
 
 > `optional` **enum**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:36
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:36
 
 ***
 
@@ -46,9 +42,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:36
 
 > `optional` **key**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:37
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:37
 
 ***
 
@@ -56,9 +50,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:37
 
 > `optional` **length**: `number`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:26
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:26
 
 ***
 
@@ -66,9 +58,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:26
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:24
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:24
 
 ***
 
@@ -76,9 +66,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:24
 
 > `optional` **primaryKey**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:28
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:28
 
 ***
 
@@ -86,9 +74,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:28
 
 > `optional` **readExp**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:31
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:31
 
 ***
 
@@ -96,9 +82,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:31
 
 > `optional` **readValue**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:34
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:34
 
 ***
 
@@ -106,9 +90,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:34
 
 > `optional` **required**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:27
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:27
 
 ***
 
@@ -116,9 +98,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:27
 
 > `optional` **type**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:25
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:25
 
 ***
 
@@ -126,9 +106,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:25
 
 > `optional` **view**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:30
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:30
 
 ***
 
@@ -136,9 +114,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:30
 
 > `optional` **writeExp**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:32
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:32
 
 ***
 
@@ -146,6 +122,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:32
 
 > `optional` **writeValue**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:35
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:35

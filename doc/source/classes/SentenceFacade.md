@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,33 +6,45 @@
 
 # Class: SentenceFacade
 
+Defined in: [src/lib/sentence/application/facade.ts:18](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/sentence/application/facade.ts#L18)
+
 ## Constructors
 
-### new SentenceFacade()
+### Constructor
 
-> **new SentenceFacade**(`schemaState`, `operandFacade`, `expressions`, `cache`, `serializer`, `helper`): [`SentenceFacade`](SentenceFacade.md)
+> **new SentenceFacade**(`schemaState`, `operandFacade`, `expressions`, `cache`, `serializer`, `helper`): `SentenceFacade`
+
+Defined in: [src/lib/sentence/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/sentence/application/facade.ts#L27)
 
 #### Parameters
 
-• **schemaState**: [`SchemaState`](SchemaState.md)
+##### schemaState
 
-• **operandFacade**: [`OperandFacade`](OperandFacade.md)
+[`SchemaState`](SchemaState.md)
 
-• **expressions**: `Expressions`
+##### operandFacade
 
-• **cache**: `ICache`\<`string`, `string`\>
+[`OperandFacade`](OperandFacade.md)
 
-• **serializer**: [`SentenceSerializer`](../interfaces/SentenceSerializer.md)
+##### expressions
 
-• **helper**: [`OrmH3lp`](OrmH3lp.md)
+`Expressions`
+
+##### cache
+
+`ICache`\<`string`, `string`\>
+
+##### serializer
+
+[`SentenceSerializer`](../interfaces/SentenceSerializer.md)
+
+##### helper
+
+[`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
-[`SentenceFacade`](SentenceFacade.md)
-
-#### Source
-
-[src/lib/sentence/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/sentence/application/facade.ts#L27)
+`SentenceFacade`
 
 ## Methods
 
@@ -40,21 +52,25 @@
 
 > **build**(`expression`, `view`, `stage`): [`Sentence`](Sentence.md)
 
+Defined in: [src/lib/sentence/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/sentence/application/facade.ts#L44)
+
 #### Parameters
 
-• **expression**: `string`
+##### expression
 
-• **view**: [`ViewConfigService`](ViewConfigService.md)
+`string`
 
-• **stage**: `string`
+##### view
+
+[`ViewConfigService`](ViewConfigService.md)
+
+##### stage
+
+`string`
 
 #### Returns
 
 [`Sentence`](Sentence.md)
-
-#### Source
-
-[src/lib/sentence/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/sentence/application/facade.ts#L44)
 
 ***
 
@@ -62,17 +78,17 @@
 
 > **constraints**(`expression`): [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
 
+Defined in: [src/lib/sentence/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/sentence/application/facade.ts#L48)
+
 #### Parameters
 
-• **expression**: `string`
+##### expression
+
+`string`
 
 #### Returns
 
 [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
-
-#### Source
-
-[src/lib/sentence/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/sentence/application/facade.ts#L48)
 
 ***
 
@@ -80,19 +96,21 @@
 
 > **getSource**(`sentence`, `stage`): [`Source`](../interfaces/Source.md)
 
+Defined in: [src/lib/sentence/application/facade.ts:64](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/sentence/application/facade.ts#L64)
+
 #### Parameters
 
-• **sentence**: [`Sentence`](Sentence.md)
+##### sentence
 
-• **stage**: `string`
+[`Sentence`](Sentence.md)
+
+##### stage
+
+`string`
 
 #### Returns
 
 [`Source`](../interfaces/Source.md)
-
-#### Source
-
-[src/lib/sentence/application/facade.ts:64](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/sentence/application/facade.ts#L64)
 
 ***
 
@@ -100,17 +118,17 @@
 
 > **metadata**(`expression`): [`Metadata`](../interfaces/Metadata.md)
 
+Defined in: [src/lib/sentence/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/sentence/application/facade.ts#L52)
+
 #### Parameters
 
-• **expression**: `string`
+##### expression
+
+`string`
 
 #### Returns
 
 [`Metadata`](../interfaces/Metadata.md)
-
-#### Source
-
-[src/lib/sentence/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/sentence/application/facade.ts#L52)
 
 ***
 
@@ -118,17 +136,17 @@
 
 > **model**(`expression`): [`MetadataModel`](../interfaces/MetadataModel.md)[]
 
+Defined in: [src/lib/sentence/application/facade.ts:56](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/sentence/application/facade.ts#L56)
+
 #### Parameters
 
-• **expression**: `string`
+##### expression
+
+`string`
 
 #### Returns
 
 [`MetadataModel`](../interfaces/MetadataModel.md)[]
-
-#### Source
-
-[src/lib/sentence/application/facade.ts:56](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/sentence/application/facade.ts#L56)
 
 ***
 
@@ -136,14 +154,14 @@
 
 > **parameters**(`expression`): [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
 
+Defined in: [src/lib/sentence/application/facade.ts:60](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/sentence/application/facade.ts#L60)
+
 #### Parameters
 
-• **expression**: `string`
+##### expression
+
+`string`
 
 #### Returns
 
 [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
-
-#### Source
-
-[src/lib/sentence/application/facade.ts:60](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/sentence/application/facade.ts#L60)

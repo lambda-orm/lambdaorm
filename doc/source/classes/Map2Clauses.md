@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,43 +6,51 @@
 
 # Class: Map2Clauses\<T\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:24
+
 ## Extends
 
 - [`QueryAction`](QueryAction.md)
 
-## Type parameters
+## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Constructors
 
-### new Map2Clauses()
+### Constructor
 
-> **new Map2Clauses**\<`T`\>(`actions`, `query`): [`Map2Clauses`](Map2Clauses.md)\<`T`\>
+> **new Map2Clauses**\<`T`\>(`actions`, `query`): `Map2Clauses`\<`T`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
 
 #### Parameters
 
-• **actions**: [`QueryActions`](../interfaces/QueryActions.md)
+##### actions
 
-• **query**: `string`
+[`QueryActions`](../interfaces/QueryActions.md)
+
+##### query
+
+`string`
 
 #### Returns
 
-[`Map2Clauses`](Map2Clauses.md)\<`T`\>
+`Map2Clauses`\<`T`\>
 
 #### Inherited from
 
-[`QueryAction`](QueryAction.md).[`constructor`](QueryAction.md#constructors)
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
+[`QueryAction`](QueryAction.md).[`constructor`](QueryAction.md#constructor)
 
 ## Methods
 
 ### constraints()
 
 > **constraints**(): `Promise`\<[`MetadataConstraint`](../interfaces/MetadataConstraint.md)\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:11
 
 #### Returns
 
@@ -52,19 +60,19 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:7
 
 [`QueryAction`](QueryAction.md).[`constraints`](QueryAction.md#constraints)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:11
-
 ***
 
 ### execute()
 
 > **execute**(`data`): `Promise`\<`any`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:8
+
 #### Parameters
 
-• **data**: `any`
+##### data
+
+`any`
 
 #### Returns
 
@@ -74,15 +82,13 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:11
 
 [`QueryAction`](QueryAction.md).[`execute`](QueryAction.md#execute)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:8
-
 ***
 
 ### metadata()
 
 > **metadata**(): `Promise`\<[`Metadata`](../interfaces/Metadata.md)\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:14
 
 #### Returns
 
@@ -92,15 +98,13 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:8
 
 [`QueryAction`](QueryAction.md).[`metadata`](QueryAction.md#metadata)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:14
-
 ***
 
 ### model()
 
 > **model**(): `Promise`\<[`MetadataModel`](../interfaces/MetadataModel.md)[]\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:10
 
 #### Returns
 
@@ -110,15 +114,13 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:14
 
 [`QueryAction`](QueryAction.md).[`model`](QueryAction.md#model)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:10
-
 ***
 
 ### normalize()
 
 > **normalize**(): `string`
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:9
 
 #### Returns
 
@@ -128,15 +130,13 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:10
 
 [`QueryAction`](QueryAction.md).[`normalize`](QueryAction.md#normalize)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:9
-
 ***
 
 ### parameters()
 
 > **parameters**(): `Promise`\<[`MetadataParameter`](../interfaces/MetadataParameter.md)[]\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:12
 
 #### Returns
 
@@ -146,15 +146,13 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:9
 
 [`QueryAction`](QueryAction.md).[`parameters`](QueryAction.md#parameters)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:12
-
 ***
 
 ### sentence()
 
 > **sentence**(): `Promise`\<[`QueryPlan`](../interfaces/QueryPlan.md)\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:13
 
 #### Returns
 
@@ -164,24 +162,20 @@ node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:12
 
 [`QueryAction`](QueryAction.md).[`sentence`](QueryAction.md#sentence)
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:13
-
 ***
 
 ### sort()
 
 > **sort**(`predicate`): [`PageClauses`](PageClauses.md)
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:26
+
 #### Parameters
 
-• **predicate**
+##### predicate
+
+(`value`, `index`, `array`) => `unknown`
 
 #### Returns
 
 [`PageClauses`](PageClauses.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:26

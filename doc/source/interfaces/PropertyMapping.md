@@ -1,10 +1,12 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
 [Lambda ORM](../README.md) / PropertyMapping
 
 # Interface: PropertyMapping
+
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:86
 
 ## Extends
 
@@ -16,13 +18,11 @@
 
 > `optional` **autoIncrement**: `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:29
+
 #### Inherited from
 
 [`Property`](Property.md).[`autoIncrement`](Property.md#autoincrement)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:29
 
 ***
 
@@ -30,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:29
 
 > `optional` **dbType**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:89
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:89
 
 ***
 
@@ -40,13 +38,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:89
 
 > `optional` **default**: `string`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:33
+
 #### Inherited from
 
 [`Property`](Property.md).[`default`](Property.md#default)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:33
 
 ***
 
@@ -54,13 +50,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:33
 
 > `optional` **enum**: `string`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:36
+
 #### Inherited from
 
 [`Property`](Property.md).[`enum`](Property.md#enum)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:36
 
 ***
 
@@ -68,13 +62,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:36
 
 > `optional` **key**: `string`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:37
+
 #### Inherited from
 
 [`Property`](Property.md).[`key`](Property.md#key)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:37
 
 ***
 
@@ -82,13 +74,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:37
 
 > `optional` **length**: `number`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:26
+
 #### Inherited from
 
 [`Property`](Property.md).[`length`](Property.md#length)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:26
 
 ***
 
@@ -96,9 +86,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:26
 
 > **mapping**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:87
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:87
 
 ***
 
@@ -106,13 +94,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:87
 
 > **name**: `string`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:24
+
 #### Inherited from
 
 [`Property`](Property.md).[`name`](Property.md#name)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:24
 
 ***
 
@@ -120,13 +106,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:24
 
 > `optional` **primaryKey**: `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:28
+
 #### Inherited from
 
 [`Property`](Property.md).[`primaryKey`](Property.md#primarykey)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:28
 
 ***
 
@@ -134,13 +118,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:28
 
 > `optional` **readExp**: `string`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:31
+
 #### Inherited from
 
 [`Property`](Property.md).[`readExp`](Property.md#readexp)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:31
 
 ***
 
@@ -148,9 +130,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:31
 
 > `optional` **readMappingExp**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:88
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:88
 
 ***
 
@@ -158,13 +138,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:88
 
 > `optional` **readValue**: `string`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:34
+
 #### Inherited from
 
 [`Property`](Property.md).[`readValue`](Property.md#readvalue)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:34
 
 ***
 
@@ -172,13 +150,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:34
 
 > `optional` **required**: `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:27
+
 #### Inherited from
 
 [`Property`](Property.md).[`required`](Property.md#required)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:27
 
 ***
 
@@ -186,13 +162,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:27
 
 > `optional` **type**: `string`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:25
+
 #### Inherited from
 
 [`Property`](Property.md).[`type`](Property.md#type)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:25
 
 ***
 
@@ -200,13 +174,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:25
 
 > `optional` **view**: `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:30
+
 #### Inherited from
 
 [`Property`](Property.md).[`view`](Property.md#view)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:30
 
 ***
 
@@ -214,13 +186,11 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:30
 
 > `optional` **writeExp**: `string`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:32
+
 #### Inherited from
 
 [`Property`](Property.md).[`writeExp`](Property.md#writeexp)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:32
 
 ***
 
@@ -228,10 +198,8 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:32
 
 > `optional` **writeValue**: `string`
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:35
+
 #### Inherited from
 
 [`Property`](Property.md).[`writeValue`](Property.md#writevalue)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:35

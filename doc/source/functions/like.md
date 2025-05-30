@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,18 +8,20 @@
 
 > **like**(`field`, `searchString`): `string`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:230
+
 Get the position of the first occurrence of substring
 
 ## Parameters
 
-• **field**: `string`
+### field
 
-• **searchString**: `string`
+`string`
+
+### searchString
+
+`string`
 
 ## Returns
 
 `string`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:230

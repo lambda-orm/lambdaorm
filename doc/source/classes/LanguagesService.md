@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,19 +6,19 @@
 
 # Class: LanguagesService
 
+Defined in: [src/lib/language/application/services/languagesService.ts:4](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/languagesService.ts#L4)
+
 ## Constructors
 
-### new LanguagesService()
+### Constructor
 
-> **new LanguagesService**(): [`LanguagesService`](LanguagesService.md)
+> **new LanguagesService**(): `LanguagesService`
+
+Defined in: [src/lib/language/application/services/languagesService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/languagesService.ts#L8)
 
 #### Returns
 
-[`LanguagesService`](LanguagesService.md)
-
-#### Source
-
-[src/lib/language/application/services/languagesService.ts:8](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/languagesService.ts#L8)
+`LanguagesService`
 
 ## Properties
 
@@ -26,27 +26,25 @@
 
 > **dialects**: `any`
 
-#### Source
-
-[src/lib/language/application/services/languagesService.ts:5](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/languagesService.ts#L5)
+Defined in: [src/lib/language/application/services/languagesService.ts:5](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/languagesService.ts#L5)
 
 ## Methods
 
 ### add()
 
-> **add**(`language`): [`LanguagesService`](LanguagesService.md)
+> **add**(`language`): `LanguagesService`
+
+Defined in: [src/lib/language/application/services/languagesService.ts:13](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/languagesService.ts#L13)
 
 #### Parameters
 
-• **language**: [`Language`](../interfaces/Language.md)
+##### language
+
+[`Language`](../interfaces/Language.md)
 
 #### Returns
 
-[`LanguagesService`](LanguagesService.md)
-
-#### Source
-
-[src/lib/language/application/services/languagesService.ts:13](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/languagesService.ts#L13)
+`LanguagesService`
 
 ***
 
@@ -54,17 +52,17 @@
 
 > **get**(`name`): [`Language`](../interfaces/Language.md)
 
+Defined in: [src/lib/language/application/services/languagesService.ts:23](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/languagesService.ts#L23)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
 [`Language`](../interfaces/Language.md)
-
-#### Source
-
-[src/lib/language/application/services/languagesService.ts:23](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/languagesService.ts#L23)
 
 ***
 
@@ -72,17 +70,17 @@
 
 > **getByDialect**(`dialect`): [`Language`](../interfaces/Language.md)
 
+Defined in: [src/lib/language/application/services/languagesService.ts:31](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/languagesService.ts#L31)
+
 #### Parameters
 
-• **dialect**: `string`
+##### dialect
+
+`string`
 
 #### Returns
 
 [`Language`](../interfaces/Language.md)
-
-#### Source
-
-[src/lib/language/application/services/languagesService.ts:31](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/languagesService.ts#L31)
 
 ***
 
@@ -90,14 +88,14 @@
 
 > **getDialect**(`name`): [`DialectService`](../interfaces/DialectService.md)
 
+Defined in: [src/lib/language/application/services/languagesService.ts:42](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/application/services/languagesService.ts#L42)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
 [`DialectService`](../interfaces/DialectService.md)
-
-#### Source
-
-[src/lib/language/application/services/languagesService.ts:42](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/application/services/languagesService.ts#L42)

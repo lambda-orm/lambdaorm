@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: Constraint
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:19
+
 ## Properties
 
 ### condition
 
 > **condition**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:21
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:21
 
 ***
 
@@ -22,6 +22,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:21
 
 > **message**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:20
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:20

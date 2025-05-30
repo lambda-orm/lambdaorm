@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Class: InitializeSchema
 
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/initialize.d.ts:3
+
 ## Constructors
 
-### new InitializeSchema()
+### Constructor
 
-> **new InitializeSchema**(`schemaService`): [`InitializeSchema`](InitializeSchema.md)
+> **new InitializeSchema**(`schemaService`): `InitializeSchema`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/initialize.d.ts:5
 
 #### Parameters
 
-• **schemaService**: [`SchemaService`](SchemaService.md)
+##### schemaService
+
+[`SchemaService`](SchemaService.md)
 
 #### Returns
 
-[`InitializeSchema`](InitializeSchema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/useCases/initialize.d.ts:5
+`InitializeSchema`
 
 ## Methods
 
@@ -30,16 +32,18 @@ node\_modules/lambdaorm-base/schema/application/useCases/initialize.d.ts:5
 
 > **initialize**(`schema`, `args`): [`Schema`](../interfaces/Schema.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/initialize.d.ts:6
+
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
 
-• **args**: [`InitializeSchemaArgs`](../interfaces/InitializeSchemaArgs.md)
+[`Schema`](../interfaces/Schema.md)
+
+##### args
+
+[`InitializeSchemaArgs`](../interfaces/InitializeSchemaArgs.md)
 
 #### Returns
 
 [`Schema`](../interfaces/Schema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/useCases/initialize.d.ts:6

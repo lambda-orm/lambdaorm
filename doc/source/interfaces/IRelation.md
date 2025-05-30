@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,196 +6,220 @@
 
 # Interface: IRelation\<T\>
 
-## Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:130
 
-• **T**
+## Type Parameters
+
+### T
+
+`T`
 
 ## Methods
 
 ### distinct()
 
-> **distinct**\<`U`\>(`predicate`, `thisArg`?): [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
+> **distinct**\<`U`\>(`predicate`, `thisArg?`): [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
 
-#### Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:138
 
-• **U**
+#### Type Parameters
+
+##### U
+
+`U`
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `U`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:138
 
 ***
 
 ### filter()
 
-> **filter**(`predicate`, `thisArg`?): [`FilterClauses`](../classes/FilterClauses.md)\<`T`\>
+> **filter**(`predicate`, `thisArg?`): [`FilterClauses`](../classes/FilterClauses.md)\<`T`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:147
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `unknown`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 [`FilterClauses`](../classes/FilterClauses.md)\<`T`\>
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:147
-
 ***
 
 ### first()
 
-> **first**\<`U`\>(`predicate`, `thisArg`?): [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
+> **first**\<`U`\>(`predicate`, `thisArg?`): [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
 
-#### Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:134
 
-• **U**
+#### Type Parameters
+
+##### U
+
+`U`
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `U`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:134
 
 ***
 
 ### include()
 
-> **include**(`predicate`, `thisArg`?): [`RelationIncludeClauses`](RelationIncludeClauses.md)\<`T`\>
+> **include**(`predicate`, `thisArg?`): [`RelationIncludeClauses`](RelationIncludeClauses.md)\<`T`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:140
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `unknown`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 [`RelationIncludeClauses`](RelationIncludeClauses.md)\<`T`\>
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:140
-
 ***
 
 ### insert()
 
-> **insert**(`predicate`?): `void`
+> **insert**(`predicate?`): `void`
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:144
 
 #### Parameters
 
-• **predicate?**
+##### predicate?
+
+(`value`) => `unknown`
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:144
 
 ***
 
 ### last()
 
-> **last**\<`U`\>(`predicate`, `thisArg`?): [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
+> **last**\<`U`\>(`predicate`, `thisArg?`): [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
 
-#### Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:136
 
-• **U**
+#### Type Parameters
+
+##### U
+
+`U`
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `U`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:136
 
 ***
 
 ### map()
 
-> **map**\<`U`\>(`predicate`, `thisArg`?): [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
+> **map**\<`U`\>(`predicate`, `thisArg?`): [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
 
-#### Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:132
 
-• **U**
+#### Type Parameters
+
+##### U
+
+`U`
 
 #### Parameters
 
-• **predicate**
+##### predicate
 
-• **thisArg?**: `any`
+(`value`, `index`, `array`) => `U`
+
+##### thisArg?
+
+`any`
 
 #### Returns
 
 [`RelationMapClauses`](RelationMapClauses.md)\<`T`\>
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:132
-
 ***
 
 ### update()
 
-> **update**(`predicate`?): `void`
+> **update**(`predicate?`): `void`
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:142
 
 #### Parameters
 
-• **predicate?**
+##### predicate?
+
+(`value`) => `unknown`
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:142
 
 ***
 
 ### upsert()
 
-> **upsert**(`predicate`?): `void`
+> **upsert**(`predicate?`): `void`
+
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:146
 
 #### Parameters
 
-• **predicate?**
+##### predicate?
+
+(`value`) => `unknown`
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:146

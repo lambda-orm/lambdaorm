@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,51 +6,53 @@
 
 # Class: ViewConfigService
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:2
+
 ## Constructors
 
-### new ViewConfigService()
+### Constructor
 
-> **new ViewConfigService**(`view`): [`ViewConfigService`](ViewConfigService.md)
+> **new ViewConfigService**(`view`): `ViewConfigService`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:4
 
 #### Parameters
 
-• **view**: [`View`](../interfaces/View.md)
+##### view
+
+[`View`](../interfaces/View.md)
 
 #### Returns
 
-[`ViewConfigService`](ViewConfigService.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:4
+`ViewConfigService`
 
 ## Accessors
 
 ### entities
 
-> `get` **entities**(): [`EntityView`](../interfaces/EntityView.md)[]
+#### Get Signature
 
-#### Returns
+> **get** **entities**(): [`EntityView`](../interfaces/EntityView.md)[]
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:8
+
+##### Returns
 
 [`EntityView`](../interfaces/EntityView.md)[]
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:8
 
 ***
 
 ### name
 
-> `get` **name**(): `string`
+#### Get Signature
 
-#### Returns
+> **get** **name**(): `string`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:5
+
+##### Returns
 
 `string`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:5
 
 ## Methods
 
@@ -58,17 +60,17 @@ node\_modules/lambdaorm-base/schema/application/services/config/viewConfigServic
 
 > **excludeEntity**(`name`): `boolean`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:11
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
 `boolean`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:11
 
 ***
 
@@ -76,13 +78,11 @@ node\_modules/lambdaorm-base/schema/application/services/config/viewConfigServic
 
 > **get**(): [`View`](../interfaces/View.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:6
+
 #### Returns
 
 [`View`](../interfaces/View.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:6
 
 ***
 
@@ -90,17 +90,17 @@ node\_modules/lambdaorm-base/schema/application/services/config/viewConfigServic
 
 > **getEntity**(`name`): `undefined` \| [`EntityView`](../interfaces/EntityView.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:9
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
 `undefined` \| [`EntityView`](../interfaces/EntityView.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:9
 
 ***
 
@@ -108,19 +108,21 @@ node\_modules/lambdaorm-base/schema/application/services/config/viewConfigServic
 
 > **getProperty**(`entityName`, `name`): `undefined` \| [`PropertyView`](../interfaces/PropertyView.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:10
+
 #### Parameters
 
-• **entityName**: `string`
+##### entityName
 
-• **name**: `string`
+`string`
+
+##### name
+
+`string`
 
 #### Returns
 
 `undefined` \| [`PropertyView`](../interfaces/PropertyView.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:10
 
 ***
 
@@ -128,14 +130,14 @@ node\_modules/lambdaorm-base/schema/application/services/config/viewConfigServic
 
 > **set**(`value`): `void`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:7
+
 #### Parameters
 
-• **value**: [`View`](../interfaces/View.md)
+##### value
+
+[`View`](../interfaces/View.md)
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/config/viewConfigService.d.ts:7

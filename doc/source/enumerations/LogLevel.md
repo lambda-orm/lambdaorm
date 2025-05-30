@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Enumeration: LogLevel
 
+Defined in: node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:1
+
 ## Enumeration Members
 
 ### ERROR
 
 > **ERROR**: `"error"`
 
-#### Source
-
-node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:3
+Defined in: node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:3
 
 ***
 
@@ -22,6 +22,4 @@ node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:3
 
 > **INFO**: `"info"`
 
-#### Source
-
-node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:2
+Defined in: node\_modules/lambdaorm-base/shared/domain/ports/logger.d.ts:2

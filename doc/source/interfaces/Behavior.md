@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: Behavior
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:196
+
 ## Properties
 
 ### alias?
 
 > `optional` **alias**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:197
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:197
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:197
 
 > **expression**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:199
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:199
 
 ***
 
@@ -32,6 +30,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:199
 
 > **property**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:198
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:198

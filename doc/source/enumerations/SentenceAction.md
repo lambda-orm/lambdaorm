@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Enumeration: SentenceAction
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:20
+
 ## Enumeration Members
 
 ### addFk
 
 > **addFk**: `"addFk"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:41
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:41
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:41
 
 > **addPk**: `"addPk"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:39
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:39
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:39
 
 > **addProperty**: `"addProperty"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:38
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:38
 
 ***
 
@@ -42,9 +38,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:38
 
 > **addUk**: `"addUk"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:40
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:40
 
 ***
 
@@ -52,9 +46,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:40
 
 > **alterProperty**: `"alterProperty"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:37
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:37
 
 ***
 
@@ -62,9 +54,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:37
 
 > **bulkDelete**: `"bulkDelete"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:26
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:26
 
 ***
 
@@ -72,9 +62,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:26
 
 > **bulkInsert**: `"bulkInsert"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:25
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:25
 
 ***
 
@@ -82,9 +70,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:25
 
 > **bulkMerge**: `"bulkMerge"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:31
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:31
 
 ***
 
@@ -92,9 +78,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:31
 
 > **createEntity**: `"createEntity"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:33
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:33
 
 ***
 
@@ -102,9 +86,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:33
 
 > **createFk**: `"createFk"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:35
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:35
 
 ***
 
@@ -112,9 +94,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:35
 
 > **createIndex**: `"createIndex"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:36
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:36
 
 ***
 
@@ -122,9 +102,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:36
 
 > **createSequence**: `"createSequence"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:34
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:34
 
 ***
 
@@ -132,9 +110,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:34
 
 > **delete**: `"delete"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:29
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:29
 
 ***
 
@@ -142,9 +118,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:29
 
 > **dropEntity**: `"dropEntity"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:43
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:43
 
 ***
 
@@ -152,9 +126,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:43
 
 > **dropFk**: `"dropFk"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:47
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:47
 
 ***
 
@@ -162,9 +134,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:47
 
 > **dropIndex**: `"dropIndex"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:48
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:48
 
 ***
 
@@ -172,9 +142,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:48
 
 > **dropPk**: `"dropPk"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:45
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:45
 
 ***
 
@@ -182,9 +150,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:45
 
 > **dropProperty**: `"dropProperty"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:44
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:44
 
 ***
 
@@ -192,9 +158,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:44
 
 > **dropSequence**: `"dropSequence"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:42
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:42
 
 ***
 
@@ -202,9 +166,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:42
 
 > **dropUk**: `"dropUk"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:46
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:46
 
 ***
 
@@ -212,9 +174,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:46
 
 > **foreignKeys**: `"foreignKeys"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:56
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:56
 
 ***
 
@@ -222,9 +182,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:56
 
 > **indexes**: `"indexes"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:53
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:53
 
 ***
 
@@ -232,9 +190,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:53
 
 > **insert**: `"insert"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:23
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:23
 
 ***
 
@@ -242,9 +198,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:23
 
 > **insertConditional**: `"insertConditional"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:24
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:24
 
 ***
 
@@ -252,9 +206,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:24
 
 > **merge**: `"merge"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:30
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:30
 
 ***
 
@@ -262,9 +214,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:30
 
 > **objects**: `"objects"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:49
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:49
 
 ***
 
@@ -272,9 +222,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:49
 
 > **partitions**: `"partitions"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:57
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:57
 
 ***
 
@@ -282,9 +230,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:57
 
 > **primaryKeys**: `"primaryKeys"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:54
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:54
 
 ***
 
@@ -292,9 +238,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:54
 
 > **select**: `"select"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:22
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:22
 
 ***
 
@@ -302,9 +246,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:22
 
 > **sequences**: `"sequences"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:52
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:52
 
 ***
 
@@ -312,9 +254,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:52
 
 > **tables**: `"tables"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:50
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:50
 
 ***
 
@@ -322,9 +262,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:50
 
 > **truncateEntity**: `"truncateEntity"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:32
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:32
 
 ***
 
@@ -332,9 +270,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:32
 
 > **undefined**: `"undefined"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:21
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:21
 
 ***
 
@@ -342,9 +278,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:21
 
 > **uniqueKeys**: `"uniqueKeys"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:55
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:55
 
 ***
 
@@ -352,9 +286,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:55
 
 > **update**: `"update"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:27
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:27
 
 ***
 
@@ -362,9 +294,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:27
 
 > **upsert**: `"upsert"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:28
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:28
 
 ***
 
@@ -372,6 +302,4 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:28
 
 > **views**: `"views"`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:51
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:51

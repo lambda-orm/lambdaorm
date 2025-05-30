@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Class: UpdateSchema
 
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/update.d.ts:4
+
 ## Constructors
 
-### new UpdateSchema()
+### Constructor
 
-> **new UpdateSchema**(`createEntitiesService`): [`UpdateSchema`](UpdateSchema.md)
+> **new UpdateSchema**(`createEntitiesService`): `UpdateSchema`
+
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/update.d.ts:6
 
 #### Parameters
 
-• **createEntitiesService**: [`CreateEntitiesService`](CreateEntitiesService.md)
+##### createEntitiesService
+
+[`CreateEntitiesService`](CreateEntitiesService.md)
 
 #### Returns
 
-[`UpdateSchema`](UpdateSchema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/useCases/update.d.ts:6
+`UpdateSchema`
 
 ## Methods
 
@@ -30,18 +32,22 @@ node\_modules/lambdaorm-base/schema/application/useCases/update.d.ts:6
 
 > **update**(`schema`, `data`, `name`): `Type`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/useCases/update.d.ts:7
+
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
 
-• **data**: `any`
+[`Schema`](../interfaces/Schema.md)
 
-• **name**: `string`
+##### data
+
+`any`
+
+##### name
+
+`string`
 
 #### Returns
 
 `Type`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/useCases/update.d.ts:7

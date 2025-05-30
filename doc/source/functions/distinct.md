@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **distinct**(`value`): `any`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:163
+
 ## Parameters
 
-• **value**: `any`
+### value
+
+`any`
 
 ## Returns
 
 `any`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:163

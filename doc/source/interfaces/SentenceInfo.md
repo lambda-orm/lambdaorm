@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: SentenceInfo
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:59
+
 ## Properties
 
 ### action
 
 > **action**: [`SentenceAction`](../enumerations/SentenceAction.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:61
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:61
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:61
 
 > **category**: [`SentenceCategory`](../enumerations/SentenceCategory.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:62
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:62
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:62
 
 > **ddl**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:66
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:66
 
 ***
 
@@ -42,9 +38,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:66
 
 > **dml**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:67
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:67
 
 ***
 
@@ -52,9 +46,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:67
 
 > **entity**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:60
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:60
 
 ***
 
@@ -62,9 +54,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:60
 
 > **read**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:64
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:64
 
 ***
 
@@ -72,9 +62,7 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:64
 
 > **type**: [`SentenceType`](../enumerations/SentenceType.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:63
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:63
 
 ***
 
@@ -82,6 +70,4 @@ node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:63
 
 > **write**: `boolean`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:65
+Defined in: node\_modules/lambdaorm-base/schema/domain/sentence.d.ts:65

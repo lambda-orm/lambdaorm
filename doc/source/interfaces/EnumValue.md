@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: EnumValue
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:9
+
 ## Properties
 
 ### name
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:10
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:10
 
 ***
 
@@ -22,6 +22,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:10
 
 > **value**: `any`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:11
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:11

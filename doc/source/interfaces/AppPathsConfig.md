@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: AppPathsConfig
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:152
+
 ## Properties
 
 ### domain?
 
 > `optional` **domain**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:155
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:155
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:155
 
 > `optional` **src**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:153
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:153
 
 ***
 
@@ -32,6 +30,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:153
 
 > `optional` **state**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:154
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:154

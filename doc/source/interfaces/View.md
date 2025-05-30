@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: View
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:121
+
 ## Properties
 
 ### entities
 
 > **entities**: [`EntityView`](EntityView.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:123
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:123
 
 ***
 
@@ -22,6 +22,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:123
 
 > **name**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:122
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:122

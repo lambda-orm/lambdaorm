@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,25 +6,29 @@
 
 # Class: Data
 
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:1
+
 ## Constructors
 
-### new Data()
+### Constructor
 
-> **new Data**(`data`, `parent`?): [`Data`](Data.md)
+> **new Data**(`data`, `parent?`): `Data`
+
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:4
 
 #### Parameters
 
-• **data**: `any`
+##### data
 
-• **parent?**: [`Data`](Data.md)
+`any`
+
+##### parent?
+
+`Data`
 
 #### Returns
 
-[`Data`](Data.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/data.d.ts:4
+`Data`
 
 ## Properties
 
@@ -32,9 +36,7 @@ node\_modules/lambdaorm-base/query/domain/data.d.ts:4
 
 > **data**: `any`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/data.d.ts:2
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:2
 
 ***
 
@@ -42,23 +44,19 @@ node\_modules/lambdaorm-base/query/domain/data.d.ts:2
 
 > **parent**: `any`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/data.d.ts:3
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:3
 
 ## Methods
 
 ### clone()
 
-> **clone**(): [`Data`](Data.md)
+> **clone**(): `Data`
+
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:6
 
 #### Returns
 
-[`Data`](Data.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/data.d.ts:6
+`Data`
 
 ***
 
@@ -66,17 +64,17 @@ node\_modules/lambdaorm-base/query/domain/data.d.ts:6
 
 > **contains**(`name`): `boolean`
 
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:8
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
 `boolean`
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/data.d.ts:8
 
 ***
 
@@ -84,17 +82,17 @@ node\_modules/lambdaorm-base/query/domain/data.d.ts:8
 
 > **get**(`name`): `any`
 
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:9
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
 `any`
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/data.d.ts:9
 
 ***
 
@@ -102,17 +100,17 @@ node\_modules/lambdaorm-base/query/domain/data.d.ts:9
 
 > **getData**(`variable`): `any`
 
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:7
+
 #### Parameters
 
-• **variable**: `string`
+##### variable
+
+`string`
 
 #### Returns
 
 `any`
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/data.d.ts:7
 
 ***
 
@@ -120,33 +118,33 @@ node\_modules/lambdaorm-base/query/domain/data.d.ts:7
 
 > **init**(`name`, `value`): `void`
 
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:11
+
 #### Parameters
 
-• **name**: `string`
+##### name
 
-• **value**: `any`
+`string`
+
+##### value
+
+`any`
 
 #### Returns
 
 `void`
 
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/data.d.ts:11
-
 ***
 
 ### newData()
 
-> **newData**(): [`Data`](Data.md)
+> **newData**(): `Data`
+
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:5
 
 #### Returns
 
-[`Data`](Data.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/data.d.ts:5
+`Data`
 
 ***
 
@@ -154,16 +152,18 @@ node\_modules/lambdaorm-base/query/domain/data.d.ts:5
 
 > **set**(`name`, `value`): `void`
 
+Defined in: node\_modules/lambdaorm-base/query/domain/data.d.ts:10
+
 #### Parameters
 
-• **name**: `string`
+##### name
 
-• **value**: `any`
+`string`
+
+##### value
+
+`any`
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/query/domain/data.d.ts:10

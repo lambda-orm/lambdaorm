@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,50 +6,54 @@
 
 # Class: YamlWrapper
 
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:6
+
 ## Constructors
 
-### new YamlWrapper()
+### Constructor
 
-> **new YamlWrapper**(): [`YamlWrapper`](YamlWrapper.md)
+> **new YamlWrapper**(): `YamlWrapper`
 
 #### Returns
 
-[`YamlWrapper`](YamlWrapper.md)
+`YamlWrapper`
 
 ## Methods
 
 ### dump()
 
-> **dump**(`obj`?, `options`?): `string`
+> **dump**(`obj?`, `options?`): `string`
+
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:8
 
 #### Parameters
 
-• **obj?**: `any`
+##### obj?
 
-• **options?**: `any`
+`any`
+
+##### options?
+
+`any`
 
 #### Returns
 
 `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:9
-
 ***
 
 ### load()
 
-> **load**(`yaml`?): `any`
+> **load**(`yaml?`): `any`
+
+Defined in: node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:7
 
 #### Parameters
 
-• **yaml?**: `null` \| `string`
+##### yaml?
+
+`null` | `string`
 
 #### Returns
 
 `any`
-
-#### Source
-
-node\_modules/lambdaorm-base/shared/infrastructure/helper.d.ts:8

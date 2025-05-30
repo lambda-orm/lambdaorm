@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: InfrastructureSchema
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:165
+
 ## Properties
 
 ### mappings?
 
 > `optional` **mappings**: [`Mapping`](Mapping.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:167
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:167
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:167
 
 > `optional` **paths**: [`AppPathsConfig`](AppPathsConfig.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:166
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:166
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:166
 
 > `optional` **server**: [`ServerConfig`](ServerConfig.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:171
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:171
 
 ***
 
@@ -42,9 +38,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:171
 
 > `optional` **sources**: [`Source`](Source.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:169
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:169
 
 ***
 
@@ -52,9 +46,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:169
 
 > `optional` **stages**: [`Stage`](Stage.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:170
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:170
 
 ***
 
@@ -62,6 +54,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:170
 
 > `optional` **views**: [`View`](View.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:168
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:168

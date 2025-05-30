@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,16 +8,18 @@
 
 > **as**(`value`, `name`): `any`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:153
+
 ## Parameters
 
-• **value**: `any`
+### value
 
-• **name**: `any`
+`any`
+
+### name
+
+`any`
 
 ## Returns
 
 `any`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:153

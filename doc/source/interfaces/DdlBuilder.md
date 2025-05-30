@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,25 +6,29 @@
 
 # Interface: DdlBuilder
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:4](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L4)
+
 ## Methods
 
 ### addFk()
 
 > **addFk**(`entity`, `relation`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:24](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L24)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **relation**: [`Relation`](Relation.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### relation
+
+[`Relation`](Relation.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:24](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L24)
 
 ***
 
@@ -32,19 +36,21 @@
 
 > **addPk**(`entity`, `primaryKey`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:22](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L22)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **primaryKey**: `string`[]
+[`EntityMapping`](EntityMapping.md)
+
+##### primaryKey
+
+`string`[]
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:22](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L22)
 
 ***
 
@@ -52,19 +58,21 @@
 
 > **addProperty**(`entity`, `property`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:14](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L14)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **property**: [`PropertyMapping`](PropertyMapping.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### property
+
+[`PropertyMapping`](PropertyMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:14](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L14)
 
 ***
 
@@ -72,19 +80,21 @@
 
 > **addUk**(`entity`, `uniqueKey`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:23](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L23)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **uniqueKey**: `string`[]
+[`EntityMapping`](EntityMapping.md)
+
+##### uniqueKey
+
+`string`[]
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:23](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L23)
 
 ***
 
@@ -92,11 +102,17 @@
 
 > **alterProperty**(`entity`, `property`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:18](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L18)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **property**: [`PropertyMapping`](PropertyMapping.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### property
+
+[`PropertyMapping`](PropertyMapping.md)
 
 #### Returns
 
@@ -106,29 +122,27 @@
 
 Use alterPropertyType or alterPropertyRequired
 
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:18](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L18)
-
 ***
 
 ### alterPropertyRequired()
 
 > **alterPropertyRequired**(`entity`, `property`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:20](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L20)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **property**: [`PropertyMapping`](PropertyMapping.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### property
+
+[`PropertyMapping`](PropertyMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:20](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L20)
 
 ***
 
@@ -136,19 +150,21 @@ Use alterPropertyType or alterPropertyRequired
 
 > **alterPropertyType**(`entity`, `property`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:19](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L19)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **property**: [`PropertyMapping`](PropertyMapping.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### property
+
+[`PropertyMapping`](PropertyMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:19](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L19)
 
 ***
 
@@ -156,17 +172,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **createEntity**(`entity`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:13](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L13)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
+
+[`EntityMapping`](EntityMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:13](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L13)
 
 ***
 
@@ -174,19 +190,21 @@ Use alterPropertyType or alterPropertyRequired
 
 > **createFk**(`entity`, `relation`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:25](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L25)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **relation**: [`Relation`](Relation.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### relation
+
+[`Relation`](Relation.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:25](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L25)
 
 ***
 
@@ -194,19 +212,21 @@ Use alterPropertyType or alterPropertyRequired
 
 > **createIndex**(`entity`, `index`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:26](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L26)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **index**: [`Index`](Index.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### index
+
+[`Index`](Index.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:26](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L26)
 
 ***
 
@@ -214,17 +234,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **createSequence**(`entity`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:27](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L27)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
+
+[`EntityMapping`](EntityMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:27](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L27)
 
 ***
 
@@ -232,17 +252,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **dropEntity**(`entity`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:10](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L10)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
+
+[`EntityMapping`](EntityMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:10](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L10)
 
 ***
 
@@ -250,19 +270,21 @@ Use alterPropertyType or alterPropertyRequired
 
 > **dropFk**(`entity`, `relation`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L7)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **relation**: [`Relation`](Relation.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### relation
+
+[`Relation`](Relation.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L7)
 
 ***
 
@@ -270,19 +292,21 @@ Use alterPropertyType or alterPropertyRequired
 
 > **dropIndex**(`entity`, `index`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:8](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L8)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **index**: [`Index`](Index.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### index
+
+[`Index`](Index.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:8](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L8)
 
 ***
 
@@ -290,17 +314,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **dropPk**(`entity`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:11](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L11)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
+
+[`EntityMapping`](EntityMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:11](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L11)
 
 ***
 
@@ -308,19 +332,21 @@ Use alterPropertyType or alterPropertyRequired
 
 > **dropProperty**(`entity`, `property`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:21](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L21)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **property**: [`PropertyMapping`](PropertyMapping.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### property
+
+[`PropertyMapping`](PropertyMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:21](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L21)
 
 ***
 
@@ -328,17 +354,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **dropSequence**(`entity`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:9](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L9)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
+
+[`EntityMapping`](EntityMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:9](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L9)
 
 ***
 
@@ -346,17 +372,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **dropUk**(`entity`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:12](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L12)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
+
+[`EntityMapping`](EntityMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:12](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L12)
 
 ***
 
@@ -364,17 +390,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **foreignKeys**(`tableNames`): [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:33](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L33)
+
 #### Parameters
 
-• **tableNames**: `string`[]
+##### tableNames
+
+`string`[]
 
 #### Returns
 
 [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L33)
 
 ***
 
@@ -382,17 +408,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **indexes**(`tableNames`): [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:34](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L34)
+
 #### Parameters
 
-• **tableNames**: `string`[]
+##### tableNames
+
+`string`[]
 
 #### Returns
 
 [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:34](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L34)
 
 ***
 
@@ -400,13 +426,11 @@ Use alterPropertyType or alterPropertyRequired
 
 > **objects**(): [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:28](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L28)
+
 #### Returns
 
 [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:28](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L28)
 
 ***
 
@@ -414,17 +438,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **primaryKeys**(`tableNames`): [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:31](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L31)
+
 #### Parameters
 
-• **tableNames**: `string`[]
+##### tableNames
+
+`string`[]
 
 #### Returns
 
 [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:31](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L31)
 
 ***
 
@@ -432,13 +456,11 @@ Use alterPropertyType or alterPropertyRequired
 
 > **sequences**(): [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:35](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L35)
+
 #### Returns
 
 [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:35](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L35)
 
 ***
 
@@ -446,19 +468,21 @@ Use alterPropertyType or alterPropertyRequired
 
 > **setNull**(`entity`, `relation`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:6](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L6)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
 
-• **relation**: [`Relation`](Relation.md)
+[`EntityMapping`](EntityMapping.md)
+
+##### relation
+
+[`Relation`](Relation.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:6](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L6)
 
 ***
 
@@ -466,17 +490,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **tables**(`names`): [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:29](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L29)
+
 #### Parameters
 
-• **names**: `string`[]
+##### names
+
+`string`[]
 
 #### Returns
 
 [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:29](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L29)
 
 ***
 
@@ -484,17 +508,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **truncateEntity**(`entity`): `undefined` \| [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:5](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L5)
+
 #### Parameters
 
-• **entity**: [`EntityMapping`](EntityMapping.md)
+##### entity
+
+[`EntityMapping`](EntityMapping.md)
 
 #### Returns
 
 `undefined` \| [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:5](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L5)
 
 ***
 
@@ -502,17 +526,17 @@ Use alterPropertyType or alterPropertyRequired
 
 > **uniqueKeys**(`tableNames`): [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:32](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L32)
+
 #### Parameters
 
-• **tableNames**: `string`[]
+##### tableNames
+
+`string`[]
 
 #### Returns
 
 [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:32](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L32)
 
 ***
 
@@ -520,14 +544,14 @@ Use alterPropertyType or alterPropertyRequired
 
 > **views**(`names`): [`Query`](../classes/Query.md)
 
+Defined in: [src/lib/language/domain/ports/DdlBuilder.ts:30](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/DdlBuilder.ts#L30)
+
 #### Parameters
 
-• **names**: `string`[]
+##### names
+
+`string`[]
 
 #### Returns
 
 [`Query`](../classes/Query.md)
-
-#### Source
-
-[src/lib/language/domain/ports/DdlBuilder.ts:30](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/DdlBuilder.ts#L30)

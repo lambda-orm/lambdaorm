@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,477 +6,529 @@
 
 # Interface: IRepository\<TEntity, TQuery\>
 
-## Type parameters
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:2
 
-• **TEntity**
+## Type Parameters
 
-• **TQuery**
+### TEntity
+
+`TEntity`
+
+### TQuery
+
+`TQuery`
 
 ## Methods
 
 ### bulkDelete()
 
-#### bulkDelete(entities)
+#### Call Signature
 
 > **bulkDelete**(`entities`): `Promise`\<`any`[]\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:26
+
 ##### Parameters
 
-• **entities**: `TEntity`[]
+###### entities
+
+`TEntity`[]
 
 ##### Returns
 
 `Promise`\<`any`[]\>
 
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:26
-
-#### bulkDelete(entities, include)
+#### Call Signature
 
 > **bulkDelete**(`entities`, `include`): `Promise`\<`any`[]\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:27
+
 ##### Parameters
 
-• **entities**: `TEntity`[]
+###### entities
 
-• **include**
+`TEntity`[]
+
+###### include
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`any`[]\>
 
-##### Source
+#### Call Signature
 
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:27
+> **bulkDelete**(`entities`, `include?`): `Promise`\<`any`[]\>
 
-#### bulkDelete(entities, include)
-
-> **bulkDelete**(`entities`, `include`?): `Promise`\<`any`[]\>
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:28
 
 ##### Parameters
 
-• **entities**: `TEntity`[]
+###### entities
 
-• **include?**
+`TEntity`[]
+
+###### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`any`[]\>
-
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:28
 
 ***
 
 ### bulkInsert()
 
-#### bulkInsert(entities)
+#### Call Signature
 
 > **bulkInsert**(`entities`): `Promise`\<`any`[]\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:7
+
 ##### Parameters
 
-• **entities**: `TEntity`[]
+###### entities
+
+`TEntity`[]
 
 ##### Returns
 
 `Promise`\<`any`[]\>
 
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:7
-
-#### bulkInsert(entities, include)
+#### Call Signature
 
 > **bulkInsert**(`entities`, `include`): `Promise`\<`any`[]\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:8
+
 ##### Parameters
 
-• **entities**: `TEntity`[]
+###### entities
 
-• **include**
+`TEntity`[]
+
+###### include
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`any`[]\>
 
-##### Source
+#### Call Signature
 
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:8
+> **bulkInsert**(`entities`, `include?`): `Promise`\<`any`[]\>
 
-#### bulkInsert(entities, include)
-
-> **bulkInsert**(`entities`, `include`?): `Promise`\<`any`[]\>
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:9
 
 ##### Parameters
 
-• **entities**: `TEntity`[]
+###### entities
 
-• **include?**
+`TEntity`[]
+
+###### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`any`[]\>
-
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:9
 
 ***
 
 ### bulkMerge()
 
-#### bulkMerge(entities)
+#### Call Signature
 
 > **bulkMerge**(`entities`): `Promise`\<`any`[]\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:20
+
 ##### Parameters
 
-• **entities**: `TEntity`[]
+###### entities
+
+`TEntity`[]
 
 ##### Returns
 
 `Promise`\<`any`[]\>
 
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:20
-
-#### bulkMerge(entities, include)
+#### Call Signature
 
 > **bulkMerge**(`entities`, `include`): `Promise`\<`any`[]\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:21
+
 ##### Parameters
 
-• **entities**: `TEntity`[]
+###### entities
 
-• **include**
+`TEntity`[]
+
+###### include
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`any`[]\>
 
-##### Source
+#### Call Signature
 
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:21
+> **bulkMerge**(`entities`, `include?`): `Promise`\<`any`[]\>
 
-#### bulkMerge(entities, include)
-
-> **bulkMerge**(`entities`, `include`?): `Promise`\<`any`[]\>
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:22
 
 ##### Parameters
 
-• **entities**: `TEntity`[]
+###### entities
 
-• **include?**
+`TEntity`[]
+
+###### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`any`[]\>
-
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:22
 
 ***
 
 ### delete()
 
-#### delete(entity)
+#### Call Signature
 
 > **delete**(`entity`): `Promise`\<`number`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:23
+
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
+
+`TEntity`
 
 ##### Returns
 
 `Promise`\<`number`\>
 
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:23
-
-#### delete(entity, include)
+#### Call Signature
 
 > **delete**(`entity`, `include`): `Promise`\<`number`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:24
+
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
 
-• **include**
+`TEntity`
+
+###### include
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`number`\>
 
-##### Source
+#### Call Signature
 
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:24
+> **delete**(`entity`, `include?`): `Promise`\<`number`\>
 
-#### delete(entity, include)
-
-> **delete**(`entity`, `include`?): `Promise`\<`number`\>
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:25
 
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
 
-• **include?**
+`TEntity`
+
+###### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`number`\>
-
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:25
 
 ***
 
 ### deleteAll()
 
-> **deleteAll**(`data`, `filter`?, `include`?): `Promise`\<`number`\>
+> **deleteAll**(`data`, `filter?`, `include?`): `Promise`\<`number`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:29
 
 #### Parameters
 
-• **data**: `any`
+##### data
 
-• **filter?**
+`any`
 
-• **include?**
+##### filter?
+
+(`value`, `index`, `array`) => `unknown`
+
+##### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 #### Returns
 
 `Promise`\<`number`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:29
 
 ***
 
 ### distinct()
 
-> **distinct**(`data`, `filter`?, `include`?): `Promise`\<`any`[]\>
+> **distinct**(`data`, `filter?`, `include?`): `Promise`\<`any`[]\>
+
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:31
 
 #### Parameters
 
-• **data**: `any`
+##### data
 
-• **filter?**
+`any`
 
-• **include?**
+##### filter?
+
+(`value`, `index`, `array`) => `unknown`
+
+##### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 #### Returns
 
 `Promise`\<`any`[]\>
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:31
-
 ***
 
 ### execute()
 
-> **execute**(`query`, `data`?): `Promise`\<`any`\>
+> **execute**(`query`, `data?`): `Promise`\<`any`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:3
 
 #### Parameters
 
-• **query**: `string`
+##### query
 
-• **data?**: `any`
+`string`
+
+##### data?
+
+`any`
 
 #### Returns
 
 `Promise`\<`any`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:3
 
 ***
 
 ### first()
 
-> **first**(`data`, `filter`?, `include`?): `Promise`\<`null` \| `TEntity`\>
+> **first**(`data`, `filter?`, `include?`): `Promise`\<`null` \| `TEntity`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:32
 
 #### Parameters
 
-• **data**: `any`
+##### data
 
-• **filter?**
+`any`
 
-• **include?**
+##### filter?
+
+(`value`, `index`, `array`) => `unknown`
+
+##### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 #### Returns
 
 `Promise`\<`null` \| `TEntity`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:32
 
 ***
 
 ### insert()
 
-#### insert(entity)
+#### Call Signature
 
 > **insert**(`entity`): `Promise`\<`any`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:4
+
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
+
+`TEntity`
 
 ##### Returns
 
 `Promise`\<`any`\>
 
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:4
-
-#### insert(entity, include)
+#### Call Signature
 
 > **insert**(`entity`, `include`): `Promise`\<`any`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:5
+
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
 
-• **include**
+`TEntity`
+
+###### include
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`any`\>
 
-##### Source
+#### Call Signature
 
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:5
+> **insert**(`entity`, `include?`): `Promise`\<`any`\>
 
-#### insert(entity, include)
-
-> **insert**(`entity`, `include`?): `Promise`\<`any`\>
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:6
 
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
 
-• **include?**
+`TEntity`
+
+###### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`any`\>
-
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:6
 
 ***
 
 ### last()
 
-> **last**(`data`, `filter`?, `include`?): `Promise`\<`null` \| `TEntity`\>
+> **last**(`data`, `filter?`, `include?`): `Promise`\<`null` \| `TEntity`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:33
 
 #### Parameters
 
-• **data**: `any`
+##### data
 
-• **filter?**
+`any`
 
-• **include?**
+##### filter?
+
+(`value`, `index`, `array`) => `unknown`
+
+##### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 #### Returns
 
 `Promise`\<`null` \| `TEntity`\>
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:33
-
 ***
 
 ### list()
 
-> **list**(`data`, `filter`?, `include`?): `Promise`\<`TEntity`[]\>
+> **list**(`data`, `filter?`, `include?`): `Promise`\<`TEntity`[]\>
+
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:30
 
 #### Parameters
 
-• **data**: `any`
+##### data
 
-• **filter?**
+`any`
 
-• **include?**
+##### filter?
+
+(`value`, `index`, `array`) => `unknown`
+
+##### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 #### Returns
 
 `Promise`\<`TEntity`[]\>
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:30
-
 ***
 
 ### merge()
 
-#### merge(entity)
+#### Call Signature
 
 > **merge**(`entity`): `Promise`\<`number`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:17
+
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
+
+`TEntity`
 
 ##### Returns
 
 `Promise`\<`number`\>
 
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:17
-
-#### merge(entity, include)
+#### Call Signature
 
 > **merge**(`entity`, `include`): `Promise`\<`number`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:18
+
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
 
-• **include**
+`TEntity`
+
+###### include
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`number`\>
 
-##### Source
+#### Call Signature
 
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:18
+> **merge**(`entity`, `include?`): `Promise`\<`number`\>
 
-#### merge(entity, include)
-
-> **merge**(`entity`, `include`?): `Promise`\<`number`\>
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:19
 
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
 
-• **include?**
+`TEntity`
+
+###### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`number`\>
-
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:19
 
 ***
 
@@ -484,146 +536,158 @@ node\_modules/lambdaorm-base/repository/application/repository.d.ts:19
 
 > **query**(): [`Queryable`](../classes/Queryable.md)\<`TQuery`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:34
+
 #### Returns
 
 [`Queryable`](../classes/Queryable.md)\<`TQuery`\>
-
-#### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:34
 
 ***
 
 ### update()
 
-#### update(entity)
+#### Call Signature
 
 > **update**(`entity`): `Promise`\<`number`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:10
+
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
+
+`TEntity`
 
 ##### Returns
 
 `Promise`\<`number`\>
 
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:10
-
-#### update(entity, include)
+#### Call Signature
 
 > **update**(`entity`, `include`): `Promise`\<`number`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:11
+
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
 
-• **include**
+`TEntity`
+
+###### include
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`number`\>
 
-##### Source
+#### Call Signature
 
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:11
+> **update**(`entity`, `include?`): `Promise`\<`number`\>
 
-#### update(entity, include)
-
-> **update**(`entity`, `include`?): `Promise`\<`number`\>
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:12
 
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
 
-• **include?**
+`TEntity`
+
+###### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`number`\>
-
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:12
 
 ***
 
 ### updateAll()
 
-> **updateAll**(`data`, `map`, `filter`?, `include`?): `Promise`\<`number`\>
+> **updateAll**(`data`, `map`, `filter?`, `include?`): `Promise`\<`number`\>
+
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:16
 
 #### Parameters
 
-• **data**: `any`
+##### data
 
-• **map**
+`any`
 
-• **filter?**
+##### map
 
-• **include?**
+(`value`) => `unknown`
+
+##### filter?
+
+(`value`, `index`, `array`) => `unknown`
+
+##### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 #### Returns
 
 `Promise`\<`number`\>
 
-#### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:16
-
 ***
 
 ### upsert()
 
-#### upsert(entity)
+#### Call Signature
 
 > **upsert**(`entity`): `Promise`\<`number`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:13
+
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
+
+`TEntity`
 
 ##### Returns
 
 `Promise`\<`number`\>
 
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:13
-
-#### upsert(entity, include)
+#### Call Signature
 
 > **upsert**(`entity`, `include`): `Promise`\<`number`\>
 
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:14
+
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
 
-• **include**
+`TEntity`
+
+###### include
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`number`\>
 
-##### Source
+#### Call Signature
 
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:14
+> **upsert**(`entity`, `include?`): `Promise`\<`number`\>
 
-#### upsert(entity, include)
-
-> **upsert**(`entity`, `include`?): `Promise`\<`number`\>
+Defined in: node\_modules/lambdaorm-base/repository/application/repository.d.ts:15
 
 ##### Parameters
 
-• **entity**: `TEntity`
+###### entity
 
-• **include?**
+`TEntity`
+
+###### include?
+
+(`value`, `index`, `array`) => `unknown`
 
 ##### Returns
 
 `Promise`\<`number`\>
-
-##### Source
-
-node\_modules/lambdaorm-base/repository/application/repository.d.ts:15

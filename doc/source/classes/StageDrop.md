@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,49 +6,65 @@
 
 # Class: StageDrop
 
+Defined in: [src/lib/stage/application/useCases/drop.ts:9](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/useCases/drop.ts#L9)
+
 ## Extends
 
 - [`StageActionDDL`](StageActionDDL.md)
 
 ## Constructors
 
-### new StageDrop()
+### Constructor
 
-> **new StageDrop**(`executor`, `stateService`, `mappingService`, `schemaState`, `languages`, `options`, `helper`): [`StageDrop`](StageDrop.md)
+> **new StageDrop**(`executor`, `stateService`, `mappingService`, `schemaState`, `languages`, `options`, `helper`): `StageDrop`
+
+Defined in: [src/lib/stage/application/useCases/drop.ts:11](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/useCases/drop.ts#L11)
 
 #### Parameters
 
-• **executor**: [`Executor`](../interfaces/Executor.md)
+##### executor
 
-• **stateService**: [`StageModelService`](StageModelService.md)
+[`Executor`](../interfaces/Executor.md)
 
-• **mappingService**: [`StageMappingService`](StageMappingService.md)
+##### stateService
 
-• **schemaState**: [`SchemaState`](SchemaState.md)
+[`StageModelService`](StageModelService.md)
 
-• **languages**: [`LanguagesService`](LanguagesService.md)
+##### mappingService
 
-• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
+[`StageMappingService`](StageMappingService.md)
 
-• **helper**: [`OrmH3lp`](OrmH3lp.md)
+##### schemaState
+
+[`SchemaState`](SchemaState.md)
+
+##### languages
+
+[`LanguagesService`](LanguagesService.md)
+
+##### options
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
+
+##### helper
+
+[`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
-[`StageDrop`](StageDrop.md)
+`StageDrop`
 
 #### Overrides
 
-[`StageActionDDL`](StageActionDDL.md).[`constructor`](StageActionDDL.md#constructors)
-
-#### Source
-
-[src/lib/stage/application/useCases/drop.ts:11](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/useCases/drop.ts#L11)
+[`StageActionDDL`](StageActionDDL.md).[`constructor`](StageActionDDL.md#constructor)
 
 ## Methods
 
 ### execute()
 
 > **execute**(): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
+
+Defined in: [src/lib/stage/application/useCases/drop.ts:24](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/useCases/drop.ts#L24)
 
 #### Returns
 
@@ -58,15 +74,13 @@
 
 [`StageActionDDL`](StageActionDDL.md).[`execute`](StageActionDDL.md#execute)
 
-#### Source
-
-[src/lib/stage/application/useCases/drop.ts:24](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/useCases/drop.ts#L24)
-
 ***
 
 ### queries()
 
 > **queries**(): `Promise`\<[`Query`](Query.md)[]\>
+
+Defined in: [src/lib/stage/application/useCases/drop.ts:16](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/useCases/drop.ts#L16)
 
 #### Returns
 
@@ -76,15 +90,13 @@
 
 [`StageActionDDL`](StageActionDDL.md).[`queries`](StageActionDDL.md#queries)
 
-#### Source
-
-[src/lib/stage/application/useCases/drop.ts:16](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/useCases/drop.ts#L16)
-
 ***
 
 ### sentence()
 
 > **sentence**(): `Promise`\<`any`[]\>
+
+Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
 
 #### Returns
 
@@ -93,7 +105,3 @@
 #### Inherited from
 
 [`StageActionDDL`](StageActionDDL.md).[`sentence`](StageActionDDL.md#sentence)
-
-#### Source
-
-[src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/stage/application/useCases/base/actionDDL.ts#L19)

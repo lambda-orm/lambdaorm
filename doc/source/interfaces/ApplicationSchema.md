@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: ApplicationSchema
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:173
+
 ## Properties
 
 ### end?
 
 > `optional` **end**: [`TaskConfig`](TaskConfig.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:176
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:176
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:176
 
 > `optional` **listeners**: [`ListenerConfig`](ListenerConfig.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:175
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:175
 
 ***
 
@@ -32,6 +30,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:175
 
 > `optional` **start**: [`TaskConfig`](TaskConfig.md)[]
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:174
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:174

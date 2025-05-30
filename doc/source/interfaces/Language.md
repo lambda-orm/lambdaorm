@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: Language
 
+Defined in: [src/lib/language/domain/ports/language.ts:6](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/language.ts#L6)
+
 ## Properties
 
 ### dialects
 
 > **dialects**: [`DialectService`](DialectService.md)[]
 
-#### Source
-
-[src/lib/language/domain/ports/language.ts:7](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/language.ts#L7)
+Defined in: [src/lib/language/domain/ports/language.ts:7](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/language.ts#L7)
 
 ***
 
@@ -22,9 +22,7 @@
 
 > **name**: `string`
 
-#### Source
-
-[src/lib/language/domain/ports/language.ts:8](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/language.ts#L8)
+Defined in: [src/lib/language/domain/ports/language.ts:8](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/language.ts#L8)
 
 ***
 
@@ -32,9 +30,7 @@
 
 > `optional` **solveComposite**: `boolean`
 
-#### Source
-
-[src/lib/language/domain/ports/language.ts:9](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/language.ts#L9)
+Defined in: [src/lib/language/domain/ports/language.ts:9](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/language.ts#L9)
 
 ## Methods
 
@@ -42,19 +38,21 @@
 
 > **ddlBuilder**(`source`, `mapping`): [`DdlBuilder`](DdlBuilder.md)
 
+Defined in: [src/lib/language/domain/ports/language.ts:11](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/language.ts#L11)
+
 #### Parameters
 
-• **source**: [`Source`](Source.md)
+##### source
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+[`Source`](Source.md)
+
+##### mapping
+
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
 #### Returns
 
 [`DdlBuilder`](DdlBuilder.md)
-
-#### Source
-
-[src/lib/language/domain/ports/language.ts:11](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/language.ts#L11)
 
 ***
 
@@ -62,19 +60,21 @@
 
 > **dmlBuilder**(`source`, `mapping`): [`DmlBuilder`](DmlBuilder.md)
 
+Defined in: [src/lib/language/domain/ports/language.ts:12](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/language.ts#L12)
+
 #### Parameters
 
-• **source**: [`Source`](Source.md)
+##### source
 
-• **mapping**: [`MappingConfigService`](../classes/MappingConfigService.md)
+[`Source`](Source.md)
+
+##### mapping
+
+[`MappingConfigService`](../classes/MappingConfigService.md)
 
 #### Returns
 
 [`DmlBuilder`](DmlBuilder.md)
-
-#### Source
-
-[src/lib/language/domain/ports/language.ts:12](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/language.ts#L12)
 
 ***
 
@@ -82,14 +82,14 @@
 
 > **getDialect**(`name`): [`DialectService`](DialectService.md)
 
+Defined in: [src/lib/language/domain/ports/language.ts:10](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/language/domain/ports/language.ts#L10)
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
 [`DialectService`](DialectService.md)
-
-#### Source
-
-[src/lib/language/domain/ports/language.ts:10](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/language/domain/ports/language.ts#L10)

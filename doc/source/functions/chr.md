@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **chr**(`value`): `string`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:205
+
 Get character from ASCII code
 
 ## Parameters
 
-• **value**: `string`
+### value
+
+`string`
 
 ## Returns
 
 `string`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:205

@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,16 +8,18 @@
 
 > **nvl**(`value`, `_default`): `any`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:300
+
 ## Parameters
 
-• **value**: `any`
+### value
 
-• **\_default**: `any`
+`any`
+
+### \_default
+
+`any`
 
 ## Returns
 
 `any`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:300

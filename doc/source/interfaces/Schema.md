@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: Schema
 
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:178
+
 ## Properties
 
 ### application?
 
 > `optional` **application**: [`ApplicationSchema`](ApplicationSchema.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:182
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:182
 
 ***
 
@@ -22,9 +22,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:182
 
 > **domain**: [`DomainSchema`](DomainSchema.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:180
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:180
 
 ***
 
@@ -32,9 +30,7 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:180
 
 > `optional` **infrastructure**: [`InfrastructureSchema`](InfrastructureSchema.md)
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:181
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:181
 
 ***
 
@@ -42,6 +38,4 @@ node\_modules/lambdaorm-base/schema/domain/schema.d.ts:181
 
 > **version**: `string`
 
-#### Source
-
-node\_modules/lambdaorm-base/schema/domain/schema.d.ts:179
+Defined in: node\_modules/lambdaorm-base/schema/domain/schema.d.ts:179

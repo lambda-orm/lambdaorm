@@ -1,10 +1,12 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
 [Lambda ORM](../README.md) / ExecutorImpl
 
 # Class: ExecutorImpl
+
+Defined in: [src/lib/execution/application/services/executor.ts:10](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/executor.ts#L10)
 
 ## Implements
 
@@ -13,29 +15,37 @@
 
 ## Constructors
 
-### new ExecutorImpl()
+### Constructor
 
-> **new ExecutorImpl**(`connectionFacade`, `languages`, `schemaState`, `expressions`, `helper`): [`ExecutorImpl`](ExecutorImpl.md)
+> **new ExecutorImpl**(`connectionFacade`, `languages`, `schemaState`, `expressions`, `helper`): `ExecutorImpl`
+
+Defined in: [src/lib/execution/application/services/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/executor.ts#L12)
 
 #### Parameters
 
-• **connectionFacade**: [`ConnectionFacade`](ConnectionFacade.md)
+##### connectionFacade
 
-• **languages**: [`LanguagesService`](LanguagesService.md)
+[`ConnectionFacade`](ConnectionFacade.md)
 
-• **schemaState**: [`SchemaState`](SchemaState.md)
+##### languages
 
-• **expressions**: `Expressions`
+[`LanguagesService`](LanguagesService.md)
 
-• **helper**: [`OrmH3lp`](OrmH3lp.md)
+##### schemaState
+
+[`SchemaState`](SchemaState.md)
+
+##### expressions
+
+`Expressions`
+
+##### helper
+
+[`OrmH3lp`](OrmH3lp.md)
 
 #### Returns
 
-[`ExecutorImpl`](ExecutorImpl.md)
-
-#### Source
-
-[src/lib/execution/application/services/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/executor.ts#L12)
+`ExecutorImpl`
 
 ## Methods
 
@@ -43,13 +53,21 @@
 
 > **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
 
+Defined in: [src/lib/execution/application/services/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/executor.ts#L33)
+
 #### Parameters
 
-• **query**: [`Query`](Query.md)
+##### query
 
-• **data**: `any`
+[`Query`](Query.md)
 
-• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
+##### data
+
+`any`
+
+##### options
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
@@ -59,21 +77,23 @@
 
 [`Executor`](../interfaces/Executor.md).[`execute`](../interfaces/Executor.md#execute)
 
-#### Source
-
-[src/lib/execution/application/services/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/executor.ts#L33)
-
 ***
 
 ### executeList()
 
 > **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
+Defined in: [src/lib/execution/application/services/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/executor.ts#L56)
+
 #### Parameters
 
-• **queries**: [`Query`](Query.md)[]
+##### queries
 
-• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
+[`Query`](Query.md)[]
+
+##### options
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
 
 #### Returns
 
@@ -83,19 +103,19 @@
 
 [`Executor`](../interfaces/Executor.md).[`executeList`](../interfaces/Executor.md#executelist)
 
-#### Source
-
-[src/lib/execution/application/services/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/executor.ts#L56)
-
 ***
 
 ### subscribe()
 
 > **subscribe**(`observer`): `void`
 
+Defined in: [src/lib/execution/application/services/executor.ts:21](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/executor.ts#L21)
+
 #### Parameters
 
-• **observer**: [`ActionObserver`](ActionObserver.md)
+##### observer
+
+[`ActionObserver`](ActionObserver.md)
 
 #### Returns
 
@@ -105,25 +125,27 @@
 
 [`ObservableExecutor`](../interfaces/ObservableExecutor.md).[`subscribe`](../interfaces/ObservableExecutor.md#subscribe)
 
-#### Source
-
-[src/lib/execution/application/services/executor.ts:21](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/executor.ts#L21)
-
 ***
 
 ### transaction()
 
 > **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
+Defined in: [src/lib/execution/application/services/executor.ts:86](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/executor.ts#L86)
+
 Create a transaction
 
 #### Parameters
 
-• **options**: [`QueryOptions`](../interfaces/QueryOptions.md)
+##### options
+
+[`QueryOptions`](../interfaces/QueryOptions.md)
 
 QueryOptions
 
-• **callback**
+##### callback
+
+(`tr`) => `Promise`\<`void`\>
 
 Code to be executed in transaction
 
@@ -135,19 +157,19 @@ Code to be executed in transaction
 
 [`Executor`](../interfaces/Executor.md).[`transaction`](../interfaces/Executor.md#transaction)
 
-#### Source
-
-[src/lib/execution/application/services/executor.ts:86](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/executor.ts#L86)
-
 ***
 
 ### unsubscribe()
 
 > **unsubscribe**(`observer`): `void`
 
+Defined in: [src/lib/execution/application/services/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/0c7200c61eb042585cd3ed78e0f69b7956734d6b/src/lib/execution/application/services/executor.ts#L25)
+
 #### Parameters
 
-• **observer**: [`ActionObserver`](ActionObserver.md)
+##### observer
+
+[`ActionObserver`](ActionObserver.md)
 
 #### Returns
 
@@ -156,7 +178,3 @@ Code to be executed in transaction
 #### Implementation of
 
 [`ObservableExecutor`](../interfaces/ObservableExecutor.md).[`unsubscribe`](../interfaces/ObservableExecutor.md#unsubscribe)
-
-#### Source
-
-[src/lib/execution/application/services/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/cfdea01485e47d6bfb9f5073528259581c5e1563/src/lib/execution/application/services/executor.ts#L25)

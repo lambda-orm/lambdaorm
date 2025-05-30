@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,27 +6,33 @@
 
 # Class: SchemaStateBuilder
 
+Defined in: node\_modules/lambdaorm-base/schema/infrastructure/stateBuilder.d.ts:4
+
 ## Constructors
 
-### new SchemaStateBuilder()
+### Constructor
 
-> **new SchemaStateBuilder**(`exp`, `facade`, `helper`): [`SchemaStateBuilder`](SchemaStateBuilder.md)
+> **new SchemaStateBuilder**(`exp`, `facade`, `helper`): `SchemaStateBuilder`
+
+Defined in: node\_modules/lambdaorm-base/schema/infrastructure/stateBuilder.d.ts:8
 
 #### Parameters
 
-• **exp**: `Expressions`
+##### exp
 
-• **facade**: [`SchemaFacade`](SchemaFacade.md)
+`Expressions`
 
-• **helper**: [`OrmBaseH3lp`](OrmBaseH3lp.md)
+##### facade
+
+[`SchemaFacade`](SchemaFacade.md)
+
+##### helper
+
+[`OrmBaseH3lp`](OrmBaseH3lp.md)
 
 #### Returns
 
-[`SchemaStateBuilder`](SchemaStateBuilder.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/infrastructure/stateBuilder.d.ts:8
+`SchemaStateBuilder`
 
 ## Methods
 
@@ -34,10 +40,8 @@ node\_modules/lambdaorm-base/schema/infrastructure/stateBuilder.d.ts:8
 
 > **build**(): [`SchemaState`](SchemaState.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/infrastructure/stateBuilder.d.ts:9
+
 #### Returns
 
 [`SchemaState`](SchemaState.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/infrastructure/stateBuilder.d.ts:9

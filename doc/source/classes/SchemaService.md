@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -6,15 +6,17 @@
 
 # Class: SchemaService
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:2
+
 ## Constructors
 
-### new SchemaService()
+### Constructor
 
-> **new SchemaService**(): [`SchemaService`](SchemaService.md)
+> **new SchemaService**(): `SchemaService`
 
 #### Returns
 
-[`SchemaService`](SchemaService.md)
+`SchemaService`
 
 ## Methods
 
@@ -22,17 +24,17 @@
 
 > **complete**(`schema`): `void`
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:8
+
 #### Parameters
 
-• **schema**: [`Schema`](../interfaces/Schema.md)
+##### schema
+
+[`Schema`](../interfaces/Schema.md)
 
 #### Returns
 
 `void`
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:8
 
 ***
 
@@ -40,13 +42,11 @@ node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:8
 
 > **newApplication**(): `undefined` \| [`ApplicationSchema`](../interfaces/ApplicationSchema.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:6
+
 #### Returns
 
 `undefined` \| [`ApplicationSchema`](../interfaces/ApplicationSchema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:6
 
 ***
 
@@ -54,13 +54,11 @@ node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:6
 
 > **newDomain**(): [`DomainSchema`](../interfaces/DomainSchema.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:5
+
 #### Returns
 
 [`DomainSchema`](../interfaces/DomainSchema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:5
 
 ***
 
@@ -68,13 +66,11 @@ node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:5
 
 > **newInfrastructure**(): [`InfrastructureSchema`](../interfaces/InfrastructureSchema.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:4
+
 #### Returns
 
 [`InfrastructureSchema`](../interfaces/InfrastructureSchema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:4
 
 ***
 
@@ -82,13 +78,11 @@ node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:4
 
 > **newPathsApp**(): [`AppPathsConfig`](../interfaces/AppPathsConfig.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:7
+
 #### Returns
 
 [`AppPathsConfig`](../interfaces/AppPathsConfig.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:7
 
 ***
 
@@ -96,10 +90,8 @@ node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:7
 
 > **newSchema**(): [`Schema`](../interfaces/Schema.md)
 
+Defined in: node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:3
+
 #### Returns
 
 [`Schema`](../interfaces/Schema.md)
-
-#### Source
-
-node\_modules/lambdaorm-base/schema/application/services/schemaService.d.ts:3

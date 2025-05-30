@@ -1,4 +1,4 @@
-[**Lambda ORM**](../README.md) • **Docs**
+[**Lambda ORM**](../README.md)
 
 ***
 
@@ -8,12 +8,10 @@
 
 > **curTime**(): `Date`
 
+Defined in: node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:240
+
 Get the current time
 
 ## Returns
 
 `Date`
-
-## Source
-
-node\_modules/lambdaorm-base/repository/domain/queryable.d.ts:240
