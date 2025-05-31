@@ -1,6 +1,6 @@
 {
   "name": "lambdaorm",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "ORM",
   "author": "Flavio Lionel Rita <flaviolrita@proton.me>",
   "license": "MIT",
@@ -48,7 +48,7 @@
     "3xpr": "^1.15.27",
     "crypto-js": "^4.2.0",
     "h3lp": "^1.14.2",
-    "lambdaorm-base": "1.7.12",
+    "lambdaorm-base": "1.7.13",
     "typ3s": "^1.0.9"
   },
   "devDependencies": {
