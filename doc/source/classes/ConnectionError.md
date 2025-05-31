@@ -6,7 +6,7 @@
 
 # Class: ConnectionError
 
-Defined in: [src/lib/connection/domain/errors.ts:1](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/domain/errors.ts#L1)
+Defined in: [src/lib/connection/domain/errors.ts:1](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/domain/errors.ts#L1)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/connection/domain/errors.ts:1](https://github.com/lambda-or
 
 > **new ConnectionError**(`message`): `ConnectionError`
 
-Defined in: [src/lib/connection/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/domain/errors.ts#L2)
+Defined in: [src/lib/connection/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/domain/errors.ts#L2)
 
 #### Parameters
 

@@ -6,7 +6,7 @@
 
 # Interface: IOrm
 
-Defined in: [src/lib/orm/application/orm.ts:6](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L6)
+Defined in: [src/lib/orm/application/orm.ts:6](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L6)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/orm/application/orm.ts:6](https://github.com/lambda-orm/lam
 
 > **exp**: `Expressions`
 
-Defined in: [src/lib/orm/application/orm.ts:11](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L11)
+Defined in: [src/lib/orm/application/orm.ts:11](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L11)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/lib/orm/application/orm.ts:11](https://github.com/lambda-orm/la
 
 > **schema**: [`SchemaFacade`](../classes/SchemaFacade.md)
 
-Defined in: [src/lib/orm/application/orm.ts:9](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L9)
+Defined in: [src/lib/orm/application/orm.ts:9](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L9)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/lib/orm/application/orm.ts:9](https://github.com/lambda-orm/lam
 
 > **stage**: [`StageFacade`](../classes/StageFacade.md)
 
-Defined in: [src/lib/orm/application/orm.ts:8](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L8)
+Defined in: [src/lib/orm/application/orm.ts:8](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L8)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/lib/orm/application/orm.ts:8](https://github.com/lambda-orm/lam
 
 > **state**: [`SchemaState`](../classes/SchemaState.md)
 
-Defined in: [src/lib/orm/application/orm.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L10)
+Defined in: [src/lib/orm/application/orm.ts:10](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L10)
 
 ## Methods
 
@@ -48,7 +48,7 @@ Defined in: [src/lib/orm/application/orm.ts:10](https://github.com/lambda-orm/la
 
 > **constraints**(`query`): [`MetadataConstraint`](MetadataConstraint.md)
 
-Defined in: [src/lib/orm/application/orm.ts:43](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L43)
+Defined in: [src/lib/orm/application/orm.ts:43](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L43)
 
 Get constraints of query
 
@@ -68,7 +68,7 @@ Constraints of query
 
 > **constraints**(`query`): [`MetadataConstraint`](MetadataConstraint.md)
 
-Defined in: [src/lib/orm/application/orm.ts:44](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L44)
+Defined in: [src/lib/orm/application/orm.ts:44](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L44)
 
 ##### Parameters
 
@@ -86,7 +86,7 @@ Defined in: [src/lib/orm/application/orm.ts:44](https://github.com/lambda-orm/la
 
 > **dialect**(`source`): [`Dialect`](../enumerations/Dialect.md)
 
-Defined in: [src/lib/orm/application/orm.ts:13](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L13)
+Defined in: [src/lib/orm/application/orm.ts:13](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L13)
 
 #### Parameters
 
@@ -104,7 +104,7 @@ Defined in: [src/lib/orm/application/orm.ts:13](https://github.com/lambda-orm/la
 
 > **end**(): `Promise`\<`void`\>
 
-Defined in: [src/lib/orm/application/orm.ts:17](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L17)
+Defined in: [src/lib/orm/application/orm.ts:17](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L17)
 
 #### Returns
 
@@ -118,7 +118,7 @@ Defined in: [src/lib/orm/application/orm.ts:17](https://github.com/lambda-orm/la
 
 > **execute**(`query`, `data?`, `options?`): `Promise`\<`any`\>
 
-Defined in: [src/lib/orm/application/orm.ts:68](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L68)
+Defined in: [src/lib/orm/application/orm.ts:68](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L68)
 
 Execute query
 
@@ -152,7 +152,7 @@ Result of execution
 
 > **execute**(`query`, `data?`, `options?`): `Promise`\<`any`\>
 
-Defined in: [src/lib/orm/application/orm.ts:69](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L69)
+Defined in: [src/lib/orm/application/orm.ts:69](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L69)
 
 ##### Parameters
 
@@ -178,7 +178,7 @@ Defined in: [src/lib/orm/application/orm.ts:69](https://github.com/lambda-orm/la
 
 > **init**(`configPath?`, `connect?`): `Promise`\<[`Schema`](Schema.md)\>
 
-Defined in: [src/lib/orm/application/orm.ts:16](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L16)
+Defined in: [src/lib/orm/application/orm.ts:16](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L16)
 
 #### Parameters
 
@@ -202,7 +202,7 @@ Defined in: [src/lib/orm/application/orm.ts:16](https://github.com/lambda-orm/la
 
 > **metadata**(`query`): [`Metadata`](Metadata.md)
 
-Defined in: [src/lib/orm/application/orm.ts:50](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L50)
+Defined in: [src/lib/orm/application/orm.ts:50](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L50)
 
 Get metadata of query
 
@@ -222,7 +222,7 @@ metadata of query
 
 > **metadata**(`query`): [`Metadata`](Metadata.md)
 
-Defined in: [src/lib/orm/application/orm.ts:51](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L51)
+Defined in: [src/lib/orm/application/orm.ts:51](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L51)
 
 ##### Parameters
 
@@ -242,7 +242,7 @@ Defined in: [src/lib/orm/application/orm.ts:51](https://github.com/lambda-orm/la
 
 > **model**(`query`): [`MetadataModel`](MetadataModel.md)[]
 
-Defined in: [src/lib/orm/application/orm.ts:29](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L29)
+Defined in: [src/lib/orm/application/orm.ts:29](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L29)
 
 Get model of query
 
@@ -262,7 +262,7 @@ Model of query
 
 > **model**(`query`): [`MetadataModel`](MetadataModel.md)[]
 
-Defined in: [src/lib/orm/application/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L30)
+Defined in: [src/lib/orm/application/orm.ts:30](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L30)
 
 ##### Parameters
 
@@ -282,7 +282,7 @@ Defined in: [src/lib/orm/application/orm.ts:30](https://github.com/lambda-orm/la
 
 > **normalize**(`query`): `string`
 
-Defined in: [src/lib/orm/application/orm.ts:22](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L22)
+Defined in: [src/lib/orm/application/orm.ts:22](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L22)
 
 Normalize query
 
@@ -302,7 +302,7 @@ Expression normalized
 
 > **normalize**(`query`): `string`
 
-Defined in: [src/lib/orm/application/orm.ts:23](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L23)
+Defined in: [src/lib/orm/application/orm.ts:23](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L23)
 
 ##### Parameters
 
@@ -322,7 +322,7 @@ Defined in: [src/lib/orm/application/orm.ts:23](https://github.com/lambda-orm/la
 
 > **parameters**(`query`): [`MetadataParameter`](MetadataParameter.md)[]
 
-Defined in: [src/lib/orm/application/orm.ts:36](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L36)
+Defined in: [src/lib/orm/application/orm.ts:36](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L36)
 
 Get parameters of query
 
@@ -342,7 +342,7 @@ Parameters of query
 
 > **parameters**(`query`): [`MetadataParameter`](MetadataParameter.md)[]
 
-Defined in: [src/lib/orm/application/orm.ts:37](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L37)
+Defined in: [src/lib/orm/application/orm.ts:37](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L37)
 
 ##### Parameters
 
@@ -362,7 +362,7 @@ Defined in: [src/lib/orm/application/orm.ts:37](https://github.com/lambda-orm/la
 
 > **plan**(`query`, `options?`): [`QueryPlan`](QueryPlan.md)
 
-Defined in: [src/lib/orm/application/orm.ts:58](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L58)
+Defined in: [src/lib/orm/application/orm.ts:58](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L58)
 
 ##### Parameters
 
@@ -382,7 +382,7 @@ Defined in: [src/lib/orm/application/orm.ts:58](https://github.com/lambda-orm/la
 
 > **plan**(`query`, `options?`): [`QueryPlan`](QueryPlan.md)
 
-Defined in: [src/lib/orm/application/orm.ts:59](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L59)
+Defined in: [src/lib/orm/application/orm.ts:59](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L59)
 
 ##### Parameters
 
@@ -404,7 +404,7 @@ Defined in: [src/lib/orm/application/orm.ts:59](https://github.com/lambda-orm/la
 
 > **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
-Defined in: [src/lib/orm/application/orm.ts:75](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/application/orm.ts#L75)
+Defined in: [src/lib/orm/application/orm.ts:75](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/orm/application/orm.ts#L75)
 
 transaction
 

@@ -6,7 +6,7 @@
 
 # Class: SentenceFacade
 
-Defined in: [src/lib/sentence/application/facade.ts:18](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/sentence/application/facade.ts#L18)
+Defined in: [src/lib/sentence/application/facade.ts:18](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/facade.ts#L18)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/sentence/application/facade.ts:18](https://github.com/lambd
 
 > **new SentenceFacade**(`schemaState`, `operandFacade`, `expressions`, `cache`, `serializer`, `helper`): `SentenceFacade`
 
-Defined in: [src/lib/sentence/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/sentence/application/facade.ts#L27)
+Defined in: [src/lib/sentence/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/facade.ts#L27)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: [src/lib/sentence/application/facade.ts:27](https://github.com/lambd
 
 > **build**(`expression`, `view`, `stage`): [`Sentence`](Sentence.md)
 
-Defined in: [src/lib/sentence/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/sentence/application/facade.ts#L44)
+Defined in: [src/lib/sentence/application/facade.ts:44](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/facade.ts#L44)
 
 #### Parameters
 
@@ -78,7 +78,7 @@ Defined in: [src/lib/sentence/application/facade.ts:44](https://github.com/lambd
 
 > **constraints**(`expression`): [`MetadataConstraint`](../interfaces/MetadataConstraint.md)
 
-Defined in: [src/lib/sentence/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/sentence/application/facade.ts#L48)
+Defined in: [src/lib/sentence/application/facade.ts:48](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/facade.ts#L48)
 
 #### Parameters
 
@@ -96,7 +96,7 @@ Defined in: [src/lib/sentence/application/facade.ts:48](https://github.com/lambd
 
 > **getSource**(`sentence`, `stage`): [`Source`](../interfaces/Source.md)
 
-Defined in: [src/lib/sentence/application/facade.ts:64](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/sentence/application/facade.ts#L64)
+Defined in: [src/lib/sentence/application/facade.ts:64](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/facade.ts#L64)
 
 #### Parameters
 
@@ -118,7 +118,7 @@ Defined in: [src/lib/sentence/application/facade.ts:64](https://github.com/lambd
 
 > **metadata**(`expression`): [`Metadata`](../interfaces/Metadata.md)
 
-Defined in: [src/lib/sentence/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/sentence/application/facade.ts#L52)
+Defined in: [src/lib/sentence/application/facade.ts:52](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/facade.ts#L52)
 
 #### Parameters
 
@@ -136,7 +136,7 @@ Defined in: [src/lib/sentence/application/facade.ts:52](https://github.com/lambd
 
 > **model**(`expression`): [`MetadataModel`](../interfaces/MetadataModel.md)[]
 
-Defined in: [src/lib/sentence/application/facade.ts:56](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/sentence/application/facade.ts#L56)
+Defined in: [src/lib/sentence/application/facade.ts:56](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/facade.ts#L56)
 
 #### Parameters
 
@@ -154,7 +154,7 @@ Defined in: [src/lib/sentence/application/facade.ts:56](https://github.com/lambd
 
 > **parameters**(`expression`): [`MetadataParameter`](../interfaces/MetadataParameter.md)[]
 
-Defined in: [src/lib/sentence/application/facade.ts:60](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/sentence/application/facade.ts#L60)
+Defined in: [src/lib/sentence/application/facade.ts:60](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/facade.ts#L60)
 
 #### Parameters
 

@@ -6,7 +6,7 @@
 
 # Interface: Language
 
-Defined in: [src/lib/language/domain/ports/language.ts:6](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/domain/ports/language.ts#L6)
+Defined in: [src/lib/language/domain/ports/language.ts:6](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/ports/language.ts#L6)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/language/domain/ports/language.ts:6](https://github.com/lam
 
 > **dialects**: [`DialectService`](DialectService.md)[]
 
-Defined in: [src/lib/language/domain/ports/language.ts:7](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/domain/ports/language.ts#L7)
+Defined in: [src/lib/language/domain/ports/language.ts:7](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/ports/language.ts#L7)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/lib/language/domain/ports/language.ts:7](https://github.com/lam
 
 > **name**: `string`
 
-Defined in: [src/lib/language/domain/ports/language.ts:8](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/domain/ports/language.ts#L8)
+Defined in: [src/lib/language/domain/ports/language.ts:8](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/ports/language.ts#L8)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/lib/language/domain/ports/language.ts:8](https://github.com/lam
 
 > `optional` **solveComposite**: `boolean`
 
-Defined in: [src/lib/language/domain/ports/language.ts:9](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/domain/ports/language.ts#L9)
+Defined in: [src/lib/language/domain/ports/language.ts:9](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/ports/language.ts#L9)
 
 ## Methods
 
@@ -38,7 +38,7 @@ Defined in: [src/lib/language/domain/ports/language.ts:9](https://github.com/lam
 
 > **ddlBuilder**(`source`, `mapping`): [`DdlBuilder`](DdlBuilder.md)
 
-Defined in: [src/lib/language/domain/ports/language.ts:11](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/domain/ports/language.ts#L11)
+Defined in: [src/lib/language/domain/ports/language.ts:11](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/ports/language.ts#L11)
 
 #### Parameters
 
@@ -60,7 +60,7 @@ Defined in: [src/lib/language/domain/ports/language.ts:11](https://github.com/la
 
 > **dmlBuilder**(`source`, `mapping`): [`DmlBuilder`](DmlBuilder.md)
 
-Defined in: [src/lib/language/domain/ports/language.ts:12](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/domain/ports/language.ts#L12)
+Defined in: [src/lib/language/domain/ports/language.ts:12](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/ports/language.ts#L12)
 
 #### Parameters
 
@@ -82,7 +82,7 @@ Defined in: [src/lib/language/domain/ports/language.ts:12](https://github.com/la
 
 > **getDialect**(`name`): [`DialectService`](DialectService.md)
 
-Defined in: [src/lib/language/domain/ports/language.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/domain/ports/language.ts#L10)
+Defined in: [src/lib/language/domain/ports/language.ts:10](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/ports/language.ts#L10)
 
 #### Parameters
 

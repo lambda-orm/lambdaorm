@@ -6,7 +6,7 @@
 
 # Class: OrmOperandHelper
 
-Defined in: [src/lib/operand/application/services/operandHelper.ts:3](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/operand/application/services/operandHelper.ts#L3)
+Defined in: [src/lib/operand/application/services/operandHelper.ts:3](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/operand/application/services/operandHelper.ts#L3)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/operand/application/services/operandHelper.ts:3](https://gi
 
 > **new OrmOperandHelper**(`operandHelper`): `OrmOperandHelper`
 
-Defined in: [src/lib/operand/application/services/operandHelper.ts:5](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/operand/application/services/operandHelper.ts#L5)
+Defined in: [src/lib/operand/application/services/operandHelper.ts:5](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/operand/application/services/operandHelper.ts#L5)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/lib/operand/application/services/operandHelper.ts:5](https://gi
 
 > **getClauses**(`operand`): `any`
 
-Defined in: [src/lib/operand/application/services/operandHelper.ts:65](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/operand/application/services/operandHelper.ts#L65)
+Defined in: [src/lib/operand/application/services/operandHelper.ts:65](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/operand/application/services/operandHelper.ts#L65)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [src/lib/operand/application/services/operandHelper.ts:65](https://g
 
 > **toExpression**(`operand`): `string`
 
-Defined in: [src/lib/operand/application/services/operandHelper.ts:7](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/operand/application/services/operandHelper.ts#L7)
+Defined in: [src/lib/operand/application/services/operandHelper.ts:7](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/operand/application/services/operandHelper.ts#L7)
 
 #### Parameters
 

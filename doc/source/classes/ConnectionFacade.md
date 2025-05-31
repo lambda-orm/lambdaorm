@@ -6,7 +6,7 @@
 
 # Class: ConnectionFacade
 
-Defined in: [src/lib/connection/application/facade.ts:7](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/application/facade.ts#L7)
+Defined in: [src/lib/connection/application/facade.ts:7](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/facade.ts#L7)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/connection/application/facade.ts:7](https://github.com/lamb
 
 > **new ConnectionFacade**(`dialectService`, `poolService`, `acquireConnection`, `releaseConnection`): `ConnectionFacade`
 
-Defined in: [src/lib/connection/application/facade.ts:9](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/application/facade.ts#L9)
+Defined in: [src/lib/connection/application/facade.ts:9](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/facade.ts#L9)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/lib/connection/application/facade.ts:9](https://github.com/lamb
 
 > **acquire**(`name`): `Promise`\<[`Connection`](../interfaces/Connection.md)\>
 
-Defined in: [src/lib/connection/application/facade.ts:32](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/application/facade.ts#L32)
+Defined in: [src/lib/connection/application/facade.ts:32](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/facade.ts#L32)
 
 #### Parameters
 
@@ -62,7 +62,7 @@ Defined in: [src/lib/connection/application/facade.ts:32](https://github.com/lam
 
 > **addDialect**(`dialect`, `classConnectionPool`): `ConnectionFacade`
 
-Defined in: [src/lib/connection/application/facade.ts:15](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/application/facade.ts#L15)
+Defined in: [src/lib/connection/application/facade.ts:15](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/facade.ts#L15)
 
 #### Parameters
 
@@ -84,7 +84,7 @@ Defined in: [src/lib/connection/application/facade.ts:15](https://github.com/lam
 
 > **end**(): `Promise`\<`void`\>
 
-Defined in: [src/lib/connection/application/facade.ts:28](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/application/facade.ts#L28)
+Defined in: [src/lib/connection/application/facade.ts:28](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/facade.ts#L28)
 
 #### Returns
 
@@ -96,7 +96,7 @@ Defined in: [src/lib/connection/application/facade.ts:28](https://github.com/lam
 
 > **getConfig**(`name`): [`ConnectionConfig`](../interfaces/ConnectionConfig.md)
 
-Defined in: [src/lib/connection/application/facade.ts:24](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/application/facade.ts#L24)
+Defined in: [src/lib/connection/application/facade.ts:24](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/facade.ts#L24)
 
 #### Parameters
 
@@ -114,7 +114,7 @@ Defined in: [src/lib/connection/application/facade.ts:24](https://github.com/lam
 
 > **load**(`config`): `void`
 
-Defined in: [src/lib/connection/application/facade.ts:20](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/application/facade.ts#L20)
+Defined in: [src/lib/connection/application/facade.ts:20](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/facade.ts#L20)
 
 #### Parameters
 
@@ -132,7 +132,7 @@ Defined in: [src/lib/connection/application/facade.ts:20](https://github.com/lam
 
 > **release**(`connection`): `Promise`\<`void`\>
 
-Defined in: [src/lib/connection/application/facade.ts:36](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/application/facade.ts#L36)
+Defined in: [src/lib/connection/application/facade.ts:36](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/facade.ts#L36)
 
 #### Parameters
 
