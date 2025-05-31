@@ -6,7 +6,7 @@
 
 # Class: `abstract` ActionObserver
 
-Defined in: [src/lib/execution/domain/executor.ts:22](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L22)
+Defined in: [src/lib/execution/domain/executor.ts:22](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L22)
 
 ## Extended by
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/execution/domain/executor.ts:22](https://github.com/lambda-
 
 > **new ActionObserver**(`on`, `condition?`, `transactional?`): `ActionObserver`
 
-Defined in: [src/lib/execution/domain/executor.ts:26](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L26)
+Defined in: [src/lib/execution/domain/executor.ts:26](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L26)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/lib/execution/domain/executor.ts:26](https://github.com/lambda-
 
 > `optional` **condition**: `string`
 
-Defined in: [src/lib/execution/domain/executor.ts:24](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L24)
+Defined in: [src/lib/execution/domain/executor.ts:24](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L24)
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: [src/lib/execution/domain/executor.ts:24](https://github.com/lambda-
 
 > **on**: [`SentenceCategory`](../enumerations/SentenceCategory.md)[]
 
-Defined in: [src/lib/execution/domain/executor.ts:23](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L23)
+Defined in: [src/lib/execution/domain/executor.ts:23](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L23)
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: [src/lib/execution/domain/executor.ts:23](https://github.com/lambda-
 
 > `optional` **transactional**: `boolean`
 
-Defined in: [src/lib/execution/domain/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L25)
+Defined in: [src/lib/execution/domain/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L25)
 
 ## Methods
 
@@ -68,7 +68,7 @@ Defined in: [src/lib/execution/domain/executor.ts:25](https://github.com/lambda-
 
 > **after**(`args`): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L33)
+Defined in: [src/lib/execution/domain/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L33)
 
 #### Parameters
 
@@ -86,7 +86,7 @@ Defined in: [src/lib/execution/domain/executor.ts:33](https://github.com/lambda-
 
 > **before**(`args`): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:32](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L32)
+Defined in: [src/lib/execution/domain/executor.ts:32](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L32)
 
 #### Parameters
 
@@ -104,7 +104,7 @@ Defined in: [src/lib/execution/domain/executor.ts:32](https://github.com/lambda-
 
 > **error**(`args`): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:34](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L34)
+Defined in: [src/lib/execution/domain/executor.ts:34](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L34)
 
 #### Parameters
 

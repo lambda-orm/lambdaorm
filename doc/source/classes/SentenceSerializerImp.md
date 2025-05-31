@@ -6,7 +6,7 @@
 
 # Class: SentenceSerializerImp
 
-Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:8](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/services/sentenceSerializer.ts#L8)
+Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:8](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/sentence/application/services/sentenceSerializer.ts#L8)
 
 ## Implements
 
@@ -28,7 +28,7 @@ Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:8](http
 
 > **clone**(`sentence`): [`Sentence`](Sentence.md)
 
-Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:9](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/services/sentenceSerializer.ts#L9)
+Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:9](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/sentence/application/services/sentenceSerializer.ts#L9)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:9](http
 
 > **deserialize**(`value`): [`Sentence`](Sentence.md)
 
-Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:19](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/services/sentenceSerializer.ts#L19)
+Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:19](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/sentence/application/services/sentenceSerializer.ts#L19)
 
 #### Parameters
 
@@ -72,7 +72,7 @@ Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:19](htt
 
 > **serialize**(`sentence`): `string`
 
-Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:15](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/sentence/application/services/sentenceSerializer.ts#L15)
+Defined in: [src/lib/sentence/application/services/sentenceSerializer.ts:15](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/sentence/application/services/sentenceSerializer.ts#L15)
 
 #### Parameters
 

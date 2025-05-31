@@ -6,7 +6,7 @@
 
 # Class: ConnectionPoolService
 
-Defined in: [src/lib/connection/application/services/connectionPoolService.ts:4](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/services/connectionPoolService.ts#L4)
+Defined in: [src/lib/connection/application/services/connectionPoolService.ts:4](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/connection/application/services/connectionPoolService.ts#L4)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/connection/application/services/connectionPoolService.ts:4]
 
 > **new ConnectionPoolService**(`dialectPoolService`): `ConnectionPoolService`
 
-Defined in: [src/lib/connection/application/services/connectionPoolService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/services/connectionPoolService.ts#L7)
+Defined in: [src/lib/connection/application/services/connectionPoolService.ts:7](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/connection/application/services/connectionPoolService.ts#L7)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/lib/connection/application/services/connectionPoolService.ts:7]
 
 > **end**(`name`): `Promise`\<`void`\>
 
-Defined in: [src/lib/connection/application/services/connectionPoolService.ts:21](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/services/connectionPoolService.ts#L21)
+Defined in: [src/lib/connection/application/services/connectionPoolService.ts:21](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/connection/application/services/connectionPoolService.ts#L21)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [src/lib/connection/application/services/connectionPoolService.ts:21
 
 > **endAll**(): `Promise`\<`void`\>
 
-Defined in: [src/lib/connection/application/services/connectionPoolService.ts:28](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/services/connectionPoolService.ts#L28)
+Defined in: [src/lib/connection/application/services/connectionPoolService.ts:28](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/connection/application/services/connectionPoolService.ts#L28)
 
 #### Returns
 
@@ -62,7 +62,7 @@ Defined in: [src/lib/connection/application/services/connectionPoolService.ts:28
 
 > **get**(`name`): [`ConnectionPool`](../interfaces/ConnectionPool.md)
 
-Defined in: [src/lib/connection/application/services/connectionPoolService.ts:13](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/services/connectionPoolService.ts#L13)
+Defined in: [src/lib/connection/application/services/connectionPoolService.ts:13](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/connection/application/services/connectionPoolService.ts#L13)
 
 #### Parameters
 
@@ -80,7 +80,7 @@ Defined in: [src/lib/connection/application/services/connectionPoolService.ts:13
 
 > **load**(`config`): `void`
 
-Defined in: [src/lib/connection/application/services/connectionPoolService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/connection/application/services/connectionPoolService.ts#L9)
+Defined in: [src/lib/connection/application/services/connectionPoolService.ts:9](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/connection/application/services/connectionPoolService.ts#L9)
 
 #### Parameters
 

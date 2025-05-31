@@ -6,7 +6,7 @@
 
 # Interface: StagePullOptions
 
-Defined in: [src/lib/stage/domain/index.ts:3](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/stage/domain/index.ts#L3)
+Defined in: [src/lib/stage/domain/index.ts:3](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/domain/index.ts#L3)
 
 ## Extends
 

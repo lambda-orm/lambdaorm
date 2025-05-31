@@ -6,7 +6,7 @@
 
 # Interface: DialectFormat
 
-Defined in: [src/lib/language/domain/model.ts:1](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/model.ts#L1)
+Defined in: [src/lib/language/domain/model.ts:1](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/language/domain/model.ts#L1)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/language/domain/model.ts:1](https://github.com/lambda-orm/l
 
 > **date**: `string`
 
-Defined in: [src/lib/language/domain/model.ts:3](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/model.ts#L3)
+Defined in: [src/lib/language/domain/model.ts:3](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/language/domain/model.ts#L3)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/lib/language/domain/model.ts:3](https://github.com/lambda-orm/l
 
 > **dateTime**: `string`
 
-Defined in: [src/lib/language/domain/model.ts:2](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/model.ts#L2)
+Defined in: [src/lib/language/domain/model.ts:2](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/language/domain/model.ts#L2)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [src/lib/language/domain/model.ts:2](https://github.com/lambda-orm/l
 
 > **time**: `string`
 
-Defined in: [src/lib/language/domain/model.ts:4](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/language/domain/model.ts#L4)
+Defined in: [src/lib/language/domain/model.ts:4](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/language/domain/model.ts#L4)

@@ -6,7 +6,7 @@
 
 # Interface: QueryInternalExecutor
 
-Defined in: [src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts:4](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts#L4)
+Defined in: [src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts:4](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts#L4)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/execution/application/services/queryExecutor/queryInternalE
 
 > **\_execute**(`query`, `data`): `Promise`\<`any`\>
 
-Defined in: [src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts:5](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts#L5)
+Defined in: [src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts:5](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/application/services/queryExecutor/queryInternalExecutor.ts#L5)
 
 #### Parameters
 

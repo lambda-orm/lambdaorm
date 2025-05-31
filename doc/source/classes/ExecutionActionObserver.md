@@ -6,7 +6,7 @@
 
 # Class: ExecutionActionObserver
 
-Defined in: [src/lib/execution/application/services/observer.ts:5](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/application/services/observer.ts#L5)
+Defined in: [src/lib/execution/application/services/observer.ts:5](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/application/services/observer.ts#L5)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/execution/application/services/observer.ts:5](https://githu
 
 > **new ExecutionActionObserver**(`config`, `expressions`): `ExecutionActionObserver`
 
-Defined in: [src/lib/execution/application/services/observer.ts:6](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/application/services/observer.ts#L6)
+Defined in: [src/lib/execution/application/services/observer.ts:6](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/application/services/observer.ts#L6)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/lib/execution/application/services/observer.ts:6](https://githu
 
 > `optional` **condition**: `string`
 
-Defined in: [src/lib/execution/domain/executor.ts:24](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L24)
+Defined in: [src/lib/execution/domain/executor.ts:24](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L24)
 
 #### Inherited from
 
@@ -56,7 +56,7 @@ Defined in: [src/lib/execution/domain/executor.ts:24](https://github.com/lambda-
 
 > **on**: [`SentenceCategory`](../enumerations/SentenceCategory.md)[]
 
-Defined in: [src/lib/execution/domain/executor.ts:23](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L23)
+Defined in: [src/lib/execution/domain/executor.ts:23](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L23)
 
 #### Inherited from
 
@@ -68,7 +68,7 @@ Defined in: [src/lib/execution/domain/executor.ts:23](https://github.com/lambda-
 
 > `optional` **transactional**: `boolean`
 
-Defined in: [src/lib/execution/domain/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/domain/executor.ts#L25)
+Defined in: [src/lib/execution/domain/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L25)
 
 #### Inherited from
 
@@ -80,7 +80,7 @@ Defined in: [src/lib/execution/domain/executor.ts:25](https://github.com/lambda-
 
 > **after**(`args`): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/application/services/observer.ts:16](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/application/services/observer.ts#L16)
+Defined in: [src/lib/execution/application/services/observer.ts:16](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/application/services/observer.ts#L16)
 
 #### Parameters
 
@@ -102,7 +102,7 @@ Defined in: [src/lib/execution/application/services/observer.ts:16](https://gith
 
 > **before**(`args`): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/application/services/observer.ts:10](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/application/services/observer.ts#L10)
+Defined in: [src/lib/execution/application/services/observer.ts:10](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/application/services/observer.ts#L10)
 
 #### Parameters
 
@@ -124,7 +124,7 @@ Defined in: [src/lib/execution/application/services/observer.ts:10](https://gith
 
 > **error**(`args`): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/application/services/observer.ts:22](https://github.com/lambda-orm/lambdaorm/blob/de442ee62b98645313d73b81a13e3c7cf3edad24/src/lib/execution/application/services/observer.ts#L22)
+Defined in: [src/lib/execution/application/services/observer.ts:22](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/application/services/observer.ts#L22)
 
 #### Parameters
 
