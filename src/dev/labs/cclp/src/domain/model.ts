@@ -1,20 +1,7 @@
 /* eslint-disable no-use-before-define */
-/* eslint-disable @typescript-eslint/no-empty-interface */
-
 // THIS FILE IS NOT EDITABLE, IS MANAGED BY LAMBDA ORM
-import { Queryable, ManyToOne, OneToMany, OneToOne } from '../../../../../../lib'
-export abstract class SrbReference {
-	id?: number
-	refType?: string
-	refId?: string
-	name?: string
-}
-export interface QrySrbReference {
-	id: number
-	refType: string
-	refId: string
-	name: string
-}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Queryable, OneToMany, ManyToOne, OneToOne } from 'lambdaorm'
 export class LocCountry {
 	id?: number
 	name?: string
@@ -161,15 +148,29 @@ export interface QryPmGender {
 	code: string
 	name: string
 }
-export class PmReference extends SrbReference {
-}
-export interface QryPmReference extends QrySrbReference {
-}
-export class PmNationalReference extends SrbReference {
+export class PmReference {
+	id?: number
 	refType?: string
+	refId?: string
+	name?: string
 }
-export interface QryPmNationalReference extends QrySrbReference {
+export interface QryPmReference {
+	id: number
 	refType: string
+	refId: string
+	name: string
+}
+export class PmNationalReference {
+	refType?: string
+	id?: number
+	refId?: string
+	name?: string
+}
+export interface QryPmNationalReference {
+	refType: string
+	id: number
+	refId: string
+	name: string
 }
 export class PmParty {
 	constructor () {
@@ -354,38 +355,58 @@ export interface QryPrPartyRoleStatus {
 	code: string
 	name: string
 }
-export class PrReference extends SrbReference {
-}
-export interface QryPrReference extends QrySrbReference {
-}
-export class PrIndividualReference extends SrbReference {
+export class PrReference {
+	id?: number
 	refType?: string
 	refId?: string
+	name?: string
+}
+export interface QryPrReference {
+	id: number
+	refType: string
+	refId: string
+	name: string
+}
+export class PrIndividualReference {
+	refType?: string
+	refId?: string
+	id?: number
+	name?: string
 	individual?: PmIndividual
 }
-export interface QryPrIndividualReference extends QrySrbReference {
+export interface QryPrIndividualReference {
 	refType: string
 	refId: string
+	id: number
+	name: string
 	individual: QryPmIndividual & OneToOne<QryPmIndividual> & PmIndividual
 }
-export class PrOrganizationReference extends SrbReference {
+export class PrOrganizationReference {
 	refType?: string
 	refId?: string
+	id?: number
+	name?: string
 	organization?: PmOrganization
 }
-export interface QryPrOrganizationReference extends QrySrbReference {
+export interface QryPrOrganizationReference {
 	refType: string
 	refId: string
+	id: number
+	name: string
 	organization: QryPmOrganization & OneToOne<QryPmOrganization> & PmOrganization
 }
-export class PrAddressReference extends SrbReference {
+export class PrAddressReference {
 	refType?: string
 	refId?: string
+	id?: number
+	name?: string
 	address?: LocAddress
 }
-export interface QryPrAddressReference extends QrySrbReference {
+export interface QryPrAddressReference {
 	refType: string
 	refId: string
+	id: number
+	name: string
 	address: QryLocAddress & OneToOne<QryLocAddress> & LocAddress
 }
 export class PrPartyRole {
@@ -466,27 +487,53 @@ export interface QryLamStatementCycle {
 	description: string
 	disabled: boolean
 }
-export class LamReference extends SrbReference {
-}
-export interface QryLamReference extends QrySrbReference {
-}
-export class LamCurrencyReference extends SrbReference {
+export class LamReference {
+	id?: number
 	refType?: string
+	refId?: string
+	name?: string
 }
-export interface QryLamCurrencyReference extends QrySrbReference {
+export interface QryLamReference {
+	id: number
 	refType: string
+	refId: string
+	name: string
 }
-export class LamUserReference extends SrbReference {
+export class LamCurrencyReference {
 	refType?: string
+	id?: number
+	refId?: string
+	name?: string
 }
-export interface QryLamUserReference extends QrySrbReference {
+export interface QryLamCurrencyReference {
 	refType: string
+	id: number
+	refId: string
+	name: string
 }
-export class LamAccountHolderReference extends SrbReference {
+export class LamUserReference {
 	refType?: string
+	id?: number
+	refId?: string
+	name?: string
 }
-export interface QryLamAccountHolderReference extends QrySrbReference {
+export interface QryLamUserReference {
 	refType: string
+	id: number
+	refId: string
+	name: string
+}
+export class LamAccountHolderReference {
+	refType?: string
+	id?: number
+	refId?: string
+	name?: string
+}
+export interface QryLamAccountHolderReference {
+	refType: string
+	id: number
+	refId: string
+	name: string
 }
 export class LamCreditor {
 	id?: number
@@ -529,7 +576,6 @@ export class LamAccount {
 	currencyRefId?: number
 	accountTypeId?: number
 	accountStatusId?: number
-	accountHolderRefId?: string
 	balance?: number
 	statementCycleId?: number
 	registrationDate?: Date
@@ -537,7 +583,6 @@ export class LamAccount {
 	accountType?: LamAccountType
 	currencyRef?: LamCurrencyReference
 	accountStatus?: LamAccountStatusHistory
-	accountHolderRef?: LamAccountHolderReference
 	statementCycle?: LamStatementCycle
 	creditor?: LamCreditor
 	statusHistories: LamAccountStatusHistory[]
@@ -549,7 +594,6 @@ export interface QryLamAccount {
 	currencyRefId: number
 	accountTypeId: number
 	accountStatusId: number
-	accountHolderRefId: number
 	balance: number
 	statementCycleId: number
 	registrationDate: Date
@@ -557,7 +601,6 @@ export interface QryLamAccount {
 	accountType: QryLamAccountType & OneToMany<QryLamAccountType> & LamAccountType
 	currencyRef: QryLamCurrencyReference & OneToMany<QryLamCurrencyReference> & LamCurrencyReference
 	accountStatus: QryLamAccountStatusHistory & OneToMany<QryLamAccountStatusHistory> & LamAccountStatusHistory
-	accountHolderRef: QryLamAccountHolderReference & OneToMany<QryLamAccountHolderReference> & LamAccountHolderReference
 	statementCycle: QryLamStatementCycle & OneToMany<QryLamStatementCycle> & LamStatementCycle
 	creditor: QryLamCreditor & OneToMany<QryLamCreditor> & LamCreditor
 	statusHistories: ManyToOne<QryLamAccountStatusHistory> & LamAccountStatusHistory[]
@@ -644,44 +687,70 @@ export interface QryDbDebtorStage {
 	stagePosition: number
 	disabled: boolean
 }
-export class DbReference extends SrbReference {
-}
-export interface QryDbReference extends QrySrbReference {
-}
-export class DbPartyRoleReference extends SrbReference {
+export class DbReference {
+	id?: number
 	refType?: string
 	refId?: string
-	partyRole?: PrPartyRole
+	name?: string
 }
-export interface QryDbPartyRoleReference extends QrySrbReference {
+export interface QryDbReference {
+	id: number
 	refType: string
 	refId: string
-	partyRole: QryPrPartyRole & OneToOne<QryPrPartyRole> & PrPartyRole
+	name: string
 }
-export class DbLedgerAccountReference extends SrbReference {
+export class DbIndividualReference {
 	refType?: string
 	refId?: string
+	id?: number
+	name?: string
+	individual?: PmIndividual
+}
+export interface QryDbIndividualReference {
+	refType: string
+	refId: string
+	id: number
+	name: string
+	individual: QryPmIndividual & OneToOne<QryPmIndividual> & PmIndividual
+}
+export class DbLedgerAccountReference {
+	refType?: string
+	refId?: string
+	id?: number
+	name?: string
 	ledgerAccount?: LamAccount
 }
-export interface QryDbLedgerAccountReference extends QrySrbReference {
+export interface QryDbLedgerAccountReference {
 	refType: string
 	refId: string
+	id: number
+	name: string
 	ledgerAccount: QryLamAccount & OneToOne<QryLamAccount> & LamAccount
 }
-export class DbUserReference extends SrbReference {
+export class DbUserReference {
 	refType?: string
+	id?: number
+	refId?: string
+	name?: string
 }
-export interface QryDbUserReference extends QrySrbReference {
+export interface QryDbUserReference {
 	refType: string
+	id: number
+	refId: string
+	name: string
 }
-export class DbAddressReference extends SrbReference {
+export class DbAddressReference {
 	refType?: string
 	refId?: string
+	id?: number
+	name?: string
 	address?: LocAddress
 }
-export interface QryDbAddressReference extends QrySrbReference {
+export interface QryDbAddressReference {
 	refType: string
 	refId: string
+	id: number
+	name: string
 	address: QryLocAddress & OneToOne<QryLocAddress> & LocAddress
 }
 export class DbDebtor {
@@ -707,7 +776,7 @@ export class DbDebtor {
 	additionalInfo1?: string
 	additionalInfo2?: string
 	additionalInfo3?: string
-	partyRoleRef?: DbPartyRoleReference
+	partyRef?: DbIndividualReference
 	statusHistories: DbDebtorStatusHistory[]
 	accounts: DbDebtorAccount[]
 }
@@ -729,7 +798,7 @@ export interface QryDbDebtor {
 	additionalInfo1: string
 	additionalInfo2: string
 	additionalInfo3: string
-	partyRoleRef: QryDbPartyRoleReference & OneToOne<QryDbPartyRoleReference> & DbPartyRoleReference
+	partyRef: QryDbIndividualReference & OneToOne<QryDbIndividualReference> & DbIndividualReference
 	statusHistories: ManyToOne<QryDbDebtorStatusHistory> & DbDebtorStatusHistory[]
 	accounts: ManyToOne<QryDbDebtorAccount> & DbDebtorAccount[]
 }
@@ -796,10 +865,6 @@ export class DbDebtorAccount {
 	accountNumber?: string
 	name?: string
 	debtorId?: number
-	// actualPastDue?: number
-	// writeOff?: number
-	// securized?: number
-	// unbilled?: number
 	providerId?: number
 	accountLedgerRefId?: number
 	lastModificationDate?: Date
@@ -807,8 +872,6 @@ export class DbDebtorAccount {
 	accountStatusId?: number
 	registrationDate?: Date
 	currencyRefId?: number
-	arranged?: number
-	// unexpired?: number
 	activeSegmentId?: number
 	debtor?: DbDebtor
 	accountLedgerRef?: DbLedgerAccountReference
@@ -821,10 +884,6 @@ export interface QryDbDebtorAccount {
 	accountNumber: string
 	name: string
 	debtorId: number
-	// actualPastDue: number
-	// writeOff: number
-	// securized: number
-	// unbilled: number
 	providerId: number
 	accountLedgerRefId: number
 	lastModificationDate: Date
@@ -832,8 +891,6 @@ export interface QryDbDebtorAccount {
 	accountStatusId: number
 	registrationDate: Date
 	currencyRefId: number
-	// arranged: number
-	// unexpired: number
 	activeSegmentId: number
 	debtor: QryDbDebtor & OneToMany<QryDbDebtor> & DbDebtor
 	accountLedgerRef: QryDbLedgerAccountReference & OneToOne<QryDbLedgerAccountReference> & DbLedgerAccountReference
@@ -975,7 +1032,7 @@ export let DbBanks: Queryable<QryDbBank>
 export let DbPaymentMethodTypes: Queryable<QryDbPaymentMethodType>
 export let DbDebtorStages: Queryable<QryDbDebtorStage>
 export let DbReferences: Queryable<QryDbReference>
-export let DbPartyRoleReferences: Queryable<QryDbPartyRoleReference>
+export let DbIndividualReferences: Queryable<QryDbIndividualReference>
 export let DbLedgerAccountReferences: Queryable<QryDbLedgerAccountReference>
 export let DbUserReferences: Queryable<QryDbUserReference>
 export let DbAddressReferences: Queryable<QryDbAddressReference>

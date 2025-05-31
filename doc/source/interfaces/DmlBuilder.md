@@ -6,7 +6,7 @@
 
 # Interface: DmlBuilder
 
-Defined in: [src/lib/language/domain/ports/DmlBuilder.ts:3](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/language/domain/ports/DmlBuilder.ts#L3)
+Defined in: [src/lib/language/domain/ports/DmlBuilder.ts:3](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/domain/ports/DmlBuilder.ts#L3)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/language/domain/ports/DmlBuilder.ts:3](https://github.com/l
 
 > **build**(`sentence`): [`Query`](../classes/Query.md)
 
-Defined in: [src/lib/language/domain/ports/DmlBuilder.ts:4](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/language/domain/ports/DmlBuilder.ts#L4)
+Defined in: [src/lib/language/domain/ports/DmlBuilder.ts:4](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/domain/ports/DmlBuilder.ts#L4)
 
 #### Parameters
 

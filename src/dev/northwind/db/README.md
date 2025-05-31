@@ -19,7 +19,7 @@ Down
 ### install database
 
 ``` sh
-docker-compose -p "northwind" up -d
+docker compose -p "northwind" up -d
 ```
 
 ### create database
@@ -89,7 +89,7 @@ sqlplus "northwind/northwind@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(Host=localhost
 ### uninstall
 
 ``` sh
-docker-compose -p "northwind" down --remove-orphans
+docker compose -p "northwind" down --remove-orphans
 docker volume rm northwind_source-data
 docker volume rm northwind_source-log
 docker volume rm northwind_mysql-data
@@ -173,10 +173,10 @@ GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;
 ## references
 
 - [MariaDB docker compose](https://github.com/monstrenyatko/docker-rpi-mariadb)
-- [MariaDB-using-docker-compose](https://learntubes.com/how-to-install-mariadb-using-docker-compose)
+- [MariaDB-using-docker compose](https://learntubes.com/how-to-install-mariadb-using-docker compose)
 - [mysql in nodejs](https://evertpot.com/executing-a-mysql-query-in-nodejs/)
 - [module to connect mysql](https://www.npmjs.com/package/mysq)
 - [mysql client on windows](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-windows-quick.html#:~:text=To%20install%20MySQL%20Shell%20on,steps%20in%20the%20Setup%20Wizard.)
-- [MongoDB with docker](https://citizix.com/how-to-run-MongoDB-with-docker-and-docker-compose/)
+- [MongoDB with docker](https://citizix.com/how-to-run-MongoDB-with-docker-and-docker compose/)
 - [mongo shared](https://github.com/bitnami/bitnami-docker-MongoDB/issues/208)
 - [nodejs mongodb](https://www.w3schools.com/nodejs/nodejs_mongodb_createcollection.asp)

@@ -6,7 +6,7 @@
 
 # Interface: ConnectionPool
 
-Defined in: [src/lib/connection/domain/ports/connectionPool.ts:4](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/connection/domain/ports/connectionPool.ts#L4)
+Defined in: [src/lib/connection/domain/ports/connectionPool.ts:4](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/domain/ports/connectionPool.ts#L4)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/connection/domain/ports/connectionPool.ts:4](https://github
 
 > **config**: [`ConnectionConfig`](ConnectionConfig.md)
 
-Defined in: [src/lib/connection/domain/ports/connectionPool.ts:5](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/connection/domain/ports/connectionPool.ts#L5)
+Defined in: [src/lib/connection/domain/ports/connectionPool.ts:5](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/domain/ports/connectionPool.ts#L5)
 
 ## Methods
 
@@ -22,7 +22,7 @@ Defined in: [src/lib/connection/domain/ports/connectionPool.ts:5](https://github
 
 > **acquire**(): `Promise`\<[`Connection`](Connection.md)\>
 
-Defined in: [src/lib/connection/domain/ports/connectionPool.ts:7](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/connection/domain/ports/connectionPool.ts#L7)
+Defined in: [src/lib/connection/domain/ports/connectionPool.ts:7](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/domain/ports/connectionPool.ts#L7)
 
 #### Returns
 
@@ -34,7 +34,7 @@ Defined in: [src/lib/connection/domain/ports/connectionPool.ts:7](https://github
 
 > **end**(): `Promise`\<`void`\>
 
-Defined in: [src/lib/connection/domain/ports/connectionPool.ts:9](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/connection/domain/ports/connectionPool.ts#L9)
+Defined in: [src/lib/connection/domain/ports/connectionPool.ts:9](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/domain/ports/connectionPool.ts#L9)
 
 #### Returns
 
@@ -46,7 +46,7 @@ Defined in: [src/lib/connection/domain/ports/connectionPool.ts:9](https://github
 
 > **init**(): `Promise`\<`void`\>
 
-Defined in: [src/lib/connection/domain/ports/connectionPool.ts:6](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/connection/domain/ports/connectionPool.ts#L6)
+Defined in: [src/lib/connection/domain/ports/connectionPool.ts:6](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/domain/ports/connectionPool.ts#L6)
 
 #### Returns
 
@@ -58,7 +58,7 @@ Defined in: [src/lib/connection/domain/ports/connectionPool.ts:6](https://github
 
 > **release**(`connection`): `Promise`\<`void`\>
 
-Defined in: [src/lib/connection/domain/ports/connectionPool.ts:8](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/connection/domain/ports/connectionPool.ts#L8)
+Defined in: [src/lib/connection/domain/ports/connectionPool.ts:8](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/connection/domain/ports/connectionPool.ts#L8)
 
 #### Parameters
 

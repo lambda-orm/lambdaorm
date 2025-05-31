@@ -13,7 +13,7 @@ sudo kill -9 $(sudo lsof -t -i:5432)
 ## Start
 
 ```sh
-docker-compose -p dates up -d
+docker compose -p dates up -d
 ```
 
 **Oracle:**
@@ -58,5 +58,5 @@ lambdaorm drop -e .env -s PostgreSQL
 lambdaorm drop -e .env -s SqlServer
 lambdaorm drop -e .env -s MongoDB
 lambdaorm drop -e .env -s Oracle
-docker-compose -p dates down
+docker compose -p dates down
 ```

@@ -6,7 +6,7 @@
 
 # Class: DDLBuilderService
 
-Defined in: [src/lib/language/application/services/ddlBuilder.ts:11](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/language/application/services/ddlBuilder.ts#L11)
+Defined in: [src/lib/language/application/services/ddlBuilder.ts:11](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/application/services/ddlBuilder.ts#L11)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/language/application/services/ddlBuilder.ts:11](https://git
 
 > **new DDLBuilderService**(`schemaState`, `languages`, `stage`, `helper`): `DDLBuilderService`
 
-Defined in: [src/lib/language/application/services/ddlBuilder.ts:13](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/language/application/services/ddlBuilder.ts#L13)
+Defined in: [src/lib/language/application/services/ddlBuilder.ts:13](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/application/services/ddlBuilder.ts#L13)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/lib/language/application/services/ddlBuilder.ts:13](https://git
 
 > `readonly` **stage**: `string`
 
-Defined in: [src/lib/language/application/services/ddlBuilder.ts:15](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/language/application/services/ddlBuilder.ts#L15)
+Defined in: [src/lib/language/application/services/ddlBuilder.ts:15](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/application/services/ddlBuilder.ts#L15)
 
 ## Methods
 
@@ -52,7 +52,7 @@ Defined in: [src/lib/language/application/services/ddlBuilder.ts:15](https://git
 
 > **drop**(`mappings`): [`Query`](Query.md)[]
 
-Defined in: [src/lib/language/application/services/ddlBuilder.ts:21](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/language/application/services/ddlBuilder.ts#L21)
+Defined in: [src/lib/language/application/services/ddlBuilder.ts:21](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/application/services/ddlBuilder.ts#L21)
 
 #### Parameters
 
@@ -70,7 +70,7 @@ Defined in: [src/lib/language/application/services/ddlBuilder.ts:21](https://git
 
 > **sync**(`mappings`): [`Query`](Query.md)[]
 
-Defined in: [src/lib/language/application/services/ddlBuilder.ts:47](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/language/application/services/ddlBuilder.ts#L47)
+Defined in: [src/lib/language/application/services/ddlBuilder.ts:47](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/application/services/ddlBuilder.ts#L47)
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: [src/lib/language/application/services/ddlBuilder.ts:47](https://git
 
 > **truncate**(`mappings`): [`Query`](Query.md)[]
 
-Defined in: [src/lib/language/application/services/ddlBuilder.ts:34](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/language/application/services/ddlBuilder.ts#L34)
+Defined in: [src/lib/language/application/services/ddlBuilder.ts:34](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/language/application/services/ddlBuilder.ts#L34)
 
 #### Parameters
 

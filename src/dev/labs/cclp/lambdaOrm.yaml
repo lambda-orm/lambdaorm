@@ -858,20 +858,20 @@ domain:
     # Debtor business
     - name: DbReferences
       extends: SrbReferences
-    - name: DbPartyRoleReferences
+    - name: DbIndividualReferences
       extends: SrbReferences
       view: true
       properties:
         - name: refType
-          key: "Party Role"
+          key: "Individual"
         - name: refId
-          readExp: toNumber(refId)
+          readExp: toNumber(refId)          
       relations:
-        - name: partyRole
+        - name: individual
           type: oneToOne
           from: refId
-          entity: PrPartyRoles
-          to: id
+          entity: PmIndividuals
+          to: id    
     - name: DbLedgerAccountReferences
       extends: SrbReferences
       view: true
@@ -950,10 +950,10 @@ domain:
         - name: additionalInfo3
           length: 150
       relations:
-        - name: partyRoleRef
+        - name: individualRef
           type: oneToOne
-          from: partyRoleRefId
-          entity: DbPartyRoleReferences
+          from: partyRefId
+          entity: DbIndividualReferences
           to: id
     - name: DbDebtorStatusHistories
       primaryKey: ["id"]
@@ -1677,7 +1677,7 @@ infrastructure:
 
         - name: DbReferences
           extends: SrbReferences
-        - name: DbPartyRoleReferences
+        - name: DbIndividualReferences
           extends: SrbReferences
         - name: DbLedgerAccountReferences
           extends: SrbReferences
@@ -1958,7 +1958,7 @@ infrastructure:
         - name: DbReferences
           extends: SrbReferences
           sequence: SQ_SRB_REFERENCE
-        - name: DbPartyRoleReferences
+        - name: DbIndividualReferences
           extends: SrbReferences
           sequence: SQ_SRB_REFERENCE
         - name: DbLedgerAccountReferences

@@ -6,7 +6,7 @@
 
 # Class: ValidationError
 
-Defined in: [src/lib/execution/domain/errors.ts:1](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/domain/errors.ts#L1)
+Defined in: [src/lib/execution/domain/errors.ts:1](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/domain/errors.ts#L1)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/execution/domain/errors.ts:1](https://github.com/lambda-orm
 
 > **new ValidationError**(`source`, `entity`, `expression`, `sentence`, `message`, `data`): `ValidationError`
 
-Defined in: [src/lib/execution/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/domain/errors.ts#L2)
+Defined in: [src/lib/execution/domain/errors.ts:2](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/domain/errors.ts#L2)
 
 #### Parameters
 

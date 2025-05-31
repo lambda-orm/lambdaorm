@@ -5,7 +5,7 @@
 	"version": "0.2.0",
 	"configurations": [		
 		{
-			"name": "lib lab",
+			"name": "lab",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -95,7 +95,7 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/dates/.env"
 		},
 		{
-			"name": "lib cclp lab",
+			"name": "cclp lab",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -105,7 +105,7 @@
 			"envFile": "${workspaceFolder}/config/cclp.env"
 		},
 		{
-			"name": "lib build config",
+			"name": "build config",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -114,7 +114,7 @@
 			"program": "${workspaceFolder}/src/dev/task/buildConfig.ts"
 		},
 		{
-			"name": "lib clean data",
+			"name": "clean data",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -124,7 +124,7 @@
 			"stopOnEntry": false
 		},
 		{
-			"name": "lib build wiki",
+			"name": "build wiki",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -134,7 +134,7 @@
 		},
 		// countries --------------------------------------------------------------------------
 		{
-			"name": "lib countries populate source",
+			"name": "countries populate source",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -144,7 +144,7 @@
 			"stopOnEntry": false
 		}, 		
 		{
-			"name": "lib countries create data test suite",
+			"name": "countries create data test suite",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -154,7 +154,7 @@
 			"stopOnEntry": false
 		},
 		{
-			"name": "lib countries cretae test suite",
+			"name": "countries cretae test suite",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -164,7 +164,7 @@
 			"stopOnEntry": false
 		},
 		{
-			"name": "lib countries lab",
+			"name": "countries lab",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -174,7 +174,7 @@
 		},
 		// northwind --------------------------------------------------------------------------
 		{
-			"name": "lib northwind lab",
+			"name": "northwind lab",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -184,7 +184,7 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		}, 		
 		{
-			"name": "lib northwind populate source",
+			"name": "northwind populate source",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -194,7 +194,7 @@
 			"stopOnEntry": false
 		},
 		{
-			"name": "lib northwind populate databases",
+			"name": "northwind populate databases",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -204,7 +204,7 @@
 			"stopOnEntry": false
 		},
 		{
-			"name": "lib northwind create data test",
+			"name": "northwind create data test",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -214,7 +214,7 @@
 			"stopOnEntry": false
 		},
 		{
-			"name": "lib northwind create data test suite",
+			"name": "northwind create data test suite",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -224,7 +224,7 @@
 			"stopOnEntry": false
 		},
 		{
-			"name": "lib northwind create test",
+			"name": "northwind create test",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -234,7 +234,7 @@
 			"stopOnEntry": false
 		},
 		{
-			"name": "lib northwind create test suite",
+			"name": "northwind create test suite",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -254,7 +254,7 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		}, 
 		{
-			"name": "lib northwind drop dbs",
+			"name": "northwind drop dbs",
 			"type": "node",
 			"request": "launch",
 			"program": "/usr/bin/grunt",
@@ -264,7 +264,7 @@
 			"stopOnEntry": false
 		},	
 		{
-			"name": "lib lab-listener",
+			"name": "listener",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -274,7 +274,7 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},		
 		{
-			"name": "lib lab shapes",
+			"name": "shapes",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -284,7 +284,7 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/shape/.env"
 		},		
 		{
-			"name": "lib lab config",
+			"name": "config",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -294,7 +294,7 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
-			"name": "lib lab config 2",
+			"name": "config 2",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -304,7 +304,7 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
-			"name": "lib lab mssql",
+			"name": "mssql",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -314,7 +314,7 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
-			"name": "lib lab mongo",
+			"name": "mongo",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -323,7 +323,7 @@
 			"program": "${workspaceFolder}/src/dev/labs/mongo/lab.js"
 		},
 		{
-			"name": "lib lab mongo queries",
+			"name": "mongo queries",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -333,7 +333,7 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
-			"name": "lib lab mongo stage queries",
+			"name": "mongo stage queries",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -343,7 +343,7 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
-			"name": "lib lab sync",
+			"name": "sync",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -353,7 +353,7 @@
 			"envFile": "${workspaceFolder}/config/northwind.env"
 		},
 		{
-			"name": "lib lab devicenet sync",
+			"name": "devicenet sync",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -363,7 +363,7 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/devicenet-sync/.env"
 		},	
 		{
-			"name": "lib lab03 sync",
+			"name": "lab03 sync",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -373,7 +373,7 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/lab03/.env"
 		},
 		{
-			"name": "lib lab placement",
+			"name": "placement",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -383,7 +383,7 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/placement/.env"
 		},
 		{
-			"name": "lib lab Process Entries",
+			"name": "Process Entries",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -393,7 +393,7 @@
 			"envFile": "${workspaceFolder}/src/dev/labs/processEntry/.env"
 		},
 		{
-			"name": "lib cclp migration",
+			"name": "cclp migration",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
@@ -404,7 +404,7 @@
 		},
 		//collections
 		{
-			"name": "lib collections",
+			"name": "collections",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [

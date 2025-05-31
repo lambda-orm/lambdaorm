@@ -8,4 +8,4 @@
 
 > `const` **orm**: [`Orm`](../classes/Orm.md)
 
-Defined in: [src/lib/orm/infrastructure/orm.ts:254](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/orm/infrastructure/orm.ts#L254)
+Defined in: [src/lib/orm/infrastructure/orm.ts:254](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/orm/infrastructure/orm.ts#L254)

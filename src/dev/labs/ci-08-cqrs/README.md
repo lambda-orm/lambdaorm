@@ -39,7 +39,7 @@ cd lab
 
 ## Create database for test
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: '3'
@@ -622,7 +622,7 @@ Result:
 ```sh
 lambdaorm drop -e .env -s default
 lambdaorm drop -e .env -s insights
-docker-compose -p lambdaorm-cqrs down
+docker compose -p lambdaorm-cqrs down
 ```
 
 The data folder should remain like this:

@@ -6,7 +6,7 @@
 
 # Class: QueryTransaction
 
-Defined in: [src/lib/expressions/application/useCases/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/expressions/application/useCases/transaction.ts#L7)
+Defined in: [src/lib/expressions/application/useCases/transaction.ts:7](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/expressions/application/useCases/transaction.ts#L7)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/expressions/application/useCases/transaction.ts:7](https://
 
 > **new QueryTransaction**(`transaction`, `builder`, `expressions`): `QueryTransaction`
 
-Defined in: [src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/expressions/application/useCases/transaction.ts#L9)
+Defined in: [src/lib/expressions/application/useCases/transaction.ts:9](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/expressions/application/useCases/transaction.ts#L9)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [src/lib/expressions/application/useCases/transaction.ts:9](https://
 
 > **execute**(`query`, `data?`): `Promise`\<`any`\>
 
-Defined in: [src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/expressions/application/useCases/transaction.ts#L13)
+Defined in: [src/lib/expressions/application/useCases/transaction.ts:13](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/expressions/application/useCases/transaction.ts#L13)
 
 ##### Parameters
 
@@ -62,7 +62,7 @@ Defined in: [src/lib/expressions/application/useCases/transaction.ts:13](https:/
 
 > **execute**(`query`, `data?`): `Promise`\<`any`\>
 
-Defined in: [src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/expressions/application/useCases/transaction.ts#L14)
+Defined in: [src/lib/expressions/application/useCases/transaction.ts:14](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/expressions/application/useCases/transaction.ts#L14)
 
 ##### Parameters
 
@@ -84,7 +84,7 @@ Defined in: [src/lib/expressions/application/useCases/transaction.ts:14](https:/
 
 > **executeQuery**(`query`, `data`): `Promise`\<`any`\>
 
-Defined in: [src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/expressions/application/useCases/transaction.ts#L23)
+Defined in: [src/lib/expressions/application/useCases/transaction.ts:23](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/expressions/application/useCases/transaction.ts#L23)
 
 #### Parameters
 

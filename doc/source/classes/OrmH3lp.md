@@ -6,7 +6,7 @@
 
 # Class: OrmH3lp
 
-Defined in: [src/lib/shared/infrastructure/helper.ts:23](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/shared/infrastructure/helper.ts#L23)
+Defined in: [src/lib/shared/infrastructure/helper.ts:23](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/shared/infrastructure/helper.ts#L23)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/shared/infrastructure/helper.ts:23](https://github.com/lamb
 
 > **new OrmH3lp**(`h3lp`, `logger`): `OrmH3lp`
 
-Defined in: [src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/shared/infrastructure/helper.ts#L25)
+Defined in: [src/lib/shared/infrastructure/helper.ts:25](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/shared/infrastructure/helper.ts#L25)
 
 #### Parameters
 
@@ -56,7 +56,7 @@ Defined in: node\_modules/h3lp/application/h3lp.d.ts:10
 
 > **crypto**: [`CryptoHelper`](CryptoHelper.md)
 
-Defined in: [src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/shared/infrastructure/helper.ts#L24)
+Defined in: [src/lib/shared/infrastructure/helper.ts:24](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/shared/infrastructure/helper.ts#L24)
 
 ***
 

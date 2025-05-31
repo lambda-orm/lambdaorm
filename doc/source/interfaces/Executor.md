@@ -6,7 +6,7 @@
 
 # Interface: Executor
 
-Defined in: [src/lib/execution/domain/executor.ts:45](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/domain/executor.ts#L45)
+Defined in: [src/lib/execution/domain/executor.ts:45](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/domain/executor.ts#L45)
 
 ## Extended by
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/execution/domain/executor.ts:45](https://github.com/lambda-
 
 > **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:46](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/domain/executor.ts#L46)
+Defined in: [src/lib/execution/domain/executor.ts:46](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/domain/executor.ts#L46)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/lib/execution/domain/executor.ts:46](https://github.com/lambda-
 
 > **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](ExecuteResult.md)[]\>
 
-Defined in: [src/lib/execution/domain/executor.ts:47](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/domain/executor.ts#L47)
+Defined in: [src/lib/execution/domain/executor.ts:47](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/domain/executor.ts#L47)
 
 #### Parameters
 
@@ -66,7 +66,7 @@ Defined in: [src/lib/execution/domain/executor.ts:47](https://github.com/lambda-
 
 > **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:48](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/domain/executor.ts#L48)
+Defined in: [src/lib/execution/domain/executor.ts:48](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/domain/executor.ts#L48)
 
 #### Parameters
 

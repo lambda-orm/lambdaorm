@@ -6,7 +6,7 @@
 
 # Class: Repository\<TEntity, TQuery\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:8](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L8)
+Defined in: [src/lib/repository/infrastructure/repository.ts:8](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L8)
 
 ## Type Parameters
 
@@ -28,7 +28,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:8](https://github.c
 
 > **new Repository**\<`TEntity`, `TQuery`\>(`name`, `stage?`, `orm?`): `Repository`\<`TEntity`, `TQuery`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L10)
+Defined in: [src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L10)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:10](https://github.
 
 > `readonly` **name**: `string`
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L10)
+Defined in: [src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L10)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:10](https://github.
 
 > `optional` **stage**: `string`
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L10)
+Defined in: [src/lib/repository/infrastructure/repository.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L10)
 
 ## Methods
 
@@ -72,7 +72,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:10](https://github.
 
 > **bulkDelete**(`entities`): `Promise`\<`any`[]\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:17](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L17)
+Defined in: [src/lib/repository/infrastructure/repository.ts:17](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L17)
 
 ##### Parameters
 
@@ -92,7 +92,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:17](https://github.
 
 > **bulkDelete**(`entities`, `include`): `Promise`\<`any`[]\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:18](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L18)
+Defined in: [src/lib/repository/infrastructure/repository.ts:18](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L18)
 
 ##### Parameters
 
@@ -120,7 +120,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:18](https://github.
 
 > **bulkInsert**(`entities`): `Promise`\<`any`[]\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:58](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L58)
+Defined in: [src/lib/repository/infrastructure/repository.ts:58](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L58)
 
 ##### Parameters
 
@@ -140,7 +140,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:58](https://github.
 
 > **bulkInsert**(`entities`, `include`): `Promise`\<`any`[]\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:60](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L60)
+Defined in: [src/lib/repository/infrastructure/repository.ts:60](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L60)
 
 ##### Parameters
 
@@ -168,7 +168,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:60](https://github.
 
 > **bulkMerge**(`entities`): `Promise`\<`any`[]\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:23](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L23)
+Defined in: [src/lib/repository/infrastructure/repository.ts:23](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L23)
 
 ##### Parameters
 
@@ -188,7 +188,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:23](https://github.
 
 > **bulkMerge**(`entities`, `include`): `Promise`\<`any`[]\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:24](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L24)
+Defined in: [src/lib/repository/infrastructure/repository.ts:24](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L24)
 
 ##### Parameters
 
@@ -216,7 +216,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:24](https://github.
 
 > **delete**(`entity`): `Promise`\<`number`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:90](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L90)
+Defined in: [src/lib/repository/infrastructure/repository.ts:90](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L90)
 
 ##### Parameters
 
@@ -236,7 +236,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:90](https://github.
 
 > **delete**(`entity`, `include`): `Promise`\<`number`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:92](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L92)
+Defined in: [src/lib/repository/infrastructure/repository.ts:92](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L92)
 
 ##### Parameters
 
@@ -262,7 +262,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:92](https://github.
 
 > **deleteAll**(`data`, `filter?`, `include?`): `Promise`\<`number`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:97](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L97)
+Defined in: [src/lib/repository/infrastructure/repository.ts:97](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L97)
 
 #### Parameters
 
@@ -292,7 +292,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:97](https://github.
 
 > **distinct**(`data`, `filter?`, `include?`): `Promise`\<`any`[]\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:111](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L111)
+Defined in: [src/lib/repository/infrastructure/repository.ts:111](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L111)
 
 #### Parameters
 
@@ -322,7 +322,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:111](https://github
 
 > **execute**(`query`, `data?`): `Promise`\<`any`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:45](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L45)
+Defined in: [src/lib/repository/infrastructure/repository.ts:45](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L45)
 
 #### Parameters
 
@@ -348,7 +348,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:45](https://github.
 
 > **first**(`data`, `filter?`, `include?`): `Promise`\<`null` \| `TEntity`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:118](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L118)
+Defined in: [src/lib/repository/infrastructure/repository.ts:118](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L118)
 
 #### Parameters
 
@@ -380,7 +380,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:118](https://github
 
 > **insert**(`entity`): `Promise`\<`any`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:50](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L50)
+Defined in: [src/lib/repository/infrastructure/repository.ts:50](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L50)
 
 ##### Parameters
 
@@ -400,7 +400,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:50](https://github.
 
 > **insert**(`entity`, `include`): `Promise`\<`any`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:52](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L52)
+Defined in: [src/lib/repository/infrastructure/repository.ts:52](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L52)
 
 ##### Parameters
 
@@ -426,7 +426,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:52](https://github.
 
 > **last**(`data`, `filter?`, `include?`): `Promise`\<`null` \| `TEntity`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:130](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L130)
+Defined in: [src/lib/repository/infrastructure/repository.ts:130](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L130)
 
 #### Parameters
 
@@ -456,7 +456,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:130](https://github
 
 > **list**(`data`, `filter?`, `include?`): `Promise`\<`TEntity`[]\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:104](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L104)
+Defined in: [src/lib/repository/infrastructure/repository.ts:104](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L104)
 
 #### Parameters
 
@@ -488,7 +488,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:104](https://github
 
 > **merge**(`entity`): `Promise`\<`number`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:82](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L82)
+Defined in: [src/lib/repository/infrastructure/repository.ts:82](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L82)
 
 ##### Parameters
 
@@ -508,7 +508,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:82](https://github.
 
 > **merge**(`entity`, `include`): `Promise`\<`number`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:84](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L84)
+Defined in: [src/lib/repository/infrastructure/repository.ts:84](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L84)
 
 ##### Parameters
 
@@ -534,7 +534,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:84](https://github.
 
 > **query**(): [`Queryable`](Queryable.md)\<`TQuery`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:142](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L142)
+Defined in: [src/lib/repository/infrastructure/repository.ts:142](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L142)
 
 #### Returns
 
@@ -552,7 +552,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:142](https://github
 
 > **update**(`entity`): `Promise`\<`number`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:66](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L66)
+Defined in: [src/lib/repository/infrastructure/repository.ts:66](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L66)
 
 ##### Parameters
 
@@ -572,7 +572,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:66](https://github.
 
 > **update**(`entity`, `include`): `Promise`\<`number`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:68](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L68)
+Defined in: [src/lib/repository/infrastructure/repository.ts:68](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L68)
 
 ##### Parameters
 
@@ -598,7 +598,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:68](https://github.
 
 > **updateAll**(`data`, `map`, `filter?`, `include?`): `Promise`\<`number`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:73](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L73)
+Defined in: [src/lib/repository/infrastructure/repository.ts:73](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L73)
 
 #### Parameters
 
@@ -634,7 +634,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:73](https://github.
 
 > **upsert**(`entity`): `Promise`\<`number`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:11](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L11)
+Defined in: [src/lib/repository/infrastructure/repository.ts:11](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L11)
 
 ##### Parameters
 
@@ -654,7 +654,7 @@ Defined in: [src/lib/repository/infrastructure/repository.ts:11](https://github.
 
 > **upsert**(`entity`, `include`): `Promise`\<`number`\>
 
-Defined in: [src/lib/repository/infrastructure/repository.ts:12](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/repository/infrastructure/repository.ts#L12)
+Defined in: [src/lib/repository/infrastructure/repository.ts:12](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/repository/infrastructure/repository.ts#L12)
 
 ##### Parameters
 

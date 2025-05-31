@@ -44,7 +44,7 @@ create_db_users(){
 }
 
 up(){
-	docker-compose -p "countries" up -d
+	docker compose -p "countries" up -d
 	wait-dbs
 	create_db_users
 	echo "INFO: Databases instances is ready for tests."
@@ -52,7 +52,7 @@ up(){
 
 
 down(){	
-	docker-compose -p "countries" down --remove-orphans
+	docker compose -p "countries" down --remove-orphans
 	docker volume rm countries_mysql-data
 	docker volume rm countries_mysql-log
 	docker volume rm countries_postgres-data

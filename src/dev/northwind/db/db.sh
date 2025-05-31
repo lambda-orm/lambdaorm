@@ -65,14 +65,14 @@ create_db_users(){
 }
 
 up(){
-	docker-compose -p "northwind" up -d
+	docker compose -p "northwind" up -d
 	wait-dbs
 	create_db_users
 	echo "INFO: Databases instances is ready for tests."
 }
 
 down(){	
-	docker-compose -p "northwind" down --remove-orphans
+	docker compose -p "northwind" down --remove-orphans
 	docker volume rm northwind_source-data
 	docker volume rm northwind_source-log
 	docker volume rm northwind_mysql-data

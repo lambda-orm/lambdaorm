@@ -6,7 +6,7 @@
 
 # Class: StageImport
 
-Defined in: [src/lib/stage/application/useCases/import.ts:6](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/stage/application/useCases/import.ts#L6)
+Defined in: [src/lib/stage/application/useCases/import.ts:6](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/stage/application/useCases/import.ts#L6)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/stage/application/useCases/import.ts:6](https://github.com/
 
 > **new StageImport**(`stageMappingService`, `domain`, `expressionFacade`, `executor`, `options`): `StageImport`
 
-Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/stage/application/useCases/base/actionDML.ts#L15)
+Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:15](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/stage/application/useCases/base/actionDML.ts#L15)
 
 #### Parameters
 
@@ -56,7 +56,7 @@ Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:15](https://gi
 
 > **execute**(`data`): `Promise`\<`void`\>
 
-Defined in: [src/lib/stage/application/useCases/import.ts:7](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/stage/application/useCases/import.ts#L7)
+Defined in: [src/lib/stage/application/useCases/import.ts:7](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/stage/application/useCases/import.ts#L7)
 
 #### Parameters
 
@@ -74,7 +74,7 @@ Defined in: [src/lib/stage/application/useCases/import.ts:7](https://github.com/
 
 > **queries**(): [`Query`](Query.md)[]
 
-Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/stage/application/useCases/base/actionDML.ts#L33)
+Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:33](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/stage/application/useCases/base/actionDML.ts#L33)
 
 #### Returns
 
@@ -90,7 +90,7 @@ Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:33](https://gi
 
 > **sentence**(): `Promise`\<`any`\>
 
-Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/stage/application/useCases/base/actionDML.ts#L24)
+Defined in: [src/lib/stage/application/useCases/base/actionDML.ts:24](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/stage/application/useCases/base/actionDML.ts#L24)
 
 #### Returns
 

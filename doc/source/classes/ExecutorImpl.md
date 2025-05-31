@@ -6,7 +6,7 @@
 
 # Class: ExecutorImpl
 
-Defined in: [src/lib/execution/application/services/executor.ts:10](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/application/services/executor.ts#L10)
+Defined in: [src/lib/execution/application/services/executor.ts:10](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/application/services/executor.ts#L10)
 
 ## Implements
 
@@ -19,7 +19,7 @@ Defined in: [src/lib/execution/application/services/executor.ts:10](https://gith
 
 > **new ExecutorImpl**(`connectionFacade`, `languages`, `schemaState`, `expressions`, `helper`): `ExecutorImpl`
 
-Defined in: [src/lib/execution/application/services/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/application/services/executor.ts#L12)
+Defined in: [src/lib/execution/application/services/executor.ts:12](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/application/services/executor.ts#L12)
 
 #### Parameters
 
@@ -53,7 +53,7 @@ Defined in: [src/lib/execution/application/services/executor.ts:12](https://gith
 
 > **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
 
-Defined in: [src/lib/execution/application/services/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/application/services/executor.ts#L33)
+Defined in: [src/lib/execution/application/services/executor.ts:33](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/application/services/executor.ts#L33)
 
 #### Parameters
 
@@ -83,7 +83,7 @@ Defined in: [src/lib/execution/application/services/executor.ts:33](https://gith
 
 > **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
-Defined in: [src/lib/execution/application/services/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/application/services/executor.ts#L56)
+Defined in: [src/lib/execution/application/services/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/application/services/executor.ts#L56)
 
 #### Parameters
 
@@ -109,7 +109,7 @@ Defined in: [src/lib/execution/application/services/executor.ts:56](https://gith
 
 > **subscribe**(`observer`): `void`
 
-Defined in: [src/lib/execution/application/services/executor.ts:21](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/application/services/executor.ts#L21)
+Defined in: [src/lib/execution/application/services/executor.ts:21](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/application/services/executor.ts#L21)
 
 #### Parameters
 
@@ -131,7 +131,7 @@ Defined in: [src/lib/execution/application/services/executor.ts:21](https://gith
 
 > **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/application/services/executor.ts:86](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/application/services/executor.ts#L86)
+Defined in: [src/lib/execution/application/services/executor.ts:86](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/application/services/executor.ts#L86)
 
 Create a transaction
 
@@ -163,7 +163,7 @@ Code to be executed in transaction
 
 > **unsubscribe**(`observer`): `void`
 
-Defined in: [src/lib/execution/application/services/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/3651733ea30a9b22e5794fe9b49a401b0588ef00/src/lib/execution/application/services/executor.ts#L25)
+Defined in: [src/lib/execution/application/services/executor.ts:25](https://github.com/lambda-orm/lambdaorm/blob/ba6243bf966eaef6437cd89eb7738a84e374ceb0/src/lib/execution/application/services/executor.ts#L25)
 
 #### Parameters
 
