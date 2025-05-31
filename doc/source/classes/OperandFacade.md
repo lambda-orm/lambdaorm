@@ -6,7 +6,7 @@
 
 # Class: OperandFacade
 
-Defined in: [src/lib/operand/application/facade.ts:10](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/operand/application/facade.ts#L10)
+Defined in: [src/lib/operand/application/facade.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/operand/application/facade.ts#L10)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/operand/application/facade.ts:10](https://github.com/lambda
 
 > **new OperandFacade**(`expressions`, `schemaState`, `cache`, `operandSerializer`, `operandHelper`, `helper`): `OperandFacade`
 
-Defined in: [src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/operand/application/facade.ts#L13)
+Defined in: [src/lib/operand/application/facade.ts:13](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/operand/application/facade.ts#L13)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: [src/lib/operand/application/facade.ts:13](https://github.com/lambda
 
 > **build**(`expression`): `Operand`
 
-Defined in: [src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/operand/application/facade.ts#L27)
+Defined in: [src/lib/operand/application/facade.ts:27](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/operand/application/facade.ts#L27)
 
 #### Parameters
 
@@ -70,7 +70,7 @@ Defined in: [src/lib/operand/application/facade.ts:27](https://github.com/lambda
 
 > **getClauses**(`operand`): `any`
 
-Defined in: [src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/operand/application/facade.ts#L35)
+Defined in: [src/lib/operand/application/facade.ts:35](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/operand/application/facade.ts#L35)
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: [src/lib/operand/application/facade.ts:35](https://github.com/lambda
 
 > **normalize**(`expression`): `string`
 
-Defined in: [src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/operand/application/facade.ts#L31)
+Defined in: [src/lib/operand/application/facade.ts:31](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/operand/application/facade.ts#L31)
 
 #### Parameters
 

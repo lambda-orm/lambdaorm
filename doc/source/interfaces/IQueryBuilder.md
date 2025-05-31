@@ -6,7 +6,7 @@
 
 # Interface: IQueryBuilder
 
-Defined in: [src/lib/expressions/domain/services.ts:4](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/expressions/domain/services.ts#L4)
+Defined in: [src/lib/expressions/domain/services.ts:4](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/expressions/domain/services.ts#L4)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/expressions/domain/services.ts:4](https://github.com/lambda
 
 > **build**(`expression`, `options`): [`Query`](../classes/Query.md)
 
-Defined in: [src/lib/expressions/domain/services.ts:5](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/expressions/domain/services.ts#L5)
+Defined in: [src/lib/expressions/domain/services.ts:5](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/expressions/domain/services.ts#L5)
 
 #### Parameters
 

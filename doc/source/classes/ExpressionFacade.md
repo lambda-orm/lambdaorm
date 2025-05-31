@@ -6,7 +6,7 @@
 
 # Class: ExpressionFacade
 
-Defined in: [src/lib/expressions/application/facade.ts:19](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/expressions/application/facade.ts#L19)
+Defined in: [src/lib/expressions/application/facade.ts:19](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/expressions/application/facade.ts#L19)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/expressions/application/facade.ts:19](https://github.com/la
 
 > **new ExpressionFacade**(`sentenceFacade`, `schemaState`, `languages`, `executor`, `expressions`, `cache`, `helper`): `ExpressionFacade`
 
-Defined in: [src/lib/expressions/application/facade.ts:24](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/expressions/application/facade.ts#L24)
+Defined in: [src/lib/expressions/application/facade.ts:24](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/expressions/application/facade.ts#L24)
 
 #### Parameters
 
@@ -56,7 +56,7 @@ Defined in: [src/lib/expressions/application/facade.ts:24](https://github.com/la
 
 > **build**(`query`, `options?`): [`Query`](Query.md)
 
-Defined in: [src/lib/expressions/application/facade.ts:38](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/expressions/application/facade.ts#L38)
+Defined in: [src/lib/expressions/application/facade.ts:38](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/expressions/application/facade.ts#L38)
 
 #### Parameters
 
@@ -78,7 +78,7 @@ Defined in: [src/lib/expressions/application/facade.ts:38](https://github.com/la
 
 > **execute**(`query`, `data`, `options?`): `Promise`\<`any`\>
 
-Defined in: [src/lib/expressions/application/facade.ts:50](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/expressions/application/facade.ts#L50)
+Defined in: [src/lib/expressions/application/facade.ts:50](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/expressions/application/facade.ts#L50)
 
 #### Parameters
 
@@ -104,7 +104,7 @@ Defined in: [src/lib/expressions/application/facade.ts:50](https://github.com/la
 
 > **executeList**(`queries`, `options?`): `Promise`\<`any`\>
 
-Defined in: [src/lib/expressions/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/expressions/application/facade.ts#L54)
+Defined in: [src/lib/expressions/application/facade.ts:54](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/expressions/application/facade.ts#L54)
 
 #### Parameters
 
@@ -126,7 +126,7 @@ Defined in: [src/lib/expressions/application/facade.ts:54](https://github.com/la
 
 > **plan**(`query`, `options?`): [`QueryPlan`](../interfaces/QueryPlan.md)
 
-Defined in: [src/lib/expressions/application/facade.ts:42](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/expressions/application/facade.ts#L42)
+Defined in: [src/lib/expressions/application/facade.ts:42](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/expressions/application/facade.ts#L42)
 
 #### Parameters
 
@@ -148,7 +148,7 @@ Defined in: [src/lib/expressions/application/facade.ts:42](https://github.com/la
 
 > **solveQueryOptions**(`options?`): [`QueryOptions`](../interfaces/QueryOptions.md)
 
-Defined in: [src/lib/expressions/application/facade.ts:46](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/expressions/application/facade.ts#L46)
+Defined in: [src/lib/expressions/application/facade.ts:46](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/expressions/application/facade.ts#L46)
 
 #### Parameters
 
@@ -166,7 +166,7 @@ Defined in: [src/lib/expressions/application/facade.ts:46](https://github.com/la
 
 > **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
-Defined in: [src/lib/expressions/application/facade.ts:58](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/expressions/application/facade.ts#L58)
+Defined in: [src/lib/expressions/application/facade.ts:58](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/expressions/application/facade.ts#L58)
 
 #### Parameters
 

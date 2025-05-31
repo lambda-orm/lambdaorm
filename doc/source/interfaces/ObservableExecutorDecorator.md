@@ -6,7 +6,7 @@
 
 # Interface: ObservableExecutorDecorator
 
-Defined in: [src/lib/execution/domain/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L56)
+Defined in: [src/lib/execution/domain/executor.ts:56](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/execution/domain/executor.ts#L56)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/execution/domain/executor.ts:56](https://github.com/lambda-
 
 > **execute**(`query`, `data`, `options`): `Promise`\<`any`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:46](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L46)
+Defined in: [src/lib/execution/domain/executor.ts:46](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/execution/domain/executor.ts#L46)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [src/lib/execution/domain/executor.ts:46](https://github.com/lambda-
 
 > **executeList**(`queries`, `options`): `Promise`\<[`ExecuteResult`](ExecuteResult.md)[]\>
 
-Defined in: [src/lib/execution/domain/executor.ts:47](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L47)
+Defined in: [src/lib/execution/domain/executor.ts:47](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/execution/domain/executor.ts#L47)
 
 #### Parameters
 
@@ -74,7 +74,7 @@ Defined in: [src/lib/execution/domain/executor.ts:47](https://github.com/lambda-
 
 > **subscribe**(`observer`): `void`
 
-Defined in: [src/lib/execution/domain/executor.ts:52](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L52)
+Defined in: [src/lib/execution/domain/executor.ts:52](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/execution/domain/executor.ts#L52)
 
 #### Parameters
 
@@ -96,7 +96,7 @@ Defined in: [src/lib/execution/domain/executor.ts:52](https://github.com/lambda-
 
 > **transaction**(`options`, `callback`): `Promise`\<`void`\>
 
-Defined in: [src/lib/execution/domain/executor.ts:48](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L48)
+Defined in: [src/lib/execution/domain/executor.ts:48](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/execution/domain/executor.ts#L48)
 
 #### Parameters
 
@@ -122,7 +122,7 @@ Defined in: [src/lib/execution/domain/executor.ts:48](https://github.com/lambda-
 
 > **unsubscribe**(`observer`): `void`
 
-Defined in: [src/lib/execution/domain/executor.ts:53](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/execution/domain/executor.ts#L53)
+Defined in: [src/lib/execution/domain/executor.ts:53](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/execution/domain/executor.ts#L53)
 
 #### Parameters
 

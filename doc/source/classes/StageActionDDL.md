@@ -6,7 +6,7 @@
 
 # Class: `abstract` StageActionDDL
 
-Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:8](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/application/useCases/base/actionDDL.ts#L8)
+Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:8](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/stage/application/useCases/base/actionDDL.ts#L8)
 
 ## Extended by
 
@@ -21,7 +21,7 @@ Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:8](https://git
 
 > **new StageActionDDL**(`executor`, `stageModelService`, `schemaState`, `languages`, `options`, `helper`): `StageActionDDL`
 
-Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 #### Parameters
 
@@ -59,7 +59,7 @@ Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:10](https://gi
 
 > `abstract` **execute**(): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
-Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
+Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:17](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/stage/application/useCases/base/actionDDL.ts#L17)
 
 #### Returns
 
@@ -71,7 +71,7 @@ Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:17](https://gi
 
 > `abstract` **queries**(): `Promise`\<[`Query`](Query.md)[]\>
 
-Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
+Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:18](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/stage/application/useCases/base/actionDDL.ts#L18)
 
 #### Returns
 
@@ -83,7 +83,7 @@ Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:18](https://gi
 
 > **sentence**(): `Promise`\<`any`[]\>
 
-Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
 
 #### Returns
 

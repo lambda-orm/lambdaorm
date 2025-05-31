@@ -6,7 +6,7 @@
 
 # Class: CryptoHelper
 
-Defined in: [src/lib/shared/infrastructure/helper.ts:5](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/shared/infrastructure/helper.ts#L5)
+Defined in: [src/lib/shared/infrastructure/helper.ts:5](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/shared/infrastructure/helper.ts#L5)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/lib/shared/infrastructure/helper.ts:5](https://github.com/lambd
 
 > **decrypt**(`value`, `key`): `string`
 
-Defined in: [src/lib/shared/infrastructure/helper.ts:10](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/shared/infrastructure/helper.ts#L10)
+Defined in: [src/lib/shared/infrastructure/helper.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/shared/infrastructure/helper.ts#L10)
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Defined in: [src/lib/shared/infrastructure/helper.ts:10](https://github.com/lamb
 
 > **encrypt**(`value`, `key`): `string`
 
-Defined in: [src/lib/shared/infrastructure/helper.ts:6](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/shared/infrastructure/helper.ts#L6)
+Defined in: [src/lib/shared/infrastructure/helper.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/shared/infrastructure/helper.ts#L6)
 
 #### Parameters
 
@@ -68,7 +68,7 @@ Defined in: [src/lib/shared/infrastructure/helper.ts:6](https://github.com/lambd
 
 > **getBase64**(`value`): `string`
 
-Defined in: [src/lib/shared/infrastructure/helper.ts:18](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/shared/infrastructure/helper.ts#L18)
+Defined in: [src/lib/shared/infrastructure/helper.ts:18](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/shared/infrastructure/helper.ts#L18)
 
 #### Parameters
 
@@ -86,7 +86,7 @@ Defined in: [src/lib/shared/infrastructure/helper.ts:18](https://github.com/lamb
 
 > **toBase64**(`value`): `string`
 
-Defined in: [src/lib/shared/infrastructure/helper.ts:14](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/shared/infrastructure/helper.ts#L14)
+Defined in: [src/lib/shared/infrastructure/helper.ts:14](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/shared/infrastructure/helper.ts#L14)
 
 #### Parameters
 

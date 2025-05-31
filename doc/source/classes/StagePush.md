@@ -6,7 +6,7 @@
 
 # Class: StagePush
 
-Defined in: [src/lib/stage/application/useCases/push.ts:5](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/application/useCases/push.ts#L5)
+Defined in: [src/lib/stage/application/useCases/push.ts:5](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/stage/application/useCases/push.ts#L5)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/lib/stage/application/useCases/push.ts:5](https://github.com/la
 
 > **new StagePush**(`executor`, `stageModelService`, `schemaState`, `languages`, `options`, `helper`): `StagePush`
 
-Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
+Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/stage/application/useCases/base/actionDDL.ts#L10)
 
 #### Parameters
 
@@ -60,7 +60,7 @@ Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:10](https://gi
 
 > **execute**(): `Promise`\<[`ExecuteResult`](../interfaces/ExecuteResult.md)[]\>
 
-Defined in: [src/lib/stage/application/useCases/push.ts:11](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/application/useCases/push.ts#L11)
+Defined in: [src/lib/stage/application/useCases/push.ts:11](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/stage/application/useCases/push.ts#L11)
 
 #### Returns
 
@@ -76,7 +76,7 @@ Defined in: [src/lib/stage/application/useCases/push.ts:11](https://github.com/l
 
 > **queries**(): `Promise`\<[`Query`](Query.md)[]\>
 
-Defined in: [src/lib/stage/application/useCases/push.ts:6](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/application/useCases/push.ts#L6)
+Defined in: [src/lib/stage/application/useCases/push.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/stage/application/useCases/push.ts#L6)
 
 #### Returns
 
@@ -92,7 +92,7 @@ Defined in: [src/lib/stage/application/useCases/push.ts:6](https://github.com/la
 
 > **sentence**(): `Promise`\<`any`[]\>
 
-Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
+Defined in: [src/lib/stage/application/useCases/base/actionDDL.ts:19](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/stage/application/useCases/base/actionDDL.ts#L19)
 
 #### Returns
 

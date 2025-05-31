@@ -6,7 +6,7 @@
 
 # Class: DialectPoolService
 
-Defined in: [src/lib/connection/application/services/dialectPoolService.ts:4](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/connection/application/services/dialectPoolService.ts#L4)
+Defined in: [src/lib/connection/application/services/dialectPoolService.ts:4](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/connection/application/services/dialectPoolService.ts#L4)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/lib/connection/application/services/dialectPoolService.ts:4](ht
 
 > **new DialectPoolService**(`helper`): `DialectPoolService`
 
-Defined in: [src/lib/connection/application/services/dialectPoolService.ts:6](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/connection/application/services/dialectPoolService.ts#L6)
+Defined in: [src/lib/connection/application/services/dialectPoolService.ts:6](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/connection/application/services/dialectPoolService.ts#L6)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/lib/connection/application/services/dialectPoolService.ts:6](ht
 
 > **add**(`dialect`, `classConnectionPool`): `void`
 
-Defined in: [src/lib/connection/application/services/dialectPoolService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/connection/application/services/dialectPoolService.ts#L10)
+Defined in: [src/lib/connection/application/services/dialectPoolService.ts:10](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/connection/application/services/dialectPoolService.ts#L10)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [src/lib/connection/application/services/dialectPoolService.ts:10](h
 
 > **create**(`config`): [`ConnectionPool`](../interfaces/ConnectionPool.md)
 
-Defined in: [src/lib/connection/application/services/dialectPoolService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/c3a91c30fec1b72ec517236790b02085e94a7ae1/src/lib/connection/application/services/dialectPoolService.ts#L14)
+Defined in: [src/lib/connection/application/services/dialectPoolService.ts:14](https://github.com/lambda-orm/lambdaorm/blob/d7eed5bd6f40e7e5946b35121d5564379ef251ff/src/lib/connection/application/services/dialectPoolService.ts#L14)
 
 #### Parameters
 
